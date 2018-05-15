@@ -4,7 +4,7 @@
 ///
 /// @project    <PROJECT>
 ///
-/// @brief      bcm5719_NVM simulation support
+/// @brief      bcm5719_NVM
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
@@ -50,14 +50,6 @@ void init_bcm5719_NVM(void)
 {
     /** @brief Component Registers for @ref NVM. */ 
     /** @brief Bitmap for @ref NVM_t.Command. */ 
-    NVM.Command.bits.Done.setBaseRegister(&NVM.Command.r32);
-    NVM.Command.bits.Doit.setBaseRegister(&NVM.Command.r32);
-    NVM.Command.bits.Wr.setBaseRegister(&NVM.Command.r32);
-    NVM.Command.bits.Erase.setBaseRegister(&NVM.Command.r32);
-    NVM.Command.bits.First.setBaseRegister(&NVM.Command.r32);
-    NVM.Command.bits.Last.setBaseRegister(&NVM.Command.r32);
-    NVM.Command.bits.WriteEnableCommand.setBaseRegister(&NVM.Command.r32);
-    NVM.Command.bits.WriteDisableCommand.setBaseRegister(&NVM.Command.r32);
 
     /** @brief Bitmap for @ref NVM_t.Write. */ 
 
@@ -66,30 +58,10 @@ void init_bcm5719_NVM(void)
     /** @brief Bitmap for @ref NVM_t.Read. */ 
 
     /** @brief Bitmap for @ref NVM_t.NvmCfg1. */ 
-    NVM.NvmCfg1.bits.FlashMode.setBaseRegister(&NVM.NvmCfg1.r32);
-    NVM.NvmCfg1.bits.BufferMode.setBaseRegister(&NVM.NvmCfg1.r32);
-    NVM.NvmCfg1.bits.SPICLKDIV.setBaseRegister(&NVM.NvmCfg1.r32);
-    NVM.NvmCfg1.bits.ProtectMode.setBaseRegister(&NVM.NvmCfg1.r32);
-    NVM.NvmCfg1.bits.FlashSize.setBaseRegister(&NVM.NvmCfg1.r32);
-    NVM.NvmCfg1.bits.PageSize.setBaseRegister(&NVM.NvmCfg1.r32);
 
     /** @brief Bitmap for @ref NVM_t.SoftwareArbitration. */ 
-    NVM.SoftwareArbitration.bits.ReqSet0.setBaseRegister(&NVM.SoftwareArbitration.r32);
-    NVM.SoftwareArbitration.bits.ReqSet1.setBaseRegister(&NVM.SoftwareArbitration.r32);
-    NVM.SoftwareArbitration.bits.ReqSet2.setBaseRegister(&NVM.SoftwareArbitration.r32);
-    NVM.SoftwareArbitration.bits.ReqSet3.setBaseRegister(&NVM.SoftwareArbitration.r32);
-    NVM.SoftwareArbitration.bits.ReqClr0.setBaseRegister(&NVM.SoftwareArbitration.r32);
-    NVM.SoftwareArbitration.bits.ReqClr1.setBaseRegister(&NVM.SoftwareArbitration.r32);
-    NVM.SoftwareArbitration.bits.ReqClr2.setBaseRegister(&NVM.SoftwareArbitration.r32);
-    NVM.SoftwareArbitration.bits.ReqClr3.setBaseRegister(&NVM.SoftwareArbitration.r32);
-    NVM.SoftwareArbitration.bits.ArbWon0.setBaseRegister(&NVM.SoftwareArbitration.r32);
-    NVM.SoftwareArbitration.bits.ArbWon1.setBaseRegister(&NVM.SoftwareArbitration.r32);
-    NVM.SoftwareArbitration.bits.ArbWon2.setBaseRegister(&NVM.SoftwareArbitration.r32);
-    NVM.SoftwareArbitration.bits.ArbWon3.setBaseRegister(&NVM.SoftwareArbitration.r32);
 
     /** @brief Bitmap for @ref NVM_t.Access. */ 
-    NVM.Access.bits.Enable.setBaseRegister(&NVM.Access.r32);
-    NVM.Access.bits.WriteEnable.setBaseRegister(&NVM.Access.r32);
 
 
 }

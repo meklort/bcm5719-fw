@@ -104,11 +104,14 @@ protected:
         unsigned int base = getRawValue();
         base &= ~(source->mMask);
         unsigned int tempValue = base | source->getRawValue();
-        // printf("Updating base from %x & %x to %x (new wite: %x)\n", getRawValue(), ~source->mMask, tempValue, source->getRawValue());
+        // printf("Updating base from %x & %x to %x (new write: %x)\n", getRawValue(), ~source->mMask, tempValue, source->getRawValue());
         setTempValue(tempValue);
 
         // Call the write callbacks. This may update the raw value as needed.
-        doWriteCallbacks();
+        if(this != source)
+        {
+            doWriteCallbacks();
+        }
     }
 
     void doRelatedWrites()
@@ -289,6 +292,13 @@ public:
     {
         //  Write
         doWrite(val);
+        return mValue;
+    }
+
+    T operator=(CXXRegister<T,OFFSET,WIDTH> val)
+    {
+        //  Write
+        doWrite((T)val);
         return mValue;
     }
 

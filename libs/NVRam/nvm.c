@@ -89,10 +89,13 @@ void NVRam_disable(void)
 
 static inline void NVRam_waitDone(void)
 {
+    printf("Waiting for  NVM.Command.bits.Done = %x\n", (uint32_t)NVM.Command.bits.Done);
+    printf("Waiting for  NVM.Command.r32 = %x\n", (uint32_t)NVM.Command.r32);
     while(!NVM.Command.bits.Done)
     {
 
     }
+    printf("NVM.Command.r32 = %x\n", (uint32_t)NVM.Command.r32);
 }
 
 static inline void NVRam_erase(uint32_t offset)
@@ -106,8 +109,11 @@ static inline void NVRam_erase(uint32_t offset)
 bool NVRam_acquireLock(void)
 {
     // Grab lock
-    printf("DEVICE->SoftwareArbitration.r32 = %x\n", (uint32_t)NVM.SoftwareArbitration.r32);
+    printf("NVM.SoftwareArbitration.r32 = %x\n", (uint32_t)NVM.SoftwareArbitration.r32);
+    printf("NVM.SoftwareArbitration.bits.WON = %x\n", (uint32_t)NVM.SoftwareArbitration.bits.WON);
     NVM.SoftwareArbitration.bits.REQ = 1;
+    printf("NVM.SoftwareArbitration.bits.WON w/req = %x\n", (uint32_t)NVM.SoftwareArbitration.bits.WON);
+    printf("NVM.SoftwareArbitration.r32 w/req = %x\n", (uint32_t)NVM.SoftwareArbitration.r32);
 
     while(!NVM.SoftwareArbitration.bits.WON);
 
@@ -120,10 +126,10 @@ bool NVRam_acquireLock(void)
 bool NVRam_releaseLock(void)
 {
     // Release locks
-    printf("DEVICE->SoftwareArbitration.r32 = %x\n", (uint32_t)NVM.SoftwareArbitration.r32);
+    // printf("DEVICE->SoftwareArbitration.r32 = %x\n", (uint32_t)NVM.SoftwareArbitration.r32);
 
     NVM.SoftwareArbitration.bits.CLR = 1;
-    printf("DEVICE->SoftwareArbitration.r32 = %x\n", (uint32_t)NVM.SoftwareArbitration.r32);
+    // printf("DEVICE->SoftwareArbitration.r32 = %x\n", (uint32_t)NVM.SoftwareArbitration.r32);
     return true;
 }
 
@@ -132,12 +138,17 @@ static uint32_t NVRam_readByteInternal(uint32_t address, RegNVMCommand_t cmd)
     address = NVRam_translate(address);
 
     // Clear the done bit
-    RegNVMCommand_t done = {0u};
+    RegNVMCommand_t done;
     done.bits.Done = 1;
 
+    // printf("done.r32 = %x\n", (uint32_t)done.r32);
+    // printf("Pre done write: NVM.Command.r32 = %x\n", (uint32_t)NVM.Command.r32);
     NVM.Command = done;
+    // printf("Post done write: NVM.Command.r32 = %x\n", (uint32_t)NVM.Command.r32);
     NVM.Addr.r32 = address;
     NVM.Command = cmd;
+    // printf("Post cmd write: NVM.Command.r32 = %x\n", (uint32_t)NVM.Command.r32);
+    // printf("cmd = %x\n", (uint32_t)cmd.r32);
 
     NVRam_waitDone();
 
@@ -148,7 +159,7 @@ static void NVRam_writeByteInternal(uint32_t address, uint32_t data, RegNVMComma
     address = NVRam_translate(address);
 
     // Clear the done bit
-    RegNVMCommand_t done = {0u};
+    RegNVMCommand_t done;
     done.bits.Done = 1;
 
     NVM.Command = done;
@@ -161,10 +172,11 @@ static void NVRam_writeByteInternal(uint32_t address, uint32_t data, RegNVMComma
 
 uint32_t NVRam_readByte(uint32_t address)
 {
-    RegNVMCommand_t cmd = {0u};
+    RegNVMCommand_t cmd;
     cmd.bits.First = 1;
     cmd.bits.Last = 1;
     cmd.bits.Doit = 1;
+    printf("cmd = %x\n", (uint32_t)cmd.r32);
 
     return NVRam_readByteInternal(address, cmd);
 }
@@ -178,7 +190,7 @@ void NVRam_read(uint32_t address, uint32_t* buffer, size_t words)
     }
 
     // First word.
-    RegNVMCommand_t cmd = {0u};
+    RegNVMCommand_t cmd;
     cmd.bits.Doit = 1;
     cmd.bits.First = 1;
 
@@ -202,11 +214,13 @@ void NVRam_read(uint32_t address, uint32_t* buffer, size_t words)
 
 void NVRam_writeByte(uint32_t address, uint32_t data)
 {
-    RegNVMCommand_t cmd = {0};
+    RegNVMCommand_t cmd;
     cmd.bits.First = 1;
     cmd.bits.Last = 1;
     cmd.bits.Doit = 1;
     cmd.bits.Wr = 1;
+
+    printf("cmd = %x\n", (uint32_t)cmd.r32);
 
     NVRam_writeByteInternal(address, data, cmd);
 }
@@ -220,7 +234,7 @@ void NVRam_write(uint32_t address, uint32_t* buffer, size_t words)
     }
 
     // First word.
-    RegNVMCommand_t cmd = {0};
+    RegNVMCommand_t cmd;
     cmd.bits.Doit = 1;
     cmd.bits.First = 1;
     cmd.bits.Wr = 1;

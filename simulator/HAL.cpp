@@ -18,8 +18,9 @@
 
 #include "pci_config.h"
 
-#include <bcm5719_DEVICE.h>
 
+#include <bcm5719_DEVICE.h>
+#include "../libs/NVRam/bcm5719_NVM.h"
 #define DEVICE_CONFIG "config"
 #define BAR_STR         "resource%d"
 
@@ -33,7 +34,6 @@ typedef struct {
 devices_t gSupportedDevices[] = {
     {.vendor_id = 0x14e4, .device_id = 0x1657},
 };
-
 
 bool is_supported(uint16_t vendor_id, uint16_t device_id)
 {
@@ -168,4 +168,3 @@ void initHAL(const char* pci_path)
     init_bcm5719_NVM();
     init_bcm5719_NVM_mmap(DEVICEBase + 0x7000);
 }
-

@@ -4,7 +4,7 @@
 ///
 /// @project    <PROJECT>
 ///
-/// @brief      bcm5719_DEVICE_mmap simulation support
+/// @brief      bcm5719_DEVICE_mmap
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///

@@ -143,13 +143,13 @@ int main(int argc, char const *argv[])
     printf("Grab lock...\n");
     NVRam_acquireLock();
 
-    // NVRam_enable();
+    NVRam_enable();
 
 
-    // uint32_t length = NVRam_readByte(8); // current stage length
-    // uint32_t offset = NVRam_readByte(0xc); // current stage offset
-    // printf("NVRam_read(8) = %x\n", length);
-    // printf("NVRam_read(C) = %x\n", offset);
+    uint32_t length = NVRam_readByte(8); // current stage length
+    uint32_t offset = NVRam_readByte(0xc); // current stage offset
+    printf("NVRam_read(8) = %x\n", length);
+    printf("NVRam_read(C) = %x\n", offset);
     // uint32_t next_stage_hdr = offset + (length*4);
     // uint32_t next_stage_size = next_stage_hdr + 4;
     // printf("NVRam_read(%x) = %x\n", next_stage_hdr, NVRam_readByte(next_stage_hdr));
@@ -158,7 +158,7 @@ int main(int argc, char const *argv[])
     // printf("DEVICE.SoftwareArbitration: %x\n", DEVICE.SoftwareArbitration.r32);
 
     // printf("Release lock...\n");
-    // NVRam_releaseLock();
+    NVRam_releaseLock();
     // printf("DEVICE.SoftwareArbitration: %x\n", DEVICE.SoftwareArbitration.r32);
 
     return 0;

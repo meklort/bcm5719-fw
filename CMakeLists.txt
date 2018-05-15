@@ -47,7 +47,7 @@ project(bcm5719-fw)
 set(SIMULATOR True)
 cmake_minimum_required(VERSION 3.11)
 
-add_definitions(-Werror -Wall)
+add_definitions(-Werror -Wall -DCXX_SIMULATOR)
 
 add_subdirectory(simulator)
 

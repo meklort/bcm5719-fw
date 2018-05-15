@@ -4,7 +4,7 @@ IPXACT=~/ipxact/build/ipxact
 
 echo "Regenerating Bcm5719 header"
 
-${IPXACT} bcm5719.xml bcm5719.h
+${IPXACT} -p bcm5719 bcm5719.xml bcm5719.h
 
 mv bcm5719_NVM.h ../libs/NVRam/
 mv bcm5719_MII.h ../libs/MII/include/

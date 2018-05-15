@@ -4,7 +4,7 @@
 ///
 /// @project    <PROJECT>
 ///
-/// @brief      bcm5719_APE simulation support
+/// @brief      bcm5719_APE
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
@@ -50,25 +50,12 @@ void init_bcm5719_APE(void)
 {
     /** @brief Component Registers for @ref APE. */ 
     /** @brief Bitmap for @ref APE_t.Mode. */ 
-    APE.Mode.bits.Reset.setBaseRegister(&APE.Mode.r32);
-    APE.Mode.bits.Halt.setBaseRegister(&APE.Mode.r32);
-    APE.Mode.bits.FastBoot.setBaseRegister(&APE.Mode.r32);
-    APE.Mode.bits.HostDiag.setBaseRegister(&APE.Mode.r32);
-    APE.Mode.bits.MemoryECC.setBaseRegister(&APE.Mode.r32);
 
     /** @brief Bitmap for @ref APE_t.Status. */ 
-    APE.Status.bits.PCIeReset.setBaseRegister(&APE.Status.r32);
-    APE.Status.bits.LAN0Dstate.setBaseRegister(&APE.Status.r32);
-    APE.Status.bits.BootMode.setBaseRegister(&APE.Status.r32);
-    APE.Status.bits.NVRAMControlReset.setBaseRegister(&APE.Status.r32);
-    APE.Status.bits.LAN1Dstate.setBaseRegister(&APE.Status.r32);
-    APE.Status.bits.BootStatusB.setBaseRegister(&APE.Status.r32);
-    APE.Status.bits.BootStatusA.setBaseRegister(&APE.Status.r32);
 
     /** @brief Bitmap for @ref APE_t.GpioMessage. */ 
 
     /** @brief Bitmap for @ref APE_t.Event. */ 
-    APE.Event.bits._1.setBaseRegister(&APE.Event.r32);
 
     /** @brief Bitmap for @ref APE_t.Mode2. */ 
 
@@ -79,53 +66,28 @@ void init_bcm5719_APE(void)
     /** @brief Bitmap for @ref APE_t.B0. */ 
 
     /** @brief Bitmap for @ref APE_t.Gpio. */ 
-    APE.Gpio.bits.PIN0Unknown.setBaseRegister(&APE.Gpio.r32);
-    APE.Gpio.bits.PIN1Unknown.setBaseRegister(&APE.Gpio.r32);
-    APE.Gpio.bits.PIN2Unknown.setBaseRegister(&APE.Gpio.r32);
-    APE.Gpio.bits.PIN3Unknown.setBaseRegister(&APE.Gpio.r32);
-    APE.Gpio.bits.PIN0UnknownOut.setBaseRegister(&APE.Gpio.r32);
-    APE.Gpio.bits.PIN1UnknownOut.setBaseRegister(&APE.Gpio.r32);
-    APE.Gpio.bits.PIN2UnknownOut.setBaseRegister(&APE.Gpio.r32);
-    APE.Gpio.bits.PIN3UnknownOut.setBaseRegister(&APE.Gpio.r32);
-    APE.Gpio.bits.PIN0ModeOutput.setBaseRegister(&APE.Gpio.r32);
-    APE.Gpio.bits.PIN1ModeOutput.setBaseRegister(&APE.Gpio.r32);
-    APE.Gpio.bits.PIN2ModeOutput.setBaseRegister(&APE.Gpio.r32);
-    APE.Gpio.bits.PIN3ModeOutput.setBaseRegister(&APE.Gpio.r32);
 
     /** @brief Bitmap for @ref APE_t.Gint. */ 
 
     /** @brief Bitmap for @ref APE_t.OtpControl. */ 
-    APE.OtpControl.bits.Start.setBaseRegister(&APE.OtpControl.r32);
-    APE.OtpControl.bits.ProgEnable.setBaseRegister(&APE.OtpControl.r32);
 
     /** @brief Bitmap for @ref APE_t.OtpStatus. */ 
-    APE.OtpStatus.bits.CommandDone.setBaseRegister(&APE.OtpStatus.r32);
 
     /** @brief Bitmap for @ref APE_t.OtpAddr. */ 
-    APE.OtpAddr.bits.Address.setBaseRegister(&APE.OtpAddr.r32);
-    APE.OtpAddr.bits.CPUEnable.setBaseRegister(&APE.OtpAddr.r32);
 
     /** @brief Bitmap for @ref APE_t.OtpReadData. */ 
 
     /** @brief Bitmap for @ref APE_t.Cm3. */ 
-    APE.Cm3.bits.CPUStatus.setBaseRegister(&APE.Cm3.r32);
 
     /** @brief Bitmap for @ref APE_t.SegSig. */ 
 
     /** @brief Bitmap for @ref APE_t.FwStatus. */ 
-    APE.FwStatus.bits.Ready.setBaseRegister(&APE.FwStatus.r32);
-    APE.FwStatus.bits.unknown_31_28.setBaseRegister(&APE.FwStatus.r32);
 
     /** @brief Bitmap for @ref APE_t.FwFeatures. */ 
-    APE.FwFeatures.bits.NCSI.setBaseRegister(&APE.FwFeatures.r32);
 
     /** @brief Bitmap for @ref APE_t.4014. */ 
 
     /** @brief Bitmap for @ref APE_t.FwVersion. */ 
-    APE.FwVersion.bits.Build.setBaseRegister(&APE.FwVersion.r32);
-    APE.FwVersion.bits.Revision.setBaseRegister(&APE.FwVersion.r32);
-    APE.FwVersion.bits.Minor.setBaseRegister(&APE.FwVersion.r32);
-    APE.FwVersion.bits.Major.setBaseRegister(&APE.FwVersion.r32);
 
     /** @brief Bitmap for @ref APE_t.SegMessageBufferOffset. */ 
 
@@ -170,7 +132,6 @@ void init_bcm5719_APE(void)
     /** @brief Bitmap for @ref APE_t.HostDriverId. */ 
 
     /** @brief Bitmap for @ref APE_t.HostBehavior. */ 
-    APE.HostBehavior.bits.NoPHYLock.setBaseRegister(&APE.HostBehavior.r32);
 
     /** @brief Bitmap for @ref APE_t.HeartbeatInterval. */ 
 
@@ -181,10 +142,6 @@ void init_bcm5719_APE(void)
     /** @brief Bitmap for @ref APE_t.WolSpeed. */ 
 
     /** @brief Bitmap for @ref APE_t.EventStatus. */ 
-    APE.EventStatus.bits.DriverEvent.setBaseRegister(&APE.EventStatus.r32);
-    APE.EventStatus.bits.Command.setBaseRegister(&APE.EventStatus.r32);
-    APE.EventStatus.bits.State.setBaseRegister(&APE.EventStatus.r32);
-    APE.EventStatus.bits.Pending.setBaseRegister(&APE.EventStatus.r32);
 
     /** @brief Bitmap for @ref APE_t.ProtMagic. */ 
 
