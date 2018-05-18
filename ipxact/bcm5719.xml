@@ -631,6 +631,45 @@
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                 </ipxact:register>
+
+                <ipxact:register>
+                    <ipxact:name>GEN_DBG_CONTROL_STATUS</ipxact:name>
+                    <ipxact:description>Firmware Debug Control</ipxact:description>
+                    <ipxact:addressOffset>0x360</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>Debug Enabled</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Data Available</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>8</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>GEN_DBG_DATA</ipxact:name>
+                    <ipxact:description>Firmware Debug Data</ipxact:description>
+                    <ipxact:addressOffset>0x364</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>Debug Byte</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>8</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                </ipxact:register>
+
             </ipxact:addressBlock>
             <ipxact:addressUnitBits>8</ipxact:addressUnitBits>
         </ipxact:memoryMap>
@@ -2813,8 +2852,7 @@
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>WOL_PATTERN_POINTER</ipxact:name>
-                    <ipxact:description>Specifies the offset into the 6 KB BD memory for frame comparison. (Bits 3:0 are ignored to align
-the memory address to a natural 128-bit boundary).</ipxact:description>
+                    <ipxact:description>Specifies the offset into the 6 KB BD memory for frame comparison. (Bits 3:0 are ignored to align the memory address to a natural 128-bit boundary).</ipxact:description>
                     <ipxact:addressOffset>0x430</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
@@ -3871,8 +3909,7 @@ the memory address to a natural 128-bit boundary).</ipxact:description>
                     </ipxact:field>
                     <ipxact:field>
                         <ipxact:name>Enable Data Cache</ipxact:name>
-                        <ipxact:description>Enables the data cache. Cleared on reset.
-Note: Firmware developers should take care to clear this bit before polling internal SRAM memory locations, because the RX RISC processor uses a two-element LRU caching algorithm, which is not affected by writes from the PCI interface.</ipxact:description>
+                        <ipxact:description>Enables the data cache. Cleared on reset. Note: Firmware developers should take care to clear this bit before polling internal SRAM memory locations, because the RX RISC processor uses a two-element LRU caching algorithm, which is not affected by writes from the PCI interface.</ipxact:description>
                         <ipxact:bitOffset>5</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>

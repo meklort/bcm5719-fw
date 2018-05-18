@@ -53,9 +53,16 @@
 #define PAGE_SIZE                   ATMEL_AT45DB0X1B_PAGE_SIZE
 #define NEEDS_ERASE                 ATMEL_AT45DB0X1B_ERASE
 
+#ifdef CXX_SIMULATOR
 #define REQ     ReqSet2
 #define CLR     ReqClr2
 #define WON     ArbWon2
+#else /* Firmware */
+#define REQ     ReqSet0
+#define CLR     ReqClr0
+#define WON     ArbWon0
+#endif
+
 
 /**
  * @fn  uint32_t NVRam_translate(uint32_t address)

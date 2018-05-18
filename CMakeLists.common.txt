@@ -42,30 +42,24 @@
 ### @endcond
 ################################################################################
 
+project(bcm5719-fw)
+
 cmake_minimum_required(VERSION 3.11)
 
-# SET(CMAKE_INSTALL_PREFIX=)
+add_definitions(-Werror -Wall)
 
-IF(NOT DOES_BUILD)
+IF(SIMULATOR)
+add_definitions(-DCXX_SIMULATOR)
+add_subdirectory(simulator)
+add_subdirectory(utils)
+ENDIF(SIMULATOR)
 
-include(ExternalProject)
+add_subdirectory(libs)
 
-ExternalProject_Add(simulator 
-    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}
-    CMAKE_ARGS -DCMAKE_USER_MAKE_RULES_OVERRIDE=cmake/SimulatorMakeRulesOverwrite.cmake -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/
-    USES_TERMINAL_BUILD 1
-    USES_TERMINAL_CONFIGURE 1
-    USES_TERMINAL_INSTALL 1
-)
 
-ExternalProject_Add(firmware 
-    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}
-    CMAKE_ARGS -DCMAKE_USER_MAKE_RULES_OVERRIDE=cmake/FirmwareMakeRulesOverwrite.cmake -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/fw
-    USES_TERMINAL_BUILD 1
-    USES_TERMINAL_CONFIGURE 1
-    USES_TERMINAL_INSTALL 1
-)
+IF(SIMULATOR)
+add_subdirectory(tests)
+ENDIF(SIMULATOR)
 
-ELSE()
-include(CMakeLists.common.txt)
-ENDIF()
+# add_subdirectory(bcmflash)
+# add_subdirectory(bcmfwtool)

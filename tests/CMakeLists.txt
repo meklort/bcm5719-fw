@@ -1,10 +1,10 @@
 ################################################################################
 ###
-### @file       CMakeLists.txt
+### @file       tests/CMakeLists.txt
 ###
 ### @project    
 ###
-### @brief      Top level CMake file
+### @brief      Tests CMake file
 ###
 ################################################################################
 ###
@@ -42,30 +42,5 @@
 ### @endcond
 ################################################################################
 
-cmake_minimum_required(VERSION 3.11)
 
-# SET(CMAKE_INSTALL_PREFIX=)
-
-IF(NOT DOES_BUILD)
-
-include(ExternalProject)
-
-ExternalProject_Add(simulator 
-    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}
-    CMAKE_ARGS -DCMAKE_USER_MAKE_RULES_OVERRIDE=cmake/SimulatorMakeRulesOverwrite.cmake -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/
-    USES_TERMINAL_BUILD 1
-    USES_TERMINAL_CONFIGURE 1
-    USES_TERMINAL_INSTALL 1
-)
-
-ExternalProject_Add(firmware 
-    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}
-    CMAKE_ARGS -DCMAKE_USER_MAKE_RULES_OVERRIDE=cmake/FirmwareMakeRulesOverwrite.cmake -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/fw
-    USES_TERMINAL_BUILD 1
-    USES_TERMINAL_CONFIGURE 1
-    USES_TERMINAL_INSTALL 1
-)
-
-ELSE()
-include(CMakeLists.common.txt)
-ENDIF()
+add_subdirectory(googletest)
