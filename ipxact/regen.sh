@@ -14,3 +14,6 @@ mv bcm5719_APE.h ../include/
 
 ${IPXACT} bcm5719.xml bcm5719.cpp
 mv *.cpp ../simulator/
+
+${IPXACT} bcm5719.xml bcm5719.s
+mv *.s ../libs/bcm5719/

@@ -46,7 +46,10 @@ project(bcm5719-fw)
 
 cmake_minimum_required(VERSION 3.11)
 
-add_definitions(-Werror -Wall)
+add_definitions(-Werror -Wall -Os
+	-ffunction-sections
+	-fdata-sections
+)
 
 IF(SIMULATOR)
 add_definitions(-DCXX_SIMULATOR)

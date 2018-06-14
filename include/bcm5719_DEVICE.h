@@ -820,7 +820,7 @@ typedef register_container RegDEVICEEmacMacAddresses3Low_t {
     BCM5719_DEVICE_H_uint32_t r32;
 } RegDEVICEEmacMacAddresses3Low_t;
 
-#define REG_DEVICE_WOL_PATTERN_POINTER ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0000430) /* Specifies the offset into the 6 KB BD memory for frame comparison. (Bits 3:0 are ignored to alignthe memory address to a natural 128-bit boundary). */
+#define REG_DEVICE_WOL_PATTERN_POINTER ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0000430) /* Specifies the offset into the 6 KB BD memory for frame comparison. (Bits 3:0 are ignored to align the memory address to a natural 128-bit boundary). */
 /** @brief Register definition for @ref DEVICE_t.WolPatternPointer. */
 typedef register_container RegDEVICEWolPatternPointer_t {
     /** @brief 32bit direct register access. */
@@ -2075,7 +2075,7 @@ typedef register_container RegDEVICERxRiscMode_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Page0InstrHalt, 3, 1)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_4_4, 4, 1)
-        /** @brief Enables the data cache. Cleared on reset.Note: Firmware developers should take care to clear this bit before polling internal SRAM memory locations, because the RX RISC processor uses a two-element LRU caching algorithm, which is not affected by writes from the PCI interface. */
+        /** @brief Enables the data cache. Cleared on reset. Note: Firmware developers should take care to clear this bit before polling internal SRAM memory locations, because the RX RISC processor uses a two-element LRU caching algorithm, which is not affected by writes from the PCI interface. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableDataCache, 5, 1)
         /** @brief Asserted on reset. Cleared by ROM code after it successfully loads code from NVRAM. Afterwards, this bit can be used by software for any purpose. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ROMFail, 6, 1)
@@ -3213,7 +3213,7 @@ typedef struct {
     /** @brief Lower 4-byte of this node's MAC address. */
     RegDEVICEEmacMacAddresses3Low_t EmacMacAddresses3Low;
 
-    /** @brief Specifies the offset into the 6 KB BD memory for frame comparison. (Bits 3:0 are ignored to alignthe memory address to a natural 128-bit boundary). */
+    /** @brief Specifies the offset into the 6 KB BD memory for frame comparison. (Bits 3:0 are ignored to align the memory address to a natural 128-bit boundary). */
     RegDEVICEWolPatternPointer_t WolPatternPointer;
 
     /** @brief  */

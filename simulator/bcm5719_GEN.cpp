@@ -91,5 +91,9 @@ void init_bcm5719_GEN(void)
 
     /** @brief Bitmap for @ref GEN_t.GenCfg5. */ 
 
+    /** @brief Bitmap for @ref GEN_t.GenDbgControlStatus. */ 
+
+    /** @brief Bitmap for @ref GEN_t.GenDbgData. */ 
+
 
 }

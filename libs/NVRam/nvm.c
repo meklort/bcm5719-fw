@@ -43,7 +43,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include <NVRam.h>
 #include "bcm5719_NVM.h"
-#include <stdio.h>
 
 #define ATMEL_AT45DB0X1B_PAGE_POS   (9u)
 #define ATMEL_AT45DB0X1B_PAGE_SIZE  (264u)
@@ -71,6 +70,7 @@
  */
 static inline uint32_t NVRam_translate(uint32_t address)
 {
+#if 0
     // Equation from NetXtremeII PG203
     if(NVM_NVM_CFG_1_PAGE_SIZE_264_BYTES == NVM.NvmCfg1.bits.PageSize)
     {
@@ -80,6 +80,9 @@ static inline uint32_t NVRam_translate(uint32_t address)
     {
         return address;        
     }
+#else
+    return address;
+#endif    
 }
 
 void NVRam_enable(void)
@@ -96,36 +99,21 @@ void NVRam_disable(void)
 
 static inline void NVRam_waitDone(void)
 {
-    printf("Waiting for  NVM.Command.bits.Done = %x\n", (uint32_t)NVM.Command.bits.Done);
-    printf("Waiting for  NVM.Command.r32 = %x\n", (uint32_t)NVM.Command.r32);
     while(!NVM.Command.bits.Done)
     {
 
-    }
-    printf("NVM.Command.r32 = %x\n", (uint32_t)NVM.Command.r32);
-}
-
-static inline void NVRam_erase(uint32_t offset)
-{
-    if(NEEDS_ERASE)
-    {
-        // TODO: No need to erase when buffered.        
     }
 }
 
 bool NVRam_acquireLock(void)
 {
     // Grab lock
-    printf("NVM.SoftwareArbitration.r32 = %x\n", (uint32_t)NVM.SoftwareArbitration.r32);
-    printf("NVM.SoftwareArbitration.bits.WON = %x\n", (uint32_t)NVM.SoftwareArbitration.bits.WON);
     NVM.SoftwareArbitration.bits.REQ = 1;
-    printf("NVM.SoftwareArbitration.bits.WON w/req = %x\n", (uint32_t)NVM.SoftwareArbitration.bits.WON);
-    printf("NVM.SoftwareArbitration.r32 w/req = %x\n", (uint32_t)NVM.SoftwareArbitration.r32);
 
-    while(!NVM.SoftwareArbitration.bits.WON);
-
-
-    printf("DEVICE->SoftwareArbitration.r32 = %x\n", (uint32_t)NVM.SoftwareArbitration.r32);
+    while(!NVM.SoftwareArbitration.bits.WON)
+    {
+        // Spin
+    }
 
     return true;
 }
@@ -133,10 +121,7 @@ bool NVRam_acquireLock(void)
 bool NVRam_releaseLock(void)
 {
     // Release locks
-    // printf("DEVICE->SoftwareArbitration.r32 = %x\n", (uint32_t)NVM.SoftwareArbitration.r32);
-
     NVM.SoftwareArbitration.bits.CLR = 1;
-    // printf("DEVICE->SoftwareArbitration.r32 = %x\n", (uint32_t)NVM.SoftwareArbitration.r32);
     return true;
 }
 
@@ -148,14 +133,9 @@ static uint32_t NVRam_readByteInternal(uint32_t address, RegNVMCommand_t cmd)
     RegNVMCommand_t done;
     done.bits.Done = 1;
 
-    // printf("done.r32 = %x\n", (uint32_t)done.r32);
-    // printf("Pre done write: NVM.Command.r32 = %x\n", (uint32_t)NVM.Command.r32);
     NVM.Command = done;
-    // printf("Post done write: NVM.Command.r32 = %x\n", (uint32_t)NVM.Command.r32);
     NVM.Addr.r32 = address;
     NVM.Command = cmd;
-    // printf("Post cmd write: NVM.Command.r32 = %x\n", (uint32_t)NVM.Command.r32);
-    // printf("cmd = %x\n", (uint32_t)cmd.r32);
 
     NVRam_waitDone();
 
@@ -183,7 +163,6 @@ uint32_t NVRam_readByte(uint32_t address)
     cmd.bits.First = 1;
     cmd.bits.Last = 1;
     cmd.bits.Doit = 1;
-    printf("cmd = %x\n", (uint32_t)cmd.r32);
 
     return NVRam_readByteInternal(address, cmd);
 }
@@ -226,8 +205,6 @@ void NVRam_writeByte(uint32_t address, uint32_t data)
     cmd.bits.Last = 1;
     cmd.bits.Doit = 1;
     cmd.bits.Wr = 1;
-
-    printf("cmd = %x\n", (uint32_t)cmd.r32);
 
     NVRam_writeByteInternal(address, data, cmd);
 }

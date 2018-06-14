@@ -786,6 +786,73 @@ typedef register_container RegGENGenCfg5_t {
 #endif /* CXX_SIMULATOR */
 } RegGENGenCfg5_t;
 
+#define REG_GEN_GEN_DBG_CONTROL_STATUS ((volatile BCM5719_GEN_H_uint32_t*)0xeb0) /* Firmware Debug Control */
+#define     GEN_GEN_DBG_CONTROL_STATUS_DEBUG_ENABLED_SHIFT 0u
+#define     GEN_GEN_DBG_CONTROL_STATUS_DEBUG_ENABLED_MASK  0x1u
+#define GET_GEN_GEN_DBG_CONTROL_STATUS_DEBUG_ENABLED(__reg__)  (((__reg__) & 0x1) >> 0u)
+#define SET_GEN_GEN_DBG_CONTROL_STATUS_DEBUG_ENABLED(__val__)  (((__val__) << 0u) & 0x1u)
+#define     GEN_GEN_DBG_CONTROL_STATUS_DATA_AVAILABLE_SHIFT 8u
+#define     GEN_GEN_DBG_CONTROL_STATUS_DATA_AVAILABLE_MASK  0x100u
+#define GET_GEN_GEN_DBG_CONTROL_STATUS_DATA_AVAILABLE(__reg__)  (((__reg__) & 0x100) >> 8u)
+#define SET_GEN_GEN_DBG_CONTROL_STATUS_DATA_AVAILABLE(__val__)  (((__val__) << 8u) & 0x100u)
+
+/** @brief Register definition for @ref GEN_t.GenDbgControlStatus. */
+typedef register_container RegGENGenDbgControlStatus_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_GEN_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_GEN_H_uint32_t, bits)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, DebugEnabled, 0, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_7_1, 1, 7)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, DataAvailable, 8, 1)
+    BITFIELD_END(BCM5719_GEN_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    RegGENGenDbgControlStatus_t()
+    {
+        /** @brief constructor for @ref GEN_t.GenDbgControlStatus. */
+        bits.DebugEnabled.setBaseRegister(&r32);
+        bits.DataAvailable.setBaseRegister(&r32);
+    }
+    RegGENGenDbgControlStatus_t& operator=(const RegGENGenDbgControlStatus_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegGENGenDbgControlStatus_t;
+
+#define REG_GEN_GEN_DBG_DATA ((volatile BCM5719_GEN_H_uint32_t*)0xeb4) /* Firmware Debug Data */
+#define     GEN_GEN_DBG_DATA_DEBUG_BYTE_SHIFT 0u
+#define     GEN_GEN_DBG_DATA_DEBUG_BYTE_MASK  0xffu
+#define GET_GEN_GEN_DBG_DATA_DEBUG_BYTE(__reg__)  (((__reg__) & 0xff) >> 0u)
+#define SET_GEN_GEN_DBG_DATA_DEBUG_BYTE(__val__)  (((__val__) << 0u) & 0xffu)
+
+/** @brief Register definition for @ref GEN_t.GenDbgData. */
+typedef register_container RegGENGenDbgData_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_GEN_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_GEN_H_uint32_t, bits)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, DebugByte, 0, 8)
+    BITFIELD_END(BCM5719_GEN_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    RegGENGenDbgData_t()
+    {
+        /** @brief constructor for @ref GEN_t.GenDbgData. */
+        bits.DebugByte.setBaseRegister(&r32);
+    }
+    RegGENGenDbgData_t& operator=(const RegGENGenDbgData_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegGENGenDbgData_t;
+
 /** @brief Component definition for @ref GEN. */
 typedef struct {
     /** @brief  */
@@ -877,6 +944,15 @@ typedef struct {
 
     /** @brief Set from NVM 0x21C. */
     RegGENGenCfg5_t GenCfg5;
+
+    /** @brief Reserved bytes to pad out data structure. */
+    BCM5719_GEN_H_uint32_t reserved_704[40];
+
+    /** @brief Firmware Debug Control */
+    RegGENGenDbgControlStatus_t GenDbgControlStatus;
+
+    /** @brief Firmware Debug Data */
+    RegGENGenDbgData_t GenDbgData;
 
 } GEN_t;
 

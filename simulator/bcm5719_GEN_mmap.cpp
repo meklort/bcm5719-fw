@@ -156,5 +156,13 @@ void init_bcm5719_GEN_mmap(void* base)
     GEN.GenCfg5.r32.installReadCallback(read_from_ram, new ram_offset_t((uint8_t*)base, (uint32_t)700));
     GEN.GenCfg5.r32.installWriteCallback(write_to_ram, new ram_offset_t((uint8_t*)base, (uint32_t)700));
 
+    /** @brief Bitmap for @ref GEN_t.GenDbgControlStatus. */ 
+    GEN.GenDbgControlStatus.r32.installReadCallback(read_from_ram, new ram_offset_t((uint8_t*)base, (uint32_t)864));
+    GEN.GenDbgControlStatus.r32.installWriteCallback(write_to_ram, new ram_offset_t((uint8_t*)base, (uint32_t)864));
+
+    /** @brief Bitmap for @ref GEN_t.GenDbgData. */ 
+    GEN.GenDbgData.r32.installReadCallback(read_from_ram, new ram_offset_t((uint8_t*)base, (uint32_t)868));
+    GEN.GenDbgData.r32.installWriteCallback(write_to_ram, new ram_offset_t((uint8_t*)base, (uint32_t)868));
+
 
 }
