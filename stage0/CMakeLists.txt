@@ -10,6 +10,7 @@ target_link_libraries(${PROJECT_NAME} NVRam MII)
 IF(SIMULATOR)
     target_link_libraries(${PROJECT_NAME} simulator)
 ELSE()
+    target_link_libraries(${PROJECT_NAME} bcm5719)
 	target_compile_options(${PROJECT_NAME} PRIVATE -nodefaultlibs -nostartfiles)
 
 ENDIF(SIMULATOR)

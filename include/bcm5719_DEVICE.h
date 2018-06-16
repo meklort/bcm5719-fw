@@ -51,7 +51,6 @@
 
 #include <stdint.h>
 
-
 #ifdef CXX_SIMULATOR /* Compiling c++ simulator code - uses register wrappers */
 #include <CXXRegister.h>
 typedef CXXRegister<uint8_t,  0,  8> BCM5719_DEVICE_H_uint8_t;
@@ -66,7 +65,7 @@ typedef CXXRegister<uint32_t, 0, 32> BCM5719_DEVICE_H_uint32_t;
 #define BITFIELD_MEMBER(__type__, __name__, __offset__, __bits__) __type__##_bitfield(__offset__, __bits__) __name__;
 #define BITFIELD_END(__type__, __name__) } __name__;
 
-#else /* CXX_SIMULATOR */
+#else /* Firmware Data types */
 typedef uint8_t  BCM5719_DEVICE_H_uint8_t;
 typedef uint16_t BCM5719_DEVICE_H_uint16_t;
 typedef uint32_t BCM5719_DEVICE_H_uint32_t;

@@ -17,3 +17,5 @@ mv *.cpp ../simulator/
 
 ${IPXACT} bcm5719.xml bcm5719.s
 mv *.s ../libs/bcm5719/
+
+${IPXACT} bcm5719.xml -t asym bcm5719_sym.s
