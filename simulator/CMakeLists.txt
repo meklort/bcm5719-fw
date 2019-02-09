@@ -1,7 +1,7 @@
 
 project(simulator)
 
-add_library(${PROJECT_NAME} STATIC
+simulator_add_library(${PROJECT_NAME} STATIC
             HAL.cpp
 
             bcm5719_DEVICE_mmap.cpp

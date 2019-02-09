@@ -1,10 +1,10 @@
 ################################################################################
 ###
-### @file       libs/MII/CMakeLists.txt
+### @file       simulator.cmake
 ###
 ### @project    
 ###
-### @brief      MII CMake file
+### @brief      Simulator specific configurations
 ###
 ################################################################################
 ###
@@ -42,15 +42,21 @@
 ### @endcond
 ################################################################################
 
-project(MII)
+SET(SIMULATOR_COMPILE_OPTIONS -DCXX_SIMULATOR -x c++ )
+SET(SIMULATOR_LINK_OPTIONS )
 
-# Host Simulation library
-simulator_add_library(${PROJECT_NAME} STATIC mii.c)
-target_link_libraries(${PROJECT_NAME} PRIVATE simulator)
-target_include_directories(${PROJECT_NAME} PUBLIC ../../include)
-target_include_directories(${PROJECT_NAME} PUBLIC include)
+# MIPS-specific executables
+function(simulator_add_executable target)
+    add_executable(${target} ${ARGN})
+    
+    target_compile_options(${target} PRIVATE ${SIMULATOR_COMPILE_OPTIONS})
+    set_property(TARGET ${target} APPEND PROPERTY LINK_OPTIONS ${SIMULATOR_LINK_OPTIONS})
+    set_property(TARGET ${target} APPEND PROPERTY CXX_EXTENSIONS c)
+endfunction(simulator_add_executable)
 
-# MIPS Library
-mips_add_library(${PROJECT_NAME}-mips STATIC mii.c)
-target_include_directories(${PROJECT_NAME}-mips PUBLIC ../../include)
-target_include_directories(${PROJECT_NAME}-mips PUBLIC include)
+# MIPS-specific libraries
+function(simulator_add_library target)
+    add_library(${target} ${ARGN})
+    
+    target_compile_options(${target} PRIVATE ${SIMULATOR_COMPILE_OPTIONS})
+endfunction(simulator_add_library)

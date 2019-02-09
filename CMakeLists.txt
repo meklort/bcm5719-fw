@@ -42,56 +42,23 @@
 ### @endcond
 ################################################################################
 
+SET(CMAKE_C_COMPILER   /usr/local/bin/clang)
+SET(CMAKE_CXX_COMPILER /usr/local/bin/clang++)
+SET(CMAKE_ASM_COMPILER /usr/local/bin/clang)
+
 cmake_minimum_required(VERSION 3.11)
+project(bcm5719-top)
 
-IF(NOT DOES_BUILD)
-
-include(ExternalProject)
-
-ExternalProject_Add(simulator 
-    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}
-    CMAKE_ARGS -DCMAKE_USER_MAKE_RULES_OVERRIDE=cmake/SimulatorMakeRulesOverwrite.cmake -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/
-    USES_TERMINAL_BUILD 1
-    USES_TERMINAL_CONFIGURE 1
-    USES_TERMINAL_INSTALL 1
-    BUILD_ALWAYS 1
-)
-
-ExternalProject_Add(firmware 
-    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}
-    CMAKE_ARGS -DCMAKE_USER_MAKE_RULES_OVERRIDE=cmake/FirmwareMakeRulesOverwrite.cmake -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/fw -DCMAKE_TOOLCHAIN_FILE=cmake/MIPSToolchain.cmake
-    USES_TERMINAL_BUILD 1
-    USES_TERMINAL_CONFIGURE 1
-    USES_TERMINAL_INSTALL 1
-    BUILD_ALWAYS 1
-)
-
-ELSE()
-
-add_definitions(-Werror -Wall -Os
-    -ffunction-sections
-    -fdata-sections
-)
-
-IF(NOT SIMULATOR)
-add_definitions(-nodefaultlibs)
-ENDIF()
-
-IF(SIMULATOR)
-add_definitions(-DCXX_SIMULATOR)
-add_subdirectory(simulator)
-add_subdirectory(utils)
-ENDIF(SIMULATOR)
+include(cmake/config.cmake)
 
 add_subdirectory(libs)
+add_subdirectory(utils)
 
 
-IF(SIMULATOR)
-add_subdirectory(tests)
-ENDIF(SIMULATOR)
-
+add_subdirectory(simulator)
 add_subdirectory(stage0)
 
 # add_subdirectory(bcmflash)
 # add_subdirectory(bcmfwtool)
-ENDIF()
+
+# ENDIF()

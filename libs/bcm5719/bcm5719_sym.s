@@ -1,10 +1,12 @@
 ################################################################################
 ###
-### @file       CMakeLists.txt
+### @file       bcm5719_sym.s
 ###
-### @project    
+### @project    <PROJECT>
 ###
-### @brief      Top level CMake file
+### @brief      bcm5719_sym.s
+###
+### @classification  Confidential
 ###
 ################################################################################
 ###
@@ -22,7 +24,7 @@
 ### 2. Redistributions in binary form must reproduce the above copyright notice,
 ### this list of conditions and the following disclaimer in the documentation
 ### and/or other materials provided with the distribution.
-### 3. Neither the name of the copyright holder nor the
+### 3. Neither the name of the <organization> nor the
 ### names of its contributors may be used to endorse or promote products
 ### derived from this software without specific prior written permission.
 ###
@@ -42,27 +44,24 @@
 ### @endcond
 ################################################################################
 
-project(bcm5719-fw)
+.global APE
+.equ    APE, 0xc0010000
+.size   APE, 0x8440
 
-cmake_minimum_required(VERSION 3.11)
+.global DEVICE
+.equ    DEVICE, 0xc0000000
+.size   DEVICE, 0x7c08
 
-add_definitions(-Werror -Wall -Os
-	-ffunction-sections
-	-fdata-sections
-)
+.global GEN
+.equ    GEN, 0xb50
+.size   GEN, 0x368
 
-IF(SIMULATOR)
-add_definitions(-DCXX_SIMULATOR)
-add_subdirectory(simulator)
-add_subdirectory(utils)
-ENDIF(SIMULATOR)
+.global MII
+.equ    MII, 0x0
+.size   MII, 0x20
 
-add_subdirectory(libs)
+.global NVM
+.equ    NVM, 0xc0007000
+.size   NVM, 0x28
 
 
-IF(SIMULATOR)
-add_subdirectory(tests)
-ENDIF(SIMULATOR)
-
-# add_subdirectory(bcmflash)
-# add_subdirectory(bcmfwtool)
