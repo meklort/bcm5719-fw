@@ -1,10 +1,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @file       pci_config.h
+/// @file       vpd.c
 ///
 /// @project    
 ///
-/// @brief      Main bcmflash tool for parsing BCM5179 flash images.
+/// @brief      VPD Support Routines
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
@@ -41,44 +41,54 @@
 /// POSSIBILITY OF SUCH DAMAGE.
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
-#ifndef PCI_CONFIG_H
-#define PCI_CONFIG_H
 
 #include <stdint.h>
+#include <stdbool.h>
+#include <stddef.h>
 
-typedef struct  {
-    uint16_t vendor_id;
-    uint16_t device_id;
+#define VPD_DATA_TYPE_SMALL (0x00)
+#define VPD_DATA_TYPE_LARGE (0x01)
+#define VPD_TAG_IDENTIFIER  (0x02)
+#define VPD_TAG_END         (0x0F)
+#define VPD_TAG_VPD_R       (0x10)
+#define VPD_TAG_VPD_W       (0x11)
+typedef union {
+    struct {
+        uint8_t bytes:3;
+        uint8_t tag:4;
+        uint8_t type:1;
+    } small;
+    struct {
+        uint8_t tag:7;
+        uint8_t type:1;
+    } large;
+    uint8_t data;
+} vpd_resource_typet_t;
 
-    uint16_t command;
-    uint16_t device;
+typedef struct {
+    uint16_t    name;
+    uint8_t     length;
+    uint8_t     data;
+} __attribute__((packed)) vpd_field_t;
 
-    uint8_t revision_id;
-    uint8_t prog_if;
-    uint8_t subdevclass;
-    uint8_t devclass;
+typedef union {
+    uint8_t bytes[0x100];
+} vpd_t;
 
-    uint8_t cache_line_size;
-    uint8_t latency_timer;
-    uint8_t header_type;
-    uint8_t BIST;
 
-    uint32_t BAR[6];
+#define VPD_PRODUCT_NAME        "PN"
+#define VPD_ENGINEERING_CHANGE  "EC"
+#define VPD_SERIAL_NUMBER       "SN"
+#define VPD_MANUFACTURING_ID    "MN"
+#define VPD_VENDOR_SPECIFIC_0   "V0"
+#define VPD_CHECKSUM            "RV"
 
-    uint32_t aus;
+const char* vpd_get_field_name(uint16_t field);
 
-    uint16_t subsystem_vendor_id;
-    uint16_t subsystem_id;
 
-    uint32_t expansion_base;
+uint8_t* vpd_get_identifier(uint8_t *buffer, size_t *len);
+uint8_t* vpd_get_resource_by_name(uint8_t* buffer, size_t* len, uint16_t name);
+uint8_t* vpd_get_resource_by_index(uint8_t* buffer, size_t* len, uint16_t* name, size_t index);
+bool vpd_set_resource(uint8_t* buffer, size_t len, uint16_t resource, uint8_t* add_data, size_t add_len);
+bool vpd_is_valid(uint8_t* buffer, size_t len);
 
-    uint8_t capabilities;
-    uint8_t rsvd[7];
-
-    uint8_t int_line;
-    uint8_t int_pin;
-    uint8_t min_grant;
-    uint8_t max_latency;
-} __attribute__((packed)) pci_config_t;
-
-#endif

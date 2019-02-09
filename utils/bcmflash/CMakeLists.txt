@@ -1,4 +1,4 @@
-project(bcmregtool)
+project(bcmflash)
 
 add_definitions(-Wall -Werror)
 set(SOURCES

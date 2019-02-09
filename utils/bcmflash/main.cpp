@@ -4,7 +4,7 @@
 ///
 /// @project    
 ///
-/// @brief      Main bcm regiuster tool for decoding BCM5179 registers.
+/// @brief      Main bcmflash tool for parsing BCM5179 flash images.
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
@@ -41,6 +41,7 @@
 /// POSSIBILITY OF SUCH DAMAGE.
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
+
 #include <stdint.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -60,7 +61,6 @@
 #include <errno.h>
 
 #include <NVRam.h>
-
 #include <bcm5719_eeprom.h>
 
 #include "pci_config.h"
@@ -143,50 +143,87 @@ int main(int argc, char const *argv[])
 
 
     printf("ChipId: %x\n", (uint32_t)DEVICE.ChipId.r32);
-    printf("APEChipId: %x\n", (uint32_t)APE.ChipId.r32);
+
     
-    // printf("RxRiscMode: %0x\n", DEVICE.RxRiscMode.r32);
-    // printf("RxRiscStatus: %0x\n", DEVICE.RxRiscStatus.r32);
-    // printf("RxRiscProgramCounter: %0x\n", DEVICE.RxRiscProgramCounter.r32);
-    // printf("RxRiscRegister0: %0x\n", DEVICE.RxRiscRegister0.r32);
-    // printf("RxRiscRegister1: %0x\n", DEVICE.RxRiscRegister1.r32);
-    // printf("RxRiscRegister2: %0x\n", DEVICE.RxRiscRegister2.r32);
-    // printf("RxRiscRegister3: %0x\n", DEVICE.RxRiscRegister3.r32);
-    DEVICE.LinkStatusControl.r32 = 0xffffffff;
-    printf("LinkStatusControl.NegotiatedLinkSpeed: %0x\n", (uint32_t)DEVICE.LinkStatusControl.bits.NegotiatedLinkSpeed);
-    printf("LinkStatusControl.NegotiatedLinkWidth: %0x\n", (uint32_t)DEVICE.LinkStatusControl.bits.NegotiatedLinkWidth);
-    printf("LinkStatusControl.r32:                 %0x\n", (uint32_t)DEVICE.LinkStatusControl.r32);
-
-    DEVICE.LinkStatusControl.bits.NegotiatedLinkSpeed = 0;
-    printf("LinkStatusControl.NegotiatedLinkSpeed: %0x\n", (uint32_t)DEVICE.LinkStatusControl.bits.NegotiatedLinkSpeed);
-    printf("LinkStatusControl.NegotiatedLinkWidth: %0x\n", (uint32_t)DEVICE.LinkStatusControl.bits.NegotiatedLinkWidth);
-    printf("LinkStatusControl.r32:                 %0x\n", (uint32_t)DEVICE.LinkStatusControl.r32);
-
-    printf("EmacMode.PortMode: %0x\n", (uint32_t)DEVICE.EmacMode.bits.PortMode);
-    printf("EmacMacAddresses0High: %0x\n", (uint32_t)DEVICE.EmacMacAddresses0High.r32);
-    printf("EmacMacAddresses0Low: %0x\n", (uint32_t)DEVICE.EmacMacAddresses0Low.r32);
-    printf("RxRiscMode: %0x\n", (uint32_t)DEVICE.RxRiscMode.r32);
-
-    // printf("HostDriverId: %0x\n", APE.HostDriverId.r32);
-    // printf("RcpuPciSubsystemId: %0x\n", APE.RcpuPciSubsystemId.r32);
-
-    // printf("\n\n=========\n\n");
-
-
     printf("Grab lock...\n");
     NVRam_acquireLock();
 
     NVRam_enable();
 
+    
+    NVRAMContents *nvram = (NVRAMContents*)malloc(sizeof(NVRAMContents));
+    NVRam_read(0, (uint32_t*)nvram, sizeof(NVRAMContents)/4);
+    
+    printf("=== Header ===\n");
+    printf("Magic:               0x%08X\n", be32toh(nvram->header.magic));
+    printf("Bootstrap Phys Addr: 0x%08X\n", be32toh(nvram->header.bootstrapPhysAddr));
+    printf("Bootstrap Words:     0x%08X (%d bytes)\n", be32toh(nvram->header.bootstrapWords), be32toh(nvram->header.bootstrapWords)*4);
+    printf("Bootstrap Offset:    0x%08X\n", be32toh(nvram->header.bootstrapOffset));
+    printf("CRC:                 0x%08X\n", be32toh(nvram->header.crc));
+    uint32_t expected_crc = be32toh(~NVRam_crc((uint8_t*)&nvram->header, (((uint8_t*)&nvram->header.crc - (uint8_t*)&nvram->header)), 0xffffffff));
+    printf("Expected CRC:        0x%08X\n", expected_crc);
 
-    uint32_t length = NVRam_readWord(8); // current stage length
-    uint32_t offset = NVRam_readWord(0xc); // current stage offset
-    printf("NVRam_read(8) = %x\n", length);
-    printf("NVRam_read(C) = %x\n", offset);
-    // uint32_t next_stage_hdr = offset + (length*4);
-    // uint32_t next_stage_size = next_stage_hdr + 4;
-    // printf("NVRam_read(%x) = %x\n", next_stage_hdr, NVRam_readWord(next_stage_hdr));
-    // printf("NVRam_read(%x) = %x\n", next_stage_size, NVRam_readWord(next_stage_size));
+    for(int i = 0; i < ARRAY_ELEMENTS(nvram->directory); i++)
+    {
+        uint32_t info = be32toh(nvram->directory[i].codeInfo);
+        if(info)
+        {
+            printf("\n=== Directory %d (0x%08X)===\n", i, info);
+            uint32_t length = BCM_CODE_DIRECTORY_GET_LENGTH(info);
+            uint32_t cpu =    BCM_CODE_DIRECTORY_GET_CPU(info);
+            uint32_t type =   BCM_CODE_DIRECTORY_GET_TYPE(info);
+            printf("Code Address:   0x%08X\n", be32toh(nvram->directory[i].codeAddress));
+            printf("Code Words:     0x%08X (%d bytes)\n", length, length);
+            printf("Code Offset:    0x%08X\n", be32toh(nvram->directory[i].directoryOffset));
+            printf("Code CPU:       0x%02X\n", cpu);
+            printf("Code Type:      0x%02X\n", type);
+            printf("\n");
+        }
+    }
+
+    printf("\n=== Info ===\n");
+
+    printf("MAC[0]: 0x%012lX\n", be64toh(nvram->info.macAddr0)); // FIXME
+    printf("Part Number: %s\n", nvram->info.partNumber);
+    printf("Vendor ID: 0x%04X\n", be16toh(nvram->info.vendorID));
+    printf("Device ID: 0x%04X\n", be16toh(nvram->info.deviceID));
+    printf("Subsystem Vendor ID: 0x%04X\n", be16toh(nvram->info.subsystemVendorID));
+    printf("Subsystem Device ID: 0x%04X\n", be16toh(nvram->info.subsystemDeviceID));
+
+    
+    printf("\n=== VPD ===\n");
+    if(vpd_is_valid(nvram->vpd.bytes, sizeof(nvram->vpd)))
+    {
+        size_t vpd_len = sizeof(nvram->vpd);
+        printf("Identifier: %s\n", vpd_get_identifier(nvram->vpd.bytes, &vpd_len));
+
+        uint8_t* resource;
+        int index = 0;
+        do {
+            vpd_len = sizeof(nvram->vpd);
+            uint16_t name;
+            resource = vpd_get_resource_by_index(nvram->vpd.bytes, &vpd_len, &name, index);
+            if(resource)
+            {
+                char* data = (char*)malloc(vpd_len + 1);
+                memcpy(data, resource, vpd_len);
+                data[vpd_len] = 0;
+                printf("[%02d] %24s: %s\n", index, vpd_get_field_name(name), data);
+                free(data);
+            }
+            index++;
+        } while(resource);
+    }
+    else
+    {
+        printf("VPD is invalid.\n");
+    }
+
+    
+//     
+//     FILE* out = fopen("firmware.fw", "w+");
+//     fwrite(nvram, bytes, 1, out);
+//     fclose(out);
 
     NVRam_releaseLock();
 

@@ -78,11 +78,12 @@ uint32_t read_device_chipid(uint32_t)
 
 void initHAL(const char* pci_path)
 {
+    struct stat st;
+    int memfd;
     char* pConfigPath =  (char*)malloc(strlen("%s/" DEVICE_CONFIG) + strlen(pci_path) + 1);
     sprintf(pConfigPath, "%s/" DEVICE_CONFIG, pci_path);
 
     FILE* pConfigFile = fopen(pConfigPath, "rb");
-    int memfd;
 
     pci_config_t config;
 
@@ -96,37 +97,27 @@ void initHAL(const char* pci_path)
                 char* pBARPath =  (char*)malloc(strlen("%s/" BAR_STR) + strlen(pci_path) + 1);
                 sprintf(pBARPath, "%s/" BAR_STR, pci_path, i);
 
-                uint64_t addr;
-                if(is_bar_64bit(config.BAR[i]))
-                {
-                    addr = get_bar_addr(config.BAR[i]);
-                    addr |= ((uint64_t)config.BAR[i+1]) << 32u;
-                }
-                else
-                {
-                    addr = config.BAR[i];
-                }
 
-                printf("BAR[%d]: %016lx\n", i, addr);
-
-
-                if ((memfd = open(pBARPath, O_RDWR|O_SYNC)) < 0 )
+                if ((memfd = open(pBARPath, O_RDWR | O_SYNC)) < 0 )
                 {
                     printf("Error opening %s file. \n", pBARPath);
                     close(memfd);
-                    break;
+                    exit(-1);
                 }
                 else
                 {
-                    printf("mmaping %s\n", pBARPath);
+                    printf("mmaping BAR[%d]: %s\n", i, pBARPath);
                 }
 
+                if (fstat(memfd, &st) < 0) {
+                    fprintf(stderr, "error: couldn't stat file\n");
+                    exit(-1);
+                }
 
-
-                bar[i] = (uint8_t*)mmap(0, 64*1024, PROT_READ | PROT_WRITE, MAP_SHARED, memfd, 0); // PROT_WRITE
+                bar[i] = (uint8_t*)mmap(0, st.st_size, PROT_READ | PROT_WRITE, MAP_SHARED, memfd, 0); // PROT_WRITE
                 if(bar[i] == MAP_FAILED)
                 {
-                    printf("Oh dear, something went wrong with mmap(0, %d, 0x%lX)! %s\n", getpagesize(), addr, strerror(errno));
+                    printf("Unable to mmap %s: %s\n", pBARPath, strerror(errno));
                     exit(-1);
                 }
 
@@ -143,18 +134,6 @@ void initHAL(const char* pci_path)
     }
 
     uint8_t* DEVICEBase = (uint8_t*)bar[0];
-    // void* APEBase = bar[2];
-    // printf("[0] = 0x%0X\n", *((uint32_t*)bar[0]));
-    // printf("[2] = 0x%0X\n", *((uint32_t*)bar[2]));
-    // printf("[b50] = %x\n", ((uint32_t*)(bar[0]))[0xb50/4]);
-
-    // // DEVICE.ChipId.r32.installReadCallback(&read_device_chipid);
-    // // DEVICE.ChipId.r32.installWriteCallback(&read_device_chipid);
-    // uint32_t testmp = DEVICE.ChipId.r32;
-    // printf("ChipId: %x\n", testmp);
-    // printf("ChipId: %x\n", (unsigned int)DEVICE.ChipId.r32);
-
-    printf("-------\n");
 
     extern void init_bcm5719_DEVICE(void);
     extern void init_bcm5719_DEVICE_mmap(void*);

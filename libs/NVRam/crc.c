@@ -1,10 +1,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @file       pci_config.h
+/// @file       crc.c
 ///
 /// @project    
 ///
-/// @brief      Main bcmflash tool for parsing BCM5179 flash images.
+/// @brief      CRC Support Routines
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
@@ -41,44 +41,25 @@
 /// POSSIBILITY OF SUCH DAMAGE.
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
-#ifndef PCI_CONFIG_H
-#define PCI_CONFIG_H
 
-#include <stdint.h>
+#include <NVRam.h>
 
-typedef struct  {
-    uint16_t vendor_id;
-    uint16_t device_id;
+#define CRC32_POLYNOMIAL 0xEDB88320
 
-    uint16_t command;
-    uint16_t device;
-
-    uint8_t revision_id;
-    uint8_t prog_if;
-    uint8_t subdevclass;
-    uint8_t devclass;
-
-    uint8_t cache_line_size;
-    uint8_t latency_timer;
-    uint8_t header_type;
-    uint8_t BIST;
-
-    uint32_t BAR[6];
-
-    uint32_t aus;
-
-    uint16_t subsystem_vendor_id;
-    uint16_t subsystem_id;
-
-    uint32_t expansion_base;
-
-    uint8_t capabilities;
-    uint8_t rsvd[7];
-
-    uint8_t int_line;
-    uint8_t int_pin;
-    uint8_t min_grant;
-    uint8_t max_latency;
-} __attribute__((packed)) pci_config_t;
-
-#endif
+uint32_t NVRam_crc (
+                uint8_t *pcDatabuf,     // Pointer to data buffer
+                uint32_t ulDatalen,     // Length of data buffer in bytes
+                uint32_t crc)           // Initial value
+{
+    uint8_t data;
+    uint32_t idx, bit;
+    for (idx = 0; idx < ulDatalen; idx++)
+    {
+        data = *pcDatabuf++;
+        for (bit = 0; bit < 8; bit++, data >>= 1)
+        {
+            crc = (crc >> 1) ^ (((crc ^ data) & 1) ? CRC32_POLYNOMIAL : 0);
+        }
+    }
+    return crc;
+}

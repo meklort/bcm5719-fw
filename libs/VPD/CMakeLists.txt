@@ -1,10 +1,10 @@
 ################################################################################
 ###
-### @file       utils/CMakeLists.txt
+### @file       libs/VPD/CMakeLists.txt
 ###
 ### @project    
 ###
-### @brief      Utilities CMake file
+### @brief      VPD CMake file
 ###
 ################################################################################
 ###
@@ -42,5 +42,15 @@
 ### @endcond
 ################################################################################
 
-add_subdirectory(bcmregtool)
-add_subdirectory(bcmflash)
+project(VPD)
+
+
+# Host Simulation library
+simulator_add_library(${PROJECT_NAME} STATIC vpd.c)
+target_include_directories(${PROJECT_NAME} PUBLIC ../../include)
+target_include_directories(${PROJECT_NAME} PUBLIC include)
+
+# MIPS Library
+mips_add_library(${PROJECT_NAME}-mips STATIC vpd.c)
+target_include_directories(${PROJECT_NAME}-mips PUBLIC ../../include)
+target_include_directories(${PROJECT_NAME}-mips PUBLIC include)

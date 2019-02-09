@@ -60,4 +60,9 @@ void NVRam_write(uint32_t address, uint32_t* buffer, size_t words);
 void NVRam_enable(void);
 void NVRam_disable(void);
 
+uint32_t NVRam_crc(
+                uint8_t *pcDatabuf,     // Pointer to data buffer
+                uint32_t ulDatalen,     // Length of data buffer in bytes
+                uint32_t crc);           // Initial value
+
 #endif /* NVRAM_H */

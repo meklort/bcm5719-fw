@@ -45,5 +45,6 @@
 
 add_subdirectory(NVRam)
 add_subdirectory(MII)
+add_subdirectory(VPD)
 
 add_subdirectory(bcm5719)
