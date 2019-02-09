@@ -53,10 +53,13 @@
 #define NEEDS_ERASE                 ATMEL_AT45DB0X1B_ERASE
 
 #ifdef CXX_SIMULATOR
+#include <arpa/inet.h>
 #define REQ     ReqSet2
 #define CLR     ReqClr2
 #define WON     ArbWon2
 #else /* Firmware */
+#define ntohl(__x__)    (__x__)
+#define htonl(__x__)    (__x__)
 #define REQ     ReqSet0
 #define CLR     ReqClr0
 #define WON     ArbWon0
@@ -125,7 +128,7 @@ bool NVRam_releaseLock(void)
     return true;
 }
 
-static uint32_t NVRam_readByteInternal(uint32_t address, RegNVMCommand_t cmd)
+static uint32_t NVRam_readWordInternal(uint32_t address, RegNVMCommand_t cmd)
 {
     address = NVRam_translate(address);
 
@@ -139,9 +142,9 @@ static uint32_t NVRam_readByteInternal(uint32_t address, RegNVMCommand_t cmd)
 
     NVRam_waitDone();
 
-    return NVM.Read.r32;
+    return ntohl(NVM.Read.r32);
 }
-static void NVRam_writeByteInternal(uint32_t address, uint32_t data, RegNVMCommand_t cmd)
+static void NVRam_writeWordInternal(uint32_t address, uint32_t data, RegNVMCommand_t cmd)
 {
     address = NVRam_translate(address);
 
@@ -150,28 +153,28 @@ static void NVRam_writeByteInternal(uint32_t address, uint32_t data, RegNVMComma
     done.bits.Done = 1;
 
     NVM.Command = done;
-    NVM.Write.r32 = data;
+    NVM.Write.r32 = htonl(data);
     NVM.Addr.r32 = address;
     NVM.Command = cmd;
 
     NVRam_waitDone();
 }
 
-uint32_t NVRam_readByte(uint32_t address)
+uint32_t NVRam_readWord(uint32_t address)
 {
     RegNVMCommand_t cmd;
     cmd.bits.First = 1;
     cmd.bits.Last = 1;
     cmd.bits.Doit = 1;
 
-    return NVRam_readByteInternal(address, cmd);
+    return NVRam_readWordInternal(address, cmd);
 }
 
 void NVRam_read(uint32_t address, uint32_t* buffer, size_t words)
 {
     if(!words)
     {
-        // No bytes to read.
+        // No data to read.
         return;
     }
 
@@ -188,7 +191,7 @@ void NVRam_read(uint32_t address, uint32_t* buffer, size_t words)
             cmd.bits.Last = 1;
         }
 
-        *buffer = NVRam_readByteInternal(address, cmd);
+        *buffer = NVRam_readWordInternal(address, cmd);
         buffer++;
         words--;
         address +=4;
@@ -198,7 +201,7 @@ void NVRam_read(uint32_t address, uint32_t* buffer, size_t words)
     }
 }
 
-void NVRam_writeByte(uint32_t address, uint32_t data)
+void NVRam_writeWord(uint32_t address, uint32_t data)
 {
     RegNVMCommand_t cmd;
     cmd.bits.First = 1;
@@ -206,7 +209,7 @@ void NVRam_writeByte(uint32_t address, uint32_t data)
     cmd.bits.Doit = 1;
     cmd.bits.Wr = 1;
 
-    NVRam_writeByteInternal(address, data, cmd);
+    NVRam_writeWordInternal(address, data, cmd);
 }
 
 void NVRam_write(uint32_t address, uint32_t* buffer, size_t words)
@@ -231,7 +234,7 @@ void NVRam_write(uint32_t address, uint32_t* buffer, size_t words)
             cmd.bits.Last = 1;
         }
 
-        NVRam_writeByteInternal(address, *buffer, cmd);
+        NVRam_writeWordInternal(address, *buffer, cmd);
         buffer++;
         words--;
         address += 4;
