@@ -42,7 +42,7 @@
 ### @endcond
 ################################################################################
 
-project(stage0)
+project(stage1)
 
 # Firmware
 mips_add_executable(${PROJECT_NAME}
