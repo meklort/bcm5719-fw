@@ -56,7 +56,7 @@ add_subdirectory(utils)
 
 
 add_subdirectory(simulator)
-add_subdirectory(stage0)
+add_subdirectory(stage1)
 
 # add_subdirectory(bcmflash)
 # add_subdirectory(bcmfwtool)
