@@ -1,10 +1,10 @@
 ################################################################################
 ###
-### @file       libs/MII/CMakeLists.txt
+### @file       libs/bcm5719/CMakeLists.txt
 ###
 ### @project    
 ###
-### @brief      MII CMake file
+### @brief      bcm5719 hardware library (regiters)
 ###
 ################################################################################
 ###
@@ -42,15 +42,6 @@
 ### @endcond
 ################################################################################
 
-project(MII)
+project(bcm5719 ASM)
 
-# Host Simulation library
-simulator_add_library(${PROJECT_NAME} STATIC mii.c)
-target_link_libraries(${PROJECT_NAME} PRIVATE simulator)
-target_include_directories(${PROJECT_NAME} PUBLIC ../../include)
-target_include_directories(${PROJECT_NAME} PUBLIC include)
-
-# MIPS Library
-mips_add_library(${PROJECT_NAME}-mips STATIC mii.c)
-target_include_directories(${PROJECT_NAME}-mips PUBLIC ../../include)
-target_include_directories(${PROJECT_NAME}-mips PUBLIC include)
+mips_add_library(${PROJECT_NAME} STATIC bcm5719_sym.s)

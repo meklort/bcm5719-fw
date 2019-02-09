@@ -1,10 +1,10 @@
 ################################################################################
 ###
-### @file       libs/MII/CMakeLists.txt
+### @file       config.cmake
 ###
 ### @project    
 ###
-### @brief      MII CMake file
+### @brief      High level configuration
 ###
 ################################################################################
 ###
@@ -42,15 +42,18 @@
 ### @endcond
 ################################################################################
 
-project(MII)
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Werror -Wall -Os -ffunction-sections -fdata-sections")
+set(CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -Werror -Wall -Os -ffunction-sections -fdata-sections")
 
-# Host Simulation library
-simulator_add_library(${PROJECT_NAME} STATIC mii.c)
-target_link_libraries(${PROJECT_NAME} PRIVATE simulator)
-target_include_directories(${PROJECT_NAME} PUBLIC ../../include)
-target_include_directories(${PROJECT_NAME} PUBLIC include)
+# Remove default libraries to ensure cross compilng works as expected.
+SET(CMAKE_C_IMPLICIT_LINK_LIBRARIES "")
+SET(CMAKE_CXX_IMPLICIT_LINK_LIBRARIES "")
 
-# MIPS Library
-mips_add_library(${PROJECT_NAME}-mips STATIC mii.c)
-target_include_directories(${PROJECT_NAME}-mips PUBLIC ../../include)
-target_include_directories(${PROJECT_NAME}-mips PUBLIC include)
+# Settings and build rules for simulator targets
+include(${CMAKE_CURRENT_LIST_DIR}/simulator.cmake)
+
+# Settings and build rules for mips targets
+include(${CMAKE_CURRENT_LIST_DIR}/mips.cmake)
+
+# Settings and build rules for arm targets
+include(${CMAKE_CURRENT_LIST_DIR}/arm.cmake)

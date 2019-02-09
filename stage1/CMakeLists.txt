@@ -1,10 +1,10 @@
 ################################################################################
 ###
-### @file       libs/MII/CMakeLists.txt
+### @file       CMakeLists.txt
 ###
-### @project    
+### @project    bcm5719
 ###
-### @brief      MII CMake file
+### @brief      First binary stage for the bcm5719
 ###
 ################################################################################
 ###
@@ -42,15 +42,23 @@
 ### @endcond
 ################################################################################
 
-project(MII)
+project(stage1)
 
-# Host Simulation library
-simulator_add_library(${PROJECT_NAME} STATIC mii.c)
-target_link_libraries(${PROJECT_NAME} PRIVATE simulator)
-target_include_directories(${PROJECT_NAME} PUBLIC ../../include)
-target_include_directories(${PROJECT_NAME} PUBLIC include)
+# Firmware
+mips_add_executable(${PROJECT_NAME}
+            init_hw.c
+            main.c)
 
-# MIPS Library
-mips_add_library(${PROJECT_NAME}-mips STATIC mii.c)
-target_include_directories(${PROJECT_NAME}-mips PUBLIC ../../include)
-target_include_directories(${PROJECT_NAME}-mips PUBLIC include)
+target_link_libraries(${PROJECT_NAME} NVRam-mips MII-mips)
+target_link_libraries(${PROJECT_NAME} bcm5719)
+target_compile_options(${PROJECT_NAME} PRIVATE -nodefaultlibs)
+
+
+
+# Simulator add_executable
+add_executable(sim-${PROJECT_NAME}
+            init_hw.c
+            main.c)
+
+target_link_libraries(sim-${PROJECT_NAME} simulator)
+target_link_libraries(sim-${PROJECT_NAME} NVRam MII)

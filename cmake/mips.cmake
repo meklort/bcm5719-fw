@@ -1,10 +1,10 @@
 ################################################################################
 ###
-### @file       libs/MII/CMakeLists.txt
+### @file       mips.cmake
 ###
 ### @project    
 ###
-### @brief      MII CMake file
+### @brief      MIPS specific configurations
 ###
 ################################################################################
 ###
@@ -42,15 +42,24 @@
 ### @endcond
 ################################################################################
 
-project(MII)
+SET(MIPS_COMPILE_OPTIONS -nostdlib -nodefaultlibs -fomit-frame-pointer -target mips )
+SET(MIPS_LINK_OPTIONS -static-libgcc)
+SET(CMAKE_EXE_LINKER_FLAGS -static)
 
-# Host Simulation library
-simulator_add_library(${PROJECT_NAME} STATIC mii.c)
-target_link_libraries(${PROJECT_NAME} PRIVATE simulator)
-target_include_directories(${PROJECT_NAME} PUBLIC ../../include)
-target_include_directories(${PROJECT_NAME} PUBLIC include)
+SET(CMAKE_mips_LINK_EXECUTABLE "ld.lld  <OBJECTS> <LINK_LIBRARIES> <CMAKE_C_LINK_FLAGS> <LINK_FLAGS> -Bstatic -o <TARGET>")
 
-# MIPS Library
-mips_add_library(${PROJECT_NAME}-mips STATIC mii.c)
-target_include_directories(${PROJECT_NAME}-mips PUBLIC ../../include)
-target_include_directories(${PROJECT_NAME}-mips PUBLIC include)
+# MIPS-specific executables
+function(mips_add_executable target)
+    add_executable(${target} ${ARGN})
+    
+    target_compile_options(${target} PRIVATE ${MIPS_COMPILE_OPTIONS})
+    set_property(TARGET ${target} APPEND PROPERTY LINK_OPTIONS ${MIPS_LINK_OPTIONS})
+    set_property(TARGET ${target} PROPERTY LINKER_LANGUAGE mips)
+endfunction(mips_add_executable)
+
+# MIPS-specific libraries
+function(mips_add_library target)
+    add_library(${target} ${ARGN})
+    
+    target_compile_options(${target} PRIVATE ${MIPS_COMPILE_OPTIONS})
+endfunction(mips_add_library)
