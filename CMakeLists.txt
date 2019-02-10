@@ -46,7 +46,7 @@ SET(CMAKE_C_COMPILER   /usr/local/bin/clang)
 SET(CMAKE_CXX_COMPILER /usr/local/bin/clang++)
 SET(CMAKE_ASM_COMPILER /usr/local/bin/clang)
 
-cmake_minimum_required(VERSION 3.11)
+cmake_minimum_required(VERSION 3.5.1)
 project(bcm5719-top)
 
 include(cmake/config.cmake)
