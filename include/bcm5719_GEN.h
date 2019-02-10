@@ -52,6 +52,9 @@
 #include <stdint.h>
 
 #ifdef CXX_SIMULATOR /* Compiling c++ simulator code - uses register wrappers */
+void init_bcm5719_GEN_mmap(void* base);
+void init_bcm5719_GEN(void);
+
 #include <CXXRegister.h>
 typedef CXXRegister<uint8_t,  0,  8> BCM5719_GEN_H_uint8_t;
 typedef CXXRegister<uint16_t, 0, 16> BCM5719_GEN_H_uint16_t;

@@ -2,6 +2,7 @@
 #include "pci_config.h"
 
 #include <bcm5719_DEVICE.h>
+#include <bcm5719_APE.h>
 #include <dirent.h>
 #include <endian.h>
 #include <errno.h>
@@ -133,11 +134,6 @@ void initHAL(const char *pci_path)
 
     uint8_t *DEVICEBase = (uint8_t *)bar[0];
 
-    extern void init_bcm5719_DEVICE(void);
-    extern void init_bcm5719_DEVICE_mmap(void *);
-    extern void init_bcm5719_APE(void);
-    extern void init_bcm5719_NVM(void);
-    extern void init_bcm5719_NVM_mmap(void *);
     init_bcm5719_DEVICE();
     init_bcm5719_DEVICE_mmap(DEVICEBase);
     init_bcm5719_APE();
