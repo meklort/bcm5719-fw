@@ -2,7 +2,7 @@
 ///
 /// @file       vpd.c
 ///
-/// @project    
+/// @project
 ///
 /// @brief      VPD Support Routines
 ///
@@ -42,9 +42,9 @@
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
 
-#include <stdint.h>
 #include <stdbool.h>
 #include <stddef.h>
+#include <stdint.h>
 
 #define VPD_DATA_TYPE_SMALL (0x00)
 #define VPD_DATA_TYPE_LARGE (0x01)
@@ -53,28 +53,30 @@
 #define VPD_TAG_VPD_R       (0x10)
 #define VPD_TAG_VPD_W       (0x11)
 typedef union {
-    struct {
-        uint8_t bytes:3;
-        uint8_t tag:4;
-        uint8_t type:1;
+    struct
+    {
+        uint8_t bytes : 3;
+        uint8_t tag : 4;
+        uint8_t type : 1;
     } small;
-    struct {
-        uint8_t tag:7;
-        uint8_t type:1;
+    struct
+    {
+        uint8_t tag : 7;
+        uint8_t type : 1;
     } large;
     uint8_t data;
 } vpd_resource_typet_t;
 
-typedef struct {
-    uint16_t    name;
-    uint8_t     length;
-    uint8_t     data;
+typedef struct
+{
+    uint16_t name;
+    uint8_t length;
+    uint8_t data;
 } __attribute__((packed)) vpd_field_t;
 
 typedef union {
     uint8_t bytes[0x100];
 } vpd_t;
-
 
 #define VPD_PRODUCT_NAME        "PN"
 #define VPD_ENGINEERING_CHANGE  "EC"
@@ -83,12 +85,12 @@ typedef union {
 #define VPD_VENDOR_SPECIFIC_0   "V0"
 #define VPD_CHECKSUM            "RV"
 
-const char* vpd_get_field_name(uint16_t field);
+const char *vpd_get_field_name(uint16_t field);
 
-
-uint8_t* vpd_get_identifier(uint8_t *buffer, size_t *len);
-uint8_t* vpd_get_resource_by_name(uint8_t* buffer, size_t* len, uint16_t name);
-uint8_t* vpd_get_resource_by_index(uint8_t* buffer, size_t* len, uint16_t* name, size_t index);
-bool vpd_set_resource(uint8_t* buffer, size_t len, uint16_t resource, uint8_t* add_data, size_t add_len);
-bool vpd_is_valid(uint8_t* buffer, size_t len);
-
+uint8_t *vpd_get_identifier(uint8_t *buffer, size_t *len);
+uint8_t *vpd_get_resource_by_name(uint8_t *buffer, size_t *len, uint16_t name);
+uint8_t *vpd_get_resource_by_index(uint8_t *buffer, size_t *len, uint16_t *name,
+                                   size_t index);
+bool vpd_set_resource(uint8_t *buffer, size_t len, uint16_t resource,
+                      uint8_t *add_data, size_t add_len);
+bool vpd_is_valid(uint8_t *buffer, size_t len);

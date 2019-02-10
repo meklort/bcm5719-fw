@@ -48,20 +48,18 @@ NVM_t NVM;
 
 void init_bcm5719_NVM(void)
 {
-    /** @brief Component Registers for @ref NVM. */ 
-    /** @brief Bitmap for @ref NVM_t.Command. */ 
+    /** @brief Component Registers for @ref NVM. */
+    /** @brief Bitmap for @ref NVM_t.Command. */
 
-    /** @brief Bitmap for @ref NVM_t.Write. */ 
+    /** @brief Bitmap for @ref NVM_t.Write. */
 
-    /** @brief Bitmap for @ref NVM_t.Addr. */ 
+    /** @brief Bitmap for @ref NVM_t.Addr. */
 
-    /** @brief Bitmap for @ref NVM_t.Read. */ 
+    /** @brief Bitmap for @ref NVM_t.Read. */
 
-    /** @brief Bitmap for @ref NVM_t.NvmCfg1. */ 
+    /** @brief Bitmap for @ref NVM_t.NvmCfg1. */
 
-    /** @brief Bitmap for @ref NVM_t.SoftwareArbitration. */ 
+    /** @brief Bitmap for @ref NVM_t.SoftwareArbitration. */
 
-    /** @brief Bitmap for @ref NVM_t.Access. */ 
-
-
+    /** @brief Bitmap for @ref NVM_t.Access. */
 }

@@ -42,63 +42,75 @@
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
 
+#include <bcm5719_NVM.h>
 #include <stdint.h>
 #include <utility>
-#include <bcm5719_NVM.h>
 
-typedef std::pair<uint8_t*, uint32_t> ram_offset_t;
+typedef std::pair<uint8_t *, uint32_t> ram_offset_t;
 
-static uint32_t read_from_ram(uint32_t val, void* args)
+static uint32_t read_from_ram(uint32_t val, void *args)
 {
-    ram_offset_t* loc = (ram_offset_t*)args;
+    ram_offset_t *loc = (ram_offset_t *)args;
 
-    uint8_t* base = loc->first;
+    uint8_t *base = loc->first;
     base += loc->second;
 
-    return *(uint32_t*)base;
+    return *(uint32_t *)base;
 }
 
-static uint32_t write_to_ram(uint32_t val, void* args)
+static uint32_t write_to_ram(uint32_t val, void *args)
 {
-    ram_offset_t* loc = (ram_offset_t*)args;
+    ram_offset_t *loc = (ram_offset_t *)args;
 
-    uint8_t* base = loc->first;
+    uint8_t *base = loc->first;
     base += loc->second;
 
-    *(uint32_t*)base = val;
+    *(uint32_t *)base = val;
     return val;
 }
 
-void init_bcm5719_NVM_mmap(void* base)
+void init_bcm5719_NVM_mmap(void *base)
 {
-    /** @brief Component Registers for @ref NVM. */ 
-    /** @brief Bitmap for @ref NVM_t.Command. */ 
-    NVM.Command.r32.installReadCallback(read_from_ram, new ram_offset_t((uint8_t*)base, (uint32_t)0));
-    NVM.Command.r32.installWriteCallback(write_to_ram, new ram_offset_t((uint8_t*)base, (uint32_t)0));
+    /** @brief Component Registers for @ref NVM. */
+    /** @brief Bitmap for @ref NVM_t.Command. */
+    NVM.Command.r32.installReadCallback(
+        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)0));
+    NVM.Command.r32.installWriteCallback(
+        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)0));
 
-    /** @brief Bitmap for @ref NVM_t.Write. */ 
-    NVM.Write.r32.installReadCallback(read_from_ram, new ram_offset_t((uint8_t*)base, (uint32_t)8));
-    NVM.Write.r32.installWriteCallback(write_to_ram, new ram_offset_t((uint8_t*)base, (uint32_t)8));
+    /** @brief Bitmap for @ref NVM_t.Write. */
+    NVM.Write.r32.installReadCallback(
+        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)8));
+    NVM.Write.r32.installWriteCallback(
+        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)8));
 
-    /** @brief Bitmap for @ref NVM_t.Addr. */ 
-    NVM.Addr.r32.installReadCallback(read_from_ram, new ram_offset_t((uint8_t*)base, (uint32_t)12));
-    NVM.Addr.r32.installWriteCallback(write_to_ram, new ram_offset_t((uint8_t*)base, (uint32_t)12));
+    /** @brief Bitmap for @ref NVM_t.Addr. */
+    NVM.Addr.r32.installReadCallback(
+        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)12));
+    NVM.Addr.r32.installWriteCallback(
+        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)12));
 
-    /** @brief Bitmap for @ref NVM_t.Read. */ 
-    NVM.Read.r32.installReadCallback(read_from_ram, new ram_offset_t((uint8_t*)base, (uint32_t)16));
-    NVM.Read.r32.installWriteCallback(write_to_ram, new ram_offset_t((uint8_t*)base, (uint32_t)16));
+    /** @brief Bitmap for @ref NVM_t.Read. */
+    NVM.Read.r32.installReadCallback(
+        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16));
+    NVM.Read.r32.installWriteCallback(
+        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16));
 
-    /** @brief Bitmap for @ref NVM_t.NvmCfg1. */ 
-    NVM.NvmCfg1.r32.installReadCallback(read_from_ram, new ram_offset_t((uint8_t*)base, (uint32_t)20));
-    NVM.NvmCfg1.r32.installWriteCallback(write_to_ram, new ram_offset_t((uint8_t*)base, (uint32_t)20));
+    /** @brief Bitmap for @ref NVM_t.NvmCfg1. */
+    NVM.NvmCfg1.r32.installReadCallback(
+        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)20));
+    NVM.NvmCfg1.r32.installWriteCallback(
+        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)20));
 
-    /** @brief Bitmap for @ref NVM_t.SoftwareArbitration. */ 
-    NVM.SoftwareArbitration.r32.installReadCallback(read_from_ram, new ram_offset_t((uint8_t*)base, (uint32_t)32));
-    NVM.SoftwareArbitration.r32.installWriteCallback(write_to_ram, new ram_offset_t((uint8_t*)base, (uint32_t)32));
+    /** @brief Bitmap for @ref NVM_t.SoftwareArbitration. */
+    NVM.SoftwareArbitration.r32.installReadCallback(
+        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)32));
+    NVM.SoftwareArbitration.r32.installWriteCallback(
+        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)32));
 
-    /** @brief Bitmap for @ref NVM_t.Access. */ 
-    NVM.Access.r32.installReadCallback(read_from_ram, new ram_offset_t((uint8_t*)base, (uint32_t)36));
-    NVM.Access.r32.installWriteCallback(write_to_ram, new ram_offset_t((uint8_t*)base, (uint32_t)36));
-
-
+    /** @brief Bitmap for @ref NVM_t.Access. */
+    NVM.Access.r32.installReadCallback(
+        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)36));
+    NVM.Access.r32.installWriteCallback(
+        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)36));
 }

@@ -2,7 +2,7 @@
 ///
 /// @file       MII.c
 ///
-/// @project    
+/// @project
 ///
 /// @brief      MII Support Routines
 ///
@@ -47,7 +47,7 @@
 static void MII_wait(void)
 {
     // Wait for the status bit to be clear.
-    while(DEVICE.MiiCommunication.bits.Start_DIV_Busy)
+    while (DEVICE.MiiCommunication.bits.Start_DIV_Busy)
     {
         // Waiting...
     }

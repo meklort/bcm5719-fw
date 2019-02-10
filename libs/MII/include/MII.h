@@ -2,7 +2,7 @@
 ///
 /// @file       MII.h
 ///
-/// @project    
+/// @project
 ///
 /// @brief      MII Support Routines
 ///

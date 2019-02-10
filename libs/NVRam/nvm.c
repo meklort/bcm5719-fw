@@ -2,7 +2,7 @@
 ///
 /// @file       NVRam.c
 ///
-/// @project    
+/// @project
 ///
 /// @brief      NVRam Support Routines
 ///
@@ -41,30 +41,30 @@
 /// POSSIBILITY OF SUCH DAMAGE.
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
-#include <NVRam.h>
 #include "bcm5719_NVM.h"
 
-#define ATMEL_AT45DB0X1B_PAGE_POS   (9u)
-#define ATMEL_AT45DB0X1B_PAGE_SIZE  (264u)
-#define ATMEL_AT45DB0X1B_ERASE      (false)
+#include <NVRam.h>
 
-#define PAGE_POS                    ATMEL_AT45DB0X1B_PAGE_POS
-#define PAGE_SIZE                   ATMEL_AT45DB0X1B_PAGE_SIZE
-#define NEEDS_ERASE                 ATMEL_AT45DB0X1B_ERASE
+#define ATMEL_AT45DB0X1B_PAGE_POS (9u)
+#define ATMEL_AT45DB0X1B_PAGE_SIZE (264u)
+#define ATMEL_AT45DB0X1B_ERASE (false)
+
+#define PAGE_POS ATMEL_AT45DB0X1B_PAGE_POS
+#define PAGE_SIZE ATMEL_AT45DB0X1B_PAGE_SIZE
+#define NEEDS_ERASE ATMEL_AT45DB0X1B_ERASE
 
 #ifdef CXX_SIMULATOR
 #include <arpa/inet.h>
-#define REQ     ReqSet2
-#define CLR     ReqClr2
-#define WON     ArbWon2
+#define REQ ReqSet2
+#define CLR ReqClr2
+#define WON ArbWon2
 #else /* Firmware */
-#define ntohl(__x__)    (__x__)
-#define htonl(__x__)    (__x__)
-#define REQ     ReqSet0
-#define CLR     ReqClr0
-#define WON     ArbWon0
+#define ntohl(__x__) (__x__)
+#define htonl(__x__) (__x__)
+#define REQ ReqSet0
+#define CLR ReqClr0
+#define WON ArbWon0
 #endif
-
 
 /**
  * @fn  uint32_t NVRam_translate(uint32_t address)
@@ -85,7 +85,7 @@ static inline uint32_t NVRam_translate(uint32_t address)
     }
 #else
     return address;
-#endif    
+#endif
 }
 
 void NVRam_enable(void)
@@ -102,9 +102,8 @@ void NVRam_disable(void)
 
 static inline void NVRam_waitDone(void)
 {
-    while(!NVM.Command.bits.Done)
+    while (!NVM.Command.bits.Done)
     {
-
     }
 }
 
@@ -113,7 +112,7 @@ bool NVRam_acquireLock(void)
     // Grab lock
     NVM.SoftwareArbitration.bits.REQ = 1;
 
-    while(!NVM.SoftwareArbitration.bits.WON)
+    while (!NVM.SoftwareArbitration.bits.WON)
     {
         // Spin
     }
@@ -144,7 +143,8 @@ static uint32_t NVRam_readWordInternal(uint32_t address, RegNVMCommand_t cmd)
 
     return ntohl(NVM.Read.r32);
 }
-static void NVRam_writeWordInternal(uint32_t address, uint32_t data, RegNVMCommand_t cmd)
+static void NVRam_writeWordInternal(uint32_t address, uint32_t data,
+                                    RegNVMCommand_t cmd)
 {
     address = NVRam_translate(address);
 
@@ -170,9 +170,9 @@ uint32_t NVRam_readWord(uint32_t address)
     return NVRam_readWordInternal(address, cmd);
 }
 
-void NVRam_read(uint32_t address, uint32_t* buffer, size_t words)
+void NVRam_read(uint32_t address, uint32_t *buffer, size_t words)
 {
-    if(!words)
+    if (!words)
     {
         // No data to read.
         return;
@@ -183,9 +183,9 @@ void NVRam_read(uint32_t address, uint32_t* buffer, size_t words)
     cmd.bits.Doit = 1;
     cmd.bits.First = 1;
 
-    while(words)
+    while (words)
     {
-        if(1 == words)
+        if (1 == words)
         {
             // Last word.
             cmd.bits.Last = 1;
@@ -194,7 +194,7 @@ void NVRam_read(uint32_t address, uint32_t* buffer, size_t words)
         *buffer = NVRam_readWordInternal(address, cmd);
         buffer++;
         words--;
-        address +=4;
+        address += 4;
 
         // If we have more than one word, clear the first bit.
         cmd.bits.First = 0;
@@ -212,9 +212,9 @@ void NVRam_writeWord(uint32_t address, uint32_t data)
     NVRam_writeWordInternal(address, data, cmd);
 }
 
-void NVRam_write(uint32_t address, uint32_t* buffer, size_t words)
+void NVRam_write(uint32_t address, uint32_t *buffer, size_t words)
 {
-    if(!words)
+    if (!words)
     {
         // No bytes to read.
         return;
@@ -226,9 +226,9 @@ void NVRam_write(uint32_t address, uint32_t* buffer, size_t words)
     cmd.bits.First = 1;
     cmd.bits.Wr = 1;
 
-    while(words)
+    while (words)
     {
-        if(1 == words)
+        if (1 == words)
         {
             // Last word.
             cmd.bits.Last = 1;

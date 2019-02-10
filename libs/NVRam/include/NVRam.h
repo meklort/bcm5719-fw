@@ -2,7 +2,7 @@
 ///
 /// @file       NVRam.h
 ///
-/// @project    
+/// @project
 ///
 /// @brief      NVRam Support Routines
 ///
@@ -44,25 +44,24 @@
 #ifndef NVRAM_H
 #define NVRAM_H
 
-#include <stdint.h>
-#include <stddef.h>
 #include <stdbool.h>
+#include <stddef.h>
+#include <stdint.h>
 
 bool NVRam_acquireLock(void);
 bool NVRam_releaseLock(void);
 
 uint32_t NVRam_readWord(uint32_t address);
-void NVRam_read(uint32_t address, uint32_t* buffer, size_t words);
+void NVRam_read(uint32_t address, uint32_t *buffer, size_t words);
 
 void NVRam_writeWord(uint32_t address, uint32_t data);
-void NVRam_write(uint32_t address, uint32_t* buffer, size_t words);
+void NVRam_write(uint32_t address, uint32_t *buffer, size_t words);
 
 void NVRam_enable(void);
 void NVRam_disable(void);
 
-uint32_t NVRam_crc(
-                uint8_t *pcDatabuf,     // Pointer to data buffer
-                uint32_t ulDatalen,     // Length of data buffer in bytes
-                uint32_t crc);           // Initial value
+uint32_t NVRam_crc(uint8_t *pcDatabuf, // Pointer to data buffer
+                   uint32_t ulDatalen, // Length of data buffer in bytes
+                   uint32_t crc);      // Initial value
 
 #endif /* NVRAM_H */

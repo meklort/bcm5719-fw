@@ -2,7 +2,7 @@
 ///
 /// @file       vpd.c
 ///
-/// @project    
+/// @project
 ///
 /// @brief      VPD Support Routines
 ///
@@ -42,22 +42,19 @@
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
 
-#include <vpd.h>
+#include <stdbool.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdbool.h>
+#include <vpd.h>
 
-#include <stdio.h>
-
-
-typedef struct {
-    const char* name;
-    const char* string;
+typedef struct
+{
+    const char *name;
+    const char *string;
 } vpd_name_entry_t;
 
-
-vpd_name_entry_t mNames[] = 
-{
+vpd_name_entry_t mNames[] = {
     {.name = VPD_PRODUCT_NAME,          .string = "Product Name"},
     {.name = VPD_ENGINEERING_CHANGE,    .string = "Engineering Change"},
     {.name = VPD_SERIAL_NUMBER,         .string = "Serial Number"},
@@ -67,17 +64,17 @@ vpd_name_entry_t mNames[] =
 
 bool vpd_is_checksum(uint16_t field)
 {
-    if(0 == strncmp(VPD_CHECKSUM, (const char*)&field, 2))
+    if (0 == strncmp(VPD_CHECKSUM, (const char *)&field, 2))
     {
         return true;
     }
     return false;
 }
-const char* vpd_get_field_name(uint16_t field)
+const char *vpd_get_field_name(uint16_t field)
 {
-    for(int i = 0; i < sizeof(mNames)/sizeof(mNames[0]); i++)
+    for (int i = 0; i < sizeof(mNames) / sizeof(mNames[0]); i++)
     {
-        if(0 == strncmp(mNames[i].name, (const char*)&field, 2))
+        if (0 == strncmp(mNames[i].name, (const char *)&field, 2))
         {
             return mNames[i].string;
         }
@@ -87,13 +84,16 @@ const char* vpd_get_field_name(uint16_t field)
     return NULL;
 }
 
-static uint8_t* get_next_tag(uint8_t* buffer, size_t *len)
+static uint8_t *get_next_tag(uint8_t *buffer, size_t *len)
 {
-    if(!len) return NULL;
+    if (!len)
+    {
+        return NULL;
+    }
 
     uint16_t tag_len = 0;
     vpd_resource_typet_t b0 = {.data = buffer[0]};
-    if(VPD_DATA_TYPE_LARGE == b0.large.type)
+    if (VPD_DATA_TYPE_LARGE == b0.large.type)
     {
 
         tag_len = 3;
@@ -109,12 +109,15 @@ static uint8_t* get_next_tag(uint8_t* buffer, size_t *len)
     return &buffer[tag_len];
 }
 
-static uint8_t* get_tag_data(uint8_t* buffer, size_t *len)
+static uint8_t *get_tag_data(uint8_t *buffer, size_t *len)
 {
-    if(!len) return NULL;
+    if (!len)
+    {
+        return NULL;
+    }
 
     vpd_resource_typet_t b0 = {.data = buffer[0]};
-    if(VPD_DATA_TYPE_LARGE == b0.large.type)
+    if (VPD_DATA_TYPE_LARGE == b0.large.type)
     {
         *len = buffer[1] | buffer[2] << 8;
         return &buffer[3];
@@ -126,59 +129,68 @@ static uint8_t* get_tag_data(uint8_t* buffer, size_t *len)
     }
 }
 
-uint8_t* vpd_get_resource_by_name(uint8_t *buffer, size_t *len, uint16_t type)
+uint8_t *vpd_get_resource_by_name(uint8_t *buffer, size_t *len, uint16_t type)
 {
     return NULL;
 }
-uint8_t* vpd_get_resource_by_index(uint8_t *buffer, size_t *len, uint16_t *name, size_t index)
+
+uint8_t *vpd_get_resource_by_index(uint8_t *buffer, size_t *len, uint16_t *name,
+                                   size_t index)
 {
     index++;
     size_t new_len = *len;
     uint8_t *new_buf = get_next_tag(buffer, &new_len);
     new_buf = get_tag_data(new_buf, &new_len);
 
-    vpd_field_t* field;
+    vpd_field_t *field;
     do
     {
-        field = (vpd_field_t*)new_buf;
+        field = (vpd_field_t *)new_buf;
 
-        char* data = (char*)malloc(field->length + 1);
+        char *data = (char *)malloc(field->length + 1);
         memcpy(data, &field->data, field->length);
         data[field->length] = 0;
 
         new_buf += field->length;
         new_buf += 3;
 
-        index--;        
-        if(index && vpd_is_checksum(field->name))
+        index--;
+        if (index && vpd_is_checksum(field->name))
         {
             // last entry found, but we requested more.
             return NULL;
         }
-    } while(index);
+    } while (index);
 
     *name = field->name;
     *len = field->length;
     return &field->data;
 }
-bool vpd_set_resource(uint8_t *buffer, size_t len, uint16_t resource, uint8_t *add_data, size_t add_len)
+bool vpd_set_resource(uint8_t *buffer, size_t len, uint16_t resource,
+                      uint8_t *add_data, size_t add_len)
 {
     return false;
 }
-bool vpd_is_valid(uint8_t* buffer, size_t len)
+bool vpd_is_valid(uint8_t *buffer, size_t len)
 {
-    if(!len) return false;
+    if (!len)
+    {
+        return false;
+    }
 
-    if(!vpd_get_identifier(buffer, &len)) return false;
+    if (!vpd_get_identifier(buffer, &len))
+    {
+        return false;
+    }
 
     // TODO: check checksum.
     return true;
 }
 
-uint8_t* vpd_get_identifier(uint8_t* buffer, size_t* len)
+uint8_t *vpd_get_identifier(uint8_t *buffer, size_t *len)
 {
-    if(!len) return NULL;
-
+    if (!len)
+        return NULL;
 
     return get_tag_data(buffer, len);
 }

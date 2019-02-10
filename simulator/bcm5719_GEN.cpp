@@ -48,52 +48,50 @@ GEN_t GEN;
 
 void init_bcm5719_GEN(void)
 {
-    /** @brief Component Registers for @ref GEN. */ 
-    /** @brief Bitmap for @ref GEN_t.GenFwMbox. */ 
+    /** @brief Component Registers for @ref GEN. */
+    /** @brief Bitmap for @ref GEN_t.GenFwMbox. */
 
-    /** @brief Bitmap for @ref GEN_t.GenDataSig. */ 
+    /** @brief Bitmap for @ref GEN_t.GenDataSig. */
 
-    /** @brief Bitmap for @ref GEN_t.GenCfg. */ 
+    /** @brief Bitmap for @ref GEN_t.GenCfg. */
 
-    /** @brief Bitmap for @ref GEN_t.GenVersion. */ 
+    /** @brief Bitmap for @ref GEN_t.GenVersion. */
 
-    /** @brief Bitmap for @ref GEN_t.GenPhyId. */ 
+    /** @brief Bitmap for @ref GEN_t.GenPhyId. */
 
-    /** @brief Bitmap for @ref GEN_t.GenAsfStatusMbox. */ 
+    /** @brief Bitmap for @ref GEN_t.GenAsfStatusMbox. */
 
-    /** @brief Bitmap for @ref GEN_t.GenFwDriverStateMbox. */ 
+    /** @brief Bitmap for @ref GEN_t.GenFwDriverStateMbox. */
 
-    /** @brief Bitmap for @ref GEN_t.GenFwResetTypeMbox. */ 
+    /** @brief Bitmap for @ref GEN_t.GenFwResetTypeMbox. */
 
-    /** @brief Bitmap for @ref GEN_t.GenBc. */ 
+    /** @brief Bitmap for @ref GEN_t.GenBc. */
 
-    /** @brief Bitmap for @ref GEN_t.GenMacAddrHighMbox. */ 
+    /** @brief Bitmap for @ref GEN_t.GenMacAddrHighMbox. */
 
-    /** @brief Bitmap for @ref GEN_t.GenMacAddrLowMbox. */ 
+    /** @brief Bitmap for @ref GEN_t.GenMacAddrLowMbox. */
 
-    /** @brief Bitmap for @ref GEN_t.GenD8. */ 
+    /** @brief Bitmap for @ref GEN_t.GenD8. */
 
-    /** @brief Bitmap for @ref GEN_t.Gen1dc. */ 
+    /** @brief Bitmap for @ref GEN_t.Gen1dc. */
 
-    /** @brief Bitmap for @ref GEN_t.GenWolMbox. */ 
+    /** @brief Bitmap for @ref GEN_t.GenWolMbox. */
 
-    /** @brief Bitmap for @ref GEN_t.GenCfgFeature. */ 
+    /** @brief Bitmap for @ref GEN_t.GenCfgFeature. */
 
-    /** @brief Bitmap for @ref GEN_t.GenCfgHw. */ 
+    /** @brief Bitmap for @ref GEN_t.GenCfgHw. */
 
-    /** @brief Bitmap for @ref GEN_t.GenCfgShared. */ 
+    /** @brief Bitmap for @ref GEN_t.GenCfgShared. */
 
-    /** @brief Bitmap for @ref GEN_t.GenFwVersion. */ 
+    /** @brief Bitmap for @ref GEN_t.GenFwVersion. */
 
-    /** @brief Bitmap for @ref GEN_t.GenCfgHw2. */ 
+    /** @brief Bitmap for @ref GEN_t.GenCfgHw2. */
 
-    /** @brief Bitmap for @ref GEN_t.GenCpmuStatus. */ 
+    /** @brief Bitmap for @ref GEN_t.GenCpmuStatus. */
 
-    /** @brief Bitmap for @ref GEN_t.GenCfg5. */ 
+    /** @brief Bitmap for @ref GEN_t.GenCfg5. */
 
-    /** @brief Bitmap for @ref GEN_t.GenDbgControlStatus. */ 
+    /** @brief Bitmap for @ref GEN_t.GenDbgControlStatus. */
 
-    /** @brief Bitmap for @ref GEN_t.GenDbgData. */ 
-
-
+    /** @brief Bitmap for @ref GEN_t.GenDbgData. */
 }

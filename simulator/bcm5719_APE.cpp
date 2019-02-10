@@ -48,154 +48,152 @@ APE_t APE;
 
 void init_bcm5719_APE(void)
 {
-    /** @brief Component Registers for @ref APE. */ 
-    /** @brief Bitmap for @ref APE_t.Mode. */ 
+    /** @brief Component Registers for @ref APE. */
+    /** @brief Bitmap for @ref APE_t.Mode. */
 
-    /** @brief Bitmap for @ref APE_t.Status. */ 
+    /** @brief Bitmap for @ref APE_t.Status. */
 
-    /** @brief Bitmap for @ref APE_t.GpioMessage. */ 
+    /** @brief Bitmap for @ref APE_t.GpioMessage. */
 
-    /** @brief Bitmap for @ref APE_t.Event. */ 
+    /** @brief Bitmap for @ref APE_t.Event. */
 
-    /** @brief Bitmap for @ref APE_t.Mode2. */ 
+    /** @brief Bitmap for @ref APE_t.Mode2. */
 
-    /** @brief Bitmap for @ref APE_t.Status2. */ 
+    /** @brief Bitmap for @ref APE_t.Status2. */
 
-    /** @brief Bitmap for @ref APE_t.LockGrantObsolete. */ 
+    /** @brief Bitmap for @ref APE_t.LockGrantObsolete. */
 
-    /** @brief Bitmap for @ref APE_t.B0. */ 
+    /** @brief Bitmap for @ref APE_t.B0. */
 
-    /** @brief Bitmap for @ref APE_t.Gpio. */ 
+    /** @brief Bitmap for @ref APE_t.Gpio. */
 
-    /** @brief Bitmap for @ref APE_t.Gint. */ 
+    /** @brief Bitmap for @ref APE_t.Gint. */
 
-    /** @brief Bitmap for @ref APE_t.OtpControl. */ 
+    /** @brief Bitmap for @ref APE_t.OtpControl. */
 
-    /** @brief Bitmap for @ref APE_t.OtpStatus. */ 
+    /** @brief Bitmap for @ref APE_t.OtpStatus. */
 
-    /** @brief Bitmap for @ref APE_t.OtpAddr. */ 
+    /** @brief Bitmap for @ref APE_t.OtpAddr. */
 
-    /** @brief Bitmap for @ref APE_t.OtpReadData. */ 
+    /** @brief Bitmap for @ref APE_t.OtpReadData. */
 
-    /** @brief Bitmap for @ref APE_t.Cm3. */ 
+    /** @brief Bitmap for @ref APE_t.Cm3. */
 
-    /** @brief Bitmap for @ref APE_t.SegSig. */ 
+    /** @brief Bitmap for @ref APE_t.SegSig. */
 
-    /** @brief Bitmap for @ref APE_t.FwStatus. */ 
+    /** @brief Bitmap for @ref APE_t.FwStatus. */
 
-    /** @brief Bitmap for @ref APE_t.FwFeatures. */ 
+    /** @brief Bitmap for @ref APE_t.FwFeatures. */
 
-    /** @brief Bitmap for @ref APE_t.4014. */ 
+    /** @brief Bitmap for @ref APE_t.4014. */
 
-    /** @brief Bitmap for @ref APE_t.FwVersion. */ 
+    /** @brief Bitmap for @ref APE_t.FwVersion. */
 
-    /** @brief Bitmap for @ref APE_t.SegMessageBufferOffset. */ 
+    /** @brief Bitmap for @ref APE_t.SegMessageBufferOffset. */
 
-    /** @brief Bitmap for @ref APE_t.SegMessageBufferLength. */ 
+    /** @brief Bitmap for @ref APE_t.SegMessageBufferLength. */
 
-    /** @brief Bitmap for @ref APE_t.4024. */ 
+    /** @brief Bitmap for @ref APE_t.4024. */
 
-    /** @brief Bitmap for @ref APE_t.4028. */ 
+    /** @brief Bitmap for @ref APE_t.4028. */
 
-    /** @brief Bitmap for @ref APE_t.RcpuSegSig. */ 
+    /** @brief Bitmap for @ref APE_t.RcpuSegSig. */
 
-    /** @brief Bitmap for @ref APE_t.RcpuSegLength. */ 
+    /** @brief Bitmap for @ref APE_t.RcpuSegLength. */
 
-    /** @brief Bitmap for @ref APE_t.RcpuInitCount. */ 
+    /** @brief Bitmap for @ref APE_t.RcpuInitCount. */
 
-    /** @brief Bitmap for @ref APE_t.RcpuFwVersion. */ 
+    /** @brief Bitmap for @ref APE_t.RcpuFwVersion. */
 
-    /** @brief Bitmap for @ref APE_t.RcpuCfgFeature. */ 
+    /** @brief Bitmap for @ref APE_t.RcpuCfgFeature. */
 
-    /** @brief Bitmap for @ref APE_t.RcpuPciVendorDeviceId. */ 
+    /** @brief Bitmap for @ref APE_t.RcpuPciVendorDeviceId. */
 
-    /** @brief Bitmap for @ref APE_t.RcpuPciSubsystemId. */ 
+    /** @brief Bitmap for @ref APE_t.RcpuPciSubsystemId. */
 
-    /** @brief Bitmap for @ref APE_t.411c. */ 
+    /** @brief Bitmap for @ref APE_t.411c. */
 
-    /** @brief Bitmap for @ref APE_t.4120. */ 
+    /** @brief Bitmap for @ref APE_t.4120. */
 
-    /** @brief Bitmap for @ref APE_t.4124. */ 
+    /** @brief Bitmap for @ref APE_t.4124. */
 
-    /** @brief Bitmap for @ref APE_t.RcpuCfgHw. */ 
+    /** @brief Bitmap for @ref APE_t.RcpuCfgHw. */
 
-    /** @brief Bitmap for @ref APE_t.RcpuCfgHw2. */ 
+    /** @brief Bitmap for @ref APE_t.RcpuCfgHw2. */
 
-    /** @brief Bitmap for @ref APE_t.RcpuCpmuStatus. */ 
+    /** @brief Bitmap for @ref APE_t.RcpuCpmuStatus. */
 
-    /** @brief Bitmap for @ref APE_t.HostSegSig. */ 
+    /** @brief Bitmap for @ref APE_t.HostSegSig. */
 
-    /** @brief Bitmap for @ref APE_t.HostSegLen. */ 
+    /** @brief Bitmap for @ref APE_t.HostSegLen. */
 
-    /** @brief Bitmap for @ref APE_t.HostInitCount. */ 
+    /** @brief Bitmap for @ref APE_t.HostInitCount. */
 
-    /** @brief Bitmap for @ref APE_t.HostDriverId. */ 
+    /** @brief Bitmap for @ref APE_t.HostDriverId. */
 
-    /** @brief Bitmap for @ref APE_t.HostBehavior. */ 
+    /** @brief Bitmap for @ref APE_t.HostBehavior. */
 
-    /** @brief Bitmap for @ref APE_t.HeartbeatInterval. */ 
+    /** @brief Bitmap for @ref APE_t.HeartbeatInterval. */
 
-    /** @brief Bitmap for @ref APE_t.HeartbeatCount. */ 
+    /** @brief Bitmap for @ref APE_t.HeartbeatCount. */
 
-    /** @brief Bitmap for @ref APE_t.HostDriverState. */ 
+    /** @brief Bitmap for @ref APE_t.HostDriverState. */
 
-    /** @brief Bitmap for @ref APE_t.WolSpeed. */ 
+    /** @brief Bitmap for @ref APE_t.WolSpeed. */
 
-    /** @brief Bitmap for @ref APE_t.EventStatus. */ 
+    /** @brief Bitmap for @ref APE_t.EventStatus. */
 
-    /** @brief Bitmap for @ref APE_t.ProtMagic. */ 
+    /** @brief Bitmap for @ref APE_t.ProtMagic. */
 
-    /** @brief Bitmap for @ref APE_t.ProtMac0High. */ 
+    /** @brief Bitmap for @ref APE_t.ProtMac0High. */
 
-    /** @brief Bitmap for @ref APE_t.ProtMac0Low. */ 
+    /** @brief Bitmap for @ref APE_t.ProtMac0Low. */
 
-    /** @brief Bitmap for @ref APE_t.NcsiSig. */ 
+    /** @brief Bitmap for @ref APE_t.NcsiSig. */
 
-    /** @brief Bitmap for @ref APE_t.NcsiBuildTime. */ 
+    /** @brief Bitmap for @ref APE_t.NcsiBuildTime. */
 
-    /** @brief Bitmap for @ref APE_t.NcsiBuildTime2. */ 
+    /** @brief Bitmap for @ref APE_t.NcsiBuildTime2. */
 
-    /** @brief Bitmap for @ref APE_t.NcsiBuildTime3. */ 
+    /** @brief Bitmap for @ref APE_t.NcsiBuildTime3. */
 
-    /** @brief Bitmap for @ref APE_t.NcsiBuildDate. */ 
+    /** @brief Bitmap for @ref APE_t.NcsiBuildDate. */
 
-    /** @brief Bitmap for @ref APE_t.NcsiBuildDate2. */ 
+    /** @brief Bitmap for @ref APE_t.NcsiBuildDate2. */
 
-    /** @brief Bitmap for @ref APE_t.NcsiBuildDate3. */ 
+    /** @brief Bitmap for @ref APE_t.NcsiBuildDate3. */
 
-    /** @brief Bitmap for @ref APE_t.ChipId. */ 
+    /** @brief Bitmap for @ref APE_t.ChipId. */
 
-    /** @brief Bitmap for @ref APE_t.PerLockRequestPhy0. */ 
+    /** @brief Bitmap for @ref APE_t.PerLockRequestPhy0. */
 
-    /** @brief Bitmap for @ref APE_t.PerLockRequestGrc. */ 
+    /** @brief Bitmap for @ref APE_t.PerLockRequestGrc. */
 
-    /** @brief Bitmap for @ref APE_t.PerLockRequestPhy1. */ 
+    /** @brief Bitmap for @ref APE_t.PerLockRequestPhy1. */
 
-    /** @brief Bitmap for @ref APE_t.PerLockRequestPhy2. */ 
+    /** @brief Bitmap for @ref APE_t.PerLockRequestPhy2. */
 
-    /** @brief Bitmap for @ref APE_t.PerLockRequestMem. */ 
+    /** @brief Bitmap for @ref APE_t.PerLockRequestMem. */
 
-    /** @brief Bitmap for @ref APE_t.PerLockRequestPhy3. */ 
+    /** @brief Bitmap for @ref APE_t.PerLockRequestPhy3. */
 
-    /** @brief Bitmap for @ref APE_t.PerLockRequestPort6. */ 
+    /** @brief Bitmap for @ref APE_t.PerLockRequestPort6. */
 
-    /** @brief Bitmap for @ref APE_t.PerLockRequestGpio. */ 
+    /** @brief Bitmap for @ref APE_t.PerLockRequestGpio. */
 
-    /** @brief Bitmap for @ref APE_t.PerLockGrantPhy0. */ 
+    /** @brief Bitmap for @ref APE_t.PerLockGrantPhy0. */
 
-    /** @brief Bitmap for @ref APE_t.PerLockGrantGrc. */ 
+    /** @brief Bitmap for @ref APE_t.PerLockGrantGrc. */
 
-    /** @brief Bitmap for @ref APE_t.PerLockGrantPhy1. */ 
+    /** @brief Bitmap for @ref APE_t.PerLockGrantPhy1. */
 
-    /** @brief Bitmap for @ref APE_t.PerLockGrantPhy2. */ 
+    /** @brief Bitmap for @ref APE_t.PerLockGrantPhy2. */
 
-    /** @brief Bitmap for @ref APE_t.PerLockGrantMem. */ 
+    /** @brief Bitmap for @ref APE_t.PerLockGrantMem. */
 
-    /** @brief Bitmap for @ref APE_t.PerLockGrantPhy3. */ 
+    /** @brief Bitmap for @ref APE_t.PerLockGrantPhy3. */
 
-    /** @brief Bitmap for @ref APE_t.PerLockGrantPort6. */ 
+    /** @brief Bitmap for @ref APE_t.PerLockGrantPort6. */
 
-    /** @brief Bitmap for @ref APE_t.PerLockGrantGpio. */ 
-
-
+    /** @brief Bitmap for @ref APE_t.PerLockGrantGpio. */
 }
