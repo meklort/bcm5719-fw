@@ -2,7 +2,7 @@
 ###
 ### @file       mips.cmake
 ###
-### @project    
+### @project
 ###
 ### @brief      MIPS specific configurations
 ###
@@ -46,12 +46,16 @@ SET(MIPS_COMPILE_OPTIONS -nostdlib -nodefaultlibs -fomit-frame-pointer -target m
 SET(MIPS_LINK_OPTIONS -static-libgcc)
 SET(CMAKE_EXE_LINKER_FLAGS -static)
 
+# ASM files
+SET(CMAKE_INCLUDE_FLAG_ASM "-I")
+SET(CMAKE_ASM_COMPILE_OBJECT "<CMAKE_ASM_COMPILER> <DEFINES> <INCLUDES> <FLAGS> -o <OBJECT> -c <SOURCE>")
+
 SET(CMAKE_mips_LINK_EXECUTABLE "ld.lld  <OBJECTS> <LINK_LIBRARIES> <CMAKE_C_LINK_FLAGS> <LINK_FLAGS> -Bstatic -o <TARGET>")
 
 # MIPS-specific executables
 function(mips_add_executable target)
     add_executable(${target} ${ARGN})
-    
+
     target_compile_options(${target} PRIVATE ${MIPS_COMPILE_OPTIONS})
     set_property(TARGET ${target} APPEND PROPERTY LINK_OPTIONS ${MIPS_LINK_OPTIONS})
     set_property(TARGET ${target} PROPERTY LINKER_LANGUAGE mips)
@@ -60,6 +64,6 @@ endfunction(mips_add_executable)
 # MIPS-specific libraries
 function(mips_add_library target)
     add_library(${target} ${ARGN})
-    
+
     target_compile_options(${target} PRIVATE ${MIPS_COMPILE_OPTIONS})
 endfunction(mips_add_library)

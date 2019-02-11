@@ -65,3 +65,7 @@
 .size   NVM, 0x28
 
 
+.global BOOTCODE
+.equ    BOOTCODE, 0x8000000
+.size   BOOTCODE, 0x7000
+
