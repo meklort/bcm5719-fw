@@ -74,7 +74,7 @@ void init_mii(void)
     // Set MII_REG_CONTROL to AUTO_NEGOTIATION_ENABLE.
 }
 
-void init_hw(NVRAMContents *nvram)
+void init_hw(NVRAMContents_t *nvram)
 {
     // Enable memory arbitration
     DEVICE.MemoryArbiterMode.bits.Enable = 1;

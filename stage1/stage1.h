@@ -47,6 +47,6 @@
 
 #include <bcm5719_eeprom.h>
 
-void init_hw(NVRAMContents *nvram);
+void init_hw(NVRAMContents_t *nvram);
 
 #endif /* STAGE1_H */

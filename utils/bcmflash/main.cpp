@@ -142,8 +142,8 @@ int main(int argc, char const *argv[])
 
     NVRam_enable();
 
-    NVRAMContents *nvram = (NVRAMContents *)malloc(sizeof(NVRAMContents));
-    NVRam_read(0, (uint32_t *)nvram, sizeof(NVRAMContents) / 4);
+    NVRAMContents_t *nvram = (NVRAMContents_t *)malloc(sizeof(NVRAMContents_t));
+    NVRam_read(0, (uint32_t *)nvram, sizeof(NVRAMContents_t) / 4);
 
     printf("=== Header ===\n");
     printf("Magic:               0x%08X\n", be32toh(nvram->header.magic));

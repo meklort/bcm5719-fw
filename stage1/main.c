@@ -46,12 +46,12 @@
 
 #include <NVRam.h>
 
-NVRAMContents gNVMContents;
+NVRAMContents_t gNVMContents;
 
 int main()
 {
     // Read in the NVM header.
-    NVRam_read(0, (uint32_t *)&gNVMContents, sizeof(NVRAMContents) / 4);
+    NVRam_read(0, (uint32_t *)&gNVMContents, sizeof(NVRAMContents_t) / 4);
 
     // Initialize the hardware.
     init_hw(&gNVMContents);

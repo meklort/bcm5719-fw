@@ -9,8 +9,6 @@
 #define ELEMENT_OFFSET(__struct__, __elememnt__)        offsetof(__struct__, __elememnt__)
 #define BCM_NVRAM_MAGIC	(0x669955AAu)
 
-
-
 #define BCM_CODE_DIRECTORY_TYPE_BC2             (0x00u)  /*< Second-phase bootcode */
 #define BCM_CODE_DIRECTORY_TYPE_MBA             (0x01u)  /*< Multiple boot agent host software */
 #define BCM_CODE_DIRECTORY_TYPE_L2_RXP          (0x02u)  /*< L2 receive processor firmware, required for VAUX operation of management firmware */
@@ -50,7 +48,7 @@ typedef struct {
     #endif
     uint32_t    directoryOffset;    /*< NVRAM Offset to image */
 
-} NVRAMCodeDirectory;
+} NVRAMCodeDirectory_t;
 
 #define MANUFACTURING_INFORMATION_REVISION  ('A')
 #define MANUFACTURING_INFORMATION_LENGTH    (0x100u)
@@ -93,114 +91,24 @@ typedef struct {
 
 
 typedef struct {
-    uint8_t             MACAddr[8];  /*< Primary Port MAC address. The upper 2 bytes are not used and must be 0. */
-    struct {
-        uint32_t        driverValues:16;    /*< Pre-emphasis and current driver values (BCM5808S and BCM5709S only). */
-
-        uint32_t        defaultLinkSettings:4; /*< Default Link Setting (BCM5708S and BCM5709S only) */
-        uint32_t        LEDMode:4;          /*< LED Mode (BCM5709 only) */ // TODO
-        uint32_t        rsvd:5;
-    } PortConfig;
-
-    uint16_t            PortVendorID; /*< Primary Port PCI Vendor ID (BCM5709 and BCM5716 only) */
-    uint16_t            PortDeviceID; /*< Primary Port PCI Device ID (BCM5709) */
-    uint16_t            PortSubsystemDeviceID;
-    uint16_t            PortSubsystemVendorID;
-
-    uint8_t             PortiSCSIMac[8]; /* Primary Port iSCSI MAC address. The upper 2 bytes are not used and must be 0. */
-    uint8_t             PortBackupL2MAC[8]; /*< Primary Port Backup permanent L2 MAC address. The upper 2 bytes are not used and must be 0.*/
-    uint8_t             rsvd3[28];
-} NVRAMManufacturingPortInformation;
-
-typedef struct {
-    uint8_t             revision;           /*< Manufacturing Information table revision in ASCII. The current version is 'A.' */
-    uint8_t             rsvd0;
-    uint16_t            length;             /*< Length of manufacturing information (currently 0x100 for a revision 'A' manufacturing table). */
-
-    uint16_t            vendorID;           /*< PCI Vendor ID (BCM5706 and BCM5708 only). */
-    uint16_t            deviceID;           /*< PCI Device ID (BCM5706 and BCM5708 only). */
-
-    uint16_t            subsystemDeviceID;  /*< PCI Subsystem Device ID (BCM5706 and BCM5708 only). */
-    uint16_t            subsystemVendorID;  /*< PCI Subsystem Vendor ID (BCM5706 and BCM5708 only). */
-
-    uint8_t             partNumber[16];      /*< NULL-terminated part number of the device. This field is identical to the PN field in the VPD-R region. */
-
-    uint8_t             powerDissipatedD3;  /*< Power dissipated in the D3 state. Note: The data scale is hard coded at 0.1. */
-    uint8_t             powerDissipatedD2;  /*< Power dissipated in the D2 state. The NetXtreme II family does not support the D2 state. */
-    uint8_t             powerDissipatedD1;  /*< Power dissipated in the D1 state. The NetXtreme II family does not support the D1 state. */
-    uint8_t             powerDissipatedD0;  /*< Power dissipated in the D0 state. Note: The data scale is hard coded at 0.1. */
-
-    uint8_t             powerConsumedD3;    /*< Power consumed in the D3 state. Note: The data scale is hard coded at 0.1. */
-    uint8_t             powerConsumedD2;    /*< Power consumed in the D2 state. The NetXtreme II family does not support the D2 state. */
-    uint8_t             powerConsumedD1;    /*< Power consumed in the D1 state. The NetXtreme II family does not support the D1 state. */
-    uint8_t             powerConsumedD0;    /*< Power consumed in the D0 state. Note: The data scale is hard coded at 0.1. */
-
-    struct {
-        uint32_t        designType:1;       /*< Design Type */
-        uint32_t        portSwap:1;         /*< Port Swap */
-        uint32_t        highPower:1;        /*< Allow power consumption to exceed 375 mA in VAUX Current Overdraw—Enabling this setting allows the power consumption to exceed 375 mA in VAUX. This setting must be enabled to allow proper operation of management firmware such as IPMI and UMP. */
-        uint32_t        UMPMode:1;          /*< UMP Interface mode (BCM5708, BCM5709 and BCM5716 only) */
-
-        uint32_t        WOLbeacon:1;        /*< PCIe beacon in WOL state (BCM5708 and BCM5709S only) */
-        uint32_t        enable2G5:1;        /*< Enable 2.5G support (BCM5708S and BCM5709S only). */
-        uint32_t        backplaneApp:1;     /*< Backplane application (BCM5708S and BCM5709S only) */
-        uint32_t        CRS_RXDVn:1;        /*< CRS/RXDV UMP Selection (BCM5708 B0 and later) */  
-
-        uint32_t        LEDMode:3;          /*< PHY LED mode */
-        uint32_t        UMPTiming:1;        /*< Enable UMP PHY Timing (BCM5708 B0 and later, BCM5709 and BCM5716))—This setting is hardware design dependent and should be enabled when the UMP's MII/RMII interface is directly connected to a PHY. In this mode the TX_CLK and RX_CLK are driven as outputs and are synchronized to the CK25 output. This option should be disabled when connected directly to another MAC. In this mode the TX_CLK and RX_CLK pins are selected as inputs and are driven by the CK25 output. */
-
-        uint32_t        firmwareLoad:3;     /*< Firmware load SPIO/GPIO toggle—If management firmware is enabled, and both IPMI and UMP firmware are present, the value of this GPIO is sampled after reset to determine which management firmware to load. If the GPIO is sampled as 0, UMP is loaded; otherwise, IPMI is loaded. */
-        uint32_t        gigabitLinkVAUX:1;  /*< Allow Gigabit Link in VAUX. Note: This setting also requires that “VAUX Current Overdraw” (bit 2) also be enabled. */
-
-        uint32_t        LEDApplication:2;   /*< LED Application (BCM5708S A0 and B0 only) OR Dual MAC mode (BCM5709 and BCM5716 only) */
-        uint32_t        PCIeGen2:2;         /*< PCIe Gen 2 Support (BCM5709 and BCM5716 only) */
-
-        uint32_t        SMBusTiming:1;      /*< SMBus timing (BCM5709 and BCM5716 only) */
-        uint32_t        rsvd_bits:11;
-    } shareConfig1;
-
-    struct {
-        uint32_t        NVRAMSize:24;       /*< The size of the NVRAM in bytes (bits 11 to 0 must be 0). */
-        uint32_t        rsvd_bits:8;
-    } sharedConfig2;
-
-    uint32_t            ECOConfig;          /*< ECO Configuration (BCM5708 B2 and later only). The value of this location is written to offset 0x7c of the EPB to enable specific hardware fixes. */
-    
-    uint32_t            rsvd1;
-
-    NVRAMManufacturingPortInformation   PrimaryPort;
-    NVRAMManufacturingPortInformation   SecondaryPort;
-    uint8_t             powerBudget[32];
-    uint32_t            crc;                /*< CRC-32 of the Manufacturing Information (offset 0x100 to 0x1fb inclusive). */
-} NVRAMManufacturingInformation;
-//_Static_assert(sizeof(NVRAMManufacturingInformation) == MANUFACTURING_INFORMATION_LENGTH, "NVRAMManufacturingInformation is not the correct size.");
-
-#define FEATURE_CONFIG_REVISION     ('A')
-typedef struct {
-    uint32_t            rsvd:28;
-    uint32_t            revision:4;         /*< Feature configuration Information table revision in ASCII. The current version is 'A.' */
-    uint32_t            config;             /*< Enable */
-} NVRAMFeatureConfig;
-
-
-
-
-typedef struct {
     uint32_t    magic;
     uint32_t    bootstrapPhysAddr;
     uint32_t    bootstrapWords;
     uint32_t    bootstrapOffset;
     uint32_t    crc;
-} __attribute__((packed)) NVRAMHeader;
+} __attribute__((packed)) NVRAMHeader_t;
 
 
 typedef struct {
-    uint64_t    macAddr0; // FIXME
+    uint64_t    macAddr0;       // Upper 8 bytes are 0
     uint8_t     partNumber[16];
+    uint8_t     partRevision[2];
+    uint16_t    firmwareRevision;
 
-    uint32_t    unknown1;
-    uint32_t    unknown2;
-    uint32_t    unknown3;
+    uint8_t     mfrData[4];
+
+    uint16_t    func0PXEVLAN;
+    uint16_t    func1PXEVLAN;
 
     uint16_t    deviceID;           /*< PCI Device ID. */
     uint16_t    vendorID;           /*< PCI Vendor ID. */
@@ -208,39 +116,105 @@ typedef struct {
     uint16_t    subsystemDeviceID;  /*< PCI Subsystem Device ID. */
     uint16_t    subsystemVendorID;  /*< PCI Subsystem Vendor ID. */
 
-    uint8_t     pad[88];
-} __attribute__((packed)) NVRAMInfo;
+    uint16_t    cpuClock;           /*< 66MHz, Legacy */
+
+    uint8_t     SMBusAddr;
+    uint8_t     SMBusAddrBMC;
+
+    uint64_t    macAddr0Backup;
+    uint64_t    macAddr1Backup;
+
+    uint8_t     powerDissipatedD3;  /*< Power dissipated in the D3 state. Note: The data scale is hard coded at 0.1. */
+    uint8_t     powerDissipatedD2;  /*< Power dissipated in the D2 state. The NetXtreme II family does not support the D2 state. */
+    uint8_t     powerDissipatedD1;  /*< Power dissipated in the D1 state. The NetXtreme II family does not support the D1 state. */
+    uint8_t     powerDissipatedD0;  /*< Power dissipated in the D0 state. Note: The data scale is hard coded at 0.1. */
+
+    uint8_t     powerConsumedD3;    /*< Power consumed in the D3 state. Note: The data scale is hard coded at 0.1. */
+    uint8_t     powerConsumedD2;    /*< Power consumed in the D2 state. The NetXtreme II family does not support the D2 state. */
+    uint8_t     powerConsumedD1;    /*< Power consumed in the D1 state. The NetXtreme II family does not support the D1 state. */
+    uint8_t     powerConsumedD0;    /*< Power consumed in the D0 state. Note: The data scale is hard coded at 0.1. */
+
+    uint32_t    func0CfgFeature;
+    uint32_t    func0CfgHW;
+
+    uint64_t    macAddr1;
+
+    uint32_t    func1CfgFeature;
+    uint32_t    func1CfgHW;
+    uint32_t    cfgShared;
+    uint32_t    powerBudget0;
+    uint32_t    powerBudget1;
+    uint32_t    serworksUse;
+    uint16_t    func0SERDESOverride;
+    uint16_t    func1SERDESOverride;
+    uint16_t    tpmNVMSize;
+    uint16_t    macNVMSize;
+    uint32_t    powerBudget2;
+    uint32_t    powerBudget3;
+    uint32_t    mfrCRC;
+} __attribute__((packed)) NVRAMInfo_t;
 
 typedef struct {
-    NVRAMHeader         header;
-    NVRAMCodeDirectory  directory[8];
-    uint8_t             pad[0x80 - sizeof(NVRAMHeader) - 4 - sizeof(NVRAMCodeDirectory) * 8];
-    NVRAMInfo           info;
-    vpd_t               vpd;
+    uint16_t    mfr2Unk;                //   [200] 00 00          -- Unknown, probably unused.
+    uint16_t    mfr2Len;                //   [202] 00 8C          -- Length of manufacturing section 2.
+    uint32_t    UNKNOWN0;               //   [204] 00 00 00 00    -- Could be reserved.
 
-// CRC from 0x00000000 to 0x00000010: 0x252333D4 // Header
-//     from 0x00000100 to 0x000001FF: VPD
-// CRC from 0x00000200 to 0x00000288: 0x1AAC41A6 // Feature Configuration Information??
-// CRC from 0x0000028C to 0x00001DA8: 0x0AA649A4 // Bootstrap code.
+    uint64_t    macAddr2;               //1  [208] Upper 16 bits are zero/unused.
 
-// 6699 55aa is located again at 0x00001DAC (magic number. Secondary payload?)
-// CRC from 0x00004C14 to 0x0001097C: 0x518A1ECC // Code directory 0 payload ??? 
+    uint32_t    UNKNOWN1;               //   [210] 0
+    uint32_t    UNKNOWN2;               //   [214] 0
+    uint32_t    UNKNOWN3;               //   [218] 0
+    uint32_t    cfg5;                   //1  [21C] 0   - GEN_CFG_5. g_unknownInitWord3
+    uint32_t    UNKNOWN4;               //   [220] 0
+    uint32_t    UNKNOWN5;               //   [224] 0
+    uint32_t    UNKNOWN6;               //   [228] 0
+
+    uint16_t    pciSubsystemF1GPHY;     //1  [22C] 19 81 ] PCI Subsystem.
+    uint16_t    pciSubsystemF0GPHY;     //1  [22E] 19 81 ] These are selected based on the
+    uint16_t    pciSubsystemF2GPHY;     //1  [230] 19 81 ] function number and whether the NIC is a
+    uint16_t    pciSubsystemF3GPHY;     //1  [232] 19 81 ] GPHY (copper) or SERDES (SFP) NIC.
+    uint16_t    pciSubsystemF1SERDES;   //1  [234] 16 57 ] BCM5719(?). Probably not programmed correctly
+    uint16_t    pciSubsystemF0SERDES;   //1  [236] 16 57 ] since Talos II doesn't use SERDES.
+    uint16_t    pciSubsystemF3SERDES;   //1  [238] 16 57 ]
+    uint16_t    pciSubsystemF2SERDES;   //1  [23A] 16 57 ]
+
+    uint32_t    UNKNOWN7;               //   [23C] 0
+    uint32_t    UNKNOWN8;               //   [240] 0
+    uint32_t    UNKNOWN9;               //   [244] 0
+    uint32_t    UNKNOWN10;              //   [248] 0
+    uint32_t    UNKNOWN11;              //   [24C] 0
+    uint32_t    func2CfgFeature;        //1  [250] C5 C0 00 00 - Function 2 GEN_CFG_1E4.
+    uint32_t    func2CfgHW;             //1  [254] 00 00 40 14 - Function 2 GEN_CFG_2.
+
+    uint64_t    macAddr3;               //1  [258] Upper 16 bits are zero/unused.
+
+    uint32_t    func3CfgFeature;        //1  [260] C5 C0 00 00 - Function 3 GEN_CFG_1E4.
+    uint32_t    func3CfgHW;             //1  [264] 00 00 40 14 - Function 3 GEN_CFG_2.
+    uint32_t    UNKNOWN12;              //   [268] 0
+    uint32_t    UNKNOWN13;              //   [26C] 0
+    uint32_t    UNKNOWN14;              //   [270] 0
+    uint32_t    UNKNOWN15;              //   [274] 0
+    uint32_t    func0CfgHW2;            //1  [278] 00 00 00 40 - Function 0 GEN_CFG_2A8.
+    uint32_t    func1CfgHW2;            //1  [27C] 00 00 00 40 - Function 1 GEN_CFG_2A8.
+    uint32_t    func2CfgHW2;            //1  [280] 00 00 00 40 - Function 2 GEN_CFG_2A8.
+    uint32_t    func3CfgHW2;            //1  [284] 00 00 00 40 - Function 3 GEN_CFG_2A8.
+    uint32_t    mfr2CRC;                //   [288] 1A AC 41 A6 // could be CRC
+} __attribute__((packed)) NVRAMInfo2_t;
+
+typedef struct {
+    NVRAMHeader_t           header;
+    NVRAMCodeDirectory_t    directory[8];
+    uint8_t                 pad[0x80 - sizeof(NVRAMHeader_t) - 4 - sizeof(NVRAMCodeDirectory_t) * 8];
+    NVRAMInfo_t             info;
+    vpd_t                   vpd;
+    NVRAMInfo2_t            info2;
+} __attribute__((packed)) NVRAMContents_t;
 
 
-    // uint8_t            pad[(0x14 - sizeof(NVRAMHeader))];
-    // uint32_t            unknown[1024];
+_Static_assert(ELEMENT_OFFSET(NVRAMContents_t, info) == 0x7C, "NVRAM Info must be located at address 0x80.");
+_Static_assert(ELEMENT_OFFSET(NVRAMContents_t, vpd) == 0x100, "VPD must be located at address 0x100.");
 
-    // NVRAMCodeDirectory  directory[16];
-    // uint8_t             padding[20];
-    // uint8_t             sparePartNumber[20];  /*< Spare part number (similar to the PN field in the VPD), reserved for OEM use */
-    // uint32_t            crc;                  /*< CRC-32 of the code directory (NVRAMContents.directory to NVRAMContents.sparePartNumber inclusive) */
-    // NVRAMManufacturingInformation   manuf;
-    // NVRAMFeatureConfig  features;
-} __attribute__((packed)) NVRAMContents;
-
-
-_Static_assert(ELEMENT_OFFSET(NVRAMContents, info) == 0x7C, "NVRAM Info must be located at address 0x80.");
-_Static_assert(ELEMENT_OFFSET(NVRAMContents, vpd) == 0x100, "VPD must be located at address 0x100.");
+_Static_assert(sizeof(NVRAMContents_t) == 0x28C, "sizeof(NVRAMContents) must be 0x28C.");
 
 
 
