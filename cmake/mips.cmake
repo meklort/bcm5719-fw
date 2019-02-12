@@ -43,7 +43,7 @@
 ################################################################################
 
 SET(MIPS_COMPILE_OPTIONS -nostdlib -nodefaultlibs -fomit-frame-pointer -target mips )
-SET(MIPS_LINK_OPTIONS -static-libgcc)
+SET(MIPS_LINK_OPTIONS --gc-sections)
 SET(CMAKE_EXE_LINKER_FLAGS -static)
 
 # ASM files
@@ -57,7 +57,7 @@ function(mips_add_executable target)
     add_executable(${target} ${ARGN})
 
     target_compile_options(${target} PRIVATE ${MIPS_COMPILE_OPTIONS})
-    set_property(TARGET ${target} APPEND PROPERTY LINK_OPTIONS ${MIPS_LINK_OPTIONS})
+    target_link_libraries(${target} ${MIPS_LINK_OPTIONS})
     set_property(TARGET ${target} PROPERTY LINKER_LANGUAGE mips)
 endfunction(mips_add_executable)
 
