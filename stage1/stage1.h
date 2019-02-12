@@ -1,10 +1,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @file       main.c
+/// @file       stage1.h
 ///
 /// @project
 ///
-/// @brief      Main stage1 code
+/// @brief      Functions provided by stage1.
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
@@ -42,19 +42,11 @@
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
 
-#include "stage1.h"
+#ifndef STAGE1_H
+#define STAGE1_H
 
-#include <NVRam.h>
+#include <bcm5719_eeprom.h>
 
-NVRAMContents gNVMContents;
+void init_hw(NVRAMContents *nvram);
 
-int main()
-{
-    // Read in the NVM header.
-    NVRam_read(0, (uint32_t *)&gNVMContents, sizeof(NVRAMContents) / 4);
-
-    // Initialize the hardware.
-    init_hw(&gNVMContents);
-
-    // Locate and execute stage2.
-}
+#endif /* STAGE1_H */

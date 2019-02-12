@@ -52,7 +52,7 @@ mips_add_executable(${PROJECT_NAME}
             main.c
             crt.s)
 
-target_link_libraries(${PROJECT_NAME} NVRam-mips MII-mips)
+target_link_libraries(${PROJECT_NAME} NVRam-mips MII-mips VPD-mips)
 target_link_libraries(${PROJECT_NAME} bcm5719)
 target_compile_options(${PROJECT_NAME} PRIVATE -nodefaultlibs)
 target_link_libraries(${PROJECT_NAME} "--script=${LINKER_SCRIPT}")
@@ -60,9 +60,9 @@ set_target_properties(${PROJECT_NAME} PROPERTIES LINK_DEPENDS ${LINKER_SCRIPT})
 
 
 # Simulator add_executable
-add_executable(sim-${PROJECT_NAME}
+simulator_add_executable(sim-${PROJECT_NAME}
             init_hw.c
             main.c)
 
 target_link_libraries(sim-${PROJECT_NAME} simulator)
-target_link_libraries(sim-${PROJECT_NAME} NVRam MII)
+target_link_libraries(sim-${PROJECT_NAME} NVRam MII VPD)

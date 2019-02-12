@@ -214,8 +214,6 @@ typedef struct {
 typedef struct {
     NVRAMHeader         header;
     NVRAMCodeDirectory  directory[8];
-    // uint32_t            directoryCRC;
-//    uint32_t            
     uint8_t             pad[0x80 - sizeof(NVRAMHeader) - 4 - sizeof(NVRAMCodeDirectory) * 8];
     NVRAMInfo           info;
     vpd_t               vpd;
@@ -242,7 +240,7 @@ typedef struct {
 
 
 _Static_assert(ELEMENT_OFFSET(NVRAMContents, info) == 0x7C, "NVRAM Info must be located at address 0x80.");
-// _Static_assert(ELEMENT_OFFSET(NVRAMContents, vpd) == 0x100, "VPD must be located at address 0x100.");
+_Static_assert(ELEMENT_OFFSET(NVRAMContents, vpd) == 0x100, "VPD must be located at address 0x100.");
 
 
 
