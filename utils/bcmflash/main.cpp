@@ -182,15 +182,61 @@ int main(int argc, char const *argv[])
     }
 
     printf("\n=== Info ===\n");
+    printf("Firmware Revision: 0x%04X\n",
+           be16toh(nvram->info.firmwareRevision));
 
-    printf("MAC[0]: 0x%012lX\n", be64toh(nvram->info.macAddr0)); // FIXME
     printf("Part Number: %s\n", nvram->info.partNumber);
+    printf("Part Revision: %c%c\n", nvram->info.partRevision[0],
+           nvram->info.partRevision[1]);
+
     printf("Vendor ID: 0x%04X\n", be16toh(nvram->info.vendorID));
     printf("Device ID: 0x%04X\n", be16toh(nvram->info.deviceID));
     printf("Subsystem Vendor ID: 0x%04X\n",
            be16toh(nvram->info.subsystemVendorID));
     printf("Subsystem Device ID: 0x%04X\n",
            be16toh(nvram->info.subsystemDeviceID));
+
+    printf("Shared Cfg:     0x%08X\n", be32toh(nvram->info.cfgShared));
+
+    printf("Power Dissipated: 0x%02X 0x%02X 0x%02X 0x%02X\n",
+           nvram->info.powerDissipatedD3, nvram->info.powerDissipatedD2,
+           nvram->info.powerDissipatedD1, nvram->info.powerDissipatedD0);
+
+    printf("Power Consumed: 0x%02X 0x%02X 0x%02X 0x%02X\n",
+           nvram->info.powerConsumedD3, nvram->info.powerConsumedD2,
+           nvram->info.powerConsumedD1, nvram->info.powerConsumedD0);
+
+    printf("\n=== Port 0 ===\n");
+    printf("Subsystem ID: 0x%04X\n", be16toh(nvram->info2.pciSubsystemF0GPHY));
+    printf("MAC:    0x%012lX\n", be64toh(nvram->info.macAddr0));
+    printf("Feature:    0x%08X\n", be32toh(nvram->info.func0CfgFeature));
+    printf("Cfg:        0x%08X\n", be32toh(nvram->info.func0CfgHW));
+    printf("Cfg2:       0x%08X\n", be32toh(nvram->info2.func0CfgHW2));
+    printf("Pwr Budget: 0x%08X\n", be32toh(nvram->info.powerBudget0));
+
+    printf("\n=== Port 1 ===\n");
+    printf("Subsystem ID: 0x%04X\n", be16toh(nvram->info2.pciSubsystemF1GPHY));
+    printf("MAC:    0x%012lX\n", be64toh(nvram->info.macAddr1));
+    printf("Feature:    0x%08X\n", be32toh(nvram->info.func1CfgFeature));
+    printf("Cfg:        0x%08X\n", be32toh(nvram->info.func1CfgHW));
+    printf("Cfg2:       0x%08X\n", be32toh(nvram->info2.func1CfgHW2));
+    printf("Pwr Budget: 0x%08X\n", be32toh(nvram->info.powerBudget1));
+
+    printf("\n=== Port 2 ===\n");
+    printf("Subsystem ID: 0x%04X\n", be16toh(nvram->info2.pciSubsystemF2GPHY));
+    printf("MAC:    0x%012lX\n", be64toh(nvram->info2.macAddr2));
+    printf("Feature:    0x%08X\n", be32toh(nvram->info2.func2CfgFeature));
+    printf("Cfg:        0x%08X\n", be32toh(nvram->info2.func2CfgHW));
+    printf("Cfg2:       0x%08X\n", be32toh(nvram->info2.func2CfgHW2));
+    printf("Pwr Budget: 0x%08X\n", be32toh(nvram->info.powerBudget2));
+
+    printf("\n=== Port 3 ===\n");
+    printf("Subsystem ID: 0x%04X\n", be16toh(nvram->info2.pciSubsystemF3GPHY));
+    printf("MAC:    0x%012lX\n", be64toh(nvram->info2.macAddr3));
+    printf("Feature:    0x%08X\n", be32toh(nvram->info2.func3CfgFeature));
+    printf("Cfg:        0x%08X\n", be32toh(nvram->info2.func3CfgHW));
+    printf("Cfg2:       0x%08X\n", be32toh(nvram->info2.func3CfgHW2));
+    printf("Pwr Budget: 0x%08X\n", be32toh(nvram->info.powerBudget3));
 
     printf("\n=== VPD ===\n");
     if (vpd_is_valid(nvram->vpd.bytes, sizeof(nvram->vpd)))
