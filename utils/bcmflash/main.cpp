@@ -60,6 +60,13 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include <OptionParser.h>
+#include <vector>
+#include <string>
+#include <fstream>
+
+using namespace std;
+using optparse::OptionParser;
 
 #define DEVICE_ROOT "/sys/bus/pci/devices/"
 #define DEVICE_CONFIG "config"
@@ -85,8 +92,9 @@ bool is_primary_function(const char *pci_path)
     return false;
 }
 
-int main(int argc, char const *argv[])
+bool init_hw_sim(void)
 {
+    bool inited = false;
     struct dirent *pDirent;
     DIR *pDir;
 
@@ -102,12 +110,12 @@ int main(int argc, char const *argv[])
         const char *pPCIPath = pDirent->d_name;
         if (is_primary_function(pDirent->d_name))
         {
+            string configPath;
+            configPath = string(DEVICE_ROOT) + pPCIPath + "/" + DEVICE_CONFIG;
+            const char* pConfigPath = configPath.c_str();
             // This is the primary function of a device.
             // Read the configuration and see if it matches a supported
             // vendor/device.
-            char *pConfigPath = (char *)malloc(
-                strlen(DEVICE_ROOT "%s/" DEVICE_CONFIG) + strlen(pPCIPath) + 1);
-            sprintf(pConfigPath, DEVICE_ROOT "%s/" DEVICE_CONFIG, pPCIPath);
 
             FILE *pConfigFile = fopen(pConfigPath, "rb");
 
@@ -123,47 +131,139 @@ int main(int argc, char const *argv[])
                             strlen(DEVICE_ROOT "%s/") + strlen(pPCIPath) + 1);
                         sprintf(pFullPCIPath, DEVICE_ROOT "%s/", pPCIPath);
                         initHAL(pFullPCIPath);
+                        inited = true;
 
                         free(pFullPCIPath);
-                        free(pConfigPath);
-                        break;
                     }
                 }
+                fclose(pConfigFile);
             }
-            free(pConfigPath);
+
         }
     }
     closedir(pDir);
 
-    printf("ChipId: %x\n", (uint32_t)DEVICE.ChipId.r32);
+    return inited;
+}
 
-    printf("Grab lock...\n");
-    NVRam_acquireLock();
+#define NVRAM_SIZE      (1024u * 255u) /* 256KB */
+int main(int argc, char const *argv[])
+{
+    union {
+        uint8_t         bytes[NVRAM_SIZE];
+        uint32_t        words[NVRAM_SIZE/4];
+        NVRAMContents_t contents;
+    } nvram;
 
-    NVRam_enable();
+    OptionParser parser = OptionParser().description("BCM Flash Utility");
 
-    NVRAMContents_t *nvram = (NVRAMContents_t *)malloc(sizeof(NVRAMContents_t));
-    NVRam_read(0, (uint32_t *)nvram, sizeof(NVRAMContents_t) / 4);
+    parser.add_option("-t", "--target")
+            .choices({"hardware", "file"})
+            .dest("target")
+            // .set_default("hardware")
+            .help(  "hardware: Use the attached physical device.\n"
+                    "file: Use the file specified with -f, --file\n");
+
+    parser.add_option("-f", "--file")
+            .dest("filename")
+            .help("Read from the specified file")
+            .metavar("FILE");
+
+    parser.add_option("-1", "--stage1")
+            .dest("stage1")
+            .help("Update the target with the specified stage1 image, if possible.")
+            .metavar("STAGE1");
+
+    parser.add_option("-2", "--stage2")
+            .dest("stage2")
+            .help("Update the target with the specified stage2 image, if possible.")
+            .metavar("STAGE2");
+
+    parser.add_option("-q", "--quiet")
+            .action("store_false")
+            .dest("verbose")
+            .set_default("1")
+            .help("don't print status messages to stdout");
+
+    optparse::Values options = parser.parse_args(argc, argv);
+    vector<string> args = parser.args();
+
+    if("file" == options["target"])
+    {
+        if(!options.is_set("filename"))
+        {
+            cerr << "Please specify a file to use." << endl;
+            parser.print_help();
+            exit(-1);
+        }
+
+
+        fstream infile;
+        infile.open(options["filename"], fstream::in | fstream::binary);
+        if(infile.is_open())
+        {
+            infile.read((char*)nvram.bytes, NVRAM_SIZE);
+
+            infile.close();
+        }
+        else
+        {
+            cerr << " Unable to open file '" << options["filename"] << "'" << endl;
+            exit(-1);
+        }
+    }
+    else if("hardware" == options["target"])
+    {
+        if(!init_hw_sim())
+        {
+            exit(-1);
+        }
+
+        printf("ChipId: %x\n", (uint32_t)DEVICE.ChipId.r32);
+
+        NVRam_acquireLock();
+
+        NVRam_enable();
+
+        NVRam_read(0, nvram.words, sizeof(NVRAMContents_t) / 4);
+
+        NVRam_releaseLock();
+
+
+        // FILE* out = fopen("firmware.fw", "w+");
+        // fwrite(nvram.bytes, NVRAM_SIZE, 1, out);
+        // fclose(out);
+
+    }
+    else
+    {
+        cerr << "Please specify a target." << endl;
+        parser.print_help();
+        exit(-1);
+    }
+
+#if 1
+
 
     printf("=== Header ===\n");
-    printf("Magic:               0x%08X\n", be32toh(nvram->header.magic));
+    printf("Magic:               0x%08X\n", be32toh(nvram.contents.header.magic));
     printf("Bootstrap Phys Addr: 0x%08X\n",
-           be32toh(nvram->header.bootstrapPhysAddr));
+           be32toh(nvram.contents.header.bootstrapPhysAddr));
     printf("Bootstrap Words:     0x%08X (%d bytes)\n",
-           be32toh(nvram->header.bootstrapWords),
-           be32toh(nvram->header.bootstrapWords) * 4);
+           be32toh(nvram.contents.header.bootstrapWords),
+           be32toh(nvram.contents.header.bootstrapWords) * 4);
     printf("Bootstrap Offset:    0x%08X\n",
-           be32toh(nvram->header.bootstrapOffset));
-    printf("CRC:                 0x%08X\n", be32toh(nvram->header.crc));
+           be32toh(nvram.contents.header.bootstrapOffset));
+    printf("CRC:                 0x%08X\n", be32toh(nvram.contents.header.crc));
     uint32_t expected_crc = be32toh(~NVRam_crc(
-        (uint8_t *)&nvram->header,
-        (((uint8_t *)&nvram->header.crc - (uint8_t *)&nvram->header)),
+        (uint8_t *)&nvram.contents.header,
+        (((uint8_t *)&nvram.contents.header.crc - (uint8_t *)&nvram.contents.header)),
         0xffffffff));
     printf("Expected CRC:        0x%08X\n", expected_crc);
 
-    for (int i = 0; i < ARRAY_ELEMENTS(nvram->directory); i++)
+    for (int i = 0; i < ARRAY_ELEMENTS(nvram.contents.directory); i++)
     {
-        uint32_t info = be32toh(nvram->directory[i].codeInfo);
+        uint32_t info = be32toh(nvram.contents.directory[i].codeInfo);
         if (info)
         {
             printf("\n=== Directory %d (0x%08X)===\n", i, info);
@@ -171,10 +271,10 @@ int main(int argc, char const *argv[])
             uint32_t cpu = BCM_CODE_DIRECTORY_GET_CPU(info);
             uint32_t type = BCM_CODE_DIRECTORY_GET_TYPE(info);
             printf("Code Address:   0x%08X\n",
-                   be32toh(nvram->directory[i].codeAddress));
+                   be32toh(nvram.contents.directory[i].codeAddress));
             printf("Code Words:     0x%08X (%d bytes)\n", length, length);
             printf("Code Offset:    0x%08X\n",
-                   be32toh(nvram->directory[i].directoryOffset));
+                   be32toh(nvram.contents.directory[i].directoryOffset));
             printf("Code CPU:       0x%02X\n", cpu);
             printf("Code Type:      0x%02X\n", type);
             printf("\n");
@@ -183,75 +283,75 @@ int main(int argc, char const *argv[])
 
     printf("\n=== Info ===\n");
     printf("Firmware Revision: 0x%04X\n",
-           be16toh(nvram->info.firmwareRevision));
+           be16toh(nvram.contents.info.firmwareRevision));
 
-    printf("Part Number: %s\n", nvram->info.partNumber);
-    printf("Part Revision: %c%c\n", nvram->info.partRevision[0],
-           nvram->info.partRevision[1]);
+    printf("Part Number: %s\n", nvram.contents.info.partNumber);
+    printf("Part Revision: %c%c\n", nvram.contents.info.partRevision[0],
+           nvram.contents.info.partRevision[1]);
 
-    printf("Vendor ID: 0x%04X\n", be16toh(nvram->info.vendorID));
-    printf("Device ID: 0x%04X\n", be16toh(nvram->info.deviceID));
+    printf("Vendor ID: 0x%04X\n", be16toh(nvram.contents.info.vendorID));
+    printf("Device ID: 0x%04X\n", be16toh(nvram.contents.info.deviceID));
     printf("Subsystem Vendor ID: 0x%04X\n",
-           be16toh(nvram->info.subsystemVendorID));
+           be16toh(nvram.contents.info.subsystemVendorID));
     printf("Subsystem Device ID: 0x%04X\n",
-           be16toh(nvram->info.subsystemDeviceID));
+           be16toh(nvram.contents.info.subsystemDeviceID));
 
-    printf("Shared Cfg:     0x%08X\n", be32toh(nvram->info.cfgShared));
+    printf("Shared Cfg:     0x%08X\n", be32toh(nvram.contents.info.cfgShared));
 
     printf("Power Dissipated: 0x%02X 0x%02X 0x%02X 0x%02X\n",
-           nvram->info.powerDissipatedD3, nvram->info.powerDissipatedD2,
-           nvram->info.powerDissipatedD1, nvram->info.powerDissipatedD0);
+           nvram.contents.info.powerDissipatedD3, nvram.contents.info.powerDissipatedD2,
+           nvram.contents.info.powerDissipatedD1, nvram.contents.info.powerDissipatedD0);
 
     printf("Power Consumed: 0x%02X 0x%02X 0x%02X 0x%02X\n",
-           nvram->info.powerConsumedD3, nvram->info.powerConsumedD2,
-           nvram->info.powerConsumedD1, nvram->info.powerConsumedD0);
+           nvram.contents.info.powerConsumedD3, nvram.contents.info.powerConsumedD2,
+           nvram.contents.info.powerConsumedD1, nvram.contents.info.powerConsumedD0);
 
     printf("\n=== Port 0 ===\n");
-    printf("Subsystem ID: 0x%04X\n", be16toh(nvram->info2.pciSubsystemF0GPHY));
-    printf("MAC:    0x%012lX\n", be64toh(nvram->info.macAddr0));
-    printf("Feature:    0x%08X\n", be32toh(nvram->info.func0CfgFeature));
-    printf("Cfg:        0x%08X\n", be32toh(nvram->info.func0CfgHW));
-    printf("Cfg2:       0x%08X\n", be32toh(nvram->info2.func0CfgHW2));
-    printf("Pwr Budget: 0x%08X\n", be32toh(nvram->info.powerBudget0));
+    printf("Subsystem ID: 0x%04X\n", be16toh(nvram.contents.info2.pciSubsystemF0GPHY));
+    printf("MAC:    0x%012lX\n", be64toh(nvram.contents.info.macAddr0));
+    printf("Feature:    0x%08X\n", be32toh(nvram.contents.info.func0CfgFeature));
+    printf("Cfg:        0x%08X\n", be32toh(nvram.contents.info.func0CfgHW));
+    printf("Cfg2:       0x%08X\n", be32toh(nvram.contents.info2.func0CfgHW2));
+    printf("Pwr Budget: 0x%08X\n", be32toh(nvram.contents.info.powerBudget0));
 
     printf("\n=== Port 1 ===\n");
-    printf("Subsystem ID: 0x%04X\n", be16toh(nvram->info2.pciSubsystemF1GPHY));
-    printf("MAC:    0x%012lX\n", be64toh(nvram->info.macAddr1));
-    printf("Feature:    0x%08X\n", be32toh(nvram->info.func1CfgFeature));
-    printf("Cfg:        0x%08X\n", be32toh(nvram->info.func1CfgHW));
-    printf("Cfg2:       0x%08X\n", be32toh(nvram->info2.func1CfgHW2));
-    printf("Pwr Budget: 0x%08X\n", be32toh(nvram->info.powerBudget1));
+    printf("Subsystem ID: 0x%04X\n", be16toh(nvram.contents.info2.pciSubsystemF1GPHY));
+    printf("MAC:    0x%012lX\n", be64toh(nvram.contents.info.macAddr1));
+    printf("Feature:    0x%08X\n", be32toh(nvram.contents.info.func1CfgFeature));
+    printf("Cfg:        0x%08X\n", be32toh(nvram.contents.info.func1CfgHW));
+    printf("Cfg2:       0x%08X\n", be32toh(nvram.contents.info2.func1CfgHW2));
+    printf("Pwr Budget: 0x%08X\n", be32toh(nvram.contents.info.powerBudget1));
 
     printf("\n=== Port 2 ===\n");
-    printf("Subsystem ID: 0x%04X\n", be16toh(nvram->info2.pciSubsystemF2GPHY));
-    printf("MAC:    0x%012lX\n", be64toh(nvram->info2.macAddr2));
-    printf("Feature:    0x%08X\n", be32toh(nvram->info2.func2CfgFeature));
-    printf("Cfg:        0x%08X\n", be32toh(nvram->info2.func2CfgHW));
-    printf("Cfg2:       0x%08X\n", be32toh(nvram->info2.func2CfgHW2));
-    printf("Pwr Budget: 0x%08X\n", be32toh(nvram->info.powerBudget2));
+    printf("Subsystem ID: 0x%04X\n", be16toh(nvram.contents.info2.pciSubsystemF2GPHY));
+    printf("MAC:    0x%012lX\n", be64toh(nvram.contents.info2.macAddr2));
+    printf("Feature:    0x%08X\n", be32toh(nvram.contents.info2.func2CfgFeature));
+    printf("Cfg:        0x%08X\n", be32toh(nvram.contents.info2.func2CfgHW));
+    printf("Cfg2:       0x%08X\n", be32toh(nvram.contents.info2.func2CfgHW2));
+    printf("Pwr Budget: 0x%08X\n", be32toh(nvram.contents.info.powerBudget2));
 
     printf("\n=== Port 3 ===\n");
-    printf("Subsystem ID: 0x%04X\n", be16toh(nvram->info2.pciSubsystemF3GPHY));
-    printf("MAC:    0x%012lX\n", be64toh(nvram->info2.macAddr3));
-    printf("Feature:    0x%08X\n", be32toh(nvram->info2.func3CfgFeature));
-    printf("Cfg:        0x%08X\n", be32toh(nvram->info2.func3CfgHW));
-    printf("Cfg2:       0x%08X\n", be32toh(nvram->info2.func3CfgHW2));
-    printf("Pwr Budget: 0x%08X\n", be32toh(nvram->info.powerBudget3));
+    printf("Subsystem ID: 0x%04X\n", be16toh(nvram.contents.info2.pciSubsystemF3GPHY));
+    printf("MAC:    0x%012lX\n", be64toh(nvram.contents.info2.macAddr3));
+    printf("Feature:    0x%08X\n", be32toh(nvram.contents.info2.func3CfgFeature));
+    printf("Cfg:        0x%08X\n", be32toh(nvram.contents.info2.func3CfgHW));
+    printf("Cfg2:       0x%08X\n", be32toh(nvram.contents.info2.func3CfgHW2));
+    printf("Pwr Budget: 0x%08X\n", be32toh(nvram.contents.info.powerBudget3));
 
     printf("\n=== VPD ===\n");
-    if (vpd_is_valid(nvram->vpd.bytes, sizeof(nvram->vpd)))
+    if (vpd_is_valid(nvram.contents.vpd.bytes, sizeof(nvram.contents.vpd)))
     {
-        size_t vpd_len = sizeof(nvram->vpd);
+        size_t vpd_len = sizeof(nvram.contents.vpd);
         printf("Identifier: %s\n",
-               vpd_get_identifier(nvram->vpd.bytes, &vpd_len));
+               vpd_get_identifier(nvram.contents.vpd.bytes, &vpd_len));
 
         uint8_t *resource;
         int index = 0;
         do
         {
-            vpd_len = sizeof(nvram->vpd);
+            vpd_len = sizeof(nvram.contents.vpd);
             uint16_t name;
-            resource = vpd_get_resource_by_index(nvram->vpd.bytes, &vpd_len,
+            resource = vpd_get_resource_by_index(nvram.contents.vpd.bytes, &vpd_len,
                                                  &name, index);
             if (resource)
             {
@@ -270,12 +370,6 @@ int main(int argc, char const *argv[])
         printf("VPD is invalid.\n");
     }
 
-    //
-    //     FILE* out = fopen("firmware.fw", "w+");
-    //     fwrite(nvram, bytes, 1, out);
-    //     fclose(out);
-
-    NVRam_releaseLock();
-
+#endif
     return 0;
 }
