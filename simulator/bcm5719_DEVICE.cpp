@@ -2,7 +2,7 @@
 ///
 /// @file       bcm5719_DEVICE.cpp
 ///
-/// @project    <PROJECT>
+/// @project    bcm5719
 ///
 /// @brief      bcm5719_DEVICE
 ///
@@ -61,8 +61,7 @@ void init_bcm5719_DEVICE(void)
 
     /** @brief Bitmap for @ref DEVICE_t.UndiReceiveReturnRingConsumerIndex. */
 
-    /** @brief Bitmap for @ref DEVICE_t.UndiReceiveReturnRingConsumerIndexLow.
-     */
+    /** @brief Bitmap for @ref DEVICE_t.UndiReceiveReturnRingConsumerIndexLow. */
 
     /** @brief Bitmap for @ref DEVICE_t.LinkStatusControl. */
 
@@ -136,8 +135,7 @@ void init_bcm5719_DEVICE(void)
 
     /** @brief Bitmap for @ref DEVICE_t.BufferManagerMode. */
 
-    /** @brief Bitmap for @ref
-     * DEVICE_t.LsoNonlsoBdReadDmaCorruptionEnableControl. */
+    /** @brief Bitmap for @ref DEVICE_t.LsoNonlsoBdReadDmaCorruptionEnableControl. */
 
     /** @brief Bitmap for @ref DEVICE_t.RxRiscMode. */
 
@@ -282,4 +280,6 @@ void init_bcm5719_DEVICE(void)
     /** @brief Bitmap for @ref DEVICE_t.EavRefClockControl. */
 
     /** @brief Bitmap for @ref DEVICE_t.7c04. */
+
+
 }

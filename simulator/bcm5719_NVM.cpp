@@ -2,7 +2,7 @@
 ///
 /// @file       bcm5719_NVM.cpp
 ///
-/// @project    <PROJECT>
+/// @project    bcm5719
 ///
 /// @brief      bcm5719_NVM
 ///
@@ -62,4 +62,6 @@ void init_bcm5719_NVM(void)
     /** @brief Bitmap for @ref NVM_t.SoftwareArbitration. */
 
     /** @brief Bitmap for @ref NVM_t.Access. */
+
+
 }

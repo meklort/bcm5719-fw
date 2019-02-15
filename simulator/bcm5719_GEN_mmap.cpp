@@ -2,7 +2,7 @@
 ///
 /// @file       bcm5719_GEN_mmap.cpp
 ///
-/// @project    <PROJECT>
+/// @project    bcm5719
 ///
 /// @brief      bcm5719_GEN_mmap
 ///

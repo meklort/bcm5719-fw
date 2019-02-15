@@ -2,7 +2,7 @@
 ///
 /// @file       bcm5719_MII.cpp
 ///
-/// @project    <PROJECT>
+/// @project    bcm5719
 ///
 /// @brief      bcm5719_MII
 ///
@@ -59,15 +59,13 @@ void init_bcm5719_MII(void)
 
     /** @brief Bitmap for @ref MII_t.AutonegotiationAdvertisement. */
 
-    /** @brief Bitmap for @ref MII_t.AutonegotiationLinkPartnerAbilityBasePage.
-     */
+    /** @brief Bitmap for @ref MII_t.AutonegotiationLinkPartnerAbilityBasePage. */
 
     /** @brief Bitmap for @ref MII_t.AutonegotiationExpansion. */
 
     /** @brief Bitmap for @ref MII_t.AutonegotiationNextPageTransmit. */
 
-    /** @brief Bitmap for @ref MII_t.AutonegotiationLinkPartnerAbilityNextPage.
-     */
+    /** @brief Bitmap for @ref MII_t.AutonegotiationLinkPartnerAbilityNextPage. */
 
     /** @brief Bitmap for @ref MII_t.1000baseTControl. */
 
@@ -92,4 +90,6 @@ void init_bcm5719_MII(void)
     /** @brief Bitmap for @ref MII_t.InterruptMask. */
 
     /** @brief Bitmap for @ref MII_t.Test1. */
+
+
 }

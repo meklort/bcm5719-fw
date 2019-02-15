@@ -2,7 +2,7 @@
 ///
 /// @file       bcm5719_APE.cpp
 ///
-/// @project    <PROJECT>
+/// @project    bcm5719
 ///
 /// @brief      bcm5719_APE
 ///
@@ -196,4 +196,6 @@ void init_bcm5719_APE(void)
     /** @brief Bitmap for @ref APE_t.PerLockGrantPort6. */
 
     /** @brief Bitmap for @ref APE_t.PerLockGrantGpio. */
+
+
 }

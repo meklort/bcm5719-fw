@@ -2,7 +2,7 @@
 ///
 /// @file       bcm5719_GEN.cpp
 ///
-/// @project    <PROJECT>
+/// @project    bcm5719
 ///
 /// @brief      bcm5719_GEN
 ///
@@ -94,4 +94,6 @@ void init_bcm5719_GEN(void)
     /** @brief Bitmap for @ref GEN_t.GenDbgControlStatus. */
 
     /** @brief Bitmap for @ref GEN_t.GenDbgData. */
+
+
 }
