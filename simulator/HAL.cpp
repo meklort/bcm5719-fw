@@ -16,8 +16,13 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
+
+#include <string>
+
+using namespace std;
+
 #define DEVICE_CONFIG   "config"
-#define BAR_STR         "resource%d"
+#define BAR_STR         "resource"
 
 #define ARRAY_ELEMENTS(__x__) (sizeof(__x__) / sizeof(__x__[0]))
 
@@ -74,11 +79,17 @@ void initHAL(const char *pci_path)
 {
     struct stat st;
     int memfd;
-    char *pConfigPath =
-        (char *)malloc(strlen("%s/" DEVICE_CONFIG) + strlen(pci_path) + 1);
-    sprintf(pConfigPath, "%s/" DEVICE_CONFIG, pci_path);
+
+    string configPath = string(pci_path) + string("/") + string(DEVICE_CONFIG);
+    const char* pConfigPath = configPath.c_str();
 
     FILE *pConfigFile = fopen(pConfigPath, "rb");
+
+    if(!pConfigFile)
+    {
+        fprintf(stderr, "Unable to open PCI configuration %p\n", pConfigPath);
+        exit(-1);
+    }
 
     pci_config_t config;
 
@@ -87,12 +98,11 @@ void initHAL(const char *pci_path)
         if (is_supported(config.vendor_id, config.device_id))
         {
             printf("Found supported device %x:%x at %s\n", config.vendor_id,
-                   config.device_id, pConfigPath);
+                   config.device_id, configPath.c_str());
             for (unsigned int i = 0; i < ARRAY_ELEMENTS(config.BAR); i++)
             {
-                char *pBARPath = (char *)malloc(strlen("%s/" BAR_STR) +
-                                                strlen(pci_path) + 1);
-                sprintf(pBARPath, "%s/" BAR_STR, pci_path, i);
+                string BARPath = string(pci_path) + "/" BAR_STR + to_string(i);
+                const char* pBARPath = BARPath.c_str();
 
                 if ((memfd = open(pBARPath, O_RDWR | O_SYNC)) < 0)
                 {
@@ -124,11 +134,7 @@ void initHAL(const char *pci_path)
                 {
                     i++;
                 }
-
-                free(pBARPath);
             }
-
-            free(pConfigPath);
         }
     }
 
