@@ -1,10 +1,10 @@
 ################################################################################
 ###
-### @file       mips.cmake
+### @file       libs/OptParse/CMakeLists.txt
 ###
-### @project
+### @project    
 ###
-### @brief      MIPS specific configurations
+### @brief      Option Parsing CMake file
 ###
 ################################################################################
 ###
@@ -42,28 +42,8 @@
 ### @endcond
 ################################################################################
 
-SET(MIPS_COMPILE_OPTIONS -nostdlib -nodefaultlibs -fomit-frame-pointer -target mips )
-SET(MIPS_LINK_OPTIONS --gc-sections)
-# SET(CMAKE_EXE_LINKER_FLAGS -static)
+project(OptParse)
 
-# ASM files
-SET(CMAKE_INCLUDE_FLAG_ASM "-I")
-SET(CMAKE_ASM_COMPILE_OBJECT "<CMAKE_ASM_COMPILER> <DEFINES> <INCLUDES> <FLAGS> -o <OBJECT> -c <SOURCE>")
-
-SET(CMAKE_mips_LINK_EXECUTABLE "ld.lld  <OBJECTS> <LINK_LIBRARIES> <CMAKE_C_LINK_FLAGS> <LINK_FLAGS> -Bstatic -o <TARGET>")
-
-# MIPS-specific executables
-function(mips_add_executable target)
-    add_executable(${target} ${ARGN})
-
-    target_compile_options(${target} PRIVATE ${MIPS_COMPILE_OPTIONS})
-    target_link_libraries(${target} ${MIPS_LINK_OPTIONS})
-    set_property(TARGET ${target} PROPERTY LINKER_LANGUAGE mips)
-endfunction(mips_add_executable)
-
-# MIPS-specific libraries
-function(mips_add_library target)
-    add_library(${target} ${ARGN})
-
-    target_compile_options(${target} PRIVATE ${MIPS_COMPILE_OPTIONS})
-endfunction(mips_add_library)
+# Host library Only
+add_library(${PROJECT_NAME} STATIC OptionParser.cpp OptionParser.h)
+target_include_directories(${PROJECT_NAME} PUBLIC .)

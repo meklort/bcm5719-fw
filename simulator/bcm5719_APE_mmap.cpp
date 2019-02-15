@@ -42,9 +42,9 @@
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
 
-#include <bcm5719_APE.h>
 #include <stdint.h>
 #include <utility>
+#include <bcm5719_APE.h>
 
 typedef std::pair<uint8_t *, uint32_t> ram_offset_t;
 
@@ -73,446 +73,374 @@ void init_bcm5719_APE_mmap(void *base)
 {
     /** @brief Component Registers for @ref APE. */
     /** @brief Bitmap for @ref APE_t.Mode. */
-    APE.Mode.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)0));
-    APE.Mode.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)0));
+    static ram_offset_t APE_Mode_r32((uint8_t *)base, (uint32_t)0);
+    APE.Mode.r32.installReadCallback(read_from_ram, &APE_Mode_r32);
+    APE.Mode.r32.installWriteCallback(write_to_ram, &APE_Mode_r32);
 
     /** @brief Bitmap for @ref APE_t.Status. */
-    APE.Status.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)4));
-    APE.Status.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)4));
+    static ram_offset_t APE_Status_r32((uint8_t *)base, (uint32_t)4);
+    APE.Status.r32.installReadCallback(read_from_ram, &APE_Status_r32);
+    APE.Status.r32.installWriteCallback(write_to_ram, &APE_Status_r32);
 
     /** @brief Bitmap for @ref APE_t.GpioMessage. */
-    APE.GpioMessage.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)8));
-    APE.GpioMessage.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)8));
+    static ram_offset_t APE_GpioMessage_r32((uint8_t *)base, (uint32_t)8);
+    APE.GpioMessage.r32.installReadCallback(read_from_ram, &APE_GpioMessage_r32);
+    APE.GpioMessage.r32.installWriteCallback(write_to_ram, &APE_GpioMessage_r32);
 
     /** @brief Bitmap for @ref APE_t.Event. */
-    APE.Event.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)12));
-    APE.Event.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)12));
+    static ram_offset_t APE_Event_r32((uint8_t *)base, (uint32_t)12);
+    APE.Event.r32.installReadCallback(read_from_ram, &APE_Event_r32);
+    APE.Event.r32.installWriteCallback(write_to_ram, &APE_Event_r32);
 
     /** @brief Bitmap for @ref APE_t.Mode2. */
-    APE.Mode2.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)44));
-    APE.Mode2.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)44));
+    static ram_offset_t APE_Mode2_r32((uint8_t *)base, (uint32_t)44);
+    APE.Mode2.r32.installReadCallback(read_from_ram, &APE_Mode2_r32);
+    APE.Mode2.r32.installWriteCallback(write_to_ram, &APE_Mode2_r32);
 
     /** @brief Bitmap for @ref APE_t.Status2. */
-    APE.Status2.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)48));
-    APE.Status2.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)48));
+    static ram_offset_t APE_Status2_r32((uint8_t *)base, (uint32_t)48);
+    APE.Status2.r32.installReadCallback(read_from_ram, &APE_Status2_r32);
+    APE.Status2.r32.installWriteCallback(write_to_ram, &APE_Status2_r32);
 
     /** @brief Bitmap for @ref APE_t.LockGrantObsolete. */
-    APE.LockGrantObsolete.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)76));
-    APE.LockGrantObsolete.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)76));
+    static ram_offset_t APE_LockGrantObsolete_r32((uint8_t *)base, (uint32_t)76);
+    APE.LockGrantObsolete.r32.installReadCallback(read_from_ram, &APE_LockGrantObsolete_r32);
+    APE.LockGrantObsolete.r32.installWriteCallback(write_to_ram, &APE_LockGrantObsolete_r32);
 
     /** @brief Bitmap for @ref APE_t.B0. */
-    APE.B0.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)176));
-    APE.B0.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)176));
+    static ram_offset_t APE_B0_r32((uint8_t *)base, (uint32_t)176);
+    APE.B0.r32.installReadCallback(read_from_ram, &APE_B0_r32);
+    APE.B0.r32.installWriteCallback(write_to_ram, &APE_B0_r32);
 
     /** @brief Bitmap for @ref APE_t.Gpio. */
-    APE.Gpio.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)184));
-    APE.Gpio.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)184));
+    static ram_offset_t APE_Gpio_r32((uint8_t *)base, (uint32_t)184);
+    APE.Gpio.r32.installReadCallback(read_from_ram, &APE_Gpio_r32);
+    APE.Gpio.r32.installWriteCallback(write_to_ram, &APE_Gpio_r32);
 
     /** @brief Bitmap for @ref APE_t.Gint. */
-    APE.Gint.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)188));
-    APE.Gint.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)188));
+    static ram_offset_t APE_Gint_r32((uint8_t *)base, (uint32_t)188);
+    APE.Gint.r32.installReadCallback(read_from_ram, &APE_Gint_r32);
+    APE.Gint.r32.installWriteCallback(write_to_ram, &APE_Gint_r32);
 
     /** @brief Bitmap for @ref APE_t.OtpControl. */
-    APE.OtpControl.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)232));
-    APE.OtpControl.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)232));
+    static ram_offset_t APE_OtpControl_r32((uint8_t *)base, (uint32_t)232);
+    APE.OtpControl.r32.installReadCallback(read_from_ram, &APE_OtpControl_r32);
+    APE.OtpControl.r32.installWriteCallback(write_to_ram, &APE_OtpControl_r32);
 
     /** @brief Bitmap for @ref APE_t.OtpStatus. */
-    APE.OtpStatus.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)236));
-    APE.OtpStatus.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)236));
+    static ram_offset_t APE_OtpStatus_r32((uint8_t *)base, (uint32_t)236);
+    APE.OtpStatus.r32.installReadCallback(read_from_ram, &APE_OtpStatus_r32);
+    APE.OtpStatus.r32.installWriteCallback(write_to_ram, &APE_OtpStatus_r32);
 
     /** @brief Bitmap for @ref APE_t.OtpAddr. */
-    APE.OtpAddr.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)240));
-    APE.OtpAddr.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)240));
+    static ram_offset_t APE_OtpAddr_r32((uint8_t *)base, (uint32_t)240);
+    APE.OtpAddr.r32.installReadCallback(read_from_ram, &APE_OtpAddr_r32);
+    APE.OtpAddr.r32.installWriteCallback(write_to_ram, &APE_OtpAddr_r32);
 
     /** @brief Bitmap for @ref APE_t.OtpReadData. */
-    APE.OtpReadData.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)248));
-    APE.OtpReadData.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)248));
+    static ram_offset_t APE_OtpReadData_r32((uint8_t *)base, (uint32_t)248);
+    APE.OtpReadData.r32.installReadCallback(read_from_ram, &APE_OtpReadData_r32);
+    APE.OtpReadData.r32.installWriteCallback(write_to_ram, &APE_OtpReadData_r32);
 
     /** @brief Bitmap for @ref APE_t.Cm3. */
-    APE.Cm3.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)264));
-    APE.Cm3.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)264));
+    static ram_offset_t APE_Cm3_r32((uint8_t *)base, (uint32_t)264);
+    APE.Cm3.r32.installReadCallback(read_from_ram, &APE_Cm3_r32);
+    APE.Cm3.r32.installWriteCallback(write_to_ram, &APE_Cm3_r32);
 
     /** @brief Bitmap for @ref APE_t.SegSig. */
-    APE.SegSig.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16384));
-    APE.SegSig.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16384));
+    static ram_offset_t APE_SegSig_r32((uint8_t *)base, (uint32_t)16384);
+    APE.SegSig.r32.installReadCallback(read_from_ram, &APE_SegSig_r32);
+    APE.SegSig.r32.installWriteCallback(write_to_ram, &APE_SegSig_r32);
 
     /** @brief Bitmap for @ref APE_t.FwStatus. */
-    APE.FwStatus.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16396));
-    APE.FwStatus.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16396));
+    static ram_offset_t APE_FwStatus_r32((uint8_t *)base, (uint32_t)16396);
+    APE.FwStatus.r32.installReadCallback(read_from_ram, &APE_FwStatus_r32);
+    APE.FwStatus.r32.installWriteCallback(write_to_ram, &APE_FwStatus_r32);
 
     /** @brief Bitmap for @ref APE_t.FwFeatures. */
-    APE.FwFeatures.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16400));
-    APE.FwFeatures.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16400));
+    static ram_offset_t APE_FwFeatures_r32((uint8_t *)base, (uint32_t)16400);
+    APE.FwFeatures.r32.installReadCallback(read_from_ram, &APE_FwFeatures_r32);
+    APE.FwFeatures.r32.installWriteCallback(write_to_ram, &APE_FwFeatures_r32);
 
     /** @brief Bitmap for @ref APE_t.4014. */
-    APE._4014.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16404));
-    APE._4014.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16404));
+    static ram_offset_t APE__4014_r32((uint8_t *)base, (uint32_t)16404);
+    APE._4014.r32.installReadCallback(read_from_ram, &APE__4014_r32);
+    APE._4014.r32.installWriteCallback(write_to_ram, &APE__4014_r32);
 
     /** @brief Bitmap for @ref APE_t.FwVersion. */
-    APE.FwVersion.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16408));
-    APE.FwVersion.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16408));
+    static ram_offset_t APE_FwVersion_r32((uint8_t *)base, (uint32_t)16408);
+    APE.FwVersion.r32.installReadCallback(read_from_ram, &APE_FwVersion_r32);
+    APE.FwVersion.r32.installWriteCallback(write_to_ram, &APE_FwVersion_r32);
 
     /** @brief Bitmap for @ref APE_t.SegMessageBufferOffset. */
-    APE.SegMessageBufferOffset.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16412));
-    APE.SegMessageBufferOffset.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16412));
+    static ram_offset_t APE_SegMessageBufferOffset_r32((uint8_t *)base, (uint32_t)16412);
+    APE.SegMessageBufferOffset.r32.installReadCallback(read_from_ram, &APE_SegMessageBufferOffset_r32);
+    APE.SegMessageBufferOffset.r32.installWriteCallback(write_to_ram, &APE_SegMessageBufferOffset_r32);
 
     /** @brief Bitmap for @ref APE_t.SegMessageBufferLength. */
-    APE.SegMessageBufferLength.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16416));
-    APE.SegMessageBufferLength.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16416));
+    static ram_offset_t APE_SegMessageBufferLength_r32((uint8_t *)base, (uint32_t)16416);
+    APE.SegMessageBufferLength.r32.installReadCallback(read_from_ram, &APE_SegMessageBufferLength_r32);
+    APE.SegMessageBufferLength.r32.installWriteCallback(write_to_ram, &APE_SegMessageBufferLength_r32);
 
     /** @brief Bitmap for @ref APE_t.4024. */
-    APE._4024.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16420));
-    APE._4024.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16420));
+    static ram_offset_t APE__4024_r32((uint8_t *)base, (uint32_t)16420);
+    APE._4024.r32.installReadCallback(read_from_ram, &APE__4024_r32);
+    APE._4024.r32.installWriteCallback(write_to_ram, &APE__4024_r32);
 
     /** @brief Bitmap for @ref APE_t.4028. */
-    APE._4028.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16424));
-    APE._4028.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16424));
+    static ram_offset_t APE__4028_r32((uint8_t *)base, (uint32_t)16424);
+    APE._4028.r32.installReadCallback(read_from_ram, &APE__4028_r32);
+    APE._4028.r32.installWriteCallback(write_to_ram, &APE__4028_r32);
 
     /** @brief Bitmap for @ref APE_t.RcpuSegSig. */
-    APE.RcpuSegSig.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16640));
-    APE.RcpuSegSig.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16640));
+    static ram_offset_t APE_RcpuSegSig_r32((uint8_t *)base, (uint32_t)16640);
+    APE.RcpuSegSig.r32.installReadCallback(read_from_ram, &APE_RcpuSegSig_r32);
+    APE.RcpuSegSig.r32.installWriteCallback(write_to_ram, &APE_RcpuSegSig_r32);
 
     /** @brief Bitmap for @ref APE_t.RcpuSegLength. */
-    APE.RcpuSegLength.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16644));
-    APE.RcpuSegLength.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16644));
+    static ram_offset_t APE_RcpuSegLength_r32((uint8_t *)base, (uint32_t)16644);
+    APE.RcpuSegLength.r32.installReadCallback(read_from_ram, &APE_RcpuSegLength_r32);
+    APE.RcpuSegLength.r32.installWriteCallback(write_to_ram, &APE_RcpuSegLength_r32);
 
     /** @brief Bitmap for @ref APE_t.RcpuInitCount. */
-    APE.RcpuInitCount.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16648));
-    APE.RcpuInitCount.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16648));
+    static ram_offset_t APE_RcpuInitCount_r32((uint8_t *)base, (uint32_t)16648);
+    APE.RcpuInitCount.r32.installReadCallback(read_from_ram, &APE_RcpuInitCount_r32);
+    APE.RcpuInitCount.r32.installWriteCallback(write_to_ram, &APE_RcpuInitCount_r32);
 
     /** @brief Bitmap for @ref APE_t.RcpuFwVersion. */
-    APE.RcpuFwVersion.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16652));
-    APE.RcpuFwVersion.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16652));
+    static ram_offset_t APE_RcpuFwVersion_r32((uint8_t *)base, (uint32_t)16652);
+    APE.RcpuFwVersion.r32.installReadCallback(read_from_ram, &APE_RcpuFwVersion_r32);
+    APE.RcpuFwVersion.r32.installWriteCallback(write_to_ram, &APE_RcpuFwVersion_r32);
 
     /** @brief Bitmap for @ref APE_t.RcpuCfgFeature. */
-    APE.RcpuCfgFeature.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16656));
-    APE.RcpuCfgFeature.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16656));
+    static ram_offset_t APE_RcpuCfgFeature_r32((uint8_t *)base, (uint32_t)16656);
+    APE.RcpuCfgFeature.r32.installReadCallback(read_from_ram, &APE_RcpuCfgFeature_r32);
+    APE.RcpuCfgFeature.r32.installWriteCallback(write_to_ram, &APE_RcpuCfgFeature_r32);
 
     /** @brief Bitmap for @ref APE_t.RcpuPciVendorDeviceId. */
-    APE.RcpuPciVendorDeviceId.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16660));
-    APE.RcpuPciVendorDeviceId.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16660));
+    static ram_offset_t APE_RcpuPciVendorDeviceId_r32((uint8_t *)base, (uint32_t)16660);
+    APE.RcpuPciVendorDeviceId.r32.installReadCallback(read_from_ram, &APE_RcpuPciVendorDeviceId_r32);
+    APE.RcpuPciVendorDeviceId.r32.installWriteCallback(write_to_ram, &APE_RcpuPciVendorDeviceId_r32);
 
     /** @brief Bitmap for @ref APE_t.RcpuPciSubsystemId. */
-    APE.RcpuPciSubsystemId.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16664));
-    APE.RcpuPciSubsystemId.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16664));
+    static ram_offset_t APE_RcpuPciSubsystemId_r32((uint8_t *)base, (uint32_t)16664);
+    APE.RcpuPciSubsystemId.r32.installReadCallback(read_from_ram, &APE_RcpuPciSubsystemId_r32);
+    APE.RcpuPciSubsystemId.r32.installWriteCallback(write_to_ram, &APE_RcpuPciSubsystemId_r32);
 
     /** @brief Bitmap for @ref APE_t.411c. */
-    APE._411c.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16668));
-    APE._411c.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16668));
+    static ram_offset_t APE__411c_r32((uint8_t *)base, (uint32_t)16668);
+    APE._411c.r32.installReadCallback(read_from_ram, &APE__411c_r32);
+    APE._411c.r32.installWriteCallback(write_to_ram, &APE__411c_r32);
 
     /** @brief Bitmap for @ref APE_t.4120. */
-    APE._4120.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16672));
-    APE._4120.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16672));
+    static ram_offset_t APE__4120_r32((uint8_t *)base, (uint32_t)16672);
+    APE._4120.r32.installReadCallback(read_from_ram, &APE__4120_r32);
+    APE._4120.r32.installWriteCallback(write_to_ram, &APE__4120_r32);
 
     /** @brief Bitmap for @ref APE_t.4124. */
-    APE._4124.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16676));
-    APE._4124.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16676));
+    static ram_offset_t APE__4124_r32((uint8_t *)base, (uint32_t)16676);
+    APE._4124.r32.installReadCallback(read_from_ram, &APE__4124_r32);
+    APE._4124.r32.installWriteCallback(write_to_ram, &APE__4124_r32);
 
     /** @brief Bitmap for @ref APE_t.RcpuCfgHw. */
-    APE.RcpuCfgHw.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16680));
-    APE.RcpuCfgHw.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16680));
+    static ram_offset_t APE_RcpuCfgHw_r32((uint8_t *)base, (uint32_t)16680);
+    APE.RcpuCfgHw.r32.installReadCallback(read_from_ram, &APE_RcpuCfgHw_r32);
+    APE.RcpuCfgHw.r32.installWriteCallback(write_to_ram, &APE_RcpuCfgHw_r32);
 
     /** @brief Bitmap for @ref APE_t.RcpuCfgHw2. */
-    APE.RcpuCfgHw2.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16684));
-    APE.RcpuCfgHw2.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16684));
+    static ram_offset_t APE_RcpuCfgHw2_r32((uint8_t *)base, (uint32_t)16684);
+    APE.RcpuCfgHw2.r32.installReadCallback(read_from_ram, &APE_RcpuCfgHw2_r32);
+    APE.RcpuCfgHw2.r32.installWriteCallback(write_to_ram, &APE_RcpuCfgHw2_r32);
 
     /** @brief Bitmap for @ref APE_t.RcpuCpmuStatus. */
-    APE.RcpuCpmuStatus.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16688));
-    APE.RcpuCpmuStatus.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16688));
+    static ram_offset_t APE_RcpuCpmuStatus_r32((uint8_t *)base, (uint32_t)16688);
+    APE.RcpuCpmuStatus.r32.installReadCallback(read_from_ram, &APE_RcpuCpmuStatus_r32);
+    APE.RcpuCpmuStatus.r32.installWriteCallback(write_to_ram, &APE_RcpuCpmuStatus_r32);
 
     /** @brief Bitmap for @ref APE_t.HostSegSig. */
-    APE.HostSegSig.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16896));
-    APE.HostSegSig.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16896));
+    static ram_offset_t APE_HostSegSig_r32((uint8_t *)base, (uint32_t)16896);
+    APE.HostSegSig.r32.installReadCallback(read_from_ram, &APE_HostSegSig_r32);
+    APE.HostSegSig.r32.installWriteCallback(write_to_ram, &APE_HostSegSig_r32);
 
     /** @brief Bitmap for @ref APE_t.HostSegLen. */
-    APE.HostSegLen.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16900));
-    APE.HostSegLen.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16900));
+    static ram_offset_t APE_HostSegLen_r32((uint8_t *)base, (uint32_t)16900);
+    APE.HostSegLen.r32.installReadCallback(read_from_ram, &APE_HostSegLen_r32);
+    APE.HostSegLen.r32.installWriteCallback(write_to_ram, &APE_HostSegLen_r32);
 
     /** @brief Bitmap for @ref APE_t.HostInitCount. */
-    APE.HostInitCount.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16904));
-    APE.HostInitCount.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16904));
+    static ram_offset_t APE_HostInitCount_r32((uint8_t *)base, (uint32_t)16904);
+    APE.HostInitCount.r32.installReadCallback(read_from_ram, &APE_HostInitCount_r32);
+    APE.HostInitCount.r32.installWriteCallback(write_to_ram, &APE_HostInitCount_r32);
 
     /** @brief Bitmap for @ref APE_t.HostDriverId. */
-    APE.HostDriverId.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16908));
-    APE.HostDriverId.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16908));
+    static ram_offset_t APE_HostDriverId_r32((uint8_t *)base, (uint32_t)16908);
+    APE.HostDriverId.r32.installReadCallback(read_from_ram, &APE_HostDriverId_r32);
+    APE.HostDriverId.r32.installWriteCallback(write_to_ram, &APE_HostDriverId_r32);
 
     /** @brief Bitmap for @ref APE_t.HostBehavior. */
-    APE.HostBehavior.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16912));
-    APE.HostBehavior.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16912));
+    static ram_offset_t APE_HostBehavior_r32((uint8_t *)base, (uint32_t)16912);
+    APE.HostBehavior.r32.installReadCallback(read_from_ram, &APE_HostBehavior_r32);
+    APE.HostBehavior.r32.installWriteCallback(write_to_ram, &APE_HostBehavior_r32);
 
     /** @brief Bitmap for @ref APE_t.HeartbeatInterval. */
-    APE.HeartbeatInterval.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16916));
-    APE.HeartbeatInterval.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16916));
+    static ram_offset_t APE_HeartbeatInterval_r32((uint8_t *)base, (uint32_t)16916);
+    APE.HeartbeatInterval.r32.installReadCallback(read_from_ram, &APE_HeartbeatInterval_r32);
+    APE.HeartbeatInterval.r32.installWriteCallback(write_to_ram, &APE_HeartbeatInterval_r32);
 
     /** @brief Bitmap for @ref APE_t.HeartbeatCount. */
-    APE.HeartbeatCount.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16920));
-    APE.HeartbeatCount.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16920));
+    static ram_offset_t APE_HeartbeatCount_r32((uint8_t *)base, (uint32_t)16920);
+    APE.HeartbeatCount.r32.installReadCallback(read_from_ram, &APE_HeartbeatCount_r32);
+    APE.HeartbeatCount.r32.installWriteCallback(write_to_ram, &APE_HeartbeatCount_r32);
 
     /** @brief Bitmap for @ref APE_t.HostDriverState. */
-    APE.HostDriverState.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16924));
-    APE.HostDriverState.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16924));
+    static ram_offset_t APE_HostDriverState_r32((uint8_t *)base, (uint32_t)16924);
+    APE.HostDriverState.r32.installReadCallback(read_from_ram, &APE_HostDriverState_r32);
+    APE.HostDriverState.r32.installWriteCallback(write_to_ram, &APE_HostDriverState_r32);
 
     /** @brief Bitmap for @ref APE_t.WolSpeed. */
-    APE.WolSpeed.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16932));
-    APE.WolSpeed.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)16932));
+    static ram_offset_t APE_WolSpeed_r32((uint8_t *)base, (uint32_t)16932);
+    APE.WolSpeed.r32.installReadCallback(read_from_ram, &APE_WolSpeed_r32);
+    APE.WolSpeed.r32.installWriteCallback(write_to_ram, &APE_WolSpeed_r32);
 
     /** @brief Bitmap for @ref APE_t.EventStatus. */
-    APE.EventStatus.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)17152));
-    APE.EventStatus.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)17152));
+    static ram_offset_t APE_EventStatus_r32((uint8_t *)base, (uint32_t)17152);
+    APE.EventStatus.r32.installReadCallback(read_from_ram, &APE_EventStatus_r32);
+    APE.EventStatus.r32.installWriteCallback(write_to_ram, &APE_EventStatus_r32);
 
     /** @brief Bitmap for @ref APE_t.ProtMagic. */
-    APE.ProtMagic.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)17160));
-    APE.ProtMagic.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)17160));
+    static ram_offset_t APE_ProtMagic_r32((uint8_t *)base, (uint32_t)17160);
+    APE.ProtMagic.r32.installReadCallback(read_from_ram, &APE_ProtMagic_r32);
+    APE.ProtMagic.r32.installWriteCallback(write_to_ram, &APE_ProtMagic_r32);
 
     /** @brief Bitmap for @ref APE_t.ProtMac0High. */
-    APE.ProtMac0High.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)17172));
-    APE.ProtMac0High.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)17172));
+    static ram_offset_t APE_ProtMac0High_r32((uint8_t *)base, (uint32_t)17172);
+    APE.ProtMac0High.r32.installReadCallback(read_from_ram, &APE_ProtMac0High_r32);
+    APE.ProtMac0High.r32.installWriteCallback(write_to_ram, &APE_ProtMac0High_r32);
 
     /** @brief Bitmap for @ref APE_t.ProtMac0Low. */
-    APE.ProtMac0Low.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)17176));
-    APE.ProtMac0Low.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)17176));
+    static ram_offset_t APE_ProtMac0Low_r32((uint8_t *)base, (uint32_t)17176);
+    APE.ProtMac0Low.r32.installReadCallback(read_from_ram, &APE_ProtMac0Low_r32);
+    APE.ProtMac0Low.r32.installWriteCallback(write_to_ram, &APE_ProtMac0Low_r32);
 
     /** @brief Bitmap for @ref APE_t.NcsiSig. */
-    APE.NcsiSig.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)18432));
-    APE.NcsiSig.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)18432));
+    static ram_offset_t APE_NcsiSig_r32((uint8_t *)base, (uint32_t)18432);
+    APE.NcsiSig.r32.installReadCallback(read_from_ram, &APE_NcsiSig_r32);
+    APE.NcsiSig.r32.installWriteCallback(write_to_ram, &APE_NcsiSig_r32);
 
     /** @brief Bitmap for @ref APE_t.NcsiBuildTime. */
-    APE.NcsiBuildTime.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)18448));
-    APE.NcsiBuildTime.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)18448));
+    static ram_offset_t APE_NcsiBuildTime_r32((uint8_t *)base, (uint32_t)18448);
+    APE.NcsiBuildTime.r32.installReadCallback(read_from_ram, &APE_NcsiBuildTime_r32);
+    APE.NcsiBuildTime.r32.installWriteCallback(write_to_ram, &APE_NcsiBuildTime_r32);
 
     /** @brief Bitmap for @ref APE_t.NcsiBuildTime2. */
-    APE.NcsiBuildTime2.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)18452));
-    APE.NcsiBuildTime2.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)18452));
+    static ram_offset_t APE_NcsiBuildTime2_r32((uint8_t *)base, (uint32_t)18452);
+    APE.NcsiBuildTime2.r32.installReadCallback(read_from_ram, &APE_NcsiBuildTime2_r32);
+    APE.NcsiBuildTime2.r32.installWriteCallback(write_to_ram, &APE_NcsiBuildTime2_r32);
 
     /** @brief Bitmap for @ref APE_t.NcsiBuildTime3. */
-    APE.NcsiBuildTime3.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)18456));
-    APE.NcsiBuildTime3.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)18456));
+    static ram_offset_t APE_NcsiBuildTime3_r32((uint8_t *)base, (uint32_t)18456);
+    APE.NcsiBuildTime3.r32.installReadCallback(read_from_ram, &APE_NcsiBuildTime3_r32);
+    APE.NcsiBuildTime3.r32.installWriteCallback(write_to_ram, &APE_NcsiBuildTime3_r32);
 
     /** @brief Bitmap for @ref APE_t.NcsiBuildDate. */
-    APE.NcsiBuildDate.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)18460));
-    APE.NcsiBuildDate.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)18460));
+    static ram_offset_t APE_NcsiBuildDate_r32((uint8_t *)base, (uint32_t)18460);
+    APE.NcsiBuildDate.r32.installReadCallback(read_from_ram, &APE_NcsiBuildDate_r32);
+    APE.NcsiBuildDate.r32.installWriteCallback(write_to_ram, &APE_NcsiBuildDate_r32);
 
     /** @brief Bitmap for @ref APE_t.NcsiBuildDate2. */
-    APE.NcsiBuildDate2.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)18464));
-    APE.NcsiBuildDate2.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)18464));
+    static ram_offset_t APE_NcsiBuildDate2_r32((uint8_t *)base, (uint32_t)18464);
+    APE.NcsiBuildDate2.r32.installReadCallback(read_from_ram, &APE_NcsiBuildDate2_r32);
+    APE.NcsiBuildDate2.r32.installWriteCallback(write_to_ram, &APE_NcsiBuildDate2_r32);
 
     /** @brief Bitmap for @ref APE_t.NcsiBuildDate3. */
-    APE.NcsiBuildDate3.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)18468));
-    APE.NcsiBuildDate3.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)18468));
+    static ram_offset_t APE_NcsiBuildDate3_r32((uint8_t *)base, (uint32_t)18468);
+    APE.NcsiBuildDate3.r32.installReadCallback(read_from_ram, &APE_NcsiBuildDate3_r32);
+    APE.NcsiBuildDate3.r32.installWriteCallback(write_to_ram, &APE_NcsiBuildDate3_r32);
 
     /** @brief Bitmap for @ref APE_t.ChipId. */
-    APE.ChipId.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)18576));
-    APE.ChipId.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)18576));
+    static ram_offset_t APE_ChipId_r32((uint8_t *)base, (uint32_t)18576);
+    APE.ChipId.r32.installReadCallback(read_from_ram, &APE_ChipId_r32);
+    APE.ChipId.r32.installWriteCallback(write_to_ram, &APE_ChipId_r32);
 
     /** @brief Bitmap for @ref APE_t.PerLockRequestPhy0. */
-    APE.PerLockRequestPhy0.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)33792));
-    APE.PerLockRequestPhy0.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)33792));
+    static ram_offset_t APE_PerLockRequestPhy0_r32((uint8_t *)base, (uint32_t)33792);
+    APE.PerLockRequestPhy0.r32.installReadCallback(read_from_ram, &APE_PerLockRequestPhy0_r32);
+    APE.PerLockRequestPhy0.r32.installWriteCallback(write_to_ram, &APE_PerLockRequestPhy0_r32);
 
     /** @brief Bitmap for @ref APE_t.PerLockRequestGrc. */
-    APE.PerLockRequestGrc.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)33796));
-    APE.PerLockRequestGrc.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)33796));
+    static ram_offset_t APE_PerLockRequestGrc_r32((uint8_t *)base, (uint32_t)33796);
+    APE.PerLockRequestGrc.r32.installReadCallback(read_from_ram, &APE_PerLockRequestGrc_r32);
+    APE.PerLockRequestGrc.r32.installWriteCallback(write_to_ram, &APE_PerLockRequestGrc_r32);
 
     /** @brief Bitmap for @ref APE_t.PerLockRequestPhy1. */
-    APE.PerLockRequestPhy1.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)33800));
-    APE.PerLockRequestPhy1.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)33800));
+    static ram_offset_t APE_PerLockRequestPhy1_r32((uint8_t *)base, (uint32_t)33800);
+    APE.PerLockRequestPhy1.r32.installReadCallback(read_from_ram, &APE_PerLockRequestPhy1_r32);
+    APE.PerLockRequestPhy1.r32.installWriteCallback(write_to_ram, &APE_PerLockRequestPhy1_r32);
 
     /** @brief Bitmap for @ref APE_t.PerLockRequestPhy2. */
-    APE.PerLockRequestPhy2.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)33804));
-    APE.PerLockRequestPhy2.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)33804));
+    static ram_offset_t APE_PerLockRequestPhy2_r32((uint8_t *)base, (uint32_t)33804);
+    APE.PerLockRequestPhy2.r32.installReadCallback(read_from_ram, &APE_PerLockRequestPhy2_r32);
+    APE.PerLockRequestPhy2.r32.installWriteCallback(write_to_ram, &APE_PerLockRequestPhy2_r32);
 
     /** @brief Bitmap for @ref APE_t.PerLockRequestMem. */
-    APE.PerLockRequestMem.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)33808));
-    APE.PerLockRequestMem.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)33808));
+    static ram_offset_t APE_PerLockRequestMem_r32((uint8_t *)base, (uint32_t)33808);
+    APE.PerLockRequestMem.r32.installReadCallback(read_from_ram, &APE_PerLockRequestMem_r32);
+    APE.PerLockRequestMem.r32.installWriteCallback(write_to_ram, &APE_PerLockRequestMem_r32);
 
     /** @brief Bitmap for @ref APE_t.PerLockRequestPhy3. */
-    APE.PerLockRequestPhy3.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)33812));
-    APE.PerLockRequestPhy3.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)33812));
+    static ram_offset_t APE_PerLockRequestPhy3_r32((uint8_t *)base, (uint32_t)33812);
+    APE.PerLockRequestPhy3.r32.installReadCallback(read_from_ram, &APE_PerLockRequestPhy3_r32);
+    APE.PerLockRequestPhy3.r32.installWriteCallback(write_to_ram, &APE_PerLockRequestPhy3_r32);
 
     /** @brief Bitmap for @ref APE_t.PerLockRequestPort6. */
-    APE.PerLockRequestPort6.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)33816));
-    APE.PerLockRequestPort6.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)33816));
+    static ram_offset_t APE_PerLockRequestPort6_r32((uint8_t *)base, (uint32_t)33816);
+    APE.PerLockRequestPort6.r32.installReadCallback(read_from_ram, &APE_PerLockRequestPort6_r32);
+    APE.PerLockRequestPort6.r32.installWriteCallback(write_to_ram, &APE_PerLockRequestPort6_r32);
 
     /** @brief Bitmap for @ref APE_t.PerLockRequestGpio. */
-    APE.PerLockRequestGpio.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)33820));
-    APE.PerLockRequestGpio.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)33820));
+    static ram_offset_t APE_PerLockRequestGpio_r32((uint8_t *)base, (uint32_t)33820);
+    APE.PerLockRequestGpio.r32.installReadCallback(read_from_ram, &APE_PerLockRequestGpio_r32);
+    APE.PerLockRequestGpio.r32.installWriteCallback(write_to_ram, &APE_PerLockRequestGpio_r32);
 
     /** @brief Bitmap for @ref APE_t.PerLockGrantPhy0. */
-    APE.PerLockGrantPhy0.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)33824));
-    APE.PerLockGrantPhy0.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)33824));
+    static ram_offset_t APE_PerLockGrantPhy0_r32((uint8_t *)base, (uint32_t)33824);
+    APE.PerLockGrantPhy0.r32.installReadCallback(read_from_ram, &APE_PerLockGrantPhy0_r32);
+    APE.PerLockGrantPhy0.r32.installWriteCallback(write_to_ram, &APE_PerLockGrantPhy0_r32);
 
     /** @brief Bitmap for @ref APE_t.PerLockGrantGrc. */
-    APE.PerLockGrantGrc.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)33828));
-    APE.PerLockGrantGrc.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)33828));
+    static ram_offset_t APE_PerLockGrantGrc_r32((uint8_t *)base, (uint32_t)33828);
+    APE.PerLockGrantGrc.r32.installReadCallback(read_from_ram, &APE_PerLockGrantGrc_r32);
+    APE.PerLockGrantGrc.r32.installWriteCallback(write_to_ram, &APE_PerLockGrantGrc_r32);
 
     /** @brief Bitmap for @ref APE_t.PerLockGrantPhy1. */
-    APE.PerLockGrantPhy1.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)33832));
-    APE.PerLockGrantPhy1.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)33832));
+    static ram_offset_t APE_PerLockGrantPhy1_r32((uint8_t *)base, (uint32_t)33832);
+    APE.PerLockGrantPhy1.r32.installReadCallback(read_from_ram, &APE_PerLockGrantPhy1_r32);
+    APE.PerLockGrantPhy1.r32.installWriteCallback(write_to_ram, &APE_PerLockGrantPhy1_r32);
 
     /** @brief Bitmap for @ref APE_t.PerLockGrantPhy2. */
-    APE.PerLockGrantPhy2.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)33836));
-    APE.PerLockGrantPhy2.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)33836));
+    static ram_offset_t APE_PerLockGrantPhy2_r32((uint8_t *)base, (uint32_t)33836);
+    APE.PerLockGrantPhy2.r32.installReadCallback(read_from_ram, &APE_PerLockGrantPhy2_r32);
+    APE.PerLockGrantPhy2.r32.installWriteCallback(write_to_ram, &APE_PerLockGrantPhy2_r32);
 
     /** @brief Bitmap for @ref APE_t.PerLockGrantMem. */
-    APE.PerLockGrantMem.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)33840));
-    APE.PerLockGrantMem.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)33840));
+    static ram_offset_t APE_PerLockGrantMem_r32((uint8_t *)base, (uint32_t)33840);
+    APE.PerLockGrantMem.r32.installReadCallback(read_from_ram, &APE_PerLockGrantMem_r32);
+    APE.PerLockGrantMem.r32.installWriteCallback(write_to_ram, &APE_PerLockGrantMem_r32);
 
     /** @brief Bitmap for @ref APE_t.PerLockGrantPhy3. */
-    APE.PerLockGrantPhy3.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)33844));
-    APE.PerLockGrantPhy3.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)33844));
+    static ram_offset_t APE_PerLockGrantPhy3_r32((uint8_t *)base, (uint32_t)33844);
+    APE.PerLockGrantPhy3.r32.installReadCallback(read_from_ram, &APE_PerLockGrantPhy3_r32);
+    APE.PerLockGrantPhy3.r32.installWriteCallback(write_to_ram, &APE_PerLockGrantPhy3_r32);
 
     /** @brief Bitmap for @ref APE_t.PerLockGrantPort6. */
-    APE.PerLockGrantPort6.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)33848));
-    APE.PerLockGrantPort6.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)33848));
+    static ram_offset_t APE_PerLockGrantPort6_r32((uint8_t *)base, (uint32_t)33848);
+    APE.PerLockGrantPort6.r32.installReadCallback(read_from_ram, &APE_PerLockGrantPort6_r32);
+    APE.PerLockGrantPort6.r32.installWriteCallback(write_to_ram, &APE_PerLockGrantPort6_r32);
 
     /** @brief Bitmap for @ref APE_t.PerLockGrantGpio. */
-    APE.PerLockGrantGpio.r32.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)33852));
-    APE.PerLockGrantGpio.r32.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)33852));
+    static ram_offset_t APE_PerLockGrantGpio_r32((uint8_t *)base, (uint32_t)33852);
+    APE.PerLockGrantGpio.r32.installReadCallback(read_from_ram, &APE_PerLockGrantGpio_r32);
+    APE.PerLockGrantGpio.r32.installWriteCallback(write_to_ram, &APE_PerLockGrantGpio_r32);
+
+
 }

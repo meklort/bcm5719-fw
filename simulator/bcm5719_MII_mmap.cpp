@@ -42,9 +42,9 @@
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
 
-#include <bcm5719_MII.h>
 #include <stdint.h>
 #include <utility>
+#include <bcm5719_MII.h>
 
 typedef std::pair<uint8_t *, uint32_t> ram_offset_t;
 
@@ -73,130 +73,109 @@ void init_bcm5719_MII_mmap(void *base)
 {
     /** @brief Component Registers for @ref MII. */
     /** @brief Bitmap for @ref MII_t.Control. */
-    MII.Control.r16.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)0));
-    MII.Control.r16.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)0));
+    static ram_offset_t MII_Control_r16((uint8_t *)base, (uint32_t)0);
+    MII.Control.r16.installReadCallback(read_from_ram, &MII_Control_r16);
+    MII.Control.r16.installWriteCallback(write_to_ram, &MII_Control_r16);
 
     /** @brief Bitmap for @ref MII_t.Status. */
-    MII.Status.r16.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)1));
-    MII.Status.r16.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)1));
+    static ram_offset_t MII_Status_r16((uint8_t *)base, (uint32_t)1);
+    MII.Status.r16.installReadCallback(read_from_ram, &MII_Status_r16);
+    MII.Status.r16.installWriteCallback(write_to_ram, &MII_Status_r16);
 
     /** @brief Bitmap for @ref MII_t.PhyIdHigh. */
-    MII.PhyIdHigh.r16.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)2));
-    MII.PhyIdHigh.r16.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)2));
+    static ram_offset_t MII_PhyIdHigh_r16((uint8_t *)base, (uint32_t)2);
+    MII.PhyIdHigh.r16.installReadCallback(read_from_ram, &MII_PhyIdHigh_r16);
+    MII.PhyIdHigh.r16.installWriteCallback(write_to_ram, &MII_PhyIdHigh_r16);
 
     /** @brief Bitmap for @ref MII_t.PhyIdLow. */
-    MII.PhyIdLow.r16.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)3));
-    MII.PhyIdLow.r16.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)3));
+    static ram_offset_t MII_PhyIdLow_r16((uint8_t *)base, (uint32_t)3);
+    MII.PhyIdLow.r16.installReadCallback(read_from_ram, &MII_PhyIdLow_r16);
+    MII.PhyIdLow.r16.installWriteCallback(write_to_ram, &MII_PhyIdLow_r16);
 
     /** @brief Bitmap for @ref MII_t.AutonegotiationAdvertisement. */
-    MII.AutonegotiationAdvertisement.r16.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)4));
-    MII.AutonegotiationAdvertisement.r16.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)4));
+    static ram_offset_t MII_AutonegotiationAdvertisement_r16((uint8_t *)base, (uint32_t)4);
+    MII.AutonegotiationAdvertisement.r16.installReadCallback(read_from_ram, &MII_AutonegotiationAdvertisement_r16);
+    MII.AutonegotiationAdvertisement.r16.installWriteCallback(write_to_ram, &MII_AutonegotiationAdvertisement_r16);
 
-    /** @brief Bitmap for @ref MII_t.AutonegotiationLinkPartnerAbilityBasePage.
-     */
-    MII.AutonegotiationLinkPartnerAbilityBasePage.r16.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)5));
-    MII.AutonegotiationLinkPartnerAbilityBasePage.r16.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)5));
+    /** @brief Bitmap for @ref MII_t.AutonegotiationLinkPartnerAbilityBasePage. */
+    static ram_offset_t MII_AutonegotiationLinkPartnerAbilityBasePage_r16((uint8_t *)base, (uint32_t)5);
+    MII.AutonegotiationLinkPartnerAbilityBasePage.r16.installReadCallback(read_from_ram, &MII_AutonegotiationLinkPartnerAbilityBasePage_r16);
+    MII.AutonegotiationLinkPartnerAbilityBasePage.r16.installWriteCallback(write_to_ram, &MII_AutonegotiationLinkPartnerAbilityBasePage_r16);
 
     /** @brief Bitmap for @ref MII_t.AutonegotiationExpansion. */
-    MII.AutonegotiationExpansion.r16.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)6));
-    MII.AutonegotiationExpansion.r16.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)6));
+    static ram_offset_t MII_AutonegotiationExpansion_r16((uint8_t *)base, (uint32_t)6);
+    MII.AutonegotiationExpansion.r16.installReadCallback(read_from_ram, &MII_AutonegotiationExpansion_r16);
+    MII.AutonegotiationExpansion.r16.installWriteCallback(write_to_ram, &MII_AutonegotiationExpansion_r16);
 
     /** @brief Bitmap for @ref MII_t.AutonegotiationNextPageTransmit. */
-    MII.AutonegotiationNextPageTransmit.r16.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)7));
-    MII.AutonegotiationNextPageTransmit.r16.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)7));
+    static ram_offset_t MII_AutonegotiationNextPageTransmit_r16((uint8_t *)base, (uint32_t)7);
+    MII.AutonegotiationNextPageTransmit.r16.installReadCallback(read_from_ram, &MII_AutonegotiationNextPageTransmit_r16);
+    MII.AutonegotiationNextPageTransmit.r16.installWriteCallback(write_to_ram, &MII_AutonegotiationNextPageTransmit_r16);
 
-    /** @brief Bitmap for @ref MII_t.AutonegotiationLinkPartnerAbilityNextPage.
-     */
-    MII.AutonegotiationLinkPartnerAbilityNextPage.r16.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)8));
-    MII.AutonegotiationLinkPartnerAbilityNextPage.r16.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)8));
+    /** @brief Bitmap for @ref MII_t.AutonegotiationLinkPartnerAbilityNextPage. */
+    static ram_offset_t MII_AutonegotiationLinkPartnerAbilityNextPage_r16((uint8_t *)base, (uint32_t)8);
+    MII.AutonegotiationLinkPartnerAbilityNextPage.r16.installReadCallback(read_from_ram, &MII_AutonegotiationLinkPartnerAbilityNextPage_r16);
+    MII.AutonegotiationLinkPartnerAbilityNextPage.r16.installWriteCallback(write_to_ram, &MII_AutonegotiationLinkPartnerAbilityNextPage_r16);
 
     /** @brief Bitmap for @ref MII_t.1000baseTControl. */
-    MII._1000baseTControl.r16.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)9));
-    MII._1000baseTControl.r16.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)9));
+    static ram_offset_t MII__1000baseTControl_r16((uint8_t *)base, (uint32_t)9);
+    MII._1000baseTControl.r16.installReadCallback(read_from_ram, &MII__1000baseTControl_r16);
+    MII._1000baseTControl.r16.installWriteCallback(write_to_ram, &MII__1000baseTControl_r16);
 
     /** @brief Bitmap for @ref MII_t.1000baseTStatus. */
-    MII._1000baseTStatus.r16.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)10));
-    MII._1000baseTStatus.r16.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)10));
+    static ram_offset_t MII__1000baseTStatus_r16((uint8_t *)base, (uint32_t)10);
+    MII._1000baseTStatus.r16.installReadCallback(read_from_ram, &MII__1000baseTStatus_r16);
+    MII._1000baseTStatus.r16.installWriteCallback(write_to_ram, &MII__1000baseTStatus_r16);
 
     /** @brief Bitmap for @ref MII_t.BroadreachLreAccess. */
-    MII.BroadreachLreAccess.r16.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)14));
-    MII.BroadreachLreAccess.r16.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)14));
+    static ram_offset_t MII_BroadreachLreAccess_r16((uint8_t *)base, (uint32_t)14);
+    MII.BroadreachLreAccess.r16.installReadCallback(read_from_ram, &MII_BroadreachLreAccess_r16);
+    MII.BroadreachLreAccess.r16.installWriteCallback(write_to_ram, &MII_BroadreachLreAccess_r16);
 
     /** @brief Bitmap for @ref MII_t.IeeeExtendedStatus. */
-    MII.IeeeExtendedStatus.r16.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)15));
-    MII.IeeeExtendedStatus.r16.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)15));
+    static ram_offset_t MII_IeeeExtendedStatus_r16((uint8_t *)base, (uint32_t)15);
+    MII.IeeeExtendedStatus.r16.installReadCallback(read_from_ram, &MII_IeeeExtendedStatus_r16);
+    MII.IeeeExtendedStatus.r16.installWriteCallback(write_to_ram, &MII_IeeeExtendedStatus_r16);
 
     /** @brief Bitmap for @ref MII_t.PhyExtendedStatus. */
-    MII.PhyExtendedStatus.r16.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)17));
-    MII.PhyExtendedStatus.r16.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)17));
+    static ram_offset_t MII_PhyExtendedStatus_r16((uint8_t *)base, (uint32_t)17);
+    MII.PhyExtendedStatus.r16.installReadCallback(read_from_ram, &MII_PhyExtendedStatus_r16);
+    MII.PhyExtendedStatus.r16.installWriteCallback(write_to_ram, &MII_PhyExtendedStatus_r16);
 
     /** @brief Bitmap for @ref MII_t.ReceiveErrorCounter. */
-    MII.ReceiveErrorCounter.r16.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)18));
-    MII.ReceiveErrorCounter.r16.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)18));
+    static ram_offset_t MII_ReceiveErrorCounter_r16((uint8_t *)base, (uint32_t)18);
+    MII.ReceiveErrorCounter.r16.installReadCallback(read_from_ram, &MII_ReceiveErrorCounter_r16);
+    MII.ReceiveErrorCounter.r16.installWriteCallback(write_to_ram, &MII_ReceiveErrorCounter_r16);
 
     /** @brief Bitmap for @ref MII_t.FalseCarrierSenseCounter. */
-    MII.FalseCarrierSenseCounter.r16.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)19));
-    MII.FalseCarrierSenseCounter.r16.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)19));
+    static ram_offset_t MII_FalseCarrierSenseCounter_r16((uint8_t *)base, (uint32_t)19);
+    MII.FalseCarrierSenseCounter.r16.installReadCallback(read_from_ram, &MII_FalseCarrierSenseCounter_r16);
+    MII.FalseCarrierSenseCounter.r16.installWriteCallback(write_to_ram, &MII_FalseCarrierSenseCounter_r16);
 
     /** @brief Bitmap for @ref MII_t.LocalRemoteReceiverNotOkCounter. */
-    MII.LocalRemoteReceiverNotOkCounter.r16.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)20));
-    MII.LocalRemoteReceiverNotOkCounter.r16.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)20));
+    static ram_offset_t MII_LocalRemoteReceiverNotOkCounter_r16((uint8_t *)base, (uint32_t)20);
+    MII.LocalRemoteReceiverNotOkCounter.r16.installReadCallback(read_from_ram, &MII_LocalRemoteReceiverNotOkCounter_r16);
+    MII.LocalRemoteReceiverNotOkCounter.r16.installWriteCallback(write_to_ram, &MII_LocalRemoteReceiverNotOkCounter_r16);
 
     /** @brief Bitmap for @ref MII_t.AuxillaryStatusSummary. */
-    MII.AuxillaryStatusSummary.r16.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)25));
-    MII.AuxillaryStatusSummary.r16.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)25));
+    static ram_offset_t MII_AuxillaryStatusSummary_r16((uint8_t *)base, (uint32_t)25);
+    MII.AuxillaryStatusSummary.r16.installReadCallback(read_from_ram, &MII_AuxillaryStatusSummary_r16);
+    MII.AuxillaryStatusSummary.r16.installWriteCallback(write_to_ram, &MII_AuxillaryStatusSummary_r16);
 
     /** @brief Bitmap for @ref MII_t.InterruptStatus. */
-    MII.InterruptStatus.r16.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)26));
-    MII.InterruptStatus.r16.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)26));
+    static ram_offset_t MII_InterruptStatus_r16((uint8_t *)base, (uint32_t)26);
+    MII.InterruptStatus.r16.installReadCallback(read_from_ram, &MII_InterruptStatus_r16);
+    MII.InterruptStatus.r16.installWriteCallback(write_to_ram, &MII_InterruptStatus_r16);
 
     /** @brief Bitmap for @ref MII_t.InterruptMask. */
-    MII.InterruptMask.r16.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)27));
-    MII.InterruptMask.r16.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)27));
+    static ram_offset_t MII_InterruptMask_r16((uint8_t *)base, (uint32_t)27);
+    MII.InterruptMask.r16.installReadCallback(read_from_ram, &MII_InterruptMask_r16);
+    MII.InterruptMask.r16.installWriteCallback(write_to_ram, &MII_InterruptMask_r16);
 
     /** @brief Bitmap for @ref MII_t.Test1. */
-    MII.Test1.r16.installReadCallback(
-        read_from_ram, new ram_offset_t((uint8_t *)base, (uint32_t)30));
-    MII.Test1.r16.installWriteCallback(
-        write_to_ram, new ram_offset_t((uint8_t *)base, (uint32_t)30));
+    static ram_offset_t MII_Test1_r16((uint8_t *)base, (uint32_t)30);
+    MII.Test1.r16.installReadCallback(read_from_ram, &MII_Test1_r16);
+    MII.Test1.r16.installWriteCallback(write_to_ram, &MII_Test1_r16);
+
+
 }
