@@ -46,6 +46,12 @@
 #include <utility>
 #include <bcm5719_GEN.h>
 
+#ifdef __ppc64__
+#define BARRIER()    do { asm volatile ("sync 0\neieio\n" ::: "memory"); } while(0)
+#else
+#define BARRIER()    do { asm volatile ("" ::: "memory"); } while(0)
+#endif
+
 typedef std::pair<uint8_t *, uint32_t> ram_offset_t;
 
 static uint32_t read_from_ram(uint32_t val, void *args)
@@ -55,6 +61,7 @@ static uint32_t read_from_ram(uint32_t val, void *args)
     uint8_t *base = loc->first;
     base += loc->second;
 
+    BARRIER();
     return *(uint32_t *)base;
 }
 
@@ -65,6 +72,7 @@ static uint32_t write_to_ram(uint32_t val, void *args)
     uint8_t *base = loc->first;
     base += loc->second;
 
+    BARRIER();
     *(uint32_t *)base = val;
     return val;
 }

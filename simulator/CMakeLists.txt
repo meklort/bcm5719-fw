@@ -6,6 +6,8 @@ simulator_add_library(${PROJECT_NAME} STATIC
 
             bcm5719_DEVICE_mmap.cpp
             bcm5719_DEVICE.cpp
+            bcm5719_GEN_mmap.cpp
+            bcm5719_GEN.cpp
             bcm5719_NVM_mmap.cpp
             bcm5719_NVM.cpp
             bcm5719_APE.cpp
