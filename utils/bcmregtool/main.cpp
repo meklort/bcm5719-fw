@@ -254,14 +254,14 @@ int main(int argc, char const *argv[])
 
         printf("\n");
 
-        printf("Power Budget[0]: 0x%08X\n", (uint32_t)DEVICE.PciPowerBudget0.bits.PowerBudgetValue);
-        printf("Power Budget[1]: 0x%08X\n", (uint32_t)DEVICE.PciPowerBudget1.bits.PowerBudgetValue);
-        printf("Power Budget[2]: 0x%08X\n", (uint32_t)DEVICE.PciPowerBudget2.bits.PowerBudgetValue);
-        printf("Power Budget[3]: 0x%08X\n", (uint32_t)DEVICE.PciPowerBudget3.bits.PowerBudgetValue);
-        printf("Power Budget[4]: 0x%08X\n", (uint32_t)DEVICE.PciPowerBudget4.bits.PowerBudgetValue);
-        printf("Power Budget[5]: 0x%08X\n", (uint32_t)DEVICE.PciPowerBudget5.bits.PowerBudgetValue);
-        printf("Power Budget[6]: 0x%08X\n", (uint32_t)DEVICE.PciPowerBudget6.bits.PowerBudgetValue);
-        printf("Power Budget[7]: 0x%08X\n", (uint32_t)DEVICE.PciPowerBudget7.bits.PowerBudgetValue);
+        printf("Power Budget[0]: 0x%08X\n", (uint32_t)DEVICE.PciPowerBudget0.r32);
+        printf("Power Budget[1]: 0x%08X\n", (uint32_t)DEVICE.PciPowerBudget1.r32);
+        printf("Power Budget[2]: 0x%08X\n", (uint32_t)DEVICE.PciPowerBudget2.r32);
+        printf("Power Budget[3]: 0x%08X\n", (uint32_t)DEVICE.PciPowerBudget3.r32);
+        printf("Power Budget[4]: 0x%08X\n", (uint32_t)DEVICE.PciPowerBudget4.r32);
+        printf("Power Budget[5]: 0x%08X\n", (uint32_t)DEVICE.PciPowerBudget5.r32);
+        printf("Power Budget[6]: 0x%08X\n", (uint32_t)DEVICE.PciPowerBudget6.r32);
+        printf("Power Budget[7]: 0x%08X\n", (uint32_t)DEVICE.PciPowerBudget7.r32);
 
         printf("\n");
 

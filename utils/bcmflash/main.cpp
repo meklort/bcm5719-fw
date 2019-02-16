@@ -228,10 +228,38 @@ int main(int argc, char const *argv[])
            nvram.contents.info.powerConsumedD3, nvram.contents.info.powerConsumedD2,
            nvram.contents.info.powerConsumedD1, nvram.contents.info.powerConsumedD0);
 
-    printf("Power Budget0:    0x%08X\n", be32toh(nvram.contents.info.powerBudget0));
-    printf("Power Budget1:    0x%08X\n", be32toh(nvram.contents.info.powerBudget1));
-    printf("Power Budget2:    0x%08X\n", be32toh(nvram.contents.info.powerBudget2));
-    printf("Power Budget3:    0x%08X\n", be32toh(nvram.contents.info.powerBudget3));
+    // Print out power budget (and translated values).
+    uint32_t pb_raw[8];
+    pb_raw[0] = be32toh(nvram.contents.info.powerBudget0) & 0xffff;
+    pb_raw[1] = be32toh(nvram.contents.info.powerBudget0) >> 16;
+    pb_raw[2] = be32toh(nvram.contents.info.powerBudget1) & 0xffff;
+    pb_raw[3] = be32toh(nvram.contents.info.powerBudget1) >> 16;
+    pb_raw[4] = be32toh(nvram.contents.info.powerBudget2) & 0xffff;
+    pb_raw[5] = be32toh(nvram.contents.info.powerBudget2) >> 16;
+    pb_raw[6] = be32toh(nvram.contents.info.powerBudget3) & 0xffff;
+    pb_raw[7] = be32toh(nvram.contents.info.powerBudget3) >> 16;
+    printf("Power Budget0:    0x%04X%04X\n", pb_raw[1], pb_raw[0]);
+    printf("Power Budget1:    0x%04X%04X\n", pb_raw[3], pb_raw[2]);
+    printf("Power Budget2:    0x%04X%04X\n", pb_raw[5], pb_raw[4]);
+    printf("Power Budget3:    0x%04X%04X\n", pb_raw[7], pb_raw[6]);
+
+    for(int i = 0; i < ARRAY_ELEMENTS(pb_raw); i++)
+    {
+        uint32_t raw = pb_raw[i];
+        RegDEVICEPciPowerBudget0_t pb0;
+        pb0.r32 = 0;
+        if(raw)
+        {
+            pb0.bits.BasePower = raw & 0xFF;
+            pb0.bits.DataScale = DEVICE_PCI_POWER_BUDGET_0_DATA_SCALE_0_1X;
+            pb0.bits.PMState   = (raw & 0x0300) >> 8;
+            pb0.bits.Type      = (raw & 0x1C00) >> 10;
+            pb0.bits.PowerRail = (raw & 0xE000) >> 13;
+        }
+
+        printf("Translated Power Budget[%d]:    0x%08X\n", i, (uint32_t)pb0.r32);
+    }
+
 
     printf("\n=== Port 0 ===\n");
     printf("Subsystem ID: 0x%04X\n", be16toh(nvram.contents.info2.pciSubsystemF0GPHY));

@@ -4512,24 +4512,128 @@
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>PCI_POWER_BUDGET_0</ipxact:name>
-                    <ipxact:description>Used to report power budget capability data to the host. The values are loaded from NVM, and up to eight values may be specified. Each value is specified in the lower 16 bits of one of these PCI Power Budget registers. The upper 16 bits are set to zero.</ipxact:description>
+                    <ipxact:description>Used to report power budget capability data to the host. The values are loaded from NVM, and up to eight values may be specified. </ipxact:description>
                     <ipxact:addressOffset>0x6510</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
                     <ipxact:field>
-                        <ipxact:name>Power Budget Value</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:name>Base Power</ipxact:name>
+                        <ipxact:description>Specifies in watts the base power value in the given operating condition.</ipxact:description>
                         <ipxact:bitOffset>0</ipxact:bitOffset>
-                        <ipxact:bitWidth>16</ipxact:bitWidth>
+                        <ipxact:bitWidth>8</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
-                        <ipxact:name>Unknown</ipxact:name>
-                        <ipxact:description></ipxact:description>
-                        <ipxact:bitOffset>16</ipxact:bitOffset>
-                        <ipxact:bitWidth>16</ipxact:bitWidth>
+                        <ipxact:name>Data Scale</ipxact:name>
+                        <ipxact:description>Specifies the scale to apply to the Base Power value.</ipxact:description>
+                        <ipxact:bitOffset>8</ipxact:bitOffset>
+                        <ipxact:bitWidth>2</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>1.0x</ipxact:name>
+                                <ipxact:value>0</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>0.1x</ipxact:name>
+                                <ipxact:value>1</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>0.01x</ipxact:name>
+                                <ipxact:value>2</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>0.001x</ipxact:name>
+                                <ipxact:value>3</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>PM Sub State</ipxact:name>
+                        <ipxact:description>Specifies the power management sub state of the operating condition being described.</ipxact:description>
+                        <ipxact:bitOffset>10</ipxact:bitOffset>
+                        <ipxact:bitWidth>3</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>PM State</ipxact:name>
+                        <ipxact:description>Specifies the power management state of the operating condition being described.</ipxact:description>
+                        <ipxact:bitOffset>13</ipxact:bitOffset>
+                        <ipxact:bitWidth>2</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>D0</ipxact:name>
+                                <ipxact:value>0</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>D1</ipxact:name>
+                                <ipxact:value>1</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>D2</ipxact:name>
+                                <ipxact:value>2</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>D3</ipxact:name>
+                                <ipxact:value>3</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Type</ipxact:name>
+                        <ipxact:description>Specifies the power management state of the operating condition being described.</ipxact:description>
+                        <ipxact:bitOffset>15</ipxact:bitOffset>
+                        <ipxact:bitWidth>3</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>PME Aux</ipxact:name>
+                                <ipxact:value>0</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Auxiliary</ipxact:name>
+                                <ipxact:value>1</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Idle</ipxact:name>
+                                <ipxact:value>2</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Sustained</ipxact:name>
+                                <ipxact:value>3</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Maximum</ipxact:name>
+                                <ipxact:value>7</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Power Rail</ipxact:name>
+                        <ipxact:description>Specifies the thermal load or power rail of the operating condition being described.</ipxact:description>
+                        <ipxact:bitOffset>18</ipxact:bitOffset>
+                        <ipxact:bitWidth>3</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Power 12V</ipxact:name>
+                                <ipxact:value>0</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Power 3.3V</ipxact:name>
+                                <ipxact:value>1</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Power 1.5V or 1.8V</ipxact:name>
+                                <ipxact:value>2</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Thermal</ipxact:name>
+                                <ipxact:value>7</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
                     </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>
@@ -4540,18 +4644,122 @@
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
                     <ipxact:field>
-                        <ipxact:name>Power Budget Value</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:name>Base Power</ipxact:name>
+                        <ipxact:description>Specifies in watts the base power value in the given operating condition.</ipxact:description>
                         <ipxact:bitOffset>0</ipxact:bitOffset>
-                        <ipxact:bitWidth>16</ipxact:bitWidth>
+                        <ipxact:bitWidth>8</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
-                        <ipxact:name>Unknown</ipxact:name>
-                        <ipxact:description></ipxact:description>
-                        <ipxact:bitOffset>16</ipxact:bitOffset>
-                        <ipxact:bitWidth>16</ipxact:bitWidth>
+                        <ipxact:name>Data Scale</ipxact:name>
+                        <ipxact:description>Specifies the scale to apply to the Base Power value.</ipxact:description>
+                        <ipxact:bitOffset>8</ipxact:bitOffset>
+                        <ipxact:bitWidth>2</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>1.0x</ipxact:name>
+                                <ipxact:value>0</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>0.1x</ipxact:name>
+                                <ipxact:value>1</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>0.01x</ipxact:name>
+                                <ipxact:value>2</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>0.001x</ipxact:name>
+                                <ipxact:value>3</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>PM Sub State</ipxact:name>
+                        <ipxact:description>Specifies the power management sub state of the operating condition being described.</ipxact:description>
+                        <ipxact:bitOffset>10</ipxact:bitOffset>
+                        <ipxact:bitWidth>3</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>PM State</ipxact:name>
+                        <ipxact:description>Specifies the power management state of the operating condition being described.</ipxact:description>
+                        <ipxact:bitOffset>13</ipxact:bitOffset>
+                        <ipxact:bitWidth>2</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>D0</ipxact:name>
+                                <ipxact:value>0</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>D1</ipxact:name>
+                                <ipxact:value>1</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>D2</ipxact:name>
+                                <ipxact:value>2</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>D3</ipxact:name>
+                                <ipxact:value>3</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Type</ipxact:name>
+                        <ipxact:description>Specifies the power management state of the operating condition being described.</ipxact:description>
+                        <ipxact:bitOffset>15</ipxact:bitOffset>
+                        <ipxact:bitWidth>3</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>PME Aux</ipxact:name>
+                                <ipxact:value>0</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Auxiliary</ipxact:name>
+                                <ipxact:value>1</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Idle</ipxact:name>
+                                <ipxact:value>2</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Sustained</ipxact:name>
+                                <ipxact:value>3</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Maximum</ipxact:name>
+                                <ipxact:value>7</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Power Rail</ipxact:name>
+                        <ipxact:description>Specifies the thermal load or power rail of the operating condition being described.</ipxact:description>
+                        <ipxact:bitOffset>18</ipxact:bitOffset>
+                        <ipxact:bitWidth>3</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Power 12V</ipxact:name>
+                                <ipxact:value>0</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Power 3.3V</ipxact:name>
+                                <ipxact:value>1</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Power 1.5V or 1.8V</ipxact:name>
+                                <ipxact:value>2</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Thermal</ipxact:name>
+                                <ipxact:value>7</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
                     </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>
@@ -4562,18 +4770,122 @@
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
                     <ipxact:field>
-                        <ipxact:name>Power Budget Value</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:name>Base Power</ipxact:name>
+                        <ipxact:description>Specifies in watts the base power value in the given operating condition.</ipxact:description>
                         <ipxact:bitOffset>0</ipxact:bitOffset>
-                        <ipxact:bitWidth>16</ipxact:bitWidth>
+                        <ipxact:bitWidth>8</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
-                        <ipxact:name>Unknown</ipxact:name>
-                        <ipxact:description></ipxact:description>
-                        <ipxact:bitOffset>16</ipxact:bitOffset>
-                        <ipxact:bitWidth>16</ipxact:bitWidth>
+                        <ipxact:name>Data Scale</ipxact:name>
+                        <ipxact:description>Specifies the scale to apply to the Base Power value.</ipxact:description>
+                        <ipxact:bitOffset>8</ipxact:bitOffset>
+                        <ipxact:bitWidth>2</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>1.0x</ipxact:name>
+                                <ipxact:value>0</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>0.1x</ipxact:name>
+                                <ipxact:value>1</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>0.01x</ipxact:name>
+                                <ipxact:value>2</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>0.001x</ipxact:name>
+                                <ipxact:value>3</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>PM Sub State</ipxact:name>
+                        <ipxact:description>Specifies the power management sub state of the operating condition being described.</ipxact:description>
+                        <ipxact:bitOffset>10</ipxact:bitOffset>
+                        <ipxact:bitWidth>3</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>PM State</ipxact:name>
+                        <ipxact:description>Specifies the power management state of the operating condition being described.</ipxact:description>
+                        <ipxact:bitOffset>13</ipxact:bitOffset>
+                        <ipxact:bitWidth>2</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>D0</ipxact:name>
+                                <ipxact:value>0</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>D1</ipxact:name>
+                                <ipxact:value>1</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>D2</ipxact:name>
+                                <ipxact:value>2</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>D3</ipxact:name>
+                                <ipxact:value>3</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Type</ipxact:name>
+                        <ipxact:description>Specifies the power management state of the operating condition being described.</ipxact:description>
+                        <ipxact:bitOffset>15</ipxact:bitOffset>
+                        <ipxact:bitWidth>3</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>PME Aux</ipxact:name>
+                                <ipxact:value>0</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Auxiliary</ipxact:name>
+                                <ipxact:value>1</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Idle</ipxact:name>
+                                <ipxact:value>2</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Sustained</ipxact:name>
+                                <ipxact:value>3</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Maximum</ipxact:name>
+                                <ipxact:value>7</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Power Rail</ipxact:name>
+                        <ipxact:description>Specifies the thermal load or power rail of the operating condition being described.</ipxact:description>
+                        <ipxact:bitOffset>18</ipxact:bitOffset>
+                        <ipxact:bitWidth>3</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Power 12V</ipxact:name>
+                                <ipxact:value>0</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Power 3.3V</ipxact:name>
+                                <ipxact:value>1</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Power 1.5V or 1.8V</ipxact:name>
+                                <ipxact:value>2</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Thermal</ipxact:name>
+                                <ipxact:value>7</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
                     </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>
@@ -4584,18 +4896,122 @@
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
                     <ipxact:field>
-                        <ipxact:name>Power Budget Value</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:name>Base Power</ipxact:name>
+                        <ipxact:description>Specifies in watts the base power value in the given operating condition.</ipxact:description>
                         <ipxact:bitOffset>0</ipxact:bitOffset>
-                        <ipxact:bitWidth>16</ipxact:bitWidth>
+                        <ipxact:bitWidth>8</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
-                        <ipxact:name>Unknown</ipxact:name>
-                        <ipxact:description></ipxact:description>
-                        <ipxact:bitOffset>16</ipxact:bitOffset>
-                        <ipxact:bitWidth>16</ipxact:bitWidth>
+                        <ipxact:name>Data Scale</ipxact:name>
+                        <ipxact:description>Specifies the scale to apply to the Base Power value.</ipxact:description>
+                        <ipxact:bitOffset>8</ipxact:bitOffset>
+                        <ipxact:bitWidth>2</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>1.0x</ipxact:name>
+                                <ipxact:value>0</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>0.1x</ipxact:name>
+                                <ipxact:value>1</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>0.01x</ipxact:name>
+                                <ipxact:value>2</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>0.001x</ipxact:name>
+                                <ipxact:value>3</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>PM Sub State</ipxact:name>
+                        <ipxact:description>Specifies the power management sub state of the operating condition being described.</ipxact:description>
+                        <ipxact:bitOffset>10</ipxact:bitOffset>
+                        <ipxact:bitWidth>3</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>PM State</ipxact:name>
+                        <ipxact:description>Specifies the power management state of the operating condition being described.</ipxact:description>
+                        <ipxact:bitOffset>13</ipxact:bitOffset>
+                        <ipxact:bitWidth>2</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>D0</ipxact:name>
+                                <ipxact:value>0</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>D1</ipxact:name>
+                                <ipxact:value>1</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>D2</ipxact:name>
+                                <ipxact:value>2</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>D3</ipxact:name>
+                                <ipxact:value>3</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Type</ipxact:name>
+                        <ipxact:description>Specifies the power management state of the operating condition being described.</ipxact:description>
+                        <ipxact:bitOffset>15</ipxact:bitOffset>
+                        <ipxact:bitWidth>3</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>PME Aux</ipxact:name>
+                                <ipxact:value>0</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Auxiliary</ipxact:name>
+                                <ipxact:value>1</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Idle</ipxact:name>
+                                <ipxact:value>2</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Sustained</ipxact:name>
+                                <ipxact:value>3</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Maximum</ipxact:name>
+                                <ipxact:value>7</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Power Rail</ipxact:name>
+                        <ipxact:description>Specifies the thermal load or power rail of the operating condition being described.</ipxact:description>
+                        <ipxact:bitOffset>18</ipxact:bitOffset>
+                        <ipxact:bitWidth>3</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Power 12V</ipxact:name>
+                                <ipxact:value>0</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Power 3.3V</ipxact:name>
+                                <ipxact:value>1</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Power 1.5V or 1.8V</ipxact:name>
+                                <ipxact:value>2</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Thermal</ipxact:name>
+                                <ipxact:value>7</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
                     </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>
@@ -4606,18 +5022,122 @@
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
                     <ipxact:field>
-                        <ipxact:name>Power Budget Value</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:name>Base Power</ipxact:name>
+                        <ipxact:description>Specifies in watts the base power value in the given operating condition.</ipxact:description>
                         <ipxact:bitOffset>0</ipxact:bitOffset>
-                        <ipxact:bitWidth>16</ipxact:bitWidth>
+                        <ipxact:bitWidth>8</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
-                        <ipxact:name>Unknown</ipxact:name>
-                        <ipxact:description></ipxact:description>
-                        <ipxact:bitOffset>16</ipxact:bitOffset>
-                        <ipxact:bitWidth>16</ipxact:bitWidth>
+                        <ipxact:name>Data Scale</ipxact:name>
+                        <ipxact:description>Specifies the scale to apply to the Base Power value.</ipxact:description>
+                        <ipxact:bitOffset>8</ipxact:bitOffset>
+                        <ipxact:bitWidth>2</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>1.0x</ipxact:name>
+                                <ipxact:value>0</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>0.1x</ipxact:name>
+                                <ipxact:value>1</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>0.01x</ipxact:name>
+                                <ipxact:value>2</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>0.001x</ipxact:name>
+                                <ipxact:value>3</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>PM Sub State</ipxact:name>
+                        <ipxact:description>Specifies the power management sub state of the operating condition being described.</ipxact:description>
+                        <ipxact:bitOffset>10</ipxact:bitOffset>
+                        <ipxact:bitWidth>3</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>PM State</ipxact:name>
+                        <ipxact:description>Specifies the power management state of the operating condition being described.</ipxact:description>
+                        <ipxact:bitOffset>13</ipxact:bitOffset>
+                        <ipxact:bitWidth>2</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>D0</ipxact:name>
+                                <ipxact:value>0</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>D1</ipxact:name>
+                                <ipxact:value>1</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>D2</ipxact:name>
+                                <ipxact:value>2</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>D3</ipxact:name>
+                                <ipxact:value>3</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Type</ipxact:name>
+                        <ipxact:description>Specifies the power management state of the operating condition being described.</ipxact:description>
+                        <ipxact:bitOffset>15</ipxact:bitOffset>
+                        <ipxact:bitWidth>3</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>PME Aux</ipxact:name>
+                                <ipxact:value>0</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Auxiliary</ipxact:name>
+                                <ipxact:value>1</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Idle</ipxact:name>
+                                <ipxact:value>2</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Sustained</ipxact:name>
+                                <ipxact:value>3</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Maximum</ipxact:name>
+                                <ipxact:value>7</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Power Rail</ipxact:name>
+                        <ipxact:description>Specifies the thermal load or power rail of the operating condition being described.</ipxact:description>
+                        <ipxact:bitOffset>18</ipxact:bitOffset>
+                        <ipxact:bitWidth>3</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Power 12V</ipxact:name>
+                                <ipxact:value>0</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Power 3.3V</ipxact:name>
+                                <ipxact:value>1</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Power 1.5V or 1.8V</ipxact:name>
+                                <ipxact:value>2</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Thermal</ipxact:name>
+                                <ipxact:value>7</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
                     </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>
@@ -4628,18 +5148,122 @@
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
                     <ipxact:field>
-                        <ipxact:name>Power Budget Value</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:name>Base Power</ipxact:name>
+                        <ipxact:description>Specifies in watts the base power value in the given operating condition.</ipxact:description>
                         <ipxact:bitOffset>0</ipxact:bitOffset>
-                        <ipxact:bitWidth>16</ipxact:bitWidth>
+                        <ipxact:bitWidth>8</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
-                        <ipxact:name>Unknown</ipxact:name>
-                        <ipxact:description></ipxact:description>
-                        <ipxact:bitOffset>16</ipxact:bitOffset>
-                        <ipxact:bitWidth>16</ipxact:bitWidth>
+                        <ipxact:name>Data Scale</ipxact:name>
+                        <ipxact:description>Specifies the scale to apply to the Base Power value.</ipxact:description>
+                        <ipxact:bitOffset>8</ipxact:bitOffset>
+                        <ipxact:bitWidth>2</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>1.0x</ipxact:name>
+                                <ipxact:value>0</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>0.1x</ipxact:name>
+                                <ipxact:value>1</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>0.01x</ipxact:name>
+                                <ipxact:value>2</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>0.001x</ipxact:name>
+                                <ipxact:value>3</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>PM Sub State</ipxact:name>
+                        <ipxact:description>Specifies the power management sub state of the operating condition being described.</ipxact:description>
+                        <ipxact:bitOffset>10</ipxact:bitOffset>
+                        <ipxact:bitWidth>3</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>PM State</ipxact:name>
+                        <ipxact:description>Specifies the power management state of the operating condition being described.</ipxact:description>
+                        <ipxact:bitOffset>13</ipxact:bitOffset>
+                        <ipxact:bitWidth>2</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>D0</ipxact:name>
+                                <ipxact:value>0</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>D1</ipxact:name>
+                                <ipxact:value>1</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>D2</ipxact:name>
+                                <ipxact:value>2</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>D3</ipxact:name>
+                                <ipxact:value>3</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Type</ipxact:name>
+                        <ipxact:description>Specifies the power management state of the operating condition being described.</ipxact:description>
+                        <ipxact:bitOffset>15</ipxact:bitOffset>
+                        <ipxact:bitWidth>3</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>PME Aux</ipxact:name>
+                                <ipxact:value>0</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Auxiliary</ipxact:name>
+                                <ipxact:value>1</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Idle</ipxact:name>
+                                <ipxact:value>2</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Sustained</ipxact:name>
+                                <ipxact:value>3</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Maximum</ipxact:name>
+                                <ipxact:value>7</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Power Rail</ipxact:name>
+                        <ipxact:description>Specifies the thermal load or power rail of the operating condition being described.</ipxact:description>
+                        <ipxact:bitOffset>18</ipxact:bitOffset>
+                        <ipxact:bitWidth>3</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Power 12V</ipxact:name>
+                                <ipxact:value>0</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Power 3.3V</ipxact:name>
+                                <ipxact:value>1</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Power 1.5V or 1.8V</ipxact:name>
+                                <ipxact:value>2</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Thermal</ipxact:name>
+                                <ipxact:value>7</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
                     </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>
@@ -4650,18 +5274,122 @@
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
                     <ipxact:field>
-                        <ipxact:name>Power Budget Value</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:name>Base Power</ipxact:name>
+                        <ipxact:description>Specifies in watts the base power value in the given operating condition.</ipxact:description>
                         <ipxact:bitOffset>0</ipxact:bitOffset>
-                        <ipxact:bitWidth>16</ipxact:bitWidth>
+                        <ipxact:bitWidth>8</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
-                        <ipxact:name>Unknown</ipxact:name>
-                        <ipxact:description></ipxact:description>
-                        <ipxact:bitOffset>16</ipxact:bitOffset>
-                        <ipxact:bitWidth>16</ipxact:bitWidth>
+                        <ipxact:name>Data Scale</ipxact:name>
+                        <ipxact:description>Specifies the scale to apply to the Base Power value.</ipxact:description>
+                        <ipxact:bitOffset>8</ipxact:bitOffset>
+                        <ipxact:bitWidth>2</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>1.0x</ipxact:name>
+                                <ipxact:value>0</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>0.1x</ipxact:name>
+                                <ipxact:value>1</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>0.01x</ipxact:name>
+                                <ipxact:value>2</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>0.001x</ipxact:name>
+                                <ipxact:value>3</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>PM Sub State</ipxact:name>
+                        <ipxact:description>Specifies the power management sub state of the operating condition being described.</ipxact:description>
+                        <ipxact:bitOffset>10</ipxact:bitOffset>
+                        <ipxact:bitWidth>3</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>PM State</ipxact:name>
+                        <ipxact:description>Specifies the power management state of the operating condition being described.</ipxact:description>
+                        <ipxact:bitOffset>13</ipxact:bitOffset>
+                        <ipxact:bitWidth>2</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>D0</ipxact:name>
+                                <ipxact:value>0</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>D1</ipxact:name>
+                                <ipxact:value>1</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>D2</ipxact:name>
+                                <ipxact:value>2</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>D3</ipxact:name>
+                                <ipxact:value>3</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Type</ipxact:name>
+                        <ipxact:description>Specifies the power management state of the operating condition being described.</ipxact:description>
+                        <ipxact:bitOffset>15</ipxact:bitOffset>
+                        <ipxact:bitWidth>3</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>PME Aux</ipxact:name>
+                                <ipxact:value>0</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Auxiliary</ipxact:name>
+                                <ipxact:value>1</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Idle</ipxact:name>
+                                <ipxact:value>2</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Sustained</ipxact:name>
+                                <ipxact:value>3</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Maximum</ipxact:name>
+                                <ipxact:value>7</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Power Rail</ipxact:name>
+                        <ipxact:description>Specifies the thermal load or power rail of the operating condition being described.</ipxact:description>
+                        <ipxact:bitOffset>18</ipxact:bitOffset>
+                        <ipxact:bitWidth>3</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Power 12V</ipxact:name>
+                                <ipxact:value>0</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Power 3.3V</ipxact:name>
+                                <ipxact:value>1</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Power 1.5V or 1.8V</ipxact:name>
+                                <ipxact:value>2</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Thermal</ipxact:name>
+                                <ipxact:value>7</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
                     </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>
@@ -4672,18 +5400,122 @@
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
                     <ipxact:field>
-                        <ipxact:name>Power Budget Value</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:name>Base Power</ipxact:name>
+                        <ipxact:description>Specifies in watts the base power value in the given operating condition.</ipxact:description>
                         <ipxact:bitOffset>0</ipxact:bitOffset>
-                        <ipxact:bitWidth>16</ipxact:bitWidth>
+                        <ipxact:bitWidth>8</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
-                        <ipxact:name>Unknown</ipxact:name>
-                        <ipxact:description></ipxact:description>
-                        <ipxact:bitOffset>16</ipxact:bitOffset>
-                        <ipxact:bitWidth>16</ipxact:bitWidth>
+                        <ipxact:name>Data Scale</ipxact:name>
+                        <ipxact:description>Specifies the scale to apply to the Base Power value.</ipxact:description>
+                        <ipxact:bitOffset>8</ipxact:bitOffset>
+                        <ipxact:bitWidth>2</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>1.0x</ipxact:name>
+                                <ipxact:value>0</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>0.1x</ipxact:name>
+                                <ipxact:value>1</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>0.01x</ipxact:name>
+                                <ipxact:value>2</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>0.001x</ipxact:name>
+                                <ipxact:value>3</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>PM Sub State</ipxact:name>
+                        <ipxact:description>Specifies the power management sub state of the operating condition being described.</ipxact:description>
+                        <ipxact:bitOffset>10</ipxact:bitOffset>
+                        <ipxact:bitWidth>3</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>PM State</ipxact:name>
+                        <ipxact:description>Specifies the power management state of the operating condition being described.</ipxact:description>
+                        <ipxact:bitOffset>13</ipxact:bitOffset>
+                        <ipxact:bitWidth>2</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>D0</ipxact:name>
+                                <ipxact:value>0</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>D1</ipxact:name>
+                                <ipxact:value>1</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>D2</ipxact:name>
+                                <ipxact:value>2</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>D3</ipxact:name>
+                                <ipxact:value>3</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Type</ipxact:name>
+                        <ipxact:description>Specifies the power management state of the operating condition being described.</ipxact:description>
+                        <ipxact:bitOffset>15</ipxact:bitOffset>
+                        <ipxact:bitWidth>3</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>PME Aux</ipxact:name>
+                                <ipxact:value>0</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Auxiliary</ipxact:name>
+                                <ipxact:value>1</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Idle</ipxact:name>
+                                <ipxact:value>2</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Sustained</ipxact:name>
+                                <ipxact:value>3</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Maximum</ipxact:name>
+                                <ipxact:value>7</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Power Rail</ipxact:name>
+                        <ipxact:description>Specifies the thermal load or power rail of the operating condition being described.</ipxact:description>
+                        <ipxact:bitOffset>18</ipxact:bitOffset>
+                        <ipxact:bitWidth>3</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Power 12V</ipxact:name>
+                                <ipxact:value>0</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Power 3.3V</ipxact:name>
+                                <ipxact:value>1</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Power 1.5V or 1.8V</ipxact:name>
+                                <ipxact:value>2</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Thermal</ipxact:name>
+                                <ipxact:value>7</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
                     </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>

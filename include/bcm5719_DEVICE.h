@@ -2674,15 +2674,52 @@ typedef register_container RegDEVICEPciSerialNumberHigh_t {
     BCM5719_DEVICE_H_uint32_t r32;
 } RegDEVICEPciSerialNumberHigh_t;
 
-#define REG_DEVICE_PCI_POWER_BUDGET_0 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006510) /* Used to report power budget capability data to the host. The values are loaded from NVM, and up to eight values may be specified. Each value is specified in the lower 16 bits of one of these PCI Power Budget registers. The upper 16 bits are set to zero. */
-#define     DEVICE_PCI_POWER_BUDGET_0_POWER_BUDGET_VALUE_SHIFT 0u
-#define     DEVICE_PCI_POWER_BUDGET_0_POWER_BUDGET_VALUE_MASK  0xffffu
-#define GET_DEVICE_PCI_POWER_BUDGET_0_POWER_BUDGET_VALUE(__reg__)  (((__reg__) & 0xffff) >> 0u)
-#define SET_DEVICE_PCI_POWER_BUDGET_0_POWER_BUDGET_VALUE(__val__)  (((__val__) << 0u) & 0xffffu)
-#define     DEVICE_PCI_POWER_BUDGET_0_UNKNOWN_SHIFT 16u
-#define     DEVICE_PCI_POWER_BUDGET_0_UNKNOWN_MASK  0xffff0000u
-#define GET_DEVICE_PCI_POWER_BUDGET_0_UNKNOWN(__reg__)  (((__reg__) & 0xffff0000) >> 16u)
-#define SET_DEVICE_PCI_POWER_BUDGET_0_UNKNOWN(__val__)  (((__val__) << 16u) & 0xffff0000u)
+#define REG_DEVICE_PCI_POWER_BUDGET_0 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006510) /* Used to report power budget capability data to the host. The values are loaded from NVM, and up to eight values may be specified.  */
+#define     DEVICE_PCI_POWER_BUDGET_0_BASE_POWER_SHIFT 0u
+#define     DEVICE_PCI_POWER_BUDGET_0_BASE_POWER_MASK  0xffu
+#define GET_DEVICE_PCI_POWER_BUDGET_0_BASE_POWER(__reg__)  (((__reg__) & 0xff) >> 0u)
+#define SET_DEVICE_PCI_POWER_BUDGET_0_BASE_POWER(__val__)  (((__val__) << 0u) & 0xffu)
+#define     DEVICE_PCI_POWER_BUDGET_0_DATA_SCALE_SHIFT 8u
+#define     DEVICE_PCI_POWER_BUDGET_0_DATA_SCALE_MASK  0x300u
+#define GET_DEVICE_PCI_POWER_BUDGET_0_DATA_SCALE(__reg__)  (((__reg__) & 0x300) >> 8u)
+#define SET_DEVICE_PCI_POWER_BUDGET_0_DATA_SCALE(__val__)  (((__val__) << 8u) & 0x300u)
+#define     DEVICE_PCI_POWER_BUDGET_0_DATA_SCALE_1_0X 0x0u
+#define     DEVICE_PCI_POWER_BUDGET_0_DATA_SCALE_0_1X 0x1u
+#define     DEVICE_PCI_POWER_BUDGET_0_DATA_SCALE_0_01X 0x2u
+#define     DEVICE_PCI_POWER_BUDGET_0_DATA_SCALE_0_001X 0x3u
+
+#define     DEVICE_PCI_POWER_BUDGET_0_PM_SUB_STATE_SHIFT 10u
+#define     DEVICE_PCI_POWER_BUDGET_0_PM_SUB_STATE_MASK  0x1c00u
+#define GET_DEVICE_PCI_POWER_BUDGET_0_PM_SUB_STATE(__reg__)  (((__reg__) & 0x1c00) >> 10u)
+#define SET_DEVICE_PCI_POWER_BUDGET_0_PM_SUB_STATE(__val__)  (((__val__) << 10u) & 0x1c00u)
+#define     DEVICE_PCI_POWER_BUDGET_0_PM_STATE_SHIFT 13u
+#define     DEVICE_PCI_POWER_BUDGET_0_PM_STATE_MASK  0x6000u
+#define GET_DEVICE_PCI_POWER_BUDGET_0_PM_STATE(__reg__)  (((__reg__) & 0x6000) >> 13u)
+#define SET_DEVICE_PCI_POWER_BUDGET_0_PM_STATE(__val__)  (((__val__) << 13u) & 0x6000u)
+#define     DEVICE_PCI_POWER_BUDGET_0_PM_STATE_D0 0x0u
+#define     DEVICE_PCI_POWER_BUDGET_0_PM_STATE_D1 0x1u
+#define     DEVICE_PCI_POWER_BUDGET_0_PM_STATE_D2 0x2u
+#define     DEVICE_PCI_POWER_BUDGET_0_PM_STATE_D3 0x3u
+
+#define     DEVICE_PCI_POWER_BUDGET_0_TYPE_SHIFT 15u
+#define     DEVICE_PCI_POWER_BUDGET_0_TYPE_MASK  0x38000u
+#define GET_DEVICE_PCI_POWER_BUDGET_0_TYPE(__reg__)  (((__reg__) & 0x38000) >> 15u)
+#define SET_DEVICE_PCI_POWER_BUDGET_0_TYPE(__val__)  (((__val__) << 15u) & 0x38000u)
+#define     DEVICE_PCI_POWER_BUDGET_0_TYPE_PME_AUX 0x0u
+#define     DEVICE_PCI_POWER_BUDGET_0_TYPE_AUXILIARY 0x1u
+#define     DEVICE_PCI_POWER_BUDGET_0_TYPE_IDLE 0x2u
+#define     DEVICE_PCI_POWER_BUDGET_0_TYPE_SUSTAINED 0x3u
+#define     DEVICE_PCI_POWER_BUDGET_0_TYPE_MAXIMUM 0x7u
+
+#define     DEVICE_PCI_POWER_BUDGET_0_POWER_RAIL_SHIFT 18u
+#define     DEVICE_PCI_POWER_BUDGET_0_POWER_RAIL_MASK  0x1c0000u
+#define GET_DEVICE_PCI_POWER_BUDGET_0_POWER_RAIL(__reg__)  (((__reg__) & 0x1c0000) >> 18u)
+#define SET_DEVICE_PCI_POWER_BUDGET_0_POWER_RAIL(__val__)  (((__val__) << 18u) & 0x1c0000u)
+#define     DEVICE_PCI_POWER_BUDGET_0_POWER_RAIL_POWER_12V 0x0u
+#define     DEVICE_PCI_POWER_BUDGET_0_POWER_RAIL_POWER_3_3V 0x1u
+#define     DEVICE_PCI_POWER_BUDGET_0_POWER_RAIL_POWER_1_5V_OR_1_8V 0x2u
+#define     DEVICE_PCI_POWER_BUDGET_0_POWER_RAIL_THERMAL 0x7u
+
 
 /** @brief Register definition for @ref DEVICE_t.PciPowerBudget0. */
 typedef register_container RegDEVICEPciPowerBudget0_t {
@@ -2690,17 +2727,29 @@ typedef register_container RegDEVICEPciPowerBudget0_t {
     BCM5719_DEVICE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
-        /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerBudgetValue, 0, 16)
-        /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Unknown, 16, 16)
+        /** @brief Specifies in watts the base power value in the given operating condition. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BasePower, 0, 8)
+        /** @brief Specifies the scale to apply to the Base Power value. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DataScale, 8, 2)
+        /** @brief Specifies the power management sub state of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMSubState, 10, 3)
+        /** @brief Specifies the power management state of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMState, 13, 2)
+        /** @brief Specifies the power management state of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Type, 15, 3)
+        /** @brief Specifies the thermal load or power rail of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     RegDEVICEPciPowerBudget0_t()
     {
         /** @brief constructor for @ref DEVICE_t.PciPowerBudget0. */
-        bits.PowerBudgetValue.setBaseRegister(&r32);
-        bits.Unknown.setBaseRegister(&r32);
+        bits.BasePower.setBaseRegister(&r32);
+        bits.DataScale.setBaseRegister(&r32);
+        bits.PMSubState.setBaseRegister(&r32);
+        bits.PMState.setBaseRegister(&r32);
+        bits.Type.setBaseRegister(&r32);
+        bits.PowerRail.setBaseRegister(&r32);
     }
     RegDEVICEPciPowerBudget0_t& operator=(const RegDEVICEPciPowerBudget0_t& other)
     {
@@ -2711,14 +2760,51 @@ typedef register_container RegDEVICEPciPowerBudget0_t {
 } RegDEVICEPciPowerBudget0_t;
 
 #define REG_DEVICE_PCI_POWER_BUDGET_1 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006514) /* See  */
-#define     DEVICE_PCI_POWER_BUDGET_1_POWER_BUDGET_VALUE_SHIFT 0u
-#define     DEVICE_PCI_POWER_BUDGET_1_POWER_BUDGET_VALUE_MASK  0xffffu
-#define GET_DEVICE_PCI_POWER_BUDGET_1_POWER_BUDGET_VALUE(__reg__)  (((__reg__) & 0xffff) >> 0u)
-#define SET_DEVICE_PCI_POWER_BUDGET_1_POWER_BUDGET_VALUE(__val__)  (((__val__) << 0u) & 0xffffu)
-#define     DEVICE_PCI_POWER_BUDGET_1_UNKNOWN_SHIFT 16u
-#define     DEVICE_PCI_POWER_BUDGET_1_UNKNOWN_MASK  0xffff0000u
-#define GET_DEVICE_PCI_POWER_BUDGET_1_UNKNOWN(__reg__)  (((__reg__) & 0xffff0000) >> 16u)
-#define SET_DEVICE_PCI_POWER_BUDGET_1_UNKNOWN(__val__)  (((__val__) << 16u) & 0xffff0000u)
+#define     DEVICE_PCI_POWER_BUDGET_1_BASE_POWER_SHIFT 0u
+#define     DEVICE_PCI_POWER_BUDGET_1_BASE_POWER_MASK  0xffu
+#define GET_DEVICE_PCI_POWER_BUDGET_1_BASE_POWER(__reg__)  (((__reg__) & 0xff) >> 0u)
+#define SET_DEVICE_PCI_POWER_BUDGET_1_BASE_POWER(__val__)  (((__val__) << 0u) & 0xffu)
+#define     DEVICE_PCI_POWER_BUDGET_1_DATA_SCALE_SHIFT 8u
+#define     DEVICE_PCI_POWER_BUDGET_1_DATA_SCALE_MASK  0x300u
+#define GET_DEVICE_PCI_POWER_BUDGET_1_DATA_SCALE(__reg__)  (((__reg__) & 0x300) >> 8u)
+#define SET_DEVICE_PCI_POWER_BUDGET_1_DATA_SCALE(__val__)  (((__val__) << 8u) & 0x300u)
+#define     DEVICE_PCI_POWER_BUDGET_1_DATA_SCALE_1_0X 0x0u
+#define     DEVICE_PCI_POWER_BUDGET_1_DATA_SCALE_0_1X 0x1u
+#define     DEVICE_PCI_POWER_BUDGET_1_DATA_SCALE_0_01X 0x2u
+#define     DEVICE_PCI_POWER_BUDGET_1_DATA_SCALE_0_001X 0x3u
+
+#define     DEVICE_PCI_POWER_BUDGET_1_PM_SUB_STATE_SHIFT 10u
+#define     DEVICE_PCI_POWER_BUDGET_1_PM_SUB_STATE_MASK  0x1c00u
+#define GET_DEVICE_PCI_POWER_BUDGET_1_PM_SUB_STATE(__reg__)  (((__reg__) & 0x1c00) >> 10u)
+#define SET_DEVICE_PCI_POWER_BUDGET_1_PM_SUB_STATE(__val__)  (((__val__) << 10u) & 0x1c00u)
+#define     DEVICE_PCI_POWER_BUDGET_1_PM_STATE_SHIFT 13u
+#define     DEVICE_PCI_POWER_BUDGET_1_PM_STATE_MASK  0x6000u
+#define GET_DEVICE_PCI_POWER_BUDGET_1_PM_STATE(__reg__)  (((__reg__) & 0x6000) >> 13u)
+#define SET_DEVICE_PCI_POWER_BUDGET_1_PM_STATE(__val__)  (((__val__) << 13u) & 0x6000u)
+#define     DEVICE_PCI_POWER_BUDGET_1_PM_STATE_D0 0x0u
+#define     DEVICE_PCI_POWER_BUDGET_1_PM_STATE_D1 0x1u
+#define     DEVICE_PCI_POWER_BUDGET_1_PM_STATE_D2 0x2u
+#define     DEVICE_PCI_POWER_BUDGET_1_PM_STATE_D3 0x3u
+
+#define     DEVICE_PCI_POWER_BUDGET_1_TYPE_SHIFT 15u
+#define     DEVICE_PCI_POWER_BUDGET_1_TYPE_MASK  0x38000u
+#define GET_DEVICE_PCI_POWER_BUDGET_1_TYPE(__reg__)  (((__reg__) & 0x38000) >> 15u)
+#define SET_DEVICE_PCI_POWER_BUDGET_1_TYPE(__val__)  (((__val__) << 15u) & 0x38000u)
+#define     DEVICE_PCI_POWER_BUDGET_1_TYPE_PME_AUX 0x0u
+#define     DEVICE_PCI_POWER_BUDGET_1_TYPE_AUXILIARY 0x1u
+#define     DEVICE_PCI_POWER_BUDGET_1_TYPE_IDLE 0x2u
+#define     DEVICE_PCI_POWER_BUDGET_1_TYPE_SUSTAINED 0x3u
+#define     DEVICE_PCI_POWER_BUDGET_1_TYPE_MAXIMUM 0x7u
+
+#define     DEVICE_PCI_POWER_BUDGET_1_POWER_RAIL_SHIFT 18u
+#define     DEVICE_PCI_POWER_BUDGET_1_POWER_RAIL_MASK  0x1c0000u
+#define GET_DEVICE_PCI_POWER_BUDGET_1_POWER_RAIL(__reg__)  (((__reg__) & 0x1c0000) >> 18u)
+#define SET_DEVICE_PCI_POWER_BUDGET_1_POWER_RAIL(__val__)  (((__val__) << 18u) & 0x1c0000u)
+#define     DEVICE_PCI_POWER_BUDGET_1_POWER_RAIL_POWER_12V 0x0u
+#define     DEVICE_PCI_POWER_BUDGET_1_POWER_RAIL_POWER_3_3V 0x1u
+#define     DEVICE_PCI_POWER_BUDGET_1_POWER_RAIL_POWER_1_5V_OR_1_8V 0x2u
+#define     DEVICE_PCI_POWER_BUDGET_1_POWER_RAIL_THERMAL 0x7u
+
 
 /** @brief Register definition for @ref DEVICE_t.PciPowerBudget1. */
 typedef register_container RegDEVICEPciPowerBudget1_t {
@@ -2726,17 +2812,29 @@ typedef register_container RegDEVICEPciPowerBudget1_t {
     BCM5719_DEVICE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
-        /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerBudgetValue, 0, 16)
-        /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Unknown, 16, 16)
+        /** @brief Specifies in watts the base power value in the given operating condition. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BasePower, 0, 8)
+        /** @brief Specifies the scale to apply to the Base Power value. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DataScale, 8, 2)
+        /** @brief Specifies the power management sub state of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMSubState, 10, 3)
+        /** @brief Specifies the power management state of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMState, 13, 2)
+        /** @brief Specifies the power management state of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Type, 15, 3)
+        /** @brief Specifies the thermal load or power rail of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     RegDEVICEPciPowerBudget1_t()
     {
         /** @brief constructor for @ref DEVICE_t.PciPowerBudget1. */
-        bits.PowerBudgetValue.setBaseRegister(&r32);
-        bits.Unknown.setBaseRegister(&r32);
+        bits.BasePower.setBaseRegister(&r32);
+        bits.DataScale.setBaseRegister(&r32);
+        bits.PMSubState.setBaseRegister(&r32);
+        bits.PMState.setBaseRegister(&r32);
+        bits.Type.setBaseRegister(&r32);
+        bits.PowerRail.setBaseRegister(&r32);
     }
     RegDEVICEPciPowerBudget1_t& operator=(const RegDEVICEPciPowerBudget1_t& other)
     {
@@ -2747,14 +2845,51 @@ typedef register_container RegDEVICEPciPowerBudget1_t {
 } RegDEVICEPciPowerBudget1_t;
 
 #define REG_DEVICE_PCI_POWER_BUDGET_2 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006518) /* See  */
-#define     DEVICE_PCI_POWER_BUDGET_2_POWER_BUDGET_VALUE_SHIFT 0u
-#define     DEVICE_PCI_POWER_BUDGET_2_POWER_BUDGET_VALUE_MASK  0xffffu
-#define GET_DEVICE_PCI_POWER_BUDGET_2_POWER_BUDGET_VALUE(__reg__)  (((__reg__) & 0xffff) >> 0u)
-#define SET_DEVICE_PCI_POWER_BUDGET_2_POWER_BUDGET_VALUE(__val__)  (((__val__) << 0u) & 0xffffu)
-#define     DEVICE_PCI_POWER_BUDGET_2_UNKNOWN_SHIFT 16u
-#define     DEVICE_PCI_POWER_BUDGET_2_UNKNOWN_MASK  0xffff0000u
-#define GET_DEVICE_PCI_POWER_BUDGET_2_UNKNOWN(__reg__)  (((__reg__) & 0xffff0000) >> 16u)
-#define SET_DEVICE_PCI_POWER_BUDGET_2_UNKNOWN(__val__)  (((__val__) << 16u) & 0xffff0000u)
+#define     DEVICE_PCI_POWER_BUDGET_2_BASE_POWER_SHIFT 0u
+#define     DEVICE_PCI_POWER_BUDGET_2_BASE_POWER_MASK  0xffu
+#define GET_DEVICE_PCI_POWER_BUDGET_2_BASE_POWER(__reg__)  (((__reg__) & 0xff) >> 0u)
+#define SET_DEVICE_PCI_POWER_BUDGET_2_BASE_POWER(__val__)  (((__val__) << 0u) & 0xffu)
+#define     DEVICE_PCI_POWER_BUDGET_2_DATA_SCALE_SHIFT 8u
+#define     DEVICE_PCI_POWER_BUDGET_2_DATA_SCALE_MASK  0x300u
+#define GET_DEVICE_PCI_POWER_BUDGET_2_DATA_SCALE(__reg__)  (((__reg__) & 0x300) >> 8u)
+#define SET_DEVICE_PCI_POWER_BUDGET_2_DATA_SCALE(__val__)  (((__val__) << 8u) & 0x300u)
+#define     DEVICE_PCI_POWER_BUDGET_2_DATA_SCALE_1_0X 0x0u
+#define     DEVICE_PCI_POWER_BUDGET_2_DATA_SCALE_0_1X 0x1u
+#define     DEVICE_PCI_POWER_BUDGET_2_DATA_SCALE_0_01X 0x2u
+#define     DEVICE_PCI_POWER_BUDGET_2_DATA_SCALE_0_001X 0x3u
+
+#define     DEVICE_PCI_POWER_BUDGET_2_PM_SUB_STATE_SHIFT 10u
+#define     DEVICE_PCI_POWER_BUDGET_2_PM_SUB_STATE_MASK  0x1c00u
+#define GET_DEVICE_PCI_POWER_BUDGET_2_PM_SUB_STATE(__reg__)  (((__reg__) & 0x1c00) >> 10u)
+#define SET_DEVICE_PCI_POWER_BUDGET_2_PM_SUB_STATE(__val__)  (((__val__) << 10u) & 0x1c00u)
+#define     DEVICE_PCI_POWER_BUDGET_2_PM_STATE_SHIFT 13u
+#define     DEVICE_PCI_POWER_BUDGET_2_PM_STATE_MASK  0x6000u
+#define GET_DEVICE_PCI_POWER_BUDGET_2_PM_STATE(__reg__)  (((__reg__) & 0x6000) >> 13u)
+#define SET_DEVICE_PCI_POWER_BUDGET_2_PM_STATE(__val__)  (((__val__) << 13u) & 0x6000u)
+#define     DEVICE_PCI_POWER_BUDGET_2_PM_STATE_D0 0x0u
+#define     DEVICE_PCI_POWER_BUDGET_2_PM_STATE_D1 0x1u
+#define     DEVICE_PCI_POWER_BUDGET_2_PM_STATE_D2 0x2u
+#define     DEVICE_PCI_POWER_BUDGET_2_PM_STATE_D3 0x3u
+
+#define     DEVICE_PCI_POWER_BUDGET_2_TYPE_SHIFT 15u
+#define     DEVICE_PCI_POWER_BUDGET_2_TYPE_MASK  0x38000u
+#define GET_DEVICE_PCI_POWER_BUDGET_2_TYPE(__reg__)  (((__reg__) & 0x38000) >> 15u)
+#define SET_DEVICE_PCI_POWER_BUDGET_2_TYPE(__val__)  (((__val__) << 15u) & 0x38000u)
+#define     DEVICE_PCI_POWER_BUDGET_2_TYPE_PME_AUX 0x0u
+#define     DEVICE_PCI_POWER_BUDGET_2_TYPE_AUXILIARY 0x1u
+#define     DEVICE_PCI_POWER_BUDGET_2_TYPE_IDLE 0x2u
+#define     DEVICE_PCI_POWER_BUDGET_2_TYPE_SUSTAINED 0x3u
+#define     DEVICE_PCI_POWER_BUDGET_2_TYPE_MAXIMUM 0x7u
+
+#define     DEVICE_PCI_POWER_BUDGET_2_POWER_RAIL_SHIFT 18u
+#define     DEVICE_PCI_POWER_BUDGET_2_POWER_RAIL_MASK  0x1c0000u
+#define GET_DEVICE_PCI_POWER_BUDGET_2_POWER_RAIL(__reg__)  (((__reg__) & 0x1c0000) >> 18u)
+#define SET_DEVICE_PCI_POWER_BUDGET_2_POWER_RAIL(__val__)  (((__val__) << 18u) & 0x1c0000u)
+#define     DEVICE_PCI_POWER_BUDGET_2_POWER_RAIL_POWER_12V 0x0u
+#define     DEVICE_PCI_POWER_BUDGET_2_POWER_RAIL_POWER_3_3V 0x1u
+#define     DEVICE_PCI_POWER_BUDGET_2_POWER_RAIL_POWER_1_5V_OR_1_8V 0x2u
+#define     DEVICE_PCI_POWER_BUDGET_2_POWER_RAIL_THERMAL 0x7u
+
 
 /** @brief Register definition for @ref DEVICE_t.PciPowerBudget2. */
 typedef register_container RegDEVICEPciPowerBudget2_t {
@@ -2762,17 +2897,29 @@ typedef register_container RegDEVICEPciPowerBudget2_t {
     BCM5719_DEVICE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
-        /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerBudgetValue, 0, 16)
-        /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Unknown, 16, 16)
+        /** @brief Specifies in watts the base power value in the given operating condition. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BasePower, 0, 8)
+        /** @brief Specifies the scale to apply to the Base Power value. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DataScale, 8, 2)
+        /** @brief Specifies the power management sub state of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMSubState, 10, 3)
+        /** @brief Specifies the power management state of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMState, 13, 2)
+        /** @brief Specifies the power management state of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Type, 15, 3)
+        /** @brief Specifies the thermal load or power rail of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     RegDEVICEPciPowerBudget2_t()
     {
         /** @brief constructor for @ref DEVICE_t.PciPowerBudget2. */
-        bits.PowerBudgetValue.setBaseRegister(&r32);
-        bits.Unknown.setBaseRegister(&r32);
+        bits.BasePower.setBaseRegister(&r32);
+        bits.DataScale.setBaseRegister(&r32);
+        bits.PMSubState.setBaseRegister(&r32);
+        bits.PMState.setBaseRegister(&r32);
+        bits.Type.setBaseRegister(&r32);
+        bits.PowerRail.setBaseRegister(&r32);
     }
     RegDEVICEPciPowerBudget2_t& operator=(const RegDEVICEPciPowerBudget2_t& other)
     {
@@ -2783,14 +2930,51 @@ typedef register_container RegDEVICEPciPowerBudget2_t {
 } RegDEVICEPciPowerBudget2_t;
 
 #define REG_DEVICE_PCI_POWER_BUDGET_3 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000651c) /* See  */
-#define     DEVICE_PCI_POWER_BUDGET_3_POWER_BUDGET_VALUE_SHIFT 0u
-#define     DEVICE_PCI_POWER_BUDGET_3_POWER_BUDGET_VALUE_MASK  0xffffu
-#define GET_DEVICE_PCI_POWER_BUDGET_3_POWER_BUDGET_VALUE(__reg__)  (((__reg__) & 0xffff) >> 0u)
-#define SET_DEVICE_PCI_POWER_BUDGET_3_POWER_BUDGET_VALUE(__val__)  (((__val__) << 0u) & 0xffffu)
-#define     DEVICE_PCI_POWER_BUDGET_3_UNKNOWN_SHIFT 16u
-#define     DEVICE_PCI_POWER_BUDGET_3_UNKNOWN_MASK  0xffff0000u
-#define GET_DEVICE_PCI_POWER_BUDGET_3_UNKNOWN(__reg__)  (((__reg__) & 0xffff0000) >> 16u)
-#define SET_DEVICE_PCI_POWER_BUDGET_3_UNKNOWN(__val__)  (((__val__) << 16u) & 0xffff0000u)
+#define     DEVICE_PCI_POWER_BUDGET_3_BASE_POWER_SHIFT 0u
+#define     DEVICE_PCI_POWER_BUDGET_3_BASE_POWER_MASK  0xffu
+#define GET_DEVICE_PCI_POWER_BUDGET_3_BASE_POWER(__reg__)  (((__reg__) & 0xff) >> 0u)
+#define SET_DEVICE_PCI_POWER_BUDGET_3_BASE_POWER(__val__)  (((__val__) << 0u) & 0xffu)
+#define     DEVICE_PCI_POWER_BUDGET_3_DATA_SCALE_SHIFT 8u
+#define     DEVICE_PCI_POWER_BUDGET_3_DATA_SCALE_MASK  0x300u
+#define GET_DEVICE_PCI_POWER_BUDGET_3_DATA_SCALE(__reg__)  (((__reg__) & 0x300) >> 8u)
+#define SET_DEVICE_PCI_POWER_BUDGET_3_DATA_SCALE(__val__)  (((__val__) << 8u) & 0x300u)
+#define     DEVICE_PCI_POWER_BUDGET_3_DATA_SCALE_1_0X 0x0u
+#define     DEVICE_PCI_POWER_BUDGET_3_DATA_SCALE_0_1X 0x1u
+#define     DEVICE_PCI_POWER_BUDGET_3_DATA_SCALE_0_01X 0x2u
+#define     DEVICE_PCI_POWER_BUDGET_3_DATA_SCALE_0_001X 0x3u
+
+#define     DEVICE_PCI_POWER_BUDGET_3_PM_SUB_STATE_SHIFT 10u
+#define     DEVICE_PCI_POWER_BUDGET_3_PM_SUB_STATE_MASK  0x1c00u
+#define GET_DEVICE_PCI_POWER_BUDGET_3_PM_SUB_STATE(__reg__)  (((__reg__) & 0x1c00) >> 10u)
+#define SET_DEVICE_PCI_POWER_BUDGET_3_PM_SUB_STATE(__val__)  (((__val__) << 10u) & 0x1c00u)
+#define     DEVICE_PCI_POWER_BUDGET_3_PM_STATE_SHIFT 13u
+#define     DEVICE_PCI_POWER_BUDGET_3_PM_STATE_MASK  0x6000u
+#define GET_DEVICE_PCI_POWER_BUDGET_3_PM_STATE(__reg__)  (((__reg__) & 0x6000) >> 13u)
+#define SET_DEVICE_PCI_POWER_BUDGET_3_PM_STATE(__val__)  (((__val__) << 13u) & 0x6000u)
+#define     DEVICE_PCI_POWER_BUDGET_3_PM_STATE_D0 0x0u
+#define     DEVICE_PCI_POWER_BUDGET_3_PM_STATE_D1 0x1u
+#define     DEVICE_PCI_POWER_BUDGET_3_PM_STATE_D2 0x2u
+#define     DEVICE_PCI_POWER_BUDGET_3_PM_STATE_D3 0x3u
+
+#define     DEVICE_PCI_POWER_BUDGET_3_TYPE_SHIFT 15u
+#define     DEVICE_PCI_POWER_BUDGET_3_TYPE_MASK  0x38000u
+#define GET_DEVICE_PCI_POWER_BUDGET_3_TYPE(__reg__)  (((__reg__) & 0x38000) >> 15u)
+#define SET_DEVICE_PCI_POWER_BUDGET_3_TYPE(__val__)  (((__val__) << 15u) & 0x38000u)
+#define     DEVICE_PCI_POWER_BUDGET_3_TYPE_PME_AUX 0x0u
+#define     DEVICE_PCI_POWER_BUDGET_3_TYPE_AUXILIARY 0x1u
+#define     DEVICE_PCI_POWER_BUDGET_3_TYPE_IDLE 0x2u
+#define     DEVICE_PCI_POWER_BUDGET_3_TYPE_SUSTAINED 0x3u
+#define     DEVICE_PCI_POWER_BUDGET_3_TYPE_MAXIMUM 0x7u
+
+#define     DEVICE_PCI_POWER_BUDGET_3_POWER_RAIL_SHIFT 18u
+#define     DEVICE_PCI_POWER_BUDGET_3_POWER_RAIL_MASK  0x1c0000u
+#define GET_DEVICE_PCI_POWER_BUDGET_3_POWER_RAIL(__reg__)  (((__reg__) & 0x1c0000) >> 18u)
+#define SET_DEVICE_PCI_POWER_BUDGET_3_POWER_RAIL(__val__)  (((__val__) << 18u) & 0x1c0000u)
+#define     DEVICE_PCI_POWER_BUDGET_3_POWER_RAIL_POWER_12V 0x0u
+#define     DEVICE_PCI_POWER_BUDGET_3_POWER_RAIL_POWER_3_3V 0x1u
+#define     DEVICE_PCI_POWER_BUDGET_3_POWER_RAIL_POWER_1_5V_OR_1_8V 0x2u
+#define     DEVICE_PCI_POWER_BUDGET_3_POWER_RAIL_THERMAL 0x7u
+
 
 /** @brief Register definition for @ref DEVICE_t.PciPowerBudget3. */
 typedef register_container RegDEVICEPciPowerBudget3_t {
@@ -2798,17 +2982,29 @@ typedef register_container RegDEVICEPciPowerBudget3_t {
     BCM5719_DEVICE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
-        /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerBudgetValue, 0, 16)
-        /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Unknown, 16, 16)
+        /** @brief Specifies in watts the base power value in the given operating condition. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BasePower, 0, 8)
+        /** @brief Specifies the scale to apply to the Base Power value. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DataScale, 8, 2)
+        /** @brief Specifies the power management sub state of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMSubState, 10, 3)
+        /** @brief Specifies the power management state of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMState, 13, 2)
+        /** @brief Specifies the power management state of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Type, 15, 3)
+        /** @brief Specifies the thermal load or power rail of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     RegDEVICEPciPowerBudget3_t()
     {
         /** @brief constructor for @ref DEVICE_t.PciPowerBudget3. */
-        bits.PowerBudgetValue.setBaseRegister(&r32);
-        bits.Unknown.setBaseRegister(&r32);
+        bits.BasePower.setBaseRegister(&r32);
+        bits.DataScale.setBaseRegister(&r32);
+        bits.PMSubState.setBaseRegister(&r32);
+        bits.PMState.setBaseRegister(&r32);
+        bits.Type.setBaseRegister(&r32);
+        bits.PowerRail.setBaseRegister(&r32);
     }
     RegDEVICEPciPowerBudget3_t& operator=(const RegDEVICEPciPowerBudget3_t& other)
     {
@@ -2819,14 +3015,51 @@ typedef register_container RegDEVICEPciPowerBudget3_t {
 } RegDEVICEPciPowerBudget3_t;
 
 #define REG_DEVICE_PCI_POWER_BUDGET_4 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006520) /* See  */
-#define     DEVICE_PCI_POWER_BUDGET_4_POWER_BUDGET_VALUE_SHIFT 0u
-#define     DEVICE_PCI_POWER_BUDGET_4_POWER_BUDGET_VALUE_MASK  0xffffu
-#define GET_DEVICE_PCI_POWER_BUDGET_4_POWER_BUDGET_VALUE(__reg__)  (((__reg__) & 0xffff) >> 0u)
-#define SET_DEVICE_PCI_POWER_BUDGET_4_POWER_BUDGET_VALUE(__val__)  (((__val__) << 0u) & 0xffffu)
-#define     DEVICE_PCI_POWER_BUDGET_4_UNKNOWN_SHIFT 16u
-#define     DEVICE_PCI_POWER_BUDGET_4_UNKNOWN_MASK  0xffff0000u
-#define GET_DEVICE_PCI_POWER_BUDGET_4_UNKNOWN(__reg__)  (((__reg__) & 0xffff0000) >> 16u)
-#define SET_DEVICE_PCI_POWER_BUDGET_4_UNKNOWN(__val__)  (((__val__) << 16u) & 0xffff0000u)
+#define     DEVICE_PCI_POWER_BUDGET_4_BASE_POWER_SHIFT 0u
+#define     DEVICE_PCI_POWER_BUDGET_4_BASE_POWER_MASK  0xffu
+#define GET_DEVICE_PCI_POWER_BUDGET_4_BASE_POWER(__reg__)  (((__reg__) & 0xff) >> 0u)
+#define SET_DEVICE_PCI_POWER_BUDGET_4_BASE_POWER(__val__)  (((__val__) << 0u) & 0xffu)
+#define     DEVICE_PCI_POWER_BUDGET_4_DATA_SCALE_SHIFT 8u
+#define     DEVICE_PCI_POWER_BUDGET_4_DATA_SCALE_MASK  0x300u
+#define GET_DEVICE_PCI_POWER_BUDGET_4_DATA_SCALE(__reg__)  (((__reg__) & 0x300) >> 8u)
+#define SET_DEVICE_PCI_POWER_BUDGET_4_DATA_SCALE(__val__)  (((__val__) << 8u) & 0x300u)
+#define     DEVICE_PCI_POWER_BUDGET_4_DATA_SCALE_1_0X 0x0u
+#define     DEVICE_PCI_POWER_BUDGET_4_DATA_SCALE_0_1X 0x1u
+#define     DEVICE_PCI_POWER_BUDGET_4_DATA_SCALE_0_01X 0x2u
+#define     DEVICE_PCI_POWER_BUDGET_4_DATA_SCALE_0_001X 0x3u
+
+#define     DEVICE_PCI_POWER_BUDGET_4_PM_SUB_STATE_SHIFT 10u
+#define     DEVICE_PCI_POWER_BUDGET_4_PM_SUB_STATE_MASK  0x1c00u
+#define GET_DEVICE_PCI_POWER_BUDGET_4_PM_SUB_STATE(__reg__)  (((__reg__) & 0x1c00) >> 10u)
+#define SET_DEVICE_PCI_POWER_BUDGET_4_PM_SUB_STATE(__val__)  (((__val__) << 10u) & 0x1c00u)
+#define     DEVICE_PCI_POWER_BUDGET_4_PM_STATE_SHIFT 13u
+#define     DEVICE_PCI_POWER_BUDGET_4_PM_STATE_MASK  0x6000u
+#define GET_DEVICE_PCI_POWER_BUDGET_4_PM_STATE(__reg__)  (((__reg__) & 0x6000) >> 13u)
+#define SET_DEVICE_PCI_POWER_BUDGET_4_PM_STATE(__val__)  (((__val__) << 13u) & 0x6000u)
+#define     DEVICE_PCI_POWER_BUDGET_4_PM_STATE_D0 0x0u
+#define     DEVICE_PCI_POWER_BUDGET_4_PM_STATE_D1 0x1u
+#define     DEVICE_PCI_POWER_BUDGET_4_PM_STATE_D2 0x2u
+#define     DEVICE_PCI_POWER_BUDGET_4_PM_STATE_D3 0x3u
+
+#define     DEVICE_PCI_POWER_BUDGET_4_TYPE_SHIFT 15u
+#define     DEVICE_PCI_POWER_BUDGET_4_TYPE_MASK  0x38000u
+#define GET_DEVICE_PCI_POWER_BUDGET_4_TYPE(__reg__)  (((__reg__) & 0x38000) >> 15u)
+#define SET_DEVICE_PCI_POWER_BUDGET_4_TYPE(__val__)  (((__val__) << 15u) & 0x38000u)
+#define     DEVICE_PCI_POWER_BUDGET_4_TYPE_PME_AUX 0x0u
+#define     DEVICE_PCI_POWER_BUDGET_4_TYPE_AUXILIARY 0x1u
+#define     DEVICE_PCI_POWER_BUDGET_4_TYPE_IDLE 0x2u
+#define     DEVICE_PCI_POWER_BUDGET_4_TYPE_SUSTAINED 0x3u
+#define     DEVICE_PCI_POWER_BUDGET_4_TYPE_MAXIMUM 0x7u
+
+#define     DEVICE_PCI_POWER_BUDGET_4_POWER_RAIL_SHIFT 18u
+#define     DEVICE_PCI_POWER_BUDGET_4_POWER_RAIL_MASK  0x1c0000u
+#define GET_DEVICE_PCI_POWER_BUDGET_4_POWER_RAIL(__reg__)  (((__reg__) & 0x1c0000) >> 18u)
+#define SET_DEVICE_PCI_POWER_BUDGET_4_POWER_RAIL(__val__)  (((__val__) << 18u) & 0x1c0000u)
+#define     DEVICE_PCI_POWER_BUDGET_4_POWER_RAIL_POWER_12V 0x0u
+#define     DEVICE_PCI_POWER_BUDGET_4_POWER_RAIL_POWER_3_3V 0x1u
+#define     DEVICE_PCI_POWER_BUDGET_4_POWER_RAIL_POWER_1_5V_OR_1_8V 0x2u
+#define     DEVICE_PCI_POWER_BUDGET_4_POWER_RAIL_THERMAL 0x7u
+
 
 /** @brief Register definition for @ref DEVICE_t.PciPowerBudget4. */
 typedef register_container RegDEVICEPciPowerBudget4_t {
@@ -2834,17 +3067,29 @@ typedef register_container RegDEVICEPciPowerBudget4_t {
     BCM5719_DEVICE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
-        /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerBudgetValue, 0, 16)
-        /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Unknown, 16, 16)
+        /** @brief Specifies in watts the base power value in the given operating condition. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BasePower, 0, 8)
+        /** @brief Specifies the scale to apply to the Base Power value. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DataScale, 8, 2)
+        /** @brief Specifies the power management sub state of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMSubState, 10, 3)
+        /** @brief Specifies the power management state of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMState, 13, 2)
+        /** @brief Specifies the power management state of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Type, 15, 3)
+        /** @brief Specifies the thermal load or power rail of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     RegDEVICEPciPowerBudget4_t()
     {
         /** @brief constructor for @ref DEVICE_t.PciPowerBudget4. */
-        bits.PowerBudgetValue.setBaseRegister(&r32);
-        bits.Unknown.setBaseRegister(&r32);
+        bits.BasePower.setBaseRegister(&r32);
+        bits.DataScale.setBaseRegister(&r32);
+        bits.PMSubState.setBaseRegister(&r32);
+        bits.PMState.setBaseRegister(&r32);
+        bits.Type.setBaseRegister(&r32);
+        bits.PowerRail.setBaseRegister(&r32);
     }
     RegDEVICEPciPowerBudget4_t& operator=(const RegDEVICEPciPowerBudget4_t& other)
     {
@@ -2855,14 +3100,51 @@ typedef register_container RegDEVICEPciPowerBudget4_t {
 } RegDEVICEPciPowerBudget4_t;
 
 #define REG_DEVICE_PCI_POWER_BUDGET_5 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006524) /* See  */
-#define     DEVICE_PCI_POWER_BUDGET_5_POWER_BUDGET_VALUE_SHIFT 0u
-#define     DEVICE_PCI_POWER_BUDGET_5_POWER_BUDGET_VALUE_MASK  0xffffu
-#define GET_DEVICE_PCI_POWER_BUDGET_5_POWER_BUDGET_VALUE(__reg__)  (((__reg__) & 0xffff) >> 0u)
-#define SET_DEVICE_PCI_POWER_BUDGET_5_POWER_BUDGET_VALUE(__val__)  (((__val__) << 0u) & 0xffffu)
-#define     DEVICE_PCI_POWER_BUDGET_5_UNKNOWN_SHIFT 16u
-#define     DEVICE_PCI_POWER_BUDGET_5_UNKNOWN_MASK  0xffff0000u
-#define GET_DEVICE_PCI_POWER_BUDGET_5_UNKNOWN(__reg__)  (((__reg__) & 0xffff0000) >> 16u)
-#define SET_DEVICE_PCI_POWER_BUDGET_5_UNKNOWN(__val__)  (((__val__) << 16u) & 0xffff0000u)
+#define     DEVICE_PCI_POWER_BUDGET_5_BASE_POWER_SHIFT 0u
+#define     DEVICE_PCI_POWER_BUDGET_5_BASE_POWER_MASK  0xffu
+#define GET_DEVICE_PCI_POWER_BUDGET_5_BASE_POWER(__reg__)  (((__reg__) & 0xff) >> 0u)
+#define SET_DEVICE_PCI_POWER_BUDGET_5_BASE_POWER(__val__)  (((__val__) << 0u) & 0xffu)
+#define     DEVICE_PCI_POWER_BUDGET_5_DATA_SCALE_SHIFT 8u
+#define     DEVICE_PCI_POWER_BUDGET_5_DATA_SCALE_MASK  0x300u
+#define GET_DEVICE_PCI_POWER_BUDGET_5_DATA_SCALE(__reg__)  (((__reg__) & 0x300) >> 8u)
+#define SET_DEVICE_PCI_POWER_BUDGET_5_DATA_SCALE(__val__)  (((__val__) << 8u) & 0x300u)
+#define     DEVICE_PCI_POWER_BUDGET_5_DATA_SCALE_1_0X 0x0u
+#define     DEVICE_PCI_POWER_BUDGET_5_DATA_SCALE_0_1X 0x1u
+#define     DEVICE_PCI_POWER_BUDGET_5_DATA_SCALE_0_01X 0x2u
+#define     DEVICE_PCI_POWER_BUDGET_5_DATA_SCALE_0_001X 0x3u
+
+#define     DEVICE_PCI_POWER_BUDGET_5_PM_SUB_STATE_SHIFT 10u
+#define     DEVICE_PCI_POWER_BUDGET_5_PM_SUB_STATE_MASK  0x1c00u
+#define GET_DEVICE_PCI_POWER_BUDGET_5_PM_SUB_STATE(__reg__)  (((__reg__) & 0x1c00) >> 10u)
+#define SET_DEVICE_PCI_POWER_BUDGET_5_PM_SUB_STATE(__val__)  (((__val__) << 10u) & 0x1c00u)
+#define     DEVICE_PCI_POWER_BUDGET_5_PM_STATE_SHIFT 13u
+#define     DEVICE_PCI_POWER_BUDGET_5_PM_STATE_MASK  0x6000u
+#define GET_DEVICE_PCI_POWER_BUDGET_5_PM_STATE(__reg__)  (((__reg__) & 0x6000) >> 13u)
+#define SET_DEVICE_PCI_POWER_BUDGET_5_PM_STATE(__val__)  (((__val__) << 13u) & 0x6000u)
+#define     DEVICE_PCI_POWER_BUDGET_5_PM_STATE_D0 0x0u
+#define     DEVICE_PCI_POWER_BUDGET_5_PM_STATE_D1 0x1u
+#define     DEVICE_PCI_POWER_BUDGET_5_PM_STATE_D2 0x2u
+#define     DEVICE_PCI_POWER_BUDGET_5_PM_STATE_D3 0x3u
+
+#define     DEVICE_PCI_POWER_BUDGET_5_TYPE_SHIFT 15u
+#define     DEVICE_PCI_POWER_BUDGET_5_TYPE_MASK  0x38000u
+#define GET_DEVICE_PCI_POWER_BUDGET_5_TYPE(__reg__)  (((__reg__) & 0x38000) >> 15u)
+#define SET_DEVICE_PCI_POWER_BUDGET_5_TYPE(__val__)  (((__val__) << 15u) & 0x38000u)
+#define     DEVICE_PCI_POWER_BUDGET_5_TYPE_PME_AUX 0x0u
+#define     DEVICE_PCI_POWER_BUDGET_5_TYPE_AUXILIARY 0x1u
+#define     DEVICE_PCI_POWER_BUDGET_5_TYPE_IDLE 0x2u
+#define     DEVICE_PCI_POWER_BUDGET_5_TYPE_SUSTAINED 0x3u
+#define     DEVICE_PCI_POWER_BUDGET_5_TYPE_MAXIMUM 0x7u
+
+#define     DEVICE_PCI_POWER_BUDGET_5_POWER_RAIL_SHIFT 18u
+#define     DEVICE_PCI_POWER_BUDGET_5_POWER_RAIL_MASK  0x1c0000u
+#define GET_DEVICE_PCI_POWER_BUDGET_5_POWER_RAIL(__reg__)  (((__reg__) & 0x1c0000) >> 18u)
+#define SET_DEVICE_PCI_POWER_BUDGET_5_POWER_RAIL(__val__)  (((__val__) << 18u) & 0x1c0000u)
+#define     DEVICE_PCI_POWER_BUDGET_5_POWER_RAIL_POWER_12V 0x0u
+#define     DEVICE_PCI_POWER_BUDGET_5_POWER_RAIL_POWER_3_3V 0x1u
+#define     DEVICE_PCI_POWER_BUDGET_5_POWER_RAIL_POWER_1_5V_OR_1_8V 0x2u
+#define     DEVICE_PCI_POWER_BUDGET_5_POWER_RAIL_THERMAL 0x7u
+
 
 /** @brief Register definition for @ref DEVICE_t.PciPowerBudget5. */
 typedef register_container RegDEVICEPciPowerBudget5_t {
@@ -2870,17 +3152,29 @@ typedef register_container RegDEVICEPciPowerBudget5_t {
     BCM5719_DEVICE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
-        /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerBudgetValue, 0, 16)
-        /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Unknown, 16, 16)
+        /** @brief Specifies in watts the base power value in the given operating condition. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BasePower, 0, 8)
+        /** @brief Specifies the scale to apply to the Base Power value. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DataScale, 8, 2)
+        /** @brief Specifies the power management sub state of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMSubState, 10, 3)
+        /** @brief Specifies the power management state of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMState, 13, 2)
+        /** @brief Specifies the power management state of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Type, 15, 3)
+        /** @brief Specifies the thermal load or power rail of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     RegDEVICEPciPowerBudget5_t()
     {
         /** @brief constructor for @ref DEVICE_t.PciPowerBudget5. */
-        bits.PowerBudgetValue.setBaseRegister(&r32);
-        bits.Unknown.setBaseRegister(&r32);
+        bits.BasePower.setBaseRegister(&r32);
+        bits.DataScale.setBaseRegister(&r32);
+        bits.PMSubState.setBaseRegister(&r32);
+        bits.PMState.setBaseRegister(&r32);
+        bits.Type.setBaseRegister(&r32);
+        bits.PowerRail.setBaseRegister(&r32);
     }
     RegDEVICEPciPowerBudget5_t& operator=(const RegDEVICEPciPowerBudget5_t& other)
     {
@@ -2891,14 +3185,51 @@ typedef register_container RegDEVICEPciPowerBudget5_t {
 } RegDEVICEPciPowerBudget5_t;
 
 #define REG_DEVICE_PCI_POWER_BUDGET_6 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006528) /* See  */
-#define     DEVICE_PCI_POWER_BUDGET_6_POWER_BUDGET_VALUE_SHIFT 0u
-#define     DEVICE_PCI_POWER_BUDGET_6_POWER_BUDGET_VALUE_MASK  0xffffu
-#define GET_DEVICE_PCI_POWER_BUDGET_6_POWER_BUDGET_VALUE(__reg__)  (((__reg__) & 0xffff) >> 0u)
-#define SET_DEVICE_PCI_POWER_BUDGET_6_POWER_BUDGET_VALUE(__val__)  (((__val__) << 0u) & 0xffffu)
-#define     DEVICE_PCI_POWER_BUDGET_6_UNKNOWN_SHIFT 16u
-#define     DEVICE_PCI_POWER_BUDGET_6_UNKNOWN_MASK  0xffff0000u
-#define GET_DEVICE_PCI_POWER_BUDGET_6_UNKNOWN(__reg__)  (((__reg__) & 0xffff0000) >> 16u)
-#define SET_DEVICE_PCI_POWER_BUDGET_6_UNKNOWN(__val__)  (((__val__) << 16u) & 0xffff0000u)
+#define     DEVICE_PCI_POWER_BUDGET_6_BASE_POWER_SHIFT 0u
+#define     DEVICE_PCI_POWER_BUDGET_6_BASE_POWER_MASK  0xffu
+#define GET_DEVICE_PCI_POWER_BUDGET_6_BASE_POWER(__reg__)  (((__reg__) & 0xff) >> 0u)
+#define SET_DEVICE_PCI_POWER_BUDGET_6_BASE_POWER(__val__)  (((__val__) << 0u) & 0xffu)
+#define     DEVICE_PCI_POWER_BUDGET_6_DATA_SCALE_SHIFT 8u
+#define     DEVICE_PCI_POWER_BUDGET_6_DATA_SCALE_MASK  0x300u
+#define GET_DEVICE_PCI_POWER_BUDGET_6_DATA_SCALE(__reg__)  (((__reg__) & 0x300) >> 8u)
+#define SET_DEVICE_PCI_POWER_BUDGET_6_DATA_SCALE(__val__)  (((__val__) << 8u) & 0x300u)
+#define     DEVICE_PCI_POWER_BUDGET_6_DATA_SCALE_1_0X 0x0u
+#define     DEVICE_PCI_POWER_BUDGET_6_DATA_SCALE_0_1X 0x1u
+#define     DEVICE_PCI_POWER_BUDGET_6_DATA_SCALE_0_01X 0x2u
+#define     DEVICE_PCI_POWER_BUDGET_6_DATA_SCALE_0_001X 0x3u
+
+#define     DEVICE_PCI_POWER_BUDGET_6_PM_SUB_STATE_SHIFT 10u
+#define     DEVICE_PCI_POWER_BUDGET_6_PM_SUB_STATE_MASK  0x1c00u
+#define GET_DEVICE_PCI_POWER_BUDGET_6_PM_SUB_STATE(__reg__)  (((__reg__) & 0x1c00) >> 10u)
+#define SET_DEVICE_PCI_POWER_BUDGET_6_PM_SUB_STATE(__val__)  (((__val__) << 10u) & 0x1c00u)
+#define     DEVICE_PCI_POWER_BUDGET_6_PM_STATE_SHIFT 13u
+#define     DEVICE_PCI_POWER_BUDGET_6_PM_STATE_MASK  0x6000u
+#define GET_DEVICE_PCI_POWER_BUDGET_6_PM_STATE(__reg__)  (((__reg__) & 0x6000) >> 13u)
+#define SET_DEVICE_PCI_POWER_BUDGET_6_PM_STATE(__val__)  (((__val__) << 13u) & 0x6000u)
+#define     DEVICE_PCI_POWER_BUDGET_6_PM_STATE_D0 0x0u
+#define     DEVICE_PCI_POWER_BUDGET_6_PM_STATE_D1 0x1u
+#define     DEVICE_PCI_POWER_BUDGET_6_PM_STATE_D2 0x2u
+#define     DEVICE_PCI_POWER_BUDGET_6_PM_STATE_D3 0x3u
+
+#define     DEVICE_PCI_POWER_BUDGET_6_TYPE_SHIFT 15u
+#define     DEVICE_PCI_POWER_BUDGET_6_TYPE_MASK  0x38000u
+#define GET_DEVICE_PCI_POWER_BUDGET_6_TYPE(__reg__)  (((__reg__) & 0x38000) >> 15u)
+#define SET_DEVICE_PCI_POWER_BUDGET_6_TYPE(__val__)  (((__val__) << 15u) & 0x38000u)
+#define     DEVICE_PCI_POWER_BUDGET_6_TYPE_PME_AUX 0x0u
+#define     DEVICE_PCI_POWER_BUDGET_6_TYPE_AUXILIARY 0x1u
+#define     DEVICE_PCI_POWER_BUDGET_6_TYPE_IDLE 0x2u
+#define     DEVICE_PCI_POWER_BUDGET_6_TYPE_SUSTAINED 0x3u
+#define     DEVICE_PCI_POWER_BUDGET_6_TYPE_MAXIMUM 0x7u
+
+#define     DEVICE_PCI_POWER_BUDGET_6_POWER_RAIL_SHIFT 18u
+#define     DEVICE_PCI_POWER_BUDGET_6_POWER_RAIL_MASK  0x1c0000u
+#define GET_DEVICE_PCI_POWER_BUDGET_6_POWER_RAIL(__reg__)  (((__reg__) & 0x1c0000) >> 18u)
+#define SET_DEVICE_PCI_POWER_BUDGET_6_POWER_RAIL(__val__)  (((__val__) << 18u) & 0x1c0000u)
+#define     DEVICE_PCI_POWER_BUDGET_6_POWER_RAIL_POWER_12V 0x0u
+#define     DEVICE_PCI_POWER_BUDGET_6_POWER_RAIL_POWER_3_3V 0x1u
+#define     DEVICE_PCI_POWER_BUDGET_6_POWER_RAIL_POWER_1_5V_OR_1_8V 0x2u
+#define     DEVICE_PCI_POWER_BUDGET_6_POWER_RAIL_THERMAL 0x7u
+
 
 /** @brief Register definition for @ref DEVICE_t.PciPowerBudget6. */
 typedef register_container RegDEVICEPciPowerBudget6_t {
@@ -2906,17 +3237,29 @@ typedef register_container RegDEVICEPciPowerBudget6_t {
     BCM5719_DEVICE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
-        /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerBudgetValue, 0, 16)
-        /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Unknown, 16, 16)
+        /** @brief Specifies in watts the base power value in the given operating condition. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BasePower, 0, 8)
+        /** @brief Specifies the scale to apply to the Base Power value. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DataScale, 8, 2)
+        /** @brief Specifies the power management sub state of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMSubState, 10, 3)
+        /** @brief Specifies the power management state of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMState, 13, 2)
+        /** @brief Specifies the power management state of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Type, 15, 3)
+        /** @brief Specifies the thermal load or power rail of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     RegDEVICEPciPowerBudget6_t()
     {
         /** @brief constructor for @ref DEVICE_t.PciPowerBudget6. */
-        bits.PowerBudgetValue.setBaseRegister(&r32);
-        bits.Unknown.setBaseRegister(&r32);
+        bits.BasePower.setBaseRegister(&r32);
+        bits.DataScale.setBaseRegister(&r32);
+        bits.PMSubState.setBaseRegister(&r32);
+        bits.PMState.setBaseRegister(&r32);
+        bits.Type.setBaseRegister(&r32);
+        bits.PowerRail.setBaseRegister(&r32);
     }
     RegDEVICEPciPowerBudget6_t& operator=(const RegDEVICEPciPowerBudget6_t& other)
     {
@@ -2927,14 +3270,51 @@ typedef register_container RegDEVICEPciPowerBudget6_t {
 } RegDEVICEPciPowerBudget6_t;
 
 #define REG_DEVICE_PCI_POWER_BUDGET_7 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000652c) /* See  */
-#define     DEVICE_PCI_POWER_BUDGET_7_POWER_BUDGET_VALUE_SHIFT 0u
-#define     DEVICE_PCI_POWER_BUDGET_7_POWER_BUDGET_VALUE_MASK  0xffffu
-#define GET_DEVICE_PCI_POWER_BUDGET_7_POWER_BUDGET_VALUE(__reg__)  (((__reg__) & 0xffff) >> 0u)
-#define SET_DEVICE_PCI_POWER_BUDGET_7_POWER_BUDGET_VALUE(__val__)  (((__val__) << 0u) & 0xffffu)
-#define     DEVICE_PCI_POWER_BUDGET_7_UNKNOWN_SHIFT 16u
-#define     DEVICE_PCI_POWER_BUDGET_7_UNKNOWN_MASK  0xffff0000u
-#define GET_DEVICE_PCI_POWER_BUDGET_7_UNKNOWN(__reg__)  (((__reg__) & 0xffff0000) >> 16u)
-#define SET_DEVICE_PCI_POWER_BUDGET_7_UNKNOWN(__val__)  (((__val__) << 16u) & 0xffff0000u)
+#define     DEVICE_PCI_POWER_BUDGET_7_BASE_POWER_SHIFT 0u
+#define     DEVICE_PCI_POWER_BUDGET_7_BASE_POWER_MASK  0xffu
+#define GET_DEVICE_PCI_POWER_BUDGET_7_BASE_POWER(__reg__)  (((__reg__) & 0xff) >> 0u)
+#define SET_DEVICE_PCI_POWER_BUDGET_7_BASE_POWER(__val__)  (((__val__) << 0u) & 0xffu)
+#define     DEVICE_PCI_POWER_BUDGET_7_DATA_SCALE_SHIFT 8u
+#define     DEVICE_PCI_POWER_BUDGET_7_DATA_SCALE_MASK  0x300u
+#define GET_DEVICE_PCI_POWER_BUDGET_7_DATA_SCALE(__reg__)  (((__reg__) & 0x300) >> 8u)
+#define SET_DEVICE_PCI_POWER_BUDGET_7_DATA_SCALE(__val__)  (((__val__) << 8u) & 0x300u)
+#define     DEVICE_PCI_POWER_BUDGET_7_DATA_SCALE_1_0X 0x0u
+#define     DEVICE_PCI_POWER_BUDGET_7_DATA_SCALE_0_1X 0x1u
+#define     DEVICE_PCI_POWER_BUDGET_7_DATA_SCALE_0_01X 0x2u
+#define     DEVICE_PCI_POWER_BUDGET_7_DATA_SCALE_0_001X 0x3u
+
+#define     DEVICE_PCI_POWER_BUDGET_7_PM_SUB_STATE_SHIFT 10u
+#define     DEVICE_PCI_POWER_BUDGET_7_PM_SUB_STATE_MASK  0x1c00u
+#define GET_DEVICE_PCI_POWER_BUDGET_7_PM_SUB_STATE(__reg__)  (((__reg__) & 0x1c00) >> 10u)
+#define SET_DEVICE_PCI_POWER_BUDGET_7_PM_SUB_STATE(__val__)  (((__val__) << 10u) & 0x1c00u)
+#define     DEVICE_PCI_POWER_BUDGET_7_PM_STATE_SHIFT 13u
+#define     DEVICE_PCI_POWER_BUDGET_7_PM_STATE_MASK  0x6000u
+#define GET_DEVICE_PCI_POWER_BUDGET_7_PM_STATE(__reg__)  (((__reg__) & 0x6000) >> 13u)
+#define SET_DEVICE_PCI_POWER_BUDGET_7_PM_STATE(__val__)  (((__val__) << 13u) & 0x6000u)
+#define     DEVICE_PCI_POWER_BUDGET_7_PM_STATE_D0 0x0u
+#define     DEVICE_PCI_POWER_BUDGET_7_PM_STATE_D1 0x1u
+#define     DEVICE_PCI_POWER_BUDGET_7_PM_STATE_D2 0x2u
+#define     DEVICE_PCI_POWER_BUDGET_7_PM_STATE_D3 0x3u
+
+#define     DEVICE_PCI_POWER_BUDGET_7_TYPE_SHIFT 15u
+#define     DEVICE_PCI_POWER_BUDGET_7_TYPE_MASK  0x38000u
+#define GET_DEVICE_PCI_POWER_BUDGET_7_TYPE(__reg__)  (((__reg__) & 0x38000) >> 15u)
+#define SET_DEVICE_PCI_POWER_BUDGET_7_TYPE(__val__)  (((__val__) << 15u) & 0x38000u)
+#define     DEVICE_PCI_POWER_BUDGET_7_TYPE_PME_AUX 0x0u
+#define     DEVICE_PCI_POWER_BUDGET_7_TYPE_AUXILIARY 0x1u
+#define     DEVICE_PCI_POWER_BUDGET_7_TYPE_IDLE 0x2u
+#define     DEVICE_PCI_POWER_BUDGET_7_TYPE_SUSTAINED 0x3u
+#define     DEVICE_PCI_POWER_BUDGET_7_TYPE_MAXIMUM 0x7u
+
+#define     DEVICE_PCI_POWER_BUDGET_7_POWER_RAIL_SHIFT 18u
+#define     DEVICE_PCI_POWER_BUDGET_7_POWER_RAIL_MASK  0x1c0000u
+#define GET_DEVICE_PCI_POWER_BUDGET_7_POWER_RAIL(__reg__)  (((__reg__) & 0x1c0000) >> 18u)
+#define SET_DEVICE_PCI_POWER_BUDGET_7_POWER_RAIL(__val__)  (((__val__) << 18u) & 0x1c0000u)
+#define     DEVICE_PCI_POWER_BUDGET_7_POWER_RAIL_POWER_12V 0x0u
+#define     DEVICE_PCI_POWER_BUDGET_7_POWER_RAIL_POWER_3_3V 0x1u
+#define     DEVICE_PCI_POWER_BUDGET_7_POWER_RAIL_POWER_1_5V_OR_1_8V 0x2u
+#define     DEVICE_PCI_POWER_BUDGET_7_POWER_RAIL_THERMAL 0x7u
+
 
 /** @brief Register definition for @ref DEVICE_t.PciPowerBudget7. */
 typedef register_container RegDEVICEPciPowerBudget7_t {
@@ -2942,17 +3322,29 @@ typedef register_container RegDEVICEPciPowerBudget7_t {
     BCM5719_DEVICE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
-        /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerBudgetValue, 0, 16)
-        /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Unknown, 16, 16)
+        /** @brief Specifies in watts the base power value in the given operating condition. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BasePower, 0, 8)
+        /** @brief Specifies the scale to apply to the Base Power value. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DataScale, 8, 2)
+        /** @brief Specifies the power management sub state of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMSubState, 10, 3)
+        /** @brief Specifies the power management state of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMState, 13, 2)
+        /** @brief Specifies the power management state of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Type, 15, 3)
+        /** @brief Specifies the thermal load or power rail of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     RegDEVICEPciPowerBudget7_t()
     {
         /** @brief constructor for @ref DEVICE_t.PciPowerBudget7. */
-        bits.PowerBudgetValue.setBaseRegister(&r32);
-        bits.Unknown.setBaseRegister(&r32);
+        bits.BasePower.setBaseRegister(&r32);
+        bits.DataScale.setBaseRegister(&r32);
+        bits.PMSubState.setBaseRegister(&r32);
+        bits.PMState.setBaseRegister(&r32);
+        bits.Type.setBaseRegister(&r32);
+        bits.PowerRail.setBaseRegister(&r32);
     }
     RegDEVICEPciPowerBudget7_t& operator=(const RegDEVICEPciPowerBudget7_t& other)
     {
@@ -3739,7 +4131,7 @@ typedef struct {
     /** @brief Reserved bytes to pad out data structure. */
     BCM5719_DEVICE_H_uint32_t reserved_25868[1];
 
-    /** @brief Used to report power budget capability data to the host. The values are loaded from NVM, and up to eight values may be specified. Each value is specified in the lower 16 bits of one of these PCI Power Budget registers. The upper 16 bits are set to zero. */
+    /** @brief Used to report power budget capability data to the host. The values are loaded from NVM, and up to eight values may be specified.  */
     RegDEVICEPciPowerBudget0_t PciPowerBudget0;
 
     /** @brief See  */
