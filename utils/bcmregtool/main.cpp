@@ -45,6 +45,7 @@
 #include "pci_config.h"
 
 #include <NVRam.h>
+#include <MII.h>
 #include <bcm5719_eeprom.h>
 #include <dirent.h>
 #include <endian.h>
@@ -179,6 +180,12 @@ int main(int argc, char const *argv[])
             .action("store_true")
             .help("Print device information registers.");
 
+    parser.add_option("-m", "--mii")
+            .dest("mii")
+            .set_default("0")
+            .action("store_true")
+            .help("Print MII information registers.");
+
 
     optparse::Values options = parser.parse_args(argc, argv);
     vector<string> args = parser.args();
@@ -226,6 +233,15 @@ int main(int argc, char const *argv[])
         RegDEVICERxRiscMode_t mode;
         mode.r32 = 0; // Ensure single-step and halt are cleared
         DEVICE.RxRiscMode = mode;
+        exit(0);
+    }
+
+    if(options.get("mii"))
+    {
+        uint8_t phy = MII_getPhy();
+        printf("MII Phy: %d\n", phy);
+        printf("MII Control: 0x%04X\n", MII_readRegister(phy, REG_MII_CONTROL));
+
         exit(0);
     }
 

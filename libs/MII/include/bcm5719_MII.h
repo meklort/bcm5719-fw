@@ -146,22 +146,22 @@ typedef register_container RegMIIControl_t {
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, CollisionTestMode, 7, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, FullDuplexMode, 8, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, FullDuplexMode, 8, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, RestartAutonegotiation, 9, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, RestartAutonegotiation, 9, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, Isolate_GPHYonly_, 10, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, Isolate_GPHYonly_, 10, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, PowerDown, 11, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, PowerDown, 11, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, AutoNegotiationEnable, 12, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutoNegotiationEnable, 12, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, SpeedSelectLSB, 13, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, SpeedSelectLSB, 13, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, LoopbackMode, 14, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LoopbackMode, 14, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, Reset, 15, 1)
-    BITFIELD_END(BCM5719_MII_H_uint32_t, bits)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, Reset, 15, 1)
+    BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
     RegMIIControl_t()
     {
@@ -180,7 +180,7 @@ typedef register_container RegMIIControl_t {
     }
     RegMIIControl_t& operator=(const RegMIIControl_t& other)
     {
-        r32 = other.r32;
+        r16 = other.r16;
         return *this;
     }
 #endif /* CXX_SIMULATOR */
@@ -259,38 +259,38 @@ typedef register_container RegMIIStatus_t {
 
     BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, ExtendedCapabilitiesSupported, 0, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ExtendedCapabilitiesSupported, 0, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, JabberDetected, 1, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, JabberDetected, 1, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, LinkOK, 2, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LinkOK, 2, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, AutoNegotiationCapable, 3, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutoNegotiationCapable, 3, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, RemoteFaultDetected, 4, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, RemoteFaultDetected, 4, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, AutoNegotiationComplete, 5, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutoNegotiationComplete, 5, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, MFPreambleSuppression, 6, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, MFPreambleSuppression, 6, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, UnidirectionalCapable_GPHYonly_, 7, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, UnidirectionalCapable_GPHYonly_, 7, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, ExtendedStatusSupported, 8, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ExtendedStatusSupported, 8, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, _100BASE_T2HalfDuplexCapable, 9, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _100BASE_T2HalfDuplexCapable, 9, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, _100BASE_T2FullDuplexCapable, 10, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _100BASE_T2FullDuplexCapable, 10, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, _10BASE_THalfDuplexCapable, 11, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _10BASE_THalfDuplexCapable, 11, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, _10BASE_TFullDuplexCapable, 12, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _10BASE_TFullDuplexCapable, 12, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, _100BASE_XHalfDuplexCapable, 13, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _100BASE_XHalfDuplexCapable, 13, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, _100BASE_XFullDuplexCapable, 14, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _100BASE_XFullDuplexCapable, 14, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, _100BASE_T4Capable, 15, 1)
-    BITFIELD_END(BCM5719_MII_H_uint32_t, bits)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _100BASE_T4Capable, 15, 1)
+    BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
     RegMIIStatus_t()
     {
@@ -314,7 +314,7 @@ typedef register_container RegMIIStatus_t {
     }
     RegMIIStatus_t& operator=(const RegMIIStatus_t& other)
     {
-        r32 = other.r32;
+        r16 = other.r16;
         return *this;
     }
 #endif /* CXX_SIMULATOR */
@@ -333,8 +333,8 @@ typedef register_container RegMIIPhyIdHigh_t {
 
     BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
         /** @brief Bits 3:18 of organizationally unique identifier */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, OUIHigh, 0, 16)
-    BITFIELD_END(BCM5719_MII_H_uint32_t, bits)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, OUIHigh, 0, 16)
+    BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
     RegMIIPhyIdHigh_t()
     {
@@ -343,7 +343,7 @@ typedef register_container RegMIIPhyIdHigh_t {
     }
     RegMIIPhyIdHigh_t& operator=(const RegMIIPhyIdHigh_t& other)
     {
-        r32 = other.r32;
+        r16 = other.r16;
         return *this;
     }
 #endif /* CXX_SIMULATOR */
@@ -370,12 +370,12 @@ typedef register_container RegMIIPhyIdLow_t {
 
     BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, Revision, 0, 4)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, Revision, 0, 4)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, Model, 4, 6)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, Model, 4, 6)
         /** @brief Bits 19:24 of organizationally unique identifier. */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, OUILow, 10, 6)
-    BITFIELD_END(BCM5719_MII_H_uint32_t, bits)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, OUILow, 10, 6)
+    BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
     RegMIIPhyIdLow_t()
     {
@@ -386,7 +386,7 @@ typedef register_container RegMIIPhyIdLow_t {
     }
     RegMIIPhyIdLow_t& operator=(const RegMIIPhyIdLow_t& other)
     {
-        r32 = other.r32;
+        r16 = other.r16;
         return *this;
     }
 #endif /* CXX_SIMULATOR */
@@ -443,30 +443,30 @@ typedef register_container RegMIIAutonegotiationAdvertisement_t {
 
     BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, ProtocolSelect, 0, 5)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ProtocolSelect, 0, 5)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, _10BASE_THalfDuplexCapable, 5, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _10BASE_THalfDuplexCapable, 5, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, _10BASE_TFullDuplexCapable, 6, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _10BASE_TFullDuplexCapable, 6, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, _100BASE_TXHalfDuplexCapable, 7, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _100BASE_TXHalfDuplexCapable, 7, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, _100BASE_TXFullDuplexCapable, 8, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _100BASE_TXFullDuplexCapable, 8, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, _100BASE_T4Capable, 9, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _100BASE_T4Capable, 9, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, PauseCapable, 10, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, PauseCapable, 10, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, AsymmetricPauseCapable, 11, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AsymmetricPauseCapable, 11, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, reserved_12_12, 12, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_12_12, 12, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, RemoteFault, 13, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, RemoteFault, 13, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, reserved_14_14, 14, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_14_14, 14, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, NextPage, 15, 1)
-    BITFIELD_END(BCM5719_MII_H_uint32_t, bits)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, NextPage, 15, 1)
+    BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
     RegMIIAutonegotiationAdvertisement_t()
     {
@@ -484,7 +484,7 @@ typedef register_container RegMIIAutonegotiationAdvertisement_t {
     }
     RegMIIAutonegotiationAdvertisement_t& operator=(const RegMIIAutonegotiationAdvertisement_t& other)
     {
-        r32 = other.r32;
+        r16 = other.r16;
         return *this;
     }
 #endif /* CXX_SIMULATOR */
@@ -543,30 +543,30 @@ typedef register_container RegMIIAutonegotiationLinkPartnerAbilityBasePage_t {
 
     BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, ProtocolSelector, 0, 5)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ProtocolSelector, 0, 5)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, _10BASE_THalfDuplexCapable, 5, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _10BASE_THalfDuplexCapable, 5, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, _10BASE_TFullDuplexCapable, 6, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _10BASE_TFullDuplexCapable, 6, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, _100BASE_TXHalfDuplexCapable, 7, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _100BASE_TXHalfDuplexCapable, 7, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, _100BASE_TXFullDuplexCapable, 8, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _100BASE_TXFullDuplexCapable, 8, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, _100BASE_T4Capable, 9, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _100BASE_T4Capable, 9, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, PauseCapable, 10, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, PauseCapable, 10, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, AsymmetricPauseCapable, 11, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AsymmetricPauseCapable, 11, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, reserved_12_12, 12, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_12_12, 12, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, RemoteFault, 13, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, RemoteFault, 13, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, Acknowledge, 14, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, Acknowledge, 14, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, NextPage, 15, 1)
-    BITFIELD_END(BCM5719_MII_H_uint32_t, bits)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, NextPage, 15, 1)
+    BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
     RegMIIAutonegotiationLinkPartnerAbilityBasePage_t()
     {
@@ -585,7 +585,7 @@ typedef register_container RegMIIAutonegotiationLinkPartnerAbilityBasePage_t {
     }
     RegMIIAutonegotiationLinkPartnerAbilityBasePage_t& operator=(const RegMIIAutonegotiationLinkPartnerAbilityBasePage_t& other)
     {
-        r32 = other.r32;
+        r16 = other.r16;
         return *this;
     }
 #endif /* CXX_SIMULATOR */
@@ -631,20 +631,20 @@ typedef register_container RegMIIAutonegotiationExpansion_t {
 
     BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, LinkPartnerAutonegotiationCapable, 0, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LinkPartnerAutonegotiationCapable, 0, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, PageReceived, 1, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, PageReceived, 1, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, NextPageCapable, 2, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, NextPageCapable, 2, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, LinkPartnerNextPageCapable, 3, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LinkPartnerNextPageCapable, 3, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, ParallelDetectionFault, 4, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ParallelDetectionFault, 4, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, NextPageReceiveLocation, 5, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, NextPageReceiveLocation, 5, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, NextPageReceiveLocationCapable, 6, 1)
-    BITFIELD_END(BCM5719_MII_H_uint32_t, bits)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, NextPageReceiveLocationCapable, 6, 1)
+    BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
     RegMIIAutonegotiationExpansion_t()
     {
@@ -659,7 +659,7 @@ typedef register_container RegMIIAutonegotiationExpansion_t {
     }
     RegMIIAutonegotiationExpansion_t& operator=(const RegMIIAutonegotiationExpansion_t& other)
     {
-        r32 = other.r32;
+        r16 = other.r16;
         return *this;
     }
 #endif /* CXX_SIMULATOR */
@@ -694,18 +694,18 @@ typedef register_container RegMIIAutonegotiationNextPageTransmit_t {
 
     BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, CodeField, 0, 11)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, CodeField, 0, 11)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, Toggle, 11, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, Toggle, 11, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, Acknowledge2, 12, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, Acknowledge2, 12, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, MessagePage, 13, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, MessagePage, 13, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, reserved_14_14, 14, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_14_14, 14, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, NextPage, 15, 1)
-    BITFIELD_END(BCM5719_MII_H_uint32_t, bits)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, NextPage, 15, 1)
+    BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
     RegMIIAutonegotiationNextPageTransmit_t()
     {
@@ -718,7 +718,7 @@ typedef register_container RegMIIAutonegotiationNextPageTransmit_t {
     }
     RegMIIAutonegotiationNextPageTransmit_t& operator=(const RegMIIAutonegotiationNextPageTransmit_t& other)
     {
-        r32 = other.r32;
+        r16 = other.r16;
         return *this;
     }
 #endif /* CXX_SIMULATOR */
@@ -757,18 +757,18 @@ typedef register_container RegMIIAutonegotiationLinkPartnerAbilityNextPage_t {
 
     BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, CodeField, 0, 11)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, CodeField, 0, 11)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, Toggle2, 11, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, Toggle2, 11, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, Acknowledge2, 12, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, Acknowledge2, 12, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, MessagePage, 13, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, MessagePage, 13, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, Acknowledge3, 14, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, Acknowledge3, 14, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, NextPage, 15, 1)
-    BITFIELD_END(BCM5719_MII_H_uint32_t, bits)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, NextPage, 15, 1)
+    BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
     RegMIIAutonegotiationLinkPartnerAbilityNextPage_t()
     {
@@ -782,7 +782,7 @@ typedef register_container RegMIIAutonegotiationLinkPartnerAbilityNextPage_t {
     }
     RegMIIAutonegotiationLinkPartnerAbilityNextPage_t& operator=(const RegMIIAutonegotiationLinkPartnerAbilityNextPage_t& other)
     {
-        r32 = other.r32;
+        r16 = other.r16;
         return *this;
     }
 #endif /* CXX_SIMULATOR */
@@ -821,20 +821,20 @@ typedef register_container RegMII1000baseTControl_t {
 
     BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, reserved_7_0, 0, 8)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_7_0, 0, 8)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, Advertise1000BASE_THalfDuplex, 8, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, Advertise1000BASE_THalfDuplex, 8, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, Advertise1000BASE_TFullDuplex, 9, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, Advertise1000BASE_TFullDuplex, 9, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, RepeaterDTE, 10, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, RepeaterDTE, 10, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, MasterSlaveConfigValue, 11, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, MasterSlaveConfigValue, 11, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, MasterSlaveConfigEnable, 12, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, MasterSlaveConfigEnable, 12, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, TestMode, 13, 3)
-    BITFIELD_END(BCM5719_MII_H_uint32_t, bits)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, TestMode, 13, 3)
+    BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
     RegMII1000baseTControl_t()
     {
@@ -848,7 +848,7 @@ typedef register_container RegMII1000baseTControl_t {
     }
     RegMII1000baseTControl_t& operator=(const RegMII1000baseTControl_t& other)
     {
-        r32 = other.r32;
+        r16 = other.r16;
         return *this;
     }
 #endif /* CXX_SIMULATOR */
@@ -891,22 +891,22 @@ typedef register_container RegMII1000baseTStatus_t {
 
     BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, IdleErrorCount, 0, 8)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, IdleErrorCount, 0, 8)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, reserved_9_8, 8, 2)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_9_8, 8, 2)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, LinkPartner1000BASE_THalfDuplexCapable, 10, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LinkPartner1000BASE_THalfDuplexCapable, 10, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, LinkPartner1000BASE_TFullDuplexCapable, 11, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LinkPartner1000BASE_TFullDuplexCapable, 11, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, RemoteReceiverStatus, 12, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, RemoteReceiverStatus, 12, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, LocalReceiverStatus, 13, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LocalReceiverStatus, 13, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, MasterSlaveConfigResolution, 14, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, MasterSlaveConfigResolution, 14, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, MasterSlaveConfigFault, 15, 1)
-    BITFIELD_END(BCM5719_MII_H_uint32_t, bits)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, MasterSlaveConfigFault, 15, 1)
+    BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
     RegMII1000baseTStatus_t()
     {
@@ -921,7 +921,7 @@ typedef register_container RegMII1000baseTStatus_t {
     }
     RegMII1000baseTStatus_t& operator=(const RegMII1000baseTStatus_t& other)
     {
-        r32 = other.r32;
+        r16 = other.r16;
         return *this;
     }
 #endif /* CXX_SIMULATOR */
@@ -948,12 +948,12 @@ typedef register_container RegMIIBroadreachLreAccess_t {
 
     BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, LRERegisterAccessStatus, 0, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LRERegisterAccessStatus, 0, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, LRERegisterOverrideValue, 1, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LRERegisterOverrideValue, 1, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, EnableLRERegisterAccessOverride, 2, 1)
-    BITFIELD_END(BCM5719_MII_H_uint32_t, bits)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, EnableLRERegisterAccessOverride, 2, 1)
+    BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
     RegMIIBroadreachLreAccess_t()
     {
@@ -964,7 +964,7 @@ typedef register_container RegMIIBroadreachLreAccess_t {
     }
     RegMIIBroadreachLreAccess_t& operator=(const RegMIIBroadreachLreAccess_t& other)
     {
-        r32 = other.r32;
+        r16 = other.r16;
         return *this;
     }
 #endif /* CXX_SIMULATOR */
@@ -1011,7 +1011,7 @@ typedef register_container RegMIIIeeeExtendedStatus_t {
     }
     RegMIIIeeeExtendedStatus_t& operator=(const RegMIIIeeeExtendedStatus_t& other)
     {
-        r32 = other.r32;
+        r16 = other.r16;
         return *this;
     }
 #endif /* CXX_SIMULATOR */
@@ -1090,38 +1090,38 @@ typedef register_container RegMIIPhyExtendedStatus_t {
 
     BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, MLT3CodeErrorDetected, 0, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, MLT3CodeErrorDetected, 0, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, LockErrorDetected, 1, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LockErrorDetected, 1, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, TransmitErrorDetected, 2, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, TransmitErrorDetected, 2, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, ReceiveErrorDetected, 3, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ReceiveErrorDetected, 3, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, BadESDDetected, 4, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, BadESDDetected, 4, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, BadSSDDetected, 5, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, BadSSDDetected, 5, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, CarrierExtensionErrorDetected, 6, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, CarrierExtensionErrorDetected, 6, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, CRCErrorDetected, 7, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, CRCErrorDetected, 7, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, LinkStatus, 8, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LinkStatus, 8, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, Locked, 9, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, Locked, 9, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, LocalReceiverStatus, 10, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LocalReceiverStatus, 10, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, RemoteReceiverStatus, 11, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, RemoteReceiverStatus, 11, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, InterruptStatus, 12, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, InterruptStatus, 12, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, MDICrossoverState, 13, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, MDICrossoverState, 13, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, WirespeedDowngrade, 14, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, WirespeedDowngrade, 14, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, AutonegotiationBasePageSelectorFieldMismatch, 15, 1)
-    BITFIELD_END(BCM5719_MII_H_uint32_t, bits)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutonegotiationBasePageSelectorFieldMismatch, 15, 1)
+    BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
     RegMIIPhyExtendedStatus_t()
     {
@@ -1145,7 +1145,7 @@ typedef register_container RegMIIPhyExtendedStatus_t {
     }
     RegMIIPhyExtendedStatus_t& operator=(const RegMIIPhyExtendedStatus_t& other)
     {
-        r32 = other.r32;
+        r16 = other.r16;
         return *this;
     }
 #endif /* CXX_SIMULATOR */
@@ -1164,8 +1164,8 @@ typedef register_container RegMIIReceiveErrorCounter_t {
 
     BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, ReceiveErrorCounter, 0, 16)
-    BITFIELD_END(BCM5719_MII_H_uint32_t, bits)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ReceiveErrorCounter, 0, 16)
+    BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
     RegMIIReceiveErrorCounter_t()
     {
@@ -1174,7 +1174,7 @@ typedef register_container RegMIIReceiveErrorCounter_t {
     }
     RegMIIReceiveErrorCounter_t& operator=(const RegMIIReceiveErrorCounter_t& other)
     {
-        r32 = other.r32;
+        r16 = other.r16;
         return *this;
     }
 #endif /* CXX_SIMULATOR */
@@ -1197,10 +1197,10 @@ typedef register_container RegMIIFalseCarrierSenseCounter_t {
 
     BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, FalseCarrierSenseCounter, 0, 8)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, FalseCarrierSenseCounter, 0, 8)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, SERDESBERCounter, 8, 8)
-    BITFIELD_END(BCM5719_MII_H_uint32_t, bits)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, SERDESBERCounter, 8, 8)
+    BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
     RegMIIFalseCarrierSenseCounter_t()
     {
@@ -1210,7 +1210,7 @@ typedef register_container RegMIIFalseCarrierSenseCounter_t {
     }
     RegMIIFalseCarrierSenseCounter_t& operator=(const RegMIIFalseCarrierSenseCounter_t& other)
     {
-        r32 = other.r32;
+        r16 = other.r16;
         return *this;
     }
 #endif /* CXX_SIMULATOR */
@@ -1233,10 +1233,10 @@ typedef register_container RegMIILocalRemoteReceiverNotOkCounter_t {
 
     BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, RemoteReceiverNotOKCounter, 0, 8)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, RemoteReceiverNotOKCounter, 0, 8)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, LocalReceiverNotOKCounter, 8, 8)
-    BITFIELD_END(BCM5719_MII_H_uint32_t, bits)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LocalReceiverNotOKCounter, 8, 8)
+    BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
     RegMIILocalRemoteReceiverNotOkCounter_t()
     {
@@ -1246,7 +1246,7 @@ typedef register_container RegMIILocalRemoteReceiverNotOkCounter_t {
     }
     RegMIILocalRemoteReceiverNotOkCounter_t& operator=(const RegMIILocalRemoteReceiverNotOkCounter_t& other)
     {
-        r32 = other.r32;
+        r16 = other.r16;
         return *this;
     }
 #endif /* CXX_SIMULATOR */
@@ -1317,34 +1317,34 @@ typedef register_container RegMIIAuxillaryStatusSummary_t {
 
     BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, PauseResolution_TransmitDirection, 0, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, PauseResolution_TransmitDirection, 0, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, PauseResolution_ReceiveDirection, 1, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, PauseResolution_ReceiveDirection, 1, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, LinkStatus, 2, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LinkStatus, 2, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, LinkPartnerNextPageCapable, 3, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LinkPartnerNextPageCapable, 3, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, LinkPartnerAutonegotiationCapable, 4, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LinkPartnerAutonegotiationCapable, 4, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, PageReceived, 5, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, PageReceived, 5, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, RemoteFault, 6, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, RemoteFault, 6, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, ParallelDetectionFault, 7, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ParallelDetectionFault, 7, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, AutonegotiationHCD, 8, 3)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutonegotiationHCD, 8, 3)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, AutonegotiationNextPageWait, 11, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutonegotiationNextPageWait, 11, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, AutonegotiationAbilityDetect, 12, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutonegotiationAbilityDetect, 12, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, AutonegotiationACKDetect, 13, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutonegotiationACKDetect, 13, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, AutonegotiationCompleteACK, 14, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutonegotiationCompleteACK, 14, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, AutonegotiationComplete, 15, 1)
-    BITFIELD_END(BCM5719_MII_H_uint32_t, bits)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutonegotiationComplete, 15, 1)
+    BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
     RegMIIAuxillaryStatusSummary_t()
     {
@@ -1366,7 +1366,7 @@ typedef register_container RegMIIAuxillaryStatusSummary_t {
     }
     RegMIIAuxillaryStatusSummary_t& operator=(const RegMIIAuxillaryStatusSummary_t& other)
     {
-        r32 = other.r32;
+        r16 = other.r16;
         return *this;
     }
 #endif /* CXX_SIMULATOR */
@@ -1441,38 +1441,38 @@ typedef register_container RegMIIInterruptStatus_t {
 
     BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, CRCError, 0, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, CRCError, 0, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, LinkStatusChange, 1, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LinkStatusChange, 1, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, LinkSpeedChange, 2, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LinkSpeedChange, 2, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, DuplexModeChange, 3, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, DuplexModeChange, 3, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, LocalReceiverStatusChange, 4, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LocalReceiverStatusChange, 4, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, RemoteReceiverStatusChange, 5, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, RemoteReceiverStatusChange, 5, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, ScramblerSyncError, 6, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ScramblerSyncError, 6, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, NegotiatedUnsupportedHCD, 7, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, NegotiatedUnsupportedHCD, 7, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, NoHCD, 8, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, NoHCD, 8, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, HCDNoLink, 9, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, HCDNoLink, 9, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, AutonegotiationPageRX, 10, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutonegotiationPageRX, 10, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, ExceededLowCounterThreshold, 11, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ExceededLowCounterThreshold, 11, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, MDIXStatusChange, 12, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, MDIXStatusChange, 12, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, reserved_13_13, 13, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_13_13, 13, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, IllegalPairSwap, 14, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, IllegalPairSwap, 14, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, IPStatusChange, 15, 1)
-    BITFIELD_END(BCM5719_MII_H_uint32_t, bits)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, IPStatusChange, 15, 1)
+    BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
     RegMIIInterruptStatus_t()
     {
@@ -1495,7 +1495,7 @@ typedef register_container RegMIIInterruptStatus_t {
     }
     RegMIIInterruptStatus_t& operator=(const RegMIIInterruptStatus_t& other)
     {
-        r32 = other.r32;
+        r16 = other.r16;
         return *this;
     }
 #endif /* CXX_SIMULATOR */
@@ -1514,8 +1514,8 @@ typedef register_container RegMIIInterruptMask_t {
 
     BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, InterruptMaskVector, 0, 16)
-    BITFIELD_END(BCM5719_MII_H_uint32_t, bits)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, InterruptMaskVector, 0, 16)
+    BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
     RegMIIInterruptMask_t()
     {
@@ -1524,7 +1524,7 @@ typedef register_container RegMIIInterruptMask_t {
     }
     RegMIIInterruptMask_t& operator=(const RegMIIInterruptMask_t& other)
     {
-        r32 = other.r32;
+        r16 = other.r16;
         return *this;
     }
 #endif /* CXX_SIMULATOR */
@@ -1591,32 +1591,32 @@ typedef register_container RegMIITest1_t {
 
     BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, MainDACTrim, 0, 4)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, MainDACTrim, 0, 4)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, MainDACEnableSoftwareTrimSetting, 4, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, MainDACEnableSoftwareTrimSetting, 4, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, DisablePolarityEncode, 5, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, DisablePolarityEncode, 5, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, ReceiveWatchdogTimerDisable, 6, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ReceiveWatchdogTimerDisable, 6, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, ManualSwapMDIState, 7, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ManualSwapMDIState, 7, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, FastTimers, 8, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, FastTimers, 8, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, ExternalLink, 9, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ExternalLink, 9, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, ScramblerTest, 10, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ScramblerTest, 10, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, ForceLock, 11, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ForceLock, 11, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, ForceLink, 12, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ForceLink, 12, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, CounterTestMode, 13, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, CounterTestMode, 13, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, TransmitErrorCodeVisibility, 14, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, TransmitErrorCodeVisibility, 14, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint32_t, CRCErrorCountVisibility, 15, 1)
-    BITFIELD_END(BCM5719_MII_H_uint32_t, bits)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, CRCErrorCountVisibility, 15, 1)
+    BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
     RegMIITest1_t()
     {
@@ -1637,7 +1637,7 @@ typedef register_container RegMIITest1_t {
     }
     RegMIITest1_t& operator=(const RegMIITest1_t& other)
     {
-        r32 = other.r32;
+        r16 = other.r16;
         return *this;
     }
 #endif /* CXX_SIMULATOR */

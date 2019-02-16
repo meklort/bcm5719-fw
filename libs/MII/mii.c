@@ -55,17 +55,32 @@ static void MII_wait(void)
 
 uint8_t MII_getPhy(void)
 {
-    return DEVICE.Status.bits.FunctionNumber + 1;
+    if(DEVICE.SgmiiStatus.bits.MediaSelectionMode)
+    {
+        // SERDES platform
+        return DEVICE.Status.bits.FunctionNumber + DEVICE_MII_COMMUNICATION_PHY_ADDRESS_SGMII_0;
+    }
+    else
+    {
+        // GPHY platform
+        return DEVICE.Status.bits.FunctionNumber + DEVICE_MII_COMMUNICATION_PHY_ADDRESS_PHY_0;
+    }
 }
 
-uint16_t MII_readRegister(uint8_t phy, uint8_t reg)
+uint16_t MII_readRegister(uint8_t phy, mii_reg_t reg)
 {
+    union {
+        uint8_t addr;
+        mii_reg_t reg;
+    } caster;
+    caster.reg = reg;
+
     RegDEVICEMiiCommunication_t regcontents;
     regcontents.r32 = 0;
     regcontents.bits.Command = DEVICE_MII_COMMUNICATION_COMMAND_READ;
     regcontents.bits.Start_DIV_Busy = 1;
     regcontents.bits.PHYAddress = phy;
-    regcontents.bits.RegisterAddress = reg;
+    regcontents.bits.RegisterAddress = caster.addr;
 
     // Ensure there are no active transactions
     MII_wait();
@@ -79,14 +94,20 @@ uint16_t MII_readRegister(uint8_t phy, uint8_t reg)
     return DEVICE.MiiCommunication.bits.TransactionData;
 }
 
-void MII_writeRegister(uint8_t phy, uint8_t reg, uint16_t data)
+void MII_writeRegister(uint8_t phy, mii_reg_t reg, uint16_t data)
 {
+    union {
+        uint8_t addr;
+        mii_reg_t reg;
+    } caster;
+    caster.reg = reg;
+
     RegDEVICEMiiCommunication_t regcontents;
     regcontents.r32 = 0;
     regcontents.bits.Command = DEVICE_MII_COMMUNICATION_COMMAND_WRITE;
     regcontents.bits.Start_DIV_Busy = 1;
     regcontents.bits.PHYAddress = phy;
-    regcontents.bits.RegisterAddress = reg;
+    regcontents.bits.RegisterAddress = caster.addr;
     regcontents.bits.TransactionData = data;
 
     // Ensure there are no active transactions

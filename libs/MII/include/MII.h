@@ -45,7 +45,9 @@
 #define MII_H
 
 #include <stdint.h>
+#include <bcm5719_MII.h>
 
+typedef volatile BCM5719_MII_H_uint16_t *	mii_reg_t;
 /**
  * @fn uint8_t MII_getPhy(void);
  *
@@ -58,11 +60,11 @@ uint8_t MII_getPhy(void);
 /**
  * @fn uint16_t MII_readRegister(uint8_t PHY, uint8_t reg);
  */
-uint16_t MII_readRegister(uint8_t phy, uint8_t reg);
+uint16_t MII_readRegister(uint8_t phy, mii_reg_t reg);
 
 /**
  * @fn void MII_writeRegister(uint8_t PHY, uint8_t reg, uint16_t data);
  */
-void MII_writeRegister(uint8_t phy, uint8_t reg, uint16_t data);
+void MII_writeRegister(uint8_t phy, mii_reg_t reg, uint16_t data);
 
 #endif /* MII_H */
