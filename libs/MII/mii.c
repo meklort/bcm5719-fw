@@ -61,7 +61,9 @@ uint8_t MII_getPhy(void)
 uint16_t MII_readRegister(uint8_t phy, uint8_t reg)
 {
     RegDEVICEMiiCommunication_t regcontents;
-    regcontents.bits.Command = 2; // Read, FIXME
+    regcontents.r32 = 0;
+    regcontents.bits.Command = DEVICE_MII_COMMUNICATION_COMMAND_READ;
+    regcontents.bits.Start_DIV_Busy = 1;
     regcontents.bits.PHYAddress = phy;
     regcontents.bits.RegisterAddress = reg;
 
@@ -80,7 +82,9 @@ uint16_t MII_readRegister(uint8_t phy, uint8_t reg)
 void MII_writeRegister(uint8_t phy, uint8_t reg, uint16_t data)
 {
     RegDEVICEMiiCommunication_t regcontents;
-    regcontents.bits.Command = 2; // Read, FIXME
+    regcontents.r32 = 0;
+    regcontents.bits.Command = DEVICE_MII_COMMUNICATION_COMMAND_WRITE;
+    regcontents.bits.Start_DIV_Busy = 1;
     regcontents.bits.PHYAddress = phy;
     regcontents.bits.RegisterAddress = reg;
     regcontents.bits.TransactionData = data;
