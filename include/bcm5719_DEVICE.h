@@ -2711,52 +2711,255 @@ typedef register_container RegDEVICEPciPowerBudget0_t {
 } RegDEVICEPciPowerBudget0_t;
 
 #define REG_DEVICE_PCI_POWER_BUDGET_1 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006514) /* See  */
+#define     DEVICE_PCI_POWER_BUDGET_1_POWER_BUDGET_VALUE_SHIFT 0u
+#define     DEVICE_PCI_POWER_BUDGET_1_POWER_BUDGET_VALUE_MASK  0xffffu
+#define GET_DEVICE_PCI_POWER_BUDGET_1_POWER_BUDGET_VALUE(__reg__)  (((__reg__) & 0xffff) >> 0u)
+#define SET_DEVICE_PCI_POWER_BUDGET_1_POWER_BUDGET_VALUE(__val__)  (((__val__) << 0u) & 0xffffu)
+#define     DEVICE_PCI_POWER_BUDGET_1_UNKNOWN_SHIFT 16u
+#define     DEVICE_PCI_POWER_BUDGET_1_UNKNOWN_MASK  0xffff0000u
+#define GET_DEVICE_PCI_POWER_BUDGET_1_UNKNOWN(__reg__)  (((__reg__) & 0xffff0000) >> 16u)
+#define SET_DEVICE_PCI_POWER_BUDGET_1_UNKNOWN(__val__)  (((__val__) << 16u) & 0xffff0000u)
+
 /** @brief Register definition for @ref DEVICE_t.PciPowerBudget1. */
 typedef register_container RegDEVICEPciPowerBudget1_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerBudgetValue, 0, 16)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Unknown, 16, 16)
+    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    RegDEVICEPciPowerBudget1_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.PciPowerBudget1. */
+        bits.PowerBudgetValue.setBaseRegister(&r32);
+        bits.Unknown.setBaseRegister(&r32);
+    }
+    RegDEVICEPciPowerBudget1_t& operator=(const RegDEVICEPciPowerBudget1_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICEPciPowerBudget1_t;
 
 #define REG_DEVICE_PCI_POWER_BUDGET_2 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006518) /* See  */
+#define     DEVICE_PCI_POWER_BUDGET_2_POWER_BUDGET_VALUE_SHIFT 0u
+#define     DEVICE_PCI_POWER_BUDGET_2_POWER_BUDGET_VALUE_MASK  0xffffu
+#define GET_DEVICE_PCI_POWER_BUDGET_2_POWER_BUDGET_VALUE(__reg__)  (((__reg__) & 0xffff) >> 0u)
+#define SET_DEVICE_PCI_POWER_BUDGET_2_POWER_BUDGET_VALUE(__val__)  (((__val__) << 0u) & 0xffffu)
+#define     DEVICE_PCI_POWER_BUDGET_2_UNKNOWN_SHIFT 16u
+#define     DEVICE_PCI_POWER_BUDGET_2_UNKNOWN_MASK  0xffff0000u
+#define GET_DEVICE_PCI_POWER_BUDGET_2_UNKNOWN(__reg__)  (((__reg__) & 0xffff0000) >> 16u)
+#define SET_DEVICE_PCI_POWER_BUDGET_2_UNKNOWN(__val__)  (((__val__) << 16u) & 0xffff0000u)
+
 /** @brief Register definition for @ref DEVICE_t.PciPowerBudget2. */
 typedef register_container RegDEVICEPciPowerBudget2_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerBudgetValue, 0, 16)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Unknown, 16, 16)
+    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    RegDEVICEPciPowerBudget2_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.PciPowerBudget2. */
+        bits.PowerBudgetValue.setBaseRegister(&r32);
+        bits.Unknown.setBaseRegister(&r32);
+    }
+    RegDEVICEPciPowerBudget2_t& operator=(const RegDEVICEPciPowerBudget2_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICEPciPowerBudget2_t;
 
 #define REG_DEVICE_PCI_POWER_BUDGET_3 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000651c) /* See  */
+#define     DEVICE_PCI_POWER_BUDGET_3_POWER_BUDGET_VALUE_SHIFT 0u
+#define     DEVICE_PCI_POWER_BUDGET_3_POWER_BUDGET_VALUE_MASK  0xffffu
+#define GET_DEVICE_PCI_POWER_BUDGET_3_POWER_BUDGET_VALUE(__reg__)  (((__reg__) & 0xffff) >> 0u)
+#define SET_DEVICE_PCI_POWER_BUDGET_3_POWER_BUDGET_VALUE(__val__)  (((__val__) << 0u) & 0xffffu)
+#define     DEVICE_PCI_POWER_BUDGET_3_UNKNOWN_SHIFT 16u
+#define     DEVICE_PCI_POWER_BUDGET_3_UNKNOWN_MASK  0xffff0000u
+#define GET_DEVICE_PCI_POWER_BUDGET_3_UNKNOWN(__reg__)  (((__reg__) & 0xffff0000) >> 16u)
+#define SET_DEVICE_PCI_POWER_BUDGET_3_UNKNOWN(__val__)  (((__val__) << 16u) & 0xffff0000u)
+
 /** @brief Register definition for @ref DEVICE_t.PciPowerBudget3. */
 typedef register_container RegDEVICEPciPowerBudget3_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerBudgetValue, 0, 16)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Unknown, 16, 16)
+    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    RegDEVICEPciPowerBudget3_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.PciPowerBudget3. */
+        bits.PowerBudgetValue.setBaseRegister(&r32);
+        bits.Unknown.setBaseRegister(&r32);
+    }
+    RegDEVICEPciPowerBudget3_t& operator=(const RegDEVICEPciPowerBudget3_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICEPciPowerBudget3_t;
 
 #define REG_DEVICE_PCI_POWER_BUDGET_4 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006520) /* See  */
+#define     DEVICE_PCI_POWER_BUDGET_4_POWER_BUDGET_VALUE_SHIFT 0u
+#define     DEVICE_PCI_POWER_BUDGET_4_POWER_BUDGET_VALUE_MASK  0xffffu
+#define GET_DEVICE_PCI_POWER_BUDGET_4_POWER_BUDGET_VALUE(__reg__)  (((__reg__) & 0xffff) >> 0u)
+#define SET_DEVICE_PCI_POWER_BUDGET_4_POWER_BUDGET_VALUE(__val__)  (((__val__) << 0u) & 0xffffu)
+#define     DEVICE_PCI_POWER_BUDGET_4_UNKNOWN_SHIFT 16u
+#define     DEVICE_PCI_POWER_BUDGET_4_UNKNOWN_MASK  0xffff0000u
+#define GET_DEVICE_PCI_POWER_BUDGET_4_UNKNOWN(__reg__)  (((__reg__) & 0xffff0000) >> 16u)
+#define SET_DEVICE_PCI_POWER_BUDGET_4_UNKNOWN(__val__)  (((__val__) << 16u) & 0xffff0000u)
+
 /** @brief Register definition for @ref DEVICE_t.PciPowerBudget4. */
 typedef register_container RegDEVICEPciPowerBudget4_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerBudgetValue, 0, 16)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Unknown, 16, 16)
+    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    RegDEVICEPciPowerBudget4_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.PciPowerBudget4. */
+        bits.PowerBudgetValue.setBaseRegister(&r32);
+        bits.Unknown.setBaseRegister(&r32);
+    }
+    RegDEVICEPciPowerBudget4_t& operator=(const RegDEVICEPciPowerBudget4_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICEPciPowerBudget4_t;
 
 #define REG_DEVICE_PCI_POWER_BUDGET_5 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006524) /* See  */
+#define     DEVICE_PCI_POWER_BUDGET_5_POWER_BUDGET_VALUE_SHIFT 0u
+#define     DEVICE_PCI_POWER_BUDGET_5_POWER_BUDGET_VALUE_MASK  0xffffu
+#define GET_DEVICE_PCI_POWER_BUDGET_5_POWER_BUDGET_VALUE(__reg__)  (((__reg__) & 0xffff) >> 0u)
+#define SET_DEVICE_PCI_POWER_BUDGET_5_POWER_BUDGET_VALUE(__val__)  (((__val__) << 0u) & 0xffffu)
+#define     DEVICE_PCI_POWER_BUDGET_5_UNKNOWN_SHIFT 16u
+#define     DEVICE_PCI_POWER_BUDGET_5_UNKNOWN_MASK  0xffff0000u
+#define GET_DEVICE_PCI_POWER_BUDGET_5_UNKNOWN(__reg__)  (((__reg__) & 0xffff0000) >> 16u)
+#define SET_DEVICE_PCI_POWER_BUDGET_5_UNKNOWN(__val__)  (((__val__) << 16u) & 0xffff0000u)
+
 /** @brief Register definition for @ref DEVICE_t.PciPowerBudget5. */
 typedef register_container RegDEVICEPciPowerBudget5_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerBudgetValue, 0, 16)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Unknown, 16, 16)
+    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    RegDEVICEPciPowerBudget5_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.PciPowerBudget5. */
+        bits.PowerBudgetValue.setBaseRegister(&r32);
+        bits.Unknown.setBaseRegister(&r32);
+    }
+    RegDEVICEPciPowerBudget5_t& operator=(const RegDEVICEPciPowerBudget5_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICEPciPowerBudget5_t;
 
 #define REG_DEVICE_PCI_POWER_BUDGET_6 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006528) /* See  */
+#define     DEVICE_PCI_POWER_BUDGET_6_POWER_BUDGET_VALUE_SHIFT 0u
+#define     DEVICE_PCI_POWER_BUDGET_6_POWER_BUDGET_VALUE_MASK  0xffffu
+#define GET_DEVICE_PCI_POWER_BUDGET_6_POWER_BUDGET_VALUE(__reg__)  (((__reg__) & 0xffff) >> 0u)
+#define SET_DEVICE_PCI_POWER_BUDGET_6_POWER_BUDGET_VALUE(__val__)  (((__val__) << 0u) & 0xffffu)
+#define     DEVICE_PCI_POWER_BUDGET_6_UNKNOWN_SHIFT 16u
+#define     DEVICE_PCI_POWER_BUDGET_6_UNKNOWN_MASK  0xffff0000u
+#define GET_DEVICE_PCI_POWER_BUDGET_6_UNKNOWN(__reg__)  (((__reg__) & 0xffff0000) >> 16u)
+#define SET_DEVICE_PCI_POWER_BUDGET_6_UNKNOWN(__val__)  (((__val__) << 16u) & 0xffff0000u)
+
 /** @brief Register definition for @ref DEVICE_t.PciPowerBudget6. */
 typedef register_container RegDEVICEPciPowerBudget6_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerBudgetValue, 0, 16)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Unknown, 16, 16)
+    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    RegDEVICEPciPowerBudget6_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.PciPowerBudget6. */
+        bits.PowerBudgetValue.setBaseRegister(&r32);
+        bits.Unknown.setBaseRegister(&r32);
+    }
+    RegDEVICEPciPowerBudget6_t& operator=(const RegDEVICEPciPowerBudget6_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICEPciPowerBudget6_t;
 
 #define REG_DEVICE_PCI_POWER_BUDGET_7 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000652c) /* See  */
+#define     DEVICE_PCI_POWER_BUDGET_7_POWER_BUDGET_VALUE_SHIFT 0u
+#define     DEVICE_PCI_POWER_BUDGET_7_POWER_BUDGET_VALUE_MASK  0xffffu
+#define GET_DEVICE_PCI_POWER_BUDGET_7_POWER_BUDGET_VALUE(__reg__)  (((__reg__) & 0xffff) >> 0u)
+#define SET_DEVICE_PCI_POWER_BUDGET_7_POWER_BUDGET_VALUE(__val__)  (((__val__) << 0u) & 0xffffu)
+#define     DEVICE_PCI_POWER_BUDGET_7_UNKNOWN_SHIFT 16u
+#define     DEVICE_PCI_POWER_BUDGET_7_UNKNOWN_MASK  0xffff0000u
+#define GET_DEVICE_PCI_POWER_BUDGET_7_UNKNOWN(__reg__)  (((__reg__) & 0xffff0000) >> 16u)
+#define SET_DEVICE_PCI_POWER_BUDGET_7_UNKNOWN(__val__)  (((__val__) << 16u) & 0xffff0000u)
+
 /** @brief Register definition for @ref DEVICE_t.PciPowerBudget7. */
 typedef register_container RegDEVICEPciPowerBudget7_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerBudgetValue, 0, 16)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Unknown, 16, 16)
+    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    RegDEVICEPciPowerBudget7_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.PciPowerBudget7. */
+        bits.PowerBudgetValue.setBaseRegister(&r32);
+        bits.Unknown.setBaseRegister(&r32);
+    }
+    RegDEVICEPciPowerBudget7_t& operator=(const RegDEVICEPciPowerBudget7_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICEPciPowerBudget7_t;
 
 #define REG_DEVICE_6530 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006530) /*  */
