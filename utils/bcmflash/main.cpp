@@ -224,9 +224,14 @@ int main(int argc, char const *argv[])
            nvram.contents.info.powerDissipatedD3, nvram.contents.info.powerDissipatedD2,
            nvram.contents.info.powerDissipatedD1, nvram.contents.info.powerDissipatedD0);
 
-    printf("Power Consumed: 0x%02X 0x%02X 0x%02X 0x%02X\n",
+    printf("Power Consumed:   0x%02X 0x%02X 0x%02X 0x%02X\n",
            nvram.contents.info.powerConsumedD3, nvram.contents.info.powerConsumedD2,
            nvram.contents.info.powerConsumedD1, nvram.contents.info.powerConsumedD0);
+
+    printf("Power Budget0:    0x%08X\n", be32toh(nvram.contents.info.powerBudget0));
+    printf("Power Budget1:    0x%08X\n", be32toh(nvram.contents.info.powerBudget1));
+    printf("Power Budget2:    0x%08X\n", be32toh(nvram.contents.info.powerBudget2));
+    printf("Power Budget3:    0x%08X\n", be32toh(nvram.contents.info.powerBudget3));
 
     printf("\n=== Port 0 ===\n");
     printf("Subsystem ID: 0x%04X\n", be16toh(nvram.contents.info2.pciSubsystemF0GPHY));
@@ -234,7 +239,6 @@ int main(int argc, char const *argv[])
     printf("Feature:    0x%08X\n", be32toh(nvram.contents.info.func0CfgFeature));
     printf("Cfg:        0x%08X\n", be32toh(nvram.contents.info.func0CfgHW));
     printf("Cfg2:       0x%08X\n", be32toh(nvram.contents.info2.func0CfgHW2));
-    printf("Pwr Budget: 0x%08X\n", be32toh(nvram.contents.info.powerBudget0));
 
     printf("\n=== Port 1 ===\n");
     printf("Subsystem ID: 0x%04X\n", be16toh(nvram.contents.info2.pciSubsystemF1GPHY));
@@ -242,7 +246,6 @@ int main(int argc, char const *argv[])
     printf("Feature:    0x%08X\n", be32toh(nvram.contents.info.func1CfgFeature));
     printf("Cfg:        0x%08X\n", be32toh(nvram.contents.info.func1CfgHW));
     printf("Cfg2:       0x%08X\n", be32toh(nvram.contents.info2.func1CfgHW2));
-    printf("Pwr Budget: 0x%08X\n", be32toh(nvram.contents.info.powerBudget1));
 
     printf("\n=== Port 2 ===\n");
     printf("Subsystem ID: 0x%04X\n", be16toh(nvram.contents.info2.pciSubsystemF2GPHY));
@@ -250,7 +253,6 @@ int main(int argc, char const *argv[])
     printf("Feature:    0x%08X\n", be32toh(nvram.contents.info2.func2CfgFeature));
     printf("Cfg:        0x%08X\n", be32toh(nvram.contents.info2.func2CfgHW));
     printf("Cfg2:       0x%08X\n", be32toh(nvram.contents.info2.func2CfgHW2));
-    printf("Pwr Budget: 0x%08X\n", be32toh(nvram.contents.info.powerBudget2));
 
     printf("\n=== Port 3 ===\n");
     printf("Subsystem ID: 0x%04X\n", be16toh(nvram.contents.info2.pciSubsystemF3GPHY));
@@ -258,7 +260,6 @@ int main(int argc, char const *argv[])
     printf("Feature:    0x%08X\n", be32toh(nvram.contents.info2.func3CfgFeature));
     printf("Cfg:        0x%08X\n", be32toh(nvram.contents.info2.func3CfgHW));
     printf("Cfg2:       0x%08X\n", be32toh(nvram.contents.info2.func3CfgHW2));
-    printf("Pwr Budget: 0x%08X\n", be32toh(nvram.contents.info.powerBudget3));
 
     printf("\n=== VPD ===\n");
     if (vpd_is_valid(nvram.contents.vpd.bytes, sizeof(nvram.contents.vpd)))
@@ -280,7 +281,7 @@ int main(int argc, char const *argv[])
                 char *data = (char *)malloc(vpd_len + 1);
                 memcpy(data, resource, vpd_len);
                 data[vpd_len] = 0;
-                printf("[%02d] %24s: %s\n", index, vpd_get_field_name(name),
+                printf("[%c%c] %24s: %s\n", name & 0xff, name >> 8, vpd_get_field_name(name),
                        data);
                 free(data);
             }
