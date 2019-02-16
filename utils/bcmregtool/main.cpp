@@ -221,13 +221,13 @@ int main(int argc, char const *argv[])
 
     if(options.get("info"))
     {
-        printf("Firmware Ver:   0x%08X\n", (uint32_t)GEN.GenFwVersion.r32);
-        printf("Chip Id:        0x%08X\n", (uint32_t)DEVICE.ChipId.r32);
-        printf("Vendor ID:      0x%08X\n", (uint32_t)DEVICE.PciVendorDeviceId.r32);
-        printf("Subsystem ID:   0x%08X\n", (uint32_t)DEVICE.PciSubsystemId.r32);
-        printf("Class Code Rev: 0x%08X\n", (uint32_t)DEVICE.PciClassCodeRevision.r32);
-        printf("Function En:    0x%X\n", (uint32_t)DEVICE.Status.bits.FunctionEnable);
-        printf("Function Num:   %d\n", (uint32_t)DEVICE.Status.bits.FunctionNumber);
+        printf("Firmware Ver:    0x%08X\n", (uint32_t)GEN.GenFwVersion.r32);
+        printf("Chip Id:         0x%08X\n", (uint32_t)DEVICE.ChipId.r32);
+        printf("Vendor ID:       0x%04X         Device ID: 0x%04X\n", (uint16_t)DEVICE.PciVendorDeviceId.bits.VendorID, (uint16_t)DEVICE.PciVendorDeviceId.bits.DeviceID);
+        printf("Subsystem Vend:  0x%04X      Subsystem ID: 0x%04X\n", (uint16_t)DEVICE.PciSubsystemId.bits.SubsystemVendorID, (uint16_t)DEVICE.PciSubsystemId.bits.SubsystemID);
+        printf("Class Code Rev:  0x%08X\n", (uint32_t)DEVICE.PciClassCodeRevision.r32);
+        printf("Function En:     0x%X\n", (uint32_t)DEVICE.Status.bits.FunctionEnable);
+        printf("Function Num:    %d\n", (uint32_t)DEVICE.Status.bits.FunctionNumber);
 
 
         // GenCfgFeature
@@ -239,7 +239,7 @@ int main(int argc, char const *argv[])
         printf("\n");
 
         uint64_t serial = (((uint64_t)(DEVICE.PciSerialNumberHigh.r32)) << 32) | DEVICE.PciSerialNumberLow.r32;
-        printf("Serial Number: 0x%016lX\n", serial);
+        printf("Serial Number:   0x%016lX\n", serial);
 
         printf("\n");
 
