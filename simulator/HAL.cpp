@@ -28,6 +28,7 @@
 
 using namespace std;
 
+#define DEVICE_ROOT     "/sys/bus/pci/devices/"
 #define DEVICE_CONFIG   "config"
 #define BAR_STR         "resource"
 
@@ -82,15 +83,96 @@ uint32_t read_device_chipid(uint32_t)
     return 1123;
 }
 
-void initHAL(const char *pci_path)
+bool is_primary_function(const char *pci_path)
 {
+    // Path: 0001:01:00.0
+    int sys = 0;
+    int bus = 0;
+    int slot = 0;
+    int function = 0;
+    if (4 == sscanf(pci_path, "%d:%d:%d.%d\n", &sys, &bus, &slot, &function))
+    {
+        if (0 == function)
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+static char* locate_pci_path(void)
+{
+    char* pci_path = NULL;
+    struct dirent *pDirent;
+    DIR *pDir;
+
+    pDir = opendir(DEVICE_ROOT);
+    if (pDir == NULL)
+    {
+        printf("Cannot open directory '%s'\n", DEVICE_ROOT);
+        return NULL;
+    }
+
+    while ((pDirent = readdir(pDir)) != NULL && NULL == pci_path)
+    {
+        const char *pPCIPath = pDirent->d_name;
+        if (is_primary_function(pDirent->d_name))
+        {
+            string configPath;
+            configPath = string(DEVICE_ROOT) + pPCIPath + "/" + DEVICE_CONFIG;
+            const char* pConfigPath = configPath.c_str();
+            // This is the primary function of a device.
+            // Read the configuration and see if it matches a supported
+            // vendor/device.
+
+            FILE *pConfigFile = fopen(pConfigPath, "rb");
+
+            if (pConfigFile)
+            {
+                pci_config_t config;
+
+                if (fread(&config, sizeof(config), 1, pConfigFile))
+                {
+                    if (is_supported(config.vendor_id, config.device_id))
+                    {
+                        pci_path = (char *)malloc(
+                            strlen(DEVICE_ROOT "%s/") + strlen(pPCIPath) + 1);
+                        sprintf(pci_path, DEVICE_ROOT "%s/", pPCIPath);
+                    }
+                }
+                fclose(pConfigFile);
+            }
+
+        }
+    }
+    closedir(pDir);
+
+    return pci_path;
+}
+
+
+bool initHAL(const char *pci_path)
+{
+    char* located_pci_path = NULL;
     struct stat st;
     int memfd;
 
     if(RUNNING_ON_VALGRIND)
     {
         cerr << "Running on valgrind is not supported when mmaping device registers." << endl;
-        exit(-1);
+        return false;;
+    }
+
+    if(!pci_path)
+    {
+        // Let's 
+        located_pci_path = locate_pci_path();
+        pci_path = located_pci_path;
+        if(!located_pci_path)
+        {
+            return false;
+        }
     }
 
     string configPath = string(pci_path) + string("/") + string(DEVICE_CONFIG);
@@ -121,7 +203,7 @@ void initHAL(const char *pci_path)
                 {
                     printf("Error opening %s file. \n", pBARPath);
                     close(memfd);
-                    exit(-1);
+                    return false;
                 }
                 else
                 {
@@ -131,7 +213,7 @@ void initHAL(const char *pci_path)
                 if (fstat(memfd, &st) < 0)
                 {
                     fprintf(stderr, "error: couldn't stat file\n");
-                    exit(-1);
+                    return false;
                 }
 
                 bar[i] = (uint8_t *)mmap(0, st.st_size, PROT_READ | PROT_WRITE,
@@ -140,7 +222,7 @@ void initHAL(const char *pci_path)
                 {
                     printf("Unable to mmap %s: %s\n", pBARPath,
                            strerror(errno));
-                    exit(-1);
+                    return false;
                 }
 
                 if (is_bar_64bit(config.BAR[i]))
@@ -151,6 +233,11 @@ void initHAL(const char *pci_path)
         }
     }
 
+    if(located_pci_path)
+    {
+        free(located_pci_path);
+    }
+
     uint8_t *DEVICEBase = (uint8_t *)bar[0];
 
     init_bcm5719_DEVICE();
@@ -159,4 +246,6 @@ void initHAL(const char *pci_path)
     // init_bcm5719_APE_mmap();
     init_bcm5719_NVM();
     init_bcm5719_NVM_mmap(DEVICEBase + 0x7000);
+
+    return true;
 }
