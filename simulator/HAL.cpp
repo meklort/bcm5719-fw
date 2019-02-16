@@ -18,6 +18,13 @@
 #include <unistd.h>
 
 #include <string>
+#include <iostream>
+
+#if __has_include("valgrind/valgrind.h")
+#include <valgrind/valgrind.h>
+#else
+#define RUNNING_ON_VALGRIND 0
+#endif
 
 using namespace std;
 
@@ -79,6 +86,12 @@ void initHAL(const char *pci_path)
 {
     struct stat st;
     int memfd;
+
+    if(RUNNING_ON_VALGRIND)
+    {
+        cerr << "Running on valgrind is not supported when mmaping device registers." << endl;
+        exit(-1);
+    }
 
     string configPath = string(pci_path) + string("/") + string(DEVICE_CONFIG);
     const char* pConfigPath = configPath.c_str();
