@@ -239,8 +239,11 @@ int main(int argc, char const *argv[])
     if(options.get("mii"))
     {
         uint8_t phy = MII_getPhy();
-        printf("MII Phy: %d\n", phy);
-        printf("MII Control: 0x%04X\n", MII_readRegister(phy, REG_MII_CONTROL));
+        printf("MII Phy:          %d\n", phy);
+        printf("MII Control:      0x%04X\n", MII_readRegister(phy, REG_MII_CONTROL));
+        printf("MII Status:       0x%04X\n", MII_readRegister(phy, REG_MII_STATUS));
+        printf("MII PHY ID[high]: 0x%04X\n", MII_readRegister(phy, REG_MII_PHY_ID_HIGH));
+        printf("MII PHY ID[low]:  0x%04X\n", MII_readRegister(phy, REG_MII_PHY_ID_LOW));
 
         exit(0);
     }
