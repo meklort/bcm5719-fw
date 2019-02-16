@@ -49,6 +49,6 @@
 #include <bcm5719_APE.h>
 
 bool is_supported(uint16_t vendor_id, uint16_t device_id);
-bool initHAL(const char* pci_path);
+bool initHAL(const char* pci_path, int wanted_function = 0);
 
 #endif /* HAL_H */

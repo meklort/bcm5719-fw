@@ -62,7 +62,7 @@
 #include <OptionParser.h>
 #include <vector>
 #include <string>
-
+#include <iostream>
 #include <bcm5719_GEN.h>
 
 using namespace std;
@@ -141,6 +141,13 @@ int main(int argc, char const *argv[])
 {
     OptionParser parser = OptionParser().description("BCM Register Utility");
 
+    parser.add_option("-f", "--function")
+            .dest("function")
+            .type("int")
+            .set_default("0")
+            .metavar("FUNCTION")
+            .help("Read registers from the specified pci function.");
+
 
     parser.add_option("-r", "--reset")
             .dest("reset")
@@ -177,7 +184,11 @@ int main(int argc, char const *argv[])
     vector<string> args = parser.args();
 
 
-    initHAL(NULL);
+    if(!initHAL(NULL, options.get("function")))
+    {
+        cerr << "Unable to locate pci device with function " << (int)options.get("function") << endl;
+        exit(-1);
+    }
 
 
     if(options.get("reset"))

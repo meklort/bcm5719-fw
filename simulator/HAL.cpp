@@ -84,7 +84,7 @@ uint32_t read_device_chipid(uint32_t)
     return 1123;
 }
 
-bool is_primary_function(const char *pci_path)
+bool is_pci_function(const char *pci_path, int wanted_function)
 {
     // Path: 0001:01:00.0
     int sys = 0;
@@ -93,7 +93,7 @@ bool is_primary_function(const char *pci_path)
     int function = 0;
     if (4 == sscanf(pci_path, "%d:%d:%d.%d\n", &sys, &bus, &slot, &function))
     {
-        if (0 == function)
+        if (wanted_function == function)
         {
             return true;
         }
@@ -102,7 +102,7 @@ bool is_primary_function(const char *pci_path)
     return false;
 }
 
-static char* locate_pci_path(void)
+static char* locate_pci_path(int wanted_function)
 {
     char* pci_path = NULL;
     struct dirent *pDirent;
@@ -118,7 +118,7 @@ static char* locate_pci_path(void)
     while ((pDirent = readdir(pDir)) != NULL && NULL == pci_path)
     {
         const char *pPCIPath = pDirent->d_name;
-        if (is_primary_function(pDirent->d_name))
+        if (is_pci_function(pDirent->d_name, wanted_function))
         {
             string configPath;
             configPath = string(DEVICE_ROOT) + pPCIPath + "/" + DEVICE_CONFIG;
@@ -153,7 +153,7 @@ static char* locate_pci_path(void)
 }
 
 
-bool initHAL(const char *pci_path)
+bool initHAL(const char *pci_path, int wanted_function)
 {
     char* located_pci_path = NULL;
     struct stat st;
@@ -168,7 +168,7 @@ bool initHAL(const char *pci_path)
     if(!pci_path)
     {
         // Let's 
-        located_pci_path = locate_pci_path();
+        located_pci_path = locate_pci_path(wanted_function);
         pci_path = located_pci_path;
         if(!located_pci_path)
         {
