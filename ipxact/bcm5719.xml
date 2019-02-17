@@ -7198,7 +7198,7 @@
                     <ipxact:volatile>true</ipxact:volatile>
                 </ipxact:register>
             </ipxact:addressBlock>
-            <ipxact:addressUnitBits>8</ipxact:addressUnitBits>
+            <ipxact:addressUnitBits>16</ipxact:addressUnitBits>
         </ipxact:memoryMap>
     </ipxact:memoryMaps>
 </ipxact:component>
