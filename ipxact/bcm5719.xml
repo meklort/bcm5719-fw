@@ -7189,8 +7189,16 @@
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                 </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>Block Select</ipxact:name>
+                    <ipxact:description>Pages in the specified register block.</ipxact:description>
+                    <ipxact:addressOffset>0x1f</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>16</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
             </ipxact:addressBlock>
-            <ipxact:addressUnitBits>16</ipxact:addressUnitBits>
+            <ipxact:addressUnitBits>8</ipxact:addressUnitBits>
         </ipxact:memoryMap>
     </ipxact:memoryMaps>
 </ipxact:component>

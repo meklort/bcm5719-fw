@@ -119,3 +119,9 @@ void MII_writeRegister(uint8_t phy, mii_reg_t reg, uint16_t data)
     // Wait for transaction to complete (not strictly required for writes).
     MII_wait();
 }
+
+void MII_selectBlock(uint8_t phy, uint16_t block)
+{
+    // Write register 0x1f with the block.
+    MII_writeRegister(phy, REG_MII_BLOCK_SELECT, block);
+}

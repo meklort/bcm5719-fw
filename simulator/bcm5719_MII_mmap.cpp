@@ -185,5 +185,10 @@ void init_bcm5719_MII_mmap(void *base)
     MII.Test1.r16.installReadCallback(read_from_ram, &MII_Test1_r16);
     MII.Test1.r16.installWriteCallback(write_to_ram, &MII_Test1_r16);
 
+    /** @brief Bitmap for @ref MII_t.BlockSelect. */
+    static ram_offset_t MII_BlockSelect_r16((uint8_t *)base, (uint32_t)31);
+    MII.BlockSelect.r16.installReadCallback(read_from_ram, &MII_BlockSelect_r16);
+    MII.BlockSelect.r16.installWriteCallback(write_to_ram, &MII_BlockSelect_r16);
+
 
 }

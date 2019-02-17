@@ -245,6 +245,10 @@ int main(int argc, char const *argv[])
         printf("MII PHY ID[high]: 0x%04X\n", MII_readRegister(phy, REG_MII_PHY_ID_HIGH));
         printf("MII PHY ID[low]:  0x%04X\n", MII_readRegister(phy, REG_MII_PHY_ID_LOW));
 
+        MII_selectBlock(0, 0x8010);
+        printf("0x1A (0x8010):    0x%04X\n", MII_readRegister(0, (mii_reg_t)0x1A));
+        MII_selectBlock(0, 0);
+
         exit(0);
     }
 
