@@ -59,22 +59,48 @@ static inline bool is_nic(void)
 void init_mii_function0(void)
 {
     // MIIPORT 0 (0x8010):0x1A |= 0x4000
-    // MIIPORT 0 (0x8610):0x15, set bits 0:1 to 2. (Note: This is done in a
-    // retry loop which verifies the block select by reading 0x1F and confirming
-    // it reads 0x8610, and then verifies that bits 0:1 have been set to 2, and
-    // retries about a dozen times until the block select and write are both
-    // correct. Probably an attempt to work around some bug or weird
-    // asynchronous behaviour for these unknown MII registers.) MIIPORT 0
+    MII_selectBlock(0, 0x8010);
+    uint16_t r1Ah_value = MII_readRegister(0, (mii_reg_t)0x1A);
+    r1Ah_value |= 0x4000;
+    MII_writeRegister(0, (mii_reg_t)0x1A, r1Ah_value);
+
+    // MIIPORT 0 (0x8610):0x15, set bits 0:1 to 2.
+    MII_selectBlock(0, 0x8610);
+    uint16_t r15h_value = MII_readRegister(0, (mii_reg_t)0x15);
+    r15h_value &= ~0x3;
+    r15h_value |= 0x2;;
+    MII_writeRegister(0, (mii_reg_t)0x15, r15h_value);
+    do
+    {
+        r15h_value = MII_readRegister(0, (mii_reg_t)0x15);
+    } while(2 != (r15h_value & 0x3));
+    // (Note: This is done in a retry loop which verifies the block select by
+    // reading 0x1F and confirming it reads 0x8610, and then verifies that
+    // bits 0:1 have been set to 2, and retries about a dozen times until the
+    // block select and write are both correct. Probably an attempt to work
+    // around some bug or weird asynchronous behaviour for these unknown MII registers.) 
+
     // (0x8010):0x1A, mask 0x4000.
+    MII_selectBlock(0, 0x8010);
+    r1Ah_value &= ~0x4000;
+    MII_writeRegister(0, (mii_reg_t)0x1A, r1Ah_value);
+
+    MII_selectBlock(0, 0);
 }
 
 void init_mii(void)
 {
     //     MII init for all functions (MIIPORT determined by function/PHY type):
     // Set MII_REG_CONTROL to AUTO_NEGOTIATION_ENABLE.
+    uint8_t phy = MII_getPhy();
+    RegMIIControl_t control;
+    control.r16 = MII_readRegister(phy, REG_MII_CONTROL);
+    control.bits.AutoNegotiationEnable = 1;
+    MII_writeRegister(phy, REG_MII_CONTROL, control.r16);
+
 }
 
-void init_hw(NVRAMContents_t *nvram)
+void early_init_hw(void)
 {
     // Enable memory arbitration
     DEVICE.MemoryArbiterMode.bits.Enable = 1;
@@ -103,9 +129,16 @@ void init_hw(NVRAMContents_t *nvram)
     }
 
     DEVICE.GphyControlStatus = gphystate;
+}
 
+void load_nvm_config(NVRAMContents_t *nvram)
+{
     // Load information from NVM, set various registers + mem
 
+}
+
+void init_hw(NVRAMContents_t *nvram)
+{
     // Zero out ram - gencom, db cache, tx/rx mbuf, others in mem map
 
     // Misc regs init

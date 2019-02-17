@@ -44,14 +44,25 @@
 
 #include "stage1.h"
 
+#if CXX_SIMULATOR
+#include <HAL.hpp>
+#endif
 #include <NVRam.h>
 
 NVRAMContents_t gNVMContents;
 
 int main()
 {
+#if CXX_SIMULATOR
+    // initHAL(NULL);
+#endif
+
+    // Perform early initialization
+    early_init_hw();
+
     // Read in the NVM header.
     NVRam_read(0, (uint32_t *)&gNVMContents, sizeof(NVRAMContents_t) / 4);
+    load_nvm_config(&gNVMContents);
 
     // Initialize the hardware.
     init_hw(&gNVMContents);
