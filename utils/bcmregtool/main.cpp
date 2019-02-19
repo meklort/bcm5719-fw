@@ -334,6 +334,12 @@ int main(int argc, char const *argv[])
         printf("Reg 65f4: 0x%08X\n", (uint32_t)DEVICE._65f4.r32);
         printf("Reg 7c04: 0x%08X\n", (uint32_t)DEVICE._7c04.r32);
 
+        printf("LedControl:         0x%08X\n", (uint32_t)DEVICE.LedControl.r32);
+        printf("GrcModeControl:     0x%08X\n", (uint32_t)DEVICE.GrcModeControl.r32);
+        printf("GphyControlStatus:  0x%08X\n", (uint32_t)DEVICE.GphyControlStatus.r32);
+        printf("TopLevelMiscellaneousControl1: 0x%08X\n", (uint32_t)DEVICE.TopLevelMiscellaneousControl1.r32);
+        printf("MiscellaneousLocalControl:     0x%08X\n", (uint32_t)DEVICE.MiscellaneousLocalControl.r32);
+
         exit(0);
     }
 
