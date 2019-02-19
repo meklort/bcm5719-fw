@@ -46,8 +46,25 @@
 
 #include <MII.h>
 #include <bcm5719_DEVICE.h>
+#include <bcm5719_GEN.h>
+#include <bcm5719_RXMBUF.h>
+#include <bcm5719_TXMBUF.h>
+#include <bcm5719_SDBCACHE.h>
 #include <stdbool.h>
 #include <stdint.h>
+
+void *memset(void *s, int c, size_t n)
+{
+#if CXX_SIMULATOR
+    // TODO: Use the memory window to ezro everything out.
+#else
+    while(--n)
+    {
+        *(uint32_t*)s = c;
+    }
+#endif
+    return s;
+}
 
 static inline bool is_nic(void)
 {
@@ -139,11 +156,24 @@ void early_init_hw(void)
 void load_nvm_config(NVRAMContents_t *nvram)
 {
     // Load information from NVM, set various registers + mem
+
+
+    // MAC Addr.
+
+    // PCI power disipated / consumed
+
+    // Power Budget
+
+    // REG_PCI_SUBSYSTEM_ID, vendor, class, rev
 }
 
 void init_hw(NVRAMContents_t *nvram)
 {
     // Zero out ram - gencom, db cache, tx/rx mbuf, others in mem map
+    memset((void*)&GEN, 0, REG_GEN_SIZE);
+    memset((void*)&RXMBUF, 0, REG_RXMBUF_SIZE);
+    memset((void*)&TXMBUF, 0, REG_TXMBUF_SIZE);
+    memset((void*)&SDBCACHE, 0, REG_SDBCACHE_SIZE);
 
     // Misc regs init
 
@@ -162,12 +192,20 @@ void init_hw(NVRAMContents_t *nvram)
     // Mask REG 0x64DC bits 0x0F, or bits 0x01. Unknown.
     DEVICE._64dc.r32 = (DEVICE._64dc.r32 & ~0xFu) | 0x01;
 
-    // Mask REG 0x64DC bits 0xC00, set ...
+    // Mask REG 0x64DC bits 0xC00, set ... TODO
+    // value from talos: 0x00315E42
+    DEVICE._64dc.r32 &= ~0xC00;
 
-    // Unknown stuff involving REG 0x6530, REG 0x65F4, depends on config
+    // Unknown stuff involving REG 0x6530, REG 0x65F4, depends on config, TODO
+    // Value from Talos:0x6530z 0x6530 -> 0x00000000, 0x65F4 -> 0x00000109.
+
 
     // REG_LSO_NONLSO_BD_READ_DMA_CORRUPTION_ENABLE_CONTROL: Set BD and NonLSO
     // fields to 4K.
+    RegDEVICELsoNonlsoBdReadDmaCorruptionEnableControl_t reglso = DEVICE.LsoNonlsoBdReadDmaCorruptionEnableControl;
+    reglso.bits.PCIRequestBurstLengthforBDRDMAEngine = DEVICE_LSO_NONLSO_BD_READ_DMA_CORRUPTION_ENABLE_CONTROL_PCI_REQUEST_BURST_LENGTH_FOR_BD_RDMA_ENGINE_4K;
+    reglso.bits.PCIRequestBurstLengthforNonLSORDMAEngine = DEVICE_LSO_NONLSO_BD_READ_DMA_CORRUPTION_ENABLE_CONTROL_PCI_REQUEST_BURST_LENGTH_FOR_NONLSO_RDMA_ENGINE_4K;
+    DEVICE.LsoNonlsoBdReadDmaCorruptionEnableControl = reglso;
 
     // Disable ECC.
     RegDEVICEGphyStrap_t gphyStrap = DEVICE.GphyStrap;
@@ -177,24 +215,37 @@ void init_hw(NVRAMContents_t *nvram)
     DEVICE.GphyStrap = gphyStrap;
 
     // LED Control
+    // Value from Talos: 0x00000880: DEVICE_LED_CONTROL_LED_STATUS_1000_MASK | DEVICE_LED_CONTROL_LED_MODE_PHY_MODE_1
+    RegDEVICELedControl_t ledControl = DEVICE.LedControl;
+    ledControl.bits.LEDMode = DEVICE_LED_CONTROL_LED_MODE_PHY_MODE_1;
+    DEVICE.LedControl = ledControl;
 
-    // MISC LOcal Control
+    // MISC Local Control
+    // Value from Talos: 0x00020001, reserved bits
 
     // Set REG_EAV_REF_CLOCK_CONTROL as desired. This is initialized from
     // CFG_HW; the TIMESYNC_GPIO_MAPPING, APE_GPIO_{0,1,2,3} fields within it
     // are copied to the corresponding fields in REG_EAV_REF_CLOCK_CONTROL.
 
     // Optionally enable REG_GRC_MODE_CONTROL__TIME_SYNC_MODE_ENABLE.
+    // Value from Talos: 0x00130034
+    // Bit is not set on Talos w/ default firmware, disabled for now.
 
     // Enable const clock for MII
     DEVICE.MiiMode.bits.ConstantMDIO_DIV_MDCClockSpeed = 1;
 
     // Set or clear REG_GPHY_CONTROL_STATUS__SWITCHING_REGULATOR_POWER_DOWN as
     // desired.
+    // Value from Talos:  0x02C01000
+    // Bit is not set on Talos w/ default firmware, disabled for now.
 
     // Set or clear
     // REG_TOP_LEVEL_MISCELLANEOUS_CONTROL_1__NCSI_CLOCK_OUTPUT_DISABLE as
     // desired.
+    // Value from Talos: 0x00000080
+    // Bit is not set on Talos w/ default firmware, disabled for now.
+
+    // Perform MII init.
     init_mii_function0();
 
     init_mii();
