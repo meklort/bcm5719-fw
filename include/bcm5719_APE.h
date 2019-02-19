@@ -79,6 +79,7 @@ typedef uint32_t BCM5719_APE_H_uint32_t;
 #endif /* !CXX_SIMULATOR */
 
 #define REG_APE_BASE ((volatile void*)0xc0010000) /* Device APE Registers */
+#define REG_APE_SIZE (sizeof(APE_t))
 
 #define REG_APE_MODE ((volatile BCM5719_APE_H_uint32_t*)0xc0010000) /* More of these bits can be found in diagnostic utilities, but they don't seem too interesting. */
 #define     APE_MODE_RESET_SHIFT 0u

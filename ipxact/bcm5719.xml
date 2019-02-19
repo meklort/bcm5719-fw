@@ -676,9 +676,14 @@
 
         <!-- RX MBUF: 0x1_0000 to 0x1_9FFF -->
         <ipxact:memoryMap>
-            <ipxact:name>RXMBuf</ipxact:name>
+            <ipxact:name>RXMBUF</ipxact:name>
             <ipxact:description>RX MBuf</ipxact:description>
-            <ipxact:baseAddress>0x10000</ipxact:baseAddress>
+            <ipxact:addressBlock>
+                <ipxact:name>RXMBUF</ipxact:name>
+                <ipxact:description>RX MBuf</ipxact:description>
+                <ipxact:baseAddress>0x10000</ipxact:baseAddress>
+                <ipxact:range>0xC800</ipxact:range>
+            </ipxact:addressBlock>
 
             <ipxact:usage>register</ipxact:usage>
             <ipxact:volatile>false</ipxact:volatile>
@@ -686,9 +691,14 @@
 
         <!-- SDB Cache: 0x2_0000 to 0x2_C7FF -->
         <ipxact:memoryMap>
-            <ipxact:name>SDBCache</ipxact:name>
+            <ipxact:name>SDBCACHE</ipxact:name>
             <ipxact:description>SBD Cache</ipxact:description>
-            <ipxact:baseAddress>0x20000</ipxact:baseAddress>
+            <ipxact:addressBlock>
+                <ipxact:name>SDBCACHE</ipxact:name>
+                <ipxact:description>SBD Cache</ipxact:description>
+                <ipxact:baseAddress>0x20000</ipxact:baseAddress>
+                <ipxact:range>0xC800</ipxact:range>
+            </ipxact:addressBlock>
 
             <ipxact:usage>register</ipxact:usage>
             <ipxact:volatile>false</ipxact:volatile>
@@ -696,9 +706,14 @@
 
         <!-- TX MBUF: 0x2_C800 to 0x3_3BFF -->
         <ipxact:memoryMap>
-            <ipxact:name>TXMBuf</ipxact:name>
+            <ipxact:name>TXMBUF</ipxact:name>
             <ipxact:description>TX MBuf</ipxact:description>
-            <ipxact:baseAddress>0x2C800</ipxact:baseAddress>
+            <ipxact:addressBlock>
+                <ipxact:name>TXMBUF</ipxact:name>
+                <ipxact:description>TX MBuf</ipxact:description>
+                <ipxact:baseAddress>0x2C800</ipxact:baseAddress>
+                <ipxact:range>0x7400</ipxact:range>
+            </ipxact:addressBlock>
 
             <ipxact:usage>register</ipxact:usage>
             <ipxact:volatile>false</ipxact:volatile>

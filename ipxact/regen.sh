@@ -12,6 +12,10 @@ mv bcm5719_MII.h ../libs/MII/include/
 mv bcm5719_DEVICE.h ../include/
 mv bcm5719_GEN.h ../include/
 mv bcm5719_APE.h ../include/
+mv bcm5719_RXMBUF.h ../include
+mv bcm5719_SDBCACHE.h ../include
+mv bcm5719_TXMBUF.h ../include
+
 
 ${IPXACT} -p ${PROJECT} bcm5719.xml bcm5719.cpp
 mv *.cpp ../simulator/

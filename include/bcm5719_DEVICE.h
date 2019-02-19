@@ -79,6 +79,7 @@ typedef uint32_t BCM5719_DEVICE_H_uint32_t;
 #endif /* !CXX_SIMULATOR */
 
 #define REG_DEVICE_BASE ((volatile void*)0xc0000000) /* Device Registers */
+#define REG_DEVICE_SIZE (sizeof(DEVICE_t))
 
 #define REG_DEVICE_MISCELLANEOUS_HOST_CONTROL ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0000068) /*  */
 #define     DEVICE_MISCELLANEOUS_HOST_CONTROL_CLEAR_INTERRUPT_SHIFT 0u

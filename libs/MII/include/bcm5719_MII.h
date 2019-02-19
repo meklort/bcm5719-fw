@@ -79,6 +79,7 @@ typedef uint32_t BCM5719_MII_H_uint32_t;
 #endif /* !CXX_SIMULATOR */
 
 #define REG_MII_BASE ((volatile void*)0x0) /* MII Registers */
+#define REG_MII_SIZE (sizeof(MII_t))
 
 #define REG_MII_CONTROL ((volatile BCM5719_MII_H_uint16_t*)0x0) /*  */
 #define     MII_CONTROL_UNIDIRECTIONAL_MODE__GPHY_ONLY__SHIFT 5u

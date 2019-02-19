@@ -79,6 +79,7 @@ typedef uint32_t BCM5719_GEN_H_uint32_t;
 #endif /* !CXX_SIMULATOR */
 
 #define REG_GEN_BASE ((volatile void*)0xb50) /* General Communication */
+#define REG_GEN_SIZE (sizeof(GEN_t))
 
 #define REG_GEN_GEN_FW_MBOX ((volatile BCM5719_GEN_H_uint32_t*)0xb50) /*  */
 /** @brief Register definition for @ref GEN_t.GenFwMbox. */
