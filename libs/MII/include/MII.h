@@ -68,8 +68,13 @@ uint16_t MII_readRegister(uint8_t phy, mii_reg_t reg);
 void MII_writeRegister(uint8_t phy, mii_reg_t reg, uint16_t data);
 
 /**
- * @fn void MII_writeRegister(uint8_t PHY, uint8_t reg, uint16_t data);
+ * @fn void MII_selectBlock(uint8_t phy, uint16_t block);
  */
 void MII_selectBlock(uint8_t phy, uint16_t block);
+
+/**
+ * @fn uint16_t MII_getBlock(uint8_t phy);
+ */
+uint16_t MII_getBlock(uint8_t phy);
 
 #endif /* MII_H */

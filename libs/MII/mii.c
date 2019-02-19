@@ -125,3 +125,9 @@ void MII_selectBlock(uint8_t phy, uint16_t block)
     // Write register 0x1f with the block.
     MII_writeRegister(phy, REG_MII_BLOCK_SELECT, block);
 }
+
+uint16_t MII_getBlock(uint8_t phy)
+{
+    // Write register 0x1f with the block.
+    return MII_readRegister(phy, REG_MII_BLOCK_SELECT);
+}

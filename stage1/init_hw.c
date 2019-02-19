@@ -64,21 +64,28 @@ void init_mii_function0(void)
     r1Ah_value |= 0x4000;
     MII_writeRegister(0, (mii_reg_t)0x1A, r1Ah_value);
 
+    // (Note: This is done in a retry loop which verifies the block select by
+    // reading 0x1F and confirming it reads 0x8610
+    do
+    {
+        MII_selectBlock(0, 0x8610);
+    }
+    while(0x8610 != MII_getBlock(0))
+
     // MIIPORT 0 (0x8610):0x15, set bits 0:1 to 2.
-    MII_selectBlock(0, 0x8610);
     uint16_t r15h_value = MII_readRegister(0, (mii_reg_t)0x15);
     r15h_value &= ~0x3;
     r15h_value |= 0x2;;
     MII_writeRegister(0, (mii_reg_t)0x15, r15h_value);
+
+    // and then verifies that bits 0:1 have been set to 2, and retries about a
+    // dozen times until the block select and write are both correct. Probably
+    // an attempt to work around some bug or weird asynchronous behaviour for
+    // these unknown MII registers.)
     do
     {
         r15h_value = MII_readRegister(0, (mii_reg_t)0x15);
     } while(2 != (r15h_value & 0x3));
-    // (Note: This is done in a retry loop which verifies the block select by
-    // reading 0x1F and confirming it reads 0x8610, and then verifies that
-    // bits 0:1 have been set to 2, and retries about a dozen times until the
-    // block select and write are both correct. Probably an attempt to work
-    // around some bug or weird asynchronous behaviour for these unknown MII registers.) 
 
     // (0x8010):0x1A, mask 0x4000.
     MII_selectBlock(0, 0x8010);
