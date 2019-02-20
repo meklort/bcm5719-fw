@@ -156,21 +156,42 @@ void early_init_hw(void)
 
 void init_mac(NVRAMContents_t *nvram)
 {
+    int function = DEVICE.Status.bits.FunctionNumber;
     uint64_t mac0 = nvram->info.macAddr0;
+    uint64_t my_mac = mac0; // default.
     DEVICE.EmacMacAddresses0High.r32 = mac0 >> 32;
     DEVICE.EmacMacAddresses0Low.r32  = mac0;
 
     uint64_t mac1 = nvram->info.macAddr1;
+    if(1 == function)
+    {
+        my_mac = mac1;
+    }
     DEVICE.EmacMacAddresses1High.r32 = mac1 >> 32;
     DEVICE.EmacMacAddresses1Low.r32  = mac1;
 
     uint64_t mac2 = nvram->info2.macAddr2;
+    if(2 == function)
+    {
+        my_mac = mac2;
+    }
     DEVICE.EmacMacAddresses2High.r32 = mac2 >> 32;
     DEVICE.EmacMacAddresses2Low.r32  = mac2;
 
     uint64_t mac3 = nvram->info2.macAddr3;
+    if(3 == function)
+    {
+        my_mac = mac3;
+    }
     DEVICE.EmacMacAddresses3High.r32 = mac3 >> 32;
     DEVICE.EmacMacAddresses3Low.r32  = mac3;
+
+    // Store mac / serial number.
+    DEVICE.PciSerialNumberHigh.r32 = my_mac >> 32;
+    GEN.GenMacAddrHighMbox.r32 = my_mac >> 32;
+
+    DEVICE.PciSerialNumberLow.r32  = my_mac;
+    GEN.GenMacAddrLowMbox.r32 = my_mac;
 }
 
 uint32_t translate_power_budget(uint16_t raw)
@@ -262,31 +283,56 @@ void init_pci(NVRAMContents_t* nvram)
     subsystem.bits.SubsystemID = nvm_get_subsystem_device(nvram);
     DEVICE.PciSubsystemId = subsystem;
 
-    // uint32_t func0CfgFeature;     //1  [ C4] C5 C0 00 80 - Function 0 GEN_CFG_FEATURE.  FEATURE CONFIG
-    // uint32_t func0CfgHW;          //1  [ C8] 00 00 40 14 - Function 0 GEN_CFG_HW.       HW CONFIG
-    // uint32_t func1CfgFeature;     //1  [ D4] C5 C0 00 00 - Function 1 GEN_CFG_FEATURE.  FEATURE CONFIG
-    // uint32_t func1CfgHW;          //1  [ D8] 00 00 40 14 - Function 1 GEN_CFG_HW.       HW CONFIG
-    // uint32_t func2CfgFeature;     //1  [250] C5 C0 00 00 - Function 2 GEN_CFG_1E4.
-    // uint32_t func2CfgHW;          //1  [254] 00 00 40 14 - Function 2 GEN_CFG_2.
-    // uint32_t func3CfgFeature;     //1  [260] C5 C0 00 00 - Function 3 GEN_CFG_1E4.
-    // uint32_t func3CfgHW;          //1  [264] 00 00 40 14 - Function 3 GEN_CFG_2.
+    // RegDEVICEPciClassCodeRevision_t partially from REG_CHIP_ID
+}
 
-    // uint32_t func0CfgHW2;         //1  [278] 00 00 00 40 - Function 0 GEN_CFG_2A8.
-    // uint32_t func1CfgHW2;         //1  [27C] 00 00 00 40 - Function 1 GEN_CFG_2A8.
-    // uint32_t func2CfgHW2;         //1  [280] 00 00 00 40 - Function 2 GEN_CFG_2A8.
-    // uint32_t func3CfgHW2;         //1  [284] 00 00 00 40 - Function 3 GEN_CFG_2A8.
-    // uint32_t cfgShared;           //1  [ DC] 00 C2 AA 38 - GEN_CFG_SHARED.              SHARED CONFIG
-    // uint32_t cfg5;                //1  [21C] 0   - GEN_CFG_5. g_unknownInitWord3
+void init_gen(NVRAMContents_t* nvram)
+{
+    int function = DEVICE.Status.bits.FunctionNumber;
+    uint32_t cfg_feature;
+    uint32_t cfg_hw;
+    uint32_t cfg_hw2;
 
-    // RegDEVICEPciClassCodeRevision_t
+    switch(function)
+    {
+        default:
+        case 0:
+            cfg_feature = nvram->info.func0CfgFeature;
+            cfg_hw      = nvram->info.func0CfgHW;
+            cfg_hw2     = nvram->info2.func0CfgHW2;
+            break;
+
+        case 1:
+            cfg_feature = nvram->info.func1CfgFeature;
+            cfg_hw      = nvram->info.func1CfgHW;
+            cfg_hw2     = nvram->info2.func1CfgHW2;
+            break;
+
+        case 2:
+            cfg_feature = nvram->info2.func2CfgFeature;
+            cfg_hw      = nvram->info2.func2CfgHW;
+            cfg_hw2     = nvram->info2.func2CfgHW2;
+            break;
+
+        case 3:
+            cfg_feature = nvram->info2.func3CfgFeature;
+            cfg_hw      = nvram->info2.func3CfgHW;
+            cfg_hw2     = nvram->info2.func3CfgHW2;
+            break;
+    }
+
+    GEN.GenCfgFeature.r32 = cfg_feature;
+    GEN.GenCfgHw.r32 = cfg_hw;
+    GEN.GenCfgHw2.r32 = cfg_hw2;
+    GEN.GenCfgShared.r32 = nvram->info.cfgShared;
+    GEN.GenCfg5.r32 = nvram->info2.cfg5;
 }
 
 void load_nvm_config(NVRAMContents_t *nvram)
 {
     // Load information from NVM, set various registers + mem
 
-
-    // MAC Addr.
+    // MAC Addr, serial number
     init_mac(nvram);
 
     // firmware revision
@@ -298,6 +344,8 @@ void load_nvm_config(NVRAMContents_t *nvram)
 
     // REG_PCI_SUBSYSTEM_ID, vendor, class, rev
     init_pci(nvram);
+
+    init_gen(nvram);
 }
 
 void init_hw(NVRAMContents_t *nvram)
