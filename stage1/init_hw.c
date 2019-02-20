@@ -216,6 +216,71 @@ void init_power(NVRAMContents_t *nvram)
     DEVICE.PciPowerBudget7.r32 = translate_power_budget(pb_raw7);
 }
 
+uint16_t nvm_get_subsystem_device(NVRAMContents_t* nvram)
+{
+    switch(MII_getPhy())
+    {
+        /* SERDES */
+        case DEVICE_MII_COMMUNICATION_PHY_ADDRESS_SGMII_0:
+            return nvram->info2.pciSubsystemF0SERDES;
+        case DEVICE_MII_COMMUNICATION_PHY_ADDRESS_SGMII_1:
+            return nvram->info2.pciSubsystemF1SERDES;
+        case DEVICE_MII_COMMUNICATION_PHY_ADDRESS_SGMII_2:
+            return nvram->info2.pciSubsystemF2SERDES;
+        case DEVICE_MII_COMMUNICATION_PHY_ADDRESS_SGMII_3:
+            return nvram->info2.pciSubsystemF3SERDES;
+
+        /* GPHY */
+        case DEVICE_MII_COMMUNICATION_PHY_ADDRESS_PHY_0:
+            return nvram->info2.pciSubsystemF0GPHY;
+        case DEVICE_MII_COMMUNICATION_PHY_ADDRESS_PHY_1:
+            return nvram->info2.pciSubsystemF1GPHY;
+        case DEVICE_MII_COMMUNICATION_PHY_ADDRESS_PHY_2:
+            return nvram->info2.pciSubsystemF2GPHY;
+        case DEVICE_MII_COMMUNICATION_PHY_ADDRESS_PHY_3:
+            return nvram->info2.pciSubsystemF3GPHY;
+
+        default:
+            // Unknown. use nvm default.
+            return nvram->info.subsystemDeviceID;
+    }
+}
+
+void init_pci(NVRAMContents_t* nvram)
+{
+    // PCI Device / Vendor ID.
+    RegDEVICEPciVendorDeviceId_t vendor_device;
+    vendor_device.r32 = 0;
+    vendor_device.bits.DeviceID = nvram->info.deviceID;
+    vendor_device.bits.VendorID = nvram->info.vendorID;
+    DEVICE.PciVendorDeviceId = vendor_device;
+
+    // PCI Subsystem
+    RegDEVICEPciSubsystemId_t subsystem;
+    subsystem.r32 = 0;
+    subsystem.bits.SubsystemVendorID = nvram->info.subsystemVendorID;
+    subsystem.bits.SubsystemID = nvm_get_subsystem_device(nvram);
+    DEVICE.PciSubsystemId = subsystem;
+
+    // uint32_t func0CfgFeature;     //1  [ C4] C5 C0 00 80 - Function 0 GEN_CFG_FEATURE.  FEATURE CONFIG
+    // uint32_t func0CfgHW;          //1  [ C8] 00 00 40 14 - Function 0 GEN_CFG_HW.       HW CONFIG
+    // uint32_t func1CfgFeature;     //1  [ D4] C5 C0 00 00 - Function 1 GEN_CFG_FEATURE.  FEATURE CONFIG
+    // uint32_t func1CfgHW;          //1  [ D8] 00 00 40 14 - Function 1 GEN_CFG_HW.       HW CONFIG
+    // uint32_t func2CfgFeature;     //1  [250] C5 C0 00 00 - Function 2 GEN_CFG_1E4.
+    // uint32_t func2CfgHW;          //1  [254] 00 00 40 14 - Function 2 GEN_CFG_2.
+    // uint32_t func3CfgFeature;     //1  [260] C5 C0 00 00 - Function 3 GEN_CFG_1E4.
+    // uint32_t func3CfgHW;          //1  [264] 00 00 40 14 - Function 3 GEN_CFG_2.
+
+    // uint32_t func0CfgHW2;         //1  [278] 00 00 00 40 - Function 0 GEN_CFG_2A8.
+    // uint32_t func1CfgHW2;         //1  [27C] 00 00 00 40 - Function 1 GEN_CFG_2A8.
+    // uint32_t func2CfgHW2;         //1  [280] 00 00 00 40 - Function 2 GEN_CFG_2A8.
+    // uint32_t func3CfgHW2;         //1  [284] 00 00 00 40 - Function 3 GEN_CFG_2A8.
+    // uint32_t cfgShared;           //1  [ DC] 00 C2 AA 38 - GEN_CFG_SHARED.              SHARED CONFIG
+    // uint32_t cfg5;                //1  [21C] 0   - GEN_CFG_5. g_unknownInitWord3
+
+    // RegDEVICEPciClassCodeRevision_t
+}
+
 void load_nvm_config(NVRAMContents_t *nvram)
 {
     // Load information from NVM, set various registers + mem
@@ -232,33 +297,7 @@ void load_nvm_config(NVRAMContents_t *nvram)
     init_power(nvram);
 
     // REG_PCI_SUBSYSTEM_ID, vendor, class, rev
-    //     uint16_t pciDevice;           //1  [ A0] 0x1657 BCM5719
-    // uint16_t pciVendor;           //1  [ A2] 0x14E4 Broadcom
-    // uint16_t pciSubsystem;        //1  [ A4] 0x1657 BCM5719     // Unused...
-    // uint16_t pciSubsystemVendor;  //1  [ A6] 0x14E4 Broadcom
-
-    //     uint32_t func0CfgFeature;     //1  [ C4] C5 C0 00 80 - Function 0 GEN_CFG_FEATURE.  FEATURE CONFIG
-    // uint32_t func0CfgHW;          //1  [ C8] 00 00 40 14 - Function 0 GEN_CFG_HW.       HW CONFIG
-    // uint32_t func1CfgFeature;     //1  [ D4] C5 C0 00 00 - Function 1 GEN_CFG_FEATURE.  FEATURE CONFIG
-    // uint32_t func1CfgHW;          //1  [ D8] 00 00 40 14 - Function 1 GEN_CFG_HW.       HW CONFIG
-    // uint32_t cfgShared;           //1  [ DC] 00 C2 AA 38 - GEN_CFG_SHARED.              SHARED CONFIG
-    // uint32_t cfg5;                //1  [21C] 0   - GEN_CFG_5. g_unknownInitWord3
-    // uint16_t pciSubsystemF1GPHY;  //1  [22C] 19 81 ] PCI Subsystem.
-    // uint16_t pciSubsystemF0GPHY;  //1  [22E] 19 81 ] These are selected based on the
-    // uint16_t pciSubsystemF2GPHY;  //1  [230] 19 81 ] function number and whether the NIC is a
-    // uint16_t pciSubsystemF3GPHY;  //1  [232] 19 81 ] GPHY (copper) or SERDES (SFP) NIC.
-    // uint16_t pciSubsystemF1SERDES;//1  [234] 16 57 ] BCM5719(?). Probably not programmed correctly
-    // uint16_t pciSubsystemF0SERDES;//1  [236] 16 57 ] since Talos II doesn't use SERDES.
-    // uint16_t pciSubsystemF3SERDES;//1  [238] 16 57 ]
-    // uint16_t pciSubsystemF2SERDES;//1  [23A] 16 57 ]
-    // uint32_t func2CfgFeature;     //1  [250] C5 C0 00 00 - Function 2 GEN_CFG_1E4.
-    // uint32_t func2CfgHW;          //1  [254] 00 00 40 14 - Function 2 GEN_CFG_2.
-    // uint32_t func3CfgFeature;     //1  [260] C5 C0 00 00 - Function 3 GEN_CFG_1E4.
-    // uint32_t func3CfgHW;          //1  [264] 00 00 40 14 - Function 3 GEN_CFG_2.
-    // uint32_t func0CfgHW2;         //1  [278] 00 00 00 40 - Function 0 GEN_CFG_2A8.
-    // uint32_t func1CfgHW2;         //1  [27C] 00 00 00 40 - Function 1 GEN_CFG_2A8.
-    // uint32_t func2CfgHW2;         //1  [280] 00 00 00 40 - Function 2 GEN_CFG_2A8.
-    // uint32_t func3CfgHW2;         //1  [284] 00 00 00 40 - Function 3 GEN_CFG_2A8.
+    init_pci(nvram);
 }
 
 void init_hw(NVRAMContents_t *nvram)
