@@ -56,7 +56,7 @@
 void *memset(void *s, int c, size_t n)
 {
 #if CXX_SIMULATOR
-    // TODO: Use the memory window to ezro everything out.
+    // TODO: Use the memory window to zero everything out.
 #else
     while(--n)
     {
@@ -153,18 +153,112 @@ void early_init_hw(void)
     DEVICE.GphyControlStatus = gphystate;
 }
 
+
+void init_mac(NVRAMContents_t *nvram)
+{
+    uint64_t mac0 = nvram->info.macAddr0;
+    DEVICE.EmacMacAddresses0High.r32 = mac0 >> 32;
+    DEVICE.EmacMacAddresses0Low.r32  = mac0;
+
+    uint64_t mac1 = nvram->info.macAddr1;
+    DEVICE.EmacMacAddresses1High.r32 = mac1 >> 32;
+    DEVICE.EmacMacAddresses1Low.r32  = mac1;
+
+    uint64_t mac2 = nvram->info2.macAddr2;
+    DEVICE.EmacMacAddresses2High.r32 = mac2 >> 32;
+    DEVICE.EmacMacAddresses2Low.r32  = mac2;
+
+    uint64_t mac3 = nvram->info2.macAddr3;
+    DEVICE.EmacMacAddresses3High.r32 = mac3 >> 32;
+    DEVICE.EmacMacAddresses3Low.r32  = mac3;
+}
+
+uint32_t translate_power_budget(uint16_t raw)
+{
+    RegDEVICEPciPowerBudget0_t translator;
+    translator.r32 = 0;
+    if(raw)
+    {
+        translator.bits.BasePower = (raw) & 0xFF;
+        translator.bits.DataScale = DEVICE_PCI_POWER_BUDGET_0_DATA_SCALE_0_1X;
+        translator.bits.PMState   = ((raw) & 0x0300) >> 8;
+        translator.bits.Type      = ((raw) & 0x1C00) >> 10;
+        translator.bits.PowerRail = ((raw) & 0xE000) >> 13;
+
+    }
+
+    return translator.r32;
+}
+
+void init_power(NVRAMContents_t *nvram)
+{
+    // PCI power dissipated / consumed
+    DEVICE.PciPowerConsumptionInfo.r32 = nvram->info.powerConsumed;
+    DEVICE.PciPowerDissipatedInfo.r32  = nvram->info.powerDissipated;
+
+    // Power Budget
+    uint32_t pb_raw0 = (nvram->info.powerBudget0) & 0xffff;
+    uint32_t pb_raw1 = (nvram->info.powerBudget0) >> 16;
+    uint32_t pb_raw2 = (nvram->info.powerBudget1) & 0xffff;
+    uint32_t pb_raw3 = (nvram->info.powerBudget1) >> 16;
+    uint32_t pb_raw4 = (nvram->info.powerBudget2) & 0xffff;
+    uint32_t pb_raw5 = (nvram->info.powerBudget2) >> 16;
+    uint32_t pb_raw6 = (nvram->info.powerBudget3) & 0xffff;
+    uint32_t pb_raw7 = (nvram->info.powerBudget3) >> 16;
+
+    DEVICE.PciPowerBudget0.r32 = translate_power_budget(pb_raw0);
+    DEVICE.PciPowerBudget1.r32 = translate_power_budget(pb_raw1);
+    DEVICE.PciPowerBudget2.r32 = translate_power_budget(pb_raw2);
+    DEVICE.PciPowerBudget3.r32 = translate_power_budget(pb_raw3);
+    DEVICE.PciPowerBudget4.r32 = translate_power_budget(pb_raw4);
+    DEVICE.PciPowerBudget5.r32 = translate_power_budget(pb_raw5);
+    DEVICE.PciPowerBudget6.r32 = translate_power_budget(pb_raw6);
+    DEVICE.PciPowerBudget7.r32 = translate_power_budget(pb_raw7);
+}
+
 void load_nvm_config(NVRAMContents_t *nvram)
 {
     // Load information from NVM, set various registers + mem
 
 
     // MAC Addr.
+    init_mac(nvram);
 
-    // PCI power disipated / consumed
+    // firmware revision
+    // mfrDate
 
-    // Power Budget
+
+    // Power
+    init_power(nvram);
 
     // REG_PCI_SUBSYSTEM_ID, vendor, class, rev
+    //     uint16_t pciDevice;           //1  [ A0] 0x1657 BCM5719
+    // uint16_t pciVendor;           //1  [ A2] 0x14E4 Broadcom
+    // uint16_t pciSubsystem;        //1  [ A4] 0x1657 BCM5719     // Unused...
+    // uint16_t pciSubsystemVendor;  //1  [ A6] 0x14E4 Broadcom
+
+    //     uint32_t func0CfgFeature;     //1  [ C4] C5 C0 00 80 - Function 0 GEN_CFG_FEATURE.  FEATURE CONFIG
+    // uint32_t func0CfgHW;          //1  [ C8] 00 00 40 14 - Function 0 GEN_CFG_HW.       HW CONFIG
+    // uint32_t func1CfgFeature;     //1  [ D4] C5 C0 00 00 - Function 1 GEN_CFG_FEATURE.  FEATURE CONFIG
+    // uint32_t func1CfgHW;          //1  [ D8] 00 00 40 14 - Function 1 GEN_CFG_HW.       HW CONFIG
+    // uint32_t cfgShared;           //1  [ DC] 00 C2 AA 38 - GEN_CFG_SHARED.              SHARED CONFIG
+    // uint32_t cfg5;                //1  [21C] 0   - GEN_CFG_5. g_unknownInitWord3
+    // uint16_t pciSubsystemF1GPHY;  //1  [22C] 19 81 ] PCI Subsystem.
+    // uint16_t pciSubsystemF0GPHY;  //1  [22E] 19 81 ] These are selected based on the
+    // uint16_t pciSubsystemF2GPHY;  //1  [230] 19 81 ] function number and whether the NIC is a
+    // uint16_t pciSubsystemF3GPHY;  //1  [232] 19 81 ] GPHY (copper) or SERDES (SFP) NIC.
+    // uint16_t pciSubsystemF1SERDES;//1  [234] 16 57 ] BCM5719(?). Probably not programmed correctly
+    // uint16_t pciSubsystemF0SERDES;//1  [236] 16 57 ] since Talos II doesn't use SERDES.
+    // uint16_t pciSubsystemF3SERDES;//1  [238] 16 57 ]
+    // uint16_t pciSubsystemF2SERDES;//1  [23A] 16 57 ]
+    // uint32_t func2CfgFeature;     //1  [250] C5 C0 00 00 - Function 2 GEN_CFG_1E4.
+    // uint32_t func2CfgHW;          //1  [254] 00 00 40 14 - Function 2 GEN_CFG_2.
+    // uint32_t func3CfgFeature;     //1  [260] C5 C0 00 00 - Function 3 GEN_CFG_1E4.
+    // uint32_t func3CfgHW;          //1  [264] 00 00 40 14 - Function 3 GEN_CFG_2.
+    // uint32_t func0CfgHW2;         //1  [278] 00 00 00 40 - Function 0 GEN_CFG_2A8.
+    // uint32_t func1CfgHW2;         //1  [27C] 00 00 00 40 - Function 1 GEN_CFG_2A8.
+    // uint32_t func2CfgHW2;         //1  [280] 00 00 00 40 - Function 2 GEN_CFG_2A8.
+    // uint32_t func3CfgHW2;         //1  [284] 00 00 00 40 - Function 3 GEN_CFG_2A8.
 }
 
 void init_hw(NVRAMContents_t *nvram)
