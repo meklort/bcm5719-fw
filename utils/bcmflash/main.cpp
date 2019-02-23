@@ -207,19 +207,18 @@ int main(int argc, char const *argv[])
         }
     }
 
-
     uint8_t* stage1 = &nvram.bytes[be32toh(nvram.contents.header.bootstrapOffset)];
     uint32_t* stage1_wd = &nvram.words[be32toh(nvram.contents.header.bootstrapOffset)/4];
-    size_t length = (be32toh(nvram.contents.header.bootstrapWords) * 4) - 4; // last word is CRC
+    size_t stage1_length = (be32toh(nvram.contents.header.bootstrapWords) * 4) - 4; // last word is CRC
 
-    uint32_t crc_word = length / 4;
+    uint32_t crc_word = stage1_length / 4;
 
-    uint32_t expected_crc = be32toh(~NVRam_crc(stage1, length, 0xffffffff));
+    uint32_t expected_crc = be32toh(~NVRam_crc(stage1, stage1_length, 0xffffffff));
     printf("=== stage1 ===\n");
     printf("Magic:               0x%08X\n", be32toh(nvram.contents.header.magic));
     printf("Bootstrap Phys Addr: 0x%08X\n",
            be32toh(nvram.contents.header.bootstrapPhysAddr));
-    printf("Length (bytes):      0x%08zX\n", length);
+    printf("Length (bytes):      0x%08zX\n", stage1_length);
     printf("Offset:              0x%08lX\n", ((stage1_wd - nvram.words) * 4));
     printf("Calculated CRC:      0x%08X\n", expected_crc);
     printf("CRC:                 0x%08X\n", be32toh(stage1_wd[crc_word]));
@@ -239,11 +238,80 @@ int main(int argc, char const *argv[])
     if(extract)
     {
 
-        if(!save_to_file("stage1.bin", stage1, length))
+        if(!save_to_file("stage1.bin", stage1, stage1_length))
         {
             exit(-1);
         }
     }
+
+    if(options.is_set("stage1"))
+    {
+        const char* stage1_file = options["stage1"].c_str();
+        printf("Updating stage1 with contents of file %s\n", stage1_file);
+
+        fstream infile;
+        infile.open(stage1_file, fstream::in | fstream::binary | fstream::ate);
+
+        if(infile.is_open())
+        {
+            uint32_t new_stage1_length = infile.tellg();
+            infile.seekg(0);
+
+            if(new_stage1_length > stage1_length)
+            {
+                cerr << "Length is longer than original, currently unable to update." << endl;
+                exit(-1);
+            }
+            else
+            {
+                // Overwrite position
+                infile.read((char*)stage1, new_stage1_length);
+                infile.close();
+
+                while(new_stage1_length < stage1_length)
+                {
+                    // erase remaining bytes.
+                    stage1[new_stage1_length] = 0xFF;
+                    new_stage1_length++;
+                }
+            }
+
+            uint32_t new_crc = be32toh(~NVRam_crc(stage1, new_stage1_length, 0xffffffff));
+            printf("New CRC:             0x%08X\n", new_crc);
+            printf("New Length (bytes):  0x%08X\n", new_stage1_length);
+
+            // Update the CRC in the file copy.
+            stage1_wd[crc_word] = htobe32(new_crc);
+
+            // TODO: update length (if changed);
+
+            if("file" == options["target"])
+            {
+                // write update file.
+                fstream outfile;
+                outfile.open(options["filename"], fstream::out | fstream::binary);
+                if(outfile.is_open())
+                {
+                    outfile.write((char*)nvram.bytes, NVRAM_SIZE);
+
+                    outfile.close();
+                }
+                else
+                {
+                    cerr << " Unable to open file '" << options["filename"] << "'" << endl;
+                    exit(-1);
+                }
+            }
+        }
+        else
+        {
+            cerr << " Unable to open file '" << options["filename"] << "'" << endl;
+            exit(-1);
+        }
+        exit(1);
+    }
+
+
 
     uint32_t* stage2_wd =  &stage1_wd[(crc_word + 1)]; // immediately after stage1 crc
     NVRAMStage2_t *stage2 = (NVRAMStage2_t*)stage2_wd;
@@ -298,15 +366,17 @@ int main(int argc, char const *argv[])
             printf("Code Type:      0x%02X\n", type);
             printf("\n");
 
-            uint8_t* cd_loc = &nvram.bytes[be32toh(nvram.contents.directory[i].directoryOffset)];
-            char* cd_name = strdup("cdN.bin");
-            cd_name[2] = '0' + i;
-            if(!save_to_file(cd_name, cd_loc, length))
+            if(extract)
             {
-                exit(-1);
+                uint8_t* cd_loc = &nvram.bytes[be32toh(nvram.contents.directory[i].directoryOffset)];
+                char* cd_name = strdup("cdN.bin");
+                cd_name[2] = '0' + i;
+                if(!save_to_file(cd_name, cd_loc, length))
+                {
+                    exit(-1);
+                }
+                free(cd_name);
             }
-            free(cd_name);
-
         }
     }
 
