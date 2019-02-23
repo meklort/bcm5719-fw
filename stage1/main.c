@@ -46,26 +46,104 @@
 
 #if CXX_SIMULATOR
 #include <HAL.hpp>
+#include <endian.h>
+#else
+#define be32toh(__x__) (__x__)
 #endif
 #include <NVRam.h>
+#include <bcm5719_BOOTCODE.h>
+#include <bcm5719_GEN.h>
+#include <bcm5719_DEVICE.h>
 
 NVRAMContents_t gNVMContents;
 
 int main()
 {
+    uint32_t* bootcode_dest;
 #if CXX_SIMULATOR
-    // initHAL(NULL);
+    initHAL(NULL);
+    bootcode_dest = (uint32_t*)malloc(REG_BOOTCODE_SIZE);
+#else
+    bootcode_dest = (uint32_t*)&BOOTCODE;
 #endif
 
+#if !CXX_SIMULATOR
     // Perform early initialization
     early_init_hw();
+#endif
 
     // Read in the NVM header.
-    NVRam_read(0, (uint32_t *)&gNVMContents, sizeof(NVRAMContents_t) / 4);
-    load_nvm_config(&gNVMContents);
+    NVRam_acquireLock();
 
+    NVRam_enable();
+    NVRam_read(0, (uint32_t *)&gNVMContents, sizeof(NVRAMContents_t) / 4);
+#if !CXX_SIMULATOR
+    load_nvm_config(&gNVMContents);
     // Initialize the hardware.
     init_hw(&gNVMContents);
+#endif
 
-    // Locate and execute stage2.
+    // Locate, verify, and execute stage2.
+    uint32_t stage1_start  = be32toh(gNVMContents.header.bootstrapOffset);
+    uint32_t stage1_length = be32toh(gNVMContents.header.bootstrapWords) * 4; // including crc.
+
+    uint32_t stage2_start  = stage1_start + stage1_length;
+    NVRAMStage2Header_t stage2_hdr;
+    NVRam_read(stage2_start, (uint32_t*)&stage2_hdr, sizeof(stage2_hdr)/4);
+
+    uint32_t stage2_length = be32toh(stage2_hdr.length);
+    uint32_t stage2_magic = be32toh(stage2_hdr.magic);
+
+    if(BCM_NVRAM_MAGIC == stage2_magic)
+    {
+        // Magic matches. Attempt to load stage2.
+        NVRam_read(stage2_start + sizeof(stage2_hdr), bootcode_dest, stage2_length/4);
+        NVRam_releaseLock();
+
+        uint32_t calculated_crc = be32toh(~NVRam_crc((uint8_t*)bootcode_dest, stage2_length - 4, 0xffffffff));
+        uint32_t expected_crc = be32toh(bootcode_dest[stage2_length/4 - 1]);
+
+        if(expected_crc == calculated_crc)
+        {
+            GEN.GenDataSig.r32 = GEN_GEN_DATA_SIG_SIG_BOOTCODE_READY;
+#if CXX_SIMULATOR
+            // TODO: exec stage2.
+            printf("Stage1 completed successfully with status 0x%08X.\n", (uint32_t)GEN.GenDataSig.r32);
+            free(bootcode_dest);
+            exit(0);
+#else
+           // Jump to bootcode_dest
+            void __attribute__((noreturn)) (*stage2_entry)(void) = (void*)bootcode_dest;
+            stage2_entry();
+#endif
+        }
+        else
+        {
+            // Error. Invalid CRC.
+            GEN.GenDataSig.r32 = GEN_GEN_DATA_SIG_SIG_STAGE2_CRC_INVALID;
+        }
+    }
+    else
+    {
+        // Error. Invalid magic.
+        GEN.GenDataSig.r32 = GEN_GEN_DATA_SIG_SIG_STAGE2_MAGIC_INVALID;
+    }
+
+    NVRam_releaseLock();
+
+#if CXX_SIMULATOR
+    printf("Stage1 failed with status 0x%08X.\n", (uint32_t)GEN.GenDataSig.r32);
+    free(bootcode_dest);
+    exit(-1);
+#else
+    for(;;)
+    {
+        // Spin forever.
+        // Unable to do anything more. Halt the cpu.
+        RegDEVICERxRiscMode_t mode;
+        mode.r32 = 0;
+        mode.bits.Halt = 1;
+        DEVICE.RxRiscMode = mode;
+    }
+#endif
 }

@@ -248,18 +248,18 @@ int main(int argc, char const *argv[])
     uint32_t* stage2_wd =  &stage1_wd[(crc_word + 1)]; // immediately after stage1 crc
     NVRAMStage2_t *stage2 = (NVRAMStage2_t*)stage2_wd;
 
-    uint32_t stage2_length = be32toh(stage2->length); // second word is size (bytes).
+    uint32_t stage2_length = be32toh(stage2->header.length); // second word is size (bytes).
     stage2_length -= 4; // length includes crc.
     uint32_t stage2_crc_word = stage2_length / 4;
     printf("=== stage2 ===\n");
-    printf("Magic:               0x%08X\n", be32toh(stage2->magic));
+    printf("Magic:               0x%08X\n", be32toh(stage2->header.magic));
     printf("Length (bytes):      0x%08X\n", stage2_length);
     printf("Offset:              0x%08lX\n", ((stage2_wd - nvram.words) * 4));
     uint32_t stage2_expected_crc = be32toh(~NVRam_crc((uint8_t*)stage2->words, stage2_length, 0xffffffff));
     printf("Calculated CRC:      0x%08X\n", stage2_expected_crc);
     printf("CRC:                 0x%08X\n", be32toh(stage2->words[stage2_crc_word]));
 
-    if(be32toh(stage2->magic) != BCM_NVRAM_MAGIC)
+    if(be32toh(stage2->header.magic) != BCM_NVRAM_MAGIC)
     {
         fprintf(stderr, "Error: stage2 magic is invalid.\n");
         exit(-1);

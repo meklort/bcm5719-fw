@@ -82,17 +82,83 @@ typedef uint32_t BCM5719_GEN_H_uint32_t;
 #define REG_GEN_SIZE (sizeof(GEN_t))
 
 #define REG_GEN_GEN_FW_MBOX ((volatile BCM5719_GEN_H_uint32_t*)0xb50) /*  */
+#define     GEN_GEN_FW_MBOX_MBOX_SHIFT 0u
+#define     GEN_GEN_FW_MBOX_MBOX_MASK  0xffffffffu
+#define GET_GEN_GEN_FW_MBOX_MBOX(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
+#define SET_GEN_GEN_FW_MBOX_MBOX(__val__)  (((__val__) << 0u) & 0xffffffffu)
+#define     GEN_GEN_FW_MBOX_MBOX_DRIVER_READY 0x4b657654u
+
+
 /** @brief Register definition for @ref GEN_t.GenFwMbox. */
 typedef register_container RegGENGenFwMbox_t {
     /** @brief 32bit direct register access. */
     BCM5719_GEN_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_GEN_H_uint32_t, bits)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, MBOX, 0, 32)
+    BITFIELD_END(BCM5719_GEN_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "GenFwMbox"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegGENGenFwMbox_t()
+    {
+        /** @brief constructor for @ref GEN_t.GenFwMbox. */
+        r32.setName("GenFwMbox");
+        bits.MBOX.setBaseRegister(&r32);
+        bits.MBOX.setName("MBOX");
+    }
+    RegGENGenFwMbox_t& operator=(const RegGENGenFwMbox_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegGENGenFwMbox_t;
 
 #define REG_GEN_GEN_DATA_SIG ((volatile BCM5719_GEN_H_uint32_t*)0xb54) /*  */
+#define     GEN_GEN_DATA_SIG_SIG_SHIFT 0u
+#define     GEN_GEN_DATA_SIG_SIG_MASK  0xffffffffu
+#define GET_GEN_GEN_DATA_SIG_SIG(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
+#define SET_GEN_GEN_DATA_SIG_SIG(__val__)  (((__val__) << 0u) & 0xffffffffu)
+#define     GEN_GEN_DATA_SIG_SIG_BOOTCODE_READY 0xb49a89abu
+#define     GEN_GEN_DATA_SIG_SIG_STAGE2_MAGIC_INVALID 0xbad0000u
+#define     GEN_GEN_DATA_SIG_SIG_STAGE2_CRC_INVALID 0xbad0001u
+
+
 /** @brief Register definition for @ref GEN_t.GenDataSig. */
 typedef register_container RegGENGenDataSig_t {
     /** @brief 32bit direct register access. */
     BCM5719_GEN_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_GEN_H_uint32_t, bits)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, SIG, 0, 32)
+    BITFIELD_END(BCM5719_GEN_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "GenDataSig"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegGENGenDataSig_t()
+    {
+        /** @brief constructor for @ref GEN_t.GenDataSig. */
+        r32.setName("GenDataSig");
+        bits.SIG.setBaseRegister(&r32);
+        bits.SIG.setName("SIG");
+    }
+    RegGENGenDataSig_t& operator=(const RegGENGenDataSig_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegGENGenDataSig_t;
 
 #define REG_GEN_GEN_CFG ((volatile BCM5719_GEN_H_uint32_t*)0xb58) /* TODO. */

@@ -91,5 +91,7 @@ void init_bcm5719_MII(void)
 
     /** @brief Bitmap for @ref MII_t.Test1. */
 
+    /** @brief Bitmap for @ref MII_t.BlockSelect. */
+
 
 }

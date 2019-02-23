@@ -74,6 +74,7 @@ static uint32_t write_to_ram(uint32_t val, void *args)
 
     BARRIER();
     *(uint32_t *)base = val;
+    BARRIER();
     return val;
 }
 

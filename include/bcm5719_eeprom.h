@@ -230,6 +230,10 @@ _Static_assert(sizeof(NVRAMContents_t) == 0x28C, "sizeof(NVRAMContents) must be 
 typedef struct {
     uint32_t magic; // BCM_NVRAM_MAGIC
     uint32_t length;
+} NVRAMStage2Header_t;
+
+typedef struct {
+    NVRAMStage2Header_t header;
     uint32_t words[];
     // uint32_t crc;
 } NVRAMStage2_t;
