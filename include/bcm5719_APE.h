@@ -262,11 +262,7 @@ typedef register_container RegAPEStatus_t {
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, BootStatusB, 24, 4)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, BootStatusA, 28, 4)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_29, 29, 3)
 #elif defined(__BIG_ENDIAN__)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_29, 29, 3)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, BootStatusA, 28, 4)
         /** @brief  */
@@ -780,10 +776,10 @@ typedef register_container RegAPECm3_t {
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, CPUStatus, 0, 4)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_1, 1, 31)
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_4, 4, 28)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_1, 1, 31)
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_4, 4, 28)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, CPUStatus, 0, 4)
 #else
@@ -844,11 +840,7 @@ typedef register_container RegAPEFwStatus_t {
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_27_9, 9, 19)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, unknown_31_28, 28, 4)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_29, 29, 3)
 #elif defined(__BIG_ENDIAN__)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_29, 29, 3)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, unknown_31_28, 28, 4)
         /** @brief Padding */
@@ -977,11 +969,7 @@ typedef register_container RegAPEFwVersion_t {
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Minor, 16, 8)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Major, 24, 8)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_25, 25, 7)
 #elif defined(__BIG_ENDIAN__)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_25, 25, 7)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Major, 24, 8)
         /** @brief  */

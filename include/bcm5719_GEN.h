@@ -98,11 +98,7 @@ typedef register_container RegGENGenFwMbox_t {
 #if defined(__LITTLE_ENDIAN__)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, MBOX, 0, 32)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_31_1, 1, 31)
 #elif defined(__BIG_ENDIAN__)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_31_1, 1, 31)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, MBOX, 0, 32)
 #else
@@ -150,11 +146,7 @@ typedef register_container RegGENGenDataSig_t {
 #if defined(__LITTLE_ENDIAN__)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, SIG, 0, 32)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_31_1, 1, 31)
 #elif defined(__BIG_ENDIAN__)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_31_1, 1, 31)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, SIG, 0, 32)
 #else
@@ -218,11 +210,7 @@ typedef register_container RegGENGenCfg_t {
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, WOLEnable, 6, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, TODO, 7, 25)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_31_8, 8, 24)
 #elif defined(__BIG_ENDIAN__)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_31_8, 8, 24)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, TODO, 7, 25)
         /** @brief  */
@@ -733,11 +721,7 @@ typedef register_container RegGENGenCfgHw_t {
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, APEGPIO2Mapping, 26, 3)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, APEGPIO3Mapping, 29, 3)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_31_30, 30, 2)
 #elif defined(__BIG_ENDIAN__)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_31_30, 30, 2)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, APEGPIO3Mapping, 29, 3)
         /** @brief  */
@@ -905,11 +889,7 @@ typedef register_container RegGENGenCfgShared_t {
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, unknown_29_28, 28, 2)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, unknown_31_30, 30, 2)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_31_31, 31, 1)
 #elif defined(__BIG_ENDIAN__)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_31_31, 31, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, unknown_31_30, 30, 2)
         /** @brief  */
@@ -1152,10 +1132,10 @@ typedef register_container RegGENGenCfg5_t {
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, unknown_3_2, 2, 2)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_31_3, 3, 29)
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_31_4, 4, 28)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_31_3, 3, 29)
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_31_4, 4, 28)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, unknown_3_2, 2, 2)
         /** @brief  */
@@ -1270,10 +1250,10 @@ typedef register_container RegGENGenDbgData_t {
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, DebugByte, 0, 8)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_31_1, 1, 31)
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_31_8, 8, 24)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_31_1, 1, 31)
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_31_8, 8, 24)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, DebugByte, 0, 8)
 #else

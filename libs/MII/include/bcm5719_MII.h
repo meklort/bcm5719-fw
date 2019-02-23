@@ -443,15 +443,7 @@ typedef register_container RegMIIPhyIdHigh_t {
 #if defined(__LITTLE_ENDIAN__)
         /** @brief Bits 3:18 of organizationally unique identifier */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, OUIHigh, 0, 16)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_15_1, 1, 15)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_31_16, 16, 16)
 #elif defined(__BIG_ENDIAN__)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_15_1, 1, 15)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_31_16, 16, 16)
         /** @brief Bits 3:18 of organizationally unique identifier */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, OUIHigh, 0, 16)
 #else
@@ -507,15 +499,7 @@ typedef register_container RegMIIPhyIdLow_t {
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, Model, 4, 6)
         /** @brief Bits 19:24 of organizationally unique identifier. */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, OUILow, 10, 6)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_23_11, 11, 13)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_31_24, 24, 8)
 #elif defined(__BIG_ENDIAN__)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_23_11, 11, 13)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_31_24, 24, 8)
         /** @brief Bits 19:24 of organizationally unique identifier. */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, OUILow, 10, 6)
         /** @brief  */
@@ -1188,15 +1172,7 @@ typedef register_container RegMII1000baseTControl_t {
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, MasterSlaveConfigEnable, 12, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, TestMode, 13, 3)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_23_14, 14, 10)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_31_24, 24, 8)
 #elif defined(__BIG_ENDIAN__)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_23_14, 14, 10)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_31_24, 24, 8)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, TestMode, 13, 3)
         /** @brief  */
@@ -1708,15 +1684,7 @@ typedef register_container RegMIIReceiveErrorCounter_t {
 #if defined(__LITTLE_ENDIAN__)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ReceiveErrorCounter, 0, 16)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_15_1, 1, 15)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_31_16, 16, 16)
 #elif defined(__BIG_ENDIAN__)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_15_1, 1, 15)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_31_16, 16, 16)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ReceiveErrorCounter, 0, 16)
 #else
@@ -1766,15 +1734,7 @@ typedef register_container RegMIIFalseCarrierSenseCounter_t {
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, FalseCarrierSenseCounter, 0, 8)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, SERDESBERCounter, 8, 8)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_23_9, 9, 15)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_31_24, 24, 8)
 #elif defined(__BIG_ENDIAN__)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_23_9, 9, 15)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_31_24, 24, 8)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, SERDESBERCounter, 8, 8)
         /** @brief  */
@@ -1828,15 +1788,7 @@ typedef register_container RegMIILocalRemoteReceiverNotOkCounter_t {
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, RemoteReceiverNotOKCounter, 0, 8)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LocalReceiverNotOKCounter, 8, 8)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_23_9, 9, 15)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_31_24, 24, 8)
 #elif defined(__BIG_ENDIAN__)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_23_9, 9, 15)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_31_24, 24, 8)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LocalReceiverNotOKCounter, 8, 8)
         /** @brief  */
@@ -2246,15 +2198,7 @@ typedef register_container RegMIIInterruptMask_t {
 #if defined(__LITTLE_ENDIAN__)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, InterruptMaskVector, 0, 16)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_15_1, 1, 15)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_31_16, 16, 16)
 #elif defined(__BIG_ENDIAN__)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_15_1, 1, 15)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_31_16, 16, 16)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, InterruptMaskVector, 0, 16)
 #else

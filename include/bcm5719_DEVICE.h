@@ -215,10 +215,10 @@ typedef register_container RegDEVICEMiscellaneousHostControl_t {
         /** @brief External All Layer Revision ID. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, AllLayerID, 24, 4)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_25, 25, 7)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_28, 28, 4)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_25, 25, 7)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_28, 28, 4)
         /** @brief External All Layer Revision ID. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, AllLayerID, 24, 4)
         /** @brief Product ID. */
@@ -527,10 +527,10 @@ typedef register_container RegDEVICELinkStatusControl_t {
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, NegotiatedLinkWidth, 20, 6)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_26, 26, 6)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_26, 26, 6)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, NegotiatedLinkWidth, 20, 6)
         /** @brief  */
@@ -1159,10 +1159,10 @@ typedef register_container RegDEVICEMtuSize_t {
         /** @brief 2-byte field which is the largest size frame that will be accepted without being marked as oversize. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MTU, 0, 16)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_1, 1, 31)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_16, 16, 16)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_1, 1, 31)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_16, 16, 16)
         /** @brief 2-byte field which is the largest size frame that will be accepted without being marked as oversize. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MTU, 0, 16)
 #else
@@ -1525,11 +1525,7 @@ typedef register_container RegDEVICESgmiiStatus_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_15_11, 11, 5)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LinkPartnerAutonegotiationCapability, 16, 16)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_17, 17, 15)
 #elif defined(__BIG_ENDIAN__)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_17, 17, 15)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LinkPartnerAutonegotiationCapability, 16, 16)
         /** @brief Padding */
@@ -1816,10 +1812,10 @@ typedef register_container RegDEVICELinkAwarePowerModeClockPolicy_t {
         /** @brief Software Controlled MAC Core Clock Speed Select. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MACClockSwitch, 16, 5)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_17, 17, 15)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_17, 17, 15)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
         /** @brief Software Controlled MAC Core Clock Speed Select. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MACClockSwitch, 16, 5)
         /** @brief Padding */
@@ -2028,11 +2024,7 @@ typedef register_container RegDEVICEStatus_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, FunctionEnable, 25, 5)
         /** @brief PCIE function number */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, FunctionNumber, 30, 2)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_31, 31, 1)
 #elif defined(__BIG_ENDIAN__)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_31, 31, 1)
         /** @brief PCIE function number */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, FunctionNumber, 30, 2)
         /** @brief Function Enable input from System BIOS */
@@ -2662,11 +2654,7 @@ typedef register_container RegDEVICEEeeControl_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ExitTime, 0, 16)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MinimumAssert, 16, 16)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_17, 17, 15)
 #elif defined(__BIG_ENDIAN__)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_17, 17, 15)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MinimumAssert, 16, 16)
         /** @brief  */
@@ -2875,10 +2863,10 @@ typedef register_container RegDEVICELsoNonlsoBdReadDmaCorruptionEnableControl_t 
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PCIRequestBurstLengthforNonLSORDMAEngine, 18, 2)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_19, 19, 13)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_20, 20, 12)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_19, 19, 13)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_20, 20, 12)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PCIRequestBurstLengthforNonLSORDMAEngine, 18, 2)
         /** @brief  */
@@ -3571,10 +3559,10 @@ typedef register_container RegDEVICEPciVpdRequest_t {
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, RequestedVPDOffset, 16, 15)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_17, 17, 15)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_31, 31, 1)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_17, 17, 15)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_31, 31, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, RequestedVPDOffset, 16, 15)
         /** @brief Padding */
@@ -3633,11 +3621,7 @@ typedef register_container RegDEVICEPciVendorDeviceId_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DeviceID, 0, 16)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, VendorID, 16, 16)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_17, 17, 15)
 #elif defined(__BIG_ENDIAN__)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_17, 17, 15)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, VendorID, 16, 16)
         /** @brief  */
@@ -3691,11 +3675,7 @@ typedef register_container RegDEVICEPciSubsystemId_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SubsystemVendorID, 0, 16)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SubsystemID, 16, 16)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_17, 17, 15)
 #elif defined(__BIG_ENDIAN__)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_17, 17, 15)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SubsystemID, 16, 16)
         /** @brief  */
@@ -3837,10 +3817,10 @@ typedef register_container RegDEVICEPciPowerBudget0_t {
         /** @brief Specifies the thermal load or power rail of the operating condition being described. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_19, 19, 13)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_19, 19, 13)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
         /** @brief Specifies the thermal load or power rail of the operating condition being described. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
         /** @brief Specifies the power management state of the operating condition being described. */
@@ -3956,10 +3936,10 @@ typedef register_container RegDEVICEPciPowerBudget1_t {
         /** @brief Specifies the thermal load or power rail of the operating condition being described. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_19, 19, 13)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_19, 19, 13)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
         /** @brief Specifies the thermal load or power rail of the operating condition being described. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
         /** @brief Specifies the power management state of the operating condition being described. */
@@ -4075,10 +4055,10 @@ typedef register_container RegDEVICEPciPowerBudget2_t {
         /** @brief Specifies the thermal load or power rail of the operating condition being described. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_19, 19, 13)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_19, 19, 13)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
         /** @brief Specifies the thermal load or power rail of the operating condition being described. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
         /** @brief Specifies the power management state of the operating condition being described. */
@@ -4194,10 +4174,10 @@ typedef register_container RegDEVICEPciPowerBudget3_t {
         /** @brief Specifies the thermal load or power rail of the operating condition being described. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_19, 19, 13)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_19, 19, 13)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
         /** @brief Specifies the thermal load or power rail of the operating condition being described. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
         /** @brief Specifies the power management state of the operating condition being described. */
@@ -4313,10 +4293,10 @@ typedef register_container RegDEVICEPciPowerBudget4_t {
         /** @brief Specifies the thermal load or power rail of the operating condition being described. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_19, 19, 13)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_19, 19, 13)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
         /** @brief Specifies the thermal load or power rail of the operating condition being described. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
         /** @brief Specifies the power management state of the operating condition being described. */
@@ -4432,10 +4412,10 @@ typedef register_container RegDEVICEPciPowerBudget5_t {
         /** @brief Specifies the thermal load or power rail of the operating condition being described. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_19, 19, 13)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_19, 19, 13)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
         /** @brief Specifies the thermal load or power rail of the operating condition being described. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
         /** @brief Specifies the power management state of the operating condition being described. */
@@ -4551,10 +4531,10 @@ typedef register_container RegDEVICEPciPowerBudget6_t {
         /** @brief Specifies the thermal load or power rail of the operating condition being described. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_19, 19, 13)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_19, 19, 13)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
         /** @brief Specifies the thermal load or power rail of the operating condition being described. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
         /** @brief Specifies the power management state of the operating condition being described. */
@@ -4670,10 +4650,10 @@ typedef register_container RegDEVICEPciPowerBudget7_t {
         /** @brief Specifies the thermal load or power rail of the operating condition being described. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_19, 19, 13)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_19, 19, 13)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
         /** @brief Specifies the thermal load or power rail of the operating condition being described. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
         /** @brief Specifies the power management state of the operating condition being described. */
@@ -5201,10 +5181,10 @@ typedef register_container RegDEVICEEavRefClockControl_t {
         /** @brief APE_GPIO[3] pin is mapped to 1588 input/ output via this field */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APEGPIO3Mapping, 27, 3)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_28, 28, 4)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_30, 30, 2)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_28, 28, 4)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_30, 30, 2)
         /** @brief APE_GPIO[3] pin is mapped to 1588 input/ output via this field */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APEGPIO3Mapping, 27, 3)
         /** @brief APE_GPIO[2] pin is mapped to 1588 input/ output via this field */

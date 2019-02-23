@@ -287,10 +287,10 @@ typedef register_container RegNVMNvmCfg1_t {
         /** @brief These bits indicate the page size of the attached flash device. They are set automatically depending on the chosen flash as indicated by the strapping option pins. */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, PageSize, 28, 3)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_31_29, 29, 3)
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_31_31, 31, 1)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_31_29, 29, 3)
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_31_31, 31, 1)
         /** @brief These bits indicate the page size of the attached flash device. They are set automatically depending on the chosen flash as indicated by the strapping option pins. */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, PageSize, 28, 3)
         /** @brief Padding */
