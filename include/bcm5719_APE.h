@@ -109,6 +109,7 @@ typedef register_container RegAPEMode_t {
     BCM5719_APE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_APE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Reset, 0, 1)
         /** @brief  */
@@ -121,6 +122,26 @@ typedef register_container RegAPEMode_t {
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_17_4, 4, 14)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, MemoryECC, 18, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_19, 19, 13)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_19, 19, 13)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, MemoryECC, 18, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_17_4, 4, 14)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, HostDiag, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, FastBoot, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Halt, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Reset, 0, 1)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -218,6 +239,7 @@ typedef register_container RegAPEStatus_t {
     BCM5719_APE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_APE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, PCIeReset, 0, 1)
         /** @brief Padding */
@@ -240,6 +262,36 @@ typedef register_container RegAPEStatus_t {
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, BootStatusB, 24, 4)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, BootStatusA, 28, 4)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_29, 29, 3)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_29, 29, 3)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, BootStatusA, 28, 4)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, BootStatusB, 24, 4)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_23_10, 10, 14)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, LAN1Dstate, 9, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_8_8, 8, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, NVRAMControlReset, 7, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_6_6, 6, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, BootMode, 5, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, LAN0Dstate, 4, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_3_1, 1, 3)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, PCIeReset, 0, 1)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -294,8 +346,19 @@ typedef register_container RegAPEEvent_t {
     BCM5719_APE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_APE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, _1, 0, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_1, 1, 31)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_1, 1, 31)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, _1, 0, 1)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -403,6 +466,7 @@ typedef register_container RegAPEGpio_t {
     BCM5719_APE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_APE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, PIN0Unknown, 0, 1)
         /** @brief  */
@@ -431,6 +495,42 @@ typedef register_container RegAPEGpio_t {
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, PIN2ModeOutput, 18, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, PIN3ModeOutput, 19, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_20, 20, 12)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_20, 20, 12)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, PIN3ModeOutput, 19, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, PIN2ModeOutput, 18, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, PIN1ModeOutput, 17, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, PIN0ModeOutput, 16, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_15_12, 12, 4)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, PIN3UnknownOut, 11, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, PIN2UnknownOut, 10, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, PIN1UnknownOut, 9, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, PIN0UnknownOut, 8, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_7_4, 4, 4)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, PIN3Unknown, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, PIN2Unknown, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, PIN1Unknown, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, PIN0Unknown, 0, 1)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -499,12 +599,27 @@ typedef register_container RegAPEOtpControl_t {
     BCM5719_APE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_APE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Start, 0, 1)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_20_1, 1, 20)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, ProgEnable, 21, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_22, 22, 10)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_22, 22, 10)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, ProgEnable, 21, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_20_1, 1, 20)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Start, 0, 1)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -542,8 +657,19 @@ typedef register_container RegAPEOtpStatus_t {
     BCM5719_APE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_APE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, CommandDone, 0, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_1, 1, 31)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_1, 1, 31)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, CommandDone, 0, 1)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -583,10 +709,19 @@ typedef register_container RegAPEOtpAddr_t {
     BCM5719_APE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_APE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Address, 0, 31)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, CPUEnable, 31, 1)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, CPUEnable, 31, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Address, 0, 31)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -641,8 +776,19 @@ typedef register_container RegAPECm3_t {
     BCM5719_APE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_APE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, CPUStatus, 0, 4)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_1, 1, 31)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_1, 1, 31)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, CPUStatus, 0, 4)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -689,6 +835,7 @@ typedef register_container RegAPEFwStatus_t {
     BCM5719_APE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_APE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_7_0, 0, 8)
         /** @brief  */
@@ -697,6 +844,22 @@ typedef register_container RegAPEFwStatus_t {
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_27_9, 9, 19)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, unknown_31_28, 28, 4)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_29, 29, 3)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_29, 29, 3)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, unknown_31_28, 28, 4)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_27_9, 9, 19)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Ready, 8, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_7_0, 0, 8)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -734,10 +897,23 @@ typedef register_container RegAPEFwFeatures_t {
     BCM5719_APE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_APE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_0_0, 0, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, NCSI, 1, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_2, 2, 30)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_2, 2, 30)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, NCSI, 1, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_0_0, 0, 1)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -792,6 +968,7 @@ typedef register_container RegAPEFwVersion_t {
     BCM5719_APE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_APE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Build, 0, 8)
         /** @brief  */
@@ -800,6 +977,22 @@ typedef register_container RegAPEFwVersion_t {
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Minor, 16, 8)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Major, 24, 8)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_25, 25, 7)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_25, 25, 7)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Major, 24, 8)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Minor, 16, 8)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Revision, 8, 8)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Build, 0, 8)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -988,8 +1181,19 @@ typedef register_container RegAPEHostBehavior_t {
     BCM5719_APE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_APE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, NoPHYLock, 0, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_1, 1, 31)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_1, 1, 31)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, NoPHYLock, 0, 1)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -1074,6 +1278,7 @@ typedef register_container RegAPEEventStatus_t {
     BCM5719_APE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_APE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_3_0, 0, 4)
         /** @brief  */
@@ -1088,6 +1293,24 @@ typedef register_container RegAPEEventStatus_t {
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_30_19, 19, 12)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Pending, 31, 1)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Pending, 31, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_30_19, 19, 12)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, State, 16, 3)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Command, 8, 8)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_7_5, 5, 3)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, DriverEvent, 4, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_3_0, 0, 4)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */

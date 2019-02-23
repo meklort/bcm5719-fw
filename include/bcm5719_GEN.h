@@ -95,8 +95,19 @@ typedef register_container RegGENGenFwMbox_t {
     BCM5719_GEN_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_GEN_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, MBOX, 0, 32)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_31_1, 1, 31)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_31_1, 1, 31)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, MBOX, 0, 32)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_GEN_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -136,8 +147,19 @@ typedef register_container RegGENGenDataSig_t {
     BCM5719_GEN_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_GEN_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, SIG, 0, 32)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_31_1, 1, 31)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_31_1, 1, 31)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, SIG, 0, 32)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_GEN_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -185,6 +207,7 @@ typedef register_container RegGENGenCfg_t {
     BCM5719_GEN_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_GEN_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_3_0, 0, 4)
         /** @brief  */
@@ -195,6 +218,24 @@ typedef register_container RegGENGenCfg_t {
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, WOLEnable, 6, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, TODO, 7, 25)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_31_8, 8, 24)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_31_8, 8, 24)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, TODO, 7, 25)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, WOLEnable, 6, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, PHYType_SERDES, 5, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, PHYType_GPHY, 4, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_3_0, 0, 4)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_GEN_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -304,6 +345,7 @@ typedef register_container RegGENGenD8_t {
     BCM5719_GEN_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_GEN_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, SkipMainLoopInit, 0, 1)
         /** @brief  */
@@ -316,6 +358,26 @@ typedef register_container RegGENGenD8_t {
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_6_5, 5, 2)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, unknown_7_7, 7, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_31_8, 8, 24)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_31_8, 8, 24)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, unknown_7_7, 7, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_6_5, 5, 2)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, NoModifyMiscellaneousControl, 4, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_3_2, 2, 2)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, ForceWOL, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, SkipMainLoopInit, 0, 1)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_GEN_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -443,6 +505,7 @@ typedef register_container RegGENGenCfgFeature_t {
     BCM5719_GEN_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_GEN_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, WOLEnable, 0, 1)
         /** @brief  */
@@ -483,6 +546,50 @@ typedef register_container RegGENGenCfgFeature_t {
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, LinkAwarePowerMode, 30, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, LinkSpeedPowerMode, 31, 1)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, LinkSpeedPowerMode, 31, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, LinkAwarePowerMode, 30, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, MBAVLANEnable, 29, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, CableSense, 28, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, unknown_27_27, 27, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, LinkIdle, 26, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, WOLLimit10, 25, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, VAUXCutoffDelay, 23, 2)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, LOMDesign, 22, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, PXEBootProtocol, 20, 2)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, PXEMessageTimeout, 16, 4)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, PXEBootstrapType, 14, 2)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, HotkeyOption, 13, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, DisableSetupMessage, 12, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, PXEBARSize, 8, 4)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, ASFEnable, 7, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_6_6, 6, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, PXESpeed, 2, 4)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, PXEEnable, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, WOLEnable, 0, 1)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_GEN_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -599,6 +706,7 @@ typedef register_container RegGENGenCfgHw_t {
     BCM5719_GEN_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_GEN_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_1_0, 0, 2)
         /** @brief  */
@@ -625,6 +733,40 @@ typedef register_container RegGENGenCfgHw_t {
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, APEGPIO2Mapping, 26, 3)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, APEGPIO3Mapping, 29, 3)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_31_30, 30, 2)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_31_30, 30, 2)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, APEGPIO3Mapping, 29, 3)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, APEGPIO2Mapping, 26, 3)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, APEGPIO1Mapping, 23, 3)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, APEGPIO0Mapping, 20, 3)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, TimesyncGPIOMapping, 18, 2)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, TimeSyncModeEnable, 17, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, SHASTALEDControl, 15, 2)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, AutoPowerdownEnable, 14, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, MiniPCI, 13, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, ReverseN_Way, 12, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_11_4, 4, 8)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, LegacyLEDControl, 2, 2)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_1_0, 0, 2)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_GEN_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -728,6 +870,7 @@ typedef register_container RegGENGenCfgShared_t {
     BCM5719_GEN_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_GEN_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, PortSwap, 0, 1)
         /** @brief  */
@@ -762,6 +905,48 @@ typedef register_container RegGENGenCfgShared_t {
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, unknown_29_28, 28, 2)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, unknown_31_30, 30, 2)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_31_31, 31, 1)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_31_31, 31, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, unknown_31_30, 30, 2)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, unknown_29_28, 28, 2)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, unknown_27_26, 26, 2)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_25_24, 24, 2)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, _1GonVAUXOK, 23, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, LinkFlapAvoid, 22, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_21_16, 16, 6)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, unknown_15_15, 15, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_14_11, 11, 4)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, unknown_10_9, 9, 2)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, unknown_8_8, 8, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, unknown_7_7, 7, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_6_4, 4, 3)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, DisablePowerSaving, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, FiberWoLCapable, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, ASPMDebounce, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, PortSwap, 0, 1)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_GEN_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -852,6 +1037,7 @@ typedef register_container RegGENGenCfgHw2_t {
     BCM5719_GEN_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_GEN_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, EnableAutonegotiation, 0, 1)
         /** @brief  */
@@ -870,6 +1056,32 @@ typedef register_container RegGENGenCfgHw2_t {
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, UnknownSERDES1010_01, 21, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, UnknownSERDES1010_10, 22, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_31_23, 23, 9)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_31_23, 23, 9)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, UnknownSERDES1010_10, 22, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, UnknownSERDES1010_01, 21, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_20_8, 8, 13)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, UnknownSERDES1312, 6, 2)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, UnknownSERDES1310, 4, 2)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_3_3, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, unknown_2_2, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, ExpansionROMEnable, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, EnableAutonegotiation, 0, 1)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_GEN_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -932,12 +1144,27 @@ typedef register_container RegGENGenCfg5_t {
     BCM5719_GEN_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_GEN_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, unknown_0_0, 0, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, Disable1GHalfAdv, 1, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, unknown_3_2, 2, 2)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_31_3, 3, 29)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_31_3, 3, 29)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, unknown_3_2, 2, 2)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, Disable1GHalfAdv, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, unknown_0_0, 0, 1)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_GEN_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -981,12 +1208,27 @@ typedef register_container RegGENGenDbgControlStatus_t {
     BCM5719_GEN_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_GEN_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, DebugEnabled, 0, 1)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_7_1, 1, 7)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, DataAvailable, 8, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_31_9, 9, 23)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_31_9, 9, 23)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, DataAvailable, 8, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_7_1, 1, 7)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, DebugEnabled, 0, 1)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_GEN_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -1024,8 +1266,19 @@ typedef register_container RegGENGenDbgData_t {
     BCM5719_GEN_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_GEN_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, DebugByte, 0, 8)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_31_1, 1, 31)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_31_1, 1, 31)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, DebugByte, 0, 8)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_GEN_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */

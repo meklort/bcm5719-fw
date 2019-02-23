@@ -121,6 +121,7 @@ typedef register_container RegNVMCommand_t {
     BCM5719_NVM_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_NVM_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_2_0, 0, 3)
         /** @brief Sequence completion bit that is asserted when the command requested by assertion of the doit bit has completed. */
@@ -141,6 +142,34 @@ typedef register_container RegNVMCommand_t {
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, WriteEnableCommand, 16, 1)
         /** @brief The write disable command bit. Set '1' will make the flash interface state machine generate a write disable command cycle to the flash device to clear the write enable bit in the device status register. This command is used for devices with a write protection function. */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, WriteDisableCommand, 17, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_31_18, 18, 14)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_31_18, 18, 14)
+        /** @brief The write disable command bit. Set '1' will make the flash interface state machine generate a write disable command cycle to the flash device to clear the write enable bit in the device status register. This command is used for devices with a write protection function. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, WriteDisableCommand, 17, 1)
+        /** @brief The write enable command bit. Set '1' will make the flash interface state machine generate a write enable command cycle to the flash device to set the write enable bit in the device status register. This command is used for devices with a write protection function. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, WriteEnableCommand, 16, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_15_9, 9, 7)
+        /** @brief When this bit is set, the next command sequence is interpreted as the last one of a burst and any cleanup work is done. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, Last, 8, 1)
+        /** @brief This bit is passed to the SEE_FSM or SPI_FSM if the pass_mode bit is set */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, First, 7, 1)
+        /** @brief The erase command bit. Set high to execute an erase. This bit is ignored if the wr is clear. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, Erase, 6, 1)
+        /** @brief The write/not read command bit. Set to execute write or erase. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, Wr, 5, 1)
+        /** @brief Command from software to start the defined command. The done bit must be clear before setting this bit. This bit is self clearing and will remain set while the command is active. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, Doit, 4, 1)
+        /** @brief Sequence completion bit that is asserted when the command requested by assertion of the doit bit has completed. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, Done, 3, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_2_0, 0, 3)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_NVM_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -238,6 +267,7 @@ typedef register_container RegNVMNvmCfg1_t {
     BCM5719_NVM_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_NVM_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief Enable Flash Interface mode. */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, FlashMode, 0, 1)
         /** @brief Enable SSRAM Buffered Interface mode. */
@@ -256,6 +286,32 @@ typedef register_container RegNVMNvmCfg1_t {
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_27_26, 26, 2)
         /** @brief These bits indicate the page size of the attached flash device. They are set automatically depending on the chosen flash as indicated by the strapping option pins. */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, PageSize, 28, 3)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_31_29, 29, 3)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_31_29, 29, 3)
+        /** @brief These bits indicate the page size of the attached flash device. They are set automatically depending on the chosen flash as indicated by the strapping option pins. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, PageSize, 28, 3)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_27_26, 26, 2)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, FlashSize, 25, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, ProtectMode, 24, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_23_11, 11, 13)
+        /** @brief The equation to calculate the clock freq. for SCK is: CORE_CLK / ((SPI_CLK_DIV + 1) * 2) */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, SPICLKDIV, 7, 4)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_6_2, 2, 5)
+        /** @brief Enable SSRAM Buffered Interface mode. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, BufferMode, 1, 1)
+        /** @brief Enable Flash Interface mode. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, FlashMode, 0, 1)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_NVM_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -345,6 +401,7 @@ typedef register_container RegNVMSoftwareArbitration_t {
     BCM5719_NVM_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_NVM_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, ReqSet0, 0, 1)
         /** @brief  */
@@ -369,6 +426,38 @@ typedef register_container RegNVMSoftwareArbitration_t {
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, ArbWon2, 10, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, ArbWon3, 11, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_31_12, 12, 20)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_31_12, 12, 20)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, ArbWon3, 11, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, ArbWon2, 10, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, ArbWon1, 9, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, ArbWon0, 8, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, ReqClr3, 7, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, ReqClr2, 6, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, ReqClr1, 5, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, ReqClr0, 4, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, ReqSet3, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, ReqSet2, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, ReqSet1, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, ReqSet0, 0, 1)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_NVM_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -430,10 +519,23 @@ typedef register_container RegNVMAccess_t {
     BCM5719_NVM_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_NVM_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief When 1, allows the NVRAM write command to be issued even if the NVRAM write enable bit 21 of the mode control register 0x6800. */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, Enable, 0, 1)
         /** @brief When 0, prevents write access to all other NVRAM registers, except for the Software arbitration register. */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, WriteEnable, 1, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_31_2, 2, 30)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_31_2, 2, 30)
+        /** @brief When 0, prevents write access to all other NVRAM registers, except for the Software arbitration register. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, WriteEnable, 1, 1)
+        /** @brief When 1, allows the NVRAM write command to be issued even if the NVRAM write enable bit 21 of the mode control register 0x6800. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, Enable, 0, 1)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_NVM_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */

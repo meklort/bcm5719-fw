@@ -138,6 +138,7 @@ typedef register_container RegMIIControl_t {
     BCM5719_MII_H_uint16_t r16;
 
     BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_4_0, 0, 5)
         /** @brief  */
@@ -162,6 +163,34 @@ typedef register_container RegMIIControl_t {
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LoopbackMode, 14, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, Reset, 15, 1)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, Reset, 15, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LoopbackMode, 14, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, SpeedSelectLSB, 13, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutoNegotiationEnable, 12, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, PowerDown, 11, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, Isolate_GPHYonly_, 10, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, RestartAutonegotiation, 9, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, FullDuplexMode, 8, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, CollisionTestMode, 7, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, SpeedSelectMSB, 6, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, UnidirectionalMode_GPHYonly_, 5, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_4_0, 0, 5)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -277,6 +306,7 @@ typedef register_container RegMIIStatus_t {
     BCM5719_MII_H_uint16_t r16;
 
     BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ExtendedCapabilitiesSupported, 0, 1)
         /** @brief  */
@@ -309,6 +339,42 @@ typedef register_container RegMIIStatus_t {
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _100BASE_XFullDuplexCapable, 14, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _100BASE_T4Capable, 15, 1)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _100BASE_T4Capable, 15, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _100BASE_XFullDuplexCapable, 14, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _100BASE_XHalfDuplexCapable, 13, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _10BASE_TFullDuplexCapable, 12, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _10BASE_THalfDuplexCapable, 11, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _100BASE_T2FullDuplexCapable, 10, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _100BASE_T2HalfDuplexCapable, 9, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ExtendedStatusSupported, 8, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, UnidirectionalCapable_GPHYonly_, 7, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, MFPreambleSuppression, 6, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutoNegotiationComplete, 5, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, RemoteFaultDetected, 4, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutoNegotiationCapable, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LinkOK, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, JabberDetected, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ExtendedCapabilitiesSupported, 0, 1)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -374,8 +440,23 @@ typedef register_container RegMIIPhyIdHigh_t {
     BCM5719_MII_H_uint16_t r16;
 
     BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief Bits 3:18 of organizationally unique identifier */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, OUIHigh, 0, 16)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_15_1, 1, 15)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_31_16, 16, 16)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_15_1, 1, 15)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_31_16, 16, 16)
+        /** @brief Bits 3:18 of organizationally unique identifier */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, OUIHigh, 0, 16)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -419,12 +500,31 @@ typedef register_container RegMIIPhyIdLow_t {
     BCM5719_MII_H_uint16_t r16;
 
     BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, Revision, 0, 4)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, Model, 4, 6)
         /** @brief Bits 19:24 of organizationally unique identifier. */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, OUILow, 10, 6)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_23_11, 11, 13)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_31_24, 24, 8)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_23_11, 11, 13)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_31_24, 24, 8)
+        /** @brief Bits 19:24 of organizationally unique identifier. */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, OUILow, 10, 6)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, Model, 4, 6)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, Revision, 0, 4)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -502,6 +602,7 @@ typedef register_container RegMIIAutonegotiationAdvertisement_t {
     BCM5719_MII_H_uint16_t r16;
 
     BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ProtocolSelect, 0, 5)
         /** @brief  */
@@ -526,6 +627,34 @@ typedef register_container RegMIIAutonegotiationAdvertisement_t {
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_14_14, 14, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, NextPage, 15, 1)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, NextPage, 15, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_14_14, 14, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, RemoteFault, 13, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_12_12, 12, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AsymmetricPauseCapable, 11, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, PauseCapable, 10, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _100BASE_T4Capable, 9, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _100BASE_TXFullDuplexCapable, 8, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _100BASE_TXHalfDuplexCapable, 7, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _10BASE_TFullDuplexCapable, 6, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _10BASE_THalfDuplexCapable, 5, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ProtocolSelect, 0, 5)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -619,6 +748,7 @@ typedef register_container RegMIIAutonegotiationLinkPartnerAbilityBasePage_t {
     BCM5719_MII_H_uint16_t r16;
 
     BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ProtocolSelector, 0, 5)
         /** @brief  */
@@ -643,6 +773,34 @@ typedef register_container RegMIIAutonegotiationLinkPartnerAbilityBasePage_t {
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, Acknowledge, 14, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, NextPage, 15, 1)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, NextPage, 15, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, Acknowledge, 14, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, RemoteFault, 13, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_12_12, 12, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AsymmetricPauseCapable, 11, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, PauseCapable, 10, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _100BASE_T4Capable, 9, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _100BASE_TXFullDuplexCapable, 8, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _100BASE_TXHalfDuplexCapable, 7, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _10BASE_TFullDuplexCapable, 6, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _10BASE_THalfDuplexCapable, 5, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ProtocolSelector, 0, 5)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -725,6 +883,7 @@ typedef register_container RegMIIAutonegotiationExpansion_t {
     BCM5719_MII_H_uint16_t r16;
 
     BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LinkPartnerAutonegotiationCapable, 0, 1)
         /** @brief  */
@@ -739,6 +898,32 @@ typedef register_container RegMIIAutonegotiationExpansion_t {
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, NextPageReceiveLocation, 5, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, NextPageReceiveLocationCapable, 6, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_15_7, 7, 9)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_31_16, 16, 16)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_15_7, 7, 9)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_31_16, 16, 16)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, NextPageReceiveLocationCapable, 6, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, NextPageReceiveLocation, 5, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ParallelDetectionFault, 4, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LinkPartnerNextPageCapable, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, NextPageCapable, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, PageReceived, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LinkPartnerAutonegotiationCapable, 0, 1)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -802,6 +987,7 @@ typedef register_container RegMIIAutonegotiationNextPageTransmit_t {
     BCM5719_MII_H_uint16_t r16;
 
     BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, CodeField, 0, 11)
         /** @brief  */
@@ -814,6 +1000,22 @@ typedef register_container RegMIIAutonegotiationNextPageTransmit_t {
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_14_14, 14, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, NextPage, 15, 1)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, NextPage, 15, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_14_14, 14, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, MessagePage, 13, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, Acknowledge2, 12, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, Toggle, 11, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, CodeField, 0, 11)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -877,6 +1079,7 @@ typedef register_container RegMIIAutonegotiationLinkPartnerAbilityNextPage_t {
     BCM5719_MII_H_uint16_t r16;
 
     BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, CodeField, 0, 11)
         /** @brief  */
@@ -889,6 +1092,22 @@ typedef register_container RegMIIAutonegotiationLinkPartnerAbilityNextPage_t {
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, Acknowledge3, 14, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, NextPage, 15, 1)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, NextPage, 15, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, Acknowledge3, 14, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, MessagePage, 13, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, Acknowledge2, 12, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, Toggle2, 11, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, CodeField, 0, 11)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -954,6 +1173,7 @@ typedef register_container RegMII1000baseTControl_t {
     BCM5719_MII_H_uint16_t r16;
 
     BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_7_0, 0, 8)
         /** @brief  */
@@ -968,6 +1188,32 @@ typedef register_container RegMII1000baseTControl_t {
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, MasterSlaveConfigEnable, 12, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, TestMode, 13, 3)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_23_14, 14, 10)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_31_24, 24, 8)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_23_14, 14, 10)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_31_24, 24, 8)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, TestMode, 13, 3)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, MasterSlaveConfigEnable, 12, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, MasterSlaveConfigValue, 11, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, RepeaterDTE, 10, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, Advertise1000BASE_TFullDuplex, 9, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, Advertise1000BASE_THalfDuplex, 8, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_7_0, 0, 8)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -1037,6 +1283,7 @@ typedef register_container RegMII1000baseTStatus_t {
     BCM5719_MII_H_uint16_t r16;
 
     BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, IdleErrorCount, 0, 8)
         /** @brief Padding */
@@ -1053,6 +1300,26 @@ typedef register_container RegMII1000baseTStatus_t {
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, MasterSlaveConfigResolution, 14, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, MasterSlaveConfigFault, 15, 1)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, MasterSlaveConfigFault, 15, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, MasterSlaveConfigResolution, 14, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LocalReceiverStatus, 13, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, RemoteReceiverStatus, 12, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LinkPartner1000BASE_TFullDuplexCapable, 11, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LinkPartner1000BASE_THalfDuplexCapable, 10, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_9_8, 8, 2)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, IdleErrorCount, 0, 8)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -1108,12 +1375,31 @@ typedef register_container RegMIIBroadreachLreAccess_t {
     BCM5719_MII_H_uint16_t r16;
 
     BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LRERegisterAccessStatus, 0, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LRERegisterOverrideValue, 1, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, EnableLRERegisterAccessOverride, 2, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_15_3, 3, 13)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_31_16, 16, 16)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_15_3, 3, 13)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_31_16, 16, 16)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, EnableLRERegisterAccessOverride, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LRERegisterOverrideValue, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LRERegisterAccessStatus, 0, 1)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -1161,6 +1447,7 @@ typedef register_container RegMIIIeeeExtendedStatus_t {
     BCM5719_MII_H_uint16_t r16;
 
     BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_11_0, 0, 12)
         /** @brief  */
@@ -1171,6 +1458,20 @@ typedef register_container RegMIIIeeeExtendedStatus_t {
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_14_14, 14, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _1000BASE_XHalfDuplexCapable, 15, 1)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _1000BASE_XHalfDuplexCapable, 15, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_14_14, 14, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _1000BASE_TFullDuplexCapable, 13, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _1000BASE_THalfDuplexCapable, 12, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_11_0, 0, 12)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -1270,6 +1571,7 @@ typedef register_container RegMIIPhyExtendedStatus_t {
     BCM5719_MII_H_uint16_t r16;
 
     BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, MLT3CodeErrorDetected, 0, 1)
         /** @brief  */
@@ -1302,6 +1604,42 @@ typedef register_container RegMIIPhyExtendedStatus_t {
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, WirespeedDowngrade, 14, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutonegotiationBasePageSelectorFieldMismatch, 15, 1)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutonegotiationBasePageSelectorFieldMismatch, 15, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, WirespeedDowngrade, 14, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, MDICrossoverState, 13, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, InterruptStatus, 12, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, RemoteReceiverStatus, 11, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LocalReceiverStatus, 10, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, Locked, 9, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LinkStatus, 8, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, CRCErrorDetected, 7, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, CarrierExtensionErrorDetected, 6, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, BadSSDDetected, 5, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, BadESDDetected, 4, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ReceiveErrorDetected, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, TransmitErrorDetected, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LockErrorDetected, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, MLT3CodeErrorDetected, 0, 1)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -1367,8 +1705,23 @@ typedef register_container RegMIIReceiveErrorCounter_t {
     BCM5719_MII_H_uint16_t r16;
 
     BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ReceiveErrorCounter, 0, 16)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_15_1, 1, 15)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_31_16, 16, 16)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_15_1, 1, 15)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_31_16, 16, 16)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ReceiveErrorCounter, 0, 16)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -1408,10 +1761,27 @@ typedef register_container RegMIIFalseCarrierSenseCounter_t {
     BCM5719_MII_H_uint16_t r16;
 
     BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, FalseCarrierSenseCounter, 0, 8)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, SERDESBERCounter, 8, 8)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_23_9, 9, 15)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_31_24, 24, 8)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_23_9, 9, 15)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_31_24, 24, 8)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, SERDESBERCounter, 8, 8)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, FalseCarrierSenseCounter, 0, 8)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -1453,10 +1823,27 @@ typedef register_container RegMIILocalRemoteReceiverNotOkCounter_t {
     BCM5719_MII_H_uint16_t r16;
 
     BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, RemoteReceiverNotOKCounter, 0, 8)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LocalReceiverNotOKCounter, 8, 8)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_23_9, 9, 15)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_31_24, 24, 8)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_23_9, 9, 15)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_31_24, 24, 8)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LocalReceiverNotOKCounter, 8, 8)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, RemoteReceiverNotOKCounter, 0, 8)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -1546,6 +1933,7 @@ typedef register_container RegMIIAuxillaryStatusSummary_t {
     BCM5719_MII_H_uint16_t r16;
 
     BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, PauseResolution_TransmitDirection, 0, 1)
         /** @brief  */
@@ -1574,6 +1962,38 @@ typedef register_container RegMIIAuxillaryStatusSummary_t {
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutonegotiationCompleteACK, 14, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutonegotiationComplete, 15, 1)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutonegotiationComplete, 15, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutonegotiationCompleteACK, 14, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutonegotiationACKDetect, 13, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutonegotiationAbilityDetect, 12, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutonegotiationNextPageWait, 11, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutonegotiationHCD, 8, 3)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ParallelDetectionFault, 7, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, RemoteFault, 6, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, PageReceived, 5, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LinkPartnerAutonegotiationCapable, 4, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LinkPartnerNextPageCapable, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LinkStatus, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, PauseResolution_ReceiveDirection, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, PauseResolution_TransmitDirection, 0, 1)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -1691,6 +2111,7 @@ typedef register_container RegMIIInterruptStatus_t {
     BCM5719_MII_H_uint16_t r16;
 
     BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, CRCError, 0, 1)
         /** @brief  */
@@ -1723,6 +2144,42 @@ typedef register_container RegMIIInterruptStatus_t {
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, IllegalPairSwap, 14, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, IPStatusChange, 15, 1)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, IPStatusChange, 15, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, IllegalPairSwap, 14, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_13_13, 13, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, MDIXStatusChange, 12, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ExceededLowCounterThreshold, 11, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutonegotiationPageRX, 10, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, HCDNoLink, 9, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, NoHCD, 8, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, NegotiatedUnsupportedHCD, 7, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ScramblerSyncError, 6, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, RemoteReceiverStatusChange, 5, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LocalReceiverStatusChange, 4, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, DuplexModeChange, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LinkSpeedChange, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LinkStatusChange, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, CRCError, 0, 1)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -1786,8 +2243,23 @@ typedef register_container RegMIIInterruptMask_t {
     BCM5719_MII_H_uint16_t r16;
 
     BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, InterruptMaskVector, 0, 16)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_15_1, 1, 15)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_31_16, 16, 16)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_15_1, 1, 15)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_31_16, 16, 16)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, InterruptMaskVector, 0, 16)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -1871,6 +2343,7 @@ typedef register_container RegMIITest1_t {
     BCM5719_MII_H_uint16_t r16;
 
     BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, MainDACTrim, 0, 4)
         /** @brief  */
@@ -1897,6 +2370,36 @@ typedef register_container RegMIITest1_t {
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, TransmitErrorCodeVisibility, 14, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, CRCErrorCountVisibility, 15, 1)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, CRCErrorCountVisibility, 15, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, TransmitErrorCodeVisibility, 14, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, CounterTestMode, 13, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ForceLink, 12, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ForceLock, 11, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ScramblerTest, 10, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ExternalLink, 9, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, FastTimers, 8, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ManualSwapMDIState, 7, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ReceiveWatchdogTimerDisable, 6, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, DisablePolarityEncode, 5, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, MainDACEnableSoftwareTrimSetting, 4, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, MainDACTrim, 0, 4)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */

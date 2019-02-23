@@ -175,6 +175,7 @@ typedef register_container RegDEVICEMiscellaneousHostControl_t {
     BCM5719_DEVICE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief Setting this bit will clear interrupt as long as the mask interrupt bit is not set. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ClearInterrupt, 0, 1)
         /** @brief Setting this bit will mask future interrupt events from being generated. */
@@ -213,6 +214,52 @@ typedef register_container RegDEVICEMiscellaneousHostControl_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ProductID, 24, 4)
         /** @brief External All Layer Revision ID. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, AllLayerID, 24, 4)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_25, 25, 7)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_25, 25, 7)
+        /** @brief External All Layer Revision ID. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, AllLayerID, 24, 4)
+        /** @brief Product ID. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ProductID, 24, 4)
+        /** @brief Metal Rev Number */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MetalRevID, 16, 8)
+        /** @brief Set this bit to enable TLP minor error tolerance (ATTR/TC/LOCK command). */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableTLPMinorErrorTolerance, 15, 1)
+        /** @brief Set this bit to enable log header due to overflow. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LogHeaderOverflow, 14, 1)
+        /** @brief Set this bit to enable crossing 4 KB boundary check. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BoundaryCheck, 13, 1)
+        /** @brief Set this bit to enable the byte enable rule check. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ByteEnableRuleCheck, 12, 1)
+        /** @brief Set this bit to enable the interrupt check. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, InterruptCheck, 11, 1)
+        /** @brief Set this bit to enable RCB check. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, RCBCheck, 10, 1)
+        /** @brief When set, an unique 8-bit tag value will be inserted into the Status block status tag. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableTaggedStatusMode, 9, 1)
+        /** @brief When set, the interrupt is masked. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MaskInterruptMode, 8, 1)
+        /** @brief Set this bit to enable indirect addressing mode. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableIndirectAccess, 7, 1)
+        /** @brief Set this bit to enable word swapping when accessing registers through the PCI target device. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableRegisterWordSwap, 6, 1)
+        /** @brief Set this bit enable clock control register read/ write capability, otherwise, the clock control register is read only. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableClockControlRegisterRead_DIV_WriteCapability, 5, 1)
+        /** @brief Set this bit to enable PCI state register read/ write capability, otherwise the register is read only. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnablePCIStateRegisterRead_DIV_WriteCapability, 4, 1)
+        /** @brief Set this bit to enable endian word swapping when accessing through PCIE target interface. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableEndianWordSwap, 3, 1)
+        /** @brief Set this bit to enable endian byte swapping when accessing through PCIE target interface. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableEndianByteSwap, 2, 1)
+        /** @brief Setting this bit will mask future interrupt events from being generated. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MaskInterrupt, 1, 1)
+        /** @brief Setting this bit will clear interrupt as long as the mask interrupt bit is not set. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ClearInterrupt, 0, 1)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -320,6 +367,7 @@ typedef register_container RegDEVICEPciState_t {
     BCM5719_DEVICE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_4_0, 0, 5)
         /** @brief Enable PCI ROM base address register to be visible to the PCI host */
@@ -344,6 +392,38 @@ typedef register_container RegDEVICEPciState_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APEProgramSpaceWriteEnable, 18, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GenerateResetPlus, 19, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_20, 20, 12)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_20, 20, 12)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GenerateResetPlus, 19, 1)
+        /** @brief When this bit is set the APE program space may be written. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APEProgramSpaceWriteEnable, 18, 1)
+        /** @brief When this bit is set the APE shared memory region may be written. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APESharedMemoryWriteEnable, 17, 1)
+        /** @brief When this bit is set the APE control registers may be written. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APEControlRegisterWriteEnable, 16, 1)
+        /** @brief When asserted, forces all config access to be retried. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ConfigRetry, 15, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_14_12, 12, 3)
+        /** @brief Indicates the number of PCI clock cycles before Retry occurs, in multiple of 8. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MaxPCITargetRetry, 9, 3)
+        /** @brief Asserted if the Base Address register presents a 32 MB PCI Address map flat view, otherwise, indicates a 64 KB PCI Address map in standard view */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, FlatView, 8, 1)
+        /** @brief This bit reads as 1 if the VPD region of the NVRAM can be accessed by the host */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, VPDAvailable, 7, 1)
+        /** @brief Force PCI Retry for accesses to Expansion ROM region if enabled */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PCIExpansionROMRetry, 6, 1)
+        /** @brief Enable PCI ROM base address register to be visible to the PCI host */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PCIExpansionROMDesired, 5, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_4_0, 0, 5)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -439,12 +519,27 @@ typedef register_container RegDEVICELinkStatusControl_t {
     BCM5719_DEVICE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_15_0, 0, 16)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, NegotiatedLinkSpeed, 16, 4)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, NegotiatedLinkWidth, 20, 6)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, NegotiatedLinkWidth, 20, 6)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, NegotiatedLinkSpeed, 16, 4)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_15_0, 0, 16)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -583,6 +678,7 @@ typedef register_container RegDEVICEEmacMode_t {
     BCM5719_DEVICE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GlobalReset, 0, 1)
         /** @brief  */
@@ -639,6 +735,70 @@ typedef register_container RegDEVICEEmacMode_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableAPETXPath, 28, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MACLoopbackModeControl, 29, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_30, 30, 2)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_30, 30, 2)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MACLoopbackModeControl, 29, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableAPETXPath, 28, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableAPERXPath, 27, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Free_RunningACPI, 26, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, HaltInterestingPacketPME, 25, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, KeepFrameInWOL, 24, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableFHDE, 23, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableRDE, 22, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableTCE, 21, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_20_20, 20, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ACPIPowerOnEnable, 19, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MagicPacketDetectionEnable, 18, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SendConfigCommand, 17, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, FlushTXStatistics, 16, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ClearTXStatistics, 15, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableTXStatistics, 14, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, FlushRXStatistics, 13, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ClearRXStatistics, 12, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableRXStatistics, 11, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_10_10, 10, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MaxDefer, 9, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableTXBursting, 8, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, TaggedMACControl, 7, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_6_5, 5, 2)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LoopbackMode, 4, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PortMode, 2, 2)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, HalfDuplex, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GlobalReset, 0, 1)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -787,6 +947,7 @@ typedef register_container RegDEVICELedControl_t {
     BCM5719_DEVICE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief If set, overrides hardware control of the three link LEDs. The LEDs will be controlled via bits [3:1]. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, OverrideLink, 0, 1)
         /** @brief If set along with the LED Override bit, turns on the 1000 Mbps LED. */
@@ -821,6 +982,44 @@ typedef register_container RegDEVICELedControl_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BlinkPeriod, 19, 12)
         /** @brief If set, the blink rate for the Traffic LED is determined by the Blink Period field (bit 30 to bit 19). This bit is rest to 1. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, OverrideBlinkRate, 31, 1)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief If set, the blink rate for the Traffic LED is determined by the Blink Period field (bit 30 to bit 19). This bit is rest to 1. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, OverrideBlinkRate, 31, 1)
+        /** @brief Specifies the period of each blink cycle (on+off) for Traffic LED in milliseconds. Must be a nonzero value. This 12-bit field is reset to 0x040, giving a default blink period of approximately 15.9Hz. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BlinkPeriod, 19, 12)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_18_15, 15, 4)
+        /** @brief When this bit is set, the Link LED is solid green when there is a link and blinks when there is traffic. (The LED_MODE field must be set to 00 before enabling this bit). */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SharedTraffic_DIV_LinkLEDMode, 14, 1)
+        /** @brief When this bit is set, the traffic LED blinks only when traffic is addressed for the device (The LED_MODE field must be set to 00 before enabling this bit). */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MACMode, 13, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LEDMode, 11, 2)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LEDStatusTraffic, 10, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LEDStatus10, 9, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LEDStatus100, 8, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LEDStatus1000, 7, 1)
+        /** @brief If set along with the Override Traffic bit, the Traffic LED is turned on. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LEDTraffic, 6, 1)
+        /** @brief If set along with the Override Traffic bit and Traffic LED bit, the Traffic LED will blink with the blink rate specified in Override Blink Rate (bit 31) and Blink Period (bits [30:19]) fields. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LEDTrafficBlink, 5, 1)
+        /** @brief If set, overrides hardware control of the Traffic LED. The Traffic LED will then be controlled via bits [6:5]. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, OverrideTraffic, 4, 1)
+        /** @brief If set along with the LED Override bit, turns on the 10 Mbps LED. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LED10, 3, 1)
+        /** @brief If set along with the LED Override bit, turns on the 100 Mbps LED. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LED100, 2, 1)
+        /** @brief If set along with the LED Override bit, turns on the 1000 Mbps LED. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LED1000, 1, 1)
+        /** @brief If set, overrides hardware control of the three link LEDs. The LEDs will be controlled via bits [3:1]. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, OverrideLink, 0, 1)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -956,8 +1155,19 @@ typedef register_container RegDEVICEMtuSize_t {
     BCM5719_DEVICE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief 2-byte field which is the largest size frame that will be accepted without being marked as oversize. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MTU, 0, 16)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_1, 1, 31)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_1, 1, 31)
+        /** @brief 2-byte field which is the largest size frame that will be accepted without being marked as oversize. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MTU, 0, 16)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -1025,6 +1235,7 @@ typedef register_container RegDEVICEMiiCommunication_t {
     BCM5719_DEVICE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief When configured for a write command, the data stored at this location is written to the PHY at the specified PHY and register address. During a read command, the data returned by the PHY is stored at this location. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, TransactionData, 0, 16)
         /** @brief Address of the register to be read or written. */
@@ -1037,6 +1248,26 @@ typedef register_container RegDEVICEMiiCommunication_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ReadFailed, 28, 1)
         /** @brief Set this bit to start a transaction. While it is high, it indicates that the current transaction is still ongoing. If enabled, generates an attention via EMAC Status Register MI Completion bit (bit 22). */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Start_DIV_Busy, 29, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_30, 30, 2)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_30, 30, 2)
+        /** @brief Set this bit to start a transaction. While it is high, it indicates that the current transaction is still ongoing. If enabled, generates an attention via EMAC Status Register MI Completion bit (bit 22). */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Start_DIV_Busy, 29, 1)
+        /** @brief When set, the transceiver device did not drive the bus during the attempted read transaction. Valid after the Start/Busy bit is cleared. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ReadFailed, 28, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Command, 26, 2)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PHYAddress, 21, 5)
+        /** @brief Address of the register to be read or written. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, RegisterAddress, 16, 5)
+        /** @brief When configured for a write command, the data stored at this location is written to the PHY at the specified PHY and register address. During a read command, the data returned by the PHY is stored at this location. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, TransactionData, 0, 16)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -1082,10 +1313,23 @@ typedef register_container RegDEVICEMiiMode_t {
     BCM5719_DEVICE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_14_0, 0, 15)
         /** @brief Enable ~500Khz constant MII management interface (MDIO/MDC) frequency regardless core clock frequency. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ConstantMDIO_DIV_MDCClockSpeed, 15, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_16, 16, 16)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_16, 16, 16)
+        /** @brief Enable ~500Khz constant MII management interface (MDIO/MDC) frequency regardless core clock frequency. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ConstantMDIO_DIV_MDCClockSpeed, 15, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_14_0, 0, 15)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -1133,6 +1377,7 @@ typedef register_container RegDEVICEReceiveMacMode_t {
     BCM5719_DEVICE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief When this bit is set to 1, the Receive MAC state machine will be reset. This is a self-clearing bit. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Reset, 0, 1)
         /** @brief This bit controls whether the Receive MAC state machine is active or not. */
@@ -1145,6 +1390,26 @@ typedef register_container RegDEVICEReceiveMacMode_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_24_9, 9, 16)
         /** @brief When set, no source address or MC hashing checking will be performed on incoming frames on APE filter path. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APEPromiscuousMode, 25, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_26, 26, 6)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_26, 26, 6)
+        /** @brief When set, no source address or MC hashing checking will be performed on incoming frames on APE filter path. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APEPromiscuousMode, 25, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_24_9, 9, 16)
+        /** @brief When set, no source address or MC hashing checking will be performed on incoming frames. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PromiscuousMode, 8, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_7_2, 2, 6)
+        /** @brief This bit controls whether the Receive MAC state machine is active or not. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Enable, 1, 1)
+        /** @brief When this bit is set to 1, the Receive MAC state machine will be reset. This is a self-clearing bit. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Reset, 0, 1)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -1233,6 +1498,7 @@ typedef register_container RegDEVICESgmiiStatus_t {
     BCM5719_DEVICE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief Auto-negotiation process has completed. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, AutonegotiationComplete, 0, 1)
         /** @brief  */
@@ -1259,6 +1525,40 @@ typedef register_container RegDEVICESgmiiStatus_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_15_11, 11, 5)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LinkPartnerAutonegotiationCapability, 16, 16)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_17, 17, 15)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_17, 17, 15)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LinkPartnerAutonegotiationCapability, 16, 16)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_15_11, 11, 5)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ExternalCRSDetect, 10, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PCSCRSDetect, 9, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MediaSelectionMode, 8, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PauseTX, 7, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PauseRX, 6, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, NextPageRX, 5, 1)
+        /** @brief The SGMII Link currently operable at 100mbps data speed. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Speed100, 4, 1)
+        /** @brief The SGMII Link currently operable at 1 Gbps data speed. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Speed1000, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DuplexStatus, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LinkStatus, 1, 1)
+        /** @brief Auto-negotiation process has completed. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, AutonegotiationComplete, 0, 1)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -1360,6 +1660,7 @@ typedef register_container RegDEVICECpmuControl_t {
     BCM5719_DEVICE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, CPMUSoftwareReset, 0, 1)
         /** @brief  */
@@ -1396,6 +1697,50 @@ typedef register_container RegDEVICECpmuControl_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_27_20, 20, 8)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SoftwareControlledGPHYForceDLLOn, 28, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_29, 29, 3)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_29, 29, 3)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SoftwareControlledGPHYForceDLLOn, 28, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_27_20, 20, 8)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SGMII_DIV_PCSPowerDown, 19, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LegacyTimerEnable, 18, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_17_17, 17, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPHY10MBReceiveOnlyModeEnable, 16, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_15_15, 15, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LinkSpeedPowerModeEnable, 14, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_13_11, 11, 3)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LinkAwarePowerModeEnable, 10, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LinkIdlePowerModeEnable, 9, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_8_6, 6, 3)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APEDeepSleepModeEnable, 5, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APESleepModeEnable, 4, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_3_3, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerDown, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, CPMURegisterSoftwareReset, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, CPMUSoftwareReset, 0, 1)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -1465,10 +1810,23 @@ typedef register_container RegDEVICELinkAwarePowerModeClockPolicy_t {
     BCM5719_DEVICE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_15_0, 0, 16)
         /** @brief Software Controlled MAC Core Clock Speed Select. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MACClockSwitch, 16, 5)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_17, 17, 15)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_17, 17, 15)
+        /** @brief Software Controlled MAC Core Clock Speed Select. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MACClockSwitch, 16, 5)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_15_0, 0, 16)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -1508,6 +1866,7 @@ typedef register_container RegDEVICEClockSpeedOverridePolicy_t {
     BCM5719_DEVICE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_15_0, 0, 16)
         /** @brief Software Controlled MAC Core Clock Speed Select */
@@ -1516,6 +1875,18 @@ typedef register_container RegDEVICEClockSpeedOverridePolicy_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_30_21, 21, 10)
         /** @brief Enable MAC clock speed override */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MACClockSpeedOverrideEnabled, 31, 1)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Enable MAC clock speed override */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MACClockSpeedOverrideEnabled, 31, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_30_21, 21, 10)
+        /** @brief Software Controlled MAC Core Clock Speed Select */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MACClockSwitch, 16, 5)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_15_0, 0, 16)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -1622,6 +1993,7 @@ typedef register_container RegDEVICEStatus_t {
     BCM5719_DEVICE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerManagementStateMachineState, 0, 4)
         /** @brief  */
@@ -1656,6 +2028,48 @@ typedef register_container RegDEVICEStatus_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, FunctionEnable, 25, 5)
         /** @brief PCIE function number */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, FunctionNumber, 30, 2)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_31, 31, 1)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_31, 31, 1)
+        /** @brief PCIE function number */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, FunctionNumber, 30, 2)
+        /** @brief Function Enable input from System BIOS */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, FunctionEnable, 25, 5)
+        /** @brief APE Engine Status */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APEStatus, 23, 2)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, WOLACPIDetectionEnablePort1, 22, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, WOLMagicPacketDetectionEnablePort1, 21, 1)
+        /** @brief EthernetLink Status */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EthernetLinkStatus, 19, 2)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LinkIdleStatus, 18, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPHYDLLLockStatus, 17, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, NCSIDLLLockStatus, 16, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, WOLACPIDetectionEnablePort0, 15, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, WOLMagicPacketDetectionEnablePort0, 14, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, VMAINPowerStatus, 13, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_12_10, 10, 3)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerState, 8, 2)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnergyDetectStatus, 7, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, CPMUPowerState, 4, 3)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerManagementStateMachineState, 0, 4)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -1760,6 +2174,7 @@ typedef register_container RegDEVICEGphyControlStatus_t {
     BCM5719_DEVICE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief When this bit is set, GPHY will be powered down. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPHYIDDQ, 0, 1)
         /** @brief When this bit is set, BIAS will be powered down. */
@@ -1782,6 +2197,36 @@ typedef register_container RegDEVICEGphyControlStatus_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, TLPClockSource, 26, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SwitchingRegulatorPowerDown, 27, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_28, 28, 4)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_28, 28, 4)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SwitchingRegulatorPowerDown, 27, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, TLPClockSource, 26, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, NCSIPLLLockStatus, 25, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_24_16, 16, 9)
+        /** @brief Setting this bit will powerdown SGMII-PCS module. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SGMII_DIV_PCSPowerDown, 15, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_14_5, 5, 10)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerDown, 4, 1)
+        /** @brief Software reset for resetting all the registers to default. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, CPMURegisterSoftwareReset, 3, 1)
+        /** @brief Software reset for all the CPMU logic expect for registers. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, CPMUSoftwareReset, 2, 1)
+        /** @brief When this bit is set, BIAS will be powered down. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BIASIDDQ, 1, 1)
+        /** @brief When this bit is set, GPHY will be powered down. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPHYIDDQ, 0, 1)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -1862,6 +2307,7 @@ typedef register_container RegDEVICEGphyStrap_t {
     BCM5719_DEVICE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_1_0, 0, 2)
         /** @brief Enable TXMBUF ECC. */
@@ -1870,6 +2316,22 @@ typedef register_container RegDEVICEGphyStrap_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, RXMBUFECCEnable, 3, 1)
         /** @brief Enable ECC for rxcpu scratchpad. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, RXCPUSPADECCEnable, 4, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_5, 5, 27)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_5, 5, 27)
+        /** @brief Enable ECC for rxcpu scratchpad. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, RXCPUSPADECCEnable, 4, 1)
+        /** @brief Enable RXMBUF ECC. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, RXMBUFECCEnable, 3, 1)
+        /** @brief Enable TXMBUF ECC. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, TXMBUFECCEnable, 2, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_1_0, 0, 2)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -1913,12 +2375,27 @@ typedef register_container RegDEVICETopLevelMiscellaneousControl1_t {
     BCM5719_DEVICE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_3_0, 0, 4)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, NCSIClockOutputDisable, 4, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LowPowerIDDQMode, 5, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_6, 6, 26)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_6, 6, 26)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LowPowerIDDQMode, 5, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, NCSIClockOutputDisable, 4, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_3_0, 0, 4)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -2004,6 +2481,7 @@ typedef register_container RegDEVICEEeeMode_t {
     BCM5719_DEVICE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, RXCPUAllowLPI, 0, 1)
         /** @brief  */
@@ -2030,6 +2508,40 @@ typedef register_container RegDEVICEEeeMode_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BlockTime, 11, 8)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DriveAllowLPIEnable, 19, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_20, 20, 12)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_20, 20, 12)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DriveAllowLPIEnable, 19, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BlockTime, 11, 8)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, AutoWakeEnable, 10, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, RXLPIEnable, 9, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, TXLPIEnable, 8, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, UserLPIEnable, 7, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SendIndexDetectionEnable, 6, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, RXCPUAllowLPIEnable, 5, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PCIeL1ExitDetectionEnable, 4, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EEELinkIdleDetectionEnable, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APETXDetectionEnable, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DriveAllowLPI, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, RXCPUAllowLPI, 0, 1)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -2089,10 +2601,23 @@ typedef register_container RegDEVICEEeeLinkIdleControl_t {
     BCM5719_DEVICE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_1_0, 0, 2)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DebugUARTIdle, 2, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_3, 3, 29)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_3, 3, 29)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DebugUARTIdle, 2, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_1_0, 0, 2)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -2132,10 +2657,23 @@ typedef register_container RegDEVICEEeeControl_t {
     BCM5719_DEVICE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ExitTime, 0, 16)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MinimumAssert, 16, 16)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_17, 17, 15)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_17, 17, 15)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MinimumAssert, 16, 16)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ExitTime, 0, 16)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -2187,10 +2725,23 @@ typedef register_container RegDEVICEMemoryArbiterMode_t {
     BCM5719_DEVICE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_0_0, 0, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Enable, 1, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_2, 2, 30)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_2, 2, 30)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Enable, 1, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_0_0, 0, 1)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -2234,6 +2785,7 @@ typedef register_container RegDEVICEBufferManagerMode_t {
     BCM5719_DEVICE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_0_0, 0, 1)
         /** @brief This bit controls whether the Buffer Manager is active or not. */
@@ -2244,6 +2796,24 @@ typedef register_container RegDEVICEBufferManagerMode_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_4_3, 3, 2)
         /** @brief When this bit is set, it will cause the RXMBUF allocation and deallocation pointer to reset back to the RXMBUF base. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ResetRXMBUFPointer, 5, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_6, 6, 26)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_6, 6, 26)
+        /** @brief When this bit is set, it will cause the RXMBUF allocation and deallocation pointer to reset back to the RXMBUF base. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ResetRXMBUFPointer, 5, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_4_3, 3, 2)
+        /** @brief When this bit is set to 1, an internal attention is generated when an error occurs. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, AttentionEnable, 2, 1)
+        /** @brief This bit controls whether the Buffer Manager is active or not. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Enable, 1, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_0_0, 0, 1)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -2297,12 +2867,27 @@ typedef register_container RegDEVICELsoNonlsoBdReadDmaCorruptionEnableControl_t 
     BCM5719_DEVICE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_15_0, 0, 16)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PCIRequestBurstLengthforBDRDMAEngine, 16, 2)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PCIRequestBurstLengthforNonLSORDMAEngine, 18, 2)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_19, 19, 13)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_19, 19, 13)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PCIRequestBurstLengthforNonLSORDMAEngine, 18, 2)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PCIRequestBurstLengthforBDRDMAEngine, 16, 2)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_15_0, 0, 16)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -2392,6 +2977,7 @@ typedef register_container RegDEVICERxRiscMode_t {
     BCM5719_DEVICE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief Self-clearing bit which resets only the RX RISC. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Reset, 0, 1)
         /** @brief Advances the RX RISC's PC for one cycle. If halting condition still exists, the RX RISC will again halt; otherwise, it will resume normal operation. */
@@ -2422,6 +3008,44 @@ typedef register_container RegDEVICERxRiscMode_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableMemoryAddressTrapHalt, 13, 1)
         /** @brief When set, if the GRC raises the trap signal to this processor, it will halt. CLeared on reset and Watchdog interrupt. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableRegisterAddressTrapHalt, 14, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_15, 15, 17)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_15, 15, 17)
+        /** @brief When set, if the GRC raises the trap signal to this processor, it will halt. CLeared on reset and Watchdog interrupt. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableRegisterAddressTrapHalt, 14, 1)
+        /** @brief When set, if the MA raises the trap signal to this processor, it will halt. CLeared on reset and Watchdog interrupt. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableMemoryAddressTrapHalt, 13, 1)
+        /** @brief When set, the condition that causes RX RISC state bit 6 to be set, also halts the RX RISC. Set by reset. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, InvalidInstructionAccessHalt, 12, 1)
+        /** @brief When set, the condition that causes RX RISC state bit 5 to be set, also halts the RX RISC. Set by reset. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, InvalidDataAccessHalt, 11, 1)
+        /** @brief Set by TX RISC or the host to halt the RX RISC. Cleared on reset and Watchdog interrupt. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Halt, 10, 1)
+        /** @brief Self-clearing bit which forces the instruction cache to flush. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, FlushInstructionCache, 9, 1)
+        /** @brief Enables prefetch logic within the instruction cache. When disabled only a single cache line is read on a cache miss. Cleared on reset. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableInstructionCache, 8, 1)
+        /** @brief Enables watchdog interrupt state machine. Used in conjunction with Watchdog Clear register, Watchdog Saved PC register and Watchdog Vector register. Cleared on reset and Watchdog interrupt. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableWatchdog, 7, 1)
+        /** @brief Asserted on reset. Cleared by ROM code after it successfully loads code from NVRAM. Afterwards, this bit can be used by software for any purpose. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ROMFail, 6, 1)
+        /** @brief Enables the data cache. Cleared on reset. Note: Firmware developers should take care to clear this bit before polling internal SRAM memory locations, because the RX RISC processor uses a two-element LRU caching algorithm, which is not affected by writes from the PCI interface. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableDataCache, 5, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_4_4, 4, 1)
+        /** @brief When set, instruction references to the first 256 bytes of SRAM force the RX RISC to halt and cause bit 4 in the RX RISC state register to be latched. Cleared on reset and Watchdog interrupt. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Page0InstrHalt, 3, 1)
+        /** @brief When set, data references to the first 256 bytes of SRAM force the RX RISC to halt and cause bit 3 in the RX RISC state register to be latched. Cleared on reset and Watchdog interrupt. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Page0DataHalt, 2, 1)
+        /** @brief Advances the RX RISC's PC for one cycle. If halting condition still exists, the RX RISC will again halt; otherwise, it will resume normal operation. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SingleStep, 1, 1)
+        /** @brief Self-clearing bit which resets only the RX RISC. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Reset, 0, 1)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -2539,6 +3163,7 @@ typedef register_container RegDEVICERxRiscStatus_t {
     BCM5719_DEVICE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief When enabled in mode register, indicates hardware breakpoint has been reached. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, HardwareBreakpoint, 0, 1)
         /** @brief When enabled in mode register, indicates hardware breakpoint has been reached. */
@@ -2573,6 +3198,44 @@ typedef register_container RegDEVICERxRiscStatus_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_30_16, 16, 15)
         /** @brief A blocking data cache miss occurred, causing the RX RISC to stall while data is fetched from external (to the RX RISC) memory. This is intended as a debugging tool. No state is saved other than the fact that the miss occurred. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BlockingRead, 31, 1)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief A blocking data cache miss occurred, causing the RX RISC to stall while data is fetched from external (to the RX RISC) memory. This is intended as a debugging tool. No state is saved other than the fact that the miss occurred. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BlockingRead, 31, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_30_16, 16, 15)
+        /** @brief The processor is currently stalled due to an instruction fetch. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, InstructionFetchStall, 15, 1)
+        /** @brief The processor is currently stalled due to a data access. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DataAccessStall, 14, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_13_12, 12, 2)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Unknown, 11, 1)
+        /** @brief The RX RISC was explicitly halted via bit 10 in the RX RISC Mode register. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Halted, 10, 1)
+        /** @brief A signal was received from the Global Resources block indicating that this processor accessed a register location that triggered a software trap. The GRC registers are used to configure register address trapping. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, RegisterAddressTrap, 9, 1)
+        /** @brief A signal was received from the Memory Arbiter indicating that some BCM5700 block, possibly this processor, accessed a memory location that triggered a software trap. The MA registers are used to configure memory address trapping. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MemoryAddressTrap, 8, 1)
+        /** @brief Load or Store instruction was executed with the least significant two address bits not valid for the width of the operation (e.g., Load word or Load Half-word from an odd byte address). */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BadMemoryAlignment, 7, 1)
+        /** @brief Program Counter (PC) is set to invalid location in processor address space. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, InvalidInstructionFetch, 6, 1)
+        /** @brief Data reference to illegal location. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, InvalidDataAccess, 5, 1)
+        /** @brief When enabled in mode register, indicates the address in the PC is within the lower 256 bytes of SRAM. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Page0InstructionReference, 4, 1)
+        /** @brief When enabled in mode register, indicates data reference within lower 256 bytes of SRAM. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Page0DataRefeence, 3, 1)
+        /** @brief Invalid instruction fetched. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, InvalidInstruction, 2, 1)
+        /** @brief When enabled in mode register, indicates hardware breakpoint has been reached. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, HaltInstructionExecuted, 1, 1)
+        /** @brief When enabled in mode register, indicates hardware breakpoint has been reached. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, HardwareBreakpoint, 0, 1)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -2902,10 +3565,23 @@ typedef register_container RegDEVICEPciVpdRequest_t {
     BCM5719_DEVICE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_15_0, 0, 16)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, RequestedVPDOffset, 16, 15)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_17, 17, 15)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_17, 17, 15)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, RequestedVPDOffset, 16, 15)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_15_0, 0, 16)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -2952,10 +3628,23 @@ typedef register_container RegDEVICEPciVendorDeviceId_t {
     BCM5719_DEVICE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DeviceID, 0, 16)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, VendorID, 16, 16)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_17, 17, 15)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_17, 17, 15)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, VendorID, 16, 16)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DeviceID, 0, 16)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -2997,10 +3686,23 @@ typedef register_container RegDEVICEPciSubsystemId_t {
     BCM5719_DEVICE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SubsystemVendorID, 0, 16)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SubsystemID, 16, 16)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_17, 17, 15)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_17, 17, 15)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SubsystemID, 16, 16)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SubsystemVendorID, 0, 16)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -3121,6 +3823,7 @@ typedef register_container RegDEVICEPciPowerBudget0_t {
     BCM5719_DEVICE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief Specifies in watts the base power value in the given operating condition. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BasePower, 0, 8)
         /** @brief Specifies the scale to apply to the Base Power value. */
@@ -3133,6 +3836,26 @@ typedef register_container RegDEVICEPciPowerBudget0_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Type, 15, 3)
         /** @brief Specifies the thermal load or power rail of the operating condition being described. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_19, 19, 13)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_19, 19, 13)
+        /** @brief Specifies the thermal load or power rail of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
+        /** @brief Specifies the power management state of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Type, 15, 3)
+        /** @brief Specifies the power management state of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMState, 13, 2)
+        /** @brief Specifies the power management sub state of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMSubState, 10, 3)
+        /** @brief Specifies the scale to apply to the Base Power value. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DataScale, 8, 2)
+        /** @brief Specifies in watts the base power value in the given operating condition. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BasePower, 0, 8)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -3219,6 +3942,7 @@ typedef register_container RegDEVICEPciPowerBudget1_t {
     BCM5719_DEVICE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief Specifies in watts the base power value in the given operating condition. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BasePower, 0, 8)
         /** @brief Specifies the scale to apply to the Base Power value. */
@@ -3231,6 +3955,26 @@ typedef register_container RegDEVICEPciPowerBudget1_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Type, 15, 3)
         /** @brief Specifies the thermal load or power rail of the operating condition being described. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_19, 19, 13)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_19, 19, 13)
+        /** @brief Specifies the thermal load or power rail of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
+        /** @brief Specifies the power management state of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Type, 15, 3)
+        /** @brief Specifies the power management state of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMState, 13, 2)
+        /** @brief Specifies the power management sub state of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMSubState, 10, 3)
+        /** @brief Specifies the scale to apply to the Base Power value. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DataScale, 8, 2)
+        /** @brief Specifies in watts the base power value in the given operating condition. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BasePower, 0, 8)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -3317,6 +4061,7 @@ typedef register_container RegDEVICEPciPowerBudget2_t {
     BCM5719_DEVICE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief Specifies in watts the base power value in the given operating condition. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BasePower, 0, 8)
         /** @brief Specifies the scale to apply to the Base Power value. */
@@ -3329,6 +4074,26 @@ typedef register_container RegDEVICEPciPowerBudget2_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Type, 15, 3)
         /** @brief Specifies the thermal load or power rail of the operating condition being described. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_19, 19, 13)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_19, 19, 13)
+        /** @brief Specifies the thermal load or power rail of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
+        /** @brief Specifies the power management state of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Type, 15, 3)
+        /** @brief Specifies the power management state of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMState, 13, 2)
+        /** @brief Specifies the power management sub state of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMSubState, 10, 3)
+        /** @brief Specifies the scale to apply to the Base Power value. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DataScale, 8, 2)
+        /** @brief Specifies in watts the base power value in the given operating condition. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BasePower, 0, 8)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -3415,6 +4180,7 @@ typedef register_container RegDEVICEPciPowerBudget3_t {
     BCM5719_DEVICE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief Specifies in watts the base power value in the given operating condition. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BasePower, 0, 8)
         /** @brief Specifies the scale to apply to the Base Power value. */
@@ -3427,6 +4193,26 @@ typedef register_container RegDEVICEPciPowerBudget3_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Type, 15, 3)
         /** @brief Specifies the thermal load or power rail of the operating condition being described. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_19, 19, 13)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_19, 19, 13)
+        /** @brief Specifies the thermal load or power rail of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
+        /** @brief Specifies the power management state of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Type, 15, 3)
+        /** @brief Specifies the power management state of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMState, 13, 2)
+        /** @brief Specifies the power management sub state of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMSubState, 10, 3)
+        /** @brief Specifies the scale to apply to the Base Power value. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DataScale, 8, 2)
+        /** @brief Specifies in watts the base power value in the given operating condition. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BasePower, 0, 8)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -3513,6 +4299,7 @@ typedef register_container RegDEVICEPciPowerBudget4_t {
     BCM5719_DEVICE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief Specifies in watts the base power value in the given operating condition. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BasePower, 0, 8)
         /** @brief Specifies the scale to apply to the Base Power value. */
@@ -3525,6 +4312,26 @@ typedef register_container RegDEVICEPciPowerBudget4_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Type, 15, 3)
         /** @brief Specifies the thermal load or power rail of the operating condition being described. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_19, 19, 13)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_19, 19, 13)
+        /** @brief Specifies the thermal load or power rail of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
+        /** @brief Specifies the power management state of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Type, 15, 3)
+        /** @brief Specifies the power management state of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMState, 13, 2)
+        /** @brief Specifies the power management sub state of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMSubState, 10, 3)
+        /** @brief Specifies the scale to apply to the Base Power value. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DataScale, 8, 2)
+        /** @brief Specifies in watts the base power value in the given operating condition. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BasePower, 0, 8)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -3611,6 +4418,7 @@ typedef register_container RegDEVICEPciPowerBudget5_t {
     BCM5719_DEVICE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief Specifies in watts the base power value in the given operating condition. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BasePower, 0, 8)
         /** @brief Specifies the scale to apply to the Base Power value. */
@@ -3623,6 +4431,26 @@ typedef register_container RegDEVICEPciPowerBudget5_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Type, 15, 3)
         /** @brief Specifies the thermal load or power rail of the operating condition being described. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_19, 19, 13)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_19, 19, 13)
+        /** @brief Specifies the thermal load or power rail of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
+        /** @brief Specifies the power management state of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Type, 15, 3)
+        /** @brief Specifies the power management state of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMState, 13, 2)
+        /** @brief Specifies the power management sub state of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMSubState, 10, 3)
+        /** @brief Specifies the scale to apply to the Base Power value. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DataScale, 8, 2)
+        /** @brief Specifies in watts the base power value in the given operating condition. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BasePower, 0, 8)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -3709,6 +4537,7 @@ typedef register_container RegDEVICEPciPowerBudget6_t {
     BCM5719_DEVICE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief Specifies in watts the base power value in the given operating condition. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BasePower, 0, 8)
         /** @brief Specifies the scale to apply to the Base Power value. */
@@ -3721,6 +4550,26 @@ typedef register_container RegDEVICEPciPowerBudget6_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Type, 15, 3)
         /** @brief Specifies the thermal load or power rail of the operating condition being described. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_19, 19, 13)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_19, 19, 13)
+        /** @brief Specifies the thermal load or power rail of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
+        /** @brief Specifies the power management state of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Type, 15, 3)
+        /** @brief Specifies the power management state of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMState, 13, 2)
+        /** @brief Specifies the power management sub state of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMSubState, 10, 3)
+        /** @brief Specifies the scale to apply to the Base Power value. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DataScale, 8, 2)
+        /** @brief Specifies in watts the base power value in the given operating condition. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BasePower, 0, 8)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -3807,6 +4656,7 @@ typedef register_container RegDEVICEPciPowerBudget7_t {
     BCM5719_DEVICE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief Specifies in watts the base power value in the given operating condition. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BasePower, 0, 8)
         /** @brief Specifies the scale to apply to the Base Power value. */
@@ -3819,6 +4669,26 @@ typedef register_container RegDEVICEPciPowerBudget7_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Type, 15, 3)
         /** @brief Specifies the thermal load or power rail of the operating condition being described. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_19, 19, 13)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_19, 19, 13)
+        /** @brief Specifies the thermal load or power rail of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
+        /** @brief Specifies the power management state of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Type, 15, 3)
+        /** @brief Specifies the power management state of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMState, 13, 2)
+        /** @brief Specifies the power management sub state of the operating condition being described. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMSubState, 10, 3)
+        /** @brief Specifies the scale to apply to the Base Power value. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DataScale, 8, 2)
+        /** @brief Specifies in watts the base power value in the given operating condition. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BasePower, 0, 8)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -3901,6 +4771,7 @@ typedef register_container RegDEVICEGrcModeControl_t {
     BCM5719_DEVICE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_18_0, 0, 19)
         /** @brief Write 1 to this bit to enable Time Sync Mode. */
@@ -3919,6 +4790,28 @@ typedef register_container RegDEVICEGrcModeControl_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_30_30, 30, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PCIeTL_DIV_DL_DIV_PLMapping3, 31, 1)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PCIeTL_DIV_DL_DIV_PLMapping3, 31, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_30_30, 30, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PCIeTL_DIV_DL_DIV_PLMapping2, 29, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_28_23, 23, 6)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PCIeTL_DIV_DL_DIV_PLMapping1, 22, 1)
+        /** @brief The host must set this bit before attempting to update the Flash or SEEPROM. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, NVRAMWriteEnable, 21, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_20_20, 20, 1)
+        /** @brief Write 1 to this bit to enable Time Sync Mode. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, TimeSyncModeEnable, 19, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_18_0, 0, 19)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -3998,6 +4891,7 @@ typedef register_container RegDEVICEMiscellaneousLocalControl_t {
     BCM5719_DEVICE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_7_0, 0, 8)
         /** @brief  */
@@ -4022,6 +4916,38 @@ typedef register_container RegDEVICEMiscellaneousLocalControl_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_23_17, 17, 7)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, AutoSEEPROMAccess, 24, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_25, 25, 7)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_25, 25, 7)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, AutoSEEPROMAccess, 24, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_23_17, 17, 7)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPIO2Output, 16, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPIO1Output, 15, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPIO0Output, 14, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPIO2OutputEnable, 13, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPIO1OutputEnable, 12, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPIO0OutputEnable, 11, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPIO2Input, 10, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPIO1Input, 9, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPIO0Input, 8, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_7_0, 0, 8)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -4082,10 +5008,23 @@ typedef register_container RegDEVICERxCpuEvent_t {
     BCM5719_DEVICE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_29_0, 0, 30)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, VPDAttention, 30, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_31, 31, 1)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_31, 31, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, VPDAttention, 30, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_29_0, 0, 30)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -4139,10 +5078,19 @@ typedef register_container RegDEVICEFastBootProgramCounter_t {
     BCM5719_DEVICE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief This field is used by the CPU to keep track of the location of the phase 1 boot code in RX MBUF. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ProgramCounter, 0, 31)
         /** @brief This bit is used by the CPU to keep track of whether or not there is valid phase 1 boot code stored in the RX MBUF. If the bit is set, then RXMBUF contains valid boot code. Otherwise, it is assumed that RXMBUF does not contain valid boot code. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Enable, 31, 1)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief This bit is used by the CPU to keep track of whether or not there is valid phase 1 boot code stored in the RX MBUF. If the bit is set, then RXMBUF contains valid boot code. Otherwise, it is assumed that RXMBUF does not contain valid boot code. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Enable, 31, 1)
+        /** @brief This field is used by the CPU to keep track of the location of the phase 1 boot code in RX MBUF. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ProgramCounter, 0, 31)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
@@ -4239,6 +5187,7 @@ typedef register_container RegDEVICEEavRefClockControl_t {
     BCM5719_DEVICE_H_uint32_t r32;
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_15_0, 0, 16)
         /** @brief The MAC/Port dedicated TimeSync_GPIO pin is mapped via this field */
@@ -4251,6 +5200,26 @@ typedef register_container RegDEVICEEavRefClockControl_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APEGPIO2Mapping, 24, 3)
         /** @brief APE_GPIO[3] pin is mapped to 1588 input/ output via this field */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APEGPIO3Mapping, 27, 3)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_28, 28, 4)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_28, 28, 4)
+        /** @brief APE_GPIO[3] pin is mapped to 1588 input/ output via this field */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APEGPIO3Mapping, 27, 3)
+        /** @brief APE_GPIO[2] pin is mapped to 1588 input/ output via this field */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APEGPIO2Mapping, 24, 3)
+        /** @brief APE_GPIO[1] pin is mapped to 1588 input/ output via this field */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APEGPIO1Mapping, 21, 3)
+        /** @brief APE_GPIO[0] pin is mapped to 1588 input/ output via this field */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APEGPIO0Mapping, 18, 3)
+        /** @brief The MAC/Port dedicated TimeSync_GPIO pin is mapped via this field */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, TimesyncGPIOMapping, 16, 2)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_15_0, 0, 16)
+#else
+#error Unknown Endian
+#endif
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
