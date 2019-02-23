@@ -719,6 +719,21 @@
             <ipxact:volatile>false</ipxact:volatile>
         </ipxact:memoryMap>
 
+        <!-- BOOTCODE: 0x800_0000 to 0x800_6FFF -->
+        <ipxact:memoryMap>
+            <ipxact:name>BOOTCODE</ipxact:name>
+            <ipxact:description>Firmware load address for stage1/stage2 (ram).</ipxact:description>
+            <ipxact:addressBlock>
+                <ipxact:name>BOOTCODE</ipxact:name>
+                <ipxact:description>Firmware load address for stage1/stage2 (ram).</ipxact:description>
+                <ipxact:baseAddress>0x8000000</ipxact:baseAddress>
+                <ipxact:range>0x7000</ipxact:range>
+            </ipxact:addressBlock>
+
+            <ipxact:usage>register</ipxact:usage>
+            <ipxact:volatile>false</ipxact:volatile>
+        </ipxact:memoryMap>
+
         <!-- APE Registers: 0xC001_0000 to  C001_8FFF-->
         <ipxact:memoryMap>
             <ipxact:name>APE</ipxact:name>

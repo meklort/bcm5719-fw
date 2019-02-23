@@ -2,7 +2,7 @@
 ###
 ### @file       bcm5719_sym.s
 ###
-### @project    <PROJECT>
+### @project    bcm5719
 ###
 ### @brief      bcm5719_sym.s
 ###
@@ -48,6 +48,10 @@
 .equ    APE, 0xc0010000
 .size   APE, 0x8440
 
+.global BOOTCODE
+.equ    BOOTCODE, 0x8000000
+.size   BOOTCODE, 0x7000
+
 .global DEVICE
 .equ    DEVICE, 0xc0000000
 .size   DEVICE, 0x7c08
@@ -58,14 +62,22 @@
 
 .global MII
 .equ    MII, 0x0
-.size   MII, 0x20
+.size   MII, 0x21
 
 .global NVM
 .equ    NVM, 0xc0007000
 .size   NVM, 0x28
 
+.global RXMBUF
+.equ    RXMBUF, 0x10000
+.size   RXMBUF, 0xc800
 
-.global BOOTCODE
-.equ    BOOTCODE, 0x8000000
-.size   BOOTCODE, 0x7000
+.global SDBCACHE
+.equ    SDBCACHE, 0x20000
+.size   SDBCACHE, 0xc800
+
+.global TXMBUF
+.equ    TXMBUF, 0x2c800
+.size   TXMBUF, 0x7400
+
 
