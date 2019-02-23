@@ -288,17 +288,8 @@ int main(int argc, char const *argv[])
             if("file" == options["target"])
             {
                 // write update file.
-                fstream outfile;
-                outfile.open(options["filename"], fstream::out | fstream::binary);
-                if(outfile.is_open())
+                if(!save_to_file(options["filename"].c_str(), (char*)nvram.bytes, NVRAM_SIZE))
                 {
-                    outfile.write((char*)nvram.bytes, NVRAM_SIZE);
-
-                    outfile.close();
-                }
-                else
-                {
-                    cerr << " Unable to open file '" << options["filename"] << "'" << endl;
                     exit(-1);
                 }
             }
