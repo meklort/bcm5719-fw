@@ -110,7 +110,10 @@ static inline void NVRam_waitDone(void)
 bool NVRam_acquireLock(void)
 {
     // Grab lock
-    NVM.SoftwareArbitration.bits.REQ = 1;
+    RegNVMSoftwareArbitration_t req;
+    req.r32 = 0;
+    req.bits.REQ = 1;
+    NVM.SoftwareArbitration = req;
 
     while (!NVM.SoftwareArbitration.bits.WON)
     {
@@ -123,7 +126,11 @@ bool NVRam_acquireLock(void)
 bool NVRam_releaseLock(void)
 {
     // Release locks
-    NVM.SoftwareArbitration.bits.CLR = 1;
+    RegNVMSoftwareArbitration_t req;
+    req.r32 = 0;
+    req.bits.CLR = 1;
+    NVM.SoftwareArbitration = req;
+
     return true;
 }
 
@@ -133,6 +140,7 @@ static uint32_t NVRam_readWordInternal(uint32_t address, RegNVMCommand_t cmd)
 
     // Clear the done bit
     RegNVMCommand_t done;
+    done.r32 = 0;
     done.bits.Done = 1;
 
     NVM.Command = done;
@@ -150,6 +158,7 @@ static void NVRam_writeWordInternal(uint32_t address, uint32_t data,
 
     // Clear the done bit
     RegNVMCommand_t done;
+    done.r32 = 0;
     done.bits.Done = 1;
 
     NVM.Command = done;
@@ -163,6 +172,7 @@ static void NVRam_writeWordInternal(uint32_t address, uint32_t data,
 uint32_t NVRam_readWord(uint32_t address)
 {
     RegNVMCommand_t cmd;
+    cmd.r32 = 0;
     cmd.bits.First = 1;
     cmd.bits.Last = 1;
     cmd.bits.Doit = 1;
@@ -180,6 +190,7 @@ void NVRam_read(uint32_t address, uint32_t *buffer, size_t words)
 
     // First word.
     RegNVMCommand_t cmd;
+    cmd.r32 = 0;
     cmd.bits.Doit = 1;
     cmd.bits.First = 1;
 
@@ -204,6 +215,7 @@ void NVRam_read(uint32_t address, uint32_t *buffer, size_t words)
 void NVRam_writeWord(uint32_t address, uint32_t data)
 {
     RegNVMCommand_t cmd;
+    cmd.r32 = 0;
     cmd.bits.First = 1;
     cmd.bits.Last = 1;
     cmd.bits.Doit = 1;
@@ -222,6 +234,7 @@ void NVRam_write(uint32_t address, uint32_t *buffer, size_t words)
 
     // First word.
     RegNVMCommand_t cmd;
+    cmd.r32 = 0;
     cmd.bits.Doit = 1;
     cmd.bits.First = 1;
     cmd.bits.Wr = 1;
