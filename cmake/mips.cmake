@@ -59,6 +59,11 @@ function(mips_add_executable target)
     target_compile_options(${target} PRIVATE ${MIPS_COMPILE_OPTIONS})
     target_link_libraries(${target} ${MIPS_LINK_OPTIONS})
     set_property(TARGET ${target} PROPERTY LINKER_LANGUAGE mips)
+
+    add_custom_command(
+        TARGET ${target} POST_BUILD
+        COMMAND llvm-objcopy -O binary ${target} ${target}.bin
+        BYPRODUCTS ${target}.bin)
 endfunction(mips_add_executable)
 
 # MIPS-specific libraries
