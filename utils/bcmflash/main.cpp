@@ -211,24 +211,41 @@ int main(int argc, char const *argv[])
     if(extract)
     {
         uint8_t* stage1 = &nvram.bytes[be32toh(nvram.contents.header.bootstrapOffset)];
-        size_t length = be32toh(nvram.contents.header.bootstrapWords) * 4;
+        uint32_t* stage1_wd = &nvram.words[be32toh(nvram.contents.header.bootstrapOffset)/4];
+        size_t length = (be32toh(nvram.contents.header.bootstrapWords) * 4) - 4; // last word is CRC
 
-        uint32_t crc_loc = (be32toh(nvram.contents.header.bootstrapOffset) + length) / 4;
+        uint32_t crc_word = length / 4;
 
-        uint32_t expected_crc = be32toh(~NVRam_crc(stage1, length - 4, 0xffffffff));
+        uint32_t expected_crc = be32toh(~NVRam_crc(stage1, length, 0xffffffff));
         printf("=== stage1 ===\n");
+        printf("Length (bytes):      0x%08zX\n", length);
+        printf("Offset:              0x%08lX\n", ((stage1_wd - nvram.words) * 4));
         printf("Calculated CRC:      0x%08X\n", expected_crc);
-        printf("CRC:                 0x%08X\n", be32toh(nvram.words[crc_loc - 1]));
+        printf("CRC:                 0x%08X\n", be32toh(stage1_wd[crc_word]));
 
 
         if(!save_to_file("stage1.bin", stage1, length))
         {
             exit(-1);
         }
-        exit(1);
-        // stage2 iocated immediately after stage1.
 
-        // crc?
+        // uint8_t* stage2 = &stage1[(crc_word + 1) * 4]; // immediately after stage1 crc
+        uint32_t* stage2_wd =  &stage1_wd[(crc_word + 1)]; // immediately after stage1 crc
+        uint32_t stage2_length = be32toh(stage2_wd[1]); // second word is size (bytes).
+        stage2_length -= 4;
+        uint32_t stage2_crc_word = stage2_length / 4 + 2; // +2 words for header size
+        printf("=== stage2 ===\n");
+        printf("Magic:               0x%08X\n", be32toh(stage2_wd[0]));
+        printf("Length (bytes):      0x%08X\n", stage2_length);
+        printf("Offset:              0x%08lX\n", ((stage2_wd - nvram.words) * 4));
+        uint32_t stage2_expected_crc = be32toh(~NVRam_crc((uint8_t*)&stage2_wd[2], stage2_length, 0xffffffff));
+        printf("Calculated CRC:      0x%08X\n", stage2_expected_crc);
+        printf("CRC:                 0x%08X\n", be32toh(stage2_wd[stage2_crc_word]));
+
+        if(!save_to_file("stage2.bin", &stage2_wd[2], stage2_length))
+        {
+            exit(-1);
+        }
     }
 
 #if 1
