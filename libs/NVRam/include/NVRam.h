@@ -58,7 +58,9 @@ void NVRam_writeWord(uint32_t address, uint32_t data);
 void NVRam_write(uint32_t address, uint32_t *buffer, size_t words);
 
 void NVRam_enable(void);
+void NVRam_enableWrites(void);
 void NVRam_disable(void);
+void NVRam_disableWrites(void);
 
 uint32_t NVRam_crc(uint8_t *pcDatabuf, // Pointer to data buffer
                    uint32_t ulDatalen, // Length of data buffer in bytes

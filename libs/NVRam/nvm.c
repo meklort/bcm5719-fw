@@ -90,15 +90,24 @@ static inline uint32_t NVRam_translate(uint32_t address)
 
 void NVRam_enable(void)
 {
-    // TODO: enable both bits on read.
     NVM.Access.bits.Enable = 1;
+}
+
+void NVRam_enableWrites(void)
+{
+    NVM.Access.bits.WriteEnable = 1;
 }
 
 void NVRam_disable(void)
 {
-    // TODO: enable both bits on read.
     NVM.Access.bits.Enable = 0;
 }
+
+void NVRam_disableWrites(void)
+{
+    NVM.Access.bits.WriteEnable = 0;
+}
+
 
 static inline void NVRam_waitDone(void)
 {
@@ -214,14 +223,19 @@ void NVRam_read(uint32_t address, uint32_t *buffer, size_t words)
 
 void NVRam_writeWord(uint32_t address, uint32_t data)
 {
-    RegNVMCommand_t cmd;
-    cmd.r32 = 0;
-    cmd.bits.First = 1;
-    cmd.bits.Last = 1;
-    cmd.bits.Doit = 1;
-    cmd.bits.Wr = 1;
+    if(data !=  NVRam_readWord(address))
+    {
+        // Only write if different.
 
-    NVRam_writeWordInternal(address, data, cmd);
+        RegNVMCommand_t cmd;
+        cmd.r32 = 0;
+        cmd.bits.First = 1;
+        cmd.bits.Last = 1;
+        cmd.bits.Doit = 1;
+        cmd.bits.Wr = 1;
+
+        NVRam_writeWordInternal(address, data, cmd);
+    }
 }
 
 void NVRam_write(uint32_t address, uint32_t *buffer, size_t words)
