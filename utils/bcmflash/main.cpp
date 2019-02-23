@@ -293,6 +293,20 @@ int main(int argc, char const *argv[])
                     exit(-1);
                 }
             }
+
+            if("hardware" == options["target"])
+            {
+                NVRam_acquireLock();
+
+                NVRam_enable();
+                NVRam_enableWrites();
+
+                NVRam_write(0, nvram.words, NVRAM_SIZE / 4);
+
+                NVRam_disableWrites();
+
+                NVRam_releaseLock();
+            }
         }
         else
         {
