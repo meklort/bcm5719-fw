@@ -184,7 +184,7 @@ bool vpd_is_valid(uint8_t *buffer, size_t len)
     }
 
     // TODO: check checksum.
-    return true;
+    return len != 0;
 }
 
 uint8_t *vpd_get_identifier(uint8_t *buffer, size_t *len)

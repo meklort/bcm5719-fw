@@ -227,5 +227,11 @@ _Static_assert(ELEMENT_OFFSET(NVRAMContents_t, vpd) == 0x100, "VPD must be locat
 _Static_assert(sizeof(NVRAMContents_t) == 0x28C, "sizeof(NVRAMContents) must be 0x28C.");
 
 
+typedef struct {
+    uint32_t magic; // BCM_NVRAM_MAGIC
+    uint32_t length;
+    uint32_t words[];
+    // uint32_t crc;
+} NVRAMStage2_t;
 
 #endif
