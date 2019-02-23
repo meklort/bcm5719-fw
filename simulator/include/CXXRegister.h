@@ -48,6 +48,7 @@
 #include <utility>
 #include <stdio.h>
 #include <iostream>
+#include <iomanip>      // std::setw
 
 class CXXRegisterBase
 {
@@ -83,10 +84,17 @@ public:
         return mName;
     }
 
-    void print(unsigned int value)
+    void print(unsigned int value, int indent = false)
     {
         unsigned int masked = value & mMask;
-        std::cout << mName << ": " << std::hex << (masked >> mBitPosition) << std::endl;
+        if(indent)
+        {
+            std::cout << std::setw(30) << mName << ": " << std::hex << (masked >> mBitPosition) << std::endl;
+        }
+        else
+        {
+            std::cout << std::endl << mName << ": " << std::hex << (masked >> mBitPosition) << std::endl;
+        }
     }
 
     void printAll(unsigned int value)
@@ -94,7 +102,7 @@ public:
         std::vector<CXXRegisterBase*>::iterator it;
         for(it = mRelatedRegisters.begin(); it != mRelatedRegisters.end(); it++)
         {
-            (*it)->print(value);
+            (*it)->print(value, true);
         }
     }
 
