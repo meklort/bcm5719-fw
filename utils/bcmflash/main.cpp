@@ -68,9 +68,28 @@
 using namespace std;
 using optparse::OptionParser;
 
-#define NVRAM_SIZE      (1024u * 255u) /* 256KB */
+
+bool save_to_file(const char* filename, void* buffer, size_t size)
+{
+    cout << "Writing to " << filename << "." << endl;
+    FILE* out = fopen(filename, "w+");
+    if(out)
+    {
+        fwrite(buffer, size, 1, out);
+        fclose(out);
+        return true;
+    }
+    else
+    {
+        cerr << "Unable to open " << filename << " for writing." << endl;
+        return false;
+    }
+}
+
+#define NVRAM_SIZE      (1024u * 256u) /* 256KB */
 int main(int argc, char const *argv[])
 {
+    bool extract = false;
     union {
         uint8_t         bytes[NVRAM_SIZE];
         uint32_t        words[NVRAM_SIZE/4];
@@ -90,6 +109,13 @@ int main(int argc, char const *argv[])
             .dest("filename")
             .help("Read from the specified file")
             .metavar("FILE");
+
+    parser.add_option("-b", "--backup")
+            .dest("backup")
+            .help("Backup the firmware to the specified file.")
+            .metavar("TYPE")
+            .help(  "binary:  Save a raw binary copy of the firmware to firmware.fw.\n"
+                    "extract: Save each individual stage to <stage>.fw.\n");
 
     parser.add_option("-1", "--stage1")
             .dest("stage1")
@@ -147,15 +173,9 @@ int main(int argc, char const *argv[])
 
         NVRam_enable();
 
-        NVRam_read(0, nvram.words, sizeof(NVRAMContents_t) / 4);
+        NVRam_read(0, nvram.words, NVRAM_SIZE / 4);
 
         NVRam_releaseLock();
-
-
-        // FILE* out = fopen("firmware.fw", "w+");
-        // fwrite(nvram.bytes, NVRAM_SIZE, 1, out);
-        // fclose(out);
-
     }
     else
     {
@@ -164,8 +184,54 @@ int main(int argc, char const *argv[])
         exit(-1);
     }
 
-#if 1
 
+    if(options.is_set("backup"))
+    {
+        if("binary" ==  options["backup"])
+        {
+            // Save to file.
+            if(!save_to_file("firmware.fw", nvram.bytes, NVRAM_SIZE))
+            {
+                exit(-1);
+            }
+        }
+        else if ("extract" ==  options["backup"])
+        {
+            extract = true;
+        }
+        else
+        {
+            cerr << "Invalid backup type specified." << endl;
+            parser.print_help();
+            exit(-1);
+        }
+    }
+
+
+    if(extract)
+    {
+        uint8_t* stage1 = &nvram.bytes[be32toh(nvram.contents.header.bootstrapOffset)];
+        size_t length = be32toh(nvram.contents.header.bootstrapWords) * 4;
+
+        uint32_t crc_loc = (be32toh(nvram.contents.header.bootstrapOffset) + length) / 4;
+
+        uint32_t expected_crc = be32toh(~NVRam_crc(stage1, length - 4, 0xffffffff));
+        printf("=== stage1 ===\n");
+        printf("Calculated CRC:      0x%08X\n", expected_crc);
+        printf("CRC:                 0x%08X\n", be32toh(nvram.words[crc_loc - 1]));
+
+
+        if(!save_to_file("stage1.bin", stage1, length))
+        {
+            exit(-1);
+        }
+        exit(1);
+        // stage2 iocated immediately after stage1.
+
+        // crc?
+    }
+
+#if 1
 
     printf("=== Header ===\n");
     printf("Magic:               0x%08X\n", be32toh(nvram.contents.header.magic));
@@ -200,6 +266,16 @@ int main(int argc, char const *argv[])
             printf("Code CPU:       0x%02X\n", cpu);
             printf("Code Type:      0x%02X\n", type);
             printf("\n");
+
+            uint8_t* cd_loc = &nvram.bytes[be32toh(nvram.contents.directory[i].directoryOffset)];
+            char* cd_name = strdup("cdN.bin");
+            cd_name[2] = '0' + i;
+            if(!save_to_file(cd_name, cd_loc, length))
+            {
+                exit(-1);
+            }
+            free(cd_name);
+
         }
     }
 
