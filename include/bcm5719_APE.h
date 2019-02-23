@@ -123,14 +123,26 @@ typedef register_container RegAPEMode_t {
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, MemoryECC, 18, 1)
     BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "Mode"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegAPEMode_t()
     {
         /** @brief constructor for @ref APE_t.Mode. */
+        r32.setName("Mode");
         bits.Reset.setBaseRegister(&r32);
+        bits.Reset.setName("Reset");
         bits.Halt.setBaseRegister(&r32);
+        bits.Halt.setName("Halt");
         bits.FastBoot.setBaseRegister(&r32);
+        bits.FastBoot.setName("FastBoot");
         bits.HostDiag.setBaseRegister(&r32);
+        bits.HostDiag.setName("HostDiag");
         bits.MemoryECC.setBaseRegister(&r32);
+        bits.MemoryECC.setName("MemoryECC");
     }
     RegAPEMode_t& operator=(const RegAPEMode_t& other)
     {
@@ -230,16 +242,30 @@ typedef register_container RegAPEStatus_t {
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, BootStatusA, 28, 4)
     BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "Status"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegAPEStatus_t()
     {
         /** @brief constructor for @ref APE_t.Status. */
+        r32.setName("Status");
         bits.PCIeReset.setBaseRegister(&r32);
+        bits.PCIeReset.setName("PCIeReset");
         bits.LAN0Dstate.setBaseRegister(&r32);
+        bits.LAN0Dstate.setName("LAN0Dstate");
         bits.BootMode.setBaseRegister(&r32);
+        bits.BootMode.setName("BootMode");
         bits.NVRAMControlReset.setBaseRegister(&r32);
+        bits.NVRAMControlReset.setName("NVRAMControlReset");
         bits.LAN1Dstate.setBaseRegister(&r32);
+        bits.LAN1Dstate.setName("LAN1Dstate");
         bits.BootStatusB.setBaseRegister(&r32);
+        bits.BootStatusB.setName("BootStatusB");
         bits.BootStatusA.setBaseRegister(&r32);
+        bits.BootStatusA.setName("BootStatusA");
     }
     RegAPEStatus_t& operator=(const RegAPEStatus_t& other)
     {
@@ -272,10 +298,18 @@ typedef register_container RegAPEEvent_t {
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, _1, 0, 1)
     BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "Event"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegAPEEvent_t()
     {
         /** @brief constructor for @ref APE_t.Event. */
+        r32.setName("Event");
         bits._1.setBaseRegister(&r32);
+        bits._1.setName("_1");
     }
     RegAPEEvent_t& operator=(const RegAPEEvent_t& other)
     {
@@ -399,21 +433,40 @@ typedef register_container RegAPEGpio_t {
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, PIN3ModeOutput, 19, 1)
     BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "Gpio"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegAPEGpio_t()
     {
         /** @brief constructor for @ref APE_t.Gpio. */
+        r32.setName("Gpio");
         bits.PIN0Unknown.setBaseRegister(&r32);
+        bits.PIN0Unknown.setName("PIN0Unknown");
         bits.PIN1Unknown.setBaseRegister(&r32);
+        bits.PIN1Unknown.setName("PIN1Unknown");
         bits.PIN2Unknown.setBaseRegister(&r32);
+        bits.PIN2Unknown.setName("PIN2Unknown");
         bits.PIN3Unknown.setBaseRegister(&r32);
+        bits.PIN3Unknown.setName("PIN3Unknown");
         bits.PIN0UnknownOut.setBaseRegister(&r32);
+        bits.PIN0UnknownOut.setName("PIN0UnknownOut");
         bits.PIN1UnknownOut.setBaseRegister(&r32);
+        bits.PIN1UnknownOut.setName("PIN1UnknownOut");
         bits.PIN2UnknownOut.setBaseRegister(&r32);
+        bits.PIN2UnknownOut.setName("PIN2UnknownOut");
         bits.PIN3UnknownOut.setBaseRegister(&r32);
+        bits.PIN3UnknownOut.setName("PIN3UnknownOut");
         bits.PIN0ModeOutput.setBaseRegister(&r32);
+        bits.PIN0ModeOutput.setName("PIN0ModeOutput");
         bits.PIN1ModeOutput.setBaseRegister(&r32);
+        bits.PIN1ModeOutput.setName("PIN1ModeOutput");
         bits.PIN2ModeOutput.setBaseRegister(&r32);
+        bits.PIN2ModeOutput.setName("PIN2ModeOutput");
         bits.PIN3ModeOutput.setBaseRegister(&r32);
+        bits.PIN3ModeOutput.setName("PIN3ModeOutput");
     }
     RegAPEGpio_t& operator=(const RegAPEGpio_t& other)
     {
@@ -454,11 +507,20 @@ typedef register_container RegAPEOtpControl_t {
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, ProgEnable, 21, 1)
     BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "OtpControl"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegAPEOtpControl_t()
     {
         /** @brief constructor for @ref APE_t.OtpControl. */
+        r32.setName("OtpControl");
         bits.Start.setBaseRegister(&r32);
+        bits.Start.setName("Start");
         bits.ProgEnable.setBaseRegister(&r32);
+        bits.ProgEnable.setName("ProgEnable");
     }
     RegAPEOtpControl_t& operator=(const RegAPEOtpControl_t& other)
     {
@@ -484,10 +546,18 @@ typedef register_container RegAPEOtpStatus_t {
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, CommandDone, 0, 1)
     BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "OtpStatus"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegAPEOtpStatus_t()
     {
         /** @brief constructor for @ref APE_t.OtpStatus. */
+        r32.setName("OtpStatus");
         bits.CommandDone.setBaseRegister(&r32);
+        bits.CommandDone.setName("CommandDone");
     }
     RegAPEOtpStatus_t& operator=(const RegAPEOtpStatus_t& other)
     {
@@ -519,11 +589,20 @@ typedef register_container RegAPEOtpAddr_t {
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, CPUEnable, 31, 1)
     BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "OtpAddr"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegAPEOtpAddr_t()
     {
         /** @brief constructor for @ref APE_t.OtpAddr. */
+        r32.setName("OtpAddr");
         bits.Address.setBaseRegister(&r32);
+        bits.Address.setName("Address");
         bits.CPUEnable.setBaseRegister(&r32);
+        bits.CPUEnable.setName("CPUEnable");
     }
     RegAPEOtpAddr_t& operator=(const RegAPEOtpAddr_t& other)
     {
@@ -566,10 +645,18 @@ typedef register_container RegAPECm3_t {
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, CPUStatus, 0, 4)
     BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "Cm3"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegAPECm3_t()
     {
         /** @brief constructor for @ref APE_t.Cm3. */
+        r32.setName("Cm3");
         bits.CPUStatus.setBaseRegister(&r32);
+        bits.CPUStatus.setName("CPUStatus");
     }
     RegAPECm3_t& operator=(const RegAPECm3_t& other)
     {
@@ -612,11 +699,20 @@ typedef register_container RegAPEFwStatus_t {
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, unknown_31_28, 28, 4)
     BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "FwStatus"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegAPEFwStatus_t()
     {
         /** @brief constructor for @ref APE_t.FwStatus. */
+        r32.setName("FwStatus");
         bits.Ready.setBaseRegister(&r32);
+        bits.Ready.setName("Ready");
         bits.unknown_31_28.setBaseRegister(&r32);
+        bits.unknown_31_28.setName("unknown_31_28");
     }
     RegAPEFwStatus_t& operator=(const RegAPEFwStatus_t& other)
     {
@@ -644,10 +740,18 @@ typedef register_container RegAPEFwFeatures_t {
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, NCSI, 1, 1)
     BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "FwFeatures"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegAPEFwFeatures_t()
     {
         /** @brief constructor for @ref APE_t.FwFeatures. */
+        r32.setName("FwFeatures");
         bits.NCSI.setBaseRegister(&r32);
+        bits.NCSI.setName("NCSI");
     }
     RegAPEFwFeatures_t& operator=(const RegAPEFwFeatures_t& other)
     {
@@ -698,13 +802,24 @@ typedef register_container RegAPEFwVersion_t {
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Major, 24, 8)
     BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "FwVersion"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegAPEFwVersion_t()
     {
         /** @brief constructor for @ref APE_t.FwVersion. */
+        r32.setName("FwVersion");
         bits.Build.setBaseRegister(&r32);
+        bits.Build.setName("Build");
         bits.Revision.setBaseRegister(&r32);
+        bits.Revision.setName("Revision");
         bits.Minor.setBaseRegister(&r32);
+        bits.Minor.setName("Minor");
         bits.Major.setBaseRegister(&r32);
+        bits.Major.setName("Major");
     }
     RegAPEFwVersion_t& operator=(const RegAPEFwVersion_t& other)
     {
@@ -877,10 +992,18 @@ typedef register_container RegAPEHostBehavior_t {
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, NoPHYLock, 0, 1)
     BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "HostBehavior"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegAPEHostBehavior_t()
     {
         /** @brief constructor for @ref APE_t.HostBehavior. */
+        r32.setName("HostBehavior");
         bits.NoPHYLock.setBaseRegister(&r32);
+        bits.NoPHYLock.setName("NoPHYLock");
     }
     RegAPEHostBehavior_t& operator=(const RegAPEHostBehavior_t& other)
     {
@@ -967,13 +1090,24 @@ typedef register_container RegAPEEventStatus_t {
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Pending, 31, 1)
     BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "EventStatus"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegAPEEventStatus_t()
     {
         /** @brief constructor for @ref APE_t.EventStatus. */
+        r32.setName("EventStatus");
         bits.DriverEvent.setBaseRegister(&r32);
+        bits.DriverEvent.setName("DriverEvent");
         bits.Command.setBaseRegister(&r32);
+        bits.Command.setName("Command");
         bits.State.setBaseRegister(&r32);
+        bits.State.setName("State");
         bits.Pending.setBaseRegister(&r32);
+        bits.Pending.setName("Pending");
     }
     RegAPEEventStatus_t& operator=(const RegAPEEventStatus_t& other)
     {

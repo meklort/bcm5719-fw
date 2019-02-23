@@ -47,6 +47,7 @@
 #include <vector>
 #include <utility>
 #include <stdio.h>
+#include <iostream>
 
 class CXXRegisterBase
 {
@@ -72,10 +73,37 @@ public:
 
     }
 
+    void setName(const char* name)
+    {
+        mName = name;
+    }
+
+    const char* getName(void)
+    {
+        return mName;
+    }
+
+    void print(unsigned int value)
+    {
+        unsigned int masked = value & mMask;
+        std::cout << mName << ": " << std::hex << (masked >> mBitPosition) << std::endl;
+    }
+
+    void printAll(unsigned int value)
+    {
+        std::vector<CXXRegisterBase*>::iterator it;
+        for(it = mRelatedRegisters.begin(); it != mRelatedRegisters.end(); it++)
+        {
+            (*it)->print(value);
+        }
+    }
+
+
 protected:
     unsigned int mBitPosition;
     unsigned int mBitWidth;
     unsigned int mMask;
+    const char*  mName;
 
     std::vector<CXXRegisterBase*> mRelatedRegisters;
 
@@ -163,7 +191,6 @@ protected:
             doReadCallbacks();
         }
     }
-
 };
 
 template<typename T, unsigned int OFFSET, unsigned int WIDTH> class CXXRegister : public CXXRegisterBase
@@ -276,6 +303,13 @@ public:
     virtual ~CXXRegister()
     {
 
+    }
+
+    void print(void)
+    {
+        T value = doRead();
+        CXXRegisterBase::print(value);
+        CXXRegisterBase::printAll(value);
     }
 
     T getValue()

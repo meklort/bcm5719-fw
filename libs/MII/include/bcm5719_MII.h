@@ -164,20 +164,38 @@ typedef register_container RegMIIControl_t {
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, Reset, 15, 1)
     BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "Control"; }
+
+    /** @brief Print register value. */
+    void print(void) { r16.print(); }
+
     RegMIIControl_t()
     {
         /** @brief constructor for @ref MII_t.Control. */
+        r16.setName("Control");
         bits.UnidirectionalMode_GPHYonly_.setBaseRegister(&r16);
+        bits.UnidirectionalMode_GPHYonly_.setName("UnidirectionalMode_GPHYonly_");
         bits.SpeedSelectMSB.setBaseRegister(&r16);
+        bits.SpeedSelectMSB.setName("SpeedSelectMSB");
         bits.CollisionTestMode.setBaseRegister(&r16);
+        bits.CollisionTestMode.setName("CollisionTestMode");
         bits.FullDuplexMode.setBaseRegister(&r16);
+        bits.FullDuplexMode.setName("FullDuplexMode");
         bits.RestartAutonegotiation.setBaseRegister(&r16);
+        bits.RestartAutonegotiation.setName("RestartAutonegotiation");
         bits.Isolate_GPHYonly_.setBaseRegister(&r16);
+        bits.Isolate_GPHYonly_.setName("Isolate_GPHYonly_");
         bits.PowerDown.setBaseRegister(&r16);
+        bits.PowerDown.setName("PowerDown");
         bits.AutoNegotiationEnable.setBaseRegister(&r16);
+        bits.AutoNegotiationEnable.setName("AutoNegotiationEnable");
         bits.SpeedSelectLSB.setBaseRegister(&r16);
+        bits.SpeedSelectLSB.setName("SpeedSelectLSB");
         bits.LoopbackMode.setBaseRegister(&r16);
+        bits.LoopbackMode.setName("LoopbackMode");
         bits.Reset.setBaseRegister(&r16);
+        bits.Reset.setName("Reset");
     }
     RegMIIControl_t& operator=(const RegMIIControl_t& other)
     {
@@ -293,25 +311,48 @@ typedef register_container RegMIIStatus_t {
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _100BASE_T4Capable, 15, 1)
     BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "Status"; }
+
+    /** @brief Print register value. */
+    void print(void) { r16.print(); }
+
     RegMIIStatus_t()
     {
         /** @brief constructor for @ref MII_t.Status. */
+        r16.setName("Status");
         bits.ExtendedCapabilitiesSupported.setBaseRegister(&r16);
+        bits.ExtendedCapabilitiesSupported.setName("ExtendedCapabilitiesSupported");
         bits.JabberDetected.setBaseRegister(&r16);
+        bits.JabberDetected.setName("JabberDetected");
         bits.LinkOK.setBaseRegister(&r16);
+        bits.LinkOK.setName("LinkOK");
         bits.AutoNegotiationCapable.setBaseRegister(&r16);
+        bits.AutoNegotiationCapable.setName("AutoNegotiationCapable");
         bits.RemoteFaultDetected.setBaseRegister(&r16);
+        bits.RemoteFaultDetected.setName("RemoteFaultDetected");
         bits.AutoNegotiationComplete.setBaseRegister(&r16);
+        bits.AutoNegotiationComplete.setName("AutoNegotiationComplete");
         bits.MFPreambleSuppression.setBaseRegister(&r16);
+        bits.MFPreambleSuppression.setName("MFPreambleSuppression");
         bits.UnidirectionalCapable_GPHYonly_.setBaseRegister(&r16);
+        bits.UnidirectionalCapable_GPHYonly_.setName("UnidirectionalCapable_GPHYonly_");
         bits.ExtendedStatusSupported.setBaseRegister(&r16);
+        bits.ExtendedStatusSupported.setName("ExtendedStatusSupported");
         bits._100BASE_T2HalfDuplexCapable.setBaseRegister(&r16);
+        bits._100BASE_T2HalfDuplexCapable.setName("_100BASE_T2HalfDuplexCapable");
         bits._100BASE_T2FullDuplexCapable.setBaseRegister(&r16);
+        bits._100BASE_T2FullDuplexCapable.setName("_100BASE_T2FullDuplexCapable");
         bits._10BASE_THalfDuplexCapable.setBaseRegister(&r16);
+        bits._10BASE_THalfDuplexCapable.setName("_10BASE_THalfDuplexCapable");
         bits._10BASE_TFullDuplexCapable.setBaseRegister(&r16);
+        bits._10BASE_TFullDuplexCapable.setName("_10BASE_TFullDuplexCapable");
         bits._100BASE_XHalfDuplexCapable.setBaseRegister(&r16);
+        bits._100BASE_XHalfDuplexCapable.setName("_100BASE_XHalfDuplexCapable");
         bits._100BASE_XFullDuplexCapable.setBaseRegister(&r16);
+        bits._100BASE_XFullDuplexCapable.setName("_100BASE_XFullDuplexCapable");
         bits._100BASE_T4Capable.setBaseRegister(&r16);
+        bits._100BASE_T4Capable.setName("_100BASE_T4Capable");
     }
     RegMIIStatus_t& operator=(const RegMIIStatus_t& other)
     {
@@ -337,10 +378,18 @@ typedef register_container RegMIIPhyIdHigh_t {
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, OUIHigh, 0, 16)
     BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "PhyIdHigh"; }
+
+    /** @brief Print register value. */
+    void print(void) { r16.print(); }
+
     RegMIIPhyIdHigh_t()
     {
         /** @brief constructor for @ref MII_t.PhyIdHigh. */
+        r16.setName("PhyIdHigh");
         bits.OUIHigh.setBaseRegister(&r16);
+        bits.OUIHigh.setName("OUIHigh");
     }
     RegMIIPhyIdHigh_t& operator=(const RegMIIPhyIdHigh_t& other)
     {
@@ -378,12 +427,22 @@ typedef register_container RegMIIPhyIdLow_t {
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, OUILow, 10, 6)
     BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "PhyIdLow"; }
+
+    /** @brief Print register value. */
+    void print(void) { r16.print(); }
+
     RegMIIPhyIdLow_t()
     {
         /** @brief constructor for @ref MII_t.PhyIdLow. */
+        r16.setName("PhyIdLow");
         bits.Revision.setBaseRegister(&r16);
+        bits.Revision.setName("Revision");
         bits.Model.setBaseRegister(&r16);
+        bits.Model.setName("Model");
         bits.OUILow.setBaseRegister(&r16);
+        bits.OUILow.setName("OUILow");
     }
     RegMIIPhyIdLow_t& operator=(const RegMIIPhyIdLow_t& other)
     {
@@ -469,19 +528,36 @@ typedef register_container RegMIIAutonegotiationAdvertisement_t {
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, NextPage, 15, 1)
     BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "AutonegotiationAdvertisement"; }
+
+    /** @brief Print register value. */
+    void print(void) { r16.print(); }
+
     RegMIIAutonegotiationAdvertisement_t()
     {
         /** @brief constructor for @ref MII_t.AutonegotiationAdvertisement. */
+        r16.setName("AutonegotiationAdvertisement");
         bits.ProtocolSelect.setBaseRegister(&r16);
+        bits.ProtocolSelect.setName("ProtocolSelect");
         bits._10BASE_THalfDuplexCapable.setBaseRegister(&r16);
+        bits._10BASE_THalfDuplexCapable.setName("_10BASE_THalfDuplexCapable");
         bits._10BASE_TFullDuplexCapable.setBaseRegister(&r16);
+        bits._10BASE_TFullDuplexCapable.setName("_10BASE_TFullDuplexCapable");
         bits._100BASE_TXHalfDuplexCapable.setBaseRegister(&r16);
+        bits._100BASE_TXHalfDuplexCapable.setName("_100BASE_TXHalfDuplexCapable");
         bits._100BASE_TXFullDuplexCapable.setBaseRegister(&r16);
+        bits._100BASE_TXFullDuplexCapable.setName("_100BASE_TXFullDuplexCapable");
         bits._100BASE_T4Capable.setBaseRegister(&r16);
+        bits._100BASE_T4Capable.setName("_100BASE_T4Capable");
         bits.PauseCapable.setBaseRegister(&r16);
+        bits.PauseCapable.setName("PauseCapable");
         bits.AsymmetricPauseCapable.setBaseRegister(&r16);
+        bits.AsymmetricPauseCapable.setName("AsymmetricPauseCapable");
         bits.RemoteFault.setBaseRegister(&r16);
+        bits.RemoteFault.setName("RemoteFault");
         bits.NextPage.setBaseRegister(&r16);
+        bits.NextPage.setName("NextPage");
     }
     RegMIIAutonegotiationAdvertisement_t& operator=(const RegMIIAutonegotiationAdvertisement_t& other)
     {
@@ -569,20 +645,38 @@ typedef register_container RegMIIAutonegotiationLinkPartnerAbilityBasePage_t {
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, NextPage, 15, 1)
     BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "AutonegotiationLinkPartnerAbilityBasePage"; }
+
+    /** @brief Print register value. */
+    void print(void) { r16.print(); }
+
     RegMIIAutonegotiationLinkPartnerAbilityBasePage_t()
     {
         /** @brief constructor for @ref MII_t.AutonegotiationLinkPartnerAbilityBasePage. */
+        r16.setName("AutonegotiationLinkPartnerAbilityBasePage");
         bits.ProtocolSelector.setBaseRegister(&r16);
+        bits.ProtocolSelector.setName("ProtocolSelector");
         bits._10BASE_THalfDuplexCapable.setBaseRegister(&r16);
+        bits._10BASE_THalfDuplexCapable.setName("_10BASE_THalfDuplexCapable");
         bits._10BASE_TFullDuplexCapable.setBaseRegister(&r16);
+        bits._10BASE_TFullDuplexCapable.setName("_10BASE_TFullDuplexCapable");
         bits._100BASE_TXHalfDuplexCapable.setBaseRegister(&r16);
+        bits._100BASE_TXHalfDuplexCapable.setName("_100BASE_TXHalfDuplexCapable");
         bits._100BASE_TXFullDuplexCapable.setBaseRegister(&r16);
+        bits._100BASE_TXFullDuplexCapable.setName("_100BASE_TXFullDuplexCapable");
         bits._100BASE_T4Capable.setBaseRegister(&r16);
+        bits._100BASE_T4Capable.setName("_100BASE_T4Capable");
         bits.PauseCapable.setBaseRegister(&r16);
+        bits.PauseCapable.setName("PauseCapable");
         bits.AsymmetricPauseCapable.setBaseRegister(&r16);
+        bits.AsymmetricPauseCapable.setName("AsymmetricPauseCapable");
         bits.RemoteFault.setBaseRegister(&r16);
+        bits.RemoteFault.setName("RemoteFault");
         bits.Acknowledge.setBaseRegister(&r16);
+        bits.Acknowledge.setName("Acknowledge");
         bits.NextPage.setBaseRegister(&r16);
+        bits.NextPage.setName("NextPage");
     }
     RegMIIAutonegotiationLinkPartnerAbilityBasePage_t& operator=(const RegMIIAutonegotiationLinkPartnerAbilityBasePage_t& other)
     {
@@ -647,16 +741,30 @@ typedef register_container RegMIIAutonegotiationExpansion_t {
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, NextPageReceiveLocationCapable, 6, 1)
     BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "AutonegotiationExpansion"; }
+
+    /** @brief Print register value. */
+    void print(void) { r16.print(); }
+
     RegMIIAutonegotiationExpansion_t()
     {
         /** @brief constructor for @ref MII_t.AutonegotiationExpansion. */
+        r16.setName("AutonegotiationExpansion");
         bits.LinkPartnerAutonegotiationCapable.setBaseRegister(&r16);
+        bits.LinkPartnerAutonegotiationCapable.setName("LinkPartnerAutonegotiationCapable");
         bits.PageReceived.setBaseRegister(&r16);
+        bits.PageReceived.setName("PageReceived");
         bits.NextPageCapable.setBaseRegister(&r16);
+        bits.NextPageCapable.setName("NextPageCapable");
         bits.LinkPartnerNextPageCapable.setBaseRegister(&r16);
+        bits.LinkPartnerNextPageCapable.setName("LinkPartnerNextPageCapable");
         bits.ParallelDetectionFault.setBaseRegister(&r16);
+        bits.ParallelDetectionFault.setName("ParallelDetectionFault");
         bits.NextPageReceiveLocation.setBaseRegister(&r16);
+        bits.NextPageReceiveLocation.setName("NextPageReceiveLocation");
         bits.NextPageReceiveLocationCapable.setBaseRegister(&r16);
+        bits.NextPageReceiveLocationCapable.setName("NextPageReceiveLocationCapable");
     }
     RegMIIAutonegotiationExpansion_t& operator=(const RegMIIAutonegotiationExpansion_t& other)
     {
@@ -708,14 +816,26 @@ typedef register_container RegMIIAutonegotiationNextPageTransmit_t {
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, NextPage, 15, 1)
     BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "AutonegotiationNextPageTransmit"; }
+
+    /** @brief Print register value. */
+    void print(void) { r16.print(); }
+
     RegMIIAutonegotiationNextPageTransmit_t()
     {
         /** @brief constructor for @ref MII_t.AutonegotiationNextPageTransmit. */
+        r16.setName("AutonegotiationNextPageTransmit");
         bits.CodeField.setBaseRegister(&r16);
+        bits.CodeField.setName("CodeField");
         bits.Toggle.setBaseRegister(&r16);
+        bits.Toggle.setName("Toggle");
         bits.Acknowledge2.setBaseRegister(&r16);
+        bits.Acknowledge2.setName("Acknowledge2");
         bits.MessagePage.setBaseRegister(&r16);
+        bits.MessagePage.setName("MessagePage");
         bits.NextPage.setBaseRegister(&r16);
+        bits.NextPage.setName("NextPage");
     }
     RegMIIAutonegotiationNextPageTransmit_t& operator=(const RegMIIAutonegotiationNextPageTransmit_t& other)
     {
@@ -771,15 +891,28 @@ typedef register_container RegMIIAutonegotiationLinkPartnerAbilityNextPage_t {
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, NextPage, 15, 1)
     BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "AutonegotiationLinkPartnerAbilityNextPage"; }
+
+    /** @brief Print register value. */
+    void print(void) { r16.print(); }
+
     RegMIIAutonegotiationLinkPartnerAbilityNextPage_t()
     {
         /** @brief constructor for @ref MII_t.AutonegotiationLinkPartnerAbilityNextPage. */
+        r16.setName("AutonegotiationLinkPartnerAbilityNextPage");
         bits.CodeField.setBaseRegister(&r16);
+        bits.CodeField.setName("CodeField");
         bits.Toggle2.setBaseRegister(&r16);
+        bits.Toggle2.setName("Toggle2");
         bits.Acknowledge2.setBaseRegister(&r16);
+        bits.Acknowledge2.setName("Acknowledge2");
         bits.MessagePage.setBaseRegister(&r16);
+        bits.MessagePage.setName("MessagePage");
         bits.Acknowledge3.setBaseRegister(&r16);
+        bits.Acknowledge3.setName("Acknowledge3");
         bits.NextPage.setBaseRegister(&r16);
+        bits.NextPage.setName("NextPage");
     }
     RegMIIAutonegotiationLinkPartnerAbilityNextPage_t& operator=(const RegMIIAutonegotiationLinkPartnerAbilityNextPage_t& other)
     {
@@ -837,15 +970,28 @@ typedef register_container RegMII1000baseTControl_t {
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, TestMode, 13, 3)
     BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "1000baseTControl"; }
+
+    /** @brief Print register value. */
+    void print(void) { r16.print(); }
+
     RegMII1000baseTControl_t()
     {
         /** @brief constructor for @ref MII_t.1000baseTControl. */
+        r16.setName("1000baseTControl");
         bits.Advertise1000BASE_THalfDuplex.setBaseRegister(&r16);
+        bits.Advertise1000BASE_THalfDuplex.setName("Advertise1000BASE_THalfDuplex");
         bits.Advertise1000BASE_TFullDuplex.setBaseRegister(&r16);
+        bits.Advertise1000BASE_TFullDuplex.setName("Advertise1000BASE_TFullDuplex");
         bits.RepeaterDTE.setBaseRegister(&r16);
+        bits.RepeaterDTE.setName("RepeaterDTE");
         bits.MasterSlaveConfigValue.setBaseRegister(&r16);
+        bits.MasterSlaveConfigValue.setName("MasterSlaveConfigValue");
         bits.MasterSlaveConfigEnable.setBaseRegister(&r16);
+        bits.MasterSlaveConfigEnable.setName("MasterSlaveConfigEnable");
         bits.TestMode.setBaseRegister(&r16);
+        bits.TestMode.setName("TestMode");
     }
     RegMII1000baseTControl_t& operator=(const RegMII1000baseTControl_t& other)
     {
@@ -909,16 +1055,30 @@ typedef register_container RegMII1000baseTStatus_t {
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, MasterSlaveConfigFault, 15, 1)
     BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "1000baseTStatus"; }
+
+    /** @brief Print register value. */
+    void print(void) { r16.print(); }
+
     RegMII1000baseTStatus_t()
     {
         /** @brief constructor for @ref MII_t.1000baseTStatus. */
+        r16.setName("1000baseTStatus");
         bits.IdleErrorCount.setBaseRegister(&r16);
+        bits.IdleErrorCount.setName("IdleErrorCount");
         bits.LinkPartner1000BASE_THalfDuplexCapable.setBaseRegister(&r16);
+        bits.LinkPartner1000BASE_THalfDuplexCapable.setName("LinkPartner1000BASE_THalfDuplexCapable");
         bits.LinkPartner1000BASE_TFullDuplexCapable.setBaseRegister(&r16);
+        bits.LinkPartner1000BASE_TFullDuplexCapable.setName("LinkPartner1000BASE_TFullDuplexCapable");
         bits.RemoteReceiverStatus.setBaseRegister(&r16);
+        bits.RemoteReceiverStatus.setName("RemoteReceiverStatus");
         bits.LocalReceiverStatus.setBaseRegister(&r16);
+        bits.LocalReceiverStatus.setName("LocalReceiverStatus");
         bits.MasterSlaveConfigResolution.setBaseRegister(&r16);
+        bits.MasterSlaveConfigResolution.setName("MasterSlaveConfigResolution");
         bits.MasterSlaveConfigFault.setBaseRegister(&r16);
+        bits.MasterSlaveConfigFault.setName("MasterSlaveConfigFault");
     }
     RegMII1000baseTStatus_t& operator=(const RegMII1000baseTStatus_t& other)
     {
@@ -956,12 +1116,22 @@ typedef register_container RegMIIBroadreachLreAccess_t {
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, EnableLRERegisterAccessOverride, 2, 1)
     BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "BroadreachLreAccess"; }
+
+    /** @brief Print register value. */
+    void print(void) { r16.print(); }
+
     RegMIIBroadreachLreAccess_t()
     {
         /** @brief constructor for @ref MII_t.BroadreachLreAccess. */
+        r16.setName("BroadreachLreAccess");
         bits.LRERegisterAccessStatus.setBaseRegister(&r16);
+        bits.LRERegisterAccessStatus.setName("LRERegisterAccessStatus");
         bits.LRERegisterOverrideValue.setBaseRegister(&r16);
+        bits.LRERegisterOverrideValue.setName("LRERegisterOverrideValue");
         bits.EnableLRERegisterAccessOverride.setBaseRegister(&r16);
+        bits.EnableLRERegisterAccessOverride.setName("EnableLRERegisterAccessOverride");
     }
     RegMIIBroadreachLreAccess_t& operator=(const RegMIIBroadreachLreAccess_t& other)
     {
@@ -1003,12 +1173,22 @@ typedef register_container RegMIIIeeeExtendedStatus_t {
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _1000BASE_XHalfDuplexCapable, 15, 1)
     BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "IeeeExtendedStatus"; }
+
+    /** @brief Print register value. */
+    void print(void) { r16.print(); }
+
     RegMIIIeeeExtendedStatus_t()
     {
         /** @brief constructor for @ref MII_t.IeeeExtendedStatus. */
+        r16.setName("IeeeExtendedStatus");
         bits._1000BASE_THalfDuplexCapable.setBaseRegister(&r16);
+        bits._1000BASE_THalfDuplexCapable.setName("_1000BASE_THalfDuplexCapable");
         bits._1000BASE_TFullDuplexCapable.setBaseRegister(&r16);
+        bits._1000BASE_TFullDuplexCapable.setName("_1000BASE_TFullDuplexCapable");
         bits._1000BASE_XHalfDuplexCapable.setBaseRegister(&r16);
+        bits._1000BASE_XHalfDuplexCapable.setName("_1000BASE_XHalfDuplexCapable");
     }
     RegMIIIeeeExtendedStatus_t& operator=(const RegMIIIeeeExtendedStatus_t& other)
     {
@@ -1124,25 +1304,48 @@ typedef register_container RegMIIPhyExtendedStatus_t {
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutonegotiationBasePageSelectorFieldMismatch, 15, 1)
     BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "PhyExtendedStatus"; }
+
+    /** @brief Print register value. */
+    void print(void) { r16.print(); }
+
     RegMIIPhyExtendedStatus_t()
     {
         /** @brief constructor for @ref MII_t.PhyExtendedStatus. */
+        r16.setName("PhyExtendedStatus");
         bits.MLT3CodeErrorDetected.setBaseRegister(&r16);
+        bits.MLT3CodeErrorDetected.setName("MLT3CodeErrorDetected");
         bits.LockErrorDetected.setBaseRegister(&r16);
+        bits.LockErrorDetected.setName("LockErrorDetected");
         bits.TransmitErrorDetected.setBaseRegister(&r16);
+        bits.TransmitErrorDetected.setName("TransmitErrorDetected");
         bits.ReceiveErrorDetected.setBaseRegister(&r16);
+        bits.ReceiveErrorDetected.setName("ReceiveErrorDetected");
         bits.BadESDDetected.setBaseRegister(&r16);
+        bits.BadESDDetected.setName("BadESDDetected");
         bits.BadSSDDetected.setBaseRegister(&r16);
+        bits.BadSSDDetected.setName("BadSSDDetected");
         bits.CarrierExtensionErrorDetected.setBaseRegister(&r16);
+        bits.CarrierExtensionErrorDetected.setName("CarrierExtensionErrorDetected");
         bits.CRCErrorDetected.setBaseRegister(&r16);
+        bits.CRCErrorDetected.setName("CRCErrorDetected");
         bits.LinkStatus.setBaseRegister(&r16);
+        bits.LinkStatus.setName("LinkStatus");
         bits.Locked.setBaseRegister(&r16);
+        bits.Locked.setName("Locked");
         bits.LocalReceiverStatus.setBaseRegister(&r16);
+        bits.LocalReceiverStatus.setName("LocalReceiverStatus");
         bits.RemoteReceiverStatus.setBaseRegister(&r16);
+        bits.RemoteReceiverStatus.setName("RemoteReceiverStatus");
         bits.InterruptStatus.setBaseRegister(&r16);
+        bits.InterruptStatus.setName("InterruptStatus");
         bits.MDICrossoverState.setBaseRegister(&r16);
+        bits.MDICrossoverState.setName("MDICrossoverState");
         bits.WirespeedDowngrade.setBaseRegister(&r16);
+        bits.WirespeedDowngrade.setName("WirespeedDowngrade");
         bits.AutonegotiationBasePageSelectorFieldMismatch.setBaseRegister(&r16);
+        bits.AutonegotiationBasePageSelectorFieldMismatch.setName("AutonegotiationBasePageSelectorFieldMismatch");
     }
     RegMIIPhyExtendedStatus_t& operator=(const RegMIIPhyExtendedStatus_t& other)
     {
@@ -1168,10 +1371,18 @@ typedef register_container RegMIIReceiveErrorCounter_t {
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ReceiveErrorCounter, 0, 16)
     BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "ReceiveErrorCounter"; }
+
+    /** @brief Print register value. */
+    void print(void) { r16.print(); }
+
     RegMIIReceiveErrorCounter_t()
     {
         /** @brief constructor for @ref MII_t.ReceiveErrorCounter. */
+        r16.setName("ReceiveErrorCounter");
         bits.ReceiveErrorCounter.setBaseRegister(&r16);
+        bits.ReceiveErrorCounter.setName("ReceiveErrorCounter");
     }
     RegMIIReceiveErrorCounter_t& operator=(const RegMIIReceiveErrorCounter_t& other)
     {
@@ -1203,11 +1414,20 @@ typedef register_container RegMIIFalseCarrierSenseCounter_t {
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, SERDESBERCounter, 8, 8)
     BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "FalseCarrierSenseCounter"; }
+
+    /** @brief Print register value. */
+    void print(void) { r16.print(); }
+
     RegMIIFalseCarrierSenseCounter_t()
     {
         /** @brief constructor for @ref MII_t.FalseCarrierSenseCounter. */
+        r16.setName("FalseCarrierSenseCounter");
         bits.FalseCarrierSenseCounter.setBaseRegister(&r16);
+        bits.FalseCarrierSenseCounter.setName("FalseCarrierSenseCounter");
         bits.SERDESBERCounter.setBaseRegister(&r16);
+        bits.SERDESBERCounter.setName("SERDESBERCounter");
     }
     RegMIIFalseCarrierSenseCounter_t& operator=(const RegMIIFalseCarrierSenseCounter_t& other)
     {
@@ -1239,11 +1459,20 @@ typedef register_container RegMIILocalRemoteReceiverNotOkCounter_t {
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LocalReceiverNotOKCounter, 8, 8)
     BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "LocalRemoteReceiverNotOkCounter"; }
+
+    /** @brief Print register value. */
+    void print(void) { r16.print(); }
+
     RegMIILocalRemoteReceiverNotOkCounter_t()
     {
         /** @brief constructor for @ref MII_t.LocalRemoteReceiverNotOkCounter. */
+        r16.setName("LocalRemoteReceiverNotOkCounter");
         bits.RemoteReceiverNotOKCounter.setBaseRegister(&r16);
+        bits.RemoteReceiverNotOKCounter.setName("RemoteReceiverNotOKCounter");
         bits.LocalReceiverNotOKCounter.setBaseRegister(&r16);
+        bits.LocalReceiverNotOKCounter.setName("LocalReceiverNotOKCounter");
     }
     RegMIILocalRemoteReceiverNotOkCounter_t& operator=(const RegMIILocalRemoteReceiverNotOkCounter_t& other)
     {
@@ -1347,23 +1576,44 @@ typedef register_container RegMIIAuxillaryStatusSummary_t {
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutonegotiationComplete, 15, 1)
     BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "AuxillaryStatusSummary"; }
+
+    /** @brief Print register value. */
+    void print(void) { r16.print(); }
+
     RegMIIAuxillaryStatusSummary_t()
     {
         /** @brief constructor for @ref MII_t.AuxillaryStatusSummary. */
+        r16.setName("AuxillaryStatusSummary");
         bits.PauseResolution_TransmitDirection.setBaseRegister(&r16);
+        bits.PauseResolution_TransmitDirection.setName("PauseResolution_TransmitDirection");
         bits.PauseResolution_ReceiveDirection.setBaseRegister(&r16);
+        bits.PauseResolution_ReceiveDirection.setName("PauseResolution_ReceiveDirection");
         bits.LinkStatus.setBaseRegister(&r16);
+        bits.LinkStatus.setName("LinkStatus");
         bits.LinkPartnerNextPageCapable.setBaseRegister(&r16);
+        bits.LinkPartnerNextPageCapable.setName("LinkPartnerNextPageCapable");
         bits.LinkPartnerAutonegotiationCapable.setBaseRegister(&r16);
+        bits.LinkPartnerAutonegotiationCapable.setName("LinkPartnerAutonegotiationCapable");
         bits.PageReceived.setBaseRegister(&r16);
+        bits.PageReceived.setName("PageReceived");
         bits.RemoteFault.setBaseRegister(&r16);
+        bits.RemoteFault.setName("RemoteFault");
         bits.ParallelDetectionFault.setBaseRegister(&r16);
+        bits.ParallelDetectionFault.setName("ParallelDetectionFault");
         bits.AutonegotiationHCD.setBaseRegister(&r16);
+        bits.AutonegotiationHCD.setName("AutonegotiationHCD");
         bits.AutonegotiationNextPageWait.setBaseRegister(&r16);
+        bits.AutonegotiationNextPageWait.setName("AutonegotiationNextPageWait");
         bits.AutonegotiationAbilityDetect.setBaseRegister(&r16);
+        bits.AutonegotiationAbilityDetect.setName("AutonegotiationAbilityDetect");
         bits.AutonegotiationACKDetect.setBaseRegister(&r16);
+        bits.AutonegotiationACKDetect.setName("AutonegotiationACKDetect");
         bits.AutonegotiationCompleteACK.setBaseRegister(&r16);
+        bits.AutonegotiationCompleteACK.setName("AutonegotiationCompleteACK");
         bits.AutonegotiationComplete.setBaseRegister(&r16);
+        bits.AutonegotiationComplete.setName("AutonegotiationComplete");
     }
     RegMIIAuxillaryStatusSummary_t& operator=(const RegMIIAuxillaryStatusSummary_t& other)
     {
@@ -1475,24 +1725,46 @@ typedef register_container RegMIIInterruptStatus_t {
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, IPStatusChange, 15, 1)
     BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "InterruptStatus"; }
+
+    /** @brief Print register value. */
+    void print(void) { r16.print(); }
+
     RegMIIInterruptStatus_t()
     {
         /** @brief constructor for @ref MII_t.InterruptStatus. */
+        r16.setName("InterruptStatus");
         bits.CRCError.setBaseRegister(&r16);
+        bits.CRCError.setName("CRCError");
         bits.LinkStatusChange.setBaseRegister(&r16);
+        bits.LinkStatusChange.setName("LinkStatusChange");
         bits.LinkSpeedChange.setBaseRegister(&r16);
+        bits.LinkSpeedChange.setName("LinkSpeedChange");
         bits.DuplexModeChange.setBaseRegister(&r16);
+        bits.DuplexModeChange.setName("DuplexModeChange");
         bits.LocalReceiverStatusChange.setBaseRegister(&r16);
+        bits.LocalReceiverStatusChange.setName("LocalReceiverStatusChange");
         bits.RemoteReceiverStatusChange.setBaseRegister(&r16);
+        bits.RemoteReceiverStatusChange.setName("RemoteReceiverStatusChange");
         bits.ScramblerSyncError.setBaseRegister(&r16);
+        bits.ScramblerSyncError.setName("ScramblerSyncError");
         bits.NegotiatedUnsupportedHCD.setBaseRegister(&r16);
+        bits.NegotiatedUnsupportedHCD.setName("NegotiatedUnsupportedHCD");
         bits.NoHCD.setBaseRegister(&r16);
+        bits.NoHCD.setName("NoHCD");
         bits.HCDNoLink.setBaseRegister(&r16);
+        bits.HCDNoLink.setName("HCDNoLink");
         bits.AutonegotiationPageRX.setBaseRegister(&r16);
+        bits.AutonegotiationPageRX.setName("AutonegotiationPageRX");
         bits.ExceededLowCounterThreshold.setBaseRegister(&r16);
+        bits.ExceededLowCounterThreshold.setName("ExceededLowCounterThreshold");
         bits.MDIXStatusChange.setBaseRegister(&r16);
+        bits.MDIXStatusChange.setName("MDIXStatusChange");
         bits.IllegalPairSwap.setBaseRegister(&r16);
+        bits.IllegalPairSwap.setName("IllegalPairSwap");
         bits.IPStatusChange.setBaseRegister(&r16);
+        bits.IPStatusChange.setName("IPStatusChange");
     }
     RegMIIInterruptStatus_t& operator=(const RegMIIInterruptStatus_t& other)
     {
@@ -1518,10 +1790,18 @@ typedef register_container RegMIIInterruptMask_t {
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, InterruptMaskVector, 0, 16)
     BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "InterruptMask"; }
+
+    /** @brief Print register value. */
+    void print(void) { r16.print(); }
+
     RegMIIInterruptMask_t()
     {
         /** @brief constructor for @ref MII_t.InterruptMask. */
+        r16.setName("InterruptMask");
         bits.InterruptMaskVector.setBaseRegister(&r16);
+        bits.InterruptMaskVector.setName("InterruptMaskVector");
     }
     RegMIIInterruptMask_t& operator=(const RegMIIInterruptMask_t& other)
     {
@@ -1619,22 +1899,42 @@ typedef register_container RegMIITest1_t {
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, CRCErrorCountVisibility, 15, 1)
     BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "Test1"; }
+
+    /** @brief Print register value. */
+    void print(void) { r16.print(); }
+
     RegMIITest1_t()
     {
         /** @brief constructor for @ref MII_t.Test1. */
+        r16.setName("Test1");
         bits.MainDACTrim.setBaseRegister(&r16);
+        bits.MainDACTrim.setName("MainDACTrim");
         bits.MainDACEnableSoftwareTrimSetting.setBaseRegister(&r16);
+        bits.MainDACEnableSoftwareTrimSetting.setName("MainDACEnableSoftwareTrimSetting");
         bits.DisablePolarityEncode.setBaseRegister(&r16);
+        bits.DisablePolarityEncode.setName("DisablePolarityEncode");
         bits.ReceiveWatchdogTimerDisable.setBaseRegister(&r16);
+        bits.ReceiveWatchdogTimerDisable.setName("ReceiveWatchdogTimerDisable");
         bits.ManualSwapMDIState.setBaseRegister(&r16);
+        bits.ManualSwapMDIState.setName("ManualSwapMDIState");
         bits.FastTimers.setBaseRegister(&r16);
+        bits.FastTimers.setName("FastTimers");
         bits.ExternalLink.setBaseRegister(&r16);
+        bits.ExternalLink.setName("ExternalLink");
         bits.ScramblerTest.setBaseRegister(&r16);
+        bits.ScramblerTest.setName("ScramblerTest");
         bits.ForceLock.setBaseRegister(&r16);
+        bits.ForceLock.setName("ForceLock");
         bits.ForceLink.setBaseRegister(&r16);
+        bits.ForceLink.setName("ForceLink");
         bits.CounterTestMode.setBaseRegister(&r16);
+        bits.CounterTestMode.setName("CounterTestMode");
         bits.TransmitErrorCodeVisibility.setBaseRegister(&r16);
+        bits.TransmitErrorCodeVisibility.setName("TransmitErrorCodeVisibility");
         bits.CRCErrorCountVisibility.setBaseRegister(&r16);
+        bits.CRCErrorCountVisibility.setName("CRCErrorCountVisibility");
     }
     RegMIITest1_t& operator=(const RegMIITest1_t& other)
     {

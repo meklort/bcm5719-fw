@@ -143,17 +143,32 @@ typedef register_container RegNVMCommand_t {
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, WriteDisableCommand, 17, 1)
     BITFIELD_END(BCM5719_NVM_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "Command"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegNVMCommand_t()
     {
         /** @brief constructor for @ref NVM_t.Command. */
+        r32.setName("Command");
         bits.Done.setBaseRegister(&r32);
+        bits.Done.setName("Done");
         bits.Doit.setBaseRegister(&r32);
+        bits.Doit.setName("Doit");
         bits.Wr.setBaseRegister(&r32);
+        bits.Wr.setName("Wr");
         bits.Erase.setBaseRegister(&r32);
+        bits.Erase.setName("Erase");
         bits.First.setBaseRegister(&r32);
+        bits.First.setName("First");
         bits.Last.setBaseRegister(&r32);
+        bits.Last.setName("Last");
         bits.WriteEnableCommand.setBaseRegister(&r32);
+        bits.WriteEnableCommand.setName("WriteEnableCommand");
         bits.WriteDisableCommand.setBaseRegister(&r32);
+        bits.WriteDisableCommand.setName("WriteDisableCommand");
     }
     RegNVMCommand_t& operator=(const RegNVMCommand_t& other)
     {
@@ -243,15 +258,28 @@ typedef register_container RegNVMNvmCfg1_t {
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, PageSize, 28, 3)
     BITFIELD_END(BCM5719_NVM_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "NvmCfg1"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegNVMNvmCfg1_t()
     {
         /** @brief constructor for @ref NVM_t.NvmCfg1. */
+        r32.setName("NvmCfg1");
         bits.FlashMode.setBaseRegister(&r32);
+        bits.FlashMode.setName("FlashMode");
         bits.BufferMode.setBaseRegister(&r32);
+        bits.BufferMode.setName("BufferMode");
         bits.SPICLKDIV.setBaseRegister(&r32);
+        bits.SPICLKDIV.setName("SPICLKDIV");
         bits.ProtectMode.setBaseRegister(&r32);
+        bits.ProtectMode.setName("ProtectMode");
         bits.FlashSize.setBaseRegister(&r32);
+        bits.FlashSize.setName("FlashSize");
         bits.PageSize.setBaseRegister(&r32);
+        bits.PageSize.setName("PageSize");
     }
     RegNVMNvmCfg1_t& operator=(const RegNVMNvmCfg1_t& other)
     {
@@ -343,21 +371,40 @@ typedef register_container RegNVMSoftwareArbitration_t {
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, ArbWon3, 11, 1)
     BITFIELD_END(BCM5719_NVM_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "SoftwareArbitration"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegNVMSoftwareArbitration_t()
     {
         /** @brief constructor for @ref NVM_t.SoftwareArbitration. */
+        r32.setName("SoftwareArbitration");
         bits.ReqSet0.setBaseRegister(&r32);
+        bits.ReqSet0.setName("ReqSet0");
         bits.ReqSet1.setBaseRegister(&r32);
+        bits.ReqSet1.setName("ReqSet1");
         bits.ReqSet2.setBaseRegister(&r32);
+        bits.ReqSet2.setName("ReqSet2");
         bits.ReqSet3.setBaseRegister(&r32);
+        bits.ReqSet3.setName("ReqSet3");
         bits.ReqClr0.setBaseRegister(&r32);
+        bits.ReqClr0.setName("ReqClr0");
         bits.ReqClr1.setBaseRegister(&r32);
+        bits.ReqClr1.setName("ReqClr1");
         bits.ReqClr2.setBaseRegister(&r32);
+        bits.ReqClr2.setName("ReqClr2");
         bits.ReqClr3.setBaseRegister(&r32);
+        bits.ReqClr3.setName("ReqClr3");
         bits.ArbWon0.setBaseRegister(&r32);
+        bits.ArbWon0.setName("ArbWon0");
         bits.ArbWon1.setBaseRegister(&r32);
+        bits.ArbWon1.setName("ArbWon1");
         bits.ArbWon2.setBaseRegister(&r32);
+        bits.ArbWon2.setName("ArbWon2");
         bits.ArbWon3.setBaseRegister(&r32);
+        bits.ArbWon3.setName("ArbWon3");
     }
     RegNVMSoftwareArbitration_t& operator=(const RegNVMSoftwareArbitration_t& other)
     {
@@ -389,11 +436,20 @@ typedef register_container RegNVMAccess_t {
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, WriteEnable, 1, 1)
     BITFIELD_END(BCM5719_NVM_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "Access"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegNVMAccess_t()
     {
         /** @brief constructor for @ref NVM_t.Access. */
+        r32.setName("Access");
         bits.Enable.setBaseRegister(&r32);
+        bits.Enable.setName("Enable");
         bits.WriteEnable.setBaseRegister(&r32);
+        bits.WriteEnable.setName("WriteEnable");
     }
     RegNVMAccess_t& operator=(const RegNVMAccess_t& other)
     {

@@ -215,28 +215,54 @@ typedef register_container RegDEVICEMiscellaneousHostControl_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, AllLayerID, 24, 4)
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "MiscellaneousHostControl"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegDEVICEMiscellaneousHostControl_t()
     {
         /** @brief constructor for @ref DEVICE_t.MiscellaneousHostControl. */
+        r32.setName("MiscellaneousHostControl");
         bits.ClearInterrupt.setBaseRegister(&r32);
+        bits.ClearInterrupt.setName("ClearInterrupt");
         bits.MaskInterrupt.setBaseRegister(&r32);
+        bits.MaskInterrupt.setName("MaskInterrupt");
         bits.EnableEndianByteSwap.setBaseRegister(&r32);
+        bits.EnableEndianByteSwap.setName("EnableEndianByteSwap");
         bits.EnableEndianWordSwap.setBaseRegister(&r32);
+        bits.EnableEndianWordSwap.setName("EnableEndianWordSwap");
         bits.EnablePCIStateRegisterRead_DIV_WriteCapability.setBaseRegister(&r32);
+        bits.EnablePCIStateRegisterRead_DIV_WriteCapability.setName("EnablePCIStateRegisterRead_DIV_WriteCapability");
         bits.EnableClockControlRegisterRead_DIV_WriteCapability.setBaseRegister(&r32);
+        bits.EnableClockControlRegisterRead_DIV_WriteCapability.setName("EnableClockControlRegisterRead_DIV_WriteCapability");
         bits.EnableRegisterWordSwap.setBaseRegister(&r32);
+        bits.EnableRegisterWordSwap.setName("EnableRegisterWordSwap");
         bits.EnableIndirectAccess.setBaseRegister(&r32);
+        bits.EnableIndirectAccess.setName("EnableIndirectAccess");
         bits.MaskInterruptMode.setBaseRegister(&r32);
+        bits.MaskInterruptMode.setName("MaskInterruptMode");
         bits.EnableTaggedStatusMode.setBaseRegister(&r32);
+        bits.EnableTaggedStatusMode.setName("EnableTaggedStatusMode");
         bits.RCBCheck.setBaseRegister(&r32);
+        bits.RCBCheck.setName("RCBCheck");
         bits.InterruptCheck.setBaseRegister(&r32);
+        bits.InterruptCheck.setName("InterruptCheck");
         bits.ByteEnableRuleCheck.setBaseRegister(&r32);
+        bits.ByteEnableRuleCheck.setName("ByteEnableRuleCheck");
         bits.BoundaryCheck.setBaseRegister(&r32);
+        bits.BoundaryCheck.setName("BoundaryCheck");
         bits.LogHeaderOverflow.setBaseRegister(&r32);
+        bits.LogHeaderOverflow.setName("LogHeaderOverflow");
         bits.EnableTLPMinorErrorTolerance.setBaseRegister(&r32);
+        bits.EnableTLPMinorErrorTolerance.setName("EnableTLPMinorErrorTolerance");
         bits.MetalRevID.setBaseRegister(&r32);
+        bits.MetalRevID.setName("MetalRevID");
         bits.ProductID.setBaseRegister(&r32);
+        bits.ProductID.setName("ProductID");
         bits.AllLayerID.setBaseRegister(&r32);
+        bits.AllLayerID.setName("AllLayerID");
     }
     RegDEVICEMiscellaneousHostControl_t& operator=(const RegDEVICEMiscellaneousHostControl_t& other)
     {
@@ -320,19 +346,36 @@ typedef register_container RegDEVICEPciState_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GenerateResetPlus, 19, 1)
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "PciState"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegDEVICEPciState_t()
     {
         /** @brief constructor for @ref DEVICE_t.PciState. */
+        r32.setName("PciState");
         bits.PCIExpansionROMDesired.setBaseRegister(&r32);
+        bits.PCIExpansionROMDesired.setName("PCIExpansionROMDesired");
         bits.PCIExpansionROMRetry.setBaseRegister(&r32);
+        bits.PCIExpansionROMRetry.setName("PCIExpansionROMRetry");
         bits.VPDAvailable.setBaseRegister(&r32);
+        bits.VPDAvailable.setName("VPDAvailable");
         bits.FlatView.setBaseRegister(&r32);
+        bits.FlatView.setName("FlatView");
         bits.MaxPCITargetRetry.setBaseRegister(&r32);
+        bits.MaxPCITargetRetry.setName("MaxPCITargetRetry");
         bits.ConfigRetry.setBaseRegister(&r32);
+        bits.ConfigRetry.setName("ConfigRetry");
         bits.APEControlRegisterWriteEnable.setBaseRegister(&r32);
+        bits.APEControlRegisterWriteEnable.setName("APEControlRegisterWriteEnable");
         bits.APESharedMemoryWriteEnable.setBaseRegister(&r32);
+        bits.APESharedMemoryWriteEnable.setName("APESharedMemoryWriteEnable");
         bits.APEProgramSpaceWriteEnable.setBaseRegister(&r32);
+        bits.APEProgramSpaceWriteEnable.setName("APEProgramSpaceWriteEnable");
         bits.GenerateResetPlus.setBaseRegister(&r32);
+        bits.GenerateResetPlus.setName("GenerateResetPlus");
     }
     RegDEVICEPciState_t& operator=(const RegDEVICEPciState_t& other)
     {
@@ -404,11 +447,20 @@ typedef register_container RegDEVICELinkStatusControl_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, NegotiatedLinkWidth, 20, 6)
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "LinkStatusControl"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegDEVICELinkStatusControl_t()
     {
         /** @brief constructor for @ref DEVICE_t.LinkStatusControl. */
+        r32.setName("LinkStatusControl");
         bits.NegotiatedLinkSpeed.setBaseRegister(&r32);
+        bits.NegotiatedLinkSpeed.setName("NegotiatedLinkSpeed");
         bits.NegotiatedLinkWidth.setBaseRegister(&r32);
+        bits.NegotiatedLinkWidth.setName("NegotiatedLinkWidth");
     }
     RegDEVICELinkStatusControl_t& operator=(const RegDEVICELinkStatusControl_t& other)
     {
@@ -589,34 +641,66 @@ typedef register_container RegDEVICEEmacMode_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MACLoopbackModeControl, 29, 1)
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "EmacMode"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegDEVICEEmacMode_t()
     {
         /** @brief constructor for @ref DEVICE_t.EmacMode. */
+        r32.setName("EmacMode");
         bits.GlobalReset.setBaseRegister(&r32);
+        bits.GlobalReset.setName("GlobalReset");
         bits.HalfDuplex.setBaseRegister(&r32);
+        bits.HalfDuplex.setName("HalfDuplex");
         bits.PortMode.setBaseRegister(&r32);
+        bits.PortMode.setName("PortMode");
         bits.LoopbackMode.setBaseRegister(&r32);
+        bits.LoopbackMode.setName("LoopbackMode");
         bits.TaggedMACControl.setBaseRegister(&r32);
+        bits.TaggedMACControl.setName("TaggedMACControl");
         bits.EnableTXBursting.setBaseRegister(&r32);
+        bits.EnableTXBursting.setName("EnableTXBursting");
         bits.MaxDefer.setBaseRegister(&r32);
+        bits.MaxDefer.setName("MaxDefer");
         bits.EnableRXStatistics.setBaseRegister(&r32);
+        bits.EnableRXStatistics.setName("EnableRXStatistics");
         bits.ClearRXStatistics.setBaseRegister(&r32);
+        bits.ClearRXStatistics.setName("ClearRXStatistics");
         bits.FlushRXStatistics.setBaseRegister(&r32);
+        bits.FlushRXStatistics.setName("FlushRXStatistics");
         bits.EnableTXStatistics.setBaseRegister(&r32);
+        bits.EnableTXStatistics.setName("EnableTXStatistics");
         bits.ClearTXStatistics.setBaseRegister(&r32);
+        bits.ClearTXStatistics.setName("ClearTXStatistics");
         bits.FlushTXStatistics.setBaseRegister(&r32);
+        bits.FlushTXStatistics.setName("FlushTXStatistics");
         bits.SendConfigCommand.setBaseRegister(&r32);
+        bits.SendConfigCommand.setName("SendConfigCommand");
         bits.MagicPacketDetectionEnable.setBaseRegister(&r32);
+        bits.MagicPacketDetectionEnable.setName("MagicPacketDetectionEnable");
         bits.ACPIPowerOnEnable.setBaseRegister(&r32);
+        bits.ACPIPowerOnEnable.setName("ACPIPowerOnEnable");
         bits.EnableTCE.setBaseRegister(&r32);
+        bits.EnableTCE.setName("EnableTCE");
         bits.EnableRDE.setBaseRegister(&r32);
+        bits.EnableRDE.setName("EnableRDE");
         bits.EnableFHDE.setBaseRegister(&r32);
+        bits.EnableFHDE.setName("EnableFHDE");
         bits.KeepFrameInWOL.setBaseRegister(&r32);
+        bits.KeepFrameInWOL.setName("KeepFrameInWOL");
         bits.HaltInterestingPacketPME.setBaseRegister(&r32);
+        bits.HaltInterestingPacketPME.setName("HaltInterestingPacketPME");
         bits.Free_RunningACPI.setBaseRegister(&r32);
+        bits.Free_RunningACPI.setName("Free_RunningACPI");
         bits.EnableAPERXPath.setBaseRegister(&r32);
+        bits.EnableAPERXPath.setName("EnableAPERXPath");
         bits.EnableAPETXPath.setBaseRegister(&r32);
+        bits.EnableAPETXPath.setName("EnableAPETXPath");
         bits.MACLoopbackModeControl.setBaseRegister(&r32);
+        bits.MACLoopbackModeControl.setName("MACLoopbackModeControl");
     }
     RegDEVICEEmacMode_t& operator=(const RegDEVICEEmacMode_t& other)
     {
@@ -739,25 +823,48 @@ typedef register_container RegDEVICELedControl_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, OverrideBlinkRate, 31, 1)
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "LedControl"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegDEVICELedControl_t()
     {
         /** @brief constructor for @ref DEVICE_t.LedControl. */
+        r32.setName("LedControl");
         bits.OverrideLink.setBaseRegister(&r32);
+        bits.OverrideLink.setName("OverrideLink");
         bits.LED1000.setBaseRegister(&r32);
+        bits.LED1000.setName("LED1000");
         bits.LED100.setBaseRegister(&r32);
+        bits.LED100.setName("LED100");
         bits.LED10.setBaseRegister(&r32);
+        bits.LED10.setName("LED10");
         bits.OverrideTraffic.setBaseRegister(&r32);
+        bits.OverrideTraffic.setName("OverrideTraffic");
         bits.LEDTrafficBlink.setBaseRegister(&r32);
+        bits.LEDTrafficBlink.setName("LEDTrafficBlink");
         bits.LEDTraffic.setBaseRegister(&r32);
+        bits.LEDTraffic.setName("LEDTraffic");
         bits.LEDStatus1000.setBaseRegister(&r32);
+        bits.LEDStatus1000.setName("LEDStatus1000");
         bits.LEDStatus100.setBaseRegister(&r32);
+        bits.LEDStatus100.setName("LEDStatus100");
         bits.LEDStatus10.setBaseRegister(&r32);
+        bits.LEDStatus10.setName("LEDStatus10");
         bits.LEDStatusTraffic.setBaseRegister(&r32);
+        bits.LEDStatusTraffic.setName("LEDStatusTraffic");
         bits.LEDMode.setBaseRegister(&r32);
+        bits.LEDMode.setName("LEDMode");
         bits.MACMode.setBaseRegister(&r32);
+        bits.MACMode.setName("MACMode");
         bits.SharedTraffic_DIV_LinkLEDMode.setBaseRegister(&r32);
+        bits.SharedTraffic_DIV_LinkLEDMode.setName("SharedTraffic_DIV_LinkLEDMode");
         bits.BlinkPeriod.setBaseRegister(&r32);
+        bits.BlinkPeriod.setName("BlinkPeriod");
         bits.OverrideBlinkRate.setBaseRegister(&r32);
+        bits.OverrideBlinkRate.setName("OverrideBlinkRate");
     }
     RegDEVICELedControl_t& operator=(const RegDEVICELedControl_t& other)
     {
@@ -853,10 +960,18 @@ typedef register_container RegDEVICEMtuSize_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MTU, 0, 16)
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "MtuSize"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegDEVICEMtuSize_t()
     {
         /** @brief constructor for @ref DEVICE_t.MtuSize. */
+        r32.setName("MtuSize");
         bits.MTU.setBaseRegister(&r32);
+        bits.MTU.setName("MTU");
     }
     RegDEVICEMtuSize_t& operator=(const RegDEVICEMtuSize_t& other)
     {
@@ -924,15 +1039,28 @@ typedef register_container RegDEVICEMiiCommunication_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Start_DIV_Busy, 29, 1)
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "MiiCommunication"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegDEVICEMiiCommunication_t()
     {
         /** @brief constructor for @ref DEVICE_t.MiiCommunication. */
+        r32.setName("MiiCommunication");
         bits.TransactionData.setBaseRegister(&r32);
+        bits.TransactionData.setName("TransactionData");
         bits.RegisterAddress.setBaseRegister(&r32);
+        bits.RegisterAddress.setName("RegisterAddress");
         bits.PHYAddress.setBaseRegister(&r32);
+        bits.PHYAddress.setName("PHYAddress");
         bits.Command.setBaseRegister(&r32);
+        bits.Command.setName("Command");
         bits.ReadFailed.setBaseRegister(&r32);
+        bits.ReadFailed.setName("ReadFailed");
         bits.Start_DIV_Busy.setBaseRegister(&r32);
+        bits.Start_DIV_Busy.setName("Start_DIV_Busy");
     }
     RegDEVICEMiiCommunication_t& operator=(const RegDEVICEMiiCommunication_t& other)
     {
@@ -960,10 +1088,18 @@ typedef register_container RegDEVICEMiiMode_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ConstantMDIO_DIV_MDCClockSpeed, 15, 1)
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "MiiMode"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegDEVICEMiiMode_t()
     {
         /** @brief constructor for @ref DEVICE_t.MiiMode. */
+        r32.setName("MiiMode");
         bits.ConstantMDIO_DIV_MDCClockSpeed.setBaseRegister(&r32);
+        bits.ConstantMDIO_DIV_MDCClockSpeed.setName("ConstantMDIO_DIV_MDCClockSpeed");
     }
     RegDEVICEMiiMode_t& operator=(const RegDEVICEMiiMode_t& other)
     {
@@ -1011,13 +1147,24 @@ typedef register_container RegDEVICEReceiveMacMode_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APEPromiscuousMode, 25, 1)
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "ReceiveMacMode"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegDEVICEReceiveMacMode_t()
     {
         /** @brief constructor for @ref DEVICE_t.ReceiveMacMode. */
+        r32.setName("ReceiveMacMode");
         bits.Reset.setBaseRegister(&r32);
+        bits.Reset.setName("Reset");
         bits.Enable.setBaseRegister(&r32);
+        bits.Enable.setName("Enable");
         bits.PromiscuousMode.setBaseRegister(&r32);
+        bits.PromiscuousMode.setName("PromiscuousMode");
         bits.APEPromiscuousMode.setBaseRegister(&r32);
+        bits.APEPromiscuousMode.setName("APEPromiscuousMode");
     }
     RegDEVICEReceiveMacMode_t& operator=(const RegDEVICEReceiveMacMode_t& other)
     {
@@ -1114,21 +1261,40 @@ typedef register_container RegDEVICESgmiiStatus_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LinkPartnerAutonegotiationCapability, 16, 16)
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "SgmiiStatus"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegDEVICESgmiiStatus_t()
     {
         /** @brief constructor for @ref DEVICE_t.SgmiiStatus. */
+        r32.setName("SgmiiStatus");
         bits.AutonegotiationComplete.setBaseRegister(&r32);
+        bits.AutonegotiationComplete.setName("AutonegotiationComplete");
         bits.LinkStatus.setBaseRegister(&r32);
+        bits.LinkStatus.setName("LinkStatus");
         bits.DuplexStatus.setBaseRegister(&r32);
+        bits.DuplexStatus.setName("DuplexStatus");
         bits.Speed1000.setBaseRegister(&r32);
+        bits.Speed1000.setName("Speed1000");
         bits.Speed100.setBaseRegister(&r32);
+        bits.Speed100.setName("Speed100");
         bits.NextPageRX.setBaseRegister(&r32);
+        bits.NextPageRX.setName("NextPageRX");
         bits.PauseRX.setBaseRegister(&r32);
+        bits.PauseRX.setName("PauseRX");
         bits.PauseTX.setBaseRegister(&r32);
+        bits.PauseTX.setName("PauseTX");
         bits.MediaSelectionMode.setBaseRegister(&r32);
+        bits.MediaSelectionMode.setName("MediaSelectionMode");
         bits.PCSCRSDetect.setBaseRegister(&r32);
+        bits.PCSCRSDetect.setName("PCSCRSDetect");
         bits.ExternalCRSDetect.setBaseRegister(&r32);
+        bits.ExternalCRSDetect.setName("ExternalCRSDetect");
         bits.LinkPartnerAutonegotiationCapability.setBaseRegister(&r32);
+        bits.LinkPartnerAutonegotiationCapability.setName("LinkPartnerAutonegotiationCapability");
     }
     RegDEVICESgmiiStatus_t& operator=(const RegDEVICESgmiiStatus_t& other)
     {
@@ -1232,21 +1398,40 @@ typedef register_container RegDEVICECpmuControl_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SoftwareControlledGPHYForceDLLOn, 28, 1)
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "CpmuControl"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegDEVICECpmuControl_t()
     {
         /** @brief constructor for @ref DEVICE_t.CpmuControl. */
+        r32.setName("CpmuControl");
         bits.CPMUSoftwareReset.setBaseRegister(&r32);
+        bits.CPMUSoftwareReset.setName("CPMUSoftwareReset");
         bits.CPMURegisterSoftwareReset.setBaseRegister(&r32);
+        bits.CPMURegisterSoftwareReset.setName("CPMURegisterSoftwareReset");
         bits.PowerDown.setBaseRegister(&r32);
+        bits.PowerDown.setName("PowerDown");
         bits.APESleepModeEnable.setBaseRegister(&r32);
+        bits.APESleepModeEnable.setName("APESleepModeEnable");
         bits.APEDeepSleepModeEnable.setBaseRegister(&r32);
+        bits.APEDeepSleepModeEnable.setName("APEDeepSleepModeEnable");
         bits.LinkIdlePowerModeEnable.setBaseRegister(&r32);
+        bits.LinkIdlePowerModeEnable.setName("LinkIdlePowerModeEnable");
         bits.LinkAwarePowerModeEnable.setBaseRegister(&r32);
+        bits.LinkAwarePowerModeEnable.setName("LinkAwarePowerModeEnable");
         bits.LinkSpeedPowerModeEnable.setBaseRegister(&r32);
+        bits.LinkSpeedPowerModeEnable.setName("LinkSpeedPowerModeEnable");
         bits.GPHY10MBReceiveOnlyModeEnable.setBaseRegister(&r32);
+        bits.GPHY10MBReceiveOnlyModeEnable.setName("GPHY10MBReceiveOnlyModeEnable");
         bits.LegacyTimerEnable.setBaseRegister(&r32);
+        bits.LegacyTimerEnable.setName("LegacyTimerEnable");
         bits.SGMII_DIV_PCSPowerDown.setBaseRegister(&r32);
+        bits.SGMII_DIV_PCSPowerDown.setName("SGMII_DIV_PCSPowerDown");
         bits.SoftwareControlledGPHYForceDLLOn.setBaseRegister(&r32);
+        bits.SoftwareControlledGPHYForceDLLOn.setName("SoftwareControlledGPHYForceDLLOn");
     }
     RegDEVICECpmuControl_t& operator=(const RegDEVICECpmuControl_t& other)
     {
@@ -1286,10 +1471,18 @@ typedef register_container RegDEVICELinkAwarePowerModeClockPolicy_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MACClockSwitch, 16, 5)
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "LinkAwarePowerModeClockPolicy"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegDEVICELinkAwarePowerModeClockPolicy_t()
     {
         /** @brief constructor for @ref DEVICE_t.LinkAwarePowerModeClockPolicy. */
+        r32.setName("LinkAwarePowerModeClockPolicy");
         bits.MACClockSwitch.setBaseRegister(&r32);
+        bits.MACClockSwitch.setName("MACClockSwitch");
     }
     RegDEVICELinkAwarePowerModeClockPolicy_t& operator=(const RegDEVICELinkAwarePowerModeClockPolicy_t& other)
     {
@@ -1325,11 +1518,20 @@ typedef register_container RegDEVICEClockSpeedOverridePolicy_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MACClockSpeedOverrideEnabled, 31, 1)
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "ClockSpeedOverridePolicy"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegDEVICEClockSpeedOverridePolicy_t()
     {
         /** @brief constructor for @ref DEVICE_t.ClockSpeedOverridePolicy. */
+        r32.setName("ClockSpeedOverridePolicy");
         bits.MACClockSwitch.setBaseRegister(&r32);
+        bits.MACClockSwitch.setName("MACClockSwitch");
         bits.MACClockSpeedOverrideEnabled.setBaseRegister(&r32);
+        bits.MACClockSpeedOverrideEnabled.setName("MACClockSpeedOverrideEnabled");
     }
     RegDEVICEClockSpeedOverridePolicy_t& operator=(const RegDEVICEClockSpeedOverridePolicy_t& other)
     {
@@ -1456,25 +1658,48 @@ typedef register_container RegDEVICEStatus_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, FunctionNumber, 30, 2)
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "Status"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegDEVICEStatus_t()
     {
         /** @brief constructor for @ref DEVICE_t.Status. */
+        r32.setName("Status");
         bits.PowerManagementStateMachineState.setBaseRegister(&r32);
+        bits.PowerManagementStateMachineState.setName("PowerManagementStateMachineState");
         bits.CPMUPowerState.setBaseRegister(&r32);
+        bits.CPMUPowerState.setName("CPMUPowerState");
         bits.EnergyDetectStatus.setBaseRegister(&r32);
+        bits.EnergyDetectStatus.setName("EnergyDetectStatus");
         bits.PowerState.setBaseRegister(&r32);
+        bits.PowerState.setName("PowerState");
         bits.VMAINPowerStatus.setBaseRegister(&r32);
+        bits.VMAINPowerStatus.setName("VMAINPowerStatus");
         bits.WOLMagicPacketDetectionEnablePort0.setBaseRegister(&r32);
+        bits.WOLMagicPacketDetectionEnablePort0.setName("WOLMagicPacketDetectionEnablePort0");
         bits.WOLACPIDetectionEnablePort0.setBaseRegister(&r32);
+        bits.WOLACPIDetectionEnablePort0.setName("WOLACPIDetectionEnablePort0");
         bits.NCSIDLLLockStatus.setBaseRegister(&r32);
+        bits.NCSIDLLLockStatus.setName("NCSIDLLLockStatus");
         bits.GPHYDLLLockStatus.setBaseRegister(&r32);
+        bits.GPHYDLLLockStatus.setName("GPHYDLLLockStatus");
         bits.LinkIdleStatus.setBaseRegister(&r32);
+        bits.LinkIdleStatus.setName("LinkIdleStatus");
         bits.EthernetLinkStatus.setBaseRegister(&r32);
+        bits.EthernetLinkStatus.setName("EthernetLinkStatus");
         bits.WOLMagicPacketDetectionEnablePort1.setBaseRegister(&r32);
+        bits.WOLMagicPacketDetectionEnablePort1.setName("WOLMagicPacketDetectionEnablePort1");
         bits.WOLACPIDetectionEnablePort1.setBaseRegister(&r32);
+        bits.WOLACPIDetectionEnablePort1.setName("WOLACPIDetectionEnablePort1");
         bits.APEStatus.setBaseRegister(&r32);
+        bits.APEStatus.setName("APEStatus");
         bits.FunctionEnable.setBaseRegister(&r32);
+        bits.FunctionEnable.setName("FunctionEnable");
         bits.FunctionNumber.setBaseRegister(&r32);
+        bits.FunctionNumber.setName("FunctionNumber");
     }
     RegDEVICEStatus_t& operator=(const RegDEVICEStatus_t& other)
     {
@@ -1559,18 +1784,34 @@ typedef register_container RegDEVICEGphyControlStatus_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SwitchingRegulatorPowerDown, 27, 1)
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "GphyControlStatus"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegDEVICEGphyControlStatus_t()
     {
         /** @brief constructor for @ref DEVICE_t.GphyControlStatus. */
+        r32.setName("GphyControlStatus");
         bits.GPHYIDDQ.setBaseRegister(&r32);
+        bits.GPHYIDDQ.setName("GPHYIDDQ");
         bits.BIASIDDQ.setBaseRegister(&r32);
+        bits.BIASIDDQ.setName("BIASIDDQ");
         bits.CPMUSoftwareReset.setBaseRegister(&r32);
+        bits.CPMUSoftwareReset.setName("CPMUSoftwareReset");
         bits.CPMURegisterSoftwareReset.setBaseRegister(&r32);
+        bits.CPMURegisterSoftwareReset.setName("CPMURegisterSoftwareReset");
         bits.PowerDown.setBaseRegister(&r32);
+        bits.PowerDown.setName("PowerDown");
         bits.SGMII_DIV_PCSPowerDown.setBaseRegister(&r32);
+        bits.SGMII_DIV_PCSPowerDown.setName("SGMII_DIV_PCSPowerDown");
         bits.NCSIPLLLockStatus.setBaseRegister(&r32);
+        bits.NCSIPLLLockStatus.setName("NCSIPLLLockStatus");
         bits.TLPClockSource.setBaseRegister(&r32);
+        bits.TLPClockSource.setName("TLPClockSource");
         bits.SwitchingRegulatorPowerDown.setBaseRegister(&r32);
+        bits.SwitchingRegulatorPowerDown.setName("SwitchingRegulatorPowerDown");
     }
     RegDEVICEGphyControlStatus_t& operator=(const RegDEVICEGphyControlStatus_t& other)
     {
@@ -1631,12 +1872,22 @@ typedef register_container RegDEVICEGphyStrap_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, RXCPUSPADECCEnable, 4, 1)
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "GphyStrap"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegDEVICEGphyStrap_t()
     {
         /** @brief constructor for @ref DEVICE_t.GphyStrap. */
+        r32.setName("GphyStrap");
         bits.TXMBUFECCEnable.setBaseRegister(&r32);
+        bits.TXMBUFECCEnable.setName("TXMBUFECCEnable");
         bits.RXMBUFECCEnable.setBaseRegister(&r32);
+        bits.RXMBUFECCEnable.setName("RXMBUFECCEnable");
         bits.RXCPUSPADECCEnable.setBaseRegister(&r32);
+        bits.RXCPUSPADECCEnable.setName("RXCPUSPADECCEnable");
     }
     RegDEVICEGphyStrap_t& operator=(const RegDEVICEGphyStrap_t& other)
     {
@@ -1670,11 +1921,20 @@ typedef register_container RegDEVICETopLevelMiscellaneousControl1_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LowPowerIDDQMode, 5, 1)
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "TopLevelMiscellaneousControl1"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegDEVICETopLevelMiscellaneousControl1_t()
     {
         /** @brief constructor for @ref DEVICE_t.TopLevelMiscellaneousControl1. */
+        r32.setName("TopLevelMiscellaneousControl1");
         bits.NCSIClockOutputDisable.setBaseRegister(&r32);
+        bits.NCSIClockOutputDisable.setName("NCSIClockOutputDisable");
         bits.LowPowerIDDQMode.setBaseRegister(&r32);
+        bits.LowPowerIDDQMode.setName("LowPowerIDDQMode");
     }
     RegDEVICETopLevelMiscellaneousControl1_t& operator=(const RegDEVICETopLevelMiscellaneousControl1_t& other)
     {
@@ -1772,22 +2032,42 @@ typedef register_container RegDEVICEEeeMode_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DriveAllowLPIEnable, 19, 1)
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "EeeMode"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegDEVICEEeeMode_t()
     {
         /** @brief constructor for @ref DEVICE_t.EeeMode. */
+        r32.setName("EeeMode");
         bits.RXCPUAllowLPI.setBaseRegister(&r32);
+        bits.RXCPUAllowLPI.setName("RXCPUAllowLPI");
         bits.DriveAllowLPI.setBaseRegister(&r32);
+        bits.DriveAllowLPI.setName("DriveAllowLPI");
         bits.APETXDetectionEnable.setBaseRegister(&r32);
+        bits.APETXDetectionEnable.setName("APETXDetectionEnable");
         bits.EEELinkIdleDetectionEnable.setBaseRegister(&r32);
+        bits.EEELinkIdleDetectionEnable.setName("EEELinkIdleDetectionEnable");
         bits.PCIeL1ExitDetectionEnable.setBaseRegister(&r32);
+        bits.PCIeL1ExitDetectionEnable.setName("PCIeL1ExitDetectionEnable");
         bits.RXCPUAllowLPIEnable.setBaseRegister(&r32);
+        bits.RXCPUAllowLPIEnable.setName("RXCPUAllowLPIEnable");
         bits.SendIndexDetectionEnable.setBaseRegister(&r32);
+        bits.SendIndexDetectionEnable.setName("SendIndexDetectionEnable");
         bits.UserLPIEnable.setBaseRegister(&r32);
+        bits.UserLPIEnable.setName("UserLPIEnable");
         bits.TXLPIEnable.setBaseRegister(&r32);
+        bits.TXLPIEnable.setName("TXLPIEnable");
         bits.RXLPIEnable.setBaseRegister(&r32);
+        bits.RXLPIEnable.setName("RXLPIEnable");
         bits.AutoWakeEnable.setBaseRegister(&r32);
+        bits.AutoWakeEnable.setName("AutoWakeEnable");
         bits.BlockTime.setBaseRegister(&r32);
+        bits.BlockTime.setName("BlockTime");
         bits.DriveAllowLPIEnable.setBaseRegister(&r32);
+        bits.DriveAllowLPIEnable.setName("DriveAllowLPIEnable");
     }
     RegDEVICEEeeMode_t& operator=(const RegDEVICEEeeMode_t& other)
     {
@@ -1815,10 +2095,18 @@ typedef register_container RegDEVICEEeeLinkIdleControl_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DebugUARTIdle, 2, 1)
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "EeeLinkIdleControl"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegDEVICEEeeLinkIdleControl_t()
     {
         /** @brief constructor for @ref DEVICE_t.EeeLinkIdleControl. */
+        r32.setName("EeeLinkIdleControl");
         bits.DebugUARTIdle.setBaseRegister(&r32);
+        bits.DebugUARTIdle.setName("DebugUARTIdle");
     }
     RegDEVICEEeeLinkIdleControl_t& operator=(const RegDEVICEEeeLinkIdleControl_t& other)
     {
@@ -1850,11 +2138,20 @@ typedef register_container RegDEVICEEeeControl_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MinimumAssert, 16, 16)
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "EeeControl"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegDEVICEEeeControl_t()
     {
         /** @brief constructor for @ref DEVICE_t.EeeControl. */
+        r32.setName("EeeControl");
         bits.ExitTime.setBaseRegister(&r32);
+        bits.ExitTime.setName("ExitTime");
         bits.MinimumAssert.setBaseRegister(&r32);
+        bits.MinimumAssert.setName("MinimumAssert");
     }
     RegDEVICEEeeControl_t& operator=(const RegDEVICEEeeControl_t& other)
     {
@@ -1896,10 +2193,18 @@ typedef register_container RegDEVICEMemoryArbiterMode_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Enable, 1, 1)
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "MemoryArbiterMode"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegDEVICEMemoryArbiterMode_t()
     {
         /** @brief constructor for @ref DEVICE_t.MemoryArbiterMode. */
+        r32.setName("MemoryArbiterMode");
         bits.Enable.setBaseRegister(&r32);
+        bits.Enable.setName("Enable");
     }
     RegDEVICEMemoryArbiterMode_t& operator=(const RegDEVICEMemoryArbiterMode_t& other)
     {
@@ -1941,12 +2246,22 @@ typedef register_container RegDEVICEBufferManagerMode_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ResetRXMBUFPointer, 5, 1)
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "BufferManagerMode"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegDEVICEBufferManagerMode_t()
     {
         /** @brief constructor for @ref DEVICE_t.BufferManagerMode. */
+        r32.setName("BufferManagerMode");
         bits.Enable.setBaseRegister(&r32);
+        bits.Enable.setName("Enable");
         bits.AttentionEnable.setBaseRegister(&r32);
+        bits.AttentionEnable.setName("AttentionEnable");
         bits.ResetRXMBUFPointer.setBaseRegister(&r32);
+        bits.ResetRXMBUFPointer.setName("ResetRXMBUFPointer");
     }
     RegDEVICEBufferManagerMode_t& operator=(const RegDEVICEBufferManagerMode_t& other)
     {
@@ -1990,11 +2305,20 @@ typedef register_container RegDEVICELsoNonlsoBdReadDmaCorruptionEnableControl_t 
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PCIRequestBurstLengthforNonLSORDMAEngine, 18, 2)
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "LsoNonlsoBdReadDmaCorruptionEnableControl"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegDEVICELsoNonlsoBdReadDmaCorruptionEnableControl_t()
     {
         /** @brief constructor for @ref DEVICE_t.LsoNonlsoBdReadDmaCorruptionEnableControl. */
+        r32.setName("LsoNonlsoBdReadDmaCorruptionEnableControl");
         bits.PCIRequestBurstLengthforBDRDMAEngine.setBaseRegister(&r32);
+        bits.PCIRequestBurstLengthforBDRDMAEngine.setName("PCIRequestBurstLengthforBDRDMAEngine");
         bits.PCIRequestBurstLengthforNonLSORDMAEngine.setBaseRegister(&r32);
+        bits.PCIRequestBurstLengthforNonLSORDMAEngine.setName("PCIRequestBurstLengthforNonLSORDMAEngine");
     }
     RegDEVICELsoNonlsoBdReadDmaCorruptionEnableControl_t& operator=(const RegDEVICELsoNonlsoBdReadDmaCorruptionEnableControl_t& other)
     {
@@ -2100,23 +2424,44 @@ typedef register_container RegDEVICERxRiscMode_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableRegisterAddressTrapHalt, 14, 1)
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RxRiscMode"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegDEVICERxRiscMode_t()
     {
         /** @brief constructor for @ref DEVICE_t.RxRiscMode. */
+        r32.setName("RxRiscMode");
         bits.Reset.setBaseRegister(&r32);
+        bits.Reset.setName("Reset");
         bits.SingleStep.setBaseRegister(&r32);
+        bits.SingleStep.setName("SingleStep");
         bits.Page0DataHalt.setBaseRegister(&r32);
+        bits.Page0DataHalt.setName("Page0DataHalt");
         bits.Page0InstrHalt.setBaseRegister(&r32);
+        bits.Page0InstrHalt.setName("Page0InstrHalt");
         bits.EnableDataCache.setBaseRegister(&r32);
+        bits.EnableDataCache.setName("EnableDataCache");
         bits.ROMFail.setBaseRegister(&r32);
+        bits.ROMFail.setName("ROMFail");
         bits.EnableWatchdog.setBaseRegister(&r32);
+        bits.EnableWatchdog.setName("EnableWatchdog");
         bits.EnableInstructionCache.setBaseRegister(&r32);
+        bits.EnableInstructionCache.setName("EnableInstructionCache");
         bits.FlushInstructionCache.setBaseRegister(&r32);
+        bits.FlushInstructionCache.setName("FlushInstructionCache");
         bits.Halt.setBaseRegister(&r32);
+        bits.Halt.setName("Halt");
         bits.InvalidDataAccessHalt.setBaseRegister(&r32);
+        bits.InvalidDataAccessHalt.setName("InvalidDataAccessHalt");
         bits.InvalidInstructionAccessHalt.setBaseRegister(&r32);
+        bits.InvalidInstructionAccessHalt.setName("InvalidInstructionAccessHalt");
         bits.EnableMemoryAddressTrapHalt.setBaseRegister(&r32);
+        bits.EnableMemoryAddressTrapHalt.setName("EnableMemoryAddressTrapHalt");
         bits.EnableRegisterAddressTrapHalt.setBaseRegister(&r32);
+        bits.EnableRegisterAddressTrapHalt.setName("EnableRegisterAddressTrapHalt");
     }
     RegDEVICERxRiscMode_t& operator=(const RegDEVICERxRiscMode_t& other)
     {
@@ -2230,24 +2575,46 @@ typedef register_container RegDEVICERxRiscStatus_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BlockingRead, 31, 1)
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RxRiscStatus"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegDEVICERxRiscStatus_t()
     {
         /** @brief constructor for @ref DEVICE_t.RxRiscStatus. */
+        r32.setName("RxRiscStatus");
         bits.HardwareBreakpoint.setBaseRegister(&r32);
+        bits.HardwareBreakpoint.setName("HardwareBreakpoint");
         bits.HaltInstructionExecuted.setBaseRegister(&r32);
+        bits.HaltInstructionExecuted.setName("HaltInstructionExecuted");
         bits.InvalidInstruction.setBaseRegister(&r32);
+        bits.InvalidInstruction.setName("InvalidInstruction");
         bits.Page0DataRefeence.setBaseRegister(&r32);
+        bits.Page0DataRefeence.setName("Page0DataRefeence");
         bits.Page0InstructionReference.setBaseRegister(&r32);
+        bits.Page0InstructionReference.setName("Page0InstructionReference");
         bits.InvalidDataAccess.setBaseRegister(&r32);
+        bits.InvalidDataAccess.setName("InvalidDataAccess");
         bits.InvalidInstructionFetch.setBaseRegister(&r32);
+        bits.InvalidInstructionFetch.setName("InvalidInstructionFetch");
         bits.BadMemoryAlignment.setBaseRegister(&r32);
+        bits.BadMemoryAlignment.setName("BadMemoryAlignment");
         bits.MemoryAddressTrap.setBaseRegister(&r32);
+        bits.MemoryAddressTrap.setName("MemoryAddressTrap");
         bits.RegisterAddressTrap.setBaseRegister(&r32);
+        bits.RegisterAddressTrap.setName("RegisterAddressTrap");
         bits.Halted.setBaseRegister(&r32);
+        bits.Halted.setName("Halted");
         bits.Unknown.setBaseRegister(&r32);
+        bits.Unknown.setName("Unknown");
         bits.DataAccessStall.setBaseRegister(&r32);
+        bits.DataAccessStall.setName("DataAccessStall");
         bits.InstructionFetchStall.setBaseRegister(&r32);
+        bits.InstructionFetchStall.setName("InstructionFetchStall");
         bits.BlockingRead.setBaseRegister(&r32);
+        bits.BlockingRead.setName("BlockingRead");
     }
     RegDEVICERxRiscStatus_t& operator=(const RegDEVICERxRiscStatus_t& other)
     {
@@ -2541,10 +2908,18 @@ typedef register_container RegDEVICEPciVpdRequest_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, RequestedVPDOffset, 16, 15)
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "PciVpdRequest"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegDEVICEPciVpdRequest_t()
     {
         /** @brief constructor for @ref DEVICE_t.PciVpdRequest. */
+        r32.setName("PciVpdRequest");
         bits.RequestedVPDOffset.setBaseRegister(&r32);
+        bits.RequestedVPDOffset.setName("RequestedVPDOffset");
     }
     RegDEVICEPciVpdRequest_t& operator=(const RegDEVICEPciVpdRequest_t& other)
     {
@@ -2583,11 +2958,20 @@ typedef register_container RegDEVICEPciVendorDeviceId_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, VendorID, 16, 16)
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "PciVendorDeviceId"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegDEVICEPciVendorDeviceId_t()
     {
         /** @brief constructor for @ref DEVICE_t.PciVendorDeviceId. */
+        r32.setName("PciVendorDeviceId");
         bits.DeviceID.setBaseRegister(&r32);
+        bits.DeviceID.setName("DeviceID");
         bits.VendorID.setBaseRegister(&r32);
+        bits.VendorID.setName("VendorID");
     }
     RegDEVICEPciVendorDeviceId_t& operator=(const RegDEVICEPciVendorDeviceId_t& other)
     {
@@ -2619,11 +3003,20 @@ typedef register_container RegDEVICEPciSubsystemId_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SubsystemID, 16, 16)
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "PciSubsystemId"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegDEVICEPciSubsystemId_t()
     {
         /** @brief constructor for @ref DEVICE_t.PciSubsystemId. */
+        r32.setName("PciSubsystemId");
         bits.SubsystemVendorID.setBaseRegister(&r32);
+        bits.SubsystemVendorID.setName("SubsystemVendorID");
         bits.SubsystemID.setBaseRegister(&r32);
+        bits.SubsystemID.setName("SubsystemID");
     }
     RegDEVICEPciSubsystemId_t& operator=(const RegDEVICEPciSubsystemId_t& other)
     {
@@ -2742,15 +3135,28 @@ typedef register_container RegDEVICEPciPowerBudget0_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "PciPowerBudget0"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegDEVICEPciPowerBudget0_t()
     {
         /** @brief constructor for @ref DEVICE_t.PciPowerBudget0. */
+        r32.setName("PciPowerBudget0");
         bits.BasePower.setBaseRegister(&r32);
+        bits.BasePower.setName("BasePower");
         bits.DataScale.setBaseRegister(&r32);
+        bits.DataScale.setName("DataScale");
         bits.PMSubState.setBaseRegister(&r32);
+        bits.PMSubState.setName("PMSubState");
         bits.PMState.setBaseRegister(&r32);
+        bits.PMState.setName("PMState");
         bits.Type.setBaseRegister(&r32);
+        bits.Type.setName("Type");
         bits.PowerRail.setBaseRegister(&r32);
+        bits.PowerRail.setName("PowerRail");
     }
     RegDEVICEPciPowerBudget0_t& operator=(const RegDEVICEPciPowerBudget0_t& other)
     {
@@ -2827,15 +3233,28 @@ typedef register_container RegDEVICEPciPowerBudget1_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "PciPowerBudget1"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegDEVICEPciPowerBudget1_t()
     {
         /** @brief constructor for @ref DEVICE_t.PciPowerBudget1. */
+        r32.setName("PciPowerBudget1");
         bits.BasePower.setBaseRegister(&r32);
+        bits.BasePower.setName("BasePower");
         bits.DataScale.setBaseRegister(&r32);
+        bits.DataScale.setName("DataScale");
         bits.PMSubState.setBaseRegister(&r32);
+        bits.PMSubState.setName("PMSubState");
         bits.PMState.setBaseRegister(&r32);
+        bits.PMState.setName("PMState");
         bits.Type.setBaseRegister(&r32);
+        bits.Type.setName("Type");
         bits.PowerRail.setBaseRegister(&r32);
+        bits.PowerRail.setName("PowerRail");
     }
     RegDEVICEPciPowerBudget1_t& operator=(const RegDEVICEPciPowerBudget1_t& other)
     {
@@ -2912,15 +3331,28 @@ typedef register_container RegDEVICEPciPowerBudget2_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "PciPowerBudget2"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegDEVICEPciPowerBudget2_t()
     {
         /** @brief constructor for @ref DEVICE_t.PciPowerBudget2. */
+        r32.setName("PciPowerBudget2");
         bits.BasePower.setBaseRegister(&r32);
+        bits.BasePower.setName("BasePower");
         bits.DataScale.setBaseRegister(&r32);
+        bits.DataScale.setName("DataScale");
         bits.PMSubState.setBaseRegister(&r32);
+        bits.PMSubState.setName("PMSubState");
         bits.PMState.setBaseRegister(&r32);
+        bits.PMState.setName("PMState");
         bits.Type.setBaseRegister(&r32);
+        bits.Type.setName("Type");
         bits.PowerRail.setBaseRegister(&r32);
+        bits.PowerRail.setName("PowerRail");
     }
     RegDEVICEPciPowerBudget2_t& operator=(const RegDEVICEPciPowerBudget2_t& other)
     {
@@ -2997,15 +3429,28 @@ typedef register_container RegDEVICEPciPowerBudget3_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "PciPowerBudget3"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegDEVICEPciPowerBudget3_t()
     {
         /** @brief constructor for @ref DEVICE_t.PciPowerBudget3. */
+        r32.setName("PciPowerBudget3");
         bits.BasePower.setBaseRegister(&r32);
+        bits.BasePower.setName("BasePower");
         bits.DataScale.setBaseRegister(&r32);
+        bits.DataScale.setName("DataScale");
         bits.PMSubState.setBaseRegister(&r32);
+        bits.PMSubState.setName("PMSubState");
         bits.PMState.setBaseRegister(&r32);
+        bits.PMState.setName("PMState");
         bits.Type.setBaseRegister(&r32);
+        bits.Type.setName("Type");
         bits.PowerRail.setBaseRegister(&r32);
+        bits.PowerRail.setName("PowerRail");
     }
     RegDEVICEPciPowerBudget3_t& operator=(const RegDEVICEPciPowerBudget3_t& other)
     {
@@ -3082,15 +3527,28 @@ typedef register_container RegDEVICEPciPowerBudget4_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "PciPowerBudget4"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegDEVICEPciPowerBudget4_t()
     {
         /** @brief constructor for @ref DEVICE_t.PciPowerBudget4. */
+        r32.setName("PciPowerBudget4");
         bits.BasePower.setBaseRegister(&r32);
+        bits.BasePower.setName("BasePower");
         bits.DataScale.setBaseRegister(&r32);
+        bits.DataScale.setName("DataScale");
         bits.PMSubState.setBaseRegister(&r32);
+        bits.PMSubState.setName("PMSubState");
         bits.PMState.setBaseRegister(&r32);
+        bits.PMState.setName("PMState");
         bits.Type.setBaseRegister(&r32);
+        bits.Type.setName("Type");
         bits.PowerRail.setBaseRegister(&r32);
+        bits.PowerRail.setName("PowerRail");
     }
     RegDEVICEPciPowerBudget4_t& operator=(const RegDEVICEPciPowerBudget4_t& other)
     {
@@ -3167,15 +3625,28 @@ typedef register_container RegDEVICEPciPowerBudget5_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "PciPowerBudget5"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegDEVICEPciPowerBudget5_t()
     {
         /** @brief constructor for @ref DEVICE_t.PciPowerBudget5. */
+        r32.setName("PciPowerBudget5");
         bits.BasePower.setBaseRegister(&r32);
+        bits.BasePower.setName("BasePower");
         bits.DataScale.setBaseRegister(&r32);
+        bits.DataScale.setName("DataScale");
         bits.PMSubState.setBaseRegister(&r32);
+        bits.PMSubState.setName("PMSubState");
         bits.PMState.setBaseRegister(&r32);
+        bits.PMState.setName("PMState");
         bits.Type.setBaseRegister(&r32);
+        bits.Type.setName("Type");
         bits.PowerRail.setBaseRegister(&r32);
+        bits.PowerRail.setName("PowerRail");
     }
     RegDEVICEPciPowerBudget5_t& operator=(const RegDEVICEPciPowerBudget5_t& other)
     {
@@ -3252,15 +3723,28 @@ typedef register_container RegDEVICEPciPowerBudget6_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "PciPowerBudget6"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegDEVICEPciPowerBudget6_t()
     {
         /** @brief constructor for @ref DEVICE_t.PciPowerBudget6. */
+        r32.setName("PciPowerBudget6");
         bits.BasePower.setBaseRegister(&r32);
+        bits.BasePower.setName("BasePower");
         bits.DataScale.setBaseRegister(&r32);
+        bits.DataScale.setName("DataScale");
         bits.PMSubState.setBaseRegister(&r32);
+        bits.PMSubState.setName("PMSubState");
         bits.PMState.setBaseRegister(&r32);
+        bits.PMState.setName("PMState");
         bits.Type.setBaseRegister(&r32);
+        bits.Type.setName("Type");
         bits.PowerRail.setBaseRegister(&r32);
+        bits.PowerRail.setName("PowerRail");
     }
     RegDEVICEPciPowerBudget6_t& operator=(const RegDEVICEPciPowerBudget6_t& other)
     {
@@ -3337,15 +3821,28 @@ typedef register_container RegDEVICEPciPowerBudget7_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "PciPowerBudget7"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegDEVICEPciPowerBudget7_t()
     {
         /** @brief constructor for @ref DEVICE_t.PciPowerBudget7. */
+        r32.setName("PciPowerBudget7");
         bits.BasePower.setBaseRegister(&r32);
+        bits.BasePower.setName("BasePower");
         bits.DataScale.setBaseRegister(&r32);
+        bits.DataScale.setName("DataScale");
         bits.PMSubState.setBaseRegister(&r32);
+        bits.PMSubState.setName("PMSubState");
         bits.PMState.setBaseRegister(&r32);
+        bits.PMState.setName("PMState");
         bits.Type.setBaseRegister(&r32);
+        bits.Type.setName("Type");
         bits.PowerRail.setBaseRegister(&r32);
+        bits.PowerRail.setName("PowerRail");
     }
     RegDEVICEPciPowerBudget7_t& operator=(const RegDEVICEPciPowerBudget7_t& other)
     {
@@ -3424,14 +3921,26 @@ typedef register_container RegDEVICEGrcModeControl_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PCIeTL_DIV_DL_DIV_PLMapping3, 31, 1)
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "GrcModeControl"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegDEVICEGrcModeControl_t()
     {
         /** @brief constructor for @ref DEVICE_t.GrcModeControl. */
+        r32.setName("GrcModeControl");
         bits.TimeSyncModeEnable.setBaseRegister(&r32);
+        bits.TimeSyncModeEnable.setName("TimeSyncModeEnable");
         bits.NVRAMWriteEnable.setBaseRegister(&r32);
+        bits.NVRAMWriteEnable.setName("NVRAMWriteEnable");
         bits.PCIeTL_DIV_DL_DIV_PLMapping1.setBaseRegister(&r32);
+        bits.PCIeTL_DIV_DL_DIV_PLMapping1.setName("PCIeTL_DIV_DL_DIV_PLMapping1");
         bits.PCIeTL_DIV_DL_DIV_PLMapping2.setBaseRegister(&r32);
+        bits.PCIeTL_DIV_DL_DIV_PLMapping2.setName("PCIeTL_DIV_DL_DIV_PLMapping2");
         bits.PCIeTL_DIV_DL_DIV_PLMapping3.setBaseRegister(&r32);
+        bits.PCIeTL_DIV_DL_DIV_PLMapping3.setName("PCIeTL_DIV_DL_DIV_PLMapping3");
     }
     RegDEVICEGrcModeControl_t& operator=(const RegDEVICEGrcModeControl_t& other)
     {
@@ -3515,19 +4024,36 @@ typedef register_container RegDEVICEMiscellaneousLocalControl_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, AutoSEEPROMAccess, 24, 1)
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "MiscellaneousLocalControl"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegDEVICEMiscellaneousLocalControl_t()
     {
         /** @brief constructor for @ref DEVICE_t.MiscellaneousLocalControl. */
+        r32.setName("MiscellaneousLocalControl");
         bits.GPIO0Input.setBaseRegister(&r32);
+        bits.GPIO0Input.setName("GPIO0Input");
         bits.GPIO1Input.setBaseRegister(&r32);
+        bits.GPIO1Input.setName("GPIO1Input");
         bits.GPIO2Input.setBaseRegister(&r32);
+        bits.GPIO2Input.setName("GPIO2Input");
         bits.GPIO0OutputEnable.setBaseRegister(&r32);
+        bits.GPIO0OutputEnable.setName("GPIO0OutputEnable");
         bits.GPIO1OutputEnable.setBaseRegister(&r32);
+        bits.GPIO1OutputEnable.setName("GPIO1OutputEnable");
         bits.GPIO2OutputEnable.setBaseRegister(&r32);
+        bits.GPIO2OutputEnable.setName("GPIO2OutputEnable");
         bits.GPIO0Output.setBaseRegister(&r32);
+        bits.GPIO0Output.setName("GPIO0Output");
         bits.GPIO1Output.setBaseRegister(&r32);
+        bits.GPIO1Output.setName("GPIO1Output");
         bits.GPIO2Output.setBaseRegister(&r32);
+        bits.GPIO2Output.setName("GPIO2Output");
         bits.AutoSEEPROMAccess.setBaseRegister(&r32);
+        bits.AutoSEEPROMAccess.setName("AutoSEEPROMAccess");
     }
     RegDEVICEMiscellaneousLocalControl_t& operator=(const RegDEVICEMiscellaneousLocalControl_t& other)
     {
@@ -3562,10 +4088,18 @@ typedef register_container RegDEVICERxCpuEvent_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, VPDAttention, 30, 1)
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RxCpuEvent"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegDEVICERxCpuEvent_t()
     {
         /** @brief constructor for @ref DEVICE_t.RxCpuEvent. */
+        r32.setName("RxCpuEvent");
         bits.VPDAttention.setBaseRegister(&r32);
+        bits.VPDAttention.setName("VPDAttention");
     }
     RegDEVICERxCpuEvent_t& operator=(const RegDEVICERxCpuEvent_t& other)
     {
@@ -3611,11 +4145,20 @@ typedef register_container RegDEVICEFastBootProgramCounter_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Enable, 31, 1)
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "FastBootProgramCounter"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegDEVICEFastBootProgramCounter_t()
     {
         /** @brief constructor for @ref DEVICE_t.FastBootProgramCounter. */
+        r32.setName("FastBootProgramCounter");
         bits.ProgramCounter.setBaseRegister(&r32);
+        bits.ProgramCounter.setName("ProgramCounter");
         bits.Enable.setBaseRegister(&r32);
+        bits.Enable.setName("Enable");
     }
     RegDEVICEFastBootProgramCounter_t& operator=(const RegDEVICEFastBootProgramCounter_t& other)
     {
@@ -3710,14 +4253,26 @@ typedef register_container RegDEVICEEavRefClockControl_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APEGPIO3Mapping, 27, 3)
     BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "EavRefClockControl"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegDEVICEEavRefClockControl_t()
     {
         /** @brief constructor for @ref DEVICE_t.EavRefClockControl. */
+        r32.setName("EavRefClockControl");
         bits.TimesyncGPIOMapping.setBaseRegister(&r32);
+        bits.TimesyncGPIOMapping.setName("TimesyncGPIOMapping");
         bits.APEGPIO0Mapping.setBaseRegister(&r32);
+        bits.APEGPIO0Mapping.setName("APEGPIO0Mapping");
         bits.APEGPIO1Mapping.setBaseRegister(&r32);
+        bits.APEGPIO1Mapping.setName("APEGPIO1Mapping");
         bits.APEGPIO2Mapping.setBaseRegister(&r32);
+        bits.APEGPIO2Mapping.setName("APEGPIO2Mapping");
         bits.APEGPIO3Mapping.setBaseRegister(&r32);
+        bits.APEGPIO3Mapping.setName("APEGPIO3Mapping");
     }
     RegDEVICEEavRefClockControl_t& operator=(const RegDEVICEEavRefClockControl_t& other)
     {

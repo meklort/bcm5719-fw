@@ -131,13 +131,24 @@ typedef register_container RegGENGenCfg_t {
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, TODO, 7, 25)
     BITFIELD_END(BCM5719_GEN_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "GenCfg"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegGENGenCfg_t()
     {
         /** @brief constructor for @ref GEN_t.GenCfg. */
+        r32.setName("GenCfg");
         bits.PHYType_GPHY.setBaseRegister(&r32);
+        bits.PHYType_GPHY.setName("PHYType_GPHY");
         bits.PHYType_SERDES.setBaseRegister(&r32);
+        bits.PHYType_SERDES.setName("PHYType_SERDES");
         bits.WOLEnable.setBaseRegister(&r32);
+        bits.WOLEnable.setName("WOLEnable");
         bits.TODO.setBaseRegister(&r32);
+        bits.TODO.setName("TODO");
     }
     RegGENGenCfg_t& operator=(const RegGENGenCfg_t& other)
     {
@@ -241,13 +252,24 @@ typedef register_container RegGENGenD8_t {
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, unknown_7_7, 7, 1)
     BITFIELD_END(BCM5719_GEN_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "GenD8"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegGENGenD8_t()
     {
         /** @brief constructor for @ref GEN_t.GenD8. */
+        r32.setName("GenD8");
         bits.SkipMainLoopInit.setBaseRegister(&r32);
+        bits.SkipMainLoopInit.setName("SkipMainLoopInit");
         bits.ForceWOL.setBaseRegister(&r32);
+        bits.ForceWOL.setName("ForceWOL");
         bits.NoModifyMiscellaneousControl.setBaseRegister(&r32);
+        bits.NoModifyMiscellaneousControl.setName("NoModifyMiscellaneousControl");
         bits.unknown_7_7.setBaseRegister(&r32);
+        bits.unknown_7_7.setName("unknown_7_7");
     }
     RegGENGenD8_t& operator=(const RegGENGenD8_t& other)
     {
@@ -397,28 +419,54 @@ typedef register_container RegGENGenCfgFeature_t {
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, LinkSpeedPowerMode, 31, 1)
     BITFIELD_END(BCM5719_GEN_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "GenCfgFeature"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegGENGenCfgFeature_t()
     {
         /** @brief constructor for @ref GEN_t.GenCfgFeature. */
+        r32.setName("GenCfgFeature");
         bits.WOLEnable.setBaseRegister(&r32);
+        bits.WOLEnable.setName("WOLEnable");
         bits.PXEEnable.setBaseRegister(&r32);
+        bits.PXEEnable.setName("PXEEnable");
         bits.PXESpeed.setBaseRegister(&r32);
+        bits.PXESpeed.setName("PXESpeed");
         bits.ASFEnable.setBaseRegister(&r32);
+        bits.ASFEnable.setName("ASFEnable");
         bits.PXEBARSize.setBaseRegister(&r32);
+        bits.PXEBARSize.setName("PXEBARSize");
         bits.DisableSetupMessage.setBaseRegister(&r32);
+        bits.DisableSetupMessage.setName("DisableSetupMessage");
         bits.HotkeyOption.setBaseRegister(&r32);
+        bits.HotkeyOption.setName("HotkeyOption");
         bits.PXEBootstrapType.setBaseRegister(&r32);
+        bits.PXEBootstrapType.setName("PXEBootstrapType");
         bits.PXEMessageTimeout.setBaseRegister(&r32);
+        bits.PXEMessageTimeout.setName("PXEMessageTimeout");
         bits.PXEBootProtocol.setBaseRegister(&r32);
+        bits.PXEBootProtocol.setName("PXEBootProtocol");
         bits.LOMDesign.setBaseRegister(&r32);
+        bits.LOMDesign.setName("LOMDesign");
         bits.VAUXCutoffDelay.setBaseRegister(&r32);
+        bits.VAUXCutoffDelay.setName("VAUXCutoffDelay");
         bits.WOLLimit10.setBaseRegister(&r32);
+        bits.WOLLimit10.setName("WOLLimit10");
         bits.LinkIdle.setBaseRegister(&r32);
+        bits.LinkIdle.setName("LinkIdle");
         bits.unknown_27_27.setBaseRegister(&r32);
+        bits.unknown_27_27.setName("unknown_27_27");
         bits.CableSense.setBaseRegister(&r32);
+        bits.CableSense.setName("CableSense");
         bits.MBAVLANEnable.setBaseRegister(&r32);
+        bits.MBAVLANEnable.setName("MBAVLANEnable");
         bits.LinkAwarePowerMode.setBaseRegister(&r32);
+        bits.LinkAwarePowerMode.setName("LinkAwarePowerMode");
         bits.LinkSpeedPowerMode.setBaseRegister(&r32);
+        bits.LinkSpeedPowerMode.setName("LinkSpeedPowerMode");
     }
     RegGENGenCfgFeature_t& operator=(const RegGENGenCfgFeature_t& other)
     {
@@ -513,20 +561,38 @@ typedef register_container RegGENGenCfgHw_t {
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, APEGPIO3Mapping, 29, 3)
     BITFIELD_END(BCM5719_GEN_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "GenCfgHw"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegGENGenCfgHw_t()
     {
         /** @brief constructor for @ref GEN_t.GenCfgHw. */
+        r32.setName("GenCfgHw");
         bits.LegacyLEDControl.setBaseRegister(&r32);
+        bits.LegacyLEDControl.setName("LegacyLEDControl");
         bits.ReverseN_Way.setBaseRegister(&r32);
+        bits.ReverseN_Way.setName("ReverseN_Way");
         bits.MiniPCI.setBaseRegister(&r32);
+        bits.MiniPCI.setName("MiniPCI");
         bits.AutoPowerdownEnable.setBaseRegister(&r32);
+        bits.AutoPowerdownEnable.setName("AutoPowerdownEnable");
         bits.SHASTALEDControl.setBaseRegister(&r32);
+        bits.SHASTALEDControl.setName("SHASTALEDControl");
         bits.TimeSyncModeEnable.setBaseRegister(&r32);
+        bits.TimeSyncModeEnable.setName("TimeSyncModeEnable");
         bits.TimesyncGPIOMapping.setBaseRegister(&r32);
+        bits.TimesyncGPIOMapping.setName("TimesyncGPIOMapping");
         bits.APEGPIO0Mapping.setBaseRegister(&r32);
+        bits.APEGPIO0Mapping.setName("APEGPIO0Mapping");
         bits.APEGPIO1Mapping.setBaseRegister(&r32);
+        bits.APEGPIO1Mapping.setName("APEGPIO1Mapping");
         bits.APEGPIO2Mapping.setBaseRegister(&r32);
+        bits.APEGPIO2Mapping.setName("APEGPIO2Mapping");
         bits.APEGPIO3Mapping.setBaseRegister(&r32);
+        bits.APEGPIO3Mapping.setName("APEGPIO3Mapping");
     }
     RegGENGenCfgHw_t& operator=(const RegGENGenCfgHw_t& other)
     {
@@ -632,22 +698,42 @@ typedef register_container RegGENGenCfgShared_t {
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, unknown_31_30, 30, 2)
     BITFIELD_END(BCM5719_GEN_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "GenCfgShared"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegGENGenCfgShared_t()
     {
         /** @brief constructor for @ref GEN_t.GenCfgShared. */
+        r32.setName("GenCfgShared");
         bits.PortSwap.setBaseRegister(&r32);
+        bits.PortSwap.setName("PortSwap");
         bits.ASPMDebounce.setBaseRegister(&r32);
+        bits.ASPMDebounce.setName("ASPMDebounce");
         bits.FiberWoLCapable.setBaseRegister(&r32);
+        bits.FiberWoLCapable.setName("FiberWoLCapable");
         bits.DisablePowerSaving.setBaseRegister(&r32);
+        bits.DisablePowerSaving.setName("DisablePowerSaving");
         bits.unknown_7_7.setBaseRegister(&r32);
+        bits.unknown_7_7.setName("unknown_7_7");
         bits.unknown_8_8.setBaseRegister(&r32);
+        bits.unknown_8_8.setName("unknown_8_8");
         bits.unknown_10_9.setBaseRegister(&r32);
+        bits.unknown_10_9.setName("unknown_10_9");
         bits.unknown_15_15.setBaseRegister(&r32);
+        bits.unknown_15_15.setName("unknown_15_15");
         bits.LinkFlapAvoid.setBaseRegister(&r32);
+        bits.LinkFlapAvoid.setName("LinkFlapAvoid");
         bits._1GonVAUXOK.setBaseRegister(&r32);
+        bits._1GonVAUXOK.setName("_1GonVAUXOK");
         bits.unknown_27_26.setBaseRegister(&r32);
+        bits.unknown_27_26.setName("unknown_27_26");
         bits.unknown_29_28.setBaseRegister(&r32);
+        bits.unknown_29_28.setName("unknown_29_28");
         bits.unknown_31_30.setBaseRegister(&r32);
+        bits.unknown_31_30.setName("unknown_31_30");
     }
     RegGENGenCfgShared_t& operator=(const RegGENGenCfgShared_t& other)
     {
@@ -720,16 +806,30 @@ typedef register_container RegGENGenCfgHw2_t {
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, UnknownSERDES1010_10, 22, 1)
     BITFIELD_END(BCM5719_GEN_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "GenCfgHw2"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegGENGenCfgHw2_t()
     {
         /** @brief constructor for @ref GEN_t.GenCfgHw2. */
+        r32.setName("GenCfgHw2");
         bits.EnableAutonegotiation.setBaseRegister(&r32);
+        bits.EnableAutonegotiation.setName("EnableAutonegotiation");
         bits.ExpansionROMEnable.setBaseRegister(&r32);
+        bits.ExpansionROMEnable.setName("ExpansionROMEnable");
         bits.unknown_2_2.setBaseRegister(&r32);
+        bits.unknown_2_2.setName("unknown_2_2");
         bits.UnknownSERDES1310.setBaseRegister(&r32);
+        bits.UnknownSERDES1310.setName("UnknownSERDES1310");
         bits.UnknownSERDES1312.setBaseRegister(&r32);
+        bits.UnknownSERDES1312.setName("UnknownSERDES1312");
         bits.UnknownSERDES1010_01.setBaseRegister(&r32);
+        bits.UnknownSERDES1010_01.setName("UnknownSERDES1010_01");
         bits.UnknownSERDES1010_10.setBaseRegister(&r32);
+        bits.UnknownSERDES1010_10.setName("UnknownSERDES1010_10");
     }
     RegGENGenCfgHw2_t& operator=(const RegGENGenCfgHw2_t& other)
     {
@@ -774,12 +874,22 @@ typedef register_container RegGENGenCfg5_t {
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, unknown_3_2, 2, 2)
     BITFIELD_END(BCM5719_GEN_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "GenCfg5"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegGENGenCfg5_t()
     {
         /** @brief constructor for @ref GEN_t.GenCfg5. */
+        r32.setName("GenCfg5");
         bits.unknown_0_0.setBaseRegister(&r32);
+        bits.unknown_0_0.setName("unknown_0_0");
         bits.Disable1GHalfAdv.setBaseRegister(&r32);
+        bits.Disable1GHalfAdv.setName("Disable1GHalfAdv");
         bits.unknown_3_2.setBaseRegister(&r32);
+        bits.unknown_3_2.setName("unknown_3_2");
     }
     RegGENGenCfg5_t& operator=(const RegGENGenCfg5_t& other)
     {
@@ -813,11 +923,20 @@ typedef register_container RegGENGenDbgControlStatus_t {
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, DataAvailable, 8, 1)
     BITFIELD_END(BCM5719_GEN_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "GenDbgControlStatus"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegGENGenDbgControlStatus_t()
     {
         /** @brief constructor for @ref GEN_t.GenDbgControlStatus. */
+        r32.setName("GenDbgControlStatus");
         bits.DebugEnabled.setBaseRegister(&r32);
+        bits.DebugEnabled.setName("DebugEnabled");
         bits.DataAvailable.setBaseRegister(&r32);
+        bits.DataAvailable.setName("DataAvailable");
     }
     RegGENGenDbgControlStatus_t& operator=(const RegGENGenDbgControlStatus_t& other)
     {
@@ -843,10 +962,18 @@ typedef register_container RegGENGenDbgData_t {
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, DebugByte, 0, 8)
     BITFIELD_END(BCM5719_GEN_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "GenDbgData"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
     RegGENGenDbgData_t()
     {
         /** @brief constructor for @ref GEN_t.GenDbgData. */
+        r32.setName("GenDbgData");
         bits.DebugByte.setBaseRegister(&r32);
+        bits.DebugByte.setName("DebugByte");
     }
     RegGENGenDbgData_t& operator=(const RegGENGenDbgData_t& other)
     {
