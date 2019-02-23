@@ -46,9 +46,21 @@
 #define STAGE1_H
 
 #include <bcm5719_eeprom.h>
+#include <bcm5719_GEN.h>
 
 void early_init_hw(void);
 void load_nvm_config(NVRAMContents_t *nvram);
 void init_hw(NVRAMContents_t *nvram);
+
+#define STATUS_MAIN         (0x8234700u)
+#define STATUS_EARLY_INIT   (0x8234800u)
+#define STATUS_NVM_CONFIG   (0x8234900u)
+#define STATUS_INIT_HW      (0x8234A00u)
+
+static inline void reportStatus(uint32_t code, uint8_t step)
+{
+    GEN.GenDataSig.r32 = (code | step);
+}
+
 
 #endif /* STAGE1_H */

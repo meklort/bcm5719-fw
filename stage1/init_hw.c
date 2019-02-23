@@ -56,11 +56,13 @@
 void *memset(void *s, int c, size_t n)
 {
 #if CXX_SIMULATOR
-    // TODO: Use the memory window to zero everything out.
+    // TODO: Use the memory window to set everything.
 #else
-    while(--n)
+    // We assume things are aligned here...
+    uint32_t* buffer = s;
+    for(int i = 0; i <  n/4; i++)
     {
-        *(uint32_t*)s = c;
+        buffer[i] = c;
     }
 #endif
     return s;
@@ -122,6 +124,17 @@ void init_mii(void)
     MII_writeRegister(phy, REG_MII_CONTROL, control.r16);
 }
 
+void __attribute__((noinline)) zero_bss(void)
+{
+#if !CXX_SIMULATOR
+    // Zero BSS information, will always be word aligned.
+    extern uint32_t _fbss[];
+    extern uint32_t _ebss[];
+
+    memset(_fbss, 0, (_ebss - _fbss) *  4);
+#endif
+}
+
 void early_init_hw(void)
 {
     // Enable memory arbitration
@@ -129,6 +142,8 @@ void early_init_hw(void)
 
     // Disable data cache.
     DEVICE.RxRiscMode.bits.EnableDataCache = 0;
+
+    zero_bss();
 
     // Enable various ape bits.
     RegDEVICEPciState_t pcistate = DEVICE.PciState;
@@ -356,6 +371,7 @@ void init_hw(NVRAMContents_t *nvram)
     memset((void*)&TXMBUF, 0, REG_TXMBUF_SIZE);
     memset((void*)&SDBCACHE, 0, REG_SDBCACHE_SIZE);
 
+    reportStatus(STATUS_INIT_HW, 0);
     // Misc regs init
 
     // Mask REG 0x64C0 bits 0x7FF, or bits 0x0010. This register is unknown.
@@ -426,8 +442,14 @@ void init_hw(NVRAMContents_t *nvram)
     // Value from Talos: 0x00000080
     // Bit is not set on Talos w/ default firmware, disabled for now.
 
+    reportStatus(STATUS_INIT_HW, 0xf0);
+
     // Perform MII init.
     init_mii_function0();
 
+    reportStatus(STATUS_INIT_HW, 0xf1);
+
     init_mii();
+
+    reportStatus(STATUS_INIT_HW, 0xff);
 }

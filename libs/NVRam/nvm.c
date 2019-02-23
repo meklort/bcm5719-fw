@@ -223,7 +223,7 @@ void NVRam_read(uint32_t address, uint32_t *buffer, size_t words)
 
 void NVRam_writeWord(uint32_t address, uint32_t data)
 {
-    if(data !=  NVRam_readWord(address))
+    if(data != NVRam_readWord(address))
     {
         // Only write if different.
 
@@ -240,10 +240,25 @@ void NVRam_writeWord(uint32_t address, uint32_t data)
 
 void NVRam_write(uint32_t address, uint32_t *buffer, size_t words)
 {
+#if 0
     if (!words)
     {
         // No bytes to read.
         return;
+    }
+
+    // Reduce beginning of buffer until we find the first different work.
+    while(buffer[0] == NVRam_readWord(address))
+    {
+        address += 4;
+        buffer++;
+        words--;
+    }
+
+    // Trim words at end of buffer if they don't need to change.s
+    while(words && (buffer[words-1] == NVRam_readWord(address + (words-1)*4)))
+    {
+        words--;
     }
 
     // First word.
@@ -269,4 +284,13 @@ void NVRam_write(uint32_t address, uint32_t *buffer, size_t words)
         // If we have more than one word, clear the first bit.
         cmd.bits.First = 0;
     }
+#else
+    while (words)
+    {
+        NVRam_writeWord(address, *buffer);
+        buffer++;
+        words--;
+        address += 4;
+    }
+#endif
 }

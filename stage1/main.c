@@ -59,6 +59,7 @@ NVRAMContents_t gNVMContents;
 
 int main()
 {
+    reportStatus(STATUS_MAIN, 0);
     uint32_t* bootcode_dest;
 #if CXX_SIMULATOR
     initHAL(NULL);
@@ -72,16 +73,23 @@ int main()
     early_init_hw();
 #endif
 
+    reportStatus(STATUS_MAIN, 1);
     // Read in the NVM header.
     NVRam_acquireLock();
 
+    reportStatus(STATUS_MAIN, 2);
+
     NVRam_enable();
     NVRam_read(0, (uint32_t *)&gNVMContents, sizeof(NVRAMContents_t) / 4);
+
 #if !CXX_SIMULATOR
     load_nvm_config(&gNVMContents);
+
     // Initialize the hardware.
     init_hw(&gNVMContents);
 #endif
+
+    reportStatus(STATUS_MAIN, 3);
 
     // Locate, verify, and execute stage2.
     uint32_t stage1_start  = be32toh(gNVMContents.header.bootstrapOffset);
@@ -94,6 +102,8 @@ int main()
     uint32_t stage2_length = be32toh(stage2_hdr.length);
     uint32_t stage2_magic = be32toh(stage2_hdr.magic);
 
+    reportStatus(STATUS_MAIN, 4);
+
     if(BCM_NVRAM_MAGIC == stage2_magic)
     {
         // Magic matches. Attempt to load stage2.
@@ -105,7 +115,7 @@ int main()
 
         if(expected_crc == calculated_crc)
         {
-            GEN.GenDataSig.r32 = GEN_GEN_DATA_SIG_SIG_BOOTCODE_READY;
+            reportStatus(GEN_GEN_DATA_SIG_SIG_BOOTCODE_READY, 0);
 #if CXX_SIMULATOR
             // TODO: exec stage2.
             printf("Stage1 completed successfully with status 0x%08X.\n", (uint32_t)GEN.GenDataSig.r32);
@@ -120,13 +130,13 @@ int main()
         else
         {
             // Error. Invalid CRC.
-            GEN.GenDataSig.r32 = GEN_GEN_DATA_SIG_SIG_STAGE2_CRC_INVALID;
+            reportStatus(GEN_GEN_DATA_SIG_SIG_STAGE2_CRC_INVALID, 0);
         }
     }
     else
     {
         // Error. Invalid magic.
-        GEN.GenDataSig.r32 = GEN_GEN_DATA_SIG_SIG_STAGE2_MAGIC_INVALID;
+        reportStatus(GEN_GEN_DATA_SIG_SIG_STAGE2_MAGIC_INVALID, 0);
     }
 
     NVRam_releaseLock();

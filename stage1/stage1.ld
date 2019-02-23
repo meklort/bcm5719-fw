@@ -16,11 +16,16 @@ SECTIONS
 
     .data . : ALIGN(4) SUBALIGN(4)
     {
-        *(.data)
-        *(.bss)
-        *(.rodata)
-        *(.rodata.*)
+        *(.data*)
+        *(.rodata*)
     }
+
+    _fbss = .;
+    .bss . : ALIGN(4) SUBALIGN(4)
+    {
+        *(.bss*)
+    }
+    _ebss = .;
 
 
     .stack . : ALIGN(4) SUBALIGN(4)
