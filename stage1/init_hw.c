@@ -60,7 +60,7 @@ void *memset(void *s, int c, size_t n)
 #else
     // We assume things are aligned here...
     uint32_t* buffer = s;
-    for(int i = 0; i <  n/4; i++)
+    for(int i = 0; i < n/4; i++)
     {
         buffer[i] = c;
     }
@@ -77,11 +77,15 @@ static inline bool is_nic(void)
 
 void init_mii_function0(void)
 {
+    reportStatus(STATUS_INIT_HW, 0xf1);
+
     // MIIPORT 0 (0x8010):0x1A |= 0x4000
     MII_selectBlock(0, 0x8010);
     uint16_t r1Ah_value = MII_readRegister(0, (mii_reg_t)0x1A);
     r1Ah_value |= 0x4000;
     MII_writeRegister(0, (mii_reg_t)0x1A, r1Ah_value);
+
+    reportStatus(STATUS_INIT_HW, 0xf2);
 
     // (Note: This is done in a retry loop which verifies the block select by
     // reading 0x1F and confirming it reads 0x8610
@@ -90,11 +94,15 @@ void init_mii_function0(void)
         MII_selectBlock(0, 0x8610);
     } while (0x8610 != MII_getBlock(0));
 
+    reportStatus(STATUS_INIT_HW, 0xf3);
+
     // MIIPORT 0 (0x8610):0x15, set bits 0:1 to 2.
     uint16_t r15h_value = MII_readRegister(0, (mii_reg_t)0x15);
     r15h_value &= ~0x3;
     r15h_value |= 0x2;
     MII_writeRegister(0, (mii_reg_t)0x15, r15h_value);
+
+    reportStatus(STATUS_INIT_HW, 0xf4);
 
     // and then verifies that bits 0:1 have been set to 2, and retries about a
     // dozen times until the block select and write are both correct. Probably
@@ -105,12 +113,18 @@ void init_mii_function0(void)
         r15h_value = MII_readRegister(0, (mii_reg_t)0x15);
     } while (2 != (r15h_value & 0x3));
 
+    reportStatus(STATUS_INIT_HW, 0xf5);
+
     // (0x8010):0x1A, mask 0x4000.
     MII_selectBlock(0, 0x8010);
     r1Ah_value &= ~0x4000;
     MII_writeRegister(0, (mii_reg_t)0x1A, r1Ah_value);
 
+    reportStatus(STATUS_INIT_HW, 0xf6);
+
     MII_selectBlock(0, 0);
+
+    reportStatus(STATUS_INIT_HW, 0xf7);
 }
 
 void init_mii(void)
@@ -119,9 +133,9 @@ void init_mii(void)
     // Set MII_REG_CONTROL to AUTO_NEGOTIATION_ENABLE.
     uint8_t phy = MII_getPhy();
     RegMIIControl_t control;
-    control.r16 = MII_readRegister(phy, REG_MII_CONTROL);
+    control.r16 = MII_readRegister(phy, (mii_reg_t)REG_MII_CONTROL);
     control.bits.AutoNegotiationEnable = 1;
-    MII_writeRegister(phy, REG_MII_CONTROL, control.r16);
+    MII_writeRegister(phy, (mii_reg_t)REG_MII_CONTROL, control.r16);
 }
 
 void __attribute__((noinline)) zero_bss(void)
@@ -142,8 +156,6 @@ void early_init_hw(void)
 
     // Disable data cache.
     DEVICE.RxRiscMode.bits.EnableDataCache = 0;
-
-    zero_bss();
 
     // Enable various ape bits.
     RegDEVICEPciState_t pcistate = DEVICE.PciState;
@@ -166,47 +178,55 @@ void early_init_hw(void)
     }
 
     DEVICE.GphyControlStatus = gphystate;
+
+    zero_bss();
+
+    // Zero out ram - gencom, db cache, tx/rx mbuf, others in mem map
+    memset((void*)&GEN, 0, REG_GEN_SIZE);
+    memset((void*)&RXMBUF, 0, REG_RXMBUF_SIZE);
+    memset((void*)&TXMBUF, 0, REG_TXMBUF_SIZE);
+    memset((void*)&SDBCACHE, 0, REG_SDBCACHE_SIZE);
 }
 
 
 void init_mac(NVRAMContents_t *nvram)
 {
     int function = DEVICE.Status.bits.FunctionNumber;
-    uint64_t mac0 = nvram->info.macAddr0;
-    uint64_t my_mac = mac0; // default.
-    DEVICE.EmacMacAddresses0High.r32 = mac0 >> 32;
-    DEVICE.EmacMacAddresses0Low.r32  = mac0;
+    uint32_t *mac0 = nvram->info.macAddr0;
+    uint32_t *my_mac = mac0; // default.
+    DEVICE.EmacMacAddresses0High.r32 = mac0[1];
+    DEVICE.EmacMacAddresses0Low.r32  = mac0[0];
 
-    uint64_t mac1 = nvram->info.macAddr1;
+    uint32_t *mac1 = nvram->info.macAddr1;
     if(1 == function)
     {
         my_mac = mac1;
     }
-    DEVICE.EmacMacAddresses1High.r32 = mac1 >> 32;
-    DEVICE.EmacMacAddresses1Low.r32  = mac1;
+    DEVICE.EmacMacAddresses1High.r32 = mac1[1];
+    DEVICE.EmacMacAddresses1Low.r32  = mac1[0];
 
-    uint64_t mac2 = nvram->info2.macAddr2;
+    uint32_t *mac2 = nvram->info2.macAddr2;
     if(2 == function)
     {
         my_mac = mac2;
     }
-    DEVICE.EmacMacAddresses2High.r32 = mac2 >> 32;
-    DEVICE.EmacMacAddresses2Low.r32  = mac2;
+    DEVICE.EmacMacAddresses2High.r32 = mac2[1];
+    DEVICE.EmacMacAddresses2Low.r32  = mac2[0];
 
-    uint64_t mac3 = nvram->info2.macAddr3;
+    uint32_t *mac3 = nvram->info2.macAddr3;
     if(3 == function)
     {
         my_mac = mac3;
     }
-    DEVICE.EmacMacAddresses3High.r32 = mac3 >> 32;
-    DEVICE.EmacMacAddresses3Low.r32  = mac3;
+    DEVICE.EmacMacAddresses3High.r32 = mac3[1];
+    DEVICE.EmacMacAddresses3Low.r32  = mac3[0];
 
     // Store mac / serial number.
-    DEVICE.PciSerialNumberHigh.r32 = my_mac >> 32;
-    GEN.GenMacAddrHighMbox.r32 = my_mac >> 32;
+    DEVICE.PciSerialNumberHigh.r32 = my_mac[1];
+    GEN.GenMacAddrHighMbox.r32 = my_mac[1];
 
-    DEVICE.PciSerialNumberLow.r32  = my_mac;
-    GEN.GenMacAddrLowMbox.r32 = my_mac;
+    DEVICE.PciSerialNumberLow.r32  = my_mac[0];
+    GEN.GenMacAddrLowMbox.r32 = my_mac[0];
 }
 
 uint32_t translate_power_budget(uint16_t raw)
@@ -365,12 +385,6 @@ void load_nvm_config(NVRAMContents_t *nvram)
 
 void init_hw(NVRAMContents_t *nvram)
 {
-    // Zero out ram - gencom, db cache, tx/rx mbuf, others in mem map
-    memset((void*)&GEN, 0, REG_GEN_SIZE);
-    memset((void*)&RXMBUF, 0, REG_RXMBUF_SIZE);
-    memset((void*)&TXMBUF, 0, REG_TXMBUF_SIZE);
-    memset((void*)&SDBCACHE, 0, REG_SDBCACHE_SIZE);
-
     reportStatus(STATUS_INIT_HW, 0);
     // Misc regs init
 
@@ -419,6 +433,7 @@ void init_hw(NVRAMContents_t *nvram)
 
     // MISC Local Control
     // Value from Talos: 0x00020001, reserved bits
+    DEVICE.MiscellaneousLocalControl.bits.AutoSEEPROMAccess = 0; // Bit is not set on talos II
 
     // Set REG_EAV_REF_CLOCK_CONTROL as desired. This is initialized from
     // CFG_HW; the TIMESYNC_GPIO_MAPPING, APE_GPIO_{0,1,2,3} fields within it
@@ -427,6 +442,7 @@ void init_hw(NVRAMContents_t *nvram)
     // Optionally enable REG_GRC_MODE_CONTROL__TIME_SYNC_MODE_ENABLE.
     // Value from Talos: 0x00130034
     // Bit is not set on Talos w/ default firmware, disabled for now.
+    DEVICE.GrcModeControl.bits.TimeSyncModeEnable = 0;
 
     // Enable const clock for MII
     DEVICE.MiiMode.bits.ConstantMDIO_DIV_MDCClockSpeed = 1;
@@ -434,20 +450,20 @@ void init_hw(NVRAMContents_t *nvram)
     // Set or clear REG_GPHY_CONTROL_STATUS__SWITCHING_REGULATOR_POWER_DOWN as
     // desired.
     // Value from Talos:  0x02C01000
-    // Bit is not set on Talos w/ default firmware, disabled for now.
+    DEVICE.GphyControlStatus.bits.SwitchingRegulatorPowerDown = 0;
 
     // Set or clear
     // REG_TOP_LEVEL_MISCELLANEOUS_CONTROL_1__NCSI_CLOCK_OUTPUT_DISABLE as
     // desired.
-    // Value from Talos: 0x00000080
-    // Bit is not set on Talos w/ default firmware, disabled for now.
+    // Value from Talos: 0x00000080 (unknown, reserved bit set)
+    DEVICE.TopLevelMiscellaneousControl1.bits.NCSIClockOutputDisable = 0;
 
     reportStatus(STATUS_INIT_HW, 0xf0);
 
     // Perform MII init.
     init_mii_function0();
 
-    reportStatus(STATUS_INIT_HW, 0xf1);
+    reportStatus(STATUS_INIT_HW, 0xfe);
 
     init_mii();
 
