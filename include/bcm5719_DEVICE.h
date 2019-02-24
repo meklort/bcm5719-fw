@@ -154,12 +154,6 @@ typedef uint32_t BCM5719_DEVICE_H_uint32_t;
 #define     DEVICE_MISCELLANEOUS_HOST_CONTROL_METAL_REV_ID_1 0x1u
 #define     DEVICE_MISCELLANEOUS_HOST_CONTROL_METAL_REV_ID_2 0x2u
 
-#define     DEVICE_MISCELLANEOUS_HOST_CONTROL_PRODUCT_ID_SHIFT 24u
-#define     DEVICE_MISCELLANEOUS_HOST_CONTROL_PRODUCT_ID_MASK  0xf000000u
-#define GET_DEVICE_MISCELLANEOUS_HOST_CONTROL_PRODUCT_ID(__reg__)  (((__reg__) & 0xf000000) >> 24u)
-#define SET_DEVICE_MISCELLANEOUS_HOST_CONTROL_PRODUCT_ID(__val__)  (((__val__) << 24u) & 0xf000000u)
-#define     DEVICE_MISCELLANEOUS_HOST_CONTROL_PRODUCT_ID_NEW_PRODUCT_MAPPING 0xfu
-
 #define     DEVICE_MISCELLANEOUS_HOST_CONTROL_ALL_LAYER_ID_SHIFT 24u
 #define     DEVICE_MISCELLANEOUS_HOST_CONTROL_ALL_LAYER_ID_MASK  0xf000000u
 #define GET_DEVICE_MISCELLANEOUS_HOST_CONTROL_ALL_LAYER_ID(__reg__)  (((__reg__) & 0xf000000) >> 24u)
@@ -167,6 +161,12 @@ typedef uint32_t BCM5719_DEVICE_H_uint32_t;
 #define     DEVICE_MISCELLANEOUS_HOST_CONTROL_ALL_LAYER_ID_A 0x0u
 #define     DEVICE_MISCELLANEOUS_HOST_CONTROL_ALL_LAYER_ID_B 0x1u
 #define     DEVICE_MISCELLANEOUS_HOST_CONTROL_ALL_LAYER_ID_C 0x2u
+
+#define     DEVICE_MISCELLANEOUS_HOST_CONTROL_PRODUCT_ID_SHIFT 28u
+#define     DEVICE_MISCELLANEOUS_HOST_CONTROL_PRODUCT_ID_MASK  0xf0000000u
+#define GET_DEVICE_MISCELLANEOUS_HOST_CONTROL_PRODUCT_ID(__reg__)  (((__reg__) & 0xf0000000) >> 28u)
+#define SET_DEVICE_MISCELLANEOUS_HOST_CONTROL_PRODUCT_ID(__val__)  (((__val__) << 28u) & 0xf0000000u)
+#define     DEVICE_MISCELLANEOUS_HOST_CONTROL_PRODUCT_ID_NEW_PRODUCT_MAPPING 0xfu
 
 
 /** @brief Register definition for @ref DEVICE_t.MiscellaneousHostControl. */
@@ -210,19 +210,15 @@ typedef register_container RegDEVICEMiscellaneousHostControl_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableTLPMinorErrorTolerance, 15, 1)
         /** @brief Metal Rev Number */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MetalRevID, 16, 8)
-        /** @brief Product ID. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ProductID, 24, 4)
         /** @brief External All Layer Revision ID. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, AllLayerID, 24, 4)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_28, 28, 4)
+        /** @brief Product ID. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ProductID, 28, 4)
 #elif defined(__BIG_ENDIAN__)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_28, 28, 4)
+        /** @brief Product ID. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ProductID, 28, 4)
         /** @brief External All Layer Revision ID. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, AllLayerID, 24, 4)
-        /** @brief Product ID. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ProductID, 24, 4)
         /** @brief Metal Rev Number */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MetalRevID, 16, 8)
         /** @brief Set this bit to enable TLP minor error tolerance (ATTR/TC/LOCK command). */
@@ -306,10 +302,10 @@ typedef register_container RegDEVICEMiscellaneousHostControl_t {
         bits.EnableTLPMinorErrorTolerance.setName("EnableTLPMinorErrorTolerance");
         bits.MetalRevID.setBaseRegister(&r32);
         bits.MetalRevID.setName("MetalRevID");
-        bits.ProductID.setBaseRegister(&r32);
-        bits.ProductID.setName("ProductID");
         bits.AllLayerID.setBaseRegister(&r32);
         bits.AllLayerID.setName("AllLayerID");
+        bits.ProductID.setBaseRegister(&r32);
+        bits.ProductID.setName("ProductID");
     }
     RegDEVICEMiscellaneousHostControl_t& operator=(const RegDEVICEMiscellaneousHostControl_t& other)
     {

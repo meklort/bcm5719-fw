@@ -2338,7 +2338,7 @@
                     <ipxact:field>
                         <ipxact:name>Product ID</ipxact:name>
                         <ipxact:description>Product ID.</ipxact:description>
-                        <ipxact:bitOffset>24</ipxact:bitOffset>
+                        <ipxact:bitOffset>28</ipxact:bitOffset>
                         <ipxact:bitWidth>4</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                         <ipxact:enumeratedValues>
