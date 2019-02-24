@@ -42,7 +42,7 @@
 ### @endcond
 ################################################################################
 
-SET(MIPS_COMPILE_OPTIONS -nostdlib -nodefaultlibs -fomit-frame-pointer -target mips )
+SET(MIPS_COMPILE_OPTIONS -nostdlib -nodefaultlibs -fomit-frame-pointer -target mips -mcpu=mips2 )
 SET(MIPS_LINK_OPTIONS --gc-sections)
 # SET(CMAKE_EXE_LINKER_FLAGS -static)
 
