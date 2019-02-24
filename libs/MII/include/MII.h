@@ -47,7 +47,12 @@
 #include <stdint.h>
 #include <bcm5719_MII.h>
 
-typedef volatile BCM5719_MII_H_uint16_t *	mii_reg_t;
+#ifdef CXX_SIMULATOR
+typedef uint64_t    mii_reg_t;
+#else
+typedef uint8_t     mii_reg_t;
+#endif
+
 /**
  * @fn uint8_t MII_getPhy(void);
  *

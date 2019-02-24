@@ -44,7 +44,7 @@
 #include <MII.h>
 #include <bcm5719_DEVICE.h>
 
-static void MII_wait(void)
+static void __attribute__((noinline)) MII_wait(void)
 {
     // Wait for the status bit to be clear.
     while (DEVICE.MiiCommunication.bits.Start_DIV_Busy)
@@ -97,7 +97,7 @@ uint16_t MII_readRegister(uint8_t phy, mii_reg_t reg)
 void MII_writeRegister(uint8_t phy, mii_reg_t reg, uint16_t data)
 {
     union {
-        uint8_t addr;
+        uint32_t addr;
         mii_reg_t reg;
     } caster;
     caster.reg = reg;
@@ -107,7 +107,7 @@ void MII_writeRegister(uint8_t phy, mii_reg_t reg, uint16_t data)
     regcontents.bits.Command = DEVICE_MII_COMMUNICATION_COMMAND_WRITE;
     regcontents.bits.Start_DIV_Busy = 1;
     regcontents.bits.PHYAddress = phy;
-    regcontents.bits.RegisterAddress = caster.addr;
+    regcontents.bits.RegisterAddress = caster.addr * 16;
     regcontents.bits.TransactionData = data;
 
     // Ensure there are no active transactions
@@ -123,11 +123,11 @@ void MII_writeRegister(uint8_t phy, mii_reg_t reg, uint16_t data)
 void MII_selectBlock(uint8_t phy, uint16_t block)
 {
     // Write register 0x1f with the block.
-    MII_writeRegister(phy, REG_MII_BLOCK_SELECT, block);
+    MII_writeRegister(phy, (mii_reg_t)REG_MII_BLOCK_SELECT, block);
 }
 
 uint16_t MII_getBlock(uint8_t phy)
 {
     // Write register 0x1f with the block.
-    return MII_readRegister(phy, REG_MII_BLOCK_SELECT);
+    return MII_readRegister(phy, (mii_reg_t)REG_MII_BLOCK_SELECT);
 }
