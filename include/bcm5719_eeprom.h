@@ -100,7 +100,7 @@ typedef struct {
 
 
 typedef struct {
-    uint64_t    macAddr0;       // Upper 8 bytes are 0
+    uint32_t    macAddr0[2];
     uint8_t     partNumber[16];
     uint8_t     partRevision[2];
     uint16_t    firmwareRevision;
@@ -121,8 +121,8 @@ typedef struct {
     uint8_t     SMBusAddr;
     uint8_t     SMBusAddrBMC;
 
-    uint64_t    macAddr0Backup;
-    uint64_t    macAddr1Backup;
+    uint32_t    macAddr0Backup[2];
+    uint32_t    macAddr1Backup[2];
 
     union {
         struct {
@@ -147,7 +147,8 @@ typedef struct {
     uint32_t    func0CfgFeature;
     uint32_t    func0CfgHW;
 
-    uint64_t    macAddr1;
+    uint32_t    macAddr1[2];
+
 
     uint32_t    func1CfgFeature;
     uint32_t    func1CfgHW;
@@ -162,14 +163,14 @@ typedef struct {
     uint32_t    powerBudget2;
     uint32_t    powerBudget3;
     uint32_t    mfrCRC;
-} __attribute__((packed)) NVRAMInfo_t;
+} NVRAMInfo_t;
 
 typedef struct {
     uint16_t    mfr2Unk;                //   [200] 00 00          -- Unknown, probably unused.
     uint16_t    mfr2Len;                //   [202] 00 8C          -- Length of manufacturing section 2.
     uint32_t    UNKNOWN0;               //   [204] 00 00 00 00    -- Could be reserved.
 
-    uint64_t    macAddr2;               //1  [208] Upper 16 bits are zero/unused.
+    uint32_t    macAddr2[2];            //1  [208] Upper 16 bits are zero/unused.
 
     uint32_t    UNKNOWN1;               //   [210] 0
     uint32_t    UNKNOWN2;               //   [214] 0
@@ -196,7 +197,7 @@ typedef struct {
     uint32_t    func2CfgFeature;        //1  [250] C5 C0 00 00 - Function 2 GEN_CFG_1E4.
     uint32_t    func2CfgHW;             //1  [254] 00 00 40 14 - Function 2 GEN_CFG_2.
 
-    uint64_t    macAddr3;               //1  [258] Upper 16 bits are zero/unused.
+    uint32_t    macAddr3[2];            //1  [258] Upper 16 bits are zero/unused.
 
     uint32_t    func3CfgFeature;        //1  [260] C5 C0 00 00 - Function 3 GEN_CFG_1E4.
     uint32_t    func3CfgHW;             //1  [264] 00 00 40 14 - Function 3 GEN_CFG_2.
@@ -209,7 +210,7 @@ typedef struct {
     uint32_t    func2CfgHW2;            //1  [280] 00 00 00 40 - Function 2 GEN_CFG_2A8.
     uint32_t    func3CfgHW2;            //1  [284] 00 00 00 40 - Function 3 GEN_CFG_2A8.
     uint32_t    mfr2CRC;                //   [288] 1A AC 41 A6 // could be CRC
-} __attribute__((packed)) NVRAMInfo2_t;
+} NVRAMInfo2_t;
 
 typedef struct {
     NVRAMHeader_t           header;
@@ -218,12 +219,12 @@ typedef struct {
     NVRAMInfo_t             info;
     vpd_t                   vpd;
     NVRAMInfo2_t            info2;
-} __attribute__((packed)) NVRAMContents_t;
+} NVRAMContents_t;
 
 
-_Static_assert(ELEMENT_OFFSET(NVRAMContents_t, info) == 0x7C, "NVRAM Info must be located at address 0x80.");
+_Static_assert(ELEMENT_OFFSET(NVRAMContents_t, info) == 0x7C, "NVRAM Info must be located at address 0x7C.");
+_Static_assert(ELEMENT_OFFSET(NVRAMContents_t, info2) == 0x200, "NVRAM Info2 must be located at address 0x200.");
 _Static_assert(ELEMENT_OFFSET(NVRAMContents_t, vpd) == 0x100, "VPD must be located at address 0x100.");
-
 _Static_assert(sizeof(NVRAMContents_t) == 0x28C, "sizeof(NVRAMContents) must be 0x28C.");
 
 
