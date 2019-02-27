@@ -77,54 +77,57 @@ static inline bool is_nic(void)
 
 void init_mii_function0(void)
 {
-    reportStatus(STATUS_INIT_HW, 0xf1);
-
-    // MIIPORT 0 (0x8010):0x1A |= 0x4000
-    MII_selectBlock(0, 0x8010);
-    uint16_t r1Ah_value = MII_readRegister(0, (mii_reg_t)0x1A);
-    r1Ah_value |= 0x4000;
-    MII_writeRegister(0, (mii_reg_t)0x1A, r1Ah_value);
-
-    reportStatus(STATUS_INIT_HW, 0xf2);
-
-    // (Note: This is done in a retry loop which verifies the block select by
-    // reading 0x1F and confirming it reads 0x8610
-    do
+    if(0 == DEVICE.Status.bits.FunctionNumber)
     {
-        MII_selectBlock(0, 0x8610);
-    } while (0x8610 != MII_getBlock(0));
+        reportStatus(STATUS_INIT_HW, 0xf1);
 
-    reportStatus(STATUS_INIT_HW, 0xf3);
+        // MIIPORT 0 (0x8010):0x1A |= 0x4000
+        MII_selectBlock(0, 0x8010);
+        uint16_t r1Ah_value = MII_readRegister(0, (mii_reg_t)0x1A);
+        r1Ah_value |= 0x4000;
+        MII_writeRegister(0, (mii_reg_t)0x1A, r1Ah_value);
 
-    // MIIPORT 0 (0x8610):0x15, set bits 0:1 to 2.
-    uint16_t r15h_value = MII_readRegister(0, (mii_reg_t)0x15);
-    r15h_value &= ~0x3;
-    r15h_value |= 0x2;
-    MII_writeRegister(0, (mii_reg_t)0x15, r15h_value);
+        reportStatus(STATUS_INIT_HW, 0xf2);
 
-    reportStatus(STATUS_INIT_HW, 0xf4);
+        // (Note: This is done in a retry loop which verifies the block select by
+        // reading 0x1F and confirming it reads 0x8610
+        do
+        {
+            MII_selectBlock(0, 0x8610);
+        } while (0x8610 != MII_getBlock(0));
 
-    // and then verifies that bits 0:1 have been set to 2, and retries about a
-    // dozen times until the block select and write are both correct. Probably
-    // an attempt to work around some bug or weird asynchronous behaviour for
-    // these unknown MII registers.)
-    do
-    {
-        r15h_value = MII_readRegister(0, (mii_reg_t)0x15);
-    } while (2 != (r15h_value & 0x3));
+        reportStatus(STATUS_INIT_HW, 0xf3);
 
-    reportStatus(STATUS_INIT_HW, 0xf5);
+        // MIIPORT 0 (0x8610):0x15, set bits 0:1 to 2.
+        uint16_t r15h_value = MII_readRegister(0, (mii_reg_t)0x15);
+        r15h_value &= ~0x3;
+        r15h_value |= 0x2;
+        MII_writeRegister(0, (mii_reg_t)0x15, r15h_value);
 
-    // (0x8010):0x1A, mask 0x4000.
-    MII_selectBlock(0, 0x8010);
-    r1Ah_value &= ~0x4000;
-    MII_writeRegister(0, (mii_reg_t)0x1A, r1Ah_value);
+        reportStatus(STATUS_INIT_HW, 0xf4);
 
-    reportStatus(STATUS_INIT_HW, 0xf6);
+        // and then verifies that bits 0:1 have been set to 2, and retries about a
+        // dozen times until the block select and write are both correct. Probably
+        // an attempt to work around some bug or weird asynchronous behaviour for
+        // these unknown MII registers.)
+        do
+        {
+            r15h_value = MII_readRegister(0, (mii_reg_t)0x15);
+        } while (2 != (r15h_value & 0x3));
 
-    MII_selectBlock(0, 0);
+        reportStatus(STATUS_INIT_HW, 0xf5);
 
-    reportStatus(STATUS_INIT_HW, 0xf7);
+        // (0x8010):0x1A, mask 0x4000.
+        MII_selectBlock(0, 0x8010);
+        r1Ah_value &= ~0x4000;
+        MII_writeRegister(0, (mii_reg_t)0x1A, r1Ah_value);
+
+        reportStatus(STATUS_INIT_HW, 0xf6);
+
+        MII_selectBlock(0, 0);
+
+        reportStatus(STATUS_INIT_HW, 0xf7);
+    }
 }
 
 void init_mii(void)
@@ -194,39 +197,39 @@ void init_mac(NVRAMContents_t *nvram)
     int function = DEVICE.Status.bits.FunctionNumber;
     uint32_t *mac0 = nvram->info.macAddr0;
     uint32_t *my_mac = mac0; // default.
-    DEVICE.EmacMacAddresses0High.r32 = mac0[1];
-    DEVICE.EmacMacAddresses0Low.r32  = mac0[0];
+    DEVICE.EmacMacAddresses0High.r32 = mac0[0];
+    DEVICE.EmacMacAddresses0Low.r32  = mac0[1];
 
     uint32_t *mac1 = nvram->info.macAddr1;
     if(1 == function)
     {
         my_mac = mac1;
     }
-    DEVICE.EmacMacAddresses1High.r32 = mac1[1];
-    DEVICE.EmacMacAddresses1Low.r32  = mac1[0];
+    DEVICE.EmacMacAddresses1High.r32 = mac1[0];
+    DEVICE.EmacMacAddresses1Low.r32  = mac1[1];
 
     uint32_t *mac2 = nvram->info2.macAddr2;
     if(2 == function)
     {
         my_mac = mac2;
     }
-    DEVICE.EmacMacAddresses2High.r32 = mac2[1];
-    DEVICE.EmacMacAddresses2Low.r32  = mac2[0];
+    DEVICE.EmacMacAddresses2High.r32 = mac2[0];
+    DEVICE.EmacMacAddresses2Low.r32  = mac2[1];
 
     uint32_t *mac3 = nvram->info2.macAddr3;
     if(3 == function)
     {
         my_mac = mac3;
     }
-    DEVICE.EmacMacAddresses3High.r32 = mac3[1];
-    DEVICE.EmacMacAddresses3Low.r32  = mac3[0];
+    DEVICE.EmacMacAddresses3High.r32 = mac3[0];
+    DEVICE.EmacMacAddresses3Low.r32  = mac3[1];
 
     // Store mac / serial number.
-    DEVICE.PciSerialNumberHigh.r32 = my_mac[1];
-    GEN.GenMacAddrHighMbox.r32 = my_mac[1];
+    DEVICE.PciSerialNumberHigh.r32 = my_mac[0];
+    GEN.GenMacAddrHighMbox.r32 = my_mac[0];
 
-    DEVICE.PciSerialNumberLow.r32  = my_mac[0];
-    GEN.GenMacAddrLowMbox.r32 = my_mac[0];
+    DEVICE.PciSerialNumberLow.r32  = my_mac[1];
+    GEN.GenMacAddrLowMbox.r32 = my_mac[1];
 }
 
 uint32_t translate_power_budget(uint16_t raw)
