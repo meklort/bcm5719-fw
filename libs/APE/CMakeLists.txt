@@ -1,10 +1,10 @@
 ################################################################################
 ###
-### @file       libs/CMakeLists.txt
+### @file       libs/APE/CMakeLists.txt
 ###
 ### @project    
 ###
-### @brief      Library CMake file
+### @brief      APE CMake file
 ###
 ################################################################################
 ###
@@ -42,12 +42,16 @@
 ### @endcond
 ################################################################################
 
+project(APE)
 
-add_subdirectory(NVRam)
-add_subdirectory(APE)
-add_subdirectory(MII)
-add_subdirectory(VPD)
 
-add_subdirectory(OptParse)
+# Host Simulation library
+simulator_add_library(${PROJECT_NAME} STATIC ape.c)
+target_link_libraries(${PROJECT_NAME} PRIVATE simulator)
+target_include_directories(${PROJECT_NAME} PUBLIC ../../include)
+target_include_directories(${PROJECT_NAME} PUBLIC include)
 
-add_subdirectory(bcm5719)
+# MIPS Library
+mips_add_library(${PROJECT_NAME}-mips STATIC ape.c)
+target_include_directories(${PROJECT_NAME}-mips PUBLIC ../../include)
+target_include_directories(${PROJECT_NAME}-mips PUBLIC include)
