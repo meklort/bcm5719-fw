@@ -96,18 +96,12 @@ uint16_t MII_readRegister(uint8_t phy, mii_reg_t reg)
 
 void MII_writeRegister(uint8_t phy, mii_reg_t reg, uint16_t data)
 {
-    union {
-        uint32_t addr;
-        mii_reg_t reg;
-    } caster;
-    caster.reg = reg;
-
     RegDEVICEMiiCommunication_t regcontents;
     regcontents.r32 = 0;
     regcontents.bits.Command = DEVICE_MII_COMMUNICATION_COMMAND_WRITE;
     regcontents.bits.Start_DIV_Busy = 1;
     regcontents.bits.PHYAddress = phy;
-    regcontents.bits.RegisterAddress = caster.addr;
+    regcontents.bits.RegisterAddress = reg;
     regcontents.bits.TransactionData = data;
 
     // Ensure there are no active transactions
