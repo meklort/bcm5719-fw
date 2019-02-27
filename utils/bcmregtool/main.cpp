@@ -66,8 +66,15 @@
 #include <iostream>
 #include <bcm5719_GEN.h>
 
+#include <elfio/elfio.hpp>
+
+#include "../NVRam/bcm5719_NVM.h"
+
 using namespace std;
+using namespace ELFIO;
 using optparse::OptionParser;
+
+elfio gELFIOReader;
 
 const char* regnames[32] = {
     "$zero", /* Zero register - always 0 */
@@ -81,6 +88,42 @@ const char* regnames[32] = {
     "$gp", "$sp", "$fp", /* Pointers */
     "$ra", /* return address */
 };
+
+const string symbol_for_address(uint32_t address, uint32_t &offset)
+{
+    Elf_Half sec_num = gELFIOReader.sections.size();
+
+    for ( int i = 0; i < sec_num; ++i ) {
+        section* psec = gELFIOReader.sections[i];
+        // Check section type
+        if ( psec->get_type() == SHT_SYMTAB ) {
+            const symbol_section_accessor symbols( gELFIOReader, psec );
+            for ( unsigned int j = 0; j < symbols.get_symbols_num(); ++j ) {
+                std::string   name;
+                Elf64_Addr    value;
+                Elf_Xword     size;
+                unsigned char bind;
+                unsigned char type;
+                Elf_Half      section_index;
+                unsigned char other;
+
+                // Read symbol properties
+                symbols.get_symbol( j, name, value, size, bind,
+                                       type, section_index, other );
+
+
+                if(value <= address &&
+                    value + size > address)
+                {
+                    offset = address - value;
+                    return name;
+                }
+            }
+        }
+    }
+
+    return string("unknown");
+}
 
 void print_context(void)
 {
@@ -125,22 +168,101 @@ void print_context(void)
     r[31] = DEVICE.RxRiscRegister31.r32;
 
     printf("==== Context ===\n");
-    printf("   pc: 0x%08X   opcode: 0x%08X\n", pc, opcode);
+    uint32_t sym_offset = 0;
+    string symbol = symbol_for_address(pc, sym_offset);
+    printf("   pc: 0x%08X (%s+%d)   opcode: 0x%08X \n", pc, symbol.c_str(), sym_offset, opcode);
     int numCols = 4;
     int offset = 32 / numCols;
     for(int i = 0; i < ARRAY_ELEMENTS(r)/4; i++)
     {
         for(int j = 0; j < numCols; j++)
         {
-            printf("%5s: 0x%08X    ", regnames[i + j*offset], r[i + j*offset]);
+            printf("$%d(%5s): 0x%08X    ", i + j*offset, regnames[i + j*offset], r[i + j*offset]);
         }
         printf("\n");
+    }
+}
+
+void writeMemory(uint32_t rxAddr, uint32_t value)
+{
+    cout << "Updating " << std::hex << rxAddr << " to " << std::hex << value << endl;
+    // Halt.
+    RegDEVICERxRiscMode_t mode;
+    mode.r32 = 0;
+    mode.bits.Halt = 1;
+    DEVICE.RxRiscMode = mode;
+
+    DEVICE.RxRiscMode.print();
+
+    // Save old state that we will clobber so we can restore it afterwards.
+    uint32_t oldIP = DEVICE.RxRiscProgramCounter.r32;
+    uint32_t oldT6 = DEVICE.RxRiscRegister14.r32;
+    uint32_t oldT7 = DEVICE.RxRiscRegister15.r32;
+
+    // Check that the instructions we are expecting to use are correct. This will
+    // break if the ROM is different.
+    DEVICE.RxRiscProgramCounter.r32 = 0x40000038;
+
+
+    cout << "PC is now " << (uint32_t)DEVICE.RxRiscProgramCounter.r32 << endl;
+    uint32_t iw = DEVICE.RxRiscCurrentInstruction.r32;
+    if (iw != 0xADCF0000)
+    { // sw $t7, 0($t6)
+        fprintf(stderr, "cannot set RX word via forced store because the device has an unknown ROM (got 0x%08X)\n", iw);
+        return;
+    }
+
+    DEVICE.RxRiscRegister14.r32 = rxAddr;
+    DEVICE.RxRiscRegister15.r32 = value;
+
+    mode.bits.SingleStep = 1;
+    DEVICE.RxRiscMode = mode;
+
+    // Don't remove this, it creates a small delay which seems to sometimes be
+    // necessary.
+    uint32_t pc = DEVICE.RxRiscProgramCounter.r32;
+    if (pc != 0x4000003C)
+    {
+        fprintf(stderr, "  bad2 0x%08x\n", pc);
+    }
+
+    // Restore.
+    DEVICE.RxRiscRegister15.r32 = oldT7;
+    DEVICE.RxRiscRegister14.r32 = oldT6;
+    DEVICE.RxRiscProgramCounter.r32 = oldIP;
+
+    mode.bits.SingleStep = 0;
+    DEVICE.RxRiscMode = mode;
+}
+
+void step(void)
+{
+    uint32_t oldPC = DEVICE.RxRiscProgramCounter.r32;
+
+    RegDEVICERxRiscMode_t mode;
+    mode.r32 = 0;
+    mode.bits.SingleStep = 1;
+    mode.bits.Halt = 1;
+    DEVICE.RxRiscMode = mode;
+
+    // Force a re-load of the next word.
+    uint32_t newPC = DEVICE.RxRiscProgramCounter.r32;
+
+    if(oldPC +4 != newPC)
+    {
+        // branched. Re-read PC to re-read opcode
+        DEVICE.RxRiscProgramCounter.r32 = DEVICE.RxRiscProgramCounter.r32;
     }
 }
 
 int main(int argc, char const *argv[])
 {
     OptionParser parser = OptionParser().description("BCM Register Utility");
+
+    parser.add_option("--elf")
+            .dest("debugfile")
+            .metavar("DEBUG_FILE")
+            .help("Elf file used for improved context decoding.");
 
     parser.add_option("-f", "--function")
             .dest("function")
@@ -149,18 +271,26 @@ int main(int argc, char const *argv[])
             .metavar("FUNCTION")
             .help("Read registers from the specified pci function.");
 
-
-    parser.add_option("-r", "--reset")
-            .dest("reset")
-            .set_default("0")
-            .action("store_true")
-            .help("Issue a device reset request.");
-
     parser.add_option("-s", "--step")
             .dest("step")
             .set_default("0")
             .action("store_true")
             .help("Single step the CPU.");
+
+    parser.add_option("-t", "--stepto")
+            .dest("stepto")
+            .metavar("ADDR")
+            .help("Single step the CPU.");
+
+    parser.add_option("--halt")
+            .dest("halt")
+            .set_default("0")
+            .action("store_true")
+            .help("Halt the CPU.");
+
+    parser.add_option("-pc", "--pc")
+            .dest("pc")
+            .help("Force the PC to the specified value.");
 
     parser.add_option("-c", "--context")
             .dest("context")
@@ -197,26 +327,64 @@ int main(int argc, char const *argv[])
         exit(-1);
     }
 
-
-    if(options.get("reset"))
+    if(options.is_set("debugfile"))
     {
-        cout << "Resetting...\n";
-        RegDEVICERxRiscMode_t mode;
-        mode.r32 = 0;
-        mode.bits.Reset = 1;
-        DEVICE.RxRiscMode = mode;
-        exit(0);
+        if(!gELFIOReader.load(options["debugfile"]))
+        {
+            cerr << "Unablt to read elf file " << options["debugfile"] << endl;
+            exit(-1);
+        }
     }
 
     if(options.get("step"))
     {
-        cout << "Stepping...\n";
+        do {
+            cout << "Stepping...\n";
+            step();
+            print_context();
+
+        } while(DEVICE.RxRiscProgramCounter.r32 > 0x40000000);
+        exit(0);
+    }
+
+    if(options.is_set("stepto"))
+    {
+        uint32_t addr = stoi(options["stepto"], nullptr, 0);
+        do {
+            cout << "Stepping...\n";
+
+            step();
+            print_context();
+
+        } while(DEVICE.RxRiscProgramCounter.r32 != addr);
+        exit(0);
+
+    }
+
+
+
+    if(options.get("halt"))
+    {
+        cout << "Halting...\n";
         RegDEVICERxRiscMode_t mode;
         mode.r32 = 0;
-        mode.bits.SingleStep = 1;
         mode.bits.Halt = 1;
         DEVICE.RxRiscMode = mode;
 
+        print_context();
+        exit(0);
+    }
+
+    if(options.is_set("pc"))
+    {
+        uint32_t pc = stoi(options["pc"], nullptr, 0);
+        cout << "Updating PC to " << std::hex << pc << endl;
+        RegDEVICERxRiscMode_t mode;
+        mode.r32 = 0;
+        mode.bits.Halt = 1;
+        DEVICE.RxRiscMode = mode;
+
+        DEVICE.RxRiscProgramCounter.r32 = pc;
         print_context();
         exit(0);
     }
@@ -232,6 +400,7 @@ int main(int argc, char const *argv[])
         cout << "Running...\n";
         RegDEVICERxRiscMode_t mode;
         mode.r32 = 0; // Ensure single-step and halt are cleared
+        mode.bits.EnableInstructionCache = 1;
         DEVICE.RxRiscMode = mode;
         exit(0);
     }
@@ -240,21 +409,17 @@ int main(int argc, char const *argv[])
     {
         uint8_t phy = MII_getPhy();
         printf("MII Phy:          %d\n", phy);
-        printf("MII Control:      0x%04X\n", MII_readRegister(phy, REG_MII_CONTROL));
-        printf("MII Status:       0x%04X\n", MII_readRegister(phy, REG_MII_STATUS));
-        printf("MII PHY ID[high]: 0x%04X\n", MII_readRegister(phy, REG_MII_PHY_ID_HIGH));
-        printf("MII PHY ID[low]:  0x%04X\n", MII_readRegister(phy, REG_MII_PHY_ID_LOW));
-
-        MII_selectBlock(0, 0x8010);
-        printf("0x1A (0x8010):    0x%04X\n", MII_readRegister(0, (mii_reg_t)0x1A));
-        MII_selectBlock(0, 0);
-
+        printf("MII Control:      0x%04X\n", MII_readRegister(phy, (mii_reg_t)REG_MII_CONTROL));
+        printf("MII Status:       0x%04X\n", MII_readRegister(phy, (mii_reg_t)REG_MII_STATUS));
+        printf("MII PHY ID[high]: 0x%04X\n", MII_readRegister(phy, (mii_reg_t)REG_MII_PHY_ID_HIGH));
+        printf("MII PHY ID[low]:  0x%04X\n", MII_readRegister(phy, (mii_reg_t)REG_MII_PHY_ID_LOW));
         exit(0);
     }
 
 
     if(options.get("info"))
     {
+        printf("Gen DataSig:     0x%08X\n", (uint32_t)GEN.GenDataSig.r32);
         printf("Firmware Ver:    0x%08X\n", (uint32_t)GEN.GenFwVersion.r32);
         printf("Chip Id:         0x%08X\n", (uint32_t)DEVICE.ChipId.r32);
         printf("Vendor ID:       0x%04X         Device ID: 0x%04X\n", (uint16_t)DEVICE.PciVendorDeviceId.bits.VendorID, (uint16_t)DEVICE.PciVendorDeviceId.bits.DeviceID);
@@ -274,6 +439,9 @@ int main(int argc, char const *argv[])
 
         uint64_t serial = (((uint64_t)(DEVICE.PciSerialNumberHigh.r32)) << 32) | DEVICE.PciSerialNumberLow.r32;
         printf("Serial Number:   0x%016lX\n", serial);
+
+        uint64_t genmac = (((uint64_t)(GEN.GenMacAddrHighMbox.r32)) << 32) | GEN.GenMacAddrLowMbox.r32;
+        printf("GEN Mac Addr:   0x%016lX\n", genmac);
 
         printf("\n");
 
@@ -336,6 +504,8 @@ int main(int argc, char const *argv[])
 
         printf("LedControl:         0x%08X\n", (uint32_t)DEVICE.LedControl.r32);
         printf("GrcModeControl:     0x%08X\n", (uint32_t)DEVICE.GrcModeControl.r32);
+        DEVICE.GrcModeControl.bits.NVRAMWriteEnable = 1;
+        DEVICE.GrcModeControl.print();
         printf("GphyControlStatus:  0x%08X\n", (uint32_t)DEVICE.GphyControlStatus.r32);
         printf("TopLevelMiscellaneousControl1: 0x%08X\n", (uint32_t)DEVICE.TopLevelMiscellaneousControl1.r32);
         printf("MiscellaneousLocalControl:     0x%08X\n", (uint32_t)DEVICE.MiscellaneousLocalControl.r32);
