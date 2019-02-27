@@ -107,7 +107,7 @@ void MII_writeRegister(uint8_t phy, mii_reg_t reg, uint16_t data)
     regcontents.bits.Command = DEVICE_MII_COMMUNICATION_COMMAND_WRITE;
     regcontents.bits.Start_DIV_Busy = 1;
     regcontents.bits.PHYAddress = phy;
-    regcontents.bits.RegisterAddress = caster.addr * 16;
+    regcontents.bits.RegisterAddress = caster.addr;
     regcontents.bits.TransactionData = data;
 
     // Ensure there are no active transactions
