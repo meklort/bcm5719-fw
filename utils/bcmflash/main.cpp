@@ -65,6 +65,8 @@
 #include <string>
 #include <fstream>
 
+#include "../NVRam/bcm5719_NVM.h"
+
 using namespace std;
 using optparse::OptionParser;
 
@@ -112,10 +114,16 @@ int main(int argc, char const *argv[])
 
     parser.add_option("-b", "--backup")
             .dest("backup")
-            .help("Backup the firmware to the specified file.")
             .metavar("TYPE")
-            .help(  "binary:  Save a raw binary copy of the firmware to firmware.fw.\n"
+            .help(  "Backup the firmware to the specified file.\n"
+                    "binary:  Save a raw binary copy of the firmware to firmware.fw.\n"
                     "extract: Save each individual stage to <stage>.fw.\n");
+
+    parser.add_option("-r", "restore")
+            .dest("restore")
+            .help("Update the target device to match the specified file.")
+            .metavar("FILE");
+
 
     parser.add_option("-1", "--stage1")
             .dest("stage1")
@@ -126,6 +134,13 @@ int main(int argc, char const *argv[])
             .dest("stage2")
             .help("Update the target with the specified stage2 image, if possible.")
             .metavar("STAGE2");
+
+    parser.add_option("-u", "--unlock")
+            .dest("unlock")
+            .action("store_true")
+            .set_default("0")
+            .help("Clear all NVM locks.")
+            .metavar("STAGE1");
 
     parser.add_option("-q", "--quiet")
             .action("store_false")
@@ -169,6 +184,15 @@ int main(int argc, char const *argv[])
 
         printf("ChipId: %x\n", (uint32_t)DEVICE.ChipId.r32);
 
+        if(options.get("unlock"))
+        {
+            NVM.SoftwareArbitration.bits.ReqClr0 = 1;
+            NVM.SoftwareArbitration.bits.ReqClr1 = 1;
+            NVM.SoftwareArbitration.bits.ReqClr2 = 1;
+            NVM.SoftwareArbitration.bits.ReqClr3 = 1;
+        }
+
+
         NVRam_acquireLock();
 
         NVRam_enable();
@@ -182,6 +206,41 @@ int main(int argc, char const *argv[])
         cerr << "Please specify a target." << endl;
         parser.print_help();
         exit(-1);
+    }
+
+    if(options.is_set("restore"))
+    {
+        fstream restoreFile;
+        restoreFile.open(options["restore"], fstream::in | fstream::binary);
+        if(restoreFile.is_open())
+        {
+            restoreFile.read((char*)nvram.bytes, NVRAM_SIZE);
+
+            restoreFile.close();
+        }
+        else
+        {
+            cerr << " Unable to open file '" << options["restore"] << "'" << endl;
+            exit(-1);
+        }
+
+        if("hardware" == options["target"])
+        {
+            NVRam_acquireLock();
+
+            NVRam_enable();
+            NVRam_enableWrites();
+
+            NVRam_write(0, nvram.words, NVRAM_SIZE / 4);
+
+            NVRam_disableWrites();
+
+            NVRam_releaseLock();
+        }
+        else
+        {
+            // Write back to infile
+        }
     }
 
 
@@ -232,7 +291,7 @@ int main(int argc, char const *argv[])
     if(be32toh(stage1_wd[crc_word]) != expected_crc)
     {
         fprintf(stderr, "Error: stage1 crc is invalid.\n");
-        exit(-1);
+        // exit(-1);
     }
 
     if(extract)
@@ -399,6 +458,18 @@ int main(int argc, char const *argv[])
            be16toh(nvram.contents.info.subsystemVendorID));
     printf("Subsystem Device ID: 0x%04X\n",
            be16toh(nvram.contents.info.subsystemDeviceID));
+    printf("Subsystem ID: 0x%04X\n",
+           be16toh(nvram.contents.info.subsystemDeviceID));
+
+    printf("Function 0S Subsystem ID 0x%04X\n", be16toh(nvram.contents.info2.pciSubsystemF0SERDES));
+    printf("Function 1S Subsystem ID 0x%04X\n", be16toh(nvram.contents.info2.pciSubsystemF1SERDES));
+    printf("Function 2S Subsystem ID 0x%04X\n", be16toh(nvram.contents.info2.pciSubsystemF2SERDES));
+    printf("Function 3S Subsystem ID 0x%04X\n", be16toh(nvram.contents.info2.pciSubsystemF3SERDES));
+    printf("Function 0G Subsystem ID 0x%04X\n", be16toh(nvram.contents.info2.pciSubsystemF0GPHY));
+    printf("Function 1G Subsystem ID 0x%04X\n", be16toh(nvram.contents.info2.pciSubsystemF1GPHY));
+    printf("Function 2G Subsystem ID 0x%04X\n", be16toh(nvram.contents.info2.pciSubsystemF2GPHY));
+    printf("Function 3G Subsystem ID 0x%04X\n", be16toh(nvram.contents.info2.pciSubsystemF3GPHY));
+
 
     printf("Shared Cfg:     0x%08X\n", be32toh(nvram.contents.info.cfgShared));
 
@@ -445,28 +516,28 @@ int main(int argc, char const *argv[])
 
     printf("\n=== Port 0 ===\n");
     printf("Subsystem ID: 0x%04X\n", be16toh(nvram.contents.info2.pciSubsystemF0GPHY));
-    printf("MAC:    0x%012lX\n", be64toh(nvram.contents.info.macAddr0));
+    printf("MAC:        0x%04X%08X\n", be32toh(nvram.contents.info.macAddr0[0]), be32toh(nvram.contents.info.macAddr0[1]));
     printf("Feature:    0x%08X\n", be32toh(nvram.contents.info.func0CfgFeature));
     printf("Cfg:        0x%08X\n", be32toh(nvram.contents.info.func0CfgHW));
     printf("Cfg2:       0x%08X\n", be32toh(nvram.contents.info2.func0CfgHW2));
 
     printf("\n=== Port 1 ===\n");
     printf("Subsystem ID: 0x%04X\n", be16toh(nvram.contents.info2.pciSubsystemF1GPHY));
-    printf("MAC:    0x%012lX\n", be64toh(nvram.contents.info.macAddr1));
+    printf("MAC:        0x%04X%08X\n", be32toh(nvram.contents.info.macAddr1[0]), be32toh(nvram.contents.info.macAddr1[1]));
     printf("Feature:    0x%08X\n", be32toh(nvram.contents.info.func1CfgFeature));
     printf("Cfg:        0x%08X\n", be32toh(nvram.contents.info.func1CfgHW));
     printf("Cfg2:       0x%08X\n", be32toh(nvram.contents.info2.func1CfgHW2));
 
     printf("\n=== Port 2 ===\n");
     printf("Subsystem ID: 0x%04X\n", be16toh(nvram.contents.info2.pciSubsystemF2GPHY));
-    printf("MAC:    0x%012lX\n", be64toh(nvram.contents.info2.macAddr2));
+    printf("MAC:        0x%04X%08X\n", be32toh(nvram.contents.info2.macAddr2[0]), be32toh(nvram.contents.info2.macAddr2[1]));
     printf("Feature:    0x%08X\n", be32toh(nvram.contents.info2.func2CfgFeature));
     printf("Cfg:        0x%08X\n", be32toh(nvram.contents.info2.func2CfgHW));
     printf("Cfg2:       0x%08X\n", be32toh(nvram.contents.info2.func2CfgHW2));
 
     printf("\n=== Port 3 ===\n");
     printf("Subsystem ID: 0x%04X\n", be16toh(nvram.contents.info2.pciSubsystemF3GPHY));
-    printf("MAC:    0x%012lX\n", be64toh(nvram.contents.info2.macAddr3));
+    printf("MAC:        0x%04X%08X\n", be32toh(nvram.contents.info2.macAddr3[0]), be32toh(nvram.contents.info2.macAddr3[1]));
     printf("Feature:    0x%08X\n", be32toh(nvram.contents.info2.func3CfgFeature));
     printf("Cfg:        0x%08X\n", be32toh(nvram.contents.info2.func3CfgHW));
     printf("Cfg2:       0x%08X\n", be32toh(nvram.contents.info2.func3CfgHW2));
