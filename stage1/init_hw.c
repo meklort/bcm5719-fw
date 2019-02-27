@@ -45,6 +45,7 @@
 #include "stage1.h"
 
 #include <MII.h>
+#include <APE.h>
 #include <bcm5719_DEVICE.h>
 #include <bcm5719_GEN.h>
 #include <bcm5719_RXMBUF.h>
@@ -464,11 +465,13 @@ void init_hw(NVRAMContents_t *nvram)
     reportStatus(STATUS_INIT_HW, 0xf0);
 
     // Perform MII init.
+    APE_aquireLock();
     init_mii_function0();
 
     reportStatus(STATUS_INIT_HW, 0xfe);
 
     init_mii();
+    APE_releaseLock();
 
     reportStatus(STATUS_INIT_HW, 0xff);
 }
