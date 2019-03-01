@@ -47,8 +47,13 @@
 #if CXX_SIMULATOR
 #include <HAL.hpp>
 #include <endian.h>
+#define crc_swap(__x__) (__x__) /* No swapping needed on the host */
 #else
 #define be32toh(__x__) (__x__)
+#define crc_swap(__x__)  ((((__x__) & 0x000000FF) << 24) | \
+                         (((__x__) & 0x0000FF00) << 8 ) |  \
+                         (((__x__) & 0x00FF0000) >> 8 ) |  \
+                         (((__x__) & 0xFF000000) >> 24))
 #endif
 #include <NVRam.h>
 #include <bcm5719_BOOTCODE.h>
@@ -113,9 +118,9 @@ int main()
         uint32_t calculated_crc = be32toh(~NVRam_crc((uint8_t*)bootcode_dest, stage2_length - 4, 0xffffffff));
         uint32_t expected_crc = be32toh(bootcode_dest[stage2_length/4 - 1]);
 
-        if(expected_crc == calculated_crc)
+        if(expected_crc == crc_swap(calculated_crc))
         {
-            reportStatus(GEN_GEN_DATA_SIG_SIG_BOOTCODE_READY, 0);
+            reportStatus(GEN_GEN_FW_MBOX_MBOX_DRIVER_READY, 0);
 #if CXX_SIMULATOR
             // TODO: exec stage2.
             printf("Stage1 completed successfully with status 0x%08X.\n", (uint32_t)GEN.GenDataSig.r32);
