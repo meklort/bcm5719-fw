@@ -125,3 +125,14 @@ uint16_t MII_getBlock(uint8_t phy)
     // Write register 0x1f with the block.
     return MII_readRegister(phy, (mii_reg_t)REG_MII_BLOCK_SELECT);
 }
+
+void MII_reset(uint8_t phy)
+{
+    // Set MII_REG_CONTROL to RESET; wait until RESET bit clears.
+    MII_writeRegister(phy, (mii_reg_t)REG_MII_CONTROL, MII_CONTROL_RESET_MASK);
+
+    do
+    {
+        // Spin
+    } while((MII_readRegister(phy, (mii_reg_t)REG_MII_CONTROL) & MII_CONTROL_RESET_MASK) == MII_CONTROL_RESET_MASK);
+}

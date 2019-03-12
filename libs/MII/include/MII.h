@@ -82,4 +82,9 @@ void MII_selectBlock(uint8_t phy, uint16_t block);
  */
 uint16_t MII_getBlock(uint8_t phy);
 
+/**
+ * @fn void MII_reset(uint8_t phy);
+ */
+void MII_reset(uint8_t phy);
+
 #endif /* MII_H */
