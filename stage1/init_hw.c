@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2018, Evan Lojewski
+/// @copyright Copyright (c) 2018-2019, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -244,7 +244,6 @@ uint32_t translate_power_budget(uint16_t raw)
         translator.bits.PMState   = ((raw) & 0x0300) >> 8;
         translator.bits.Type      = ((raw) & 0x1C00) >> 10;
         translator.bits.PowerRail = ((raw) & 0xE000) >> 13;
-
     }
 
     return translator.r32;
@@ -393,19 +392,19 @@ void init_hw(NVRAMContents_t *nvram)
     // Misc regs init
 
     // Mask REG 0x64C0 bits 0x7FF, or bits 0x0010. This register is unknown.
-    DEVICE._64c0.r32 = (DEVICE._64c0.r32 & ~0x7FFu) | 0x10;
+    DEVICE._64c0.r32 = (DEVICE._64c0.r32 & ~0x7FFu) | 0x10u;
 
     // Set unknown REG 0x64C8 to 0x1004.
-    DEVICE._64c8.r32 = 0x00001004;
+    DEVICE._64c8.r32 = 0x00001004u;
 
     // Enable MAC clock speed override
     RegDEVICEClockSpeedOverridePolicy_t clockspeed;
-    clockspeed.r32 = 0;
-    clockspeed.bits.MACClockSpeedOverrideEnabled = 1;
+    clockspeed.r32 = 0u;
+    clockspeed.bits.MACClockSpeedOverrideEnabled = 1u;
     DEVICE.ClockSpeedOverridePolicy = clockspeed;
 
     // Mask REG 0x64DC bits 0x0F, or bits 0x01. Unknown.
-    DEVICE._64dc.r32 = (DEVICE._64dc.r32 & ~0xFu) | 0x01;
+    DEVICE._64dc.r32 = (DEVICE._64dc.r32 & ~0xFu) | 0x01u;
 
     // Mask REG 0x64DC bits 0xC00, set ... TODO
     // value from talos: 0x00315E42
@@ -442,6 +441,15 @@ void init_hw(NVRAMContents_t *nvram)
     // Set REG_EAV_REF_CLOCK_CONTROL as desired. This is initialized from
     // CFG_HW; the TIMESYNC_GPIO_MAPPING, APE_GPIO_{0,1,2,3} fields within it
     // are copied to the corresponding fields in REG_EAV_REF_CLOCK_CONTROL.
+    RegDEVICEEavRefClockControl_t ref_clock;
+    RegGENGenCfgHw_t cfg_hw = GEN.GenCfgHw;
+    ref_clock.r32 = 0;
+    ref_clock.bits.TimesyncGPIOMapping = cfg_hw.bits.TimesyncGPIOMapping;
+    ref_clock.bits.APEGPIO0Mapping = cfg_hw.bits.APEGPIO0Mapping;
+    ref_clock.bits.APEGPIO1Mapping = cfg_hw.bits.APEGPIO1Mapping;
+    ref_clock.bits.APEGPIO2Mapping = cfg_hw.bits.APEGPIO2Mapping;
+    ref_clock.bits.APEGPIO3Mapping = cfg_hw.bits.APEGPIO3Mapping;
+    DEVICE.EavRefClockControl = ref_clock;
 
     // Optionally enable REG_GRC_MODE_CONTROL__TIME_SYNC_MODE_ENABLE.
     // Value from Talos: 0x00130034
