@@ -66,7 +66,7 @@
 
 .global NVM
 .equ    NVM, 0xc0007000
-.size   NVM, 0x28
+.size   NVM, 0x34
 
 .global RXMBUF
 .equ    RXMBUF, 0x10000

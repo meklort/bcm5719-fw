@@ -106,6 +106,16 @@ void init_bcm5719_NVM_mmap(void *base)
     NVM.NvmCfg1.r32.installReadCallback(read_from_ram, &NVM_NvmCfg1_r32);
     NVM.NvmCfg1.r32.installWriteCallback(write_to_ram, &NVM_NvmCfg1_r32);
 
+    /** @brief Bitmap for @ref NVM_t.NvmCfg2. */
+    static ram_offset_t NVM_NvmCfg2_r32((uint8_t *)base, (uint32_t)24);
+    NVM.NvmCfg2.r32.installReadCallback(read_from_ram, &NVM_NvmCfg2_r32);
+    NVM.NvmCfg2.r32.installWriteCallback(write_to_ram, &NVM_NvmCfg2_r32);
+
+    /** @brief Bitmap for @ref NVM_t.NvmCfg3. */
+    static ram_offset_t NVM_NvmCfg3_r32((uint8_t *)base, (uint32_t)28);
+    NVM.NvmCfg3.r32.installReadCallback(read_from_ram, &NVM_NvmCfg3_r32);
+    NVM.NvmCfg3.r32.installWriteCallback(write_to_ram, &NVM_NvmCfg3_r32);
+
     /** @brief Bitmap for @ref NVM_t.SoftwareArbitration. */
     static ram_offset_t NVM_SoftwareArbitration_r32((uint8_t *)base, (uint32_t)32);
     NVM.SoftwareArbitration.r32.installReadCallback(read_from_ram, &NVM_SoftwareArbitration_r32);
@@ -115,6 +125,21 @@ void init_bcm5719_NVM_mmap(void *base)
     static ram_offset_t NVM_Access_r32((uint8_t *)base, (uint32_t)36);
     NVM.Access.r32.installReadCallback(read_from_ram, &NVM_Access_r32);
     NVM.Access.r32.installWriteCallback(write_to_ram, &NVM_Access_r32);
+
+    /** @brief Bitmap for @ref NVM_t.NvmWrite1. */
+    static ram_offset_t NVM_NvmWrite1_r32((uint8_t *)base, (uint32_t)40);
+    NVM.NvmWrite1.r32.installReadCallback(read_from_ram, &NVM_NvmWrite1_r32);
+    NVM.NvmWrite1.r32.installWriteCallback(write_to_ram, &NVM_NvmWrite1_r32);
+
+    /** @brief Bitmap for @ref NVM_t.ArbitrationWatchdog. */
+    static ram_offset_t NVM_ArbitrationWatchdog_r32((uint8_t *)base, (uint32_t)44);
+    NVM.ArbitrationWatchdog.r32.installReadCallback(read_from_ram, &NVM_ArbitrationWatchdog_r32);
+    NVM.ArbitrationWatchdog.r32.installWriteCallback(write_to_ram, &NVM_ArbitrationWatchdog_r32);
+
+    /** @brief Bitmap for @ref NVM_t.AutoSenseStatus. */
+    static ram_offset_t NVM_AutoSenseStatus_r32((uint8_t *)base, (uint32_t)48);
+    NVM.AutoSenseStatus.r32.installReadCallback(read_from_ram, &NVM_AutoSenseStatus_r32);
+    NVM.AutoSenseStatus.r32.installWriteCallback(write_to_ram, &NVM_AutoSenseStatus_r32);
 
 
 }

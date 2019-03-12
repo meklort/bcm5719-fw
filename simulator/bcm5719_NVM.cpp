@@ -59,9 +59,19 @@ void init_bcm5719_NVM(void)
 
     /** @brief Bitmap for @ref NVM_t.NvmCfg1. */
 
+    /** @brief Bitmap for @ref NVM_t.NvmCfg2. */
+
+    /** @brief Bitmap for @ref NVM_t.NvmCfg3. */
+
     /** @brief Bitmap for @ref NVM_t.SoftwareArbitration. */
 
     /** @brief Bitmap for @ref NVM_t.Access. */
+
+    /** @brief Bitmap for @ref NVM_t.NvmWrite1. */
+
+    /** @brief Bitmap for @ref NVM_t.ArbitrationWatchdog. */
+
+    /** @brief Bitmap for @ref NVM_t.AutoSenseStatus. */
 
 
 }

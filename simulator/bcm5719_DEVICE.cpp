@@ -261,6 +261,8 @@ void init_bcm5719_DEVICE(void)
 
     /** @brief Bitmap for @ref DEVICE_t.GrcModeControl. */
 
+    /** @brief Bitmap for @ref DEVICE_t.MiscellaneousConfig. */
+
     /** @brief Bitmap for @ref DEVICE_t.MiscellaneousLocalControl. */
 
     /** @brief Bitmap for @ref DEVICE_t.Timer. */

@@ -611,6 +611,11 @@ void init_bcm5719_DEVICE_mmap(void *base)
     DEVICE.GrcModeControl.r32.installReadCallback(read_from_ram, &DEVICE_GrcModeControl_r32);
     DEVICE.GrcModeControl.r32.installWriteCallback(write_to_ram, &DEVICE_GrcModeControl_r32);
 
+    /** @brief Bitmap for @ref DEVICE_t.MiscellaneousConfig. */
+    static ram_offset_t DEVICE_MiscellaneousConfig_r32((uint8_t *)base, (uint32_t)26628);
+    DEVICE.MiscellaneousConfig.r32.installReadCallback(read_from_ram, &DEVICE_MiscellaneousConfig_r32);
+    DEVICE.MiscellaneousConfig.r32.installWriteCallback(write_to_ram, &DEVICE_MiscellaneousConfig_r32);
+
     /** @brief Bitmap for @ref DEVICE_t.MiscellaneousLocalControl. */
     static ram_offset_t DEVICE_MiscellaneousLocalControl_r32((uint8_t *)base, (uint32_t)26632);
     DEVICE.MiscellaneousLocalControl.r32.installReadCallback(read_from_ram, &DEVICE_MiscellaneousLocalControl_r32);

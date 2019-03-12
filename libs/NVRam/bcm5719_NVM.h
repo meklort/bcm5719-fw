@@ -345,6 +345,130 @@ typedef register_container RegNVMNvmCfg1_t {
 #endif /* CXX_SIMULATOR */
 } RegNVMNvmCfg1_t;
 
+#define REG_NVM_NVM_CFG_2 ((volatile BCM5719_NVM_H_uint32_t*)0xc0007018) /*  */
+#define     NVM_NVM_CFG_2_ERASE_COMMAND_SHIFT 0u
+#define     NVM_NVM_CFG_2_ERASE_COMMAND_MASK  0xffu
+#define GET_NVM_NVM_CFG_2_ERASE_COMMAND(__reg__)  (((__reg__) & 0xff) >> 0u)
+#define SET_NVM_NVM_CFG_2_ERASE_COMMAND(__val__)  (((__val__) << 0u) & 0xffu)
+#define     NVM_NVM_CFG_2_STATUS_COMMAND_SHIFT 16u
+#define     NVM_NVM_CFG_2_STATUS_COMMAND_MASK  0xff0000u
+#define GET_NVM_NVM_CFG_2_STATUS_COMMAND(__reg__)  (((__reg__) & 0xff0000) >> 16u)
+#define SET_NVM_NVM_CFG_2_STATUS_COMMAND(__val__)  (((__val__) << 16u) & 0xff0000u)
+
+/** @brief Register definition for @ref NVM_t.NvmCfg2. */
+typedef register_container RegNVMNvmCfg2_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_NVM_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_NVM_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief This is the Flash page erase command. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, EraseCommand, 0, 8)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_15_8, 8, 8)
+        /** @brief This is the Flash status register read command. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, StatusCommand, 16, 8)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_31_24, 24, 8)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_31_24, 24, 8)
+        /** @brief This is the Flash status register read command. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, StatusCommand, 16, 8)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_15_8, 8, 8)
+        /** @brief This is the Flash page erase command. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, EraseCommand, 0, 8)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_NVM_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "NvmCfg2"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegNVMNvmCfg2_t()
+    {
+        /** @brief constructor for @ref NVM_t.NvmCfg2. */
+        r32.setName("NvmCfg2");
+        bits.EraseCommand.setBaseRegister(&r32);
+        bits.EraseCommand.setName("EraseCommand");
+        bits.StatusCommand.setBaseRegister(&r32);
+        bits.StatusCommand.setName("StatusCommand");
+    }
+    RegNVMNvmCfg2_t& operator=(const RegNVMNvmCfg2_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegNVMNvmCfg2_t;
+
+#define REG_NVM_NVM_CFG_3 ((volatile BCM5719_NVM_H_uint32_t*)0xc000701c) /*  */
+#define     NVM_NVM_CFG_3_WRITE_COMMAND_SHIFT 8u
+#define     NVM_NVM_CFG_3_WRITE_COMMAND_MASK  0xff00u
+#define GET_NVM_NVM_CFG_3_WRITE_COMMAND(__reg__)  (((__reg__) & 0xff00) >> 8u)
+#define SET_NVM_NVM_CFG_3_WRITE_COMMAND(__val__)  (((__val__) << 8u) & 0xff00u)
+#define     NVM_NVM_CFG_3_READ_COMMAND_SHIFT 24u
+#define     NVM_NVM_CFG_3_READ_COMMAND_MASK  0xff000000u
+#define GET_NVM_NVM_CFG_3_READ_COMMAND(__reg__)  (((__reg__) & 0xff000000) >> 24u)
+#define SET_NVM_NVM_CFG_3_READ_COMMAND(__val__)  (((__val__) << 24u) & 0xff000000u)
+
+/** @brief Register definition for @ref NVM_t.NvmCfg3. */
+typedef register_container RegNVMNvmCfg3_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_NVM_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_NVM_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_7_0, 0, 8)
+        /** @brief Command to write a series of bytes into a selected page in the Flash device. Note: this write command wraps around to the beginning of the page after the internal address counter in the Flash device reaches the end of the page. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, WriteCommand, 8, 8)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_23_16, 16, 8)
+        /** @brief This is the Flash/SEEPROM read command. Following this command, any number of bytes may be read up to the end of the flash memory. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, ReadCommand, 24, 8)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief This is the Flash/SEEPROM read command. Following this command, any number of bytes may be read up to the end of the flash memory. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, ReadCommand, 24, 8)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_23_16, 16, 8)
+        /** @brief Command to write a series of bytes into a selected page in the Flash device. Note: this write command wraps around to the beginning of the page after the internal address counter in the Flash device reaches the end of the page. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, WriteCommand, 8, 8)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_7_0, 0, 8)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_NVM_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "NvmCfg3"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegNVMNvmCfg3_t()
+    {
+        /** @brief constructor for @ref NVM_t.NvmCfg3. */
+        r32.setName("NvmCfg3");
+        bits.WriteCommand.setBaseRegister(&r32);
+        bits.WriteCommand.setName("WriteCommand");
+        bits.ReadCommand.setBaseRegister(&r32);
+        bits.ReadCommand.setName("ReadCommand");
+    }
+    RegNVMNvmCfg3_t& operator=(const RegNVMNvmCfg3_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegNVMNvmCfg3_t;
+
 #define REG_NVM_SOFTWARE_ARBITRATION ((volatile BCM5719_NVM_H_uint32_t*)0xc0007020) /*  */
 #define     NVM_SOFTWARE_ARBITRATION_REQ_SET0_SHIFT 0u
 #define     NVM_SOFTWARE_ARBITRATION_REQ_SET0_MASK  0x1u
@@ -561,6 +685,218 @@ typedef register_container RegNVMAccess_t {
 #endif /* CXX_SIMULATOR */
 } RegNVMAccess_t;
 
+#define REG_NVM_NVM_WRITE_1 ((volatile BCM5719_NVM_H_uint32_t*)0xc0007028) /*  */
+#define     NVM_NVM_WRITE_1_WRITE_ENABLE_COMMAND_SHIFT 0u
+#define     NVM_NVM_WRITE_1_WRITE_ENABLE_COMMAND_MASK  0xffu
+#define GET_NVM_NVM_WRITE_1_WRITE_ENABLE_COMMAND(__reg__)  (((__reg__) & 0xff) >> 0u)
+#define SET_NVM_NVM_WRITE_1_WRITE_ENABLE_COMMAND(__val__)  (((__val__) << 0u) & 0xffu)
+#define     NVM_NVM_WRITE_1_WRITE_DISABLE_COMMAND_SHIFT 8u
+#define     NVM_NVM_WRITE_1_WRITE_DISABLE_COMMAND_MASK  0xff00u
+#define GET_NVM_NVM_WRITE_1_WRITE_DISABLE_COMMAND(__reg__)  (((__reg__) & 0xff00) >> 8u)
+#define SET_NVM_NVM_WRITE_1_WRITE_DISABLE_COMMAND(__val__)  (((__val__) << 8u) & 0xff00u)
+
+/** @brief Register definition for @ref NVM_t.NvmWrite1. */
+typedef register_container RegNVMNvmWrite1_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_NVM_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_NVM_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief Flash write enable command when device with protection function is used. This command will be issued by the flash interface state machine through SPI interface. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, WriteEnableCommand, 0, 8)
+        /** @brief Flash write disable command when device with protection function is used. This command will be issued by the flash interface state machine through SPI interface. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, WriteDisableCommand, 8, 8)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_31_16, 16, 16)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_31_16, 16, 16)
+        /** @brief Flash write disable command when device with protection function is used. This command will be issued by the flash interface state machine through SPI interface. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, WriteDisableCommand, 8, 8)
+        /** @brief Flash write enable command when device with protection function is used. This command will be issued by the flash interface state machine through SPI interface. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, WriteEnableCommand, 0, 8)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_NVM_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "NvmWrite1"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegNVMNvmWrite1_t()
+    {
+        /** @brief constructor for @ref NVM_t.NvmWrite1. */
+        r32.setName("NvmWrite1");
+        bits.WriteEnableCommand.setBaseRegister(&r32);
+        bits.WriteEnableCommand.setName("WriteEnableCommand");
+        bits.WriteDisableCommand.setBaseRegister(&r32);
+        bits.WriteDisableCommand.setName("WriteDisableCommand");
+    }
+    RegNVMNvmWrite1_t& operator=(const RegNVMNvmWrite1_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegNVMNvmWrite1_t;
+
+#define REG_NVM_ARBITRATION_WATCHDOG ((volatile BCM5719_NVM_H_uint32_t*)0xc000702c) /*  */
+#define     NVM_ARBITRATION_WATCHDOG_RESERVED_SHIFT 0u
+#define     NVM_ARBITRATION_WATCHDOG_RESERVED_MASK  0xffffffffu
+#define GET_NVM_ARBITRATION_WATCHDOG_RESERVED(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
+#define SET_NVM_ARBITRATION_WATCHDOG_RESERVED(__val__)  (((__val__) << 0u) & 0xffffffffu)
+
+/** @brief Register definition for @ref NVM_t.ArbitrationWatchdog. */
+typedef register_container RegNVMArbitrationWatchdog_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_NVM_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_NVM_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief Reserved */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved, 0, 32)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Reserved */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved, 0, 32)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_NVM_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "ArbitrationWatchdog"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegNVMArbitrationWatchdog_t()
+    {
+        /** @brief constructor for @ref NVM_t.ArbitrationWatchdog. */
+        r32.setName("ArbitrationWatchdog");
+        bits.reserved.setBaseRegister(&r32);
+        bits.reserved.setName("reserved");
+    }
+    RegNVMArbitrationWatchdog_t& operator=(const RegNVMArbitrationWatchdog_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegNVMArbitrationWatchdog_t;
+
+#define REG_NVM_AUTO_SENSE_STATUS ((volatile BCM5719_NVM_H_uint32_t*)0xc0007030) /*  */
+#define     NVM_AUTO_SENSE_STATUS_AUTO_CONFIG_BUSY_SHIFT 0u
+#define     NVM_AUTO_SENSE_STATUS_AUTO_CONFIG_BUSY_MASK  0x1u
+#define GET_NVM_AUTO_SENSE_STATUS_AUTO_CONFIG_BUSY(__reg__)  (((__reg__) & 0x1) >> 0u)
+#define SET_NVM_AUTO_SENSE_STATUS_AUTO_CONFIG_BUSY(__val__)  (((__val__) << 0u) & 0x1u)
+#define     NVM_AUTO_SENSE_STATUS_AUTO_CONFIG_SUCCESSFUL_SHIFT 4u
+#define     NVM_AUTO_SENSE_STATUS_AUTO_CONFIG_SUCCESSFUL_MASK  0x10u
+#define GET_NVM_AUTO_SENSE_STATUS_AUTO_CONFIG_SUCCESSFUL(__reg__)  (((__reg__) & 0x10) >> 4u)
+#define SET_NVM_AUTO_SENSE_STATUS_AUTO_CONFIG_SUCCESSFUL(__val__)  (((__val__) << 4u) & 0x10u)
+#define     NVM_AUTO_SENSE_STATUS_AUTO_CONFIG_ENABLE_SHIFT 4u
+#define     NVM_AUTO_SENSE_STATUS_AUTO_CONFIG_ENABLE_MASK  0x10u
+#define GET_NVM_AUTO_SENSE_STATUS_AUTO_CONFIG_ENABLE(__reg__)  (((__reg__) & 0x10) >> 4u)
+#define SET_NVM_AUTO_SENSE_STATUS_AUTO_CONFIG_ENABLE(__val__)  (((__val__) << 4u) & 0x10u)
+#define     NVM_AUTO_SENSE_STATUS_AUTO_CONFIG_STATE_SHIFT 8u
+#define     NVM_AUTO_SENSE_STATUS_AUTO_CONFIG_STATE_MASK  0x1f00u
+#define GET_NVM_AUTO_SENSE_STATUS_AUTO_CONFIG_STATE(__reg__)  (((__reg__) & 0x1f00) >> 8u)
+#define SET_NVM_AUTO_SENSE_STATUS_AUTO_CONFIG_STATE(__val__)  (((__val__) << 8u) & 0x1f00u)
+#define     NVM_AUTO_SENSE_STATUS_AUTO_DETECTED_DEVICE_ID_SHIFT 16u
+#define     NVM_AUTO_SENSE_STATUS_AUTO_DETECTED_DEVICE_ID_MASK  0x1f0000u
+#define GET_NVM_AUTO_SENSE_STATUS_AUTO_DETECTED_DEVICE_ID(__reg__)  (((__reg__) & 0x1f0000) >> 16u)
+#define SET_NVM_AUTO_SENSE_STATUS_AUTO_DETECTED_DEVICE_ID(__val__)  (((__val__) << 16u) & 0x1f0000u)
+#define     NVM_AUTO_SENSE_STATUS_AUTO_DETECTED_DEVICE_ID_AT45DB041D 0x0u
+#define     NVM_AUTO_SENSE_STATUS_AUTO_DETECTED_DEVICE_ID_AT45DB021D 0x3u
+#define     NVM_AUTO_SENSE_STATUS_AUTO_DETECTED_DEVICE_ID_AT45DB011D 0x4u
+#define     NVM_AUTO_SENSE_STATUS_AUTO_DETECTED_DEVICE_ID_STM25PE40 0x8u
+#define     NVM_AUTO_SENSE_STATUS_AUTO_DETECTED_DEVICE_ID_STM25PE20 0xau
+#define     NVM_AUTO_SENSE_STATUS_AUTO_DETECTED_DEVICE_ID_STM25PE10 0xbu
+#define     NVM_AUTO_SENSE_STATUS_AUTO_DETECTED_DEVICE_ID_STM45PE10 0xcu
+#define     NVM_AUTO_SENSE_STATUS_AUTO_DETECTED_DEVICE_ID_STM45PE20 0xdu
+#define     NVM_AUTO_SENSE_STATUS_AUTO_DETECTED_DEVICE_ID_STM45PE40 0xeu
+
+
+/** @brief Register definition for @ref NVM_t.AutoSenseStatus. */
+typedef register_container RegNVMAutoSenseStatus_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_NVM_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_NVM_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief Auto Configuration Busy */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, AutoConfigBusy, 0, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_3_1, 1, 3)
+        /** @brief Auto config is successful. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, AutoConfigSuccessful, 4, 1)
+        /** @brief Auto config feature is enabled through pin strap. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, AutoConfigEnable, 4, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_7_5, 5, 3)
+        /** @brief Auto Config FSM state. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, AutoConfigState, 8, 5)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_15_13, 13, 3)
+        /** @brief Auto detected device ID. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, AutoDetectedDeviceID, 16, 5)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_31_21, 21, 11)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_31_21, 21, 11)
+        /** @brief Auto detected device ID. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, AutoDetectedDeviceID, 16, 5)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_15_13, 13, 3)
+        /** @brief Auto Config FSM state. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, AutoConfigState, 8, 5)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_7_5, 5, 3)
+        /** @brief Auto config feature is enabled through pin strap. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, AutoConfigEnable, 4, 1)
+        /** @brief Auto config is successful. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, AutoConfigSuccessful, 4, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_3_1, 1, 3)
+        /** @brief Auto Configuration Busy */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, AutoConfigBusy, 0, 1)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_NVM_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "AutoSenseStatus"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegNVMAutoSenseStatus_t()
+    {
+        /** @brief constructor for @ref NVM_t.AutoSenseStatus. */
+        r32.setName("AutoSenseStatus");
+        bits.AutoConfigBusy.setBaseRegister(&r32);
+        bits.AutoConfigBusy.setName("AutoConfigBusy");
+        bits.AutoConfigSuccessful.setBaseRegister(&r32);
+        bits.AutoConfigSuccessful.setName("AutoConfigSuccessful");
+        bits.AutoConfigEnable.setBaseRegister(&r32);
+        bits.AutoConfigEnable.setName("AutoConfigEnable");
+        bits.AutoConfigState.setBaseRegister(&r32);
+        bits.AutoConfigState.setName("AutoConfigState");
+        bits.AutoDetectedDeviceID.setBaseRegister(&r32);
+        bits.AutoDetectedDeviceID.setName("AutoDetectedDeviceID");
+    }
+    RegNVMAutoSenseStatus_t& operator=(const RegNVMAutoSenseStatus_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegNVMAutoSenseStatus_t;
+
 /** @brief Component definition for @ref NVM. */
 typedef struct {
     /** @brief  */
@@ -581,14 +917,26 @@ typedef struct {
     /** @brief  */
     RegNVMNvmCfg1_t NvmCfg1;
 
-    /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_NVM_H_uint32_t reserved_24[2];
+    /** @brief  */
+    RegNVMNvmCfg2_t NvmCfg2;
+
+    /** @brief  */
+    RegNVMNvmCfg3_t NvmCfg3;
 
     /** @brief  */
     RegNVMSoftwareArbitration_t SoftwareArbitration;
 
     /** @brief  */
     RegNVMAccess_t Access;
+
+    /** @brief  */
+    RegNVMNvmWrite1_t NvmWrite1;
+
+    /** @brief  */
+    RegNVMArbitrationWatchdog_t ArbitrationWatchdog;
+
+    /** @brief  */
+    RegNVMAutoSenseStatus_t AutoSenseStatus;
 
 } NVM_t;
 

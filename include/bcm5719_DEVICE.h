@@ -4819,6 +4819,50 @@ typedef register_container RegDEVICEGrcModeControl_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEGrcModeControl_t;
 
+#define REG_DEVICE_MISCELLANEOUS_CONFIG ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006804) /*  */
+#define     DEVICE_MISCELLANEOUS_CONFIG_ALL_SHIFT 0u
+#define     DEVICE_MISCELLANEOUS_CONFIG_ALL_MASK  0xffffffffu
+#define GET_DEVICE_MISCELLANEOUS_CONFIG_ALL(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
+#define SET_DEVICE_MISCELLANEOUS_CONFIG_ALL(__val__)  (((__val__) << 0u) & 0xffffffffu)
+
+/** @brief Register definition for @ref DEVICE_t.MiscellaneousConfig. */
+typedef register_container RegDEVICEMiscellaneousConfig_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_DEVICE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, all, 0, 32)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, all, 0, 32)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "MiscellaneousConfig"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICEMiscellaneousConfig_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.MiscellaneousConfig. */
+        r32.setName("MiscellaneousConfig");
+        bits.all.setBaseRegister(&r32);
+        bits.all.setName("all");
+    }
+    RegDEVICEMiscellaneousConfig_t& operator=(const RegDEVICEMiscellaneousConfig_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegDEVICEMiscellaneousConfig_t;
+
 #define REG_DEVICE_MISCELLANEOUS_LOCAL_CONTROL ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006808) /*  */
 #define     DEVICE_MISCELLANEOUS_LOCAL_CONTROL_GPIO_0_INPUT_SHIFT 8u
 #define     DEVICE_MISCELLANEOUS_LOCAL_CONTROL_GPIO_0_INPUT_MASK  0x100u
@@ -5677,8 +5721,8 @@ typedef struct {
     /** @brief  */
     RegDEVICEGrcModeControl_t GrcModeControl;
 
-    /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_26628[1];
+    /** @brief  */
+    RegDEVICEMiscellaneousConfig_t MiscellaneousConfig;
 
     /** @brief  */
     RegDEVICEMiscellaneousLocalControl_t MiscellaneousLocalControl;
