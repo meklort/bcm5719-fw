@@ -101,6 +101,16 @@ void init_bcm5719_APE_mmap(void *base)
     APE.Event.r32.installReadCallback(read_from_ram, &APE_Event_r32);
     APE.Event.r32.installWriteCallback(write_to_ram, &APE_Event_r32);
 
+    /** @brief Bitmap for @ref APE_t.RxbufoffsetFunc0. */
+    static ram_offset_t APE_RxbufoffsetFunc0_r32((uint8_t *)base, (uint32_t)20);
+    APE.RxbufoffsetFunc0.r32.installReadCallback(read_from_ram, &APE_RxbufoffsetFunc0_r32);
+    APE.RxbufoffsetFunc0.r32.installWriteCallback(write_to_ram, &APE_RxbufoffsetFunc0_r32);
+
+    /** @brief Bitmap for @ref APE_t.RxbufoffsetFunc1. */
+    static ram_offset_t APE_RxbufoffsetFunc1_r32((uint8_t *)base, (uint32_t)24);
+    APE.RxbufoffsetFunc1.r32.installReadCallback(read_from_ram, &APE_RxbufoffsetFunc1_r32);
+    APE.RxbufoffsetFunc1.r32.installWriteCallback(write_to_ram, &APE_RxbufoffsetFunc1_r32);
+
     /** @brief Bitmap for @ref APE_t.Mode2. */
     static ram_offset_t APE_Mode2_r32((uint8_t *)base, (uint32_t)44);
     APE.Mode2.r32.installReadCallback(read_from_ram, &APE_Mode2_r32);

@@ -196,6 +196,11 @@ void init_bcm5719_DEVICE_mmap(void *base)
     DEVICE.MiiMode.r32.installReadCallback(read_from_ram, &DEVICE_MiiMode_r32);
     DEVICE.MiiMode.r32.installWriteCallback(write_to_ram, &DEVICE_MiiMode_r32);
 
+    /** @brief Bitmap for @ref DEVICE_t.TransmitMacMode. */
+    static ram_offset_t DEVICE_TransmitMacMode_r32((uint8_t *)base, (uint32_t)1116);
+    DEVICE.TransmitMacMode.r32.installReadCallback(read_from_ram, &DEVICE_TransmitMacMode_r32);
+    DEVICE.TransmitMacMode.r32.installWriteCallback(write_to_ram, &DEVICE_TransmitMacMode_r32);
+
     /** @brief Bitmap for @ref DEVICE_t.ReceiveMacMode. */
     static ram_offset_t DEVICE_ReceiveMacMode_r32((uint8_t *)base, (uint32_t)1128);
     DEVICE.ReceiveMacMode.r32.installReadCallback(read_from_ram, &DEVICE_ReceiveMacMode_r32);

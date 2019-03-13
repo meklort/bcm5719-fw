@@ -675,59 +675,59 @@ typedef register_container RegDEVICEEmacMode_t {
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
-        /** @brief  */
+        /** @brief When this bit is set to 1, the MAC state machine is reset. This is a self-clearing bit. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GlobalReset, 0, 1)
-        /** @brief  */
+        /** @brief When set, the MII/GMII interface is configured to operate in half-duplex mode and the CSMA/ CD state machines in the MAC are set to half-duplex mode. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, HalfDuplex, 1, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PortMode, 2, 2)
-        /** @brief  */
+        /** @brief When set, an internal loopback path is enabled from the transmit MAC to the receive MAC. This bit is provided for diagnostic purposes only. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LoopbackMode, 4, 1)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_6_5, 5, 2)
-        /** @brief  */
+        /** @brief Allow the MAC to receive tagged MAC control packets. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, TaggedMACControl, 7, 1)
-        /** @brief  */
+        /** @brief Enable transmit bursting in gigabit half-duplex mode. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableTXBursting, 8, 1)
-        /** @brief  */
+        /** @brief Enable Max Deferral checking statistic. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MaxDefer, 9, 1)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_10_10, 10, 1)
-        /** @brief  */
+        /** @brief Enable receive statistics external updates. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableRXStatistics, 11, 1)
-        /** @brief  */
+        /** @brief Clear receive statistics internal RAM. This bit is self-clearing. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ClearRXStatistics, 12, 1)
-        /** @brief  */
+        /** @brief Write receive statistics to external memory. This bit is self-clearing. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, FlushRXStatistics, 13, 1)
-        /** @brief  */
+        /** @brief Enable transmit statistics external updates. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableTXStatistics, 14, 1)
-        /** @brief  */
+        /** @brief Clear transmit statistics internal RAM. This bit is self-clearing. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ClearTXStatistics, 15, 1)
-        /** @brief  */
+        /** @brief Write transmit statistics to external memory. This bit is self-clearing. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, FlushTXStatistics, 16, 1)
-        /** @brief  */
+        /** @brief Send config commands when in TBI mode. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SendConfigCommand, 17, 1)
-        /** @brief  */
+        /** @brief Enable Magic Packet detection. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MagicPacketDetectionEnable, 18, 1)
-        /** @brief  */
+        /** @brief Enable Wake on LAN filters when in powerdown mode. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ACPIPowerOnEnable, 19, 1)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_20_20, 20, 1)
-        /** @brief  */
+        /** @brief Enable Transmit DMA engine. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableTCE, 21, 1)
-        /** @brief  */
+        /** @brief Enable RDMA engine. Must be set for normal operation. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableRDE, 22, 1)
-        /** @brief  */
+        /** @brief Enable receive Frame Header DMA engine. Must be set for normal operation. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableFHDE, 23, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, KeepFrameInWOL, 24, 1)
-        /** @brief  */
+        /** @brief When this bit is set, the WOL signal will not be asserted on an interesting packet match. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, HaltInterestingPacketPME, 25, 1)
-        /** @brief  */
+        /** @brief When this bit is set, the ACPI state machine will continue running when a match is found. When this bit is clear, the ACPI state machine will halt when a match is found. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Free_RunningACPI, 26, 1)
-        /** @brief  */
+        /** @brief This bit must be written a 1 for APE subsystem to receive packets from the EMAC. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableAPERXPath, 27, 1)
-        /** @brief  */
+        /** @brief This bit must be written a 1 for the EMAC to transmit APE packets. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableAPETXPath, 28, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MACLoopbackModeControl, 29, 1)
@@ -738,59 +738,59 @@ typedef register_container RegDEVICEEmacMode_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_30, 30, 2)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MACLoopbackModeControl, 29, 1)
-        /** @brief  */
+        /** @brief This bit must be written a 1 for the EMAC to transmit APE packets. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableAPETXPath, 28, 1)
-        /** @brief  */
+        /** @brief This bit must be written a 1 for APE subsystem to receive packets from the EMAC. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableAPERXPath, 27, 1)
-        /** @brief  */
+        /** @brief When this bit is set, the ACPI state machine will continue running when a match is found. When this bit is clear, the ACPI state machine will halt when a match is found. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Free_RunningACPI, 26, 1)
-        /** @brief  */
+        /** @brief When this bit is set, the WOL signal will not be asserted on an interesting packet match. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, HaltInterestingPacketPME, 25, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, KeepFrameInWOL, 24, 1)
-        /** @brief  */
+        /** @brief Enable receive Frame Header DMA engine. Must be set for normal operation. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableFHDE, 23, 1)
-        /** @brief  */
+        /** @brief Enable RDMA engine. Must be set for normal operation. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableRDE, 22, 1)
-        /** @brief  */
+        /** @brief Enable Transmit DMA engine. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableTCE, 21, 1)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_20_20, 20, 1)
-        /** @brief  */
+        /** @brief Enable Wake on LAN filters when in powerdown mode. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ACPIPowerOnEnable, 19, 1)
-        /** @brief  */
+        /** @brief Enable Magic Packet detection. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MagicPacketDetectionEnable, 18, 1)
-        /** @brief  */
+        /** @brief Send config commands when in TBI mode. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SendConfigCommand, 17, 1)
-        /** @brief  */
+        /** @brief Write transmit statistics to external memory. This bit is self-clearing. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, FlushTXStatistics, 16, 1)
-        /** @brief  */
+        /** @brief Clear transmit statistics internal RAM. This bit is self-clearing. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ClearTXStatistics, 15, 1)
-        /** @brief  */
+        /** @brief Enable transmit statistics external updates. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableTXStatistics, 14, 1)
-        /** @brief  */
+        /** @brief Write receive statistics to external memory. This bit is self-clearing. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, FlushRXStatistics, 13, 1)
-        /** @brief  */
+        /** @brief Clear receive statistics internal RAM. This bit is self-clearing. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ClearRXStatistics, 12, 1)
-        /** @brief  */
+        /** @brief Enable receive statistics external updates. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableRXStatistics, 11, 1)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_10_10, 10, 1)
-        /** @brief  */
+        /** @brief Enable Max Deferral checking statistic. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MaxDefer, 9, 1)
-        /** @brief  */
+        /** @brief Enable transmit bursting in gigabit half-duplex mode. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableTXBursting, 8, 1)
-        /** @brief  */
+        /** @brief Allow the MAC to receive tagged MAC control packets. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, TaggedMACControl, 7, 1)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_6_5, 5, 2)
-        /** @brief  */
+        /** @brief When set, an internal loopback path is enabled from the transmit MAC to the receive MAC. This bit is provided for diagnostic purposes only. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LoopbackMode, 4, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PortMode, 2, 2)
-        /** @brief  */
+        /** @brief When set, the MII/GMII interface is configured to operate in half-duplex mode and the CSMA/ CD state machines in the MAC are set to half-duplex mode. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, HalfDuplex, 1, 1)
-        /** @brief  */
+        /** @brief When this bit is set to 1, the MAC state machine is reset. This is a self-clearing bit. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GlobalReset, 0, 1)
 #else
 #error Unknown Endian
@@ -1125,7 +1125,7 @@ typedef register_container RegDEVICEEmacMacAddresses3Low_t {
     BCM5719_DEVICE_H_uint32_t r32;
 } RegDEVICEEmacMacAddresses3Low_t;
 
-#define REG_DEVICE_WOL_PATTERN_POINTER ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0000430) /* Specifies the offset into the 6 KB BD memory for frame comparison. (Bits 3:0 are ignored to align the memory address to a natural 128-bit boundary). */
+#define REG_DEVICE_WOL_PATTERN_POINTER ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0000430) /* Specifies the offset into the 6KB BD memory for frame comparison. (Bits 3:0 are ignored to align the memory address to a natural 128-bit boundary). */
 /** @brief Register definition for @ref DEVICE_t.WolPatternPointer. */
 typedef register_container RegDEVICEWolPatternPointer_t {
     /** @brief 32bit direct register access. */
@@ -1298,10 +1298,18 @@ typedef register_container RegDEVICEMiiCommunication_t {
 } RegDEVICEMiiCommunication_t;
 
 #define REG_DEVICE_MII_MODE ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0000454) /*  */
+#define     DEVICE_MII_MODE_PHY_ADDRESS_SHIFT 5u
+#define     DEVICE_MII_MODE_PHY_ADDRESS_MASK  0x3e0u
+#define GET_DEVICE_MII_MODE_PHY_ADDRESS(__reg__)  (((__reg__) & 0x3e0) >> 5u)
+#define SET_DEVICE_MII_MODE_PHY_ADDRESS(__val__)  (((__val__) << 5u) & 0x3e0u)
 #define     DEVICE_MII_MODE_CONSTANT_MDIO_DIV_MDC_CLOCK_SPEED_SHIFT 15u
 #define     DEVICE_MII_MODE_CONSTANT_MDIO_DIV_MDC_CLOCK_SPEED_MASK  0x8000u
 #define GET_DEVICE_MII_MODE_CONSTANT_MDIO_DIV_MDC_CLOCK_SPEED(__reg__)  (((__reg__) & 0x8000) >> 15u)
 #define SET_DEVICE_MII_MODE_CONSTANT_MDIO_DIV_MDC_CLOCK_SPEED(__val__)  (((__val__) << 15u) & 0x8000u)
+#define     DEVICE_MII_MODE_MII_CLOCK_COUNT_SHIFT 16u
+#define     DEVICE_MII_MODE_MII_CLOCK_COUNT_MASK  0x1f0000u
+#define GET_DEVICE_MII_MODE_MII_CLOCK_COUNT(__reg__)  (((__reg__) & 0x1f0000) >> 16u)
+#define SET_DEVICE_MII_MODE_MII_CLOCK_COUNT(__val__)  (((__val__) << 16u) & 0x1f0000u)
 
 /** @brief Register definition for @ref DEVICE_t.MiiMode. */
 typedef register_container RegDEVICEMiiMode_t {
@@ -1311,18 +1319,30 @@ typedef register_container RegDEVICEMiiMode_t {
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_14_0, 0, 15)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_4_0, 0, 5)
+        /** @brief This field specifies the PHY Address. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PHYAddress, 5, 5)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_14_10, 10, 5)
         /** @brief Enable ~500Khz constant MII management interface (MDIO/MDC) frequency regardless core clock frequency. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ConstantMDIO_DIV_MDCClockSpeed, 15, 1)
+        /** @brief Counter to divide CORE_CLK (62.5 MHz) to generate the MI clock. CORE_CLK/2/(MII Clock Count + 1). */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MIIClockCount, 16, 5)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_16, 16, 16)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_16, 16, 16)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
+        /** @brief Counter to divide CORE_CLK (62.5 MHz) to generate the MI clock. CORE_CLK/2/(MII Clock Count + 1). */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MIIClockCount, 16, 5)
         /** @brief Enable ~500Khz constant MII management interface (MDIO/MDC) frequency regardless core clock frequency. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ConstantMDIO_DIV_MDCClockSpeed, 15, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_14_0, 0, 15)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_14_10, 10, 5)
+        /** @brief This field specifies the PHY Address. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PHYAddress, 5, 5)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_4_0, 0, 5)
 #else
 #error Unknown Endian
 #endif
@@ -1338,8 +1358,12 @@ typedef register_container RegDEVICEMiiMode_t {
     {
         /** @brief constructor for @ref DEVICE_t.MiiMode. */
         r32.setName("MiiMode");
+        bits.PHYAddress.setBaseRegister(&r32);
+        bits.PHYAddress.setName("PHYAddress");
         bits.ConstantMDIO_DIV_MDCClockSpeed.setBaseRegister(&r32);
         bits.ConstantMDIO_DIV_MDCClockSpeed.setName("ConstantMDIO_DIV_MDCClockSpeed");
+        bits.MIIClockCount.setBaseRegister(&r32);
+        bits.MIIClockCount.setName("MIIClockCount");
     }
     RegDEVICEMiiMode_t& operator=(const RegDEVICEMiiMode_t& other)
     {
@@ -1348,6 +1372,138 @@ typedef register_container RegDEVICEMiiMode_t {
     }
 #endif /* CXX_SIMULATOR */
 } RegDEVICEMiiMode_t;
+
+#define REG_DEVICE_TRANSMIT_MAC_MODE ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000045c) /*  */
+#define     DEVICE_TRANSMIT_MAC_MODE_RESET_SHIFT 0u
+#define     DEVICE_TRANSMIT_MAC_MODE_RESET_MASK  0x1u
+#define GET_DEVICE_TRANSMIT_MAC_MODE_RESET(__reg__)  (((__reg__) & 0x1) >> 0u)
+#define SET_DEVICE_TRANSMIT_MAC_MODE_RESET(__val__)  (((__val__) << 0u) & 0x1u)
+#define     DEVICE_TRANSMIT_MAC_MODE_ENABLE_TCE_SHIFT 1u
+#define     DEVICE_TRANSMIT_MAC_MODE_ENABLE_TCE_MASK  0x2u
+#define GET_DEVICE_TRANSMIT_MAC_MODE_ENABLE_TCE(__reg__)  (((__reg__) & 0x2) >> 1u)
+#define SET_DEVICE_TRANSMIT_MAC_MODE_ENABLE_TCE(__val__)  (((__val__) << 1u) & 0x2u)
+#define     DEVICE_TRANSMIT_MAC_MODE_ENABLE_FLOW_CONTROL_SHIFT 4u
+#define     DEVICE_TRANSMIT_MAC_MODE_ENABLE_FLOW_CONTROL_MASK  0x10u
+#define GET_DEVICE_TRANSMIT_MAC_MODE_ENABLE_FLOW_CONTROL(__reg__)  (((__reg__) & 0x10) >> 4u)
+#define SET_DEVICE_TRANSMIT_MAC_MODE_ENABLE_FLOW_CONTROL(__val__)  (((__val__) << 4u) & 0x10u)
+#define     DEVICE_TRANSMIT_MAC_MODE_ENABLE_BIG_BACKOFF_SHIFT 5u
+#define     DEVICE_TRANSMIT_MAC_MODE_ENABLE_BIG_BACKOFF_MASK  0x20u
+#define GET_DEVICE_TRANSMIT_MAC_MODE_ENABLE_BIG_BACKOFF(__reg__)  (((__reg__) & 0x20) >> 5u)
+#define SET_DEVICE_TRANSMIT_MAC_MODE_ENABLE_BIG_BACKOFF(__val__)  (((__val__) << 5u) & 0x20u)
+#define     DEVICE_TRANSMIT_MAC_MODE_ENABLE_LONG_PAUSE_SHIFT 6u
+#define     DEVICE_TRANSMIT_MAC_MODE_ENABLE_LONG_PAUSE_MASK  0x40u
+#define GET_DEVICE_TRANSMIT_MAC_MODE_ENABLE_LONG_PAUSE(__reg__)  (((__reg__) & 0x40) >> 6u)
+#define SET_DEVICE_TRANSMIT_MAC_MODE_ENABLE_LONG_PAUSE(__val__)  (((__val__) << 6u) & 0x40u)
+#define     DEVICE_TRANSMIT_MAC_MODE_LINK_AWARE_ENABLE_SHIFT 7u
+#define     DEVICE_TRANSMIT_MAC_MODE_LINK_AWARE_ENABLE_MASK  0x80u
+#define GET_DEVICE_TRANSMIT_MAC_MODE_LINK_AWARE_ENABLE(__reg__)  (((__reg__) & 0x80) >> 7u)
+#define SET_DEVICE_TRANSMIT_MAC_MODE_LINK_AWARE_ENABLE(__val__)  (((__val__) << 7u) & 0x80u)
+#define     DEVICE_TRANSMIT_MAC_MODE_TXMBUF_CORRUPTION_LOCKUP_FIX_ENABLE_SHIFT 8u
+#define     DEVICE_TRANSMIT_MAC_MODE_TXMBUF_CORRUPTION_LOCKUP_FIX_ENABLE_MASK  0x100u
+#define GET_DEVICE_TRANSMIT_MAC_MODE_TXMBUF_CORRUPTION_LOCKUP_FIX_ENABLE(__reg__)  (((__reg__) & 0x100) >> 8u)
+#define SET_DEVICE_TRANSMIT_MAC_MODE_TXMBUF_CORRUPTION_LOCKUP_FIX_ENABLE(__val__)  (((__val__) << 8u) & 0x100u)
+#define     DEVICE_TRANSMIT_MAC_MODE_ENABLE_TX_ESP_OFFLOAD_SHIFT 9u
+#define     DEVICE_TRANSMIT_MAC_MODE_ENABLE_TX_ESP_OFFLOAD_MASK  0x200u
+#define GET_DEVICE_TRANSMIT_MAC_MODE_ENABLE_TX_ESP_OFFLOAD(__reg__)  (((__reg__) & 0x200) >> 9u)
+#define SET_DEVICE_TRANSMIT_MAC_MODE_ENABLE_TX_ESP_OFFLOAD(__val__)  (((__val__) << 9u) & 0x200u)
+#define     DEVICE_TRANSMIT_MAC_MODE_ENABLE_TX_AH_OFFLOAD_SHIFT 10u
+#define     DEVICE_TRANSMIT_MAC_MODE_ENABLE_TX_AH_OFFLOAD_MASK  0x400u
+#define GET_DEVICE_TRANSMIT_MAC_MODE_ENABLE_TX_AH_OFFLOAD(__reg__)  (((__reg__) & 0x400) >> 10u)
+#define SET_DEVICE_TRANSMIT_MAC_MODE_ENABLE_TX_AH_OFFLOAD(__val__)  (((__val__) << 10u) & 0x400u)
+
+/** @brief Register definition for @ref DEVICE_t.TransmitMacMode. */
+typedef register_container RegDEVICETransmitMacMode_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_DEVICE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief When this bit is set to 1, the Transmit MAC state machine will be reset. This is a self-clearing bit. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Reset, 0, 1)
+        /** @brief Used to be enable TDE in legacy-same purpose. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableTCE, 1, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_3_2, 2, 2)
+        /** @brief MAC will send 802.3x flow control frames. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableFlowControl, 4, 1)
+        /** @brief MAC will use larger than normal back-off algorithm. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableBigBackoff, 5, 1)
+        /** @brief When set, the Pause time value set in the transmitted PAUSE frames is 0xFFFF. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableLongPause, 6, 1)
+        /** @brief When set, transmission of packets by the MAC is enabled only when link is up. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LinkAwareEnable, 7, 1)
+        /** @brief When set, TXMBUF corruption lockup fix is enabled. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, TxMBUFCorruptionLockupFixEnable, 8, 1)
+        /** @brief A value 1 enables the TX ESP offload feature. When 0, offloaded ESP packet gets dropped. This value must be static. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableTXESPOffload, 9, 1)
+        /** @brief A value 1 enables the TX AH offload feature. When 0, offloaded AH packet gets dropped. This value must be static. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableTXAHOffload, 10, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_11, 11, 21)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_11, 11, 21)
+        /** @brief A value 1 enables the TX AH offload feature. When 0, offloaded AH packet gets dropped. This value must be static. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableTXAHOffload, 10, 1)
+        /** @brief A value 1 enables the TX ESP offload feature. When 0, offloaded ESP packet gets dropped. This value must be static. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableTXESPOffload, 9, 1)
+        /** @brief When set, TXMBUF corruption lockup fix is enabled. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, TxMBUFCorruptionLockupFixEnable, 8, 1)
+        /** @brief When set, transmission of packets by the MAC is enabled only when link is up. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LinkAwareEnable, 7, 1)
+        /** @brief When set, the Pause time value set in the transmitted PAUSE frames is 0xFFFF. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableLongPause, 6, 1)
+        /** @brief MAC will use larger than normal back-off algorithm. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableBigBackoff, 5, 1)
+        /** @brief MAC will send 802.3x flow control frames. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableFlowControl, 4, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_3_2, 2, 2)
+        /** @brief Used to be enable TDE in legacy-same purpose. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableTCE, 1, 1)
+        /** @brief When this bit is set to 1, the Transmit MAC state machine will be reset. This is a self-clearing bit. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Reset, 0, 1)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "TransmitMacMode"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICETransmitMacMode_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.TransmitMacMode. */
+        r32.setName("TransmitMacMode");
+        bits.Reset.setBaseRegister(&r32);
+        bits.Reset.setName("Reset");
+        bits.EnableTCE.setBaseRegister(&r32);
+        bits.EnableTCE.setName("EnableTCE");
+        bits.EnableFlowControl.setBaseRegister(&r32);
+        bits.EnableFlowControl.setName("EnableFlowControl");
+        bits.EnableBigBackoff.setBaseRegister(&r32);
+        bits.EnableBigBackoff.setName("EnableBigBackoff");
+        bits.EnableLongPause.setBaseRegister(&r32);
+        bits.EnableLongPause.setName("EnableLongPause");
+        bits.LinkAwareEnable.setBaseRegister(&r32);
+        bits.LinkAwareEnable.setName("LinkAwareEnable");
+        bits.TxMBUFCorruptionLockupFixEnable.setBaseRegister(&r32);
+        bits.TxMBUFCorruptionLockupFixEnable.setName("TxMBUFCorruptionLockupFixEnable");
+        bits.EnableTXESPOffload.setBaseRegister(&r32);
+        bits.EnableTXESPOffload.setName("EnableTXESPOffload");
+        bits.EnableTXAHOffload.setBaseRegister(&r32);
+        bits.EnableTXAHOffload.setName("EnableTXAHOffload");
+    }
+    RegDEVICETransmitMacMode_t& operator=(const RegDEVICETransmitMacMode_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegDEVICETransmitMacMode_t;
 
 #define REG_DEVICE_RECEIVE_MAC_MODE ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0000468) /*  */
 #define     DEVICE_RECEIVE_MAC_MODE_RESET_SHIFT 0u
@@ -5355,7 +5511,7 @@ typedef struct {
     /** @brief Lower 4-byte of this node's MAC address. */
     RegDEVICEEmacMacAddresses3Low_t EmacMacAddresses3Low;
 
-    /** @brief Specifies the offset into the 6 KB BD memory for frame comparison. (Bits 3:0 are ignored to align the memory address to a natural 128-bit boundary). */
+    /** @brief Specifies the offset into the 6KB BD memory for frame comparison. (Bits 3:0 are ignored to align the memory address to a natural 128-bit boundary). */
     RegDEVICEWolPatternPointer_t WolPatternPointer;
 
     /** @brief  */
@@ -5380,7 +5536,13 @@ typedef struct {
     RegDEVICEMiiMode_t MiiMode;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_1112[4];
+    BCM5719_DEVICE_H_uint32_t reserved_1112[1];
+
+    /** @brief  */
+    RegDEVICETransmitMacMode_t TransmitMacMode;
+
+    /** @brief Reserved bytes to pad out data structure. */
+    BCM5719_DEVICE_H_uint32_t reserved_1120[2];
 
     /** @brief  */
     RegDEVICEReceiveMacMode_t ReceiveMacMode;

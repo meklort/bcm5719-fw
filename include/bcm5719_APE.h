@@ -98,6 +98,18 @@ typedef uint32_t BCM5719_APE_H_uint32_t;
 #define     APE_MODE_HOST_DIAG_MASK  0x8u
 #define GET_APE_MODE_HOST_DIAG(__reg__)  (((__reg__) & 0x8) >> 3u)
 #define SET_APE_MODE_HOST_DIAG(__val__)  (((__val__) << 3u) & 0x8u)
+#define     APE_MODE_EVENT_1_SHIFT 5u
+#define     APE_MODE_EVENT_1_MASK  0x20u
+#define GET_APE_MODE_EVENT_1(__reg__)  (((__reg__) & 0x20) >> 5u)
+#define SET_APE_MODE_EVENT_1(__val__)  (((__val__) << 5u) & 0x20u)
+#define     APE_MODE_EVENT_2_SHIFT 6u
+#define     APE_MODE_EVENT_2_MASK  0x40u
+#define GET_APE_MODE_EVENT_2(__reg__)  (((__reg__) & 0x40) >> 6u)
+#define SET_APE_MODE_EVENT_2(__val__)  (((__val__) << 6u) & 0x40u)
+#define     APE_MODE_GRCINT_SHIFT 7u
+#define     APE_MODE_GRCINT_MASK  0x80u
+#define GET_APE_MODE_GRCINT(__reg__)  (((__reg__) & 0x80) >> 7u)
+#define SET_APE_MODE_GRCINT(__val__)  (((__val__) << 7u) & 0x80u)
 #define     APE_MODE_MEMORY_ECC_SHIFT 18u
 #define     APE_MODE_MEMORY_ECC_MASK  0x40000u
 #define GET_APE_MODE_MEMORY_ECC(__reg__)  (((__reg__) & 0x40000) >> 18u)
@@ -110,16 +122,24 @@ typedef register_container RegAPEMode_t {
 
     BITFIELD_BEGIN(BCM5719_APE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
-        /** @brief  */
+        /** @brief Used to reset the APE block. */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Reset, 0, 1)
-        /** @brief  */
+        /** @brief APE is halted if set. Setting then unsetting this bit resets the APE to its reset vector, etc. */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Halt, 1, 1)
-        /** @brief  */
+        /** @brief Can be used to boot from RAM instead of NVM. Takes a full APE image with section headers, etc. so you still need to form a proper image. */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, FastBoot, 2, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, HostDiag, 3, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_17_4, 4, 14)
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_4_4, 4, 1)
+        /** @brief Used to signal the APE that an event from the host is ready for processing in SHM. */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Event1, 5, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Event2, 6, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, GRCint, 7, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_17_8, 8, 10)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, MemoryECC, 18, 1)
         /** @brief Padding */
@@ -130,14 +150,22 @@ typedef register_container RegAPEMode_t {
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, MemoryECC, 18, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_17_4, 4, 14)
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_17_8, 8, 10)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, GRCint, 7, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Event2, 6, 1)
+        /** @brief Used to signal the APE that an event from the host is ready for processing in SHM. */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Event1, 5, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_4_4, 4, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, HostDiag, 3, 1)
-        /** @brief  */
+        /** @brief Can be used to boot from RAM instead of NVM. Takes a full APE image with section headers, etc. so you still need to form a proper image. */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, FastBoot, 2, 1)
-        /** @brief  */
+        /** @brief APE is halted if set. Setting then unsetting this bit resets the APE to its reset vector, etc. */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Halt, 1, 1)
-        /** @brief  */
+        /** @brief Used to reset the APE block. */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Reset, 0, 1)
 #else
 #error Unknown Endian
@@ -162,6 +190,12 @@ typedef register_container RegAPEMode_t {
         bits.FastBoot.setName("FastBoot");
         bits.HostDiag.setBaseRegister(&r32);
         bits.HostDiag.setName("HostDiag");
+        bits.Event1.setBaseRegister(&r32);
+        bits.Event1.setName("Event1");
+        bits.Event2.setBaseRegister(&r32);
+        bits.Event2.setName("Event2");
+        bits.GRCint.setBaseRegister(&r32);
+        bits.GRCint.setName("GRCint");
         bits.MemoryECC.setBaseRegister(&r32);
         bits.MemoryECC.setName("MemoryECC");
     }
@@ -178,6 +212,10 @@ typedef register_container RegAPEMode_t {
 #define     APE_STATUS_PCIE_RESET_MASK  0x1u
 #define GET_APE_STATUS_PCIE_RESET(__reg__)  (((__reg__) & 0x1) >> 0u)
 #define SET_APE_STATUS_PCIE_RESET(__val__)  (((__val__) << 0u) & 0x1u)
+#define     APE_STATUS_NVRAM_CONTROL_RESET_SHIFT 3u
+#define     APE_STATUS_NVRAM_CONTROL_RESET_MASK  0x8u
+#define GET_APE_STATUS_NVRAM_CONTROL_RESET(__reg__)  (((__reg__) & 0x8) >> 3u)
+#define SET_APE_STATUS_NVRAM_CONTROL_RESET(__val__)  (((__val__) << 3u) & 0x8u)
 #define     APE_STATUS_LAN_0_DSTATE_SHIFT 4u
 #define     APE_STATUS_LAN_0_DSTATE_MASK  0x10u
 #define GET_APE_STATUS_LAN_0_DSTATE(__reg__)  (((__reg__) & 0x10) >> 4u)
@@ -189,10 +227,6 @@ typedef register_container RegAPEMode_t {
 #define     APE_STATUS_BOOT_MODE_NVRAM 0x0u
 #define     APE_STATUS_BOOT_MODE_FAST 0x1u
 
-#define     APE_STATUS_NVRAM_CONTROL_RESET_SHIFT 7u
-#define     APE_STATUS_NVRAM_CONTROL_RESET_MASK  0x80u
-#define GET_APE_STATUS_NVRAM_CONTROL_RESET(__reg__)  (((__reg__) & 0x80) >> 7u)
-#define SET_APE_STATUS_NVRAM_CONTROL_RESET(__val__)  (((__val__) << 7u) & 0x80u)
 #define     APE_STATUS_LAN_1_DSTATE_SHIFT 9u
 #define     APE_STATUS_LAN_1_DSTATE_MASK  0x200u
 #define GET_APE_STATUS_LAN_1_DSTATE(__reg__)  (((__reg__) & 0x200) >> 9u)
@@ -243,18 +277,16 @@ typedef register_container RegAPEStatus_t {
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, PCIeReset, 0, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_3_1, 1, 3)
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_2_1, 1, 2)
         /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, NVRAMControlReset, 3, 1)
+        /** @brief Indicates port is in D3 if set, otherwise the port is in D0-D2. */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, LAN0Dstate, 4, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, BootMode, 5, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_6_6, 6, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, NVRAMControlReset, 7, 1)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_8_8, 8, 1)
-        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_8_6, 6, 3)
+        /** @brief Indicates port is in D3 if set, otherwise the port is in D0-D2. */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, LAN1Dstate, 9, 1)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_23_10, 10, 14)
@@ -269,20 +301,18 @@ typedef register_container RegAPEStatus_t {
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, BootStatusB, 24, 4)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_23_10, 10, 14)
-        /** @brief  */
+        /** @brief Indicates port is in D3 if set, otherwise the port is in D0-D2. */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, LAN1Dstate, 9, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_8_8, 8, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, NVRAMControlReset, 7, 1)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_6_6, 6, 1)
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_8_6, 6, 3)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, BootMode, 5, 1)
-        /** @brief  */
+        /** @brief Indicates port is in D3 if set, otherwise the port is in D0-D2. */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, LAN0Dstate, 4, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, NVRAMControlReset, 3, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_3_1, 1, 3)
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_2_1, 1, 2)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, PCIeReset, 0, 1)
 #else
@@ -302,12 +332,12 @@ typedef register_container RegAPEStatus_t {
         r32.setName("Status");
         bits.PCIeReset.setBaseRegister(&r32);
         bits.PCIeReset.setName("PCIeReset");
+        bits.NVRAMControlReset.setBaseRegister(&r32);
+        bits.NVRAMControlReset.setName("NVRAMControlReset");
         bits.LAN0Dstate.setBaseRegister(&r32);
         bits.LAN0Dstate.setName("LAN0Dstate");
         bits.BootMode.setBaseRegister(&r32);
         bits.BootMode.setName("BootMode");
-        bits.NVRAMControlReset.setBaseRegister(&r32);
-        bits.NVRAMControlReset.setName("NVRAMControlReset");
         bits.LAN1Dstate.setBaseRegister(&r32);
         bits.LAN1Dstate.setName("LAN1Dstate");
         bits.BootStatusB.setBaseRegister(&r32);
@@ -323,7 +353,7 @@ typedef register_container RegAPEStatus_t {
 #endif /* CXX_SIMULATOR */
 } RegAPEStatus_t;
 
-#define REG_APE_GPIO_MESSAGE ((volatile BCM5719_APE_H_uint32_t*)0xc0010008) /*  */
+#define REG_APE_GPIO_MESSAGE ((volatile BCM5719_APE_H_uint32_t*)0xc0010008) /* Related to APE fastboot. In that case the value of it is an APE memory address in the code region. If Fast Boot is set, and the low two bits of this are not 0b10, ROM hangs (you have to OR 0x2 into the address). Otherwise, they are masked off and the resulting value is used as the reset vector. The resulting value is also stored in this register (i.e., the low two bits are cleared).  */
 /** @brief Register definition for @ref APE_t.GpioMessage. */
 typedef register_container RegAPEGpioMessage_t {
     /** @brief 32bit direct register access. */
@@ -343,14 +373,14 @@ typedef register_container RegAPEEvent_t {
 
     BITFIELD_BEGIN(BCM5719_APE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
-        /** @brief  */
+        /** @brief Event 1 */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, _1, 0, 1)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_1, 1, 31)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_1, 1, 31)
-        /** @brief  */
+        /** @brief Event 1 */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, _1, 0, 1)
 #else
 #error Unknown Endian
@@ -377,6 +407,170 @@ typedef register_container RegAPEEvent_t {
     }
 #endif /* CXX_SIMULATOR */
 } RegAPEEvent_t;
+
+#define REG_APE_RXBUFOFFSET_FUNC0 ((volatile BCM5719_APE_H_uint32_t*)0xc0010014) /* This is examined on the APE Packet RX interrupt, and indicates the offset of an incoming (from-network) frame within the APE memory space, which provides access to the from-network RX buffer. */
+#define     APE_RXBUFOFFSET_FUNC0_TAIL_SHIFT 0u
+#define     APE_RXBUFOFFSET_FUNC0_TAIL_MASK  0xfffu
+#define GET_APE_RXBUFOFFSET_FUNC0_TAIL(__reg__)  (((__reg__) & 0xfff) >> 0u)
+#define SET_APE_RXBUFOFFSET_FUNC0_TAIL(__val__)  (((__val__) << 0u) & 0xfffu)
+#define     APE_RXBUFOFFSET_FUNC0_HEAD_SHIFT 12u
+#define     APE_RXBUFOFFSET_FUNC0_HEAD_MASK  0xfff000u
+#define GET_APE_RXBUFOFFSET_FUNC0_HEAD(__reg__)  (((__reg__) & 0xfff000) >> 12u)
+#define SET_APE_RXBUFOFFSET_FUNC0_HEAD(__val__)  (((__val__) << 12u) & 0xfff000u)
+#define     APE_RXBUFOFFSET_FUNC0_COUNT_SHIFT 26u
+#define     APE_RXBUFOFFSET_FUNC0_COUNT_MASK  0x3c000000u
+#define GET_APE_RXBUFOFFSET_FUNC0_COUNT(__reg__)  (((__reg__) & 0x3c000000) >> 26u)
+#define SET_APE_RXBUFOFFSET_FUNC0_COUNT(__val__)  (((__val__) << 26u) & 0x3c000000u)
+#define     APE_RXBUFOFFSET_FUNC0_VALID_SHIFT 30u
+#define     APE_RXBUFOFFSET_FUNC0_VALID_MASK  0x40000000u
+#define GET_APE_RXBUFOFFSET_FUNC0_VALID(__reg__)  (((__reg__) & 0x40000000) >> 30u)
+#define SET_APE_RXBUFOFFSET_FUNC0_VALID(__val__)  (((__val__) << 30u) & 0x40000000u)
+
+/** @brief Register definition for @ref APE_t.RxbufoffsetFunc0. */
+typedef register_container RegAPERxbufoffsetFunc0_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_APE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_APE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Tail, 0, 12)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Head, 12, 12)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_25_24, 24, 2)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Count, 26, 4)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Valid, 30, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_31, 31, 1)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_31, 31, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Valid, 30, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Count, 26, 4)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_25_24, 24, 2)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Head, 12, 12)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Tail, 0, 12)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RxbufoffsetFunc0"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegAPERxbufoffsetFunc0_t()
+    {
+        /** @brief constructor for @ref APE_t.RxbufoffsetFunc0. */
+        r32.setName("RxbufoffsetFunc0");
+        bits.Tail.setBaseRegister(&r32);
+        bits.Tail.setName("Tail");
+        bits.Head.setBaseRegister(&r32);
+        bits.Head.setName("Head");
+        bits.Count.setBaseRegister(&r32);
+        bits.Count.setName("Count");
+        bits.Valid.setBaseRegister(&r32);
+        bits.Valid.setName("Valid");
+    }
+    RegAPERxbufoffsetFunc0_t& operator=(const RegAPERxbufoffsetFunc0_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegAPERxbufoffsetFunc0_t;
+
+#define REG_APE_RXBUFOFFSET_FUNC1 ((volatile BCM5719_APE_H_uint32_t*)0xc0010018) /* This is examined on the APE Packet RX interrupt, and indicates the offset of an incoming (from-network) frame within the APE memory space, which provides access to the from-network RX buffer. */
+#define     APE_RXBUFOFFSET_FUNC1_TAIL_SHIFT 0u
+#define     APE_RXBUFOFFSET_FUNC1_TAIL_MASK  0xfffu
+#define GET_APE_RXBUFOFFSET_FUNC1_TAIL(__reg__)  (((__reg__) & 0xfff) >> 0u)
+#define SET_APE_RXBUFOFFSET_FUNC1_TAIL(__val__)  (((__val__) << 0u) & 0xfffu)
+#define     APE_RXBUFOFFSET_FUNC1_HEAD_SHIFT 12u
+#define     APE_RXBUFOFFSET_FUNC1_HEAD_MASK  0xfff000u
+#define GET_APE_RXBUFOFFSET_FUNC1_HEAD(__reg__)  (((__reg__) & 0xfff000) >> 12u)
+#define SET_APE_RXBUFOFFSET_FUNC1_HEAD(__val__)  (((__val__) << 12u) & 0xfff000u)
+#define     APE_RXBUFOFFSET_FUNC1_COUNT_SHIFT 26u
+#define     APE_RXBUFOFFSET_FUNC1_COUNT_MASK  0x3c000000u
+#define GET_APE_RXBUFOFFSET_FUNC1_COUNT(__reg__)  (((__reg__) & 0x3c000000) >> 26u)
+#define SET_APE_RXBUFOFFSET_FUNC1_COUNT(__val__)  (((__val__) << 26u) & 0x3c000000u)
+#define     APE_RXBUFOFFSET_FUNC1_VALID_SHIFT 30u
+#define     APE_RXBUFOFFSET_FUNC1_VALID_MASK  0x40000000u
+#define GET_APE_RXBUFOFFSET_FUNC1_VALID(__reg__)  (((__reg__) & 0x40000000) >> 30u)
+#define SET_APE_RXBUFOFFSET_FUNC1_VALID(__val__)  (((__val__) << 30u) & 0x40000000u)
+
+/** @brief Register definition for @ref APE_t.RxbufoffsetFunc1. */
+typedef register_container RegAPERxbufoffsetFunc1_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_APE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_APE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Tail, 0, 12)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Head, 12, 12)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_25_24, 24, 2)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Count, 26, 4)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Valid, 30, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_31, 31, 1)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_31, 31, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Valid, 30, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Count, 26, 4)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_25_24, 24, 2)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Head, 12, 12)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Tail, 0, 12)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RxbufoffsetFunc1"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegAPERxbufoffsetFunc1_t()
+    {
+        /** @brief constructor for @ref APE_t.RxbufoffsetFunc1. */
+        r32.setName("RxbufoffsetFunc1");
+        bits.Tail.setBaseRegister(&r32);
+        bits.Tail.setName("Tail");
+        bits.Head.setBaseRegister(&r32);
+        bits.Head.setName("Head");
+        bits.Count.setBaseRegister(&r32);
+        bits.Count.setName("Count");
+        bits.Valid.setBaseRegister(&r32);
+        bits.Valid.setName("Valid");
+    }
+    RegAPERxbufoffsetFunc1_t& operator=(const RegAPERxbufoffsetFunc1_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegAPERxbufoffsetFunc1_t;
 
 #define REG_APE_MODE_2 ((volatile BCM5719_APE_H_uint32_t*)0xc001002c) /* Expansion for  */
 /** @brief Register definition for @ref APE_t.Mode2. */
@@ -838,10 +1032,10 @@ typedef register_container RegAPEFwStatus_t {
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Ready, 8, 1)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_27_9, 9, 19)
-        /** @brief  */
+        /** @brief If this is all-ones, it appears to mean the APE FW is halted. */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, unknown_31_28, 28, 4)
 #elif defined(__BIG_ENDIAN__)
-        /** @brief  */
+        /** @brief If this is all-ones, it appears to mean the APE FW is halted. */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, unknown_31_28, 28, 4)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_27_9, 9, 19)
@@ -1349,7 +1543,7 @@ typedef register_container RegAPEProtMac0Low_t {
     BCM5719_APE_H_uint32_t r32;
 } RegAPEProtMac0Low_t;
 
-#define REG_APE_NCSI_SIG ((volatile BCM5719_APE_H_uint32_t*)0xc0014800) /* Set to NCSI_MAGIC ('NCSI') by APE firmware. */
+#define REG_APE_NCSI_SIG ((volatile BCM5719_APE_H_uint32_t*)0xc0014800) /* Set to NCSI_MAGIC ('NCSI') by APE firmware. NOTE: all words in the NCSI section are available in the function 0 SHM area only. */
 /** @brief Register definition for @ref APE_t.NcsiSig. */
 typedef register_container RegAPENcsiSig_t {
     /** @brief 32bit direct register access. */
@@ -1398,14 +1592,14 @@ typedef register_container RegAPENcsiBuildDate3_t {
     BCM5719_APE_H_uint32_t r32;
 } RegAPENcsiBuildDate3_t;
 
-#define REG_APE_CHIP_ID ((volatile BCM5719_APE_H_uint32_t*)0xc0014890) /* The APE code copies the contents of  */
+#define REG_APE_CHIP_ID ((volatile BCM5719_APE_H_uint32_t*)0xc0014890) /* The APE code copies the contents of Chip ID to this word */
 /** @brief Register definition for @ref APE_t.ChipId. */
 typedef register_container RegAPEChipId_t {
     /** @brief 32bit direct register access. */
     BCM5719_APE_H_uint32_t r32;
 } RegAPEChipId_t;
 
-#define REG_APE_PER_LOCK_REQUEST_PHY0 ((volatile BCM5719_APE_H_uint32_t*)0xc0018400) /* This register, and the following Per Lock Request registers work the   same. The tg3 driver uses 0x0000_1000 (APELOCK_PER_REQ_DRIVER)  for PHY ports (or always for function 0). */
+#define REG_APE_PER_LOCK_REQUEST_PHY0 ((volatile BCM5719_APE_H_uint32_t*)0xc0018400) /* This register, and the following Per Lock Request registers work the same. The tg3 driver uses 0x0000_1000 (APELOCK_PER_REQ_DRIVER) for PHY ports (or always for function 0). */
 /** @brief Register definition for @ref APE_t.PerLockRequestPhy0. */
 typedef register_container RegAPEPerLockRequestPhy0_t {
     /** @brief 32bit direct register access. */
@@ -1525,14 +1719,23 @@ typedef struct {
     /** @brief  */
     RegAPEStatus_t Status;
 
-    /** @brief  */
+    /** @brief Related to APE fastboot. In that case the value of it is an APE memory address in the code region. If Fast Boot is set, and the low two bits of this are not 0b10, ROM hangs (you have to OR 0x2 into the address). Otherwise, they are masked off and the resulting value is used as the reset vector. The resulting value is also stored in this register (i.e., the low two bits are cleared).  */
     RegAPEGpioMessage_t GpioMessage;
 
     /** @brief  */
     RegAPEEvent_t Event;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_APE_H_uint32_t reserved_16[7];
+    BCM5719_APE_H_uint32_t reserved_16[1];
+
+    /** @brief This is examined on the APE Packet RX interrupt, and indicates the offset of an incoming (from-network) frame within the APE memory space, which provides access to the from-network RX buffer. */
+    RegAPERxbufoffsetFunc0_t RxbufoffsetFunc0;
+
+    /** @brief This is examined on the APE Packet RX interrupt, and indicates the offset of an incoming (from-network) frame within the APE memory space, which provides access to the from-network RX buffer. */
+    RegAPERxbufoffsetFunc1_t RxbufoffsetFunc1;
+
+    /** @brief Reserved bytes to pad out data structure. */
+    BCM5719_APE_H_uint32_t reserved_28[4];
 
     /** @brief Expansion for  */
     RegAPEMode2_t Mode2;
@@ -1717,7 +1920,7 @@ typedef struct {
     /** @brief Reserved bytes to pad out data structure. */
     BCM5719_APE_H_uint32_t reserved_17180[313];
 
-    /** @brief Set to NCSI_MAGIC ('NCSI') by APE firmware. */
+    /** @brief Set to NCSI_MAGIC ('NCSI') by APE firmware. NOTE: all words in the NCSI section are available in the function 0 SHM area only. */
     RegAPENcsiSig_t NcsiSig;
 
     /** @brief Reserved bytes to pad out data structure. */
@@ -1744,13 +1947,13 @@ typedef struct {
     /** @brief Reserved bytes to pad out data structure. */
     BCM5719_APE_H_uint32_t reserved_18472[26];
 
-    /** @brief The APE code copies the contents of  */
+    /** @brief The APE code copies the contents of Chip ID to this word */
     RegAPEChipId_t ChipId;
 
     /** @brief Reserved bytes to pad out data structure. */
     BCM5719_APE_H_uint32_t reserved_18580[3803];
 
-    /** @brief This register, and the following Per Lock Request registers work the   same. The tg3 driver uses 0x0000_1000 (APELOCK_PER_REQ_DRIVER)  for PHY ports (or always for function 0). */
+    /** @brief This register, and the following Per Lock Request registers work the same. The tg3 driver uses 0x0000_1000 (APELOCK_PER_REQ_DRIVER) for PHY ports (or always for function 0). */
     RegAPEPerLockRequestPhy0_t PerLockRequestPhy0;
 
     /** @brief  */

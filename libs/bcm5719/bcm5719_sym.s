@@ -62,7 +62,7 @@
 
 .global MII
 .equ    MII, 0x0
-.size   MII, 0x21
+.size   MII, 0x71a
 
 .global NVM
 .equ    NVM, 0xc0007000

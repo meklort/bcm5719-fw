@@ -789,21 +789,21 @@
                     <ipxact:volatile>true</ipxact:volatile>
                     <ipxact:field>
                         <ipxact:name>Reset</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:description>Used to reset the APE block.</ipxact:description>
                         <ipxact:bitOffset>0</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
                         <ipxact:name>Halt</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:description>APE is halted if set. Setting then unsetting this bit resets the APE to its reset vector, etc.</ipxact:description>
                         <ipxact:bitOffset>1</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
                         <ipxact:name>Fast Boot</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:description>Can be used to boot from RAM instead of NVM. Takes a full APE image with section headers, etc. so you still need to form a proper image.</ipxact:description>
                         <ipxact:bitOffset>2</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
@@ -812,6 +812,27 @@
                         <ipxact:name>Host Diag</ipxact:name>
                         <ipxact:description></ipxact:description>
                         <ipxact:bitOffset>3</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Event 1</ipxact:name>
+                        <ipxact:description>Used to signal the APE that an event from the host is ready for processing in SHM.</ipxact:description>
+                        <ipxact:bitOffset>5</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Event 2</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>6</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>GRCint</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>7</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
@@ -838,8 +859,15 @@
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
-                        <ipxact:name>LAN 0 Dstate</ipxact:name>
+                        <ipxact:name>NVRAM Control Reset</ipxact:name>
                         <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>3</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>LAN 0 Dstate</ipxact:name>
+                        <ipxact:description>Indicates port is in D3 if set, otherwise the port is in D0-D2.</ipxact:description>
                         <ipxact:bitOffset>4</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
@@ -863,15 +891,8 @@
                         </ipxact:enumeratedValues>
                     </ipxact:field>
                     <ipxact:field>
-                        <ipxact:name>NVRAM Control Reset</ipxact:name>
-                        <ipxact:description></ipxact:description>
-                        <ipxact:bitOffset>7</ipxact:bitOffset>
-                        <ipxact:bitWidth>1</ipxact:bitWidth>
-                        <ipxact:access>read-write</ipxact:access>
-                    </ipxact:field>
-                    <ipxact:field>
                         <ipxact:name>LAN 1 Dstate</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:description>Indicates port is in D3 if set, otherwise the port is in D0-D2.</ipxact:description>
                         <ipxact:bitOffset>9</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
@@ -999,7 +1020,7 @@
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>GPIO_MESSAGE</ipxact:name>
-                    <ipxact:description></ipxact:description>
+                    <ipxact:description>Related to APE fastboot. In that case the value of it is an APE memory address in the code region. If Fast Boot is set, and the low two bits of this are not 0b10, ROM hangs (you have to OR 0x2 into the address). Otherwise, they are masked off and the resulting value is used as the reset vector. The resulting value is also stored in this register (i.e., the low two bits are cleared). </ipxact:description>
                     <ipxact:addressOffset>0x8</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
@@ -1014,8 +1035,84 @@
                     <ipxact:volatile>true</ipxact:volatile>
                     <ipxact:field>
                         <ipxact:name>1</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:description>Event 1</ipxact:description>
                         <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>RXBufOffset Func0</ipxact:name>
+                    <ipxact:description>This is examined on the APE Packet RX interrupt, and indicates the offset of an incoming (from-network) frame within the APE memory space, which provides access to the from-network RX buffer.</ipxact:description>
+                    <ipxact:addressOffset>0x14</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>Tail</ipxact:name>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>12</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Head</ipxact:name>
+                        <ipxact:bitOffset>12</ipxact:bitOffset>
+                        <ipxact:bitWidth>12</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Head</ipxact:name>
+                        <ipxact:bitOffset>12</ipxact:bitOffset>
+                        <ipxact:bitWidth>12</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Count</ipxact:name>
+                        <ipxact:bitOffset>26</ipxact:bitOffset>
+                        <ipxact:bitWidth>4</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Valid</ipxact:name>
+                        <ipxact:bitOffset>30</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>RXBufOffset Func1</ipxact:name>
+                    <ipxact:description>This is examined on the APE Packet RX interrupt, and indicates the offset of an incoming (from-network) frame within the APE memory space, which provides access to the from-network RX buffer.</ipxact:description>
+                    <ipxact:addressOffset>0x18</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>Tail</ipxact:name>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>12</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Head</ipxact:name>
+                        <ipxact:bitOffset>12</ipxact:bitOffset>
+                        <ipxact:bitWidth>12</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Head</ipxact:name>
+                        <ipxact:bitOffset>12</ipxact:bitOffset>
+                        <ipxact:bitWidth>12</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Count</ipxact:name>
+                        <ipxact:bitOffset>26</ipxact:bitOffset>
+                        <ipxact:bitWidth>4</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Valid</ipxact:name>
+                        <ipxact:bitOffset>30</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
@@ -1297,7 +1394,7 @@
                     </ipxact:field>
                     <ipxact:field>
                         <ipxact:name>unknown_31_28</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:description>If this is all-ones, it appears to mean the APE FW is halted.</ipxact:description>
                         <ipxact:bitOffset>28</ipxact:bitOffset>
                         <ipxact:bitWidth>4</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
@@ -1673,7 +1770,7 @@
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>NCSI_SIG</ipxact:name>
-                    <ipxact:description>Set to NCSI_MAGIC ('NCSI') by APE firmware.</ipxact:description>
+                    <ipxact:description>Set to NCSI_MAGIC ('NCSI') by APE firmware. NOTE: all words in the NCSI section are available in the function 0 SHM area only.</ipxact:description>
                     <ipxact:addressOffset>0x4800</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
@@ -1729,7 +1826,7 @@
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>CHIP_ID</ipxact:name>
-                    <ipxact:description>The APE code copies the contents of </ipxact:description>
+                    <ipxact:description>The APE code copies the contents of Chip ID to this word</ipxact:description>
                     <ipxact:addressOffset>0x4890</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
@@ -1737,7 +1834,7 @@
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>PER_LOCK_REQUEST_PHY0</ipxact:name>
-                    <ipxact:description>This register, and the following Per Lock Request registers work the   same. The tg3 driver uses 0x0000_1000 (APELOCK_PER_REQ_DRIVER)  for PHY ports (or always for function 0).</ipxact:description>
+                    <ipxact:description>This register, and the following Per Lock Request registers work the same. The tg3 driver uses 0x0000_1000 (APELOCK_PER_REQ_DRIVER) for PHY ports (or always for function 0).</ipxact:description>
                     <ipxact:addressOffset>0x8400</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
@@ -2682,14 +2779,14 @@
                     <ipxact:volatile>true</ipxact:volatile>
                     <ipxact:field>
                         <ipxact:name>Global Reset</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:description>When this bit is set to 1, the MAC state machine is reset. This is a self-clearing bit.</ipxact:description>
                         <ipxact:bitOffset>0</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
                         <ipxact:name>Half Duplex</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:description>When set, the MII/GMII interface is configured to operate in half-duplex mode and the CSMA/ CD state machines in the MAC are set to half-duplex mode.</ipxact:description>
                         <ipxact:bitOffset>1</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
@@ -2722,112 +2819,112 @@
                     </ipxact:field>
                     <ipxact:field>
                         <ipxact:name>Loopback Mode</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:description>When set, an internal loopback path is enabled from the transmit MAC to the receive MAC. This bit is provided for diagnostic purposes only.</ipxact:description>
                         <ipxact:bitOffset>4</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
                         <ipxact:name>Tagged MAC Control</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:description>Allow the MAC to receive tagged MAC control packets.</ipxact:description>
                         <ipxact:bitOffset>7</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
                         <ipxact:name>Enable TX Bursting</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:description>Enable transmit bursting in gigabit half-duplex mode.</ipxact:description>
                         <ipxact:bitOffset>8</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
                         <ipxact:name>Max Defer</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:description>Enable Max Deferral checking statistic.</ipxact:description>
                         <ipxact:bitOffset>9</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
                         <ipxact:name>Enable RX Statistics</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:description>Enable receive statistics external updates.</ipxact:description>
                         <ipxact:bitOffset>11</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
                         <ipxact:name>Clear RX Statistics</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:description>Clear receive statistics internal RAM. This bit is self-clearing.</ipxact:description>
                         <ipxact:bitOffset>12</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
                         <ipxact:name>Flush RX Statistics</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:description>Write receive statistics to external memory. This bit is self-clearing.</ipxact:description>
                         <ipxact:bitOffset>13</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
                         <ipxact:name>Enable TX Statistics</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:description>Enable transmit statistics external updates.</ipxact:description>
                         <ipxact:bitOffset>14</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
                         <ipxact:name>Clear TX Statistics</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:description>Clear transmit statistics internal RAM. This bit is self-clearing.</ipxact:description>
                         <ipxact:bitOffset>15</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
                         <ipxact:name>Flush TX Statistics</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:description>Write transmit statistics to external memory. This bit is self-clearing.</ipxact:description>
                         <ipxact:bitOffset>16</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
                         <ipxact:name>Send Config Command</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:description>Send config commands when in TBI mode.</ipxact:description>
                         <ipxact:bitOffset>17</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
                         <ipxact:name>Magic Packet Detection Enable</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:description>Enable Magic Packet detection.</ipxact:description>
                         <ipxact:bitOffset>18</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
                         <ipxact:name>ACPI Power On Enable</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:description>Enable Wake on LAN filters when in powerdown mode.</ipxact:description>
                         <ipxact:bitOffset>19</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
                         <ipxact:name>Enable TCE</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:description>Enable Transmit DMA engine.</ipxact:description>
                         <ipxact:bitOffset>21</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
                         <ipxact:name>Enable RDE</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:description>Enable RDMA engine. Must be set for normal operation.</ipxact:description>
                         <ipxact:bitOffset>22</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
                         <ipxact:name>Enable FHDE</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:description>Enable receive Frame Header DMA engine. Must be set for normal operation.</ipxact:description>
                         <ipxact:bitOffset>23</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
@@ -2841,28 +2938,28 @@
                     </ipxact:field>
                     <ipxact:field>
                         <ipxact:name>Halt Interesting Packet PME</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:description>When this bit is set, the WOL signal will not be asserted on an interesting packet match.</ipxact:description>
                         <ipxact:bitOffset>25</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
                         <ipxact:name>Free-Running ACPI</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:description>When this bit is set, the ACPI state machine will continue running when a match is found. When this bit is clear, the ACPI state machine will halt when a match is found.</ipxact:description>
                         <ipxact:bitOffset>26</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
                         <ipxact:name>Enable APE RX Path</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:description>This bit must be written a 1 for APE subsystem to receive packets from the EMAC.</ipxact:description>
                         <ipxact:bitOffset>27</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
                         <ipxact:name>Enable APE TX Path</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:description>This bit must be written a 1 for the EMAC to transmit APE packets.</ipxact:description>
                         <ipxact:bitOffset>28</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
@@ -3080,7 +3177,7 @@
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>WOL_PATTERN_POINTER</ipxact:name>
-                    <ipxact:description>Specifies the offset into the 6 KB BD memory for frame comparison. (Bits 3:0 are ignored to align the memory address to a natural 128-bit boundary).</ipxact:description>
+                    <ipxact:description>Specifies the offset into the 6KB BD memory for frame comparison. (Bits 3:0 are ignored to align the memory address to a natural 128-bit boundary).</ipxact:description>
                     <ipxact:addressOffset>0x430</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
@@ -3214,9 +3311,94 @@
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
                     <ipxact:field>
+                        <ipxact:name>PHY Address</ipxact:name>
+                        <ipxact:description>This field specifies the PHY Address.</ipxact:description>
+                        <ipxact:bitOffset>5</ipxact:bitOffset>
+                        <ipxact:bitWidth>5</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
                         <ipxact:name>Constant MDIO/MDC Clock Speed</ipxact:name>
                         <ipxact:description>Enable ~500Khz constant MII management interface (MDIO/MDC) frequency regardless core clock frequency.</ipxact:description>
                         <ipxact:bitOffset>15</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>MII Clock Count</ipxact:name>
+                        <ipxact:description>Counter to divide CORE_CLK (62.5 MHz) to generate the MI clock. CORE_CLK/2/(MII Clock Count + 1).</ipxact:description>
+                        <ipxact:bitOffset>16</ipxact:bitOffset>
+                        <ipxact:bitWidth>5</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>TRANSMIT_MAC_MODE</ipxact:name>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0x45c</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>Reset</ipxact:name>
+                        <ipxact:description>When this bit is set to 1, the Transmit MAC state machine will be reset. This is a self-clearing bit.</ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Enable TCE</ipxact:name>
+                        <ipxact:description>Used to be enable TDE in legacy-same purpose.</ipxact:description>
+                        <ipxact:bitOffset>1</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Enable Flow Control</ipxact:name>
+                        <ipxact:description>MAC will send 802.3x flow control frames.</ipxact:description>
+                        <ipxact:bitOffset>4</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Enable Big Backoff</ipxact:name>
+                        <ipxact:description>MAC will use larger than normal back-off algorithm.</ipxact:description>
+                        <ipxact:bitOffset>5</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Enable Long Pause</ipxact:name>
+                        <ipxact:description>When set, the Pause time value set in the transmitted PAUSE frames is 0xFFFF.</ipxact:description>
+                        <ipxact:bitOffset>6</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Link Aware Enable</ipxact:name>
+                        <ipxact:description>When set, transmission of packets by the MAC is enabled only when link is up.</ipxact:description>
+                        <ipxact:bitOffset>7</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>TxMBUF Corruption Lockup Fix Enable</ipxact:name>
+                        <ipxact:description>When set, TXMBUF corruption lockup fix is enabled.</ipxact:description>
+                        <ipxact:bitOffset>8</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Enable TX ESP Offload</ipxact:name>
+                        <ipxact:description>A value 1 enables the TX ESP offload feature. When 0, offloaded ESP packet gets dropped. This value must be static.</ipxact:description>
+                        <ipxact:bitOffset>9</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Enable TX AH Offload</ipxact:name>
+                        <ipxact:description>A value 1 enables the TX AH offload feature. When 0, offloaded AH packet gets dropped. This value must be static.</ipxact:description>
+                        <ipxact:bitOffset>10</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
@@ -6921,6 +7103,126 @@
                     </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>
+                    <ipxact:name>PHY Extended Control</ipxact:name>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0x10</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>16</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>GMII/RGMII FIFO Elasticity LSB</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Unidirectional Enable</ipxact:name>
+                        <ipxact:description>When set, able to transmit packets when no link</ipxact:description>
+                        <ipxact:bitOffset>1</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Block TXEN Mode</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>2</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Force LEDs Off</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>3</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Force LEDs On</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>4</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Enable LED Traffic Mode</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>5</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Reset Scrambler</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>6</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Bypass Alignment</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>7</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Bypass NRZI/MLT3</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>8</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Bypass Scrambler</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>9</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Bypass Encoder</ipxact:name>
+                        <ipxact:description>bypass 4B5B encoder and decoder</ipxact:description>
+                        <ipxact:bitOffset>10</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Force Interrupt</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>11</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Interrupt Disable</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>12</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Transmit Disable</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>13</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Disable Automatic MDI Crossover</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>14</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>MAC/PHY Interface Mode</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>15</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                </ipxact:register>
+                <ipxact:register>
                     <ipxact:name>PHY Extended Status</ipxact:name>
                     <ipxact:description></ipxact:description>
                     <ipxact:addressOffset>0x11</ipxact:addressOffset>
@@ -7100,7 +7402,482 @@
                     </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>
-                    <ipxact:name>Auxillary Status Summary</ipxact:name>
+                    <ipxact:name>Auxiliary Control</ipxact:name>
+                    <ipxact:description>Note: Shadow Register Selector: 0</ipxact:description>
+                    <ipxact:addressOffset>0x18</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>16</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>Shadow Register Selector</ipxact:name>
+                        <ipxact:description>Writes to the selected shadow register are done on a single cycle (no setup required). Reads are selected by first writing to register 18h, shadow 7, bits 14:12.</ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>3</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Diagnostic Mode</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>3</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Edgerate Control</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>4</ipxact:bitOffset>
+                        <ipxact:bitWidth>2</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Disable Inverse PRF</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>6</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Disable Partial Response Filter</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>7</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Receive Slicing</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>8</ipxact:bitOffset>
+                        <ipxact:bitWidth>2</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Transmit 6dB Coding</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>10</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Enable SM_DSP Clock</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>11</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Edgerate Control</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>12</ipxact:bitOffset>
+                        <ipxact:bitWidth>2</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Extended Packet Length</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>14</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>External Loopback</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>15</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>10Base-T</ipxact:name>
+                    <ipxact:description>Note: Shadow Register Selector: 1</ipxact:description>
+                    <ipxact:addressOffset>0x118</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>16</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>Shadow Register Selector</ipxact:name>
+                        <ipxact:description>Writes to the selected shadow register are done on a single cycle (no setup required). Reads are selected by first writing to register 18h, shadow 7, bits 14:12.</ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>3</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>10Base-T Polarity Error Count Max</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>3</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>10Base-T No Dribble</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>4</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>SQE Enable Mode</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>5</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>10BT Echo Mode</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>6</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>10Base-T Signal Detect Threshold</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>7</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>10Base-T Signal Detect Autoswitch</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>8</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Jabber Disable</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>9</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Class A/B Line Driver Select</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>10</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>10 BT TXC Invert Mode</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>11</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Block RXDV Extension</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>12</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Polarity Error</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>13</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>EOF Error</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>14</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Manchester Code Error</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>15</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>Power and MII Control</ipxact:name>
+                    <ipxact:description>Note: Shadow Register Selector: 2</ipxact:description>
+                    <ipxact:addressOffset>0x218</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>16</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>Shadow Register Selector</ipxact:name>
+                        <ipxact:description>Writes to the selected shadow register are done on a single cycle (no setup required). Reads are selected by first writing to register 18h, shadow 7, bits 14:12.</ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>3</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Super Isolate</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>5</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>Misc Test 1</ipxact:name>
+                    <ipxact:description>Note: Shadow Register Selector: 4</ipxact:description>
+                    <ipxact:addressOffset>0x418</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>16</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>Shadow Register Selector</ipxact:name>
+                        <ipxact:description>Writes to the selected shadow register are done on a single cycle (no setup required). Reads are selected by first writing to register 18h, shadow 7, bits 14:12.</ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>3</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Halfout</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>3</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Swap RXMDIX</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>4</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>10BT Bypass CRS</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>5</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>10BT Bypass ADC</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>6</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>10BT Clock Reset Enable</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>7</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>10BT Idle Bypass</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>8</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>10BT Polarity Bypass</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>9</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>10BT Wakeup</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>10</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Remote Loopback Tristate</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>11</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>Misc Test 2</ipxact:name>
+                    <ipxact:description>Note: Shadow Register Selector: 5</ipxact:description>
+                    <ipxact:addressOffset>0x518</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>16</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>Shadow Register Selector</ipxact:name>
+                        <ipxact:description>Writes to the selected shadow register are done on a single cycle (no setup required). Reads are selected by first writing to register 18h, shadow 7, bits 14:12.</ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>3</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>En PWRDNTDAC</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>3</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Enable force_mdix</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>4</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Enable EC as NEXT</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>5</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Old PCS Encoding TX</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>6</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Old PCS Encoding RX</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>7</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Disable Auto Encoding Correction</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>8</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>ENC Error Scale</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>10</ipxact:bitOffset>
+                        <ipxact:bitWidth>2</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Class A/B Enable</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>12</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Class A/B DVT Enable</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>13</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>ADCFIFO TX Fix</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>14</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Copper Energy Detect Override</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>15</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>Miscellaneous Control</ipxact:name>
+                    <ipxact:description>Note: Shadow Register Selector: 7</ipxact:description>
+                    <ipxact:addressOffset>0x718</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>16</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>Shadow Register Selector</ipxact:name>
+                        <ipxact:description>Writes to the selected shadow register are done on a single cycle (no setup required). Reads are selected by first writing to register 18h, shadow 7, bits 14:12.</ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>3</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>MDIO All Phy Select</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>3</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Wirespeed Enable</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>4</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>RGMII Out-Of-Band Status Disable</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>5</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>RGMII RXER Mode</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>6</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>RGMII Mode</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>7</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>RGMII Timing Mode</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>8</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Force Auto MDIX Mode</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>9</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Bypass Wirespeed Timer</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>10</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Packet Counter Mode</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>11</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Shadow Register Read Selector</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>12</ipxact:bitOffset>
+                        <ipxact:bitWidth>3</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Write Enable</ipxact:name>
+                        <ipxact:description>Enables writes to bits [8:3]</ipxact:description>
+                        <ipxact:bitOffset>15</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>Auxiliary Status Summary</ipxact:name>
                     <ipxact:description></ipxact:description>
                     <ipxact:addressOffset>0x19</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
@@ -7330,6 +8107,369 @@
                         <ipxact:description></ipxact:description>
                         <ipxact:bitOffset>0</ipxact:bitOffset>
                         <ipxact:bitWidth>16</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>Cabletron LED</ipxact:name>
+                    <ipxact:description>Note: Shadow Register Selector: 0</ipxact:description>
+                    <ipxact:addressOffset>0x1c</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>16</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>Cabletron LED</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>8</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Shadow Register Selector</ipxact:name>
+                        <ipxact:description>Writes to the selected shadow register are done by first setting up the register. Reads can be done immediately after selecting the shadow register.</ipxact:description>
+                        <ipxact:bitOffset>10</ipxact:bitOffset>
+                        <ipxact:bitWidth>5</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Write Enable</ipxact:name>
+                        <ipxact:description>Write bits [9:0]</ipxact:description>
+                        <ipxact:bitOffset>15</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>DLL Selection</ipxact:name>
+                    <ipxact:description>Note: Shadow Register Selector: 1</ipxact:description>
+                    <ipxact:addressOffset>0x11c</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>16</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>High Quality Clock Test Mode</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>6</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Shadow Register Selector</ipxact:name>
+                        <ipxact:description>Writes to the selected shadow register are done by first setting up the register. Reads can be done immediately after selecting the shadow register.</ipxact:description>
+                        <ipxact:bitOffset>10</ipxact:bitOffset>
+                        <ipxact:bitWidth>5</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Write Enable</ipxact:name>
+                        <ipxact:description>Write bits [9:0]</ipxact:description>
+                        <ipxact:bitOffset>15</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>Spare Control 1</ipxact:name>
+                    <ipxact:description>Note: Shadow Register Selector: 2</ipxact:description>
+                    <ipxact:addressOffset>0x21c</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>16</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>Link LED Mode</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Lost Token Fix Disable</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>1</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Bicolor Link Speed LED Mode</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>2</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>100FX Mode Copper Path</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>4</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Use Filtered SD</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>5</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>CFC_INITFILTER Enable</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>6</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Invert SD Pin</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>7</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Force SD On</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>8</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>SD Status</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>9</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Shadow Register Selector</ipxact:name>
+                        <ipxact:description>Writes to the selected shadow register are done by first setting up the register. Reads can be done immediately after selecting the shadow register.</ipxact:description>
+                        <ipxact:bitOffset>10</ipxact:bitOffset>
+                        <ipxact:bitWidth>5</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Write Enable</ipxact:name>
+                        <ipxact:description>Write bits [9:0]</ipxact:description>
+                        <ipxact:bitOffset>15</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>Clock Alignment Control</ipxact:name>
+                    <ipxact:description>Note: Shadow Register Selector: 3</ipxact:description>
+                    <ipxact:addressOffset>0x31c</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>16</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>Delay Line Selector</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>4</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Delay Value</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>4</ipxact:bitOffset>
+                        <ipxact:bitWidth>3</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>RXCLK Alignment Strobe</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>7</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>GMII Clock Alignment Strobe</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>8</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>GTXCLK Delay Bypass Disable</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>9</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Shadow Register Selector</ipxact:name>
+                        <ipxact:description>Writes to the selected shadow register are done by first setting up the register. Reads can be done immediately after selecting the shadow register.</ipxact:description>
+                        <ipxact:bitOffset>10</ipxact:bitOffset>
+                        <ipxact:bitWidth>5</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Write Enable</ipxact:name>
+                        <ipxact:description>Write bits [9:0]</ipxact:description>
+                        <ipxact:bitOffset>15</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>Spare Control 2</ipxact:name>
+                    <ipxact:description>Note: Shadow Register Selector: 4</ipxact:description>
+                    <ipxact:addressOffset>0x41c</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>16</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>Test On Byte 7_0</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Energy Detect On Intr Pin</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>1</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Wirespeed Retry Limit</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>2</ipxact:bitOffset>
+                        <ipxact:bitWidth>3</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Enable TXC RXC Tristate</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>5</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Disable PHYA2</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>6</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Select TPOUT_RXD</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>7</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Wirespeed Retry Disable</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>8</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Shadow Register Selector</ipxact:name>
+                        <ipxact:description>Writes to the selected shadow register are done by first setting up the register. Reads can be done immediately after selecting the shadow register.</ipxact:description>
+                        <ipxact:bitOffset>10</ipxact:bitOffset>
+                        <ipxact:bitWidth>5</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Write Enable</ipxact:name>
+                        <ipxact:description>Write bits [9:0]</ipxact:description>
+                        <ipxact:bitOffset>15</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>Spare Control 3</ipxact:name>
+                    <ipxact:description>Note: Shadow Register Selector: 3</ipxact:description>
+                    <ipxact:addressOffset>0x51c</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>16</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>CLK125 Output Enable</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Auto-Power Down DLL Off Disable</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>1</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>SIGDET Deassert Timer Lengthen</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>2</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Disable Low Power TOBase-T Link Mode</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>3</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Low Power ENC Disable</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>4</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Energy Detect Change Mux Select</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>5</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>TXC Off Enable</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>6</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>10BT Carrier Reject Filter Enable</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>7</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>TXC RXC Disable During Auto Power Down</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>8</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>DLL Lock Enable During Auto Power Down</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>9</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Shadow Register Selector</ipxact:name>
+                        <ipxact:description>Writes to the selected shadow register are done by first setting up the register. Reads can be done immediately after selecting the shadow register.</ipxact:description>
+                        <ipxact:bitOffset>10</ipxact:bitOffset>
+                        <ipxact:bitWidth>5</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Write Enable</ipxact:name>
+                        <ipxact:description>Write bits [9:0]</ipxact:description>
+                        <ipxact:bitOffset>15</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                 </ipxact:register>

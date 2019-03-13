@@ -75,6 +75,8 @@ void init_bcm5719_MII(void)
 
     /** @brief Bitmap for @ref MII_t.IeeeExtendedStatus. */
 
+    /** @brief Bitmap for @ref MII_t.PhyExtendedControl. */
+
     /** @brief Bitmap for @ref MII_t.PhyExtendedStatus. */
 
     /** @brief Bitmap for @ref MII_t.ReceiveErrorCounter. */
@@ -83,15 +85,39 @@ void init_bcm5719_MII(void)
 
     /** @brief Bitmap for @ref MII_t.LocalRemoteReceiverNotOkCounter. */
 
-    /** @brief Bitmap for @ref MII_t.AuxillaryStatusSummary. */
+    /** @brief Bitmap for @ref MII_t.AuxiliaryControl. */
+
+    /** @brief Bitmap for @ref MII_t.AuxiliaryStatusSummary. */
 
     /** @brief Bitmap for @ref MII_t.InterruptStatus. */
 
     /** @brief Bitmap for @ref MII_t.InterruptMask. */
 
+    /** @brief Bitmap for @ref MII_t.CabletronLed. */
+
     /** @brief Bitmap for @ref MII_t.Test1. */
 
     /** @brief Bitmap for @ref MII_t.BlockSelect. */
+
+    /** @brief Bitmap for @ref MII_t.10baseT. */
+
+    /** @brief Bitmap for @ref MII_t.DllSelection. */
+
+    /** @brief Bitmap for @ref MII_t.PowerAndMiiControl. */
+
+    /** @brief Bitmap for @ref MII_t.SpareControl1. */
+
+    /** @brief Bitmap for @ref MII_t.ClockAlignmentControl. */
+
+    /** @brief Bitmap for @ref MII_t.MiscTest1. */
+
+    /** @brief Bitmap for @ref MII_t.SpareControl2. */
+
+    /** @brief Bitmap for @ref MII_t.MiscTest2. */
+
+    /** @brief Bitmap for @ref MII_t.SpareControl3. */
+
+    /** @brief Bitmap for @ref MII_t.MiscellaneousControl. */
 
 
 }

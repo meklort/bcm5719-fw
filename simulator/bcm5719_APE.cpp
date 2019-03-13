@@ -57,6 +57,10 @@ void init_bcm5719_APE(void)
 
     /** @brief Bitmap for @ref APE_t.Event. */
 
+    /** @brief Bitmap for @ref APE_t.RxbufoffsetFunc0. */
+
+    /** @brief Bitmap for @ref APE_t.RxbufoffsetFunc1. */
+
     /** @brief Bitmap for @ref APE_t.Mode2. */
 
     /** @brief Bitmap for @ref APE_t.Status2. */

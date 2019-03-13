@@ -146,6 +146,11 @@ void init_bcm5719_MII_mmap(void *base)
     MII.IeeeExtendedStatus.r16.installReadCallback(read_from_ram, &MII_IeeeExtendedStatus_r16);
     MII.IeeeExtendedStatus.r16.installWriteCallback(write_to_ram, &MII_IeeeExtendedStatus_r16);
 
+    /** @brief Bitmap for @ref MII_t.PhyExtendedControl. */
+    static ram_offset_t MII_PhyExtendedControl_r16((uint8_t *)base, (uint32_t)16);
+    MII.PhyExtendedControl.r16.installReadCallback(read_from_ram, &MII_PhyExtendedControl_r16);
+    MII.PhyExtendedControl.r16.installWriteCallback(write_to_ram, &MII_PhyExtendedControl_r16);
+
     /** @brief Bitmap for @ref MII_t.PhyExtendedStatus. */
     static ram_offset_t MII_PhyExtendedStatus_r16((uint8_t *)base, (uint32_t)17);
     MII.PhyExtendedStatus.r16.installReadCallback(read_from_ram, &MII_PhyExtendedStatus_r16);
@@ -166,10 +171,15 @@ void init_bcm5719_MII_mmap(void *base)
     MII.LocalRemoteReceiverNotOkCounter.r16.installReadCallback(read_from_ram, &MII_LocalRemoteReceiverNotOkCounter_r16);
     MII.LocalRemoteReceiverNotOkCounter.r16.installWriteCallback(write_to_ram, &MII_LocalRemoteReceiverNotOkCounter_r16);
 
-    /** @brief Bitmap for @ref MII_t.AuxillaryStatusSummary. */
-    static ram_offset_t MII_AuxillaryStatusSummary_r16((uint8_t *)base, (uint32_t)25);
-    MII.AuxillaryStatusSummary.r16.installReadCallback(read_from_ram, &MII_AuxillaryStatusSummary_r16);
-    MII.AuxillaryStatusSummary.r16.installWriteCallback(write_to_ram, &MII_AuxillaryStatusSummary_r16);
+    /** @brief Bitmap for @ref MII_t.AuxiliaryControl. */
+    static ram_offset_t MII_AuxiliaryControl_r16((uint8_t *)base, (uint32_t)24);
+    MII.AuxiliaryControl.r16.installReadCallback(read_from_ram, &MII_AuxiliaryControl_r16);
+    MII.AuxiliaryControl.r16.installWriteCallback(write_to_ram, &MII_AuxiliaryControl_r16);
+
+    /** @brief Bitmap for @ref MII_t.AuxiliaryStatusSummary. */
+    static ram_offset_t MII_AuxiliaryStatusSummary_r16((uint8_t *)base, (uint32_t)25);
+    MII.AuxiliaryStatusSummary.r16.installReadCallback(read_from_ram, &MII_AuxiliaryStatusSummary_r16);
+    MII.AuxiliaryStatusSummary.r16.installWriteCallback(write_to_ram, &MII_AuxiliaryStatusSummary_r16);
 
     /** @brief Bitmap for @ref MII_t.InterruptStatus. */
     static ram_offset_t MII_InterruptStatus_r16((uint8_t *)base, (uint32_t)26);
@@ -181,6 +191,11 @@ void init_bcm5719_MII_mmap(void *base)
     MII.InterruptMask.r16.installReadCallback(read_from_ram, &MII_InterruptMask_r16);
     MII.InterruptMask.r16.installWriteCallback(write_to_ram, &MII_InterruptMask_r16);
 
+    /** @brief Bitmap for @ref MII_t.CabletronLed. */
+    static ram_offset_t MII_CabletronLed_r16((uint8_t *)base, (uint32_t)28);
+    MII.CabletronLed.r16.installReadCallback(read_from_ram, &MII_CabletronLed_r16);
+    MII.CabletronLed.r16.installWriteCallback(write_to_ram, &MII_CabletronLed_r16);
+
     /** @brief Bitmap for @ref MII_t.Test1. */
     static ram_offset_t MII_Test1_r16((uint8_t *)base, (uint32_t)30);
     MII.Test1.r16.installReadCallback(read_from_ram, &MII_Test1_r16);
@@ -190,6 +205,56 @@ void init_bcm5719_MII_mmap(void *base)
     static ram_offset_t MII_BlockSelect_r16((uint8_t *)base, (uint32_t)31);
     MII.BlockSelect.r16.installReadCallback(read_from_ram, &MII_BlockSelect_r16);
     MII.BlockSelect.r16.installWriteCallback(write_to_ram, &MII_BlockSelect_r16);
+
+    /** @brief Bitmap for @ref MII_t.10baseT. */
+    static ram_offset_t MII__10baseT_r16((uint8_t *)base, (uint32_t)280);
+    MII._10baseT.r16.installReadCallback(read_from_ram, &MII__10baseT_r16);
+    MII._10baseT.r16.installWriteCallback(write_to_ram, &MII__10baseT_r16);
+
+    /** @brief Bitmap for @ref MII_t.DllSelection. */
+    static ram_offset_t MII_DllSelection_r16((uint8_t *)base, (uint32_t)284);
+    MII.DllSelection.r16.installReadCallback(read_from_ram, &MII_DllSelection_r16);
+    MII.DllSelection.r16.installWriteCallback(write_to_ram, &MII_DllSelection_r16);
+
+    /** @brief Bitmap for @ref MII_t.PowerAndMiiControl. */
+    static ram_offset_t MII_PowerAndMiiControl_r16((uint8_t *)base, (uint32_t)536);
+    MII.PowerAndMiiControl.r16.installReadCallback(read_from_ram, &MII_PowerAndMiiControl_r16);
+    MII.PowerAndMiiControl.r16.installWriteCallback(write_to_ram, &MII_PowerAndMiiControl_r16);
+
+    /** @brief Bitmap for @ref MII_t.SpareControl1. */
+    static ram_offset_t MII_SpareControl1_r16((uint8_t *)base, (uint32_t)540);
+    MII.SpareControl1.r16.installReadCallback(read_from_ram, &MII_SpareControl1_r16);
+    MII.SpareControl1.r16.installWriteCallback(write_to_ram, &MII_SpareControl1_r16);
+
+    /** @brief Bitmap for @ref MII_t.ClockAlignmentControl. */
+    static ram_offset_t MII_ClockAlignmentControl_r16((uint8_t *)base, (uint32_t)796);
+    MII.ClockAlignmentControl.r16.installReadCallback(read_from_ram, &MII_ClockAlignmentControl_r16);
+    MII.ClockAlignmentControl.r16.installWriteCallback(write_to_ram, &MII_ClockAlignmentControl_r16);
+
+    /** @brief Bitmap for @ref MII_t.MiscTest1. */
+    static ram_offset_t MII_MiscTest1_r16((uint8_t *)base, (uint32_t)1048);
+    MII.MiscTest1.r16.installReadCallback(read_from_ram, &MII_MiscTest1_r16);
+    MII.MiscTest1.r16.installWriteCallback(write_to_ram, &MII_MiscTest1_r16);
+
+    /** @brief Bitmap for @ref MII_t.SpareControl2. */
+    static ram_offset_t MII_SpareControl2_r16((uint8_t *)base, (uint32_t)1052);
+    MII.SpareControl2.r16.installReadCallback(read_from_ram, &MII_SpareControl2_r16);
+    MII.SpareControl2.r16.installWriteCallback(write_to_ram, &MII_SpareControl2_r16);
+
+    /** @brief Bitmap for @ref MII_t.MiscTest2. */
+    static ram_offset_t MII_MiscTest2_r16((uint8_t *)base, (uint32_t)1304);
+    MII.MiscTest2.r16.installReadCallback(read_from_ram, &MII_MiscTest2_r16);
+    MII.MiscTest2.r16.installWriteCallback(write_to_ram, &MII_MiscTest2_r16);
+
+    /** @brief Bitmap for @ref MII_t.SpareControl3. */
+    static ram_offset_t MII_SpareControl3_r16((uint8_t *)base, (uint32_t)1308);
+    MII.SpareControl3.r16.installReadCallback(read_from_ram, &MII_SpareControl3_r16);
+    MII.SpareControl3.r16.installWriteCallback(write_to_ram, &MII_SpareControl3_r16);
+
+    /** @brief Bitmap for @ref MII_t.MiscellaneousControl. */
+    static ram_offset_t MII_MiscellaneousControl_r16((uint8_t *)base, (uint32_t)1816);
+    MII.MiscellaneousControl.r16.installReadCallback(read_from_ram, &MII_MiscellaneousControl_r16);
+    MII.MiscellaneousControl.r16.installWriteCallback(write_to_ram, &MII_MiscellaneousControl_r16);
 
 
 }

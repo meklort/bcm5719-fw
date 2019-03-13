@@ -1475,6 +1475,200 @@ typedef register_container RegMIIIeeeExtendedStatus_t {
 #endif /* CXX_SIMULATOR */
 } RegMIIIeeeExtendedStatus_t;
 
+#define REG_MII_PHY_EXTENDED_CONTROL ((volatile BCM5719_MII_H_uint16_t*)0x10) /*  */
+#define     MII_PHY_EXTENDED_CONTROL_GMII_DIV_RGMII_FIFO_ELASTICITY_LSB_SHIFT 0u
+#define     MII_PHY_EXTENDED_CONTROL_GMII_DIV_RGMII_FIFO_ELASTICITY_LSB_MASK  0x1u
+#define GET_MII_PHY_EXTENDED_CONTROL_GMII_DIV_RGMII_FIFO_ELASTICITY_LSB(__reg__)  (((__reg__) & 0x1) >> 0u)
+#define SET_MII_PHY_EXTENDED_CONTROL_GMII_DIV_RGMII_FIFO_ELASTICITY_LSB(__val__)  (((__val__) << 0u) & 0x1u)
+#define     MII_PHY_EXTENDED_CONTROL_UNIDIRECTIONAL_ENABLE_SHIFT 1u
+#define     MII_PHY_EXTENDED_CONTROL_UNIDIRECTIONAL_ENABLE_MASK  0x2u
+#define GET_MII_PHY_EXTENDED_CONTROL_UNIDIRECTIONAL_ENABLE(__reg__)  (((__reg__) & 0x2) >> 1u)
+#define SET_MII_PHY_EXTENDED_CONTROL_UNIDIRECTIONAL_ENABLE(__val__)  (((__val__) << 1u) & 0x2u)
+#define     MII_PHY_EXTENDED_CONTROL_BLOCK_TXEN_MODE_SHIFT 2u
+#define     MII_PHY_EXTENDED_CONTROL_BLOCK_TXEN_MODE_MASK  0x4u
+#define GET_MII_PHY_EXTENDED_CONTROL_BLOCK_TXEN_MODE(__reg__)  (((__reg__) & 0x4) >> 2u)
+#define SET_MII_PHY_EXTENDED_CONTROL_BLOCK_TXEN_MODE(__val__)  (((__val__) << 2u) & 0x4u)
+#define     MII_PHY_EXTENDED_CONTROL_FORCE_LEDS_OFF_SHIFT 3u
+#define     MII_PHY_EXTENDED_CONTROL_FORCE_LEDS_OFF_MASK  0x8u
+#define GET_MII_PHY_EXTENDED_CONTROL_FORCE_LEDS_OFF(__reg__)  (((__reg__) & 0x8) >> 3u)
+#define SET_MII_PHY_EXTENDED_CONTROL_FORCE_LEDS_OFF(__val__)  (((__val__) << 3u) & 0x8u)
+#define     MII_PHY_EXTENDED_CONTROL_FORCE_LEDS_ON_SHIFT 4u
+#define     MII_PHY_EXTENDED_CONTROL_FORCE_LEDS_ON_MASK  0x10u
+#define GET_MII_PHY_EXTENDED_CONTROL_FORCE_LEDS_ON(__reg__)  (((__reg__) & 0x10) >> 4u)
+#define SET_MII_PHY_EXTENDED_CONTROL_FORCE_LEDS_ON(__val__)  (((__val__) << 4u) & 0x10u)
+#define     MII_PHY_EXTENDED_CONTROL_ENABLE_LED_TRAFFIC_MODE_SHIFT 5u
+#define     MII_PHY_EXTENDED_CONTROL_ENABLE_LED_TRAFFIC_MODE_MASK  0x20u
+#define GET_MII_PHY_EXTENDED_CONTROL_ENABLE_LED_TRAFFIC_MODE(__reg__)  (((__reg__) & 0x20) >> 5u)
+#define SET_MII_PHY_EXTENDED_CONTROL_ENABLE_LED_TRAFFIC_MODE(__val__)  (((__val__) << 5u) & 0x20u)
+#define     MII_PHY_EXTENDED_CONTROL_RESET_SCRAMBLER_SHIFT 6u
+#define     MII_PHY_EXTENDED_CONTROL_RESET_SCRAMBLER_MASK  0x40u
+#define GET_MII_PHY_EXTENDED_CONTROL_RESET_SCRAMBLER(__reg__)  (((__reg__) & 0x40) >> 6u)
+#define SET_MII_PHY_EXTENDED_CONTROL_RESET_SCRAMBLER(__val__)  (((__val__) << 6u) & 0x40u)
+#define     MII_PHY_EXTENDED_CONTROL_BYPASS_ALIGNMENT_SHIFT 7u
+#define     MII_PHY_EXTENDED_CONTROL_BYPASS_ALIGNMENT_MASK  0x80u
+#define GET_MII_PHY_EXTENDED_CONTROL_BYPASS_ALIGNMENT(__reg__)  (((__reg__) & 0x80) >> 7u)
+#define SET_MII_PHY_EXTENDED_CONTROL_BYPASS_ALIGNMENT(__val__)  (((__val__) << 7u) & 0x80u)
+#define     MII_PHY_EXTENDED_CONTROL_BYPASS_NRZI_DIV_MLT3_SHIFT 8u
+#define     MII_PHY_EXTENDED_CONTROL_BYPASS_NRZI_DIV_MLT3_MASK  0x100u
+#define GET_MII_PHY_EXTENDED_CONTROL_BYPASS_NRZI_DIV_MLT3(__reg__)  (((__reg__) & 0x100) >> 8u)
+#define SET_MII_PHY_EXTENDED_CONTROL_BYPASS_NRZI_DIV_MLT3(__val__)  (((__val__) << 8u) & 0x100u)
+#define     MII_PHY_EXTENDED_CONTROL_BYPASS_SCRAMBLER_SHIFT 9u
+#define     MII_PHY_EXTENDED_CONTROL_BYPASS_SCRAMBLER_MASK  0x200u
+#define GET_MII_PHY_EXTENDED_CONTROL_BYPASS_SCRAMBLER(__reg__)  (((__reg__) & 0x200) >> 9u)
+#define SET_MII_PHY_EXTENDED_CONTROL_BYPASS_SCRAMBLER(__val__)  (((__val__) << 9u) & 0x200u)
+#define     MII_PHY_EXTENDED_CONTROL_BYPASS_ENCODER_SHIFT 10u
+#define     MII_PHY_EXTENDED_CONTROL_BYPASS_ENCODER_MASK  0x400u
+#define GET_MII_PHY_EXTENDED_CONTROL_BYPASS_ENCODER(__reg__)  (((__reg__) & 0x400) >> 10u)
+#define SET_MII_PHY_EXTENDED_CONTROL_BYPASS_ENCODER(__val__)  (((__val__) << 10u) & 0x400u)
+#define     MII_PHY_EXTENDED_CONTROL_FORCE_INTERRUPT_SHIFT 11u
+#define     MII_PHY_EXTENDED_CONTROL_FORCE_INTERRUPT_MASK  0x800u
+#define GET_MII_PHY_EXTENDED_CONTROL_FORCE_INTERRUPT(__reg__)  (((__reg__) & 0x800) >> 11u)
+#define SET_MII_PHY_EXTENDED_CONTROL_FORCE_INTERRUPT(__val__)  (((__val__) << 11u) & 0x800u)
+#define     MII_PHY_EXTENDED_CONTROL_INTERRUPT_DISABLE_SHIFT 12u
+#define     MII_PHY_EXTENDED_CONTROL_INTERRUPT_DISABLE_MASK  0x1000u
+#define GET_MII_PHY_EXTENDED_CONTROL_INTERRUPT_DISABLE(__reg__)  (((__reg__) & 0x1000) >> 12u)
+#define SET_MII_PHY_EXTENDED_CONTROL_INTERRUPT_DISABLE(__val__)  (((__val__) << 12u) & 0x1000u)
+#define     MII_PHY_EXTENDED_CONTROL_TRANSMIT_DISABLE_SHIFT 13u
+#define     MII_PHY_EXTENDED_CONTROL_TRANSMIT_DISABLE_MASK  0x2000u
+#define GET_MII_PHY_EXTENDED_CONTROL_TRANSMIT_DISABLE(__reg__)  (((__reg__) & 0x2000) >> 13u)
+#define SET_MII_PHY_EXTENDED_CONTROL_TRANSMIT_DISABLE(__val__)  (((__val__) << 13u) & 0x2000u)
+#define     MII_PHY_EXTENDED_CONTROL_DISABLE_AUTOMATIC_MDI_CROSSOVER_SHIFT 14u
+#define     MII_PHY_EXTENDED_CONTROL_DISABLE_AUTOMATIC_MDI_CROSSOVER_MASK  0x4000u
+#define GET_MII_PHY_EXTENDED_CONTROL_DISABLE_AUTOMATIC_MDI_CROSSOVER(__reg__)  (((__reg__) & 0x4000) >> 14u)
+#define SET_MII_PHY_EXTENDED_CONTROL_DISABLE_AUTOMATIC_MDI_CROSSOVER(__val__)  (((__val__) << 14u) & 0x4000u)
+#define     MII_PHY_EXTENDED_CONTROL_MAC_DIV_PHY_INTERFACE_MODE_SHIFT 15u
+#define     MII_PHY_EXTENDED_CONTROL_MAC_DIV_PHY_INTERFACE_MODE_MASK  0x8000u
+#define GET_MII_PHY_EXTENDED_CONTROL_MAC_DIV_PHY_INTERFACE_MODE(__reg__)  (((__reg__) & 0x8000) >> 15u)
+#define SET_MII_PHY_EXTENDED_CONTROL_MAC_DIV_PHY_INTERFACE_MODE(__val__)  (((__val__) << 15u) & 0x8000u)
+
+/** @brief Register definition for @ref MII_t.PhyExtendedControl. */
+typedef register_container RegMIIPhyExtendedControl_t {
+    /** @brief 16bit direct register access. */
+    BCM5719_MII_H_uint16_t r16;
+
+    BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, GMII_DIV_RGMIIFIFOElasticityLSB, 0, 1)
+        /** @brief When set, able to transmit packets when no link */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, UnidirectionalEnable, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, BlockTXENMode, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ForceLEDsOff, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ForceLEDsOn, 4, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, EnableLEDTrafficMode, 5, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ResetScrambler, 6, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, BypassAlignment, 7, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, BypassNRZI_DIV_MLT3, 8, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, BypassScrambler, 9, 1)
+        /** @brief bypass 4B5B encoder and decoder */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, BypassEncoder, 10, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ForceInterrupt, 11, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, InterruptDisable, 12, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, TransmitDisable, 13, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, DisableAutomaticMDICrossover, 14, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, MAC_DIV_PHYInterfaceMode, 15, 1)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, MAC_DIV_PHYInterfaceMode, 15, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, DisableAutomaticMDICrossover, 14, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, TransmitDisable, 13, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, InterruptDisable, 12, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ForceInterrupt, 11, 1)
+        /** @brief bypass 4B5B encoder and decoder */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, BypassEncoder, 10, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, BypassScrambler, 9, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, BypassNRZI_DIV_MLT3, 8, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, BypassAlignment, 7, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ResetScrambler, 6, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, EnableLEDTrafficMode, 5, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ForceLEDsOn, 4, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ForceLEDsOff, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, BlockTXENMode, 2, 1)
+        /** @brief When set, able to transmit packets when no link */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, UnidirectionalEnable, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, GMII_DIV_RGMIIFIFOElasticityLSB, 0, 1)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "PhyExtendedControl"; }
+
+    /** @brief Print register value. */
+    void print(void) { r16.print(); }
+
+    RegMIIPhyExtendedControl_t()
+    {
+        /** @brief constructor for @ref MII_t.PhyExtendedControl. */
+        r16.setName("PhyExtendedControl");
+        bits.GMII_DIV_RGMIIFIFOElasticityLSB.setBaseRegister(&r16);
+        bits.GMII_DIV_RGMIIFIFOElasticityLSB.setName("GMII_DIV_RGMIIFIFOElasticityLSB");
+        bits.UnidirectionalEnable.setBaseRegister(&r16);
+        bits.UnidirectionalEnable.setName("UnidirectionalEnable");
+        bits.BlockTXENMode.setBaseRegister(&r16);
+        bits.BlockTXENMode.setName("BlockTXENMode");
+        bits.ForceLEDsOff.setBaseRegister(&r16);
+        bits.ForceLEDsOff.setName("ForceLEDsOff");
+        bits.ForceLEDsOn.setBaseRegister(&r16);
+        bits.ForceLEDsOn.setName("ForceLEDsOn");
+        bits.EnableLEDTrafficMode.setBaseRegister(&r16);
+        bits.EnableLEDTrafficMode.setName("EnableLEDTrafficMode");
+        bits.ResetScrambler.setBaseRegister(&r16);
+        bits.ResetScrambler.setName("ResetScrambler");
+        bits.BypassAlignment.setBaseRegister(&r16);
+        bits.BypassAlignment.setName("BypassAlignment");
+        bits.BypassNRZI_DIV_MLT3.setBaseRegister(&r16);
+        bits.BypassNRZI_DIV_MLT3.setName("BypassNRZI_DIV_MLT3");
+        bits.BypassScrambler.setBaseRegister(&r16);
+        bits.BypassScrambler.setName("BypassScrambler");
+        bits.BypassEncoder.setBaseRegister(&r16);
+        bits.BypassEncoder.setName("BypassEncoder");
+        bits.ForceInterrupt.setBaseRegister(&r16);
+        bits.ForceInterrupt.setName("ForceInterrupt");
+        bits.InterruptDisable.setBaseRegister(&r16);
+        bits.InterruptDisable.setName("InterruptDisable");
+        bits.TransmitDisable.setBaseRegister(&r16);
+        bits.TransmitDisable.setName("TransmitDisable");
+        bits.DisableAutomaticMDICrossover.setBaseRegister(&r16);
+        bits.DisableAutomaticMDICrossover.setName("DisableAutomaticMDICrossover");
+        bits.MAC_DIV_PHYInterfaceMode.setBaseRegister(&r16);
+        bits.MAC_DIV_PHYInterfaceMode.setName("MAC_DIV_PHYInterfaceMode");
+    }
+    RegMIIPhyExtendedControl_t& operator=(const RegMIIPhyExtendedControl_t& other)
+    {
+        r16 = other.r16;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegMIIPhyExtendedControl_t;
+
 #define REG_MII_PHY_EXTENDED_STATUS ((volatile BCM5719_MII_H_uint16_t*)0x11) /*  */
 #define     MII_PHY_EXTENDED_STATUS_MLT3_CODE_ERROR_DETECTED_SHIFT 0u
 #define     MII_PHY_EXTENDED_STATUS_MLT3_CODE_ERROR_DETECTED_MASK  0x1u
@@ -1821,66 +2015,204 @@ typedef register_container RegMIILocalRemoteReceiverNotOkCounter_t {
 #endif /* CXX_SIMULATOR */
 } RegMIILocalRemoteReceiverNotOkCounter_t;
 
-#define REG_MII_AUXILLARY_STATUS_SUMMARY ((volatile BCM5719_MII_H_uint16_t*)0x19) /*  */
-#define     MII_AUXILLARY_STATUS_SUMMARY_PAUSE_RESOLUTION___TRANSMIT_DIRECTION_SHIFT 0u
-#define     MII_AUXILLARY_STATUS_SUMMARY_PAUSE_RESOLUTION___TRANSMIT_DIRECTION_MASK  0x1u
-#define GET_MII_AUXILLARY_STATUS_SUMMARY_PAUSE_RESOLUTION___TRANSMIT_DIRECTION(__reg__)  (((__reg__) & 0x1) >> 0u)
-#define SET_MII_AUXILLARY_STATUS_SUMMARY_PAUSE_RESOLUTION___TRANSMIT_DIRECTION(__val__)  (((__val__) << 0u) & 0x1u)
-#define     MII_AUXILLARY_STATUS_SUMMARY_PAUSE_RESOLUTION___RECEIVE_DIRECTION_SHIFT 1u
-#define     MII_AUXILLARY_STATUS_SUMMARY_PAUSE_RESOLUTION___RECEIVE_DIRECTION_MASK  0x2u
-#define GET_MII_AUXILLARY_STATUS_SUMMARY_PAUSE_RESOLUTION___RECEIVE_DIRECTION(__reg__)  (((__reg__) & 0x2) >> 1u)
-#define SET_MII_AUXILLARY_STATUS_SUMMARY_PAUSE_RESOLUTION___RECEIVE_DIRECTION(__val__)  (((__val__) << 1u) & 0x2u)
-#define     MII_AUXILLARY_STATUS_SUMMARY_LINK_STATUS_SHIFT 2u
-#define     MII_AUXILLARY_STATUS_SUMMARY_LINK_STATUS_MASK  0x4u
-#define GET_MII_AUXILLARY_STATUS_SUMMARY_LINK_STATUS(__reg__)  (((__reg__) & 0x4) >> 2u)
-#define SET_MII_AUXILLARY_STATUS_SUMMARY_LINK_STATUS(__val__)  (((__val__) << 2u) & 0x4u)
-#define     MII_AUXILLARY_STATUS_SUMMARY_LINK_PARTNER_NEXT_PAGE_CAPABLE_SHIFT 3u
-#define     MII_AUXILLARY_STATUS_SUMMARY_LINK_PARTNER_NEXT_PAGE_CAPABLE_MASK  0x8u
-#define GET_MII_AUXILLARY_STATUS_SUMMARY_LINK_PARTNER_NEXT_PAGE_CAPABLE(__reg__)  (((__reg__) & 0x8) >> 3u)
-#define SET_MII_AUXILLARY_STATUS_SUMMARY_LINK_PARTNER_NEXT_PAGE_CAPABLE(__val__)  (((__val__) << 3u) & 0x8u)
-#define     MII_AUXILLARY_STATUS_SUMMARY_LINK_PARTNER_AUTONEGOTIATION_CAPABLE_SHIFT 4u
-#define     MII_AUXILLARY_STATUS_SUMMARY_LINK_PARTNER_AUTONEGOTIATION_CAPABLE_MASK  0x10u
-#define GET_MII_AUXILLARY_STATUS_SUMMARY_LINK_PARTNER_AUTONEGOTIATION_CAPABLE(__reg__)  (((__reg__) & 0x10) >> 4u)
-#define SET_MII_AUXILLARY_STATUS_SUMMARY_LINK_PARTNER_AUTONEGOTIATION_CAPABLE(__val__)  (((__val__) << 4u) & 0x10u)
-#define     MII_AUXILLARY_STATUS_SUMMARY_PAGE_RECEIVED_SHIFT 5u
-#define     MII_AUXILLARY_STATUS_SUMMARY_PAGE_RECEIVED_MASK  0x20u
-#define GET_MII_AUXILLARY_STATUS_SUMMARY_PAGE_RECEIVED(__reg__)  (((__reg__) & 0x20) >> 5u)
-#define SET_MII_AUXILLARY_STATUS_SUMMARY_PAGE_RECEIVED(__val__)  (((__val__) << 5u) & 0x20u)
-#define     MII_AUXILLARY_STATUS_SUMMARY_REMOTE_FAULT_SHIFT 6u
-#define     MII_AUXILLARY_STATUS_SUMMARY_REMOTE_FAULT_MASK  0x40u
-#define GET_MII_AUXILLARY_STATUS_SUMMARY_REMOTE_FAULT(__reg__)  (((__reg__) & 0x40) >> 6u)
-#define SET_MII_AUXILLARY_STATUS_SUMMARY_REMOTE_FAULT(__val__)  (((__val__) << 6u) & 0x40u)
-#define     MII_AUXILLARY_STATUS_SUMMARY_PARALLEL_DETECTION_FAULT_SHIFT 7u
-#define     MII_AUXILLARY_STATUS_SUMMARY_PARALLEL_DETECTION_FAULT_MASK  0x80u
-#define GET_MII_AUXILLARY_STATUS_SUMMARY_PARALLEL_DETECTION_FAULT(__reg__)  (((__reg__) & 0x80) >> 7u)
-#define SET_MII_AUXILLARY_STATUS_SUMMARY_PARALLEL_DETECTION_FAULT(__val__)  (((__val__) << 7u) & 0x80u)
-#define     MII_AUXILLARY_STATUS_SUMMARY_AUTONEGOTIATION_HCD_SHIFT 8u
-#define     MII_AUXILLARY_STATUS_SUMMARY_AUTONEGOTIATION_HCD_MASK  0x700u
-#define GET_MII_AUXILLARY_STATUS_SUMMARY_AUTONEGOTIATION_HCD(__reg__)  (((__reg__) & 0x700) >> 8u)
-#define SET_MII_AUXILLARY_STATUS_SUMMARY_AUTONEGOTIATION_HCD(__val__)  (((__val__) << 8u) & 0x700u)
-#define     MII_AUXILLARY_STATUS_SUMMARY_AUTONEGOTIATION_NEXT_PAGE_WAIT_SHIFT 11u
-#define     MII_AUXILLARY_STATUS_SUMMARY_AUTONEGOTIATION_NEXT_PAGE_WAIT_MASK  0x800u
-#define GET_MII_AUXILLARY_STATUS_SUMMARY_AUTONEGOTIATION_NEXT_PAGE_WAIT(__reg__)  (((__reg__) & 0x800) >> 11u)
-#define SET_MII_AUXILLARY_STATUS_SUMMARY_AUTONEGOTIATION_NEXT_PAGE_WAIT(__val__)  (((__val__) << 11u) & 0x800u)
-#define     MII_AUXILLARY_STATUS_SUMMARY_AUTONEGOTIATION_ABILITY_DETECT_SHIFT 12u
-#define     MII_AUXILLARY_STATUS_SUMMARY_AUTONEGOTIATION_ABILITY_DETECT_MASK  0x1000u
-#define GET_MII_AUXILLARY_STATUS_SUMMARY_AUTONEGOTIATION_ABILITY_DETECT(__reg__)  (((__reg__) & 0x1000) >> 12u)
-#define SET_MII_AUXILLARY_STATUS_SUMMARY_AUTONEGOTIATION_ABILITY_DETECT(__val__)  (((__val__) << 12u) & 0x1000u)
-#define     MII_AUXILLARY_STATUS_SUMMARY_AUTONEGOTIATION_ACK_DETECT_SHIFT 13u
-#define     MII_AUXILLARY_STATUS_SUMMARY_AUTONEGOTIATION_ACK_DETECT_MASK  0x2000u
-#define GET_MII_AUXILLARY_STATUS_SUMMARY_AUTONEGOTIATION_ACK_DETECT(__reg__)  (((__reg__) & 0x2000) >> 13u)
-#define SET_MII_AUXILLARY_STATUS_SUMMARY_AUTONEGOTIATION_ACK_DETECT(__val__)  (((__val__) << 13u) & 0x2000u)
-#define     MII_AUXILLARY_STATUS_SUMMARY_AUTONEGOTIATION_COMPLETE_ACK_SHIFT 14u
-#define     MII_AUXILLARY_STATUS_SUMMARY_AUTONEGOTIATION_COMPLETE_ACK_MASK  0x4000u
-#define GET_MII_AUXILLARY_STATUS_SUMMARY_AUTONEGOTIATION_COMPLETE_ACK(__reg__)  (((__reg__) & 0x4000) >> 14u)
-#define SET_MII_AUXILLARY_STATUS_SUMMARY_AUTONEGOTIATION_COMPLETE_ACK(__val__)  (((__val__) << 14u) & 0x4000u)
-#define     MII_AUXILLARY_STATUS_SUMMARY_AUTONEGOTIATION_COMPLETE_SHIFT 15u
-#define     MII_AUXILLARY_STATUS_SUMMARY_AUTONEGOTIATION_COMPLETE_MASK  0x8000u
-#define GET_MII_AUXILLARY_STATUS_SUMMARY_AUTONEGOTIATION_COMPLETE(__reg__)  (((__reg__) & 0x8000) >> 15u)
-#define SET_MII_AUXILLARY_STATUS_SUMMARY_AUTONEGOTIATION_COMPLETE(__val__)  (((__val__) << 15u) & 0x8000u)
+#define REG_MII_AUXILIARY_CONTROL ((volatile BCM5719_MII_H_uint16_t*)0x18) /* Note: Shadow Register Selector: 0 */
+#define     MII_AUXILIARY_CONTROL_SHADOW_REGISTER_SELECTOR_SHIFT 0u
+#define     MII_AUXILIARY_CONTROL_SHADOW_REGISTER_SELECTOR_MASK  0x7u
+#define GET_MII_AUXILIARY_CONTROL_SHADOW_REGISTER_SELECTOR(__reg__)  (((__reg__) & 0x7) >> 0u)
+#define SET_MII_AUXILIARY_CONTROL_SHADOW_REGISTER_SELECTOR(__val__)  (((__val__) << 0u) & 0x7u)
+#define     MII_AUXILIARY_CONTROL_DIAGNOSTIC_MODE_SHIFT 3u
+#define     MII_AUXILIARY_CONTROL_DIAGNOSTIC_MODE_MASK  0x8u
+#define GET_MII_AUXILIARY_CONTROL_DIAGNOSTIC_MODE(__reg__)  (((__reg__) & 0x8) >> 3u)
+#define SET_MII_AUXILIARY_CONTROL_DIAGNOSTIC_MODE(__val__)  (((__val__) << 3u) & 0x8u)
+#define     MII_AUXILIARY_CONTROL_DISABLE_INVERSE_PRF_SHIFT 6u
+#define     MII_AUXILIARY_CONTROL_DISABLE_INVERSE_PRF_MASK  0x40u
+#define GET_MII_AUXILIARY_CONTROL_DISABLE_INVERSE_PRF(__reg__)  (((__reg__) & 0x40) >> 6u)
+#define SET_MII_AUXILIARY_CONTROL_DISABLE_INVERSE_PRF(__val__)  (((__val__) << 6u) & 0x40u)
+#define     MII_AUXILIARY_CONTROL_DISABLE_PARTIAL_RESPONSE_FILTER_SHIFT 7u
+#define     MII_AUXILIARY_CONTROL_DISABLE_PARTIAL_RESPONSE_FILTER_MASK  0x80u
+#define GET_MII_AUXILIARY_CONTROL_DISABLE_PARTIAL_RESPONSE_FILTER(__reg__)  (((__reg__) & 0x80) >> 7u)
+#define SET_MII_AUXILIARY_CONTROL_DISABLE_PARTIAL_RESPONSE_FILTER(__val__)  (((__val__) << 7u) & 0x80u)
+#define     MII_AUXILIARY_CONTROL_RECEIVE_SLICING_SHIFT 8u
+#define     MII_AUXILIARY_CONTROL_RECEIVE_SLICING_MASK  0x300u
+#define GET_MII_AUXILIARY_CONTROL_RECEIVE_SLICING(__reg__)  (((__reg__) & 0x300) >> 8u)
+#define SET_MII_AUXILIARY_CONTROL_RECEIVE_SLICING(__val__)  (((__val__) << 8u) & 0x300u)
+#define     MII_AUXILIARY_CONTROL_TRANSMIT_6DB_CODING_SHIFT 10u
+#define     MII_AUXILIARY_CONTROL_TRANSMIT_6DB_CODING_MASK  0x400u
+#define GET_MII_AUXILIARY_CONTROL_TRANSMIT_6DB_CODING(__reg__)  (((__reg__) & 0x400) >> 10u)
+#define SET_MII_AUXILIARY_CONTROL_TRANSMIT_6DB_CODING(__val__)  (((__val__) << 10u) & 0x400u)
+#define     MII_AUXILIARY_CONTROL_ENABLE_SM_DSP_CLOCK_SHIFT 11u
+#define     MII_AUXILIARY_CONTROL_ENABLE_SM_DSP_CLOCK_MASK  0x800u
+#define GET_MII_AUXILIARY_CONTROL_ENABLE_SM_DSP_CLOCK(__reg__)  (((__reg__) & 0x800) >> 11u)
+#define SET_MII_AUXILIARY_CONTROL_ENABLE_SM_DSP_CLOCK(__val__)  (((__val__) << 11u) & 0x800u)
+#define     MII_AUXILIARY_CONTROL_EDGERATE_CONTROL_SHIFT 12u
+#define     MII_AUXILIARY_CONTROL_EDGERATE_CONTROL_MASK  0x3000u
+#define GET_MII_AUXILIARY_CONTROL_EDGERATE_CONTROL(__reg__)  (((__reg__) & 0x3000) >> 12u)
+#define SET_MII_AUXILIARY_CONTROL_EDGERATE_CONTROL(__val__)  (((__val__) << 12u) & 0x3000u)
+#define     MII_AUXILIARY_CONTROL_EXTENDED_PACKET_LENGTH_SHIFT 14u
+#define     MII_AUXILIARY_CONTROL_EXTENDED_PACKET_LENGTH_MASK  0x4000u
+#define GET_MII_AUXILIARY_CONTROL_EXTENDED_PACKET_LENGTH(__reg__)  (((__reg__) & 0x4000) >> 14u)
+#define SET_MII_AUXILIARY_CONTROL_EXTENDED_PACKET_LENGTH(__val__)  (((__val__) << 14u) & 0x4000u)
+#define     MII_AUXILIARY_CONTROL_EXTERNAL_LOOPBACK_SHIFT 15u
+#define     MII_AUXILIARY_CONTROL_EXTERNAL_LOOPBACK_MASK  0x8000u
+#define GET_MII_AUXILIARY_CONTROL_EXTERNAL_LOOPBACK(__reg__)  (((__reg__) & 0x8000) >> 15u)
+#define SET_MII_AUXILIARY_CONTROL_EXTERNAL_LOOPBACK(__val__)  (((__val__) << 15u) & 0x8000u)
 
-/** @brief Register definition for @ref MII_t.AuxillaryStatusSummary. */
-typedef register_container RegMIIAuxillaryStatusSummary_t {
+/** @brief Register definition for @ref MII_t.AuxiliaryControl. */
+typedef register_container RegMIIAuxiliaryControl_t {
+    /** @brief 16bit direct register access. */
+    BCM5719_MII_H_uint16_t r16;
+
+    BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief Writes to the selected shadow register are done on a single cycle (no setup required). Reads are selected by first writing to register 18h, shadow 7, bits 14:12. */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ShadowRegisterSelector, 0, 3)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, DiagnosticMode, 3, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_5_4, 4, 2)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, DisableInversePRF, 6, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, DisablePartialResponseFilter, 7, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ReceiveSlicing, 8, 2)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, Transmit6dBCoding, 10, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, EnableSM_DSPClock, 11, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, EdgerateControl, 12, 2)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ExtendedPacketLength, 14, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ExternalLoopback, 15, 1)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ExternalLoopback, 15, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ExtendedPacketLength, 14, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, EdgerateControl, 12, 2)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, EnableSM_DSPClock, 11, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, Transmit6dBCoding, 10, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ReceiveSlicing, 8, 2)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, DisablePartialResponseFilter, 7, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, DisableInversePRF, 6, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_5_4, 4, 2)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, DiagnosticMode, 3, 1)
+        /** @brief Writes to the selected shadow register are done on a single cycle (no setup required). Reads are selected by first writing to register 18h, shadow 7, bits 14:12. */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ShadowRegisterSelector, 0, 3)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "AuxiliaryControl"; }
+
+    /** @brief Print register value. */
+    void print(void) { r16.print(); }
+
+    RegMIIAuxiliaryControl_t()
+    {
+        /** @brief constructor for @ref MII_t.AuxiliaryControl. */
+        r16.setName("AuxiliaryControl");
+        bits.ShadowRegisterSelector.setBaseRegister(&r16);
+        bits.ShadowRegisterSelector.setName("ShadowRegisterSelector");
+        bits.DiagnosticMode.setBaseRegister(&r16);
+        bits.DiagnosticMode.setName("DiagnosticMode");
+        bits.DisableInversePRF.setBaseRegister(&r16);
+        bits.DisableInversePRF.setName("DisableInversePRF");
+        bits.DisablePartialResponseFilter.setBaseRegister(&r16);
+        bits.DisablePartialResponseFilter.setName("DisablePartialResponseFilter");
+        bits.ReceiveSlicing.setBaseRegister(&r16);
+        bits.ReceiveSlicing.setName("ReceiveSlicing");
+        bits.Transmit6dBCoding.setBaseRegister(&r16);
+        bits.Transmit6dBCoding.setName("Transmit6dBCoding");
+        bits.EnableSM_DSPClock.setBaseRegister(&r16);
+        bits.EnableSM_DSPClock.setName("EnableSM_DSPClock");
+        bits.EdgerateControl.setBaseRegister(&r16);
+        bits.EdgerateControl.setName("EdgerateControl");
+        bits.ExtendedPacketLength.setBaseRegister(&r16);
+        bits.ExtendedPacketLength.setName("ExtendedPacketLength");
+        bits.ExternalLoopback.setBaseRegister(&r16);
+        bits.ExternalLoopback.setName("ExternalLoopback");
+    }
+    RegMIIAuxiliaryControl_t& operator=(const RegMIIAuxiliaryControl_t& other)
+    {
+        r16 = other.r16;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegMIIAuxiliaryControl_t;
+
+#define REG_MII_AUXILIARY_STATUS_SUMMARY ((volatile BCM5719_MII_H_uint16_t*)0x19) /*  */
+#define     MII_AUXILIARY_STATUS_SUMMARY_PAUSE_RESOLUTION___TRANSMIT_DIRECTION_SHIFT 0u
+#define     MII_AUXILIARY_STATUS_SUMMARY_PAUSE_RESOLUTION___TRANSMIT_DIRECTION_MASK  0x1u
+#define GET_MII_AUXILIARY_STATUS_SUMMARY_PAUSE_RESOLUTION___TRANSMIT_DIRECTION(__reg__)  (((__reg__) & 0x1) >> 0u)
+#define SET_MII_AUXILIARY_STATUS_SUMMARY_PAUSE_RESOLUTION___TRANSMIT_DIRECTION(__val__)  (((__val__) << 0u) & 0x1u)
+#define     MII_AUXILIARY_STATUS_SUMMARY_PAUSE_RESOLUTION___RECEIVE_DIRECTION_SHIFT 1u
+#define     MII_AUXILIARY_STATUS_SUMMARY_PAUSE_RESOLUTION___RECEIVE_DIRECTION_MASK  0x2u
+#define GET_MII_AUXILIARY_STATUS_SUMMARY_PAUSE_RESOLUTION___RECEIVE_DIRECTION(__reg__)  (((__reg__) & 0x2) >> 1u)
+#define SET_MII_AUXILIARY_STATUS_SUMMARY_PAUSE_RESOLUTION___RECEIVE_DIRECTION(__val__)  (((__val__) << 1u) & 0x2u)
+#define     MII_AUXILIARY_STATUS_SUMMARY_LINK_STATUS_SHIFT 2u
+#define     MII_AUXILIARY_STATUS_SUMMARY_LINK_STATUS_MASK  0x4u
+#define GET_MII_AUXILIARY_STATUS_SUMMARY_LINK_STATUS(__reg__)  (((__reg__) & 0x4) >> 2u)
+#define SET_MII_AUXILIARY_STATUS_SUMMARY_LINK_STATUS(__val__)  (((__val__) << 2u) & 0x4u)
+#define     MII_AUXILIARY_STATUS_SUMMARY_LINK_PARTNER_NEXT_PAGE_CAPABLE_SHIFT 3u
+#define     MII_AUXILIARY_STATUS_SUMMARY_LINK_PARTNER_NEXT_PAGE_CAPABLE_MASK  0x8u
+#define GET_MII_AUXILIARY_STATUS_SUMMARY_LINK_PARTNER_NEXT_PAGE_CAPABLE(__reg__)  (((__reg__) & 0x8) >> 3u)
+#define SET_MII_AUXILIARY_STATUS_SUMMARY_LINK_PARTNER_NEXT_PAGE_CAPABLE(__val__)  (((__val__) << 3u) & 0x8u)
+#define     MII_AUXILIARY_STATUS_SUMMARY_LINK_PARTNER_AUTONEGOTIATION_CAPABLE_SHIFT 4u
+#define     MII_AUXILIARY_STATUS_SUMMARY_LINK_PARTNER_AUTONEGOTIATION_CAPABLE_MASK  0x10u
+#define GET_MII_AUXILIARY_STATUS_SUMMARY_LINK_PARTNER_AUTONEGOTIATION_CAPABLE(__reg__)  (((__reg__) & 0x10) >> 4u)
+#define SET_MII_AUXILIARY_STATUS_SUMMARY_LINK_PARTNER_AUTONEGOTIATION_CAPABLE(__val__)  (((__val__) << 4u) & 0x10u)
+#define     MII_AUXILIARY_STATUS_SUMMARY_PAGE_RECEIVED_SHIFT 5u
+#define     MII_AUXILIARY_STATUS_SUMMARY_PAGE_RECEIVED_MASK  0x20u
+#define GET_MII_AUXILIARY_STATUS_SUMMARY_PAGE_RECEIVED(__reg__)  (((__reg__) & 0x20) >> 5u)
+#define SET_MII_AUXILIARY_STATUS_SUMMARY_PAGE_RECEIVED(__val__)  (((__val__) << 5u) & 0x20u)
+#define     MII_AUXILIARY_STATUS_SUMMARY_REMOTE_FAULT_SHIFT 6u
+#define     MII_AUXILIARY_STATUS_SUMMARY_REMOTE_FAULT_MASK  0x40u
+#define GET_MII_AUXILIARY_STATUS_SUMMARY_REMOTE_FAULT(__reg__)  (((__reg__) & 0x40) >> 6u)
+#define SET_MII_AUXILIARY_STATUS_SUMMARY_REMOTE_FAULT(__val__)  (((__val__) << 6u) & 0x40u)
+#define     MII_AUXILIARY_STATUS_SUMMARY_PARALLEL_DETECTION_FAULT_SHIFT 7u
+#define     MII_AUXILIARY_STATUS_SUMMARY_PARALLEL_DETECTION_FAULT_MASK  0x80u
+#define GET_MII_AUXILIARY_STATUS_SUMMARY_PARALLEL_DETECTION_FAULT(__reg__)  (((__reg__) & 0x80) >> 7u)
+#define SET_MII_AUXILIARY_STATUS_SUMMARY_PARALLEL_DETECTION_FAULT(__val__)  (((__val__) << 7u) & 0x80u)
+#define     MII_AUXILIARY_STATUS_SUMMARY_AUTONEGOTIATION_HCD_SHIFT 8u
+#define     MII_AUXILIARY_STATUS_SUMMARY_AUTONEGOTIATION_HCD_MASK  0x700u
+#define GET_MII_AUXILIARY_STATUS_SUMMARY_AUTONEGOTIATION_HCD(__reg__)  (((__reg__) & 0x700) >> 8u)
+#define SET_MII_AUXILIARY_STATUS_SUMMARY_AUTONEGOTIATION_HCD(__val__)  (((__val__) << 8u) & 0x700u)
+#define     MII_AUXILIARY_STATUS_SUMMARY_AUTONEGOTIATION_NEXT_PAGE_WAIT_SHIFT 11u
+#define     MII_AUXILIARY_STATUS_SUMMARY_AUTONEGOTIATION_NEXT_PAGE_WAIT_MASK  0x800u
+#define GET_MII_AUXILIARY_STATUS_SUMMARY_AUTONEGOTIATION_NEXT_PAGE_WAIT(__reg__)  (((__reg__) & 0x800) >> 11u)
+#define SET_MII_AUXILIARY_STATUS_SUMMARY_AUTONEGOTIATION_NEXT_PAGE_WAIT(__val__)  (((__val__) << 11u) & 0x800u)
+#define     MII_AUXILIARY_STATUS_SUMMARY_AUTONEGOTIATION_ABILITY_DETECT_SHIFT 12u
+#define     MII_AUXILIARY_STATUS_SUMMARY_AUTONEGOTIATION_ABILITY_DETECT_MASK  0x1000u
+#define GET_MII_AUXILIARY_STATUS_SUMMARY_AUTONEGOTIATION_ABILITY_DETECT(__reg__)  (((__reg__) & 0x1000) >> 12u)
+#define SET_MII_AUXILIARY_STATUS_SUMMARY_AUTONEGOTIATION_ABILITY_DETECT(__val__)  (((__val__) << 12u) & 0x1000u)
+#define     MII_AUXILIARY_STATUS_SUMMARY_AUTONEGOTIATION_ACK_DETECT_SHIFT 13u
+#define     MII_AUXILIARY_STATUS_SUMMARY_AUTONEGOTIATION_ACK_DETECT_MASK  0x2000u
+#define GET_MII_AUXILIARY_STATUS_SUMMARY_AUTONEGOTIATION_ACK_DETECT(__reg__)  (((__reg__) & 0x2000) >> 13u)
+#define SET_MII_AUXILIARY_STATUS_SUMMARY_AUTONEGOTIATION_ACK_DETECT(__val__)  (((__val__) << 13u) & 0x2000u)
+#define     MII_AUXILIARY_STATUS_SUMMARY_AUTONEGOTIATION_COMPLETE_ACK_SHIFT 14u
+#define     MII_AUXILIARY_STATUS_SUMMARY_AUTONEGOTIATION_COMPLETE_ACK_MASK  0x4000u
+#define GET_MII_AUXILIARY_STATUS_SUMMARY_AUTONEGOTIATION_COMPLETE_ACK(__reg__)  (((__reg__) & 0x4000) >> 14u)
+#define SET_MII_AUXILIARY_STATUS_SUMMARY_AUTONEGOTIATION_COMPLETE_ACK(__val__)  (((__val__) << 14u) & 0x4000u)
+#define     MII_AUXILIARY_STATUS_SUMMARY_AUTONEGOTIATION_COMPLETE_SHIFT 15u
+#define     MII_AUXILIARY_STATUS_SUMMARY_AUTONEGOTIATION_COMPLETE_MASK  0x8000u
+#define GET_MII_AUXILIARY_STATUS_SUMMARY_AUTONEGOTIATION_COMPLETE(__reg__)  (((__reg__) & 0x8000) >> 15u)
+#define SET_MII_AUXILIARY_STATUS_SUMMARY_AUTONEGOTIATION_COMPLETE(__val__)  (((__val__) << 15u) & 0x8000u)
+
+/** @brief Register definition for @ref MII_t.AuxiliaryStatusSummary. */
+typedef register_container RegMIIAuxiliaryStatusSummary_t {
     /** @brief 16bit direct register access. */
     BCM5719_MII_H_uint16_t r16;
 
@@ -1949,15 +2281,15 @@ typedef register_container RegMIIAuxillaryStatusSummary_t {
     BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
-    const char* getName(void) { return "AuxillaryStatusSummary"; }
+    const char* getName(void) { return "AuxiliaryStatusSummary"; }
 
     /** @brief Print register value. */
     void print(void) { r16.print(); }
 
-    RegMIIAuxillaryStatusSummary_t()
+    RegMIIAuxiliaryStatusSummary_t()
     {
-        /** @brief constructor for @ref MII_t.AuxillaryStatusSummary. */
-        r16.setName("AuxillaryStatusSummary");
+        /** @brief constructor for @ref MII_t.AuxiliaryStatusSummary. */
+        r16.setName("AuxiliaryStatusSummary");
         bits.PauseResolution_TransmitDirection.setBaseRegister(&r16);
         bits.PauseResolution_TransmitDirection.setName("PauseResolution_TransmitDirection");
         bits.PauseResolution_ReceiveDirection.setBaseRegister(&r16);
@@ -1987,13 +2319,13 @@ typedef register_container RegMIIAuxillaryStatusSummary_t {
         bits.AutonegotiationComplete.setBaseRegister(&r16);
         bits.AutonegotiationComplete.setName("AutonegotiationComplete");
     }
-    RegMIIAuxillaryStatusSummary_t& operator=(const RegMIIAuxillaryStatusSummary_t& other)
+    RegMIIAuxiliaryStatusSummary_t& operator=(const RegMIIAuxiliaryStatusSummary_t& other)
     {
         r16 = other.r16;
         return *this;
     }
 #endif /* CXX_SIMULATOR */
-} RegMIIAuxillaryStatusSummary_t;
+} RegMIIAuxiliaryStatusSummary_t;
 
 #define REG_MII_INTERRUPT_STATUS ((volatile BCM5719_MII_H_uint16_t*)0x1a) /*  */
 #define     MII_INTERRUPT_STATUS_CRC_ERROR_SHIFT 0u
@@ -2227,6 +2559,74 @@ typedef register_container RegMIIInterruptMask_t {
 #endif /* CXX_SIMULATOR */
 } RegMIIInterruptMask_t;
 
+#define REG_MII_CABLETRON_LED ((volatile BCM5719_MII_H_uint16_t*)0x1c) /* Note: Shadow Register Selector: 0 */
+#define     MII_CABLETRON_LED_CABLETRON_LED_SHIFT 0u
+#define     MII_CABLETRON_LED_CABLETRON_LED_MASK  0xffu
+#define GET_MII_CABLETRON_LED_CABLETRON_LED(__reg__)  (((__reg__) & 0xff) >> 0u)
+#define SET_MII_CABLETRON_LED_CABLETRON_LED(__val__)  (((__val__) << 0u) & 0xffu)
+#define     MII_CABLETRON_LED_SHADOW_REGISTER_SELECTOR_SHIFT 10u
+#define     MII_CABLETRON_LED_SHADOW_REGISTER_SELECTOR_MASK  0x7c00u
+#define GET_MII_CABLETRON_LED_SHADOW_REGISTER_SELECTOR(__reg__)  (((__reg__) & 0x7c00) >> 10u)
+#define SET_MII_CABLETRON_LED_SHADOW_REGISTER_SELECTOR(__val__)  (((__val__) << 10u) & 0x7c00u)
+#define     MII_CABLETRON_LED_WRITE_ENABLE_SHIFT 15u
+#define     MII_CABLETRON_LED_WRITE_ENABLE_MASK  0x8000u
+#define GET_MII_CABLETRON_LED_WRITE_ENABLE(__reg__)  (((__reg__) & 0x8000) >> 15u)
+#define SET_MII_CABLETRON_LED_WRITE_ENABLE(__val__)  (((__val__) << 15u) & 0x8000u)
+
+/** @brief Register definition for @ref MII_t.CabletronLed. */
+typedef register_container RegMIICabletronLed_t {
+    /** @brief 16bit direct register access. */
+    BCM5719_MII_H_uint16_t r16;
+
+    BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, CabletronLED, 0, 8)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_9_8, 8, 2)
+        /** @brief Writes to the selected shadow register are done by first setting up the register. Reads can be done immediately after selecting the shadow register. */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ShadowRegisterSelector, 10, 5)
+        /** @brief Write bits [9:0] */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, WriteEnable, 15, 1)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Write bits [9:0] */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, WriteEnable, 15, 1)
+        /** @brief Writes to the selected shadow register are done by first setting up the register. Reads can be done immediately after selecting the shadow register. */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ShadowRegisterSelector, 10, 5)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_9_8, 8, 2)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, CabletronLED, 0, 8)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "CabletronLed"; }
+
+    /** @brief Print register value. */
+    void print(void) { r16.print(); }
+
+    RegMIICabletronLed_t()
+    {
+        /** @brief constructor for @ref MII_t.CabletronLed. */
+        r16.setName("CabletronLed");
+        bits.CabletronLED.setBaseRegister(&r16);
+        bits.CabletronLED.setName("CabletronLED");
+        bits.ShadowRegisterSelector.setBaseRegister(&r16);
+        bits.ShadowRegisterSelector.setName("ShadowRegisterSelector");
+        bits.WriteEnable.setBaseRegister(&r16);
+        bits.WriteEnable.setName("WriteEnable");
+    }
+    RegMIICabletronLed_t& operator=(const RegMIICabletronLed_t& other)
+    {
+        r16 = other.r16;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegMIICabletronLed_t;
+
 #define REG_MII_TEST_1 ((volatile BCM5719_MII_H_uint16_t*)0x1e) /*  */
 #define     MII_TEST_1_MAIN_DAC_TRIM_SHIFT 0u
 #define     MII_TEST_1_MAIN_DAC_TRIM_MASK  0xfu
@@ -2398,6 +2798,1302 @@ typedef register_container RegMIIBlockSelect_t {
     BCM5719_MII_H_uint16_t r16;
 } RegMIIBlockSelect_t;
 
+#define REG_MII_10BASE_T ((volatile BCM5719_MII_H_uint16_t*)0x118) /* Note: Shadow Register Selector: 1 */
+#define     MII_10BASE_T_SHADOW_REGISTER_SELECTOR_SHIFT 0u
+#define     MII_10BASE_T_SHADOW_REGISTER_SELECTOR_MASK  0x7u
+#define GET_MII_10BASE_T_SHADOW_REGISTER_SELECTOR(__reg__)  (((__reg__) & 0x7) >> 0u)
+#define SET_MII_10BASE_T_SHADOW_REGISTER_SELECTOR(__val__)  (((__val__) << 0u) & 0x7u)
+#define     MII_10BASE_T_10BASE_T_POLARITY_ERROR_COUNT_MAX_SHIFT 3u
+#define     MII_10BASE_T_10BASE_T_POLARITY_ERROR_COUNT_MAX_MASK  0x8u
+#define GET_MII_10BASE_T_10BASE_T_POLARITY_ERROR_COUNT_MAX(__reg__)  (((__reg__) & 0x8) >> 3u)
+#define SET_MII_10BASE_T_10BASE_T_POLARITY_ERROR_COUNT_MAX(__val__)  (((__val__) << 3u) & 0x8u)
+#define     MII_10BASE_T_10BASE_T_NO_DRIBBLE_SHIFT 4u
+#define     MII_10BASE_T_10BASE_T_NO_DRIBBLE_MASK  0x10u
+#define GET_MII_10BASE_T_10BASE_T_NO_DRIBBLE(__reg__)  (((__reg__) & 0x10) >> 4u)
+#define SET_MII_10BASE_T_10BASE_T_NO_DRIBBLE(__val__)  (((__val__) << 4u) & 0x10u)
+#define     MII_10BASE_T_SQE_ENABLE_MODE_SHIFT 5u
+#define     MII_10BASE_T_SQE_ENABLE_MODE_MASK  0x20u
+#define GET_MII_10BASE_T_SQE_ENABLE_MODE(__reg__)  (((__reg__) & 0x20) >> 5u)
+#define SET_MII_10BASE_T_SQE_ENABLE_MODE(__val__)  (((__val__) << 5u) & 0x20u)
+#define     MII_10BASE_T_10BT_ECHO_MODE_SHIFT 6u
+#define     MII_10BASE_T_10BT_ECHO_MODE_MASK  0x40u
+#define GET_MII_10BASE_T_10BT_ECHO_MODE(__reg__)  (((__reg__) & 0x40) >> 6u)
+#define SET_MII_10BASE_T_10BT_ECHO_MODE(__val__)  (((__val__) << 6u) & 0x40u)
+#define     MII_10BASE_T_10BASE_T_SIGNAL_DETECT_THRESHOLD_SHIFT 7u
+#define     MII_10BASE_T_10BASE_T_SIGNAL_DETECT_THRESHOLD_MASK  0x80u
+#define GET_MII_10BASE_T_10BASE_T_SIGNAL_DETECT_THRESHOLD(__reg__)  (((__reg__) & 0x80) >> 7u)
+#define SET_MII_10BASE_T_10BASE_T_SIGNAL_DETECT_THRESHOLD(__val__)  (((__val__) << 7u) & 0x80u)
+#define     MII_10BASE_T_10BASE_T_SIGNAL_DETECT_AUTOSWITCH_SHIFT 8u
+#define     MII_10BASE_T_10BASE_T_SIGNAL_DETECT_AUTOSWITCH_MASK  0x100u
+#define GET_MII_10BASE_T_10BASE_T_SIGNAL_DETECT_AUTOSWITCH(__reg__)  (((__reg__) & 0x100) >> 8u)
+#define SET_MII_10BASE_T_10BASE_T_SIGNAL_DETECT_AUTOSWITCH(__val__)  (((__val__) << 8u) & 0x100u)
+#define     MII_10BASE_T_JABBER_DISABLE_SHIFT 9u
+#define     MII_10BASE_T_JABBER_DISABLE_MASK  0x200u
+#define GET_MII_10BASE_T_JABBER_DISABLE(__reg__)  (((__reg__) & 0x200) >> 9u)
+#define SET_MII_10BASE_T_JABBER_DISABLE(__val__)  (((__val__) << 9u) & 0x200u)
+#define     MII_10BASE_T_CLASS_A_DIV_B_LINE_DRIVER_SELECT_SHIFT 10u
+#define     MII_10BASE_T_CLASS_A_DIV_B_LINE_DRIVER_SELECT_MASK  0x400u
+#define GET_MII_10BASE_T_CLASS_A_DIV_B_LINE_DRIVER_SELECT(__reg__)  (((__reg__) & 0x400) >> 10u)
+#define SET_MII_10BASE_T_CLASS_A_DIV_B_LINE_DRIVER_SELECT(__val__)  (((__val__) << 10u) & 0x400u)
+#define     MII_10BASE_T_10_BT_TXC_INVERT_MODE_SHIFT 11u
+#define     MII_10BASE_T_10_BT_TXC_INVERT_MODE_MASK  0x800u
+#define GET_MII_10BASE_T_10_BT_TXC_INVERT_MODE(__reg__)  (((__reg__) & 0x800) >> 11u)
+#define SET_MII_10BASE_T_10_BT_TXC_INVERT_MODE(__val__)  (((__val__) << 11u) & 0x800u)
+#define     MII_10BASE_T_BLOCK_RXDV_EXTENSION_SHIFT 12u
+#define     MII_10BASE_T_BLOCK_RXDV_EXTENSION_MASK  0x1000u
+#define GET_MII_10BASE_T_BLOCK_RXDV_EXTENSION(__reg__)  (((__reg__) & 0x1000) >> 12u)
+#define SET_MII_10BASE_T_BLOCK_RXDV_EXTENSION(__val__)  (((__val__) << 12u) & 0x1000u)
+#define     MII_10BASE_T_POLARITY_ERROR_SHIFT 13u
+#define     MII_10BASE_T_POLARITY_ERROR_MASK  0x2000u
+#define GET_MII_10BASE_T_POLARITY_ERROR(__reg__)  (((__reg__) & 0x2000) >> 13u)
+#define SET_MII_10BASE_T_POLARITY_ERROR(__val__)  (((__val__) << 13u) & 0x2000u)
+#define     MII_10BASE_T_EOF_ERROR_SHIFT 14u
+#define     MII_10BASE_T_EOF_ERROR_MASK  0x4000u
+#define GET_MII_10BASE_T_EOF_ERROR(__reg__)  (((__reg__) & 0x4000) >> 14u)
+#define SET_MII_10BASE_T_EOF_ERROR(__val__)  (((__val__) << 14u) & 0x4000u)
+#define     MII_10BASE_T_MANCHESTER_CODE_ERROR_SHIFT 15u
+#define     MII_10BASE_T_MANCHESTER_CODE_ERROR_MASK  0x8000u
+#define GET_MII_10BASE_T_MANCHESTER_CODE_ERROR(__reg__)  (((__reg__) & 0x8000) >> 15u)
+#define SET_MII_10BASE_T_MANCHESTER_CODE_ERROR(__val__)  (((__val__) << 15u) & 0x8000u)
+
+/** @brief Register definition for @ref MII_t.10baseT. */
+typedef register_container RegMII10baseT_t {
+    /** @brief 16bit direct register access. */
+    BCM5719_MII_H_uint16_t r16;
+
+    BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief Writes to the selected shadow register are done on a single cycle (no setup required). Reads are selected by first writing to register 18h, shadow 7, bits 14:12. */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ShadowRegisterSelector, 0, 3)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _10Base_TPolarityErrorCountMax, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _10Base_TNoDribble, 4, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, SQEEnableMode, 5, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _10BTEchoMode, 6, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _10Base_TSignalDetectThreshold, 7, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _10Base_TSignalDetectAutoswitch, 8, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, JabberDisable, 9, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ClassA_DIV_BLineDriverSelect, 10, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _10BTTXCInvertMode, 11, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, BlockRXDVExtension, 12, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, PolarityError, 13, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, EOFError, 14, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ManchesterCodeError, 15, 1)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ManchesterCodeError, 15, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, EOFError, 14, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, PolarityError, 13, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, BlockRXDVExtension, 12, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _10BTTXCInvertMode, 11, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ClassA_DIV_BLineDriverSelect, 10, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, JabberDisable, 9, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _10Base_TSignalDetectAutoswitch, 8, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _10Base_TSignalDetectThreshold, 7, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _10BTEchoMode, 6, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, SQEEnableMode, 5, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _10Base_TNoDribble, 4, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _10Base_TPolarityErrorCountMax, 3, 1)
+        /** @brief Writes to the selected shadow register are done on a single cycle (no setup required). Reads are selected by first writing to register 18h, shadow 7, bits 14:12. */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ShadowRegisterSelector, 0, 3)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "10baseT"; }
+
+    /** @brief Print register value. */
+    void print(void) { r16.print(); }
+
+    RegMII10baseT_t()
+    {
+        /** @brief constructor for @ref MII_t.10baseT. */
+        r16.setName("10baseT");
+        bits.ShadowRegisterSelector.setBaseRegister(&r16);
+        bits.ShadowRegisterSelector.setName("ShadowRegisterSelector");
+        bits._10Base_TPolarityErrorCountMax.setBaseRegister(&r16);
+        bits._10Base_TPolarityErrorCountMax.setName("_10Base_TPolarityErrorCountMax");
+        bits._10Base_TNoDribble.setBaseRegister(&r16);
+        bits._10Base_TNoDribble.setName("_10Base_TNoDribble");
+        bits.SQEEnableMode.setBaseRegister(&r16);
+        bits.SQEEnableMode.setName("SQEEnableMode");
+        bits._10BTEchoMode.setBaseRegister(&r16);
+        bits._10BTEchoMode.setName("_10BTEchoMode");
+        bits._10Base_TSignalDetectThreshold.setBaseRegister(&r16);
+        bits._10Base_TSignalDetectThreshold.setName("_10Base_TSignalDetectThreshold");
+        bits._10Base_TSignalDetectAutoswitch.setBaseRegister(&r16);
+        bits._10Base_TSignalDetectAutoswitch.setName("_10Base_TSignalDetectAutoswitch");
+        bits.JabberDisable.setBaseRegister(&r16);
+        bits.JabberDisable.setName("JabberDisable");
+        bits.ClassA_DIV_BLineDriverSelect.setBaseRegister(&r16);
+        bits.ClassA_DIV_BLineDriverSelect.setName("ClassA_DIV_BLineDriverSelect");
+        bits._10BTTXCInvertMode.setBaseRegister(&r16);
+        bits._10BTTXCInvertMode.setName("_10BTTXCInvertMode");
+        bits.BlockRXDVExtension.setBaseRegister(&r16);
+        bits.BlockRXDVExtension.setName("BlockRXDVExtension");
+        bits.PolarityError.setBaseRegister(&r16);
+        bits.PolarityError.setName("PolarityError");
+        bits.EOFError.setBaseRegister(&r16);
+        bits.EOFError.setName("EOFError");
+        bits.ManchesterCodeError.setBaseRegister(&r16);
+        bits.ManchesterCodeError.setName("ManchesterCodeError");
+    }
+    RegMII10baseT_t& operator=(const RegMII10baseT_t& other)
+    {
+        r16 = other.r16;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegMII10baseT_t;
+
+#define REG_MII_DLL_SELECTION ((volatile BCM5719_MII_H_uint16_t*)0x11c) /* Note: Shadow Register Selector: 1 */
+#define     MII_DLL_SELECTION_HIGH_QUALITY_CLOCK_TEST_MODE_SHIFT 0u
+#define     MII_DLL_SELECTION_HIGH_QUALITY_CLOCK_TEST_MODE_MASK  0x3fu
+#define GET_MII_DLL_SELECTION_HIGH_QUALITY_CLOCK_TEST_MODE(__reg__)  (((__reg__) & 0x3f) >> 0u)
+#define SET_MII_DLL_SELECTION_HIGH_QUALITY_CLOCK_TEST_MODE(__val__)  (((__val__) << 0u) & 0x3fu)
+#define     MII_DLL_SELECTION_SHADOW_REGISTER_SELECTOR_SHIFT 10u
+#define     MII_DLL_SELECTION_SHADOW_REGISTER_SELECTOR_MASK  0x7c00u
+#define GET_MII_DLL_SELECTION_SHADOW_REGISTER_SELECTOR(__reg__)  (((__reg__) & 0x7c00) >> 10u)
+#define SET_MII_DLL_SELECTION_SHADOW_REGISTER_SELECTOR(__val__)  (((__val__) << 10u) & 0x7c00u)
+#define     MII_DLL_SELECTION_WRITE_ENABLE_SHIFT 15u
+#define     MII_DLL_SELECTION_WRITE_ENABLE_MASK  0x8000u
+#define GET_MII_DLL_SELECTION_WRITE_ENABLE(__reg__)  (((__reg__) & 0x8000) >> 15u)
+#define SET_MII_DLL_SELECTION_WRITE_ENABLE(__val__)  (((__val__) << 15u) & 0x8000u)
+
+/** @brief Register definition for @ref MII_t.DllSelection. */
+typedef register_container RegMIIDllSelection_t {
+    /** @brief 16bit direct register access. */
+    BCM5719_MII_H_uint16_t r16;
+
+    BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, HighQualityClockTestMode, 0, 6)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_9_6, 6, 4)
+        /** @brief Writes to the selected shadow register are done by first setting up the register. Reads can be done immediately after selecting the shadow register. */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ShadowRegisterSelector, 10, 5)
+        /** @brief Write bits [9:0] */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, WriteEnable, 15, 1)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Write bits [9:0] */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, WriteEnable, 15, 1)
+        /** @brief Writes to the selected shadow register are done by first setting up the register. Reads can be done immediately after selecting the shadow register. */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ShadowRegisterSelector, 10, 5)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_9_6, 6, 4)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, HighQualityClockTestMode, 0, 6)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "DllSelection"; }
+
+    /** @brief Print register value. */
+    void print(void) { r16.print(); }
+
+    RegMIIDllSelection_t()
+    {
+        /** @brief constructor for @ref MII_t.DllSelection. */
+        r16.setName("DllSelection");
+        bits.HighQualityClockTestMode.setBaseRegister(&r16);
+        bits.HighQualityClockTestMode.setName("HighQualityClockTestMode");
+        bits.ShadowRegisterSelector.setBaseRegister(&r16);
+        bits.ShadowRegisterSelector.setName("ShadowRegisterSelector");
+        bits.WriteEnable.setBaseRegister(&r16);
+        bits.WriteEnable.setName("WriteEnable");
+    }
+    RegMIIDllSelection_t& operator=(const RegMIIDllSelection_t& other)
+    {
+        r16 = other.r16;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegMIIDllSelection_t;
+
+#define REG_MII_POWER_AND_MII_CONTROL ((volatile BCM5719_MII_H_uint16_t*)0x218) /* Note: Shadow Register Selector: 2 */
+#define     MII_POWER_AND_MII_CONTROL_SHADOW_REGISTER_SELECTOR_SHIFT 0u
+#define     MII_POWER_AND_MII_CONTROL_SHADOW_REGISTER_SELECTOR_MASK  0x7u
+#define GET_MII_POWER_AND_MII_CONTROL_SHADOW_REGISTER_SELECTOR(__reg__)  (((__reg__) & 0x7) >> 0u)
+#define SET_MII_POWER_AND_MII_CONTROL_SHADOW_REGISTER_SELECTOR(__val__)  (((__val__) << 0u) & 0x7u)
+#define     MII_POWER_AND_MII_CONTROL_SUPER_ISOLATE_SHIFT 5u
+#define     MII_POWER_AND_MII_CONTROL_SUPER_ISOLATE_MASK  0x20u
+#define GET_MII_POWER_AND_MII_CONTROL_SUPER_ISOLATE(__reg__)  (((__reg__) & 0x20) >> 5u)
+#define SET_MII_POWER_AND_MII_CONTROL_SUPER_ISOLATE(__val__)  (((__val__) << 5u) & 0x20u)
+
+/** @brief Register definition for @ref MII_t.PowerAndMiiControl. */
+typedef register_container RegMIIPowerAndMiiControl_t {
+    /** @brief 16bit direct register access. */
+    BCM5719_MII_H_uint16_t r16;
+
+    BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief Writes to the selected shadow register are done on a single cycle (no setup required). Reads are selected by first writing to register 18h, shadow 7, bits 14:12. */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ShadowRegisterSelector, 0, 3)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_4_3, 3, 2)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, SuperIsolate, 5, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_15_6, 6, 10)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_31_16, 16, 16)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_15_6, 6, 10)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_31_16, 16, 16)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, SuperIsolate, 5, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_4_3, 3, 2)
+        /** @brief Writes to the selected shadow register are done on a single cycle (no setup required). Reads are selected by first writing to register 18h, shadow 7, bits 14:12. */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ShadowRegisterSelector, 0, 3)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "PowerAndMiiControl"; }
+
+    /** @brief Print register value. */
+    void print(void) { r16.print(); }
+
+    RegMIIPowerAndMiiControl_t()
+    {
+        /** @brief constructor for @ref MII_t.PowerAndMiiControl. */
+        r16.setName("PowerAndMiiControl");
+        bits.ShadowRegisterSelector.setBaseRegister(&r16);
+        bits.ShadowRegisterSelector.setName("ShadowRegisterSelector");
+        bits.SuperIsolate.setBaseRegister(&r16);
+        bits.SuperIsolate.setName("SuperIsolate");
+    }
+    RegMIIPowerAndMiiControl_t& operator=(const RegMIIPowerAndMiiControl_t& other)
+    {
+        r16 = other.r16;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegMIIPowerAndMiiControl_t;
+
+#define REG_MII_SPARE_CONTROL_1 ((volatile BCM5719_MII_H_uint16_t*)0x21c) /* Note: Shadow Register Selector: 2 */
+#define     MII_SPARE_CONTROL_1_LINK_LED_MODE_SHIFT 0u
+#define     MII_SPARE_CONTROL_1_LINK_LED_MODE_MASK  0x1u
+#define GET_MII_SPARE_CONTROL_1_LINK_LED_MODE(__reg__)  (((__reg__) & 0x1) >> 0u)
+#define SET_MII_SPARE_CONTROL_1_LINK_LED_MODE(__val__)  (((__val__) << 0u) & 0x1u)
+#define     MII_SPARE_CONTROL_1_LOST_TOKEN_FIX_DISABLE_SHIFT 1u
+#define     MII_SPARE_CONTROL_1_LOST_TOKEN_FIX_DISABLE_MASK  0x2u
+#define GET_MII_SPARE_CONTROL_1_LOST_TOKEN_FIX_DISABLE(__reg__)  (((__reg__) & 0x2) >> 1u)
+#define SET_MII_SPARE_CONTROL_1_LOST_TOKEN_FIX_DISABLE(__val__)  (((__val__) << 1u) & 0x2u)
+#define     MII_SPARE_CONTROL_1_BICOLOR_LINK_SPEED_LED_MODE_SHIFT 2u
+#define     MII_SPARE_CONTROL_1_BICOLOR_LINK_SPEED_LED_MODE_MASK  0x4u
+#define GET_MII_SPARE_CONTROL_1_BICOLOR_LINK_SPEED_LED_MODE(__reg__)  (((__reg__) & 0x4) >> 2u)
+#define SET_MII_SPARE_CONTROL_1_BICOLOR_LINK_SPEED_LED_MODE(__val__)  (((__val__) << 2u) & 0x4u)
+#define     MII_SPARE_CONTROL_1_100FX_MODE_COPPER_PATH_SHIFT 4u
+#define     MII_SPARE_CONTROL_1_100FX_MODE_COPPER_PATH_MASK  0x10u
+#define GET_MII_SPARE_CONTROL_1_100FX_MODE_COPPER_PATH(__reg__)  (((__reg__) & 0x10) >> 4u)
+#define SET_MII_SPARE_CONTROL_1_100FX_MODE_COPPER_PATH(__val__)  (((__val__) << 4u) & 0x10u)
+#define     MII_SPARE_CONTROL_1_USE_FILTERED_SD_SHIFT 5u
+#define     MII_SPARE_CONTROL_1_USE_FILTERED_SD_MASK  0x20u
+#define GET_MII_SPARE_CONTROL_1_USE_FILTERED_SD(__reg__)  (((__reg__) & 0x20) >> 5u)
+#define SET_MII_SPARE_CONTROL_1_USE_FILTERED_SD(__val__)  (((__val__) << 5u) & 0x20u)
+#define     MII_SPARE_CONTROL_1_CFC_INITFILTER_ENABLE_SHIFT 6u
+#define     MII_SPARE_CONTROL_1_CFC_INITFILTER_ENABLE_MASK  0x40u
+#define GET_MII_SPARE_CONTROL_1_CFC_INITFILTER_ENABLE(__reg__)  (((__reg__) & 0x40) >> 6u)
+#define SET_MII_SPARE_CONTROL_1_CFC_INITFILTER_ENABLE(__val__)  (((__val__) << 6u) & 0x40u)
+#define     MII_SPARE_CONTROL_1_INVERT_SD_PIN_SHIFT 7u
+#define     MII_SPARE_CONTROL_1_INVERT_SD_PIN_MASK  0x80u
+#define GET_MII_SPARE_CONTROL_1_INVERT_SD_PIN(__reg__)  (((__reg__) & 0x80) >> 7u)
+#define SET_MII_SPARE_CONTROL_1_INVERT_SD_PIN(__val__)  (((__val__) << 7u) & 0x80u)
+#define     MII_SPARE_CONTROL_1_FORCE_SD_ON_SHIFT 8u
+#define     MII_SPARE_CONTROL_1_FORCE_SD_ON_MASK  0x100u
+#define GET_MII_SPARE_CONTROL_1_FORCE_SD_ON(__reg__)  (((__reg__) & 0x100) >> 8u)
+#define SET_MII_SPARE_CONTROL_1_FORCE_SD_ON(__val__)  (((__val__) << 8u) & 0x100u)
+#define     MII_SPARE_CONTROL_1_SD_STATUS_SHIFT 9u
+#define     MII_SPARE_CONTROL_1_SD_STATUS_MASK  0x200u
+#define GET_MII_SPARE_CONTROL_1_SD_STATUS(__reg__)  (((__reg__) & 0x200) >> 9u)
+#define SET_MII_SPARE_CONTROL_1_SD_STATUS(__val__)  (((__val__) << 9u) & 0x200u)
+#define     MII_SPARE_CONTROL_1_SHADOW_REGISTER_SELECTOR_SHIFT 10u
+#define     MII_SPARE_CONTROL_1_SHADOW_REGISTER_SELECTOR_MASK  0x7c00u
+#define GET_MII_SPARE_CONTROL_1_SHADOW_REGISTER_SELECTOR(__reg__)  (((__reg__) & 0x7c00) >> 10u)
+#define SET_MII_SPARE_CONTROL_1_SHADOW_REGISTER_SELECTOR(__val__)  (((__val__) << 10u) & 0x7c00u)
+#define     MII_SPARE_CONTROL_1_WRITE_ENABLE_SHIFT 15u
+#define     MII_SPARE_CONTROL_1_WRITE_ENABLE_MASK  0x8000u
+#define GET_MII_SPARE_CONTROL_1_WRITE_ENABLE(__reg__)  (((__reg__) & 0x8000) >> 15u)
+#define SET_MII_SPARE_CONTROL_1_WRITE_ENABLE(__val__)  (((__val__) << 15u) & 0x8000u)
+
+/** @brief Register definition for @ref MII_t.SpareControl1. */
+typedef register_container RegMIISpareControl1_t {
+    /** @brief 16bit direct register access. */
+    BCM5719_MII_H_uint16_t r16;
+
+    BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LinkLEDMode, 0, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LostTokenFixDisable, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, BicolorLinkSpeedLEDMode, 2, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_3_3, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _100FXModeCopperPath, 4, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, UseFilteredSD, 5, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, CFC_INITFILTEREnable, 6, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, InvertSDPin, 7, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ForceSDOn, 8, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, SDStatus, 9, 1)
+        /** @brief Writes to the selected shadow register are done by first setting up the register. Reads can be done immediately after selecting the shadow register. */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ShadowRegisterSelector, 10, 5)
+        /** @brief Write bits [9:0] */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, WriteEnable, 15, 1)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Write bits [9:0] */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, WriteEnable, 15, 1)
+        /** @brief Writes to the selected shadow register are done by first setting up the register. Reads can be done immediately after selecting the shadow register. */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ShadowRegisterSelector, 10, 5)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, SDStatus, 9, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ForceSDOn, 8, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, InvertSDPin, 7, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, CFC_INITFILTEREnable, 6, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, UseFilteredSD, 5, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _100FXModeCopperPath, 4, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_3_3, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, BicolorLinkSpeedLEDMode, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LostTokenFixDisable, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LinkLEDMode, 0, 1)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "SpareControl1"; }
+
+    /** @brief Print register value. */
+    void print(void) { r16.print(); }
+
+    RegMIISpareControl1_t()
+    {
+        /** @brief constructor for @ref MII_t.SpareControl1. */
+        r16.setName("SpareControl1");
+        bits.LinkLEDMode.setBaseRegister(&r16);
+        bits.LinkLEDMode.setName("LinkLEDMode");
+        bits.LostTokenFixDisable.setBaseRegister(&r16);
+        bits.LostTokenFixDisable.setName("LostTokenFixDisable");
+        bits.BicolorLinkSpeedLEDMode.setBaseRegister(&r16);
+        bits.BicolorLinkSpeedLEDMode.setName("BicolorLinkSpeedLEDMode");
+        bits._100FXModeCopperPath.setBaseRegister(&r16);
+        bits._100FXModeCopperPath.setName("_100FXModeCopperPath");
+        bits.UseFilteredSD.setBaseRegister(&r16);
+        bits.UseFilteredSD.setName("UseFilteredSD");
+        bits.CFC_INITFILTEREnable.setBaseRegister(&r16);
+        bits.CFC_INITFILTEREnable.setName("CFC_INITFILTEREnable");
+        bits.InvertSDPin.setBaseRegister(&r16);
+        bits.InvertSDPin.setName("InvertSDPin");
+        bits.ForceSDOn.setBaseRegister(&r16);
+        bits.ForceSDOn.setName("ForceSDOn");
+        bits.SDStatus.setBaseRegister(&r16);
+        bits.SDStatus.setName("SDStatus");
+        bits.ShadowRegisterSelector.setBaseRegister(&r16);
+        bits.ShadowRegisterSelector.setName("ShadowRegisterSelector");
+        bits.WriteEnable.setBaseRegister(&r16);
+        bits.WriteEnable.setName("WriteEnable");
+    }
+    RegMIISpareControl1_t& operator=(const RegMIISpareControl1_t& other)
+    {
+        r16 = other.r16;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegMIISpareControl1_t;
+
+#define REG_MII_CLOCK_ALIGNMENT_CONTROL ((volatile BCM5719_MII_H_uint16_t*)0x31c) /* Note: Shadow Register Selector: 3 */
+#define     MII_CLOCK_ALIGNMENT_CONTROL_DELAY_LINE_SELECTOR_SHIFT 0u
+#define     MII_CLOCK_ALIGNMENT_CONTROL_DELAY_LINE_SELECTOR_MASK  0xfu
+#define GET_MII_CLOCK_ALIGNMENT_CONTROL_DELAY_LINE_SELECTOR(__reg__)  (((__reg__) & 0xf) >> 0u)
+#define SET_MII_CLOCK_ALIGNMENT_CONTROL_DELAY_LINE_SELECTOR(__val__)  (((__val__) << 0u) & 0xfu)
+#define     MII_CLOCK_ALIGNMENT_CONTROL_DELAY_VALUE_SHIFT 4u
+#define     MII_CLOCK_ALIGNMENT_CONTROL_DELAY_VALUE_MASK  0x70u
+#define GET_MII_CLOCK_ALIGNMENT_CONTROL_DELAY_VALUE(__reg__)  (((__reg__) & 0x70) >> 4u)
+#define SET_MII_CLOCK_ALIGNMENT_CONTROL_DELAY_VALUE(__val__)  (((__val__) << 4u) & 0x70u)
+#define     MII_CLOCK_ALIGNMENT_CONTROL_RXCLK_ALIGNMENT_STROBE_SHIFT 7u
+#define     MII_CLOCK_ALIGNMENT_CONTROL_RXCLK_ALIGNMENT_STROBE_MASK  0x80u
+#define GET_MII_CLOCK_ALIGNMENT_CONTROL_RXCLK_ALIGNMENT_STROBE(__reg__)  (((__reg__) & 0x80) >> 7u)
+#define SET_MII_CLOCK_ALIGNMENT_CONTROL_RXCLK_ALIGNMENT_STROBE(__val__)  (((__val__) << 7u) & 0x80u)
+#define     MII_CLOCK_ALIGNMENT_CONTROL_GMII_CLOCK_ALIGNMENT_STROBE_SHIFT 8u
+#define     MII_CLOCK_ALIGNMENT_CONTROL_GMII_CLOCK_ALIGNMENT_STROBE_MASK  0x100u
+#define GET_MII_CLOCK_ALIGNMENT_CONTROL_GMII_CLOCK_ALIGNMENT_STROBE(__reg__)  (((__reg__) & 0x100) >> 8u)
+#define SET_MII_CLOCK_ALIGNMENT_CONTROL_GMII_CLOCK_ALIGNMENT_STROBE(__val__)  (((__val__) << 8u) & 0x100u)
+#define     MII_CLOCK_ALIGNMENT_CONTROL_GTXCLK_DELAY_BYPASS_DISABLE_SHIFT 9u
+#define     MII_CLOCK_ALIGNMENT_CONTROL_GTXCLK_DELAY_BYPASS_DISABLE_MASK  0x200u
+#define GET_MII_CLOCK_ALIGNMENT_CONTROL_GTXCLK_DELAY_BYPASS_DISABLE(__reg__)  (((__reg__) & 0x200) >> 9u)
+#define SET_MII_CLOCK_ALIGNMENT_CONTROL_GTXCLK_DELAY_BYPASS_DISABLE(__val__)  (((__val__) << 9u) & 0x200u)
+#define     MII_CLOCK_ALIGNMENT_CONTROL_SHADOW_REGISTER_SELECTOR_SHIFT 10u
+#define     MII_CLOCK_ALIGNMENT_CONTROL_SHADOW_REGISTER_SELECTOR_MASK  0x7c00u
+#define GET_MII_CLOCK_ALIGNMENT_CONTROL_SHADOW_REGISTER_SELECTOR(__reg__)  (((__reg__) & 0x7c00) >> 10u)
+#define SET_MII_CLOCK_ALIGNMENT_CONTROL_SHADOW_REGISTER_SELECTOR(__val__)  (((__val__) << 10u) & 0x7c00u)
+#define     MII_CLOCK_ALIGNMENT_CONTROL_WRITE_ENABLE_SHIFT 15u
+#define     MII_CLOCK_ALIGNMENT_CONTROL_WRITE_ENABLE_MASK  0x8000u
+#define GET_MII_CLOCK_ALIGNMENT_CONTROL_WRITE_ENABLE(__reg__)  (((__reg__) & 0x8000) >> 15u)
+#define SET_MII_CLOCK_ALIGNMENT_CONTROL_WRITE_ENABLE(__val__)  (((__val__) << 15u) & 0x8000u)
+
+/** @brief Register definition for @ref MII_t.ClockAlignmentControl. */
+typedef register_container RegMIIClockAlignmentControl_t {
+    /** @brief 16bit direct register access. */
+    BCM5719_MII_H_uint16_t r16;
+
+    BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, DelayLineSelector, 0, 4)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, DelayValue, 4, 3)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, RXCLKAlignmentStrobe, 7, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, GMIIClockAlignmentStrobe, 8, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, GTXCLKDelayBypassDisable, 9, 1)
+        /** @brief Writes to the selected shadow register are done by first setting up the register. Reads can be done immediately after selecting the shadow register. */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ShadowRegisterSelector, 10, 5)
+        /** @brief Write bits [9:0] */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, WriteEnable, 15, 1)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Write bits [9:0] */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, WriteEnable, 15, 1)
+        /** @brief Writes to the selected shadow register are done by first setting up the register. Reads can be done immediately after selecting the shadow register. */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ShadowRegisterSelector, 10, 5)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, GTXCLKDelayBypassDisable, 9, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, GMIIClockAlignmentStrobe, 8, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, RXCLKAlignmentStrobe, 7, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, DelayValue, 4, 3)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, DelayLineSelector, 0, 4)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "ClockAlignmentControl"; }
+
+    /** @brief Print register value. */
+    void print(void) { r16.print(); }
+
+    RegMIIClockAlignmentControl_t()
+    {
+        /** @brief constructor for @ref MII_t.ClockAlignmentControl. */
+        r16.setName("ClockAlignmentControl");
+        bits.DelayLineSelector.setBaseRegister(&r16);
+        bits.DelayLineSelector.setName("DelayLineSelector");
+        bits.DelayValue.setBaseRegister(&r16);
+        bits.DelayValue.setName("DelayValue");
+        bits.RXCLKAlignmentStrobe.setBaseRegister(&r16);
+        bits.RXCLKAlignmentStrobe.setName("RXCLKAlignmentStrobe");
+        bits.GMIIClockAlignmentStrobe.setBaseRegister(&r16);
+        bits.GMIIClockAlignmentStrobe.setName("GMIIClockAlignmentStrobe");
+        bits.GTXCLKDelayBypassDisable.setBaseRegister(&r16);
+        bits.GTXCLKDelayBypassDisable.setName("GTXCLKDelayBypassDisable");
+        bits.ShadowRegisterSelector.setBaseRegister(&r16);
+        bits.ShadowRegisterSelector.setName("ShadowRegisterSelector");
+        bits.WriteEnable.setBaseRegister(&r16);
+        bits.WriteEnable.setName("WriteEnable");
+    }
+    RegMIIClockAlignmentControl_t& operator=(const RegMIIClockAlignmentControl_t& other)
+    {
+        r16 = other.r16;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegMIIClockAlignmentControl_t;
+
+#define REG_MII_MISC_TEST_1 ((volatile BCM5719_MII_H_uint16_t*)0x418) /* Note: Shadow Register Selector: 4 */
+#define     MII_MISC_TEST_1_SHADOW_REGISTER_SELECTOR_SHIFT 0u
+#define     MII_MISC_TEST_1_SHADOW_REGISTER_SELECTOR_MASK  0x7u
+#define GET_MII_MISC_TEST_1_SHADOW_REGISTER_SELECTOR(__reg__)  (((__reg__) & 0x7) >> 0u)
+#define SET_MII_MISC_TEST_1_SHADOW_REGISTER_SELECTOR(__val__)  (((__val__) << 0u) & 0x7u)
+#define     MII_MISC_TEST_1_HALFOUT_SHIFT 3u
+#define     MII_MISC_TEST_1_HALFOUT_MASK  0x8u
+#define GET_MII_MISC_TEST_1_HALFOUT(__reg__)  (((__reg__) & 0x8) >> 3u)
+#define SET_MII_MISC_TEST_1_HALFOUT(__val__)  (((__val__) << 3u) & 0x8u)
+#define     MII_MISC_TEST_1_SWAP_RXMDIX_SHIFT 4u
+#define     MII_MISC_TEST_1_SWAP_RXMDIX_MASK  0x10u
+#define GET_MII_MISC_TEST_1_SWAP_RXMDIX(__reg__)  (((__reg__) & 0x10) >> 4u)
+#define SET_MII_MISC_TEST_1_SWAP_RXMDIX(__val__)  (((__val__) << 4u) & 0x10u)
+#define     MII_MISC_TEST_1_10BT_BYPASS_CRS_SHIFT 5u
+#define     MII_MISC_TEST_1_10BT_BYPASS_CRS_MASK  0x20u
+#define GET_MII_MISC_TEST_1_10BT_BYPASS_CRS(__reg__)  (((__reg__) & 0x20) >> 5u)
+#define SET_MII_MISC_TEST_1_10BT_BYPASS_CRS(__val__)  (((__val__) << 5u) & 0x20u)
+#define     MII_MISC_TEST_1_10BT_BYPASS_ADC_SHIFT 6u
+#define     MII_MISC_TEST_1_10BT_BYPASS_ADC_MASK  0x40u
+#define GET_MII_MISC_TEST_1_10BT_BYPASS_ADC(__reg__)  (((__reg__) & 0x40) >> 6u)
+#define SET_MII_MISC_TEST_1_10BT_BYPASS_ADC(__val__)  (((__val__) << 6u) & 0x40u)
+#define     MII_MISC_TEST_1_10BT_CLOCK_RESET_ENABLE_SHIFT 7u
+#define     MII_MISC_TEST_1_10BT_CLOCK_RESET_ENABLE_MASK  0x80u
+#define GET_MII_MISC_TEST_1_10BT_CLOCK_RESET_ENABLE(__reg__)  (((__reg__) & 0x80) >> 7u)
+#define SET_MII_MISC_TEST_1_10BT_CLOCK_RESET_ENABLE(__val__)  (((__val__) << 7u) & 0x80u)
+#define     MII_MISC_TEST_1_10BT_IDLE_BYPASS_SHIFT 8u
+#define     MII_MISC_TEST_1_10BT_IDLE_BYPASS_MASK  0x100u
+#define GET_MII_MISC_TEST_1_10BT_IDLE_BYPASS(__reg__)  (((__reg__) & 0x100) >> 8u)
+#define SET_MII_MISC_TEST_1_10BT_IDLE_BYPASS(__val__)  (((__val__) << 8u) & 0x100u)
+#define     MII_MISC_TEST_1_10BT_POLARITY_BYPASS_SHIFT 9u
+#define     MII_MISC_TEST_1_10BT_POLARITY_BYPASS_MASK  0x200u
+#define GET_MII_MISC_TEST_1_10BT_POLARITY_BYPASS(__reg__)  (((__reg__) & 0x200) >> 9u)
+#define SET_MII_MISC_TEST_1_10BT_POLARITY_BYPASS(__val__)  (((__val__) << 9u) & 0x200u)
+#define     MII_MISC_TEST_1_10BT_WAKEUP_SHIFT 10u
+#define     MII_MISC_TEST_1_10BT_WAKEUP_MASK  0x400u
+#define GET_MII_MISC_TEST_1_10BT_WAKEUP(__reg__)  (((__reg__) & 0x400) >> 10u)
+#define SET_MII_MISC_TEST_1_10BT_WAKEUP(__val__)  (((__val__) << 10u) & 0x400u)
+#define     MII_MISC_TEST_1_REMOTE_LOOPBACK_TRISTATE_SHIFT 11u
+#define     MII_MISC_TEST_1_REMOTE_LOOPBACK_TRISTATE_MASK  0x800u
+#define GET_MII_MISC_TEST_1_REMOTE_LOOPBACK_TRISTATE(__reg__)  (((__reg__) & 0x800) >> 11u)
+#define SET_MII_MISC_TEST_1_REMOTE_LOOPBACK_TRISTATE(__val__)  (((__val__) << 11u) & 0x800u)
+
+/** @brief Register definition for @ref MII_t.MiscTest1. */
+typedef register_container RegMIIMiscTest1_t {
+    /** @brief 16bit direct register access. */
+    BCM5719_MII_H_uint16_t r16;
+
+    BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief Writes to the selected shadow register are done on a single cycle (no setup required). Reads are selected by first writing to register 18h, shadow 7, bits 14:12. */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ShadowRegisterSelector, 0, 3)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, Halfout, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, SwapRXMDIX, 4, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _10BTBypassCRS, 5, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _10BTBypassADC, 6, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _10BTClockResetEnable, 7, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _10BTIdleBypass, 8, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _10BTPolarityBypass, 9, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _10BTWakeup, 10, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, RemoteLoopbackTristate, 11, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_23_12, 12, 12)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_31_24, 24, 8)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_23_12, 12, 12)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_31_24, 24, 8)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, RemoteLoopbackTristate, 11, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _10BTWakeup, 10, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _10BTPolarityBypass, 9, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _10BTIdleBypass, 8, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _10BTClockResetEnable, 7, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _10BTBypassADC, 6, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _10BTBypassCRS, 5, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, SwapRXMDIX, 4, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, Halfout, 3, 1)
+        /** @brief Writes to the selected shadow register are done on a single cycle (no setup required). Reads are selected by first writing to register 18h, shadow 7, bits 14:12. */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ShadowRegisterSelector, 0, 3)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "MiscTest1"; }
+
+    /** @brief Print register value. */
+    void print(void) { r16.print(); }
+
+    RegMIIMiscTest1_t()
+    {
+        /** @brief constructor for @ref MII_t.MiscTest1. */
+        r16.setName("MiscTest1");
+        bits.ShadowRegisterSelector.setBaseRegister(&r16);
+        bits.ShadowRegisterSelector.setName("ShadowRegisterSelector");
+        bits.Halfout.setBaseRegister(&r16);
+        bits.Halfout.setName("Halfout");
+        bits.SwapRXMDIX.setBaseRegister(&r16);
+        bits.SwapRXMDIX.setName("SwapRXMDIX");
+        bits._10BTBypassCRS.setBaseRegister(&r16);
+        bits._10BTBypassCRS.setName("_10BTBypassCRS");
+        bits._10BTBypassADC.setBaseRegister(&r16);
+        bits._10BTBypassADC.setName("_10BTBypassADC");
+        bits._10BTClockResetEnable.setBaseRegister(&r16);
+        bits._10BTClockResetEnable.setName("_10BTClockResetEnable");
+        bits._10BTIdleBypass.setBaseRegister(&r16);
+        bits._10BTIdleBypass.setName("_10BTIdleBypass");
+        bits._10BTPolarityBypass.setBaseRegister(&r16);
+        bits._10BTPolarityBypass.setName("_10BTPolarityBypass");
+        bits._10BTWakeup.setBaseRegister(&r16);
+        bits._10BTWakeup.setName("_10BTWakeup");
+        bits.RemoteLoopbackTristate.setBaseRegister(&r16);
+        bits.RemoteLoopbackTristate.setName("RemoteLoopbackTristate");
+    }
+    RegMIIMiscTest1_t& operator=(const RegMIIMiscTest1_t& other)
+    {
+        r16 = other.r16;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegMIIMiscTest1_t;
+
+#define REG_MII_SPARE_CONTROL_2 ((volatile BCM5719_MII_H_uint16_t*)0x41c) /* Note: Shadow Register Selector: 4 */
+#define     MII_SPARE_CONTROL_2_TEST_ON_BYTE_7_0_SHIFT 0u
+#define     MII_SPARE_CONTROL_2_TEST_ON_BYTE_7_0_MASK  0x1u
+#define GET_MII_SPARE_CONTROL_2_TEST_ON_BYTE_7_0(__reg__)  (((__reg__) & 0x1) >> 0u)
+#define SET_MII_SPARE_CONTROL_2_TEST_ON_BYTE_7_0(__val__)  (((__val__) << 0u) & 0x1u)
+#define     MII_SPARE_CONTROL_2_ENERGY_DETECT_ON_INTR_PIN_SHIFT 1u
+#define     MII_SPARE_CONTROL_2_ENERGY_DETECT_ON_INTR_PIN_MASK  0x2u
+#define GET_MII_SPARE_CONTROL_2_ENERGY_DETECT_ON_INTR_PIN(__reg__)  (((__reg__) & 0x2) >> 1u)
+#define SET_MII_SPARE_CONTROL_2_ENERGY_DETECT_ON_INTR_PIN(__val__)  (((__val__) << 1u) & 0x2u)
+#define     MII_SPARE_CONTROL_2_WIRESPEED_RETRY_LIMIT_SHIFT 2u
+#define     MII_SPARE_CONTROL_2_WIRESPEED_RETRY_LIMIT_MASK  0x1cu
+#define GET_MII_SPARE_CONTROL_2_WIRESPEED_RETRY_LIMIT(__reg__)  (((__reg__) & 0x1c) >> 2u)
+#define SET_MII_SPARE_CONTROL_2_WIRESPEED_RETRY_LIMIT(__val__)  (((__val__) << 2u) & 0x1cu)
+#define     MII_SPARE_CONTROL_2_ENABLE_TXC_RXC_TRISTATE_SHIFT 5u
+#define     MII_SPARE_CONTROL_2_ENABLE_TXC_RXC_TRISTATE_MASK  0x20u
+#define GET_MII_SPARE_CONTROL_2_ENABLE_TXC_RXC_TRISTATE(__reg__)  (((__reg__) & 0x20) >> 5u)
+#define SET_MII_SPARE_CONTROL_2_ENABLE_TXC_RXC_TRISTATE(__val__)  (((__val__) << 5u) & 0x20u)
+#define     MII_SPARE_CONTROL_2_DISABLE_PHYA2_SHIFT 6u
+#define     MII_SPARE_CONTROL_2_DISABLE_PHYA2_MASK  0x40u
+#define GET_MII_SPARE_CONTROL_2_DISABLE_PHYA2(__reg__)  (((__reg__) & 0x40) >> 6u)
+#define SET_MII_SPARE_CONTROL_2_DISABLE_PHYA2(__val__)  (((__val__) << 6u) & 0x40u)
+#define     MII_SPARE_CONTROL_2_SELECT_TPOUT_RXD_SHIFT 7u
+#define     MII_SPARE_CONTROL_2_SELECT_TPOUT_RXD_MASK  0x80u
+#define GET_MII_SPARE_CONTROL_2_SELECT_TPOUT_RXD(__reg__)  (((__reg__) & 0x80) >> 7u)
+#define SET_MII_SPARE_CONTROL_2_SELECT_TPOUT_RXD(__val__)  (((__val__) << 7u) & 0x80u)
+#define     MII_SPARE_CONTROL_2_WIRESPEED_RETRY_DISABLE_SHIFT 8u
+#define     MII_SPARE_CONTROL_2_WIRESPEED_RETRY_DISABLE_MASK  0x100u
+#define GET_MII_SPARE_CONTROL_2_WIRESPEED_RETRY_DISABLE(__reg__)  (((__reg__) & 0x100) >> 8u)
+#define SET_MII_SPARE_CONTROL_2_WIRESPEED_RETRY_DISABLE(__val__)  (((__val__) << 8u) & 0x100u)
+#define     MII_SPARE_CONTROL_2_SHADOW_REGISTER_SELECTOR_SHIFT 10u
+#define     MII_SPARE_CONTROL_2_SHADOW_REGISTER_SELECTOR_MASK  0x7c00u
+#define GET_MII_SPARE_CONTROL_2_SHADOW_REGISTER_SELECTOR(__reg__)  (((__reg__) & 0x7c00) >> 10u)
+#define SET_MII_SPARE_CONTROL_2_SHADOW_REGISTER_SELECTOR(__val__)  (((__val__) << 10u) & 0x7c00u)
+#define     MII_SPARE_CONTROL_2_WRITE_ENABLE_SHIFT 15u
+#define     MII_SPARE_CONTROL_2_WRITE_ENABLE_MASK  0x8000u
+#define GET_MII_SPARE_CONTROL_2_WRITE_ENABLE(__reg__)  (((__reg__) & 0x8000) >> 15u)
+#define SET_MII_SPARE_CONTROL_2_WRITE_ENABLE(__val__)  (((__val__) << 15u) & 0x8000u)
+
+/** @brief Register definition for @ref MII_t.SpareControl2. */
+typedef register_container RegMIISpareControl2_t {
+    /** @brief 16bit direct register access. */
+    BCM5719_MII_H_uint16_t r16;
+
+    BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, TestOnByte7_0, 0, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, EnergyDetectOnIntrPin, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, WirespeedRetryLimit, 2, 3)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, EnableTXCRXCTristate, 5, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, DisablePHYA2, 6, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, SelectTPOUT_RXD, 7, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, WirespeedRetryDisable, 8, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_9_9, 9, 1)
+        /** @brief Writes to the selected shadow register are done by first setting up the register. Reads can be done immediately after selecting the shadow register. */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ShadowRegisterSelector, 10, 5)
+        /** @brief Write bits [9:0] */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, WriteEnable, 15, 1)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Write bits [9:0] */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, WriteEnable, 15, 1)
+        /** @brief Writes to the selected shadow register are done by first setting up the register. Reads can be done immediately after selecting the shadow register. */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ShadowRegisterSelector, 10, 5)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_9_9, 9, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, WirespeedRetryDisable, 8, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, SelectTPOUT_RXD, 7, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, DisablePHYA2, 6, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, EnableTXCRXCTristate, 5, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, WirespeedRetryLimit, 2, 3)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, EnergyDetectOnIntrPin, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, TestOnByte7_0, 0, 1)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "SpareControl2"; }
+
+    /** @brief Print register value. */
+    void print(void) { r16.print(); }
+
+    RegMIISpareControl2_t()
+    {
+        /** @brief constructor for @ref MII_t.SpareControl2. */
+        r16.setName("SpareControl2");
+        bits.TestOnByte7_0.setBaseRegister(&r16);
+        bits.TestOnByte7_0.setName("TestOnByte7_0");
+        bits.EnergyDetectOnIntrPin.setBaseRegister(&r16);
+        bits.EnergyDetectOnIntrPin.setName("EnergyDetectOnIntrPin");
+        bits.WirespeedRetryLimit.setBaseRegister(&r16);
+        bits.WirespeedRetryLimit.setName("WirespeedRetryLimit");
+        bits.EnableTXCRXCTristate.setBaseRegister(&r16);
+        bits.EnableTXCRXCTristate.setName("EnableTXCRXCTristate");
+        bits.DisablePHYA2.setBaseRegister(&r16);
+        bits.DisablePHYA2.setName("DisablePHYA2");
+        bits.SelectTPOUT_RXD.setBaseRegister(&r16);
+        bits.SelectTPOUT_RXD.setName("SelectTPOUT_RXD");
+        bits.WirespeedRetryDisable.setBaseRegister(&r16);
+        bits.WirespeedRetryDisable.setName("WirespeedRetryDisable");
+        bits.ShadowRegisterSelector.setBaseRegister(&r16);
+        bits.ShadowRegisterSelector.setName("ShadowRegisterSelector");
+        bits.WriteEnable.setBaseRegister(&r16);
+        bits.WriteEnable.setName("WriteEnable");
+    }
+    RegMIISpareControl2_t& operator=(const RegMIISpareControl2_t& other)
+    {
+        r16 = other.r16;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegMIISpareControl2_t;
+
+#define REG_MII_MISC_TEST_2 ((volatile BCM5719_MII_H_uint16_t*)0x518) /* Note: Shadow Register Selector: 5 */
+#define     MII_MISC_TEST_2_SHADOW_REGISTER_SELECTOR_SHIFT 0u
+#define     MII_MISC_TEST_2_SHADOW_REGISTER_SELECTOR_MASK  0x7u
+#define GET_MII_MISC_TEST_2_SHADOW_REGISTER_SELECTOR(__reg__)  (((__reg__) & 0x7) >> 0u)
+#define SET_MII_MISC_TEST_2_SHADOW_REGISTER_SELECTOR(__val__)  (((__val__) << 0u) & 0x7u)
+#define     MII_MISC_TEST_2_EN_PWRDNTDAC_SHIFT 3u
+#define     MII_MISC_TEST_2_EN_PWRDNTDAC_MASK  0x8u
+#define GET_MII_MISC_TEST_2_EN_PWRDNTDAC(__reg__)  (((__reg__) & 0x8) >> 3u)
+#define SET_MII_MISC_TEST_2_EN_PWRDNTDAC(__val__)  (((__val__) << 3u) & 0x8u)
+#define     MII_MISC_TEST_2_ENABLE_FORCE_MDIX_SHIFT 4u
+#define     MII_MISC_TEST_2_ENABLE_FORCE_MDIX_MASK  0x10u
+#define GET_MII_MISC_TEST_2_ENABLE_FORCE_MDIX(__reg__)  (((__reg__) & 0x10) >> 4u)
+#define SET_MII_MISC_TEST_2_ENABLE_FORCE_MDIX(__val__)  (((__val__) << 4u) & 0x10u)
+#define     MII_MISC_TEST_2_ENABLE_EC_AS_NEXT_SHIFT 5u
+#define     MII_MISC_TEST_2_ENABLE_EC_AS_NEXT_MASK  0x20u
+#define GET_MII_MISC_TEST_2_ENABLE_EC_AS_NEXT(__reg__)  (((__reg__) & 0x20) >> 5u)
+#define SET_MII_MISC_TEST_2_ENABLE_EC_AS_NEXT(__val__)  (((__val__) << 5u) & 0x20u)
+#define     MII_MISC_TEST_2_OLD_PCS_ENCODING_TX_SHIFT 6u
+#define     MII_MISC_TEST_2_OLD_PCS_ENCODING_TX_MASK  0x40u
+#define GET_MII_MISC_TEST_2_OLD_PCS_ENCODING_TX(__reg__)  (((__reg__) & 0x40) >> 6u)
+#define SET_MII_MISC_TEST_2_OLD_PCS_ENCODING_TX(__val__)  (((__val__) << 6u) & 0x40u)
+#define     MII_MISC_TEST_2_OLD_PCS_ENCODING_RX_SHIFT 7u
+#define     MII_MISC_TEST_2_OLD_PCS_ENCODING_RX_MASK  0x80u
+#define GET_MII_MISC_TEST_2_OLD_PCS_ENCODING_RX(__reg__)  (((__reg__) & 0x80) >> 7u)
+#define SET_MII_MISC_TEST_2_OLD_PCS_ENCODING_RX(__val__)  (((__val__) << 7u) & 0x80u)
+#define     MII_MISC_TEST_2_DISABLE_AUTO_ENCODING_CORRECTION_SHIFT 8u
+#define     MII_MISC_TEST_2_DISABLE_AUTO_ENCODING_CORRECTION_MASK  0x100u
+#define GET_MII_MISC_TEST_2_DISABLE_AUTO_ENCODING_CORRECTION(__reg__)  (((__reg__) & 0x100) >> 8u)
+#define SET_MII_MISC_TEST_2_DISABLE_AUTO_ENCODING_CORRECTION(__val__)  (((__val__) << 8u) & 0x100u)
+#define     MII_MISC_TEST_2_ENC_ERROR_SCALE_SHIFT 10u
+#define     MII_MISC_TEST_2_ENC_ERROR_SCALE_MASK  0xc00u
+#define GET_MII_MISC_TEST_2_ENC_ERROR_SCALE(__reg__)  (((__reg__) & 0xc00) >> 10u)
+#define SET_MII_MISC_TEST_2_ENC_ERROR_SCALE(__val__)  (((__val__) << 10u) & 0xc00u)
+#define     MII_MISC_TEST_2_CLASS_A_DIV_B_ENABLE_SHIFT 12u
+#define     MII_MISC_TEST_2_CLASS_A_DIV_B_ENABLE_MASK  0x1000u
+#define GET_MII_MISC_TEST_2_CLASS_A_DIV_B_ENABLE(__reg__)  (((__reg__) & 0x1000) >> 12u)
+#define SET_MII_MISC_TEST_2_CLASS_A_DIV_B_ENABLE(__val__)  (((__val__) << 12u) & 0x1000u)
+#define     MII_MISC_TEST_2_CLASS_A_DIV_B_DVT_ENABLE_SHIFT 13u
+#define     MII_MISC_TEST_2_CLASS_A_DIV_B_DVT_ENABLE_MASK  0x2000u
+#define GET_MII_MISC_TEST_2_CLASS_A_DIV_B_DVT_ENABLE(__reg__)  (((__reg__) & 0x2000) >> 13u)
+#define SET_MII_MISC_TEST_2_CLASS_A_DIV_B_DVT_ENABLE(__val__)  (((__val__) << 13u) & 0x2000u)
+#define     MII_MISC_TEST_2_ADCFIFO_TX_FIX_SHIFT 14u
+#define     MII_MISC_TEST_2_ADCFIFO_TX_FIX_MASK  0x4000u
+#define GET_MII_MISC_TEST_2_ADCFIFO_TX_FIX(__reg__)  (((__reg__) & 0x4000) >> 14u)
+#define SET_MII_MISC_TEST_2_ADCFIFO_TX_FIX(__val__)  (((__val__) << 14u) & 0x4000u)
+#define     MII_MISC_TEST_2_COPPER_ENERGY_DETECT_OVERRIDE_SHIFT 15u
+#define     MII_MISC_TEST_2_COPPER_ENERGY_DETECT_OVERRIDE_MASK  0x8000u
+#define GET_MII_MISC_TEST_2_COPPER_ENERGY_DETECT_OVERRIDE(__reg__)  (((__reg__) & 0x8000) >> 15u)
+#define SET_MII_MISC_TEST_2_COPPER_ENERGY_DETECT_OVERRIDE(__val__)  (((__val__) << 15u) & 0x8000u)
+
+/** @brief Register definition for @ref MII_t.MiscTest2. */
+typedef register_container RegMIIMiscTest2_t {
+    /** @brief 16bit direct register access. */
+    BCM5719_MII_H_uint16_t r16;
+
+    BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief Writes to the selected shadow register are done on a single cycle (no setup required). Reads are selected by first writing to register 18h, shadow 7, bits 14:12. */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ShadowRegisterSelector, 0, 3)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, EnPWRDNTDAC, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, Enableforce_mdix, 4, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, EnableECasNEXT, 5, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, OldPCSEncodingTX, 6, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, OldPCSEncodingRX, 7, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, DisableAutoEncodingCorrection, 8, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_9_9, 9, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ENCErrorScale, 10, 2)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ClassA_DIV_BEnable, 12, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ClassA_DIV_BDVTEnable, 13, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ADCFIFOTXFix, 14, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, CopperEnergyDetectOverride, 15, 1)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, CopperEnergyDetectOverride, 15, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ADCFIFOTXFix, 14, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ClassA_DIV_BDVTEnable, 13, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ClassA_DIV_BEnable, 12, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ENCErrorScale, 10, 2)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_9_9, 9, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, DisableAutoEncodingCorrection, 8, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, OldPCSEncodingRX, 7, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, OldPCSEncodingTX, 6, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, EnableECasNEXT, 5, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, Enableforce_mdix, 4, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, EnPWRDNTDAC, 3, 1)
+        /** @brief Writes to the selected shadow register are done on a single cycle (no setup required). Reads are selected by first writing to register 18h, shadow 7, bits 14:12. */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ShadowRegisterSelector, 0, 3)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "MiscTest2"; }
+
+    /** @brief Print register value. */
+    void print(void) { r16.print(); }
+
+    RegMIIMiscTest2_t()
+    {
+        /** @brief constructor for @ref MII_t.MiscTest2. */
+        r16.setName("MiscTest2");
+        bits.ShadowRegisterSelector.setBaseRegister(&r16);
+        bits.ShadowRegisterSelector.setName("ShadowRegisterSelector");
+        bits.EnPWRDNTDAC.setBaseRegister(&r16);
+        bits.EnPWRDNTDAC.setName("EnPWRDNTDAC");
+        bits.Enableforce_mdix.setBaseRegister(&r16);
+        bits.Enableforce_mdix.setName("Enableforce_mdix");
+        bits.EnableECasNEXT.setBaseRegister(&r16);
+        bits.EnableECasNEXT.setName("EnableECasNEXT");
+        bits.OldPCSEncodingTX.setBaseRegister(&r16);
+        bits.OldPCSEncodingTX.setName("OldPCSEncodingTX");
+        bits.OldPCSEncodingRX.setBaseRegister(&r16);
+        bits.OldPCSEncodingRX.setName("OldPCSEncodingRX");
+        bits.DisableAutoEncodingCorrection.setBaseRegister(&r16);
+        bits.DisableAutoEncodingCorrection.setName("DisableAutoEncodingCorrection");
+        bits.ENCErrorScale.setBaseRegister(&r16);
+        bits.ENCErrorScale.setName("ENCErrorScale");
+        bits.ClassA_DIV_BEnable.setBaseRegister(&r16);
+        bits.ClassA_DIV_BEnable.setName("ClassA_DIV_BEnable");
+        bits.ClassA_DIV_BDVTEnable.setBaseRegister(&r16);
+        bits.ClassA_DIV_BDVTEnable.setName("ClassA_DIV_BDVTEnable");
+        bits.ADCFIFOTXFix.setBaseRegister(&r16);
+        bits.ADCFIFOTXFix.setName("ADCFIFOTXFix");
+        bits.CopperEnergyDetectOverride.setBaseRegister(&r16);
+        bits.CopperEnergyDetectOverride.setName("CopperEnergyDetectOverride");
+    }
+    RegMIIMiscTest2_t& operator=(const RegMIIMiscTest2_t& other)
+    {
+        r16 = other.r16;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegMIIMiscTest2_t;
+
+#define REG_MII_SPARE_CONTROL_3 ((volatile BCM5719_MII_H_uint16_t*)0x51c) /* Note: Shadow Register Selector: 3 */
+#define     MII_SPARE_CONTROL_3_CLK125_OUTPUT_ENABLE_SHIFT 0u
+#define     MII_SPARE_CONTROL_3_CLK125_OUTPUT_ENABLE_MASK  0x1u
+#define GET_MII_SPARE_CONTROL_3_CLK125_OUTPUT_ENABLE(__reg__)  (((__reg__) & 0x1) >> 0u)
+#define SET_MII_SPARE_CONTROL_3_CLK125_OUTPUT_ENABLE(__val__)  (((__val__) << 0u) & 0x1u)
+#define     MII_SPARE_CONTROL_3_AUTO_POWER_DOWN_DLL_OFF_DISABLE_SHIFT 1u
+#define     MII_SPARE_CONTROL_3_AUTO_POWER_DOWN_DLL_OFF_DISABLE_MASK  0x2u
+#define GET_MII_SPARE_CONTROL_3_AUTO_POWER_DOWN_DLL_OFF_DISABLE(__reg__)  (((__reg__) & 0x2) >> 1u)
+#define SET_MII_SPARE_CONTROL_3_AUTO_POWER_DOWN_DLL_OFF_DISABLE(__val__)  (((__val__) << 1u) & 0x2u)
+#define     MII_SPARE_CONTROL_3_SIGDET_DEASSERT_TIMER_LENGTHEN_SHIFT 2u
+#define     MII_SPARE_CONTROL_3_SIGDET_DEASSERT_TIMER_LENGTHEN_MASK  0x4u
+#define GET_MII_SPARE_CONTROL_3_SIGDET_DEASSERT_TIMER_LENGTHEN(__reg__)  (((__reg__) & 0x4) >> 2u)
+#define SET_MII_SPARE_CONTROL_3_SIGDET_DEASSERT_TIMER_LENGTHEN(__val__)  (((__val__) << 2u) & 0x4u)
+#define     MII_SPARE_CONTROL_3_DISABLE_LOW_POWER_TOBASE_T_LINK_MODE_SHIFT 3u
+#define     MII_SPARE_CONTROL_3_DISABLE_LOW_POWER_TOBASE_T_LINK_MODE_MASK  0x8u
+#define GET_MII_SPARE_CONTROL_3_DISABLE_LOW_POWER_TOBASE_T_LINK_MODE(__reg__)  (((__reg__) & 0x8) >> 3u)
+#define SET_MII_SPARE_CONTROL_3_DISABLE_LOW_POWER_TOBASE_T_LINK_MODE(__val__)  (((__val__) << 3u) & 0x8u)
+#define     MII_SPARE_CONTROL_3_LOW_POWER_ENC_DISABLE_SHIFT 4u
+#define     MII_SPARE_CONTROL_3_LOW_POWER_ENC_DISABLE_MASK  0x10u
+#define GET_MII_SPARE_CONTROL_3_LOW_POWER_ENC_DISABLE(__reg__)  (((__reg__) & 0x10) >> 4u)
+#define SET_MII_SPARE_CONTROL_3_LOW_POWER_ENC_DISABLE(__val__)  (((__val__) << 4u) & 0x10u)
+#define     MII_SPARE_CONTROL_3_ENERGY_DETECT_CHANGE_MUX_SELECT_SHIFT 5u
+#define     MII_SPARE_CONTROL_3_ENERGY_DETECT_CHANGE_MUX_SELECT_MASK  0x20u
+#define GET_MII_SPARE_CONTROL_3_ENERGY_DETECT_CHANGE_MUX_SELECT(__reg__)  (((__reg__) & 0x20) >> 5u)
+#define SET_MII_SPARE_CONTROL_3_ENERGY_DETECT_CHANGE_MUX_SELECT(__val__)  (((__val__) << 5u) & 0x20u)
+#define     MII_SPARE_CONTROL_3_TXC_OFF_ENABLE_SHIFT 6u
+#define     MII_SPARE_CONTROL_3_TXC_OFF_ENABLE_MASK  0x40u
+#define GET_MII_SPARE_CONTROL_3_TXC_OFF_ENABLE(__reg__)  (((__reg__) & 0x40) >> 6u)
+#define SET_MII_SPARE_CONTROL_3_TXC_OFF_ENABLE(__val__)  (((__val__) << 6u) & 0x40u)
+#define     MII_SPARE_CONTROL_3_10BT_CARRIER_REJECT_FILTER_ENABLE_SHIFT 7u
+#define     MII_SPARE_CONTROL_3_10BT_CARRIER_REJECT_FILTER_ENABLE_MASK  0x80u
+#define GET_MII_SPARE_CONTROL_3_10BT_CARRIER_REJECT_FILTER_ENABLE(__reg__)  (((__reg__) & 0x80) >> 7u)
+#define SET_MII_SPARE_CONTROL_3_10BT_CARRIER_REJECT_FILTER_ENABLE(__val__)  (((__val__) << 7u) & 0x80u)
+#define     MII_SPARE_CONTROL_3_TXC_RXC_DISABLE_DURING_AUTO_POWER_DOWN_SHIFT 8u
+#define     MII_SPARE_CONTROL_3_TXC_RXC_DISABLE_DURING_AUTO_POWER_DOWN_MASK  0x100u
+#define GET_MII_SPARE_CONTROL_3_TXC_RXC_DISABLE_DURING_AUTO_POWER_DOWN(__reg__)  (((__reg__) & 0x100) >> 8u)
+#define SET_MII_SPARE_CONTROL_3_TXC_RXC_DISABLE_DURING_AUTO_POWER_DOWN(__val__)  (((__val__) << 8u) & 0x100u)
+#define     MII_SPARE_CONTROL_3_DLL_LOCK_ENABLE_DURING_AUTO_POWER_DOWN_SHIFT 9u
+#define     MII_SPARE_CONTROL_3_DLL_LOCK_ENABLE_DURING_AUTO_POWER_DOWN_MASK  0x200u
+#define GET_MII_SPARE_CONTROL_3_DLL_LOCK_ENABLE_DURING_AUTO_POWER_DOWN(__reg__)  (((__reg__) & 0x200) >> 9u)
+#define SET_MII_SPARE_CONTROL_3_DLL_LOCK_ENABLE_DURING_AUTO_POWER_DOWN(__val__)  (((__val__) << 9u) & 0x200u)
+#define     MII_SPARE_CONTROL_3_SHADOW_REGISTER_SELECTOR_SHIFT 10u
+#define     MII_SPARE_CONTROL_3_SHADOW_REGISTER_SELECTOR_MASK  0x7c00u
+#define GET_MII_SPARE_CONTROL_3_SHADOW_REGISTER_SELECTOR(__reg__)  (((__reg__) & 0x7c00) >> 10u)
+#define SET_MII_SPARE_CONTROL_3_SHADOW_REGISTER_SELECTOR(__val__)  (((__val__) << 10u) & 0x7c00u)
+#define     MII_SPARE_CONTROL_3_WRITE_ENABLE_SHIFT 15u
+#define     MII_SPARE_CONTROL_3_WRITE_ENABLE_MASK  0x8000u
+#define GET_MII_SPARE_CONTROL_3_WRITE_ENABLE(__reg__)  (((__reg__) & 0x8000) >> 15u)
+#define SET_MII_SPARE_CONTROL_3_WRITE_ENABLE(__val__)  (((__val__) << 15u) & 0x8000u)
+
+/** @brief Register definition for @ref MII_t.SpareControl3. */
+typedef register_container RegMIISpareControl3_t {
+    /** @brief 16bit direct register access. */
+    BCM5719_MII_H_uint16_t r16;
+
+    BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, CLK125OutputEnable, 0, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, Auto_PowerDownDLLOffDisable, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, SIGDETDeassertTimerLengthen, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, DisableLowPowerTOBase_TLinkMode, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LowPowerENCDisable, 4, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, EnergyDetectChangeMuxSelect, 5, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, TXCOffEnable, 6, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _10BTCarrierRejectFilterEnable, 7, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, TXCRXCDisableDuringAutoPowerDown, 8, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, DLLLockEnableDuringAutoPowerDown, 9, 1)
+        /** @brief Writes to the selected shadow register are done by first setting up the register. Reads can be done immediately after selecting the shadow register. */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ShadowRegisterSelector, 10, 5)
+        /** @brief Write bits [9:0] */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, WriteEnable, 15, 1)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Write bits [9:0] */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, WriteEnable, 15, 1)
+        /** @brief Writes to the selected shadow register are done by first setting up the register. Reads can be done immediately after selecting the shadow register. */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ShadowRegisterSelector, 10, 5)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, DLLLockEnableDuringAutoPowerDown, 9, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, TXCRXCDisableDuringAutoPowerDown, 8, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, _10BTCarrierRejectFilterEnable, 7, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, TXCOffEnable, 6, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, EnergyDetectChangeMuxSelect, 5, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, LowPowerENCDisable, 4, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, DisableLowPowerTOBase_TLinkMode, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, SIGDETDeassertTimerLengthen, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, Auto_PowerDownDLLOffDisable, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, CLK125OutputEnable, 0, 1)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "SpareControl3"; }
+
+    /** @brief Print register value. */
+    void print(void) { r16.print(); }
+
+    RegMIISpareControl3_t()
+    {
+        /** @brief constructor for @ref MII_t.SpareControl3. */
+        r16.setName("SpareControl3");
+        bits.CLK125OutputEnable.setBaseRegister(&r16);
+        bits.CLK125OutputEnable.setName("CLK125OutputEnable");
+        bits.Auto_PowerDownDLLOffDisable.setBaseRegister(&r16);
+        bits.Auto_PowerDownDLLOffDisable.setName("Auto_PowerDownDLLOffDisable");
+        bits.SIGDETDeassertTimerLengthen.setBaseRegister(&r16);
+        bits.SIGDETDeassertTimerLengthen.setName("SIGDETDeassertTimerLengthen");
+        bits.DisableLowPowerTOBase_TLinkMode.setBaseRegister(&r16);
+        bits.DisableLowPowerTOBase_TLinkMode.setName("DisableLowPowerTOBase_TLinkMode");
+        bits.LowPowerENCDisable.setBaseRegister(&r16);
+        bits.LowPowerENCDisable.setName("LowPowerENCDisable");
+        bits.EnergyDetectChangeMuxSelect.setBaseRegister(&r16);
+        bits.EnergyDetectChangeMuxSelect.setName("EnergyDetectChangeMuxSelect");
+        bits.TXCOffEnable.setBaseRegister(&r16);
+        bits.TXCOffEnable.setName("TXCOffEnable");
+        bits._10BTCarrierRejectFilterEnable.setBaseRegister(&r16);
+        bits._10BTCarrierRejectFilterEnable.setName("_10BTCarrierRejectFilterEnable");
+        bits.TXCRXCDisableDuringAutoPowerDown.setBaseRegister(&r16);
+        bits.TXCRXCDisableDuringAutoPowerDown.setName("TXCRXCDisableDuringAutoPowerDown");
+        bits.DLLLockEnableDuringAutoPowerDown.setBaseRegister(&r16);
+        bits.DLLLockEnableDuringAutoPowerDown.setName("DLLLockEnableDuringAutoPowerDown");
+        bits.ShadowRegisterSelector.setBaseRegister(&r16);
+        bits.ShadowRegisterSelector.setName("ShadowRegisterSelector");
+        bits.WriteEnable.setBaseRegister(&r16);
+        bits.WriteEnable.setName("WriteEnable");
+    }
+    RegMIISpareControl3_t& operator=(const RegMIISpareControl3_t& other)
+    {
+        r16 = other.r16;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegMIISpareControl3_t;
+
+#define REG_MII_MISCELLANEOUS_CONTROL ((volatile BCM5719_MII_H_uint16_t*)0x718) /* Note: Shadow Register Selector: 7 */
+#define     MII_MISCELLANEOUS_CONTROL_SHADOW_REGISTER_SELECTOR_SHIFT 0u
+#define     MII_MISCELLANEOUS_CONTROL_SHADOW_REGISTER_SELECTOR_MASK  0x7u
+#define GET_MII_MISCELLANEOUS_CONTROL_SHADOW_REGISTER_SELECTOR(__reg__)  (((__reg__) & 0x7) >> 0u)
+#define SET_MII_MISCELLANEOUS_CONTROL_SHADOW_REGISTER_SELECTOR(__val__)  (((__val__) << 0u) & 0x7u)
+#define     MII_MISCELLANEOUS_CONTROL_MDIO_ALL_PHY_SELECT_SHIFT 3u
+#define     MII_MISCELLANEOUS_CONTROL_MDIO_ALL_PHY_SELECT_MASK  0x8u
+#define GET_MII_MISCELLANEOUS_CONTROL_MDIO_ALL_PHY_SELECT(__reg__)  (((__reg__) & 0x8) >> 3u)
+#define SET_MII_MISCELLANEOUS_CONTROL_MDIO_ALL_PHY_SELECT(__val__)  (((__val__) << 3u) & 0x8u)
+#define     MII_MISCELLANEOUS_CONTROL_WIRESPEED_ENABLE_SHIFT 4u
+#define     MII_MISCELLANEOUS_CONTROL_WIRESPEED_ENABLE_MASK  0x10u
+#define GET_MII_MISCELLANEOUS_CONTROL_WIRESPEED_ENABLE(__reg__)  (((__reg__) & 0x10) >> 4u)
+#define SET_MII_MISCELLANEOUS_CONTROL_WIRESPEED_ENABLE(__val__)  (((__val__) << 4u) & 0x10u)
+#define     MII_MISCELLANEOUS_CONTROL_RGMII_OUT_OF_BAND_STATUS_DISABLE_SHIFT 5u
+#define     MII_MISCELLANEOUS_CONTROL_RGMII_OUT_OF_BAND_STATUS_DISABLE_MASK  0x20u
+#define GET_MII_MISCELLANEOUS_CONTROL_RGMII_OUT_OF_BAND_STATUS_DISABLE(__reg__)  (((__reg__) & 0x20) >> 5u)
+#define SET_MII_MISCELLANEOUS_CONTROL_RGMII_OUT_OF_BAND_STATUS_DISABLE(__val__)  (((__val__) << 5u) & 0x20u)
+#define     MII_MISCELLANEOUS_CONTROL_RGMII_RXER_MODE_SHIFT 6u
+#define     MII_MISCELLANEOUS_CONTROL_RGMII_RXER_MODE_MASK  0x40u
+#define GET_MII_MISCELLANEOUS_CONTROL_RGMII_RXER_MODE(__reg__)  (((__reg__) & 0x40) >> 6u)
+#define SET_MII_MISCELLANEOUS_CONTROL_RGMII_RXER_MODE(__val__)  (((__val__) << 6u) & 0x40u)
+#define     MII_MISCELLANEOUS_CONTROL_RGMII_MODE_SHIFT 7u
+#define     MII_MISCELLANEOUS_CONTROL_RGMII_MODE_MASK  0x80u
+#define GET_MII_MISCELLANEOUS_CONTROL_RGMII_MODE(__reg__)  (((__reg__) & 0x80) >> 7u)
+#define SET_MII_MISCELLANEOUS_CONTROL_RGMII_MODE(__val__)  (((__val__) << 7u) & 0x80u)
+#define     MII_MISCELLANEOUS_CONTROL_RGMII_TIMING_MODE_SHIFT 8u
+#define     MII_MISCELLANEOUS_CONTROL_RGMII_TIMING_MODE_MASK  0x100u
+#define GET_MII_MISCELLANEOUS_CONTROL_RGMII_TIMING_MODE(__reg__)  (((__reg__) & 0x100) >> 8u)
+#define SET_MII_MISCELLANEOUS_CONTROL_RGMII_TIMING_MODE(__val__)  (((__val__) << 8u) & 0x100u)
+#define     MII_MISCELLANEOUS_CONTROL_FORCE_AUTO_MDIX_MODE_SHIFT 9u
+#define     MII_MISCELLANEOUS_CONTROL_FORCE_AUTO_MDIX_MODE_MASK  0x200u
+#define GET_MII_MISCELLANEOUS_CONTROL_FORCE_AUTO_MDIX_MODE(__reg__)  (((__reg__) & 0x200) >> 9u)
+#define SET_MII_MISCELLANEOUS_CONTROL_FORCE_AUTO_MDIX_MODE(__val__)  (((__val__) << 9u) & 0x200u)
+#define     MII_MISCELLANEOUS_CONTROL_BYPASS_WIRESPEED_TIMER_SHIFT 10u
+#define     MII_MISCELLANEOUS_CONTROL_BYPASS_WIRESPEED_TIMER_MASK  0x400u
+#define GET_MII_MISCELLANEOUS_CONTROL_BYPASS_WIRESPEED_TIMER(__reg__)  (((__reg__) & 0x400) >> 10u)
+#define SET_MII_MISCELLANEOUS_CONTROL_BYPASS_WIRESPEED_TIMER(__val__)  (((__val__) << 10u) & 0x400u)
+#define     MII_MISCELLANEOUS_CONTROL_PACKET_COUNTER_MODE_SHIFT 11u
+#define     MII_MISCELLANEOUS_CONTROL_PACKET_COUNTER_MODE_MASK  0x800u
+#define GET_MII_MISCELLANEOUS_CONTROL_PACKET_COUNTER_MODE(__reg__)  (((__reg__) & 0x800) >> 11u)
+#define SET_MII_MISCELLANEOUS_CONTROL_PACKET_COUNTER_MODE(__val__)  (((__val__) << 11u) & 0x800u)
+#define     MII_MISCELLANEOUS_CONTROL_SHADOW_REGISTER_READ_SELECTOR_SHIFT 12u
+#define     MII_MISCELLANEOUS_CONTROL_SHADOW_REGISTER_READ_SELECTOR_MASK  0x7000u
+#define GET_MII_MISCELLANEOUS_CONTROL_SHADOW_REGISTER_READ_SELECTOR(__reg__)  (((__reg__) & 0x7000) >> 12u)
+#define SET_MII_MISCELLANEOUS_CONTROL_SHADOW_REGISTER_READ_SELECTOR(__val__)  (((__val__) << 12u) & 0x7000u)
+#define     MII_MISCELLANEOUS_CONTROL_WRITE_ENABLE_SHIFT 15u
+#define     MII_MISCELLANEOUS_CONTROL_WRITE_ENABLE_MASK  0x8000u
+#define GET_MII_MISCELLANEOUS_CONTROL_WRITE_ENABLE(__reg__)  (((__reg__) & 0x8000) >> 15u)
+#define SET_MII_MISCELLANEOUS_CONTROL_WRITE_ENABLE(__val__)  (((__val__) << 15u) & 0x8000u)
+
+/** @brief Register definition for @ref MII_t.MiscellaneousControl. */
+typedef register_container RegMIIMiscellaneousControl_t {
+    /** @brief 16bit direct register access. */
+    BCM5719_MII_H_uint16_t r16;
+
+    BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief Writes to the selected shadow register are done on a single cycle (no setup required). Reads are selected by first writing to register 18h, shadow 7, bits 14:12. */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ShadowRegisterSelector, 0, 3)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, MDIOAllPhySelect, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, WirespeedEnable, 4, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, RGMIIOut_Of_BandStatusDisable, 5, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, RGMIIRXERMode, 6, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, RGMIIMode, 7, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, RGMIITimingMode, 8, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ForceAutoMDIXMode, 9, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, BypassWirespeedTimer, 10, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, PacketCounterMode, 11, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ShadowRegisterReadSelector, 12, 3)
+        /** @brief Enables writes to bits [8:3] */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, WriteEnable, 15, 1)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Enables writes to bits [8:3] */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, WriteEnable, 15, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ShadowRegisterReadSelector, 12, 3)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, PacketCounterMode, 11, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, BypassWirespeedTimer, 10, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ForceAutoMDIXMode, 9, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, RGMIITimingMode, 8, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, RGMIIMode, 7, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, RGMIIRXERMode, 6, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, RGMIIOut_Of_BandStatusDisable, 5, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, WirespeedEnable, 4, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, MDIOAllPhySelect, 3, 1)
+        /** @brief Writes to the selected shadow register are done on a single cycle (no setup required). Reads are selected by first writing to register 18h, shadow 7, bits 14:12. */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ShadowRegisterSelector, 0, 3)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "MiscellaneousControl"; }
+
+    /** @brief Print register value. */
+    void print(void) { r16.print(); }
+
+    RegMIIMiscellaneousControl_t()
+    {
+        /** @brief constructor for @ref MII_t.MiscellaneousControl. */
+        r16.setName("MiscellaneousControl");
+        bits.ShadowRegisterSelector.setBaseRegister(&r16);
+        bits.ShadowRegisterSelector.setName("ShadowRegisterSelector");
+        bits.MDIOAllPhySelect.setBaseRegister(&r16);
+        bits.MDIOAllPhySelect.setName("MDIOAllPhySelect");
+        bits.WirespeedEnable.setBaseRegister(&r16);
+        bits.WirespeedEnable.setName("WirespeedEnable");
+        bits.RGMIIOut_Of_BandStatusDisable.setBaseRegister(&r16);
+        bits.RGMIIOut_Of_BandStatusDisable.setName("RGMIIOut_Of_BandStatusDisable");
+        bits.RGMIIRXERMode.setBaseRegister(&r16);
+        bits.RGMIIRXERMode.setName("RGMIIRXERMode");
+        bits.RGMIIMode.setBaseRegister(&r16);
+        bits.RGMIIMode.setName("RGMIIMode");
+        bits.RGMIITimingMode.setBaseRegister(&r16);
+        bits.RGMIITimingMode.setName("RGMIITimingMode");
+        bits.ForceAutoMDIXMode.setBaseRegister(&r16);
+        bits.ForceAutoMDIXMode.setName("ForceAutoMDIXMode");
+        bits.BypassWirespeedTimer.setBaseRegister(&r16);
+        bits.BypassWirespeedTimer.setName("BypassWirespeedTimer");
+        bits.PacketCounterMode.setBaseRegister(&r16);
+        bits.PacketCounterMode.setName("PacketCounterMode");
+        bits.ShadowRegisterReadSelector.setBaseRegister(&r16);
+        bits.ShadowRegisterReadSelector.setName("ShadowRegisterReadSelector");
+        bits.WriteEnable.setBaseRegister(&r16);
+        bits.WriteEnable.setName("WriteEnable");
+    }
+    RegMIIMiscellaneousControl_t& operator=(const RegMIIMiscellaneousControl_t& other)
+    {
+        r16 = other.r16;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegMIIMiscellaneousControl_t;
+
 /** @brief Component definition for @ref MII. */
 typedef struct {
     /** @brief  */
@@ -2442,8 +4138,8 @@ typedef struct {
     /** @brief  */
     RegMIIIeeeExtendedStatus_t IeeeExtendedStatus;
 
-    /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_MII_H_uint8_t reserved_16[1];
+    /** @brief  */
+    RegMIIPhyExtendedControl_t PhyExtendedControl;
 
     /** @brief  */
     RegMIIPhyExtendedStatus_t PhyExtendedStatus;
@@ -2458,10 +4154,13 @@ typedef struct {
     RegMIILocalRemoteReceiverNotOkCounter_t LocalRemoteReceiverNotOkCounter;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_MII_H_uint32_t reserved_21[1];
+    BCM5719_MII_H_uint8_t reserved_21[3];
+
+    /** @brief Note: Shadow Register Selector: 0 */
+    RegMIIAuxiliaryControl_t AuxiliaryControl;
 
     /** @brief  */
-    RegMIIAuxillaryStatusSummary_t AuxillaryStatusSummary;
+    RegMIIAuxiliaryStatusSummary_t AuxiliaryStatusSummary;
 
     /** @brief  */
     RegMIIInterruptStatus_t InterruptStatus;
@@ -2469,14 +4168,77 @@ typedef struct {
     /** @brief  */
     RegMIIInterruptMask_t InterruptMask;
 
+    /** @brief Note: Shadow Register Selector: 0 */
+    RegMIICabletronLed_t CabletronLed;
+
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_MII_H_uint16_t reserved_28[1];
+    BCM5719_MII_H_uint8_t reserved_29[1];
 
     /** @brief  */
     RegMIITest1_t Test1;
 
     /** @brief Pages in the specified register block. */
     RegMIIBlockSelect_t BlockSelect;
+
+    /** @brief Reserved bytes to pad out data structure. */
+    BCM5719_MII_H_uint32_t reserved_32[62];
+
+    /** @brief Note: Shadow Register Selector: 1 */
+    RegMII10baseT_t _10baseT;
+
+    /** @brief Reserved bytes to pad out data structure. */
+    BCM5719_MII_H_uint8_t reserved_281[3];
+
+    /** @brief Note: Shadow Register Selector: 1 */
+    RegMIIDllSelection_t DllSelection;
+
+    /** @brief Reserved bytes to pad out data structure. */
+    BCM5719_MII_H_uint8_t reserved_285[251];
+
+    /** @brief Note: Shadow Register Selector: 2 */
+    RegMIIPowerAndMiiControl_t PowerAndMiiControl;
+
+    /** @brief Reserved bytes to pad out data structure. */
+    BCM5719_MII_H_uint8_t reserved_537[3];
+
+    /** @brief Note: Shadow Register Selector: 2 */
+    RegMIISpareControl1_t SpareControl1;
+
+    /** @brief Reserved bytes to pad out data structure. */
+    BCM5719_MII_H_uint8_t reserved_541[255];
+
+    /** @brief Note: Shadow Register Selector: 3 */
+    RegMIIClockAlignmentControl_t ClockAlignmentControl;
+
+    /** @brief Reserved bytes to pad out data structure. */
+    BCM5719_MII_H_uint8_t reserved_797[251];
+
+    /** @brief Note: Shadow Register Selector: 4 */
+    RegMIIMiscTest1_t MiscTest1;
+
+    /** @brief Reserved bytes to pad out data structure. */
+    BCM5719_MII_H_uint8_t reserved_1049[3];
+
+    /** @brief Note: Shadow Register Selector: 4 */
+    RegMIISpareControl2_t SpareControl2;
+
+    /** @brief Reserved bytes to pad out data structure. */
+    BCM5719_MII_H_uint8_t reserved_1053[251];
+
+    /** @brief Note: Shadow Register Selector: 5 */
+    RegMIIMiscTest2_t MiscTest2;
+
+    /** @brief Reserved bytes to pad out data structure. */
+    BCM5719_MII_H_uint8_t reserved_1305[3];
+
+    /** @brief Note: Shadow Register Selector: 3 */
+    RegMIISpareControl3_t SpareControl3;
+
+    /** @brief Reserved bytes to pad out data structure. */
+    BCM5719_MII_H_uint8_t reserved_1309[507];
+
+    /** @brief Note: Shadow Register Selector: 7 */
+    RegMIIMiscellaneousControl_t MiscellaneousControl;
 
 } MII_t;
 
