@@ -67,7 +67,7 @@ uint8_t MII_getPhy(void)
     }
 }
 
-uint16_t MII_readRegister(uint8_t phy, mii_reg_t reg)
+static uint16_t MII_readRegisterInternal(uint8_t phy, mii_reg_t reg)
 {
     union {
         uint8_t addr;
@@ -94,7 +94,7 @@ uint16_t MII_readRegister(uint8_t phy, mii_reg_t reg)
     return DEVICE.MiiCommunication.bits.TransactionData;
 }
 
-void MII_writeRegister(uint8_t phy, mii_reg_t reg, uint16_t data)
+static void MII_writeRegisterInternal(uint8_t phy, mii_reg_t reg, uint16_t data)
 {
     RegDEVICEMiiCommunication_t regcontents;
     regcontents.r32 = 0;
@@ -112,6 +112,135 @@ void MII_writeRegister(uint8_t phy, mii_reg_t reg, uint16_t data)
 
     // Wait for transaction to complete (not strictly required for writes).
     MII_wait();
+}
+
+
+static uint16_t MII_readShadowRegister18(uint8_t phy, mii_reg_t reg)
+{
+    // Write register 18h, bits [2:0] = 111 This selects the Miscellaneous Control register, shadow 7h.
+    // All reads must be performed through the Miscellaneous Control register.
+    // Bit 15 = 0 This allows only bits [14:12] and bits [2:0] to be written.
+    // Bits [14:12] = zzz This selects shadow register zzz to be read.
+    // Bits [11: 3] = <don't care> When bit 15 = 0, these bits are ignored.
+    // Bits [2:0] = 111 This sets the Shadow Register Select to 111 (Miscellaneous Control register).
+    // Read register 18h Data read back is the value from shadow register zzz.
+
+    // --------------------------------------------
+    // PHY 0x18 Shadow 0x1 register read Procedure
+    // --------------------------------------------
+    // int value;
+    // phy_write(0x18, 0x1007); //switch to shadow 0x1
+    // valu = phy_read(0x18);
+
+    uint16_t shadow_reg = reg >> 8;
+    RegMIIMiscellaneousControl_t shadow_select;
+    shadow_select.r16 = 0;
+    shadow_select.bits.ShadowRegisterReadSelector = shadow_reg;
+    shadow_select.bits.ShadowRegisterSelector = 7;
+    MII_writeRegisterInternal(phy, (mii_reg_t)0x18, shadow_select.r16);
+
+    return MII_readRegisterInternal(phy, (mii_reg_t)0x18);
+}
+
+static uint16_t MII_readShadowRegister1C(uint8_t phy, mii_reg_t reg)
+{
+    // --------------------------------------------
+    // PHY 0x1C Shadow 0x1 register read Procedure
+    // --------------------------------------------
+    // int value;
+    // phy_write(0x1C, 0x0400); //switch to shadow 0x1
+    // value = phy_read(0x1C);
+    // return value;
+
+    uint16_t shadow_reg = reg >> 8;
+    RegMIICabletronLed_t shadow_select;
+    shadow_select.r16 = 0;
+    shadow_select.bits.ShadowRegisterSelector = shadow_reg;
+    MII_writeRegisterInternal(phy, (mii_reg_t)0x1C, shadow_select.r16);
+
+    return MII_readRegisterInternal(phy, (mii_reg_t)0x1C);
+}
+
+uint16_t MII_readRegister(uint8_t phy, mii_reg_t reg)
+{
+    if((reg & 0xFF) == 0x1C)
+    {
+        return MII_readShadowRegister1C(phy, reg);
+    }
+    else if((reg & 0xFF) == 0x18)
+    {
+        return MII_readShadowRegister18(phy, reg);
+    }
+    else
+    {
+        return MII_readRegisterInternal(phy, reg);
+    }
+}
+
+static void MII_writeShadowRegister18(uint8_t phy, mii_reg_t reg, uint16_t data)
+{
+    // Set Bits [15:3] = Preferred write values Bits [15:3] contain the desired bits to be written to.
+    // Set Bits [2:0] = yyy This enables shadow register yyy to be written.
+    // For shadow 7h, bit 15 must also be written.
+
+    // --------------------------------------------
+    // PHY 0x18 Shadow 0x2 register write Procedure
+    // --------------------------------------------
+    // int wdata;
+    // phy_write(0x18, 0x2007); //switch to shadow 0x2
+    // phy_write(0x18, wdata | 0x2 );
+
+    uint16_t shadow_reg = reg >> 8;
+    RegMIIMiscellaneousControl_t shadow_select;
+    shadow_select.r16 = 0;
+    shadow_select.bits.ShadowRegisterReadSelector = shadow_reg;
+    shadow_select.bits.ShadowRegisterSelector = 7;
+    MII_writeRegisterInternal(phy, (mii_reg_t)REG_MII_AUXILIARY_CONTROL, shadow_select.r16);
+
+    RegMIIMiscellaneousControl_t write_data;
+    write_data.r16 = data;
+    write_data.bits.ShadowRegisterSelector = shadow_reg;
+    MII_writeRegisterInternal(phy, (mii_reg_t)REG_MII_AUXILIARY_CONTROL, write_data.r16);
+
+}
+
+static void MII_writeShadowRegister1C(uint8_t phy, mii_reg_t reg, uint16_t data)
+{
+    // --------------------------------------------
+    // PHY 0x1C Shadow 0x2 register write Procedure
+    // --------------------------------------------
+    // int wdata;
+    // phy_write(0x1C, 0x0800); //switch to shadow 0x2
+    // phy_write(0x1C, wdata | 0x8800 );
+
+    uint16_t shadow_reg = reg >> 8;
+    RegMIICabletronLed_t shadow_select;
+    shadow_select.r16 = 0;
+    shadow_select.bits.ShadowRegisterSelector = shadow_reg;
+    MII_writeRegisterInternal(phy, (mii_reg_t)REG_MII_CABLETRON_LED, shadow_select.r16);
+
+    RegMIICabletronLed_t write_data;
+    write_data.r16 = data;
+    write_data.bits.ShadowRegisterSelector = shadow_reg;
+    write_data.bits.WriteEnable = 1;
+
+    MII_writeRegisterInternal(phy, (mii_reg_t)REG_MII_CABLETRON_LED, write_data.r16);
+}
+
+void MII_writeRegister(uint8_t phy, mii_reg_t reg, uint16_t data)
+{
+    if((reg & 0xFF) == 0x1C)
+    {
+        MII_writeShadowRegister1C(phy, reg, data);
+    }
+    else if((reg & 0xFF) == 0x18)
+    {
+        MII_writeShadowRegister18(phy, reg, data);
+    }
+    else
+    {
+        MII_writeRegisterInternal(phy, reg, data);
+    }
 }
 
 void MII_selectBlock(uint8_t phy, uint16_t block)
