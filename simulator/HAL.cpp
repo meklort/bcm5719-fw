@@ -240,6 +240,7 @@ bool initHAL(const char *pci_path, int wanted_function)
     }
 
     uint8_t *DEVICEBase = (uint8_t *)bar[0];
+    uint8_t *APEBase = (uint8_t *)bar[2];
 
     init_bcm5719_DEVICE();
     init_bcm5719_DEVICE_mmap(DEVICEBase);
@@ -248,7 +249,7 @@ bool initHAL(const char *pci_path, int wanted_function)
     init_bcm5719_GEN_mmap(&DEVICEBase[0x8000 + 0xB50]); // 0x8000 for windowed area
 
     init_bcm5719_APE();
-    // init_bcm5719_APE_mmap();
+    init_bcm5719_APE_mmap(APEBase);
     init_bcm5719_NVM();
     init_bcm5719_NVM_mmap(&DEVICEBase[0x7000]);
 

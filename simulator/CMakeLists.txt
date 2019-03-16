@@ -11,6 +11,7 @@ simulator_add_library(${PROJECT_NAME} STATIC
             bcm5719_NVM_mmap.cpp
             bcm5719_NVM.cpp
             bcm5719_APE.cpp
+            bcm5719_APE_mmap.cpp
             )
 
 include_directories(../libs/NVRam)
