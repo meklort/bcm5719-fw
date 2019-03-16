@@ -63,6 +63,7 @@ void init_mii(void)
     sc3.bits.SIGDETDeassertTimerLengthen = 1;
     sc3.bits.DisableLowPowerTOBase_TLinkMode = 1;
     sc3.bits.LowPowerENCDisable = 1;
+    // Note: Auto_PowerDownDLLOffDisable is also set on the talos II.
     MII_writeRegister(phy, (mii_reg_t)REG_MII_SPARE_CONTROL_3, sc3.r16);
 
     // Set MII_REG_1000BASE_T_CONTROL as desired (e.g. ADVERTISE_FULL_DUPLEX|ADVERTISE_HALF_DUPLEX).
@@ -80,6 +81,7 @@ void init_mii(void)
     auto_neg_advert.bits._10BASE_TFullDuplexCapable = 1;
     auto_neg_advert.bits._100BASE_TXHalfDuplexCapable = 1;
     auto_neg_advert.bits._100BASE_TXFullDuplexCapable = 1;
+    // Note: PauseCapable is set on the talos II.
     MII_writeRegister(phy, (mii_reg_t)REG_MII_AUTONEGOTIATION_ADVERTISEMENT, auto_neg_advert.r16);
 }
 
