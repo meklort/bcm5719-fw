@@ -46,40 +46,44 @@
 
 void APE_aquireLock(void)
 {
+    RegAPEPerLockRequestPhy0_t lock_req;
+    lock_req.r32 = 0;
+    lock_req.bits.Bootcode = 1;
+
     uint8_t function = DEVICE.Status.bits.FunctionNumber;
     switch(function)
     {
         default:
         case 0:
-            APE.PerLockRequestPhy0.r32 = 0x10;
+            APE.PerLockRequestPhy0.r32 = lock_req.r32;
             do
             {
                 // spin
-            } while(0x10 != APE.PerLockGrantPhy0.r32);
+            } while(lock_req.r32 != APE.PerLockGrantPhy0.r32);
             return;
 
         case 1:
-            APE.PerLockRequestPhy1.r32 = 0x10;
+            APE.PerLockRequestPhy1.r32 = lock_req.r32;
             do
             {
                 // spin
-            } while(0x10 != APE.PerLockGrantPhy1.r32);
+            } while(lock_req.r32 != APE.PerLockGrantPhy1.r32);
             return;
 
         case 2:
-            APE.PerLockRequestPhy2.r32 = 0x10;
+            APE.PerLockRequestPhy2.r32 = lock_req.r32;
             do
             {
                 // spin
-            } while(0x10 != APE.PerLockGrantPhy2.r32);
+            } while(lock_req.r32 != APE.PerLockGrantPhy2.r32);
             return;
 
         case 3:
-            APE.PerLockRequestPhy3.r32 = 0x10;
+            APE.PerLockRequestPhy3.r32 = lock_req.r32;
             do
             {
                 // spin
-            } while(0x10 != APE.PerLockGrantPhy3.r32);
+            } while(lock_req.r32 != APE.PerLockGrantPhy3.r32);
             return;
     }
 
@@ -87,20 +91,40 @@ void APE_aquireLock(void)
 
 void APE_releaseLock(void)
 {
+    RegAPEPerLockRequestPhy0_t lock_req;
+    lock_req.r32 = 0;
+    lock_req.bits.Bootcode = 1;
+
     uint8_t function = DEVICE.Status.bits.FunctionNumber;
     switch(function)
     {
         default:
         case 0:
-            APE.PerLockGrantPhy0.r32 = 0x10;
+            APE.PerLockGrantPhy0.r32 = lock_req.r32;
 
         case 1:
-            APE.PerLockGrantPhy1.r32 = 0x10;
+            APE.PerLockGrantPhy1.r32 = lock_req.r32;
 
         case 2:
-            APE.PerLockGrantPhy2.r32 = 0x10;
+            APE.PerLockGrantPhy2.r32 = lock_req.r32;
 
         case 3:
-            APE.PerLockGrantPhy3.r32 = 0x10;
+            APE.PerLockGrantPhy3.r32 = lock_req.r32;
     }
+}
+
+void APE_releaseAllLocks(void)
+{
+    RegAPEPerLockRequestPhy0_t lock_req;
+    lock_req.r32 = 0;
+    lock_req.bits.Bootcode = 1;
+
+    APE.PerLockGrantPhy0.r32    = lock_req.r32;
+    APE.PerLockRequestGrc.r32   = lock_req.r32;
+    APE.PerLockGrantPhy1.r32    = lock_req.r32;
+    APE.PerLockGrantPhy2.r32    = lock_req.r32;
+    APE.PerLockRequestMem.r32   = lock_req.r32;
+    APE.PerLockGrantPhy3.r32    = lock_req.r32;
+    APE.PerLockRequestPort6.r32 = lock_req.r32;
+    APE.PerLockRequestGpio.r32  = lock_req.r32;
 }
