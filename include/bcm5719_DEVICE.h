@@ -5173,6 +5173,18 @@ typedef register_container RegDEVICETimer_t {
 } RegDEVICETimer_t;
 
 #define REG_DEVICE_RX_CPU_EVENT ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006810) /*  */
+#define     DEVICE_RX_CPU_EVENT_MAC_ATTENTION_SHIFT 25u
+#define     DEVICE_RX_CPU_EVENT_MAC_ATTENTION_MASK  0x2000000u
+#define GET_DEVICE_RX_CPU_EVENT_MAC_ATTENTION(__reg__)  (((__reg__) & 0x2000000) >> 25u)
+#define SET_DEVICE_RX_CPU_EVENT_MAC_ATTENTION(__val__)  (((__val__) << 25u) & 0x2000000u)
+#define     DEVICE_RX_CPU_EVENT_RX_CPU_ATTENTION_SHIFT 26u
+#define     DEVICE_RX_CPU_EVENT_RX_CPU_ATTENTION_MASK  0x4000000u
+#define GET_DEVICE_RX_CPU_EVENT_RX_CPU_ATTENTION(__reg__)  (((__reg__) & 0x4000000) >> 26u)
+#define SET_DEVICE_RX_CPU_EVENT_RX_CPU_ATTENTION(__val__)  (((__val__) << 26u) & 0x4000000u)
+#define     DEVICE_RX_CPU_EVENT_TIMER_SHIFT 29u
+#define     DEVICE_RX_CPU_EVENT_TIMER_MASK  0x20000000u
+#define GET_DEVICE_RX_CPU_EVENT_TIMER(__reg__)  (((__reg__) & 0x20000000) >> 29u)
+#define SET_DEVICE_RX_CPU_EVENT_TIMER(__val__)  (((__val__) << 29u) & 0x20000000u)
 #define     DEVICE_RX_CPU_EVENT_VPD_ATTENTION_SHIFT 30u
 #define     DEVICE_RX_CPU_EVENT_VPD_ATTENTION_MASK  0x40000000u
 #define GET_DEVICE_RX_CPU_EVENT_VPD_ATTENTION(__reg__)  (((__reg__) & 0x40000000) >> 30u)
@@ -5186,7 +5198,15 @@ typedef register_container RegDEVICERxCpuEvent_t {
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_29_0, 0, 30)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_24_0, 0, 25)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MACAttention, 25, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, RXCPUAttention, 26, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_28_27, 27, 2)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Timer, 29, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, VPDAttention, 30, 1)
         /** @brief Padding */
@@ -5196,8 +5216,16 @@ typedef register_container RegDEVICERxCpuEvent_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_31, 31, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, VPDAttention, 30, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Timer, 29, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_29_0, 0, 30)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_28_27, 27, 2)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, RXCPUAttention, 26, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MACAttention, 25, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_24_0, 0, 25)
 #else
 #error Unknown Endian
 #endif
@@ -5213,6 +5241,12 @@ typedef register_container RegDEVICERxCpuEvent_t {
     {
         /** @brief constructor for @ref DEVICE_t.RxCpuEvent. */
         r32.setName("RxCpuEvent");
+        bits.MACAttention.setBaseRegister(&r32);
+        bits.MACAttention.setName("MACAttention");
+        bits.RXCPUAttention.setBaseRegister(&r32);
+        bits.RXCPUAttention.setName("RXCPUAttention");
+        bits.Timer.setBaseRegister(&r32);
+        bits.Timer.setName("Timer");
         bits.VPDAttention.setBaseRegister(&r32);
         bits.VPDAttention.setName("VPDAttention");
     }
@@ -5237,6 +5271,58 @@ typedef register_container RegDEVICEMdiControl_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
 } RegDEVICEMdiControl_t;
+
+#define REG_DEVICE_RX_CPU_EVENT_ENABLE ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000684c) /*  */
+#define     DEVICE_RX_CPU_EVENT_ENABLE_VPD_ATTENTION_SHIFT 30u
+#define     DEVICE_RX_CPU_EVENT_ENABLE_VPD_ATTENTION_MASK  0x40000000u
+#define GET_DEVICE_RX_CPU_EVENT_ENABLE_VPD_ATTENTION(__reg__)  (((__reg__) & 0x40000000) >> 30u)
+#define SET_DEVICE_RX_CPU_EVENT_ENABLE_VPD_ATTENTION(__val__)  (((__val__) << 30u) & 0x40000000u)
+
+/** @brief Register definition for @ref DEVICE_t.RxCpuEventEnable. */
+typedef register_container RegDEVICERxCpuEventEnable_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_DEVICE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_29_0, 0, 30)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, VPDAttention, 30, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_31, 31, 1)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_31, 31, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, VPDAttention, 30, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_29_0, 0, 30)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RxCpuEventEnable"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICERxCpuEventEnable_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.RxCpuEventEnable. */
+        r32.setName("RxCpuEventEnable");
+        bits.VPDAttention.setBaseRegister(&r32);
+        bits.VPDAttention.setName("VPDAttention");
+    }
+    RegDEVICERxCpuEventEnable_t& operator=(const RegDEVICERxCpuEventEnable_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegDEVICERxCpuEventEnable_t;
 
 #define REG_DEVICE_FAST_BOOT_PROGRAM_COUNTER ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006894) /*  */
 #define     DEVICE_FAST_BOOT_PROGRAM_COUNTER_PROGRAM_COUNTER_SHIFT 0u
@@ -5908,7 +5994,13 @@ typedef struct {
     RegDEVICEMdiControl_t MdiControl;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_26696[19];
+    BCM5719_DEVICE_H_uint32_t reserved_26696[1];
+
+    /** @brief  */
+    RegDEVICERxCpuEventEnable_t RxCpuEventEnable;
+
+    /** @brief Reserved bytes to pad out data structure. */
+    BCM5719_DEVICE_H_uint32_t reserved_26704[17];
 
     /** @brief  */
     RegDEVICEFastBootProgramCounter_t FastBootProgramCounter;

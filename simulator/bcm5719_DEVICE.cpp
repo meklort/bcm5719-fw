@@ -275,6 +275,8 @@ void init_bcm5719_DEVICE(void)
 
     /** @brief Bitmap for @ref DEVICE_t.MdiControl. */
 
+    /** @brief Bitmap for @ref DEVICE_t.RxCpuEventEnable. */
+
     /** @brief Bitmap for @ref DEVICE_t.FastBootProgramCounter. */
 
     /** @brief Bitmap for @ref DEVICE_t.ExpansionRomAddr. */

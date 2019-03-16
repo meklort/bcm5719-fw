@@ -646,6 +646,11 @@ void init_bcm5719_DEVICE_mmap(void *base)
     DEVICE.MdiControl.r32.installReadCallback(read_from_ram, &DEVICE_MdiControl_r32);
     DEVICE.MdiControl.r32.installWriteCallback(write_to_ram, &DEVICE_MdiControl_r32);
 
+    /** @brief Bitmap for @ref DEVICE_t.RxCpuEventEnable. */
+    static ram_offset_t DEVICE_RxCpuEventEnable_r32((uint8_t *)base, (uint32_t)26700);
+    DEVICE.RxCpuEventEnable.r32.installReadCallback(read_from_ram, &DEVICE_RxCpuEventEnable_r32);
+    DEVICE.RxCpuEventEnable.r32.installWriteCallback(write_to_ram, &DEVICE_RxCpuEventEnable_r32);
+
     /** @brief Bitmap for @ref DEVICE_t.FastBootProgramCounter. */
     static ram_offset_t DEVICE_FastBootProgramCounter_r32((uint8_t *)base, (uint32_t)26772);
     DEVICE.FastBootProgramCounter.r32.installReadCallback(read_from_ram, &DEVICE_FastBootProgramCounter_r32);
