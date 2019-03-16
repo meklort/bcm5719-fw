@@ -246,20 +246,20 @@ void init_bcm5719_APE_mmap(void *base)
     APE.RcpuPciSubsystemId.r32.installReadCallback(read_from_ram, &APE_RcpuPciSubsystemId_r32);
     APE.RcpuPciSubsystemId.r32.installWriteCallback(write_to_ram, &APE_RcpuPciSubsystemId_r32);
 
-    /** @brief Bitmap for @ref APE_t.411c. */
-    static ram_offset_t APE__411c_r32((uint8_t *)base, (uint32_t)16668);
-    APE._411c.r32.installReadCallback(read_from_ram, &APE__411c_r32);
-    APE._411c.r32.installWriteCallback(write_to_ram, &APE__411c_r32);
+    /** @brief Bitmap for @ref APE_t.RcpuApeResetCount. */
+    static ram_offset_t APE_RcpuApeResetCount_r32((uint8_t *)base, (uint32_t)16668);
+    APE.RcpuApeResetCount.r32.installReadCallback(read_from_ram, &APE_RcpuApeResetCount_r32);
+    APE.RcpuApeResetCount.r32.installWriteCallback(write_to_ram, &APE_RcpuApeResetCount_r32);
 
-    /** @brief Bitmap for @ref APE_t.4120. */
-    static ram_offset_t APE__4120_r32((uint8_t *)base, (uint32_t)16672);
-    APE._4120.r32.installReadCallback(read_from_ram, &APE__4120_r32);
-    APE._4120.r32.installWriteCallback(write_to_ram, &APE__4120_r32);
+    /** @brief Bitmap for @ref APE_t.RcpuLastApeStatus. */
+    static ram_offset_t APE_RcpuLastApeStatus_r32((uint8_t *)base, (uint32_t)16672);
+    APE.RcpuLastApeStatus.r32.installReadCallback(read_from_ram, &APE_RcpuLastApeStatus_r32);
+    APE.RcpuLastApeStatus.r32.installWriteCallback(write_to_ram, &APE_RcpuLastApeStatus_r32);
 
-    /** @brief Bitmap for @ref APE_t.4124. */
-    static ram_offset_t APE__4124_r32((uint8_t *)base, (uint32_t)16676);
-    APE._4124.r32.installReadCallback(read_from_ram, &APE__4124_r32);
-    APE._4124.r32.installWriteCallback(write_to_ram, &APE__4124_r32);
+    /** @brief Bitmap for @ref APE_t.RcpuLastApeFwStatus. */
+    static ram_offset_t APE_RcpuLastApeFwStatus_r32((uint8_t *)base, (uint32_t)16676);
+    APE.RcpuLastApeFwStatus.r32.installReadCallback(read_from_ram, &APE_RcpuLastApeFwStatus_r32);
+    APE.RcpuLastApeFwStatus.r32.installWriteCallback(write_to_ram, &APE_RcpuLastApeFwStatus_r32);
 
     /** @brief Bitmap for @ref APE_t.RcpuCfgHw. */
     static ram_offset_t APE_RcpuCfgHw_r32((uint8_t *)base, (uint32_t)16680);
@@ -380,6 +380,176 @@ void init_bcm5719_APE_mmap(void *base)
     static ram_offset_t APE_ChipId_r32((uint8_t *)base, (uint32_t)18576);
     APE.ChipId.r32.installReadCallback(read_from_ram, &APE_ChipId_r32);
     APE.ChipId.r32.installWriteCallback(write_to_ram, &APE_ChipId_r32);
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Info. */
+    static ram_offset_t APE_NcsiChannel0Info_r32((uint8_t *)base, (uint32_t)18688);
+    APE.NcsiChannel0Info.r32.installReadCallback(read_from_ram, &APE_NcsiChannel0Info_r32);
+    APE.NcsiChannel0Info.r32.installWriteCallback(write_to_ram, &APE_NcsiChannel0Info_r32);
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Mcid. */
+    static ram_offset_t APE_NcsiChannel0Mcid_r32((uint8_t *)base, (uint32_t)18692);
+    APE.NcsiChannel0Mcid.r32.installReadCallback(read_from_ram, &APE_NcsiChannel0Mcid_r32);
+    APE.NcsiChannel0Mcid.r32.installWriteCallback(write_to_ram, &APE_NcsiChannel0Mcid_r32);
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Aen. */
+    static ram_offset_t APE_NcsiChannel0Aen_r32((uint8_t *)base, (uint32_t)18696);
+    APE.NcsiChannel0Aen.r32.installReadCallback(read_from_ram, &APE_NcsiChannel0Aen_r32);
+    APE.NcsiChannel0Aen.r32.installWriteCallback(write_to_ram, &APE_NcsiChannel0Aen_r32);
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Bfilt. */
+    static ram_offset_t APE_NcsiChannel0Bfilt_r32((uint8_t *)base, (uint32_t)18700);
+    APE.NcsiChannel0Bfilt.r32.installReadCallback(read_from_ram, &APE_NcsiChannel0Bfilt_r32);
+    APE.NcsiChannel0Bfilt.r32.installWriteCallback(write_to_ram, &APE_NcsiChannel0Bfilt_r32);
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Mfilt. */
+    static ram_offset_t APE_NcsiChannel0Mfilt_r32((uint8_t *)base, (uint32_t)18704);
+    APE.NcsiChannel0Mfilt.r32.installReadCallback(read_from_ram, &APE_NcsiChannel0Mfilt_r32);
+    APE.NcsiChannel0Mfilt.r32.installWriteCallback(write_to_ram, &APE_NcsiChannel0Mfilt_r32);
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Setting1. */
+    static ram_offset_t APE_NcsiChannel0Setting1_r32((uint8_t *)base, (uint32_t)18708);
+    APE.NcsiChannel0Setting1.r32.installReadCallback(read_from_ram, &APE_NcsiChannel0Setting1_r32);
+    APE.NcsiChannel0Setting1.r32.installWriteCallback(write_to_ram, &APE_NcsiChannel0Setting1_r32);
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Setting2. */
+    static ram_offset_t APE_NcsiChannel0Setting2_r32((uint8_t *)base, (uint32_t)18712);
+    APE.NcsiChannel0Setting2.r32.installReadCallback(read_from_ram, &APE_NcsiChannel0Setting2_r32);
+    APE.NcsiChannel0Setting2.r32.installWriteCallback(write_to_ram, &APE_NcsiChannel0Setting2_r32);
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Vlan. */
+    static ram_offset_t APE_NcsiChannel0Vlan_r32((uint8_t *)base, (uint32_t)18716);
+    APE.NcsiChannel0Vlan.r32.installReadCallback(read_from_ram, &APE_NcsiChannel0Vlan_r32);
+    APE.NcsiChannel0Vlan.r32.installWriteCallback(write_to_ram, &APE_NcsiChannel0Vlan_r32);
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0AltHostMacHigh. */
+    static ram_offset_t APE_NcsiChannel0AltHostMacHigh_r32((uint8_t *)base, (uint32_t)18724);
+    APE.NcsiChannel0AltHostMacHigh.r32.installReadCallback(read_from_ram, &APE_NcsiChannel0AltHostMacHigh_r32);
+    APE.NcsiChannel0AltHostMacHigh.r32.installWriteCallback(write_to_ram, &APE_NcsiChannel0AltHostMacHigh_r32);
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0AltHostMacMid. */
+    static ram_offset_t APE_NcsiChannel0AltHostMacMid_r32((uint8_t *)base, (uint32_t)18728);
+    APE.NcsiChannel0AltHostMacMid.r32.installReadCallback(read_from_ram, &APE_NcsiChannel0AltHostMacMid_r32);
+    APE.NcsiChannel0AltHostMacMid.r32.installWriteCallback(write_to_ram, &APE_NcsiChannel0AltHostMacMid_r32);
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0AltHostMacLow. */
+    static ram_offset_t APE_NcsiChannel0AltHostMacLow_r32((uint8_t *)base, (uint32_t)18732);
+    APE.NcsiChannel0AltHostMacLow.r32.installReadCallback(read_from_ram, &APE_NcsiChannel0AltHostMacLow_r32);
+    APE.NcsiChannel0AltHostMacLow.r32.installWriteCallback(write_to_ram, &APE_NcsiChannel0AltHostMacLow_r32);
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Mac0High. */
+    static ram_offset_t APE_NcsiChannel0Mac0High_r32((uint8_t *)base, (uint32_t)18740);
+    APE.NcsiChannel0Mac0High.r32.installReadCallback(read_from_ram, &APE_NcsiChannel0Mac0High_r32);
+    APE.NcsiChannel0Mac0High.r32.installWriteCallback(write_to_ram, &APE_NcsiChannel0Mac0High_r32);
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Mac0Mid. */
+    static ram_offset_t APE_NcsiChannel0Mac0Mid_r32((uint8_t *)base, (uint32_t)18744);
+    APE.NcsiChannel0Mac0Mid.r32.installReadCallback(read_from_ram, &APE_NcsiChannel0Mac0Mid_r32);
+    APE.NcsiChannel0Mac0Mid.r32.installWriteCallback(write_to_ram, &APE_NcsiChannel0Mac0Mid_r32);
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Mac0Low. */
+    static ram_offset_t APE_NcsiChannel0Mac0Low_r32((uint8_t *)base, (uint32_t)18748);
+    APE.NcsiChannel0Mac0Low.r32.installReadCallback(read_from_ram, &APE_NcsiChannel0Mac0Low_r32);
+    APE.NcsiChannel0Mac0Low.r32.installWriteCallback(write_to_ram, &APE_NcsiChannel0Mac0Low_r32);
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Mac1High. */
+    static ram_offset_t APE_NcsiChannel0Mac1High_r32((uint8_t *)base, (uint32_t)18756);
+    APE.NcsiChannel0Mac1High.r32.installReadCallback(read_from_ram, &APE_NcsiChannel0Mac1High_r32);
+    APE.NcsiChannel0Mac1High.r32.installWriteCallback(write_to_ram, &APE_NcsiChannel0Mac1High_r32);
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Mac1Mid. */
+    static ram_offset_t APE_NcsiChannel0Mac1Mid_r32((uint8_t *)base, (uint32_t)18760);
+    APE.NcsiChannel0Mac1Mid.r32.installReadCallback(read_from_ram, &APE_NcsiChannel0Mac1Mid_r32);
+    APE.NcsiChannel0Mac1Mid.r32.installWriteCallback(write_to_ram, &APE_NcsiChannel0Mac1Mid_r32);
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Mac1Low. */
+    static ram_offset_t APE_NcsiChannel0Mac1Low_r32((uint8_t *)base, (uint32_t)18764);
+    APE.NcsiChannel0Mac1Low.r32.installReadCallback(read_from_ram, &APE_NcsiChannel0Mac1Low_r32);
+    APE.NcsiChannel0Mac1Low.r32.installWriteCallback(write_to_ram, &APE_NcsiChannel0Mac1Low_r32);
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Mac2High. */
+    static ram_offset_t APE_NcsiChannel0Mac2High_r32((uint8_t *)base, (uint32_t)18772);
+    APE.NcsiChannel0Mac2High.r32.installReadCallback(read_from_ram, &APE_NcsiChannel0Mac2High_r32);
+    APE.NcsiChannel0Mac2High.r32.installWriteCallback(write_to_ram, &APE_NcsiChannel0Mac2High_r32);
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Mac2Mid. */
+    static ram_offset_t APE_NcsiChannel0Mac2Mid_r32((uint8_t *)base, (uint32_t)18776);
+    APE.NcsiChannel0Mac2Mid.r32.installReadCallback(read_from_ram, &APE_NcsiChannel0Mac2Mid_r32);
+    APE.NcsiChannel0Mac2Mid.r32.installWriteCallback(write_to_ram, &APE_NcsiChannel0Mac2Mid_r32);
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Mac2Low. */
+    static ram_offset_t APE_NcsiChannel0Mac2Low_r32((uint8_t *)base, (uint32_t)18780);
+    APE.NcsiChannel0Mac2Low.r32.installReadCallback(read_from_ram, &APE_NcsiChannel0Mac2Low_r32);
+    APE.NcsiChannel0Mac2Low.r32.installWriteCallback(write_to_ram, &APE_NcsiChannel0Mac2Low_r32);
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Mac3High. */
+    static ram_offset_t APE_NcsiChannel0Mac3High_r32((uint8_t *)base, (uint32_t)18788);
+    APE.NcsiChannel0Mac3High.r32.installReadCallback(read_from_ram, &APE_NcsiChannel0Mac3High_r32);
+    APE.NcsiChannel0Mac3High.r32.installWriteCallback(write_to_ram, &APE_NcsiChannel0Mac3High_r32);
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Mac3Mid. */
+    static ram_offset_t APE_NcsiChannel0Mac3Mid_r32((uint8_t *)base, (uint32_t)18792);
+    APE.NcsiChannel0Mac3Mid.r32.installReadCallback(read_from_ram, &APE_NcsiChannel0Mac3Mid_r32);
+    APE.NcsiChannel0Mac3Mid.r32.installWriteCallback(write_to_ram, &APE_NcsiChannel0Mac3Mid_r32);
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Mac3Low. */
+    static ram_offset_t APE_NcsiChannel0Mac3Low_r32((uint8_t *)base, (uint32_t)18796);
+    APE.NcsiChannel0Mac3Low.r32.installReadCallback(read_from_ram, &APE_NcsiChannel0Mac3Low_r32);
+    APE.NcsiChannel0Mac3Low.r32.installWriteCallback(write_to_ram, &APE_NcsiChannel0Mac3Low_r32);
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Mac0VlanValid. */
+    static ram_offset_t APE_NcsiChannel0Mac0VlanValid_r32((uint8_t *)base, (uint32_t)18800);
+    APE.NcsiChannel0Mac0VlanValid.r32.installReadCallback(read_from_ram, &APE_NcsiChannel0Mac0VlanValid_r32);
+    APE.NcsiChannel0Mac0VlanValid.r32.installWriteCallback(write_to_ram, &APE_NcsiChannel0Mac0VlanValid_r32);
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Mac0Vlan. */
+    static ram_offset_t APE_NcsiChannel0Mac0Vlan_r32((uint8_t *)base, (uint32_t)18804);
+    APE.NcsiChannel0Mac0Vlan.r32.installReadCallback(read_from_ram, &APE_NcsiChannel0Mac0Vlan_r32);
+    APE.NcsiChannel0Mac0Vlan.r32.installWriteCallback(write_to_ram, &APE_NcsiChannel0Mac0Vlan_r32);
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Mac1VlanValid. */
+    static ram_offset_t APE_NcsiChannel0Mac1VlanValid_r32((uint8_t *)base, (uint32_t)18808);
+    APE.NcsiChannel0Mac1VlanValid.r32.installReadCallback(read_from_ram, &APE_NcsiChannel0Mac1VlanValid_r32);
+    APE.NcsiChannel0Mac1VlanValid.r32.installWriteCallback(write_to_ram, &APE_NcsiChannel0Mac1VlanValid_r32);
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Mac1Vlan. */
+    static ram_offset_t APE_NcsiChannel0Mac1Vlan_r32((uint8_t *)base, (uint32_t)18812);
+    APE.NcsiChannel0Mac1Vlan.r32.installReadCallback(read_from_ram, &APE_NcsiChannel0Mac1Vlan_r32);
+    APE.NcsiChannel0Mac1Vlan.r32.installWriteCallback(write_to_ram, &APE_NcsiChannel0Mac1Vlan_r32);
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Status. */
+    static ram_offset_t APE_NcsiChannel0Status_r32((uint8_t *)base, (uint32_t)18816);
+    APE.NcsiChannel0Status.r32.installReadCallback(read_from_ram, &APE_NcsiChannel0Status_r32);
+    APE.NcsiChannel0Status.r32.installWriteCallback(write_to_ram, &APE_NcsiChannel0Status_r32);
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0ResetCount. */
+    static ram_offset_t APE_NcsiChannel0ResetCount_r32((uint8_t *)base, (uint32_t)18820);
+    APE.NcsiChannel0ResetCount.r32.installReadCallback(read_from_ram, &APE_NcsiChannel0ResetCount_r32);
+    APE.NcsiChannel0ResetCount.r32.installWriteCallback(write_to_ram, &APE_NcsiChannel0ResetCount_r32);
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Pxe. */
+    static ram_offset_t APE_NcsiChannel0Pxe_r32((uint8_t *)base, (uint32_t)18824);
+    APE.NcsiChannel0Pxe.r32.installReadCallback(read_from_ram, &APE_NcsiChannel0Pxe_r32);
+    APE.NcsiChannel0Pxe.r32.installWriteCallback(write_to_ram, &APE_NcsiChannel0Pxe_r32);
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Dropfil. */
+    static ram_offset_t APE_NcsiChannel0Dropfil_r32((uint8_t *)base, (uint32_t)18828);
+    APE.NcsiChannel0Dropfil.r32.installReadCallback(read_from_ram, &APE_NcsiChannel0Dropfil_r32);
+    APE.NcsiChannel0Dropfil.r32.installWriteCallback(write_to_ram, &APE_NcsiChannel0Dropfil_r32);
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Slink. */
+    static ram_offset_t APE_NcsiChannel0Slink_r32((uint8_t *)base, (uint32_t)18832);
+    APE.NcsiChannel0Slink.r32.installReadCallback(read_from_ram, &APE_NcsiChannel0Slink_r32);
+    APE.NcsiChannel0Slink.r32.installWriteCallback(write_to_ram, &APE_NcsiChannel0Slink_r32);
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Dbg. */
+    static ram_offset_t APE_NcsiChannel0Dbg_r32((uint8_t *)base, (uint32_t)18848);
+    APE.NcsiChannel0Dbg.r32.installReadCallback(read_from_ram, &APE_NcsiChannel0Dbg_r32);
+    APE.NcsiChannel0Dbg.r32.installWriteCallback(write_to_ram, &APE_NcsiChannel0Dbg_r32);
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0CtrlstatRx. */
+    static ram_offset_t APE_NcsiChannel0CtrlstatRx_r32((uint8_t *)base, (uint32_t)18864);
+    APE.NcsiChannel0CtrlstatRx.r32.installReadCallback(read_from_ram, &APE_NcsiChannel0CtrlstatRx_r32);
+    APE.NcsiChannel0CtrlstatRx.r32.installWriteCallback(write_to_ram, &APE_NcsiChannel0CtrlstatRx_r32);
 
     /** @brief Bitmap for @ref APE_t.PerLockRequestPhy0. */
     static ram_offset_t APE_PerLockRequestPhy0_r32((uint8_t *)base, (uint32_t)33792);

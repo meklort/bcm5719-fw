@@ -115,11 +115,11 @@ void init_bcm5719_APE(void)
 
     /** @brief Bitmap for @ref APE_t.RcpuPciSubsystemId. */
 
-    /** @brief Bitmap for @ref APE_t.411c. */
+    /** @brief Bitmap for @ref APE_t.RcpuApeResetCount. */
 
-    /** @brief Bitmap for @ref APE_t.4120. */
+    /** @brief Bitmap for @ref APE_t.RcpuLastApeStatus. */
 
-    /** @brief Bitmap for @ref APE_t.4124. */
+    /** @brief Bitmap for @ref APE_t.RcpuLastApeFwStatus. */
 
     /** @brief Bitmap for @ref APE_t.RcpuCfgHw. */
 
@@ -168,6 +168,74 @@ void init_bcm5719_APE(void)
     /** @brief Bitmap for @ref APE_t.NcsiBuildDate3. */
 
     /** @brief Bitmap for @ref APE_t.ChipId. */
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Info. */
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Mcid. */
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Aen. */
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Bfilt. */
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Mfilt. */
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Setting1. */
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Setting2. */
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Vlan. */
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0AltHostMacHigh. */
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0AltHostMacMid. */
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0AltHostMacLow. */
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Mac0High. */
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Mac0Mid. */
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Mac0Low. */
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Mac1High. */
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Mac1Mid. */
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Mac1Low. */
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Mac2High. */
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Mac2Mid. */
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Mac2Low. */
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Mac3High. */
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Mac3Mid. */
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Mac3Low. */
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Mac0VlanValid. */
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Mac0Vlan. */
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Mac1VlanValid. */
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Mac1Vlan. */
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Status. */
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0ResetCount. */
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Pxe. */
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Dropfil. */
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Slink. */
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0Dbg. */
+
+    /** @brief Bitmap for @ref APE_t.NcsiChannel0CtrlstatRx. */
 
     /** @brief Bitmap for @ref APE_t.PerLockRequestPhy0. */
 

@@ -1233,10 +1233,49 @@ typedef register_container RegAPE4028_t {
 } RegAPE4028_t;
 
 #define REG_APE_RCPU_SEG_SIG ((volatile BCM5719_APE_H_uint32_t*)0xc0014100) /* Set to APE_RCPU_MAGIC ('RCPU') by RX CPU. */
+#define     APE_RCPU_SEG_SIG_SIG_SHIFT 0u
+#define     APE_RCPU_SEG_SIG_SIG_MASK  0xffffffffu
+#define GET_APE_RCPU_SEG_SIG_SIG(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
+#define SET_APE_RCPU_SEG_SIG_SIG(__val__)  (((__val__) << 0u) & 0xffffffffu)
+#define     APE_RCPU_SEG_SIG_SIG_RCPU_MAGIC 0x52435055u
+
+
 /** @brief Register definition for @ref APE_t.RcpuSegSig. */
 typedef register_container RegAPERcpuSegSig_t {
     /** @brief 32bit direct register access. */
     BCM5719_APE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_APE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Sig, 0, 32)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Sig, 0, 32)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RcpuSegSig"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegAPERcpuSegSig_t()
+    {
+        /** @brief constructor for @ref APE_t.RcpuSegSig. */
+        r32.setName("RcpuSegSig");
+        bits.Sig.setBaseRegister(&r32);
+        bits.Sig.setName("Sig");
+    }
+    RegAPERcpuSegSig_t& operator=(const RegAPERcpuSegSig_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegAPERcpuSegSig_t;
 
 #define REG_APE_RCPU_SEG_LENGTH ((volatile BCM5719_APE_H_uint32_t*)0xc0014104) /* Set to 0x34. */
@@ -1281,26 +1320,26 @@ typedef register_container RegAPERcpuPciSubsystemId_t {
     BCM5719_APE_H_uint32_t r32;
 } RegAPERcpuPciSubsystemId_t;
 
-#define REG_APE_411C ((volatile BCM5719_APE_H_uint32_t*)0xc001411c) /* Unknown. Incremented by frobnicating routine. */
-/** @brief Register definition for @ref APE_t.411c. */
-typedef register_container RegAPE411c_t {
+#define REG_APE_RCPU_APE_RESET_COUNT ((volatile BCM5719_APE_H_uint32_t*)0xc001411c) /* Unknown. Incremented by frobnicating routine. */
+/** @brief Register definition for @ref APE_t.RcpuApeResetCount. */
+typedef register_container RegAPERcpuApeResetCount_t {
     /** @brief 32bit direct register access. */
     BCM5719_APE_H_uint32_t r32;
-} RegAPE411c_t;
+} RegAPERcpuApeResetCount_t;
 
-#define REG_APE_4120 ((volatile BCM5719_APE_H_uint32_t*)0xc0014120) /* Unknown. Written by frobnicating routine. */
-/** @brief Register definition for @ref APE_t.4120. */
-typedef register_container RegAPE4120_t {
+#define REG_APE_RCPU_LAST_APE_STATUS ((volatile BCM5719_APE_H_uint32_t*)0xc0014120) /* Unknown. Written by frobnicating routine. */
+/** @brief Register definition for @ref APE_t.RcpuLastApeStatus. */
+typedef register_container RegAPERcpuLastApeStatus_t {
     /** @brief 32bit direct register access. */
     BCM5719_APE_H_uint32_t r32;
-} RegAPE4120_t;
+} RegAPERcpuLastApeStatus_t;
 
-#define REG_APE_4124 ((volatile BCM5719_APE_H_uint32_t*)0xc0014124) /* Unknown.  */
-/** @brief Register definition for @ref APE_t.4124. */
-typedef register_container RegAPE4124_t {
+#define REG_APE_RCPU_LAST_APE_FW_STATUS ((volatile BCM5719_APE_H_uint32_t*)0xc0014124) /* Unknown.  */
+/** @brief Register definition for @ref APE_t.RcpuLastApeFwStatus. */
+typedef register_container RegAPERcpuLastApeFwStatus_t {
     /** @brief 32bit direct register access. */
     BCM5719_APE_H_uint32_t r32;
-} RegAPE4124_t;
+} RegAPERcpuLastApeFwStatus_t;
 
 #define REG_APE_RCPU_CFG_HW ((volatile BCM5719_APE_H_uint32_t*)0xc0014128) /* Set from  */
 /** @brief Register definition for @ref APE_t.RcpuCfgHw. */
@@ -1317,10 +1356,59 @@ typedef register_container RegAPERcpuCfgHw2_t {
 } RegAPERcpuCfgHw2_t;
 
 #define REG_APE_RCPU_CPMU_STATUS ((volatile BCM5719_APE_H_uint32_t*)0xc0014130) /* Set from  */
+#define     APE_RCPU_CPMU_STATUS_ADDRESS_SHIFT 0u
+#define     APE_RCPU_CPMU_STATUS_ADDRESS_MASK  0xffffu
+#define GET_APE_RCPU_CPMU_STATUS_ADDRESS(__reg__)  (((__reg__) & 0xffff) >> 0u)
+#define SET_APE_RCPU_CPMU_STATUS_ADDRESS(__val__)  (((__val__) << 0u) & 0xffffu)
+#define     APE_RCPU_CPMU_STATUS_ADDRESS_ADDRESS 0x362cu
+
+#define     APE_RCPU_CPMU_STATUS_STATUS_SHIFT 16u
+#define     APE_RCPU_CPMU_STATUS_STATUS_MASK  0xffff0000u
+#define GET_APE_RCPU_CPMU_STATUS_STATUS(__reg__)  (((__reg__) & 0xffff0000) >> 16u)
+#define SET_APE_RCPU_CPMU_STATUS_STATUS(__val__)  (((__val__) << 16u) & 0xffff0000u)
+
 /** @brief Register definition for @ref APE_t.RcpuCpmuStatus. */
 typedef register_container RegAPERcpuCpmuStatus_t {
     /** @brief 32bit direct register access. */
     BCM5719_APE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_APE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Address, 0, 16)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Status, 16, 16)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Status, 16, 16)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Address, 0, 16)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RcpuCpmuStatus"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegAPERcpuCpmuStatus_t()
+    {
+        /** @brief constructor for @ref APE_t.RcpuCpmuStatus. */
+        r32.setName("RcpuCpmuStatus");
+        bits.Address.setBaseRegister(&r32);
+        bits.Address.setName("Address");
+        bits.Status.setBaseRegister(&r32);
+        bits.Status.setName("Status");
+    }
+    RegAPERcpuCpmuStatus_t& operator=(const RegAPERcpuCpmuStatus_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegAPERcpuCpmuStatus_t;
 
 #define REG_APE_HOST_SEG_SIG ((volatile BCM5719_APE_H_uint32_t*)0xc0014200) /* Set to APE_HOST_MAGIC ('HOST') to indicate the section is valid. */
@@ -1599,81 +1687,1960 @@ typedef register_container RegAPEChipId_t {
     BCM5719_APE_H_uint32_t r32;
 } RegAPEChipId_t;
 
+#define REG_APE_NCSI_CHANNEL0_INFO ((volatile BCM5719_APE_H_uint32_t*)0xc0014900) /*  */
+#define     APE_NCSI_CHANNEL0_INFO_ENABLED_SHIFT 0u
+#define     APE_NCSI_CHANNEL0_INFO_ENABLED_MASK  0x1u
+#define GET_APE_NCSI_CHANNEL0_INFO_ENABLED(__reg__)  (((__reg__) & 0x1) >> 0u)
+#define SET_APE_NCSI_CHANNEL0_INFO_ENABLED(__val__)  (((__val__) << 0u) & 0x1u)
+#define     APE_NCSI_CHANNEL0_INFO_TX_PASSTHROUGH_SHIFT 1u
+#define     APE_NCSI_CHANNEL0_INFO_TX_PASSTHROUGH_MASK  0x2u
+#define GET_APE_NCSI_CHANNEL0_INFO_TX_PASSTHROUGH(__reg__)  (((__reg__) & 0x2) >> 1u)
+#define SET_APE_NCSI_CHANNEL0_INFO_TX_PASSTHROUGH(__val__)  (((__val__) << 1u) & 0x2u)
+#define     APE_NCSI_CHANNEL0_INFO_READY_SHIFT 2u
+#define     APE_NCSI_CHANNEL0_INFO_READY_MASK  0x4u
+#define GET_APE_NCSI_CHANNEL0_INFO_READY(__reg__)  (((__reg__) & 0x4) >> 2u)
+#define SET_APE_NCSI_CHANNEL0_INFO_READY(__val__)  (((__val__) << 2u) & 0x4u)
+#define     APE_NCSI_CHANNEL0_INFO_INIT_SHIFT 3u
+#define     APE_NCSI_CHANNEL0_INFO_INIT_MASK  0x8u
+#define GET_APE_NCSI_CHANNEL0_INFO_INIT(__reg__)  (((__reg__) & 0x8) >> 3u)
+#define SET_APE_NCSI_CHANNEL0_INFO_INIT(__val__)  (((__val__) << 3u) & 0x8u)
+#define     APE_NCSI_CHANNEL0_INFO_MFILT_SHIFT 4u
+#define     APE_NCSI_CHANNEL0_INFO_MFILT_MASK  0x10u
+#define GET_APE_NCSI_CHANNEL0_INFO_MFILT(__reg__)  (((__reg__) & 0x10) >> 4u)
+#define SET_APE_NCSI_CHANNEL0_INFO_MFILT(__val__)  (((__val__) << 4u) & 0x10u)
+#define     APE_NCSI_CHANNEL0_INFO_BFILT_SHIFT 5u
+#define     APE_NCSI_CHANNEL0_INFO_BFILT_MASK  0x20u
+#define GET_APE_NCSI_CHANNEL0_INFO_BFILT(__reg__)  (((__reg__) & 0x20) >> 5u)
+#define SET_APE_NCSI_CHANNEL0_INFO_BFILT(__val__)  (((__val__) << 5u) & 0x20u)
+#define     APE_NCSI_CHANNEL0_INFO_SERDES_SHIFT 6u
+#define     APE_NCSI_CHANNEL0_INFO_SERDES_MASK  0x40u
+#define GET_APE_NCSI_CHANNEL0_INFO_SERDES(__reg__)  (((__reg__) & 0x40) >> 6u)
+#define SET_APE_NCSI_CHANNEL0_INFO_SERDES(__val__)  (((__val__) << 6u) & 0x40u)
+#define     APE_NCSI_CHANNEL0_INFO_VLAN_SHIFT 8u
+#define     APE_NCSI_CHANNEL0_INFO_VLAN_MASK  0x100u
+#define GET_APE_NCSI_CHANNEL0_INFO_VLAN(__reg__)  (((__reg__) & 0x100) >> 8u)
+#define SET_APE_NCSI_CHANNEL0_INFO_VLAN(__val__)  (((__val__) << 8u) & 0x100u)
+#define     APE_NCSI_CHANNEL0_INFO_B2H_SHIFT 10u
+#define     APE_NCSI_CHANNEL0_INFO_B2H_MASK  0x400u
+#define GET_APE_NCSI_CHANNEL0_INFO_B2H(__reg__)  (((__reg__) & 0x400) >> 10u)
+#define SET_APE_NCSI_CHANNEL0_INFO_B2H(__val__)  (((__val__) << 10u) & 0x400u)
+#define     APE_NCSI_CHANNEL0_INFO_B2N_SHIFT 11u
+#define     APE_NCSI_CHANNEL0_INFO_B2N_MASK  0x800u
+#define GET_APE_NCSI_CHANNEL0_INFO_B2N(__reg__)  (((__reg__) & 0x800) >> 11u)
+#define SET_APE_NCSI_CHANNEL0_INFO_B2N(__val__)  (((__val__) << 11u) & 0x800u)
+#define     APE_NCSI_CHANNEL0_INFO_EEE_SHIFT 12u
+#define     APE_NCSI_CHANNEL0_INFO_EEE_MASK  0x1000u
+#define GET_APE_NCSI_CHANNEL0_INFO_EEE(__reg__)  (((__reg__) & 0x1000) >> 12u)
+#define SET_APE_NCSI_CHANNEL0_INFO_EEE(__val__)  (((__val__) << 12u) & 0x1000u)
+#define     APE_NCSI_CHANNEL0_INFO_PDEAD_SHIFT 14u
+#define     APE_NCSI_CHANNEL0_INFO_PDEAD_MASK  0x4000u
+#define GET_APE_NCSI_CHANNEL0_INFO_PDEAD(__reg__)  (((__reg__) & 0x4000) >> 14u)
+#define SET_APE_NCSI_CHANNEL0_INFO_PDEAD(__val__)  (((__val__) << 14u) & 0x4000u)
+#define     APE_NCSI_CHANNEL0_INFO_DRIVER_SHIFT 14u
+#define     APE_NCSI_CHANNEL0_INFO_DRIVER_MASK  0x4000u
+#define GET_APE_NCSI_CHANNEL0_INFO_DRIVER(__reg__)  (((__reg__) & 0x4000) >> 14u)
+#define SET_APE_NCSI_CHANNEL0_INFO_DRIVER(__val__)  (((__val__) << 14u) & 0x4000u)
+
+/** @brief Register definition for @ref APE_t.NcsiChannel0Info. */
+typedef register_container RegAPENcsiChannel0Info_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_APE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_APE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief This can be modified via NCSI SELECT PACKAGE and NCSI DESELECT PACKAGE. */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Enabled, 0, 1)
+        /** @brief TX passthrough has been enabled by BMC NCSI command. */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, TXPassthrough, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Ready, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Init, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, MFILT, 4, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, BFILT, 5, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, SERDES, 6, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_7_7, 7, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, VLAN, 8, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_9_9, 9, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, B2H, 10, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, B2N, 11, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, EEE, 12, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_13_13, 13, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, PDead, 14, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Driver, 14, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_15, 15, 17)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_15, 15, 17)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Driver, 14, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, PDead, 14, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_13_13, 13, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, EEE, 12, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, B2N, 11, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, B2H, 10, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_9_9, 9, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, VLAN, 8, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_7_7, 7, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, SERDES, 6, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, BFILT, 5, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, MFILT, 4, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Init, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Ready, 2, 1)
+        /** @brief TX passthrough has been enabled by BMC NCSI command. */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, TXPassthrough, 1, 1)
+        /** @brief This can be modified via NCSI SELECT PACKAGE and NCSI DESELECT PACKAGE. */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Enabled, 0, 1)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "NcsiChannel0Info"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegAPENcsiChannel0Info_t()
+    {
+        /** @brief constructor for @ref APE_t.NcsiChannel0Info. */
+        r32.setName("NcsiChannel0Info");
+        bits.Enabled.setBaseRegister(&r32);
+        bits.Enabled.setName("Enabled");
+        bits.TXPassthrough.setBaseRegister(&r32);
+        bits.TXPassthrough.setName("TXPassthrough");
+        bits.Ready.setBaseRegister(&r32);
+        bits.Ready.setName("Ready");
+        bits.Init.setBaseRegister(&r32);
+        bits.Init.setName("Init");
+        bits.MFILT.setBaseRegister(&r32);
+        bits.MFILT.setName("MFILT");
+        bits.BFILT.setBaseRegister(&r32);
+        bits.BFILT.setName("BFILT");
+        bits.SERDES.setBaseRegister(&r32);
+        bits.SERDES.setName("SERDES");
+        bits.VLAN.setBaseRegister(&r32);
+        bits.VLAN.setName("VLAN");
+        bits.B2H.setBaseRegister(&r32);
+        bits.B2H.setName("B2H");
+        bits.B2N.setBaseRegister(&r32);
+        bits.B2N.setName("B2N");
+        bits.EEE.setBaseRegister(&r32);
+        bits.EEE.setName("EEE");
+        bits.PDead.setBaseRegister(&r32);
+        bits.PDead.setName("PDead");
+        bits.Driver.setBaseRegister(&r32);
+        bits.Driver.setName("Driver");
+    }
+    RegAPENcsiChannel0Info_t& operator=(const RegAPENcsiChannel0Info_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegAPENcsiChannel0Info_t;
+
+#define REG_APE_NCSI_CHANNEL0_MCID ((volatile BCM5719_APE_H_uint32_t*)0xc0014904) /* AEN Management Controller ID, set by BMC when sending AEN ENABLE command and used when sending AENs. */
+/** @brief Register definition for @ref APE_t.NcsiChannel0Mcid. */
+typedef register_container RegAPENcsiChannel0Mcid_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_APE_H_uint32_t r32;
+} RegAPENcsiChannel0Mcid_t;
+
+#define REG_APE_NCSI_CHANNEL0_AEN ((volatile BCM5719_APE_H_uint32_t*)0xc0014908) /* Set via NCSI ENABLE AEN. */
+#define     APE_NCSI_CHANNEL0_AEN_ENABLE_LINK_STATUS_CHANGE_AEN_SHIFT 0u
+#define     APE_NCSI_CHANNEL0_AEN_ENABLE_LINK_STATUS_CHANGE_AEN_MASK  0x1u
+#define GET_APE_NCSI_CHANNEL0_AEN_ENABLE_LINK_STATUS_CHANGE_AEN(__reg__)  (((__reg__) & 0x1) >> 0u)
+#define SET_APE_NCSI_CHANNEL0_AEN_ENABLE_LINK_STATUS_CHANGE_AEN(__val__)  (((__val__) << 0u) & 0x1u)
+#define     APE_NCSI_CHANNEL0_AEN_ENABLE_CONFIGURATION_REQUIRED_AEN_SHIFT 1u
+#define     APE_NCSI_CHANNEL0_AEN_ENABLE_CONFIGURATION_REQUIRED_AEN_MASK  0x2u
+#define GET_APE_NCSI_CHANNEL0_AEN_ENABLE_CONFIGURATION_REQUIRED_AEN(__reg__)  (((__reg__) & 0x2) >> 1u)
+#define SET_APE_NCSI_CHANNEL0_AEN_ENABLE_CONFIGURATION_REQUIRED_AEN(__val__)  (((__val__) << 1u) & 0x2u)
+#define     APE_NCSI_CHANNEL0_AEN_ENABLE_HOST_NC_DRIVER_STATUS_CHANGE_AEN_SHIFT 2u
+#define     APE_NCSI_CHANNEL0_AEN_ENABLE_HOST_NC_DRIVER_STATUS_CHANGE_AEN_MASK  0x4u
+#define GET_APE_NCSI_CHANNEL0_AEN_ENABLE_HOST_NC_DRIVER_STATUS_CHANGE_AEN(__reg__)  (((__reg__) & 0x4) >> 2u)
+#define SET_APE_NCSI_CHANNEL0_AEN_ENABLE_HOST_NC_DRIVER_STATUS_CHANGE_AEN(__val__)  (((__val__) << 2u) & 0x4u)
+
+/** @brief Register definition for @ref APE_t.NcsiChannel0Aen. */
+typedef register_container RegAPENcsiChannel0Aen_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_APE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_APE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, EnableLinkStatusChangeAEN, 0, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, EnableConfigurationRequiredAEN, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, EnableHostNCDriverStatusChangeAEN, 2, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_3, 3, 29)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_3, 3, 29)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, EnableHostNCDriverStatusChangeAEN, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, EnableConfigurationRequiredAEN, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, EnableLinkStatusChangeAEN, 0, 1)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "NcsiChannel0Aen"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegAPENcsiChannel0Aen_t()
+    {
+        /** @brief constructor for @ref APE_t.NcsiChannel0Aen. */
+        r32.setName("NcsiChannel0Aen");
+        bits.EnableLinkStatusChangeAEN.setBaseRegister(&r32);
+        bits.EnableLinkStatusChangeAEN.setName("EnableLinkStatusChangeAEN");
+        bits.EnableConfigurationRequiredAEN.setBaseRegister(&r32);
+        bits.EnableConfigurationRequiredAEN.setName("EnableConfigurationRequiredAEN");
+        bits.EnableHostNCDriverStatusChangeAEN.setBaseRegister(&r32);
+        bits.EnableHostNCDriverStatusChangeAEN.setName("EnableHostNCDriverStatusChangeAEN");
+    }
+    RegAPENcsiChannel0Aen_t& operator=(const RegAPENcsiChannel0Aen_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegAPENcsiChannel0Aen_t;
+
+#define REG_APE_NCSI_CHANNEL0_BFILT ((volatile BCM5719_APE_H_uint32_t*)0xc001490c) /*  */
+#define     APE_NCSI_CHANNEL0_BFILT_ARP_PACKET_SHIFT 0u
+#define     APE_NCSI_CHANNEL0_BFILT_ARP_PACKET_MASK  0x1u
+#define GET_APE_NCSI_CHANNEL0_BFILT_ARP_PACKET(__reg__)  (((__reg__) & 0x1) >> 0u)
+#define SET_APE_NCSI_CHANNEL0_BFILT_ARP_PACKET(__val__)  (((__val__) << 0u) & 0x1u)
+#define     APE_NCSI_CHANNEL0_BFILT_DHCP_CLIENT_PACKET_SHIFT 1u
+#define     APE_NCSI_CHANNEL0_BFILT_DHCP_CLIENT_PACKET_MASK  0x2u
+#define GET_APE_NCSI_CHANNEL0_BFILT_DHCP_CLIENT_PACKET(__reg__)  (((__reg__) & 0x2) >> 1u)
+#define SET_APE_NCSI_CHANNEL0_BFILT_DHCP_CLIENT_PACKET(__val__)  (((__val__) << 1u) & 0x2u)
+#define     APE_NCSI_CHANNEL0_BFILT_DHCP_SERVER_PACKET_SHIFT 2u
+#define     APE_NCSI_CHANNEL0_BFILT_DHCP_SERVER_PACKET_MASK  0x4u
+#define GET_APE_NCSI_CHANNEL0_BFILT_DHCP_SERVER_PACKET(__reg__)  (((__reg__) & 0x4) >> 2u)
+#define SET_APE_NCSI_CHANNEL0_BFILT_DHCP_SERVER_PACKET(__val__)  (((__val__) << 2u) & 0x4u)
+#define     APE_NCSI_CHANNEL0_BFILT_NETBIOS_PACKET_SHIFT 3u
+#define     APE_NCSI_CHANNEL0_BFILT_NETBIOS_PACKET_MASK  0x8u
+#define GET_APE_NCSI_CHANNEL0_BFILT_NETBIOS_PACKET(__reg__)  (((__reg__) & 0x8) >> 3u)
+#define SET_APE_NCSI_CHANNEL0_BFILT_NETBIOS_PACKET(__val__)  (((__val__) << 3u) & 0x8u)
+
+/** @brief Register definition for @ref APE_t.NcsiChannel0Bfilt. */
+typedef register_container RegAPENcsiChannel0Bfilt_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_APE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_APE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, ARPPacket, 0, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, DHCPClientPacket, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, DHCPServerPacket, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, NetBIOSPacket, 3, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_4, 4, 28)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_4, 4, 28)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, NetBIOSPacket, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, DHCPServerPacket, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, DHCPClientPacket, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, ARPPacket, 0, 1)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "NcsiChannel0Bfilt"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegAPENcsiChannel0Bfilt_t()
+    {
+        /** @brief constructor for @ref APE_t.NcsiChannel0Bfilt. */
+        r32.setName("NcsiChannel0Bfilt");
+        bits.ARPPacket.setBaseRegister(&r32);
+        bits.ARPPacket.setName("ARPPacket");
+        bits.DHCPClientPacket.setBaseRegister(&r32);
+        bits.DHCPClientPacket.setName("DHCPClientPacket");
+        bits.DHCPServerPacket.setBaseRegister(&r32);
+        bits.DHCPServerPacket.setName("DHCPServerPacket");
+        bits.NetBIOSPacket.setBaseRegister(&r32);
+        bits.NetBIOSPacket.setName("NetBIOSPacket");
+    }
+    RegAPENcsiChannel0Bfilt_t& operator=(const RegAPENcsiChannel0Bfilt_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegAPENcsiChannel0Bfilt_t;
+
+#define REG_APE_NCSI_CHANNEL0_MFILT ((volatile BCM5719_APE_H_uint32_t*)0xc0014910) /*  */
+#define     APE_NCSI_CHANNEL0_MFILT_IPV6_NEIGHBOUR_ADVERTISEMENT_SHIFT 0u
+#define     APE_NCSI_CHANNEL0_MFILT_IPV6_NEIGHBOUR_ADVERTISEMENT_MASK  0x1u
+#define GET_APE_NCSI_CHANNEL0_MFILT_IPV6_NEIGHBOUR_ADVERTISEMENT(__reg__)  (((__reg__) & 0x1) >> 0u)
+#define SET_APE_NCSI_CHANNEL0_MFILT_IPV6_NEIGHBOUR_ADVERTISEMENT(__val__)  (((__val__) << 0u) & 0x1u)
+#define     APE_NCSI_CHANNEL0_MFILT_IPV6_ROUTER_ADVERTISEMENT_SHIFT 1u
+#define     APE_NCSI_CHANNEL0_MFILT_IPV6_ROUTER_ADVERTISEMENT_MASK  0x2u
+#define GET_APE_NCSI_CHANNEL0_MFILT_IPV6_ROUTER_ADVERTISEMENT(__reg__)  (((__reg__) & 0x2) >> 1u)
+#define SET_APE_NCSI_CHANNEL0_MFILT_IPV6_ROUTER_ADVERTISEMENT(__val__)  (((__val__) << 1u) & 0x2u)
+#define     APE_NCSI_CHANNEL0_MFILT_DHCPV6_RELAY_AND_SERVER_MULTICAST_SHIFT 2u
+#define     APE_NCSI_CHANNEL0_MFILT_DHCPV6_RELAY_AND_SERVER_MULTICAST_MASK  0x4u
+#define GET_APE_NCSI_CHANNEL0_MFILT_DHCPV6_RELAY_AND_SERVER_MULTICAST(__reg__)  (((__reg__) & 0x4) >> 2u)
+#define SET_APE_NCSI_CHANNEL0_MFILT_DHCPV6_RELAY_AND_SERVER_MULTICAST(__val__)  (((__val__) << 2u) & 0x4u)
+
+/** @brief Register definition for @ref APE_t.NcsiChannel0Mfilt. */
+typedef register_container RegAPENcsiChannel0Mfilt_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_APE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_APE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, IPv6NeighbourAdvertisement, 0, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, IPv6RouterAdvertisement, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, DHCPv6RelayandServerMulticast, 2, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_3, 3, 29)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_3, 3, 29)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, DHCPv6RelayandServerMulticast, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, IPv6RouterAdvertisement, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, IPv6NeighbourAdvertisement, 0, 1)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "NcsiChannel0Mfilt"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegAPENcsiChannel0Mfilt_t()
+    {
+        /** @brief constructor for @ref APE_t.NcsiChannel0Mfilt. */
+        r32.setName("NcsiChannel0Mfilt");
+        bits.IPv6NeighbourAdvertisement.setBaseRegister(&r32);
+        bits.IPv6NeighbourAdvertisement.setName("IPv6NeighbourAdvertisement");
+        bits.IPv6RouterAdvertisement.setBaseRegister(&r32);
+        bits.IPv6RouterAdvertisement.setName("IPv6RouterAdvertisement");
+        bits.DHCPv6RelayandServerMulticast.setBaseRegister(&r32);
+        bits.DHCPv6RelayandServerMulticast.setName("DHCPv6RelayandServerMulticast");
+    }
+    RegAPENcsiChannel0Mfilt_t& operator=(const RegAPENcsiChannel0Mfilt_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegAPENcsiChannel0Mfilt_t;
+
+#define REG_APE_NCSI_CHANNEL0_SETTING_1 ((volatile BCM5719_APE_H_uint32_t*)0xc0014914) /* This is the "Link Settings" value from NCSI Set Link. */
+#define     APE_NCSI_CHANNEL0_SETTING_1_AUTONEGOTIATION_ENABLED_SHIFT 0u
+#define     APE_NCSI_CHANNEL0_SETTING_1_AUTONEGOTIATION_ENABLED_MASK  0x1u
+#define GET_APE_NCSI_CHANNEL0_SETTING_1_AUTONEGOTIATION_ENABLED(__reg__)  (((__reg__) & 0x1) >> 0u)
+#define SET_APE_NCSI_CHANNEL0_SETTING_1_AUTONEGOTIATION_ENABLED(__val__)  (((__val__) << 0u) & 0x1u)
+#define     APE_NCSI_CHANNEL0_SETTING_1_LINK_SPEED_10M_ENABLE_SHIFT 1u
+#define     APE_NCSI_CHANNEL0_SETTING_1_LINK_SPEED_10M_ENABLE_MASK  0x2u
+#define GET_APE_NCSI_CHANNEL0_SETTING_1_LINK_SPEED_10M_ENABLE(__reg__)  (((__reg__) & 0x2) >> 1u)
+#define SET_APE_NCSI_CHANNEL0_SETTING_1_LINK_SPEED_10M_ENABLE(__val__)  (((__val__) << 1u) & 0x2u)
+#define     APE_NCSI_CHANNEL0_SETTING_1_LINK_SPEED_100M_ENABLE_SHIFT 2u
+#define     APE_NCSI_CHANNEL0_SETTING_1_LINK_SPEED_100M_ENABLE_MASK  0x4u
+#define GET_APE_NCSI_CHANNEL0_SETTING_1_LINK_SPEED_100M_ENABLE(__reg__)  (((__reg__) & 0x4) >> 2u)
+#define SET_APE_NCSI_CHANNEL0_SETTING_1_LINK_SPEED_100M_ENABLE(__val__)  (((__val__) << 2u) & 0x4u)
+#define     APE_NCSI_CHANNEL0_SETTING_1_LINK_SPEED_1000M_ENABLE_SHIFT 3u
+#define     APE_NCSI_CHANNEL0_SETTING_1_LINK_SPEED_1000M_ENABLE_MASK  0x8u
+#define GET_APE_NCSI_CHANNEL0_SETTING_1_LINK_SPEED_1000M_ENABLE(__reg__)  (((__reg__) & 0x8) >> 3u)
+#define SET_APE_NCSI_CHANNEL0_SETTING_1_LINK_SPEED_1000M_ENABLE(__val__)  (((__val__) << 3u) & 0x8u)
+#define     APE_NCSI_CHANNEL0_SETTING_1_LINK_SPEED_10G_ENABLE_SHIFT 4u
+#define     APE_NCSI_CHANNEL0_SETTING_1_LINK_SPEED_10G_ENABLE_MASK  0x10u
+#define GET_APE_NCSI_CHANNEL0_SETTING_1_LINK_SPEED_10G_ENABLE(__reg__)  (((__reg__) & 0x10) >> 4u)
+#define SET_APE_NCSI_CHANNEL0_SETTING_1_LINK_SPEED_10G_ENABLE(__val__)  (((__val__) << 4u) & 0x10u)
+#define     APE_NCSI_CHANNEL0_SETTING_1_HALF_DUPLEX_ENABLE_SHIFT 8u
+#define     APE_NCSI_CHANNEL0_SETTING_1_HALF_DUPLEX_ENABLE_MASK  0x100u
+#define GET_APE_NCSI_CHANNEL0_SETTING_1_HALF_DUPLEX_ENABLE(__reg__)  (((__reg__) & 0x100) >> 8u)
+#define SET_APE_NCSI_CHANNEL0_SETTING_1_HALF_DUPLEX_ENABLE(__val__)  (((__val__) << 8u) & 0x100u)
+#define     APE_NCSI_CHANNEL0_SETTING_1_FULL_DUPLEX_ENABLE_SHIFT 9u
+#define     APE_NCSI_CHANNEL0_SETTING_1_FULL_DUPLEX_ENABLE_MASK  0x200u
+#define GET_APE_NCSI_CHANNEL0_SETTING_1_FULL_DUPLEX_ENABLE(__reg__)  (((__reg__) & 0x200) >> 9u)
+#define SET_APE_NCSI_CHANNEL0_SETTING_1_FULL_DUPLEX_ENABLE(__val__)  (((__val__) << 9u) & 0x200u)
+#define     APE_NCSI_CHANNEL0_SETTING_1_PAUSE_CAPABILITY_ENABLE_SHIFT 10u
+#define     APE_NCSI_CHANNEL0_SETTING_1_PAUSE_CAPABILITY_ENABLE_MASK  0x400u
+#define GET_APE_NCSI_CHANNEL0_SETTING_1_PAUSE_CAPABILITY_ENABLE(__reg__)  (((__reg__) & 0x400) >> 10u)
+#define SET_APE_NCSI_CHANNEL0_SETTING_1_PAUSE_CAPABILITY_ENABLE(__val__)  (((__val__) << 10u) & 0x400u)
+#define     APE_NCSI_CHANNEL0_SETTING_1_ASYMMETRIC_PAUSE_CAPABILITY_ENABLE_SHIFT 11u
+#define     APE_NCSI_CHANNEL0_SETTING_1_ASYMMETRIC_PAUSE_CAPABILITY_ENABLE_MASK  0x800u
+#define GET_APE_NCSI_CHANNEL0_SETTING_1_ASYMMETRIC_PAUSE_CAPABILITY_ENABLE(__reg__)  (((__reg__) & 0x800) >> 11u)
+#define SET_APE_NCSI_CHANNEL0_SETTING_1_ASYMMETRIC_PAUSE_CAPABILITY_ENABLE(__val__)  (((__val__) << 11u) & 0x800u)
+#define     APE_NCSI_CHANNEL0_SETTING_1_OEM_LINK_SETTINGS_FIELD_VALID_SHIFT 12u
+#define     APE_NCSI_CHANNEL0_SETTING_1_OEM_LINK_SETTINGS_FIELD_VALID_MASK  0x1000u
+#define GET_APE_NCSI_CHANNEL0_SETTING_1_OEM_LINK_SETTINGS_FIELD_VALID(__reg__)  (((__reg__) & 0x1000) >> 12u)
+#define SET_APE_NCSI_CHANNEL0_SETTING_1_OEM_LINK_SETTINGS_FIELD_VALID(__val__)  (((__val__) << 12u) & 0x1000u)
+
+/** @brief Register definition for @ref APE_t.NcsiChannel0Setting1. */
+typedef register_container RegAPENcsiChannel0Setting1_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_APE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_APE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Autonegotiationenabled, 0, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, LinkSpeed10Menable, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, LinkSpeed100Menable, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, LinkSpeed1000Menable, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, LinkSpeed10Genable, 4, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_7_5, 5, 3)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Halfduplexenable, 8, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Fullduplexenable, 9, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Pausecapabilityenable, 10, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Asymmetricpausecapabilityenable, 11, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, OEMlinksettingsfieldvalid, 12, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_13, 13, 19)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_13, 13, 19)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, OEMlinksettingsfieldvalid, 12, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Asymmetricpausecapabilityenable, 11, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Pausecapabilityenable, 10, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Fullduplexenable, 9, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Halfduplexenable, 8, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_7_5, 5, 3)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, LinkSpeed10Genable, 4, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, LinkSpeed1000Menable, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, LinkSpeed100Menable, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, LinkSpeed10Menable, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Autonegotiationenabled, 0, 1)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "NcsiChannel0Setting1"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegAPENcsiChannel0Setting1_t()
+    {
+        /** @brief constructor for @ref APE_t.NcsiChannel0Setting1. */
+        r32.setName("NcsiChannel0Setting1");
+        bits.Autonegotiationenabled.setBaseRegister(&r32);
+        bits.Autonegotiationenabled.setName("Autonegotiationenabled");
+        bits.LinkSpeed10Menable.setBaseRegister(&r32);
+        bits.LinkSpeed10Menable.setName("LinkSpeed10Menable");
+        bits.LinkSpeed100Menable.setBaseRegister(&r32);
+        bits.LinkSpeed100Menable.setName("LinkSpeed100Menable");
+        bits.LinkSpeed1000Menable.setBaseRegister(&r32);
+        bits.LinkSpeed1000Menable.setName("LinkSpeed1000Menable");
+        bits.LinkSpeed10Genable.setBaseRegister(&r32);
+        bits.LinkSpeed10Genable.setName("LinkSpeed10Genable");
+        bits.Halfduplexenable.setBaseRegister(&r32);
+        bits.Halfduplexenable.setName("Halfduplexenable");
+        bits.Fullduplexenable.setBaseRegister(&r32);
+        bits.Fullduplexenable.setName("Fullduplexenable");
+        bits.Pausecapabilityenable.setBaseRegister(&r32);
+        bits.Pausecapabilityenable.setName("Pausecapabilityenable");
+        bits.Asymmetricpausecapabilityenable.setBaseRegister(&r32);
+        bits.Asymmetricpausecapabilityenable.setName("Asymmetricpausecapabilityenable");
+        bits.OEMlinksettingsfieldvalid.setBaseRegister(&r32);
+        bits.OEMlinksettingsfieldvalid.setName("OEMlinksettingsfieldvalid");
+    }
+    RegAPENcsiChannel0Setting1_t& operator=(const RegAPENcsiChannel0Setting1_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegAPENcsiChannel0Setting1_t;
+
+#define REG_APE_NCSI_CHANNEL0_SETTING_2 ((volatile BCM5719_APE_H_uint32_t*)0xc0014918) /* This is the "OEM Settings" value from NCSI Set Link. */
+/** @brief Register definition for @ref APE_t.NcsiChannel0Setting2. */
+typedef register_container RegAPENcsiChannel0Setting2_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_APE_H_uint32_t r32;
+} RegAPENcsiChannel0Setting2_t;
+
+#define REG_APE_NCSI_CHANNEL0_VLAN ((volatile BCM5719_APE_H_uint32_t*)0xc001491c) /* Receives VLAN mode from NCSI specification "Enable VLAN" command. */
+/** @brief Register definition for @ref APE_t.NcsiChannel0Vlan. */
+typedef register_container RegAPENcsiChannel0Vlan_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_APE_H_uint32_t r32;
+} RegAPENcsiChannel0Vlan_t;
+
+#define REG_APE_NCSI_CHANNEL0_ALT_HOST_MAC_HIGH ((volatile BCM5719_APE_H_uint32_t*)0xc0014924) /* Lower 16 bits of this word contains upper 16 bits of the MAC. */
+/** @brief Register definition for @ref APE_t.NcsiChannel0AltHostMacHigh. */
+typedef register_container RegAPENcsiChannel0AltHostMacHigh_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_APE_H_uint32_t r32;
+} RegAPENcsiChannel0AltHostMacHigh_t;
+
+#define REG_APE_NCSI_CHANNEL0_ALT_HOST_MAC_MID ((volatile BCM5719_APE_H_uint32_t*)0xc0014928) /* Lower 16 bits of this word contains mid 16 bits of the MAC. */
+/** @brief Register definition for @ref APE_t.NcsiChannel0AltHostMacMid. */
+typedef register_container RegAPENcsiChannel0AltHostMacMid_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_APE_H_uint32_t r32;
+} RegAPENcsiChannel0AltHostMacMid_t;
+
+#define REG_APE_NCSI_CHANNEL0_ALT_HOST_MAC_LOW ((volatile BCM5719_APE_H_uint32_t*)0xc001492c) /* Lower 16 bits of this word contains low 16 bits of the MAC. */
+/** @brief Register definition for @ref APE_t.NcsiChannel0AltHostMacLow. */
+typedef register_container RegAPENcsiChannel0AltHostMacLow_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_APE_H_uint32_t r32;
+} RegAPENcsiChannel0AltHostMacLow_t;
+
+#define REG_APE_NCSI_CHANNEL0_MAC0_HIGH ((volatile BCM5719_APE_H_uint32_t*)0xc0014934) /* Lower 16 bits of this word contains upper 16 bits of the MAC. */
+/** @brief Register definition for @ref APE_t.NcsiChannel0Mac0High. */
+typedef register_container RegAPENcsiChannel0Mac0High_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_APE_H_uint32_t r32;
+} RegAPENcsiChannel0Mac0High_t;
+
+#define REG_APE_NCSI_CHANNEL0_MAC0_MID ((volatile BCM5719_APE_H_uint32_t*)0xc0014938) /* Lower 16 bits of this word contains mid 16 bits of the MAC. */
+/** @brief Register definition for @ref APE_t.NcsiChannel0Mac0Mid. */
+typedef register_container RegAPENcsiChannel0Mac0Mid_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_APE_H_uint32_t r32;
+} RegAPENcsiChannel0Mac0Mid_t;
+
+#define REG_APE_NCSI_CHANNEL0_MAC0_LOW ((volatile BCM5719_APE_H_uint32_t*)0xc001493c) /* Lower 16 bits of this word contains low 16 bits of the MAC. */
+/** @brief Register definition for @ref APE_t.NcsiChannel0Mac0Low. */
+typedef register_container RegAPENcsiChannel0Mac0Low_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_APE_H_uint32_t r32;
+} RegAPENcsiChannel0Mac0Low_t;
+
+#define REG_APE_NCSI_CHANNEL0_MAC1_HIGH ((volatile BCM5719_APE_H_uint32_t*)0xc0014944) /* Lower 16 bits of this word contains upper 16 bits of the MAC. */
+/** @brief Register definition for @ref APE_t.NcsiChannel0Mac1High. */
+typedef register_container RegAPENcsiChannel0Mac1High_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_APE_H_uint32_t r32;
+} RegAPENcsiChannel0Mac1High_t;
+
+#define REG_APE_NCSI_CHANNEL0_MAC1_MID ((volatile BCM5719_APE_H_uint32_t*)0xc0014948) /* Lower 16 bits of this word contains mid 16 bits of the MAC. */
+/** @brief Register definition for @ref APE_t.NcsiChannel0Mac1Mid. */
+typedef register_container RegAPENcsiChannel0Mac1Mid_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_APE_H_uint32_t r32;
+} RegAPENcsiChannel0Mac1Mid_t;
+
+#define REG_APE_NCSI_CHANNEL0_MAC1_LOW ((volatile BCM5719_APE_H_uint32_t*)0xc001494c) /* Lower 16 bits of this word contains low 16 bits of the MAC. */
+/** @brief Register definition for @ref APE_t.NcsiChannel0Mac1Low. */
+typedef register_container RegAPENcsiChannel0Mac1Low_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_APE_H_uint32_t r32;
+} RegAPENcsiChannel0Mac1Low_t;
+
+#define REG_APE_NCSI_CHANNEL0_MAC2_HIGH ((volatile BCM5719_APE_H_uint32_t*)0xc0014954) /* Lower 16 bits of this word contains upper 16 bits of the MAC. */
+/** @brief Register definition for @ref APE_t.NcsiChannel0Mac2High. */
+typedef register_container RegAPENcsiChannel0Mac2High_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_APE_H_uint32_t r32;
+} RegAPENcsiChannel0Mac2High_t;
+
+#define REG_APE_NCSI_CHANNEL0_MAC2_MID ((volatile BCM5719_APE_H_uint32_t*)0xc0014958) /* Lower 16 bits of this word contains mid 16 bits of the MAC. */
+/** @brief Register definition for @ref APE_t.NcsiChannel0Mac2Mid. */
+typedef register_container RegAPENcsiChannel0Mac2Mid_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_APE_H_uint32_t r32;
+} RegAPENcsiChannel0Mac2Mid_t;
+
+#define REG_APE_NCSI_CHANNEL0_MAC2_LOW ((volatile BCM5719_APE_H_uint32_t*)0xc001495c) /* Lower 16 bits of this word contains low 16 bits of the MAC. */
+/** @brief Register definition for @ref APE_t.NcsiChannel0Mac2Low. */
+typedef register_container RegAPENcsiChannel0Mac2Low_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_APE_H_uint32_t r32;
+} RegAPENcsiChannel0Mac2Low_t;
+
+#define REG_APE_NCSI_CHANNEL0_MAC3_HIGH ((volatile BCM5719_APE_H_uint32_t*)0xc0014964) /* Lower 16 bits of this word contains upper 16 bits of the MAC. */
+/** @brief Register definition for @ref APE_t.NcsiChannel0Mac3High. */
+typedef register_container RegAPENcsiChannel0Mac3High_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_APE_H_uint32_t r32;
+} RegAPENcsiChannel0Mac3High_t;
+
+#define REG_APE_NCSI_CHANNEL0_MAC3_MID ((volatile BCM5719_APE_H_uint32_t*)0xc0014968) /* Lower 16 bits of this word contains mid 16 bits of the MAC. */
+/** @brief Register definition for @ref APE_t.NcsiChannel0Mac3Mid. */
+typedef register_container RegAPENcsiChannel0Mac3Mid_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_APE_H_uint32_t r32;
+} RegAPENcsiChannel0Mac3Mid_t;
+
+#define REG_APE_NCSI_CHANNEL0_MAC3_LOW ((volatile BCM5719_APE_H_uint32_t*)0xc001496c) /* Lower 16 bits of this word contains low 16 bits of the MAC. */
+/** @brief Register definition for @ref APE_t.NcsiChannel0Mac3Low. */
+typedef register_container RegAPENcsiChannel0Mac3Low_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_APE_H_uint32_t r32;
+} RegAPENcsiChannel0Mac3Low_t;
+
+#define REG_APE_NCSI_CHANNEL0_MAC0_VLAN_VALID ((volatile BCM5719_APE_H_uint32_t*)0xc0014970) /* Nonzero indicates VLAN field is valid */
+/** @brief Register definition for @ref APE_t.NcsiChannel0Mac0VlanValid. */
+typedef register_container RegAPENcsiChannel0Mac0VlanValid_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_APE_H_uint32_t r32;
+} RegAPENcsiChannel0Mac0VlanValid_t;
+
+#define REG_APE_NCSI_CHANNEL0_MAC0_VLAN ((volatile BCM5719_APE_H_uint32_t*)0xc0014974) /*  */
+/** @brief Register definition for @ref APE_t.NcsiChannel0Mac0Vlan. */
+typedef register_container RegAPENcsiChannel0Mac0Vlan_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_APE_H_uint32_t r32;
+} RegAPENcsiChannel0Mac0Vlan_t;
+
+#define REG_APE_NCSI_CHANNEL0_MAC1_VLAN_VALID ((volatile BCM5719_APE_H_uint32_t*)0xc0014978) /* Nonzero indicates VLAN field is valid */
+/** @brief Register definition for @ref APE_t.NcsiChannel0Mac1VlanValid. */
+typedef register_container RegAPENcsiChannel0Mac1VlanValid_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_APE_H_uint32_t r32;
+} RegAPENcsiChannel0Mac1VlanValid_t;
+
+#define REG_APE_NCSI_CHANNEL0_MAC1_VLAN ((volatile BCM5719_APE_H_uint32_t*)0xc001497c) /*  */
+/** @brief Register definition for @ref APE_t.NcsiChannel0Mac1Vlan. */
+typedef register_container RegAPENcsiChannel0Mac1Vlan_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_APE_H_uint32_t r32;
+} RegAPENcsiChannel0Mac1Vlan_t;
+
+#define REG_APE_NCSI_CHANNEL0_STATUS ((volatile BCM5719_APE_H_uint32_t*)0xc0014980) /*  */
+#define     APE_NCSI_CHANNEL0_STATUS_LINK_UP_SHIFT 0u
+#define     APE_NCSI_CHANNEL0_STATUS_LINK_UP_MASK  0x1u
+#define GET_APE_NCSI_CHANNEL0_STATUS_LINK_UP(__reg__)  (((__reg__) & 0x1) >> 0u)
+#define SET_APE_NCSI_CHANNEL0_STATUS_LINK_UP(__val__)  (((__val__) << 0u) & 0x1u)
+#define     APE_NCSI_CHANNEL0_STATUS_LINK_STATUS_SHIFT 1u
+#define     APE_NCSI_CHANNEL0_STATUS_LINK_STATUS_MASK  0x1eu
+#define GET_APE_NCSI_CHANNEL0_STATUS_LINK_STATUS(__reg__)  (((__reg__) & 0x1e) >> 1u)
+#define SET_APE_NCSI_CHANNEL0_STATUS_LINK_STATUS(__val__)  (((__val__) << 1u) & 0x1eu)
+#define     APE_NCSI_CHANNEL0_STATUS_SERDES_SHIFT 5u
+#define     APE_NCSI_CHANNEL0_STATUS_SERDES_MASK  0x20u
+#define GET_APE_NCSI_CHANNEL0_STATUS_SERDES(__reg__)  (((__reg__) & 0x20) >> 5u)
+#define SET_APE_NCSI_CHANNEL0_STATUS_SERDES(__val__)  (((__val__) << 5u) & 0x20u)
+#define     APE_NCSI_CHANNEL0_STATUS_AUTONEGOTIATION_COMPLETE_SHIFT 6u
+#define     APE_NCSI_CHANNEL0_STATUS_AUTONEGOTIATION_COMPLETE_MASK  0x40u
+#define GET_APE_NCSI_CHANNEL0_STATUS_AUTONEGOTIATION_COMPLETE(__reg__)  (((__reg__) & 0x40) >> 6u)
+#define SET_APE_NCSI_CHANNEL0_STATUS_AUTONEGOTIATION_COMPLETE(__val__)  (((__val__) << 6u) & 0x40u)
+#define     APE_NCSI_CHANNEL0_STATUS_LINK_SPEED_1000M_FULL_DUPLEX_CAPABLE_SHIFT 9u
+#define     APE_NCSI_CHANNEL0_STATUS_LINK_SPEED_1000M_FULL_DUPLEX_CAPABLE_MASK  0x200u
+#define GET_APE_NCSI_CHANNEL0_STATUS_LINK_SPEED_1000M_FULL_DUPLEX_CAPABLE(__reg__)  (((__reg__) & 0x200) >> 9u)
+#define SET_APE_NCSI_CHANNEL0_STATUS_LINK_SPEED_1000M_FULL_DUPLEX_CAPABLE(__val__)  (((__val__) << 9u) & 0x200u)
+#define     APE_NCSI_CHANNEL0_STATUS_LINK_SPEED_1000M_HALS_DUPLEX_CAPABLE_SHIFT 10u
+#define     APE_NCSI_CHANNEL0_STATUS_LINK_SPEED_1000M_HALS_DUPLEX_CAPABLE_MASK  0x400u
+#define GET_APE_NCSI_CHANNEL0_STATUS_LINK_SPEED_1000M_HALS_DUPLEX_CAPABLE(__reg__)  (((__reg__) & 0x400) >> 10u)
+#define SET_APE_NCSI_CHANNEL0_STATUS_LINK_SPEED_1000M_HALS_DUPLEX_CAPABLE(__val__)  (((__val__) << 10u) & 0x400u)
+
+/** @brief Register definition for @ref APE_t.NcsiChannel0Status. */
+typedef register_container RegAPENcsiChannel0Status_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_APE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_APE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Linkup, 0, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, LinkStatus, 1, 4)
+        /** @brief Set from MII_REG_CONTROL__AUTO_NEGOTIATION_ENABLE. Set unconditionally in SERDES case. */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, SERDES, 5, 1)
+        /** @brief Set if autonegotiation is complete. */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, AutonegotiationComplete, 6, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_8_7, 7, 2)
+        /** @brief Link partner 1000BASE-T full duplex capable */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, LinkSpeed1000MFullDuplexCapable, 9, 1)
+        /** @brief Link partner 1000BASE-T half duplex capable */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, LinkSpeed1000MHalsDuplexCapable, 10, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_11, 11, 21)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_11, 11, 21)
+        /** @brief Link partner 1000BASE-T half duplex capable */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, LinkSpeed1000MHalsDuplexCapable, 10, 1)
+        /** @brief Link partner 1000BASE-T full duplex capable */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, LinkSpeed1000MFullDuplexCapable, 9, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_8_7, 7, 2)
+        /** @brief Set if autonegotiation is complete. */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, AutonegotiationComplete, 6, 1)
+        /** @brief Set from MII_REG_CONTROL__AUTO_NEGOTIATION_ENABLE. Set unconditionally in SERDES case. */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, SERDES, 5, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, LinkStatus, 1, 4)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Linkup, 0, 1)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "NcsiChannel0Status"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegAPENcsiChannel0Status_t()
+    {
+        /** @brief constructor for @ref APE_t.NcsiChannel0Status. */
+        r32.setName("NcsiChannel0Status");
+        bits.Linkup.setBaseRegister(&r32);
+        bits.Linkup.setName("Linkup");
+        bits.LinkStatus.setBaseRegister(&r32);
+        bits.LinkStatus.setName("LinkStatus");
+        bits.SERDES.setBaseRegister(&r32);
+        bits.SERDES.setName("SERDES");
+        bits.AutonegotiationComplete.setBaseRegister(&r32);
+        bits.AutonegotiationComplete.setName("AutonegotiationComplete");
+        bits.LinkSpeed1000MFullDuplexCapable.setBaseRegister(&r32);
+        bits.LinkSpeed1000MFullDuplexCapable.setName("LinkSpeed1000MFullDuplexCapable");
+        bits.LinkSpeed1000MHalsDuplexCapable.setBaseRegister(&r32);
+        bits.LinkSpeed1000MHalsDuplexCapable.setName("LinkSpeed1000MHalsDuplexCapable");
+    }
+    RegAPENcsiChannel0Status_t& operator=(const RegAPENcsiChannel0Status_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegAPENcsiChannel0Status_t;
+
+#define REG_APE_NCSI_CHANNEL0_RESET_COUNT ((volatile BCM5719_APE_H_uint32_t*)0xc0014984) /*  */
+/** @brief Register definition for @ref APE_t.NcsiChannel0ResetCount. */
+typedef register_container RegAPENcsiChannel0ResetCount_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_APE_H_uint32_t r32;
+} RegAPENcsiChannel0ResetCount_t;
+
+#define REG_APE_NCSI_CHANNEL0_PXE ((volatile BCM5719_APE_H_uint32_t*)0xc0014988) /*  */
+/** @brief Register definition for @ref APE_t.NcsiChannel0Pxe. */
+typedef register_container RegAPENcsiChannel0Pxe_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_APE_H_uint32_t r32;
+} RegAPENcsiChannel0Pxe_t;
+
+#define REG_APE_NCSI_CHANNEL0_DROPFIL ((volatile BCM5719_APE_H_uint32_t*)0xc001498c) /*  */
+/** @brief Register definition for @ref APE_t.NcsiChannel0Dropfil. */
+typedef register_container RegAPENcsiChannel0Dropfil_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_APE_H_uint32_t r32;
+} RegAPENcsiChannel0Dropfil_t;
+
+#define REG_APE_NCSI_CHANNEL0_SLINK ((volatile BCM5719_APE_H_uint32_t*)0xc0014990) /*  */
+/** @brief Register definition for @ref APE_t.NcsiChannel0Slink. */
+typedef register_container RegAPENcsiChannel0Slink_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_APE_H_uint32_t r32;
+} RegAPENcsiChannel0Slink_t;
+
+#define REG_APE_NCSI_CHANNEL0_DBG ((volatile BCM5719_APE_H_uint32_t*)0xc00149a0) /*  */
+/** @brief Register definition for @ref APE_t.NcsiChannel0Dbg. */
+typedef register_container RegAPENcsiChannel0Dbg_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_APE_H_uint32_t r32;
+} RegAPENcsiChannel0Dbg_t;
+
+#define REG_APE_NCSI_CHANNEL0_CTRLSTAT_RX ((volatile BCM5719_APE_H_uint32_t*)0xc00149b0) /*  */
+/** @brief Register definition for @ref APE_t.NcsiChannel0CtrlstatRx. */
+typedef register_container RegAPENcsiChannel0CtrlstatRx_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_APE_H_uint32_t r32;
+} RegAPENcsiChannel0CtrlstatRx_t;
+
 #define REG_APE_PER_LOCK_REQUEST_PHY0 ((volatile BCM5719_APE_H_uint32_t*)0xc0018400) /* This register, and the following Per Lock Request registers work the same. The tg3 driver uses 0x0000_1000 (APELOCK_PER_REQ_DRIVER) for PHY ports (or always for function 0). */
+#define     APE_PER_LOCK_REQUEST_PHY0_APE_SHIFT 0u
+#define     APE_PER_LOCK_REQUEST_PHY0_APE_MASK  0x1u
+#define GET_APE_PER_LOCK_REQUEST_PHY0_APE(__reg__)  (((__reg__) & 0x1) >> 0u)
+#define SET_APE_PER_LOCK_REQUEST_PHY0_APE(__val__)  (((__val__) << 0u) & 0x1u)
+#define     APE_PER_LOCK_REQUEST_PHY0_FUNCTION_1_SHIFT 1u
+#define     APE_PER_LOCK_REQUEST_PHY0_FUNCTION_1_MASK  0x2u
+#define GET_APE_PER_LOCK_REQUEST_PHY0_FUNCTION_1(__reg__)  (((__reg__) & 0x2) >> 1u)
+#define SET_APE_PER_LOCK_REQUEST_PHY0_FUNCTION_1(__val__)  (((__val__) << 1u) & 0x2u)
+#define     APE_PER_LOCK_REQUEST_PHY0_FUNCTION_2_SHIFT 2u
+#define     APE_PER_LOCK_REQUEST_PHY0_FUNCTION_2_MASK  0x4u
+#define GET_APE_PER_LOCK_REQUEST_PHY0_FUNCTION_2(__reg__)  (((__reg__) & 0x4) >> 2u)
+#define SET_APE_PER_LOCK_REQUEST_PHY0_FUNCTION_2(__val__)  (((__val__) << 2u) & 0x4u)
+#define     APE_PER_LOCK_REQUEST_PHY0_FUNCTION_3_SHIFT 3u
+#define     APE_PER_LOCK_REQUEST_PHY0_FUNCTION_3_MASK  0x8u
+#define GET_APE_PER_LOCK_REQUEST_PHY0_FUNCTION_3(__reg__)  (((__reg__) & 0x8) >> 3u)
+#define SET_APE_PER_LOCK_REQUEST_PHY0_FUNCTION_3(__val__)  (((__val__) << 3u) & 0x8u)
+#define     APE_PER_LOCK_REQUEST_PHY0_BOOTCODE_SHIFT 4u
+#define     APE_PER_LOCK_REQUEST_PHY0_BOOTCODE_MASK  0x10u
+#define GET_APE_PER_LOCK_REQUEST_PHY0_BOOTCODE(__reg__)  (((__reg__) & 0x10) >> 4u)
+#define SET_APE_PER_LOCK_REQUEST_PHY0_BOOTCODE(__val__)  (((__val__) << 4u) & 0x10u)
+#define     APE_PER_LOCK_REQUEST_PHY0_DRIVER_SHIFT 12u
+#define     APE_PER_LOCK_REQUEST_PHY0_DRIVER_MASK  0x1000u
+#define GET_APE_PER_LOCK_REQUEST_PHY0_DRIVER(__reg__)  (((__reg__) & 0x1000) >> 12u)
+#define SET_APE_PER_LOCK_REQUEST_PHY0_DRIVER(__val__)  (((__val__) << 12u) & 0x1000u)
+
 /** @brief Register definition for @ref APE_t.PerLockRequestPhy0. */
 typedef register_container RegAPEPerLockRequestPhy0_t {
     /** @brief 32bit direct register access. */
     BCM5719_APE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_APE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, APE, 0, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function1, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function2, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function3, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Bootcode, 4, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_11_5, 5, 7)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Driver, 12, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_13, 13, 19)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_13, 13, 19)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Driver, 12, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_11_5, 5, 7)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Bootcode, 4, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function3, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function2, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function1, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, APE, 0, 1)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "PerLockRequestPhy0"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegAPEPerLockRequestPhy0_t()
+    {
+        /** @brief constructor for @ref APE_t.PerLockRequestPhy0. */
+        r32.setName("PerLockRequestPhy0");
+        bits.APE.setBaseRegister(&r32);
+        bits.APE.setName("APE");
+        bits.Function1.setBaseRegister(&r32);
+        bits.Function1.setName("Function1");
+        bits.Function2.setBaseRegister(&r32);
+        bits.Function2.setName("Function2");
+        bits.Function3.setBaseRegister(&r32);
+        bits.Function3.setName("Function3");
+        bits.Bootcode.setBaseRegister(&r32);
+        bits.Bootcode.setName("Bootcode");
+        bits.Driver.setBaseRegister(&r32);
+        bits.Driver.setName("Driver");
+    }
+    RegAPEPerLockRequestPhy0_t& operator=(const RegAPEPerLockRequestPhy0_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegAPEPerLockRequestPhy0_t;
 
 #define REG_APE_PER_LOCK_REQUEST_GRC ((volatile BCM5719_APE_H_uint32_t*)0xc0018404) /*  */
+#define     APE_PER_LOCK_REQUEST_GRC_APE_SHIFT 0u
+#define     APE_PER_LOCK_REQUEST_GRC_APE_MASK  0x1u
+#define GET_APE_PER_LOCK_REQUEST_GRC_APE(__reg__)  (((__reg__) & 0x1) >> 0u)
+#define SET_APE_PER_LOCK_REQUEST_GRC_APE(__val__)  (((__val__) << 0u) & 0x1u)
+#define     APE_PER_LOCK_REQUEST_GRC_FUNCTION_1_SHIFT 1u
+#define     APE_PER_LOCK_REQUEST_GRC_FUNCTION_1_MASK  0x2u
+#define GET_APE_PER_LOCK_REQUEST_GRC_FUNCTION_1(__reg__)  (((__reg__) & 0x2) >> 1u)
+#define SET_APE_PER_LOCK_REQUEST_GRC_FUNCTION_1(__val__)  (((__val__) << 1u) & 0x2u)
+#define     APE_PER_LOCK_REQUEST_GRC_FUNCTION_2_SHIFT 2u
+#define     APE_PER_LOCK_REQUEST_GRC_FUNCTION_2_MASK  0x4u
+#define GET_APE_PER_LOCK_REQUEST_GRC_FUNCTION_2(__reg__)  (((__reg__) & 0x4) >> 2u)
+#define SET_APE_PER_LOCK_REQUEST_GRC_FUNCTION_2(__val__)  (((__val__) << 2u) & 0x4u)
+#define     APE_PER_LOCK_REQUEST_GRC_FUNCTION_3_SHIFT 3u
+#define     APE_PER_LOCK_REQUEST_GRC_FUNCTION_3_MASK  0x8u
+#define GET_APE_PER_LOCK_REQUEST_GRC_FUNCTION_3(__reg__)  (((__reg__) & 0x8) >> 3u)
+#define SET_APE_PER_LOCK_REQUEST_GRC_FUNCTION_3(__val__)  (((__val__) << 3u) & 0x8u)
+#define     APE_PER_LOCK_REQUEST_GRC_BOOTCODE_SHIFT 4u
+#define     APE_PER_LOCK_REQUEST_GRC_BOOTCODE_MASK  0x10u
+#define GET_APE_PER_LOCK_REQUEST_GRC_BOOTCODE(__reg__)  (((__reg__) & 0x10) >> 4u)
+#define SET_APE_PER_LOCK_REQUEST_GRC_BOOTCODE(__val__)  (((__val__) << 4u) & 0x10u)
+#define     APE_PER_LOCK_REQUEST_GRC_DRIVER_SHIFT 12u
+#define     APE_PER_LOCK_REQUEST_GRC_DRIVER_MASK  0x1000u
+#define GET_APE_PER_LOCK_REQUEST_GRC_DRIVER(__reg__)  (((__reg__) & 0x1000) >> 12u)
+#define SET_APE_PER_LOCK_REQUEST_GRC_DRIVER(__val__)  (((__val__) << 12u) & 0x1000u)
+
 /** @brief Register definition for @ref APE_t.PerLockRequestGrc. */
 typedef register_container RegAPEPerLockRequestGrc_t {
     /** @brief 32bit direct register access. */
     BCM5719_APE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_APE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, APE, 0, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function1, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function2, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function3, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Bootcode, 4, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_11_5, 5, 7)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Driver, 12, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_13, 13, 19)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_13, 13, 19)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Driver, 12, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_11_5, 5, 7)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Bootcode, 4, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function3, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function2, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function1, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, APE, 0, 1)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "PerLockRequestGrc"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegAPEPerLockRequestGrc_t()
+    {
+        /** @brief constructor for @ref APE_t.PerLockRequestGrc. */
+        r32.setName("PerLockRequestGrc");
+        bits.APE.setBaseRegister(&r32);
+        bits.APE.setName("APE");
+        bits.Function1.setBaseRegister(&r32);
+        bits.Function1.setName("Function1");
+        bits.Function2.setBaseRegister(&r32);
+        bits.Function2.setName("Function2");
+        bits.Function3.setBaseRegister(&r32);
+        bits.Function3.setName("Function3");
+        bits.Bootcode.setBaseRegister(&r32);
+        bits.Bootcode.setName("Bootcode");
+        bits.Driver.setBaseRegister(&r32);
+        bits.Driver.setName("Driver");
+    }
+    RegAPEPerLockRequestGrc_t& operator=(const RegAPEPerLockRequestGrc_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegAPEPerLockRequestGrc_t;
 
 #define REG_APE_PER_LOCK_REQUEST_PHY1 ((volatile BCM5719_APE_H_uint32_t*)0xc0018408) /*  */
+#define     APE_PER_LOCK_REQUEST_PHY1_APE_SHIFT 0u
+#define     APE_PER_LOCK_REQUEST_PHY1_APE_MASK  0x1u
+#define GET_APE_PER_LOCK_REQUEST_PHY1_APE(__reg__)  (((__reg__) & 0x1) >> 0u)
+#define SET_APE_PER_LOCK_REQUEST_PHY1_APE(__val__)  (((__val__) << 0u) & 0x1u)
+#define     APE_PER_LOCK_REQUEST_PHY1_FUNCTION_1_SHIFT 1u
+#define     APE_PER_LOCK_REQUEST_PHY1_FUNCTION_1_MASK  0x2u
+#define GET_APE_PER_LOCK_REQUEST_PHY1_FUNCTION_1(__reg__)  (((__reg__) & 0x2) >> 1u)
+#define SET_APE_PER_LOCK_REQUEST_PHY1_FUNCTION_1(__val__)  (((__val__) << 1u) & 0x2u)
+#define     APE_PER_LOCK_REQUEST_PHY1_FUNCTION_2_SHIFT 2u
+#define     APE_PER_LOCK_REQUEST_PHY1_FUNCTION_2_MASK  0x4u
+#define GET_APE_PER_LOCK_REQUEST_PHY1_FUNCTION_2(__reg__)  (((__reg__) & 0x4) >> 2u)
+#define SET_APE_PER_LOCK_REQUEST_PHY1_FUNCTION_2(__val__)  (((__val__) << 2u) & 0x4u)
+#define     APE_PER_LOCK_REQUEST_PHY1_FUNCTION_3_SHIFT 3u
+#define     APE_PER_LOCK_REQUEST_PHY1_FUNCTION_3_MASK  0x8u
+#define GET_APE_PER_LOCK_REQUEST_PHY1_FUNCTION_3(__reg__)  (((__reg__) & 0x8) >> 3u)
+#define SET_APE_PER_LOCK_REQUEST_PHY1_FUNCTION_3(__val__)  (((__val__) << 3u) & 0x8u)
+#define     APE_PER_LOCK_REQUEST_PHY1_BOOTCODE_SHIFT 4u
+#define     APE_PER_LOCK_REQUEST_PHY1_BOOTCODE_MASK  0x10u
+#define GET_APE_PER_LOCK_REQUEST_PHY1_BOOTCODE(__reg__)  (((__reg__) & 0x10) >> 4u)
+#define SET_APE_PER_LOCK_REQUEST_PHY1_BOOTCODE(__val__)  (((__val__) << 4u) & 0x10u)
+#define     APE_PER_LOCK_REQUEST_PHY1_DRIVER_SHIFT 12u
+#define     APE_PER_LOCK_REQUEST_PHY1_DRIVER_MASK  0x1000u
+#define GET_APE_PER_LOCK_REQUEST_PHY1_DRIVER(__reg__)  (((__reg__) & 0x1000) >> 12u)
+#define SET_APE_PER_LOCK_REQUEST_PHY1_DRIVER(__val__)  (((__val__) << 12u) & 0x1000u)
+
 /** @brief Register definition for @ref APE_t.PerLockRequestPhy1. */
 typedef register_container RegAPEPerLockRequestPhy1_t {
     /** @brief 32bit direct register access. */
     BCM5719_APE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_APE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, APE, 0, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function1, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function2, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function3, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Bootcode, 4, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_11_5, 5, 7)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Driver, 12, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_13, 13, 19)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_13, 13, 19)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Driver, 12, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_11_5, 5, 7)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Bootcode, 4, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function3, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function2, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function1, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, APE, 0, 1)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "PerLockRequestPhy1"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegAPEPerLockRequestPhy1_t()
+    {
+        /** @brief constructor for @ref APE_t.PerLockRequestPhy1. */
+        r32.setName("PerLockRequestPhy1");
+        bits.APE.setBaseRegister(&r32);
+        bits.APE.setName("APE");
+        bits.Function1.setBaseRegister(&r32);
+        bits.Function1.setName("Function1");
+        bits.Function2.setBaseRegister(&r32);
+        bits.Function2.setName("Function2");
+        bits.Function3.setBaseRegister(&r32);
+        bits.Function3.setName("Function3");
+        bits.Bootcode.setBaseRegister(&r32);
+        bits.Bootcode.setName("Bootcode");
+        bits.Driver.setBaseRegister(&r32);
+        bits.Driver.setName("Driver");
+    }
+    RegAPEPerLockRequestPhy1_t& operator=(const RegAPEPerLockRequestPhy1_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegAPEPerLockRequestPhy1_t;
 
 #define REG_APE_PER_LOCK_REQUEST_PHY2 ((volatile BCM5719_APE_H_uint32_t*)0xc001840c) /*  */
+#define     APE_PER_LOCK_REQUEST_PHY2_APE_SHIFT 0u
+#define     APE_PER_LOCK_REQUEST_PHY2_APE_MASK  0x1u
+#define GET_APE_PER_LOCK_REQUEST_PHY2_APE(__reg__)  (((__reg__) & 0x1) >> 0u)
+#define SET_APE_PER_LOCK_REQUEST_PHY2_APE(__val__)  (((__val__) << 0u) & 0x1u)
+#define     APE_PER_LOCK_REQUEST_PHY2_FUNCTION_1_SHIFT 1u
+#define     APE_PER_LOCK_REQUEST_PHY2_FUNCTION_1_MASK  0x2u
+#define GET_APE_PER_LOCK_REQUEST_PHY2_FUNCTION_1(__reg__)  (((__reg__) & 0x2) >> 1u)
+#define SET_APE_PER_LOCK_REQUEST_PHY2_FUNCTION_1(__val__)  (((__val__) << 1u) & 0x2u)
+#define     APE_PER_LOCK_REQUEST_PHY2_FUNCTION_2_SHIFT 2u
+#define     APE_PER_LOCK_REQUEST_PHY2_FUNCTION_2_MASK  0x4u
+#define GET_APE_PER_LOCK_REQUEST_PHY2_FUNCTION_2(__reg__)  (((__reg__) & 0x4) >> 2u)
+#define SET_APE_PER_LOCK_REQUEST_PHY2_FUNCTION_2(__val__)  (((__val__) << 2u) & 0x4u)
+#define     APE_PER_LOCK_REQUEST_PHY2_FUNCTION_3_SHIFT 3u
+#define     APE_PER_LOCK_REQUEST_PHY2_FUNCTION_3_MASK  0x8u
+#define GET_APE_PER_LOCK_REQUEST_PHY2_FUNCTION_3(__reg__)  (((__reg__) & 0x8) >> 3u)
+#define SET_APE_PER_LOCK_REQUEST_PHY2_FUNCTION_3(__val__)  (((__val__) << 3u) & 0x8u)
+#define     APE_PER_LOCK_REQUEST_PHY2_BOOTCODE_SHIFT 4u
+#define     APE_PER_LOCK_REQUEST_PHY2_BOOTCODE_MASK  0x10u
+#define GET_APE_PER_LOCK_REQUEST_PHY2_BOOTCODE(__reg__)  (((__reg__) & 0x10) >> 4u)
+#define SET_APE_PER_LOCK_REQUEST_PHY2_BOOTCODE(__val__)  (((__val__) << 4u) & 0x10u)
+#define     APE_PER_LOCK_REQUEST_PHY2_DRIVER_SHIFT 12u
+#define     APE_PER_LOCK_REQUEST_PHY2_DRIVER_MASK  0x1000u
+#define GET_APE_PER_LOCK_REQUEST_PHY2_DRIVER(__reg__)  (((__reg__) & 0x1000) >> 12u)
+#define SET_APE_PER_LOCK_REQUEST_PHY2_DRIVER(__val__)  (((__val__) << 12u) & 0x1000u)
+
 /** @brief Register definition for @ref APE_t.PerLockRequestPhy2. */
 typedef register_container RegAPEPerLockRequestPhy2_t {
     /** @brief 32bit direct register access. */
     BCM5719_APE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_APE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, APE, 0, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function1, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function2, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function3, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Bootcode, 4, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_11_5, 5, 7)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Driver, 12, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_13, 13, 19)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_13, 13, 19)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Driver, 12, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_11_5, 5, 7)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Bootcode, 4, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function3, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function2, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function1, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, APE, 0, 1)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "PerLockRequestPhy2"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegAPEPerLockRequestPhy2_t()
+    {
+        /** @brief constructor for @ref APE_t.PerLockRequestPhy2. */
+        r32.setName("PerLockRequestPhy2");
+        bits.APE.setBaseRegister(&r32);
+        bits.APE.setName("APE");
+        bits.Function1.setBaseRegister(&r32);
+        bits.Function1.setName("Function1");
+        bits.Function2.setBaseRegister(&r32);
+        bits.Function2.setName("Function2");
+        bits.Function3.setBaseRegister(&r32);
+        bits.Function3.setName("Function3");
+        bits.Bootcode.setBaseRegister(&r32);
+        bits.Bootcode.setName("Bootcode");
+        bits.Driver.setBaseRegister(&r32);
+        bits.Driver.setName("Driver");
+    }
+    RegAPEPerLockRequestPhy2_t& operator=(const RegAPEPerLockRequestPhy2_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegAPEPerLockRequestPhy2_t;
 
 #define REG_APE_PER_LOCK_REQUEST_MEM ((volatile BCM5719_APE_H_uint32_t*)0xc0018410) /*  */
+#define     APE_PER_LOCK_REQUEST_MEM_APE_SHIFT 0u
+#define     APE_PER_LOCK_REQUEST_MEM_APE_MASK  0x1u
+#define GET_APE_PER_LOCK_REQUEST_MEM_APE(__reg__)  (((__reg__) & 0x1) >> 0u)
+#define SET_APE_PER_LOCK_REQUEST_MEM_APE(__val__)  (((__val__) << 0u) & 0x1u)
+#define     APE_PER_LOCK_REQUEST_MEM_FUNCTION_1_SHIFT 1u
+#define     APE_PER_LOCK_REQUEST_MEM_FUNCTION_1_MASK  0x2u
+#define GET_APE_PER_LOCK_REQUEST_MEM_FUNCTION_1(__reg__)  (((__reg__) & 0x2) >> 1u)
+#define SET_APE_PER_LOCK_REQUEST_MEM_FUNCTION_1(__val__)  (((__val__) << 1u) & 0x2u)
+#define     APE_PER_LOCK_REQUEST_MEM_FUNCTION_2_SHIFT 2u
+#define     APE_PER_LOCK_REQUEST_MEM_FUNCTION_2_MASK  0x4u
+#define GET_APE_PER_LOCK_REQUEST_MEM_FUNCTION_2(__reg__)  (((__reg__) & 0x4) >> 2u)
+#define SET_APE_PER_LOCK_REQUEST_MEM_FUNCTION_2(__val__)  (((__val__) << 2u) & 0x4u)
+#define     APE_PER_LOCK_REQUEST_MEM_FUNCTION_3_SHIFT 3u
+#define     APE_PER_LOCK_REQUEST_MEM_FUNCTION_3_MASK  0x8u
+#define GET_APE_PER_LOCK_REQUEST_MEM_FUNCTION_3(__reg__)  (((__reg__) & 0x8) >> 3u)
+#define SET_APE_PER_LOCK_REQUEST_MEM_FUNCTION_3(__val__)  (((__val__) << 3u) & 0x8u)
+#define     APE_PER_LOCK_REQUEST_MEM_BOOTCODE_SHIFT 4u
+#define     APE_PER_LOCK_REQUEST_MEM_BOOTCODE_MASK  0x10u
+#define GET_APE_PER_LOCK_REQUEST_MEM_BOOTCODE(__reg__)  (((__reg__) & 0x10) >> 4u)
+#define SET_APE_PER_LOCK_REQUEST_MEM_BOOTCODE(__val__)  (((__val__) << 4u) & 0x10u)
+#define     APE_PER_LOCK_REQUEST_MEM_DRIVER_SHIFT 12u
+#define     APE_PER_LOCK_REQUEST_MEM_DRIVER_MASK  0x1000u
+#define GET_APE_PER_LOCK_REQUEST_MEM_DRIVER(__reg__)  (((__reg__) & 0x1000) >> 12u)
+#define SET_APE_PER_LOCK_REQUEST_MEM_DRIVER(__val__)  (((__val__) << 12u) & 0x1000u)
+
 /** @brief Register definition for @ref APE_t.PerLockRequestMem. */
 typedef register_container RegAPEPerLockRequestMem_t {
     /** @brief 32bit direct register access. */
     BCM5719_APE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_APE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, APE, 0, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function1, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function2, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function3, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Bootcode, 4, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_11_5, 5, 7)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Driver, 12, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_13, 13, 19)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_13, 13, 19)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Driver, 12, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_11_5, 5, 7)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Bootcode, 4, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function3, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function2, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function1, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, APE, 0, 1)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "PerLockRequestMem"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegAPEPerLockRequestMem_t()
+    {
+        /** @brief constructor for @ref APE_t.PerLockRequestMem. */
+        r32.setName("PerLockRequestMem");
+        bits.APE.setBaseRegister(&r32);
+        bits.APE.setName("APE");
+        bits.Function1.setBaseRegister(&r32);
+        bits.Function1.setName("Function1");
+        bits.Function2.setBaseRegister(&r32);
+        bits.Function2.setName("Function2");
+        bits.Function3.setBaseRegister(&r32);
+        bits.Function3.setName("Function3");
+        bits.Bootcode.setBaseRegister(&r32);
+        bits.Bootcode.setName("Bootcode");
+        bits.Driver.setBaseRegister(&r32);
+        bits.Driver.setName("Driver");
+    }
+    RegAPEPerLockRequestMem_t& operator=(const RegAPEPerLockRequestMem_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegAPEPerLockRequestMem_t;
 
 #define REG_APE_PER_LOCK_REQUEST_PHY3 ((volatile BCM5719_APE_H_uint32_t*)0xc0018414) /*  */
+#define     APE_PER_LOCK_REQUEST_PHY3_APE_SHIFT 0u
+#define     APE_PER_LOCK_REQUEST_PHY3_APE_MASK  0x1u
+#define GET_APE_PER_LOCK_REQUEST_PHY3_APE(__reg__)  (((__reg__) & 0x1) >> 0u)
+#define SET_APE_PER_LOCK_REQUEST_PHY3_APE(__val__)  (((__val__) << 0u) & 0x1u)
+#define     APE_PER_LOCK_REQUEST_PHY3_FUNCTION_1_SHIFT 1u
+#define     APE_PER_LOCK_REQUEST_PHY3_FUNCTION_1_MASK  0x2u
+#define GET_APE_PER_LOCK_REQUEST_PHY3_FUNCTION_1(__reg__)  (((__reg__) & 0x2) >> 1u)
+#define SET_APE_PER_LOCK_REQUEST_PHY3_FUNCTION_1(__val__)  (((__val__) << 1u) & 0x2u)
+#define     APE_PER_LOCK_REQUEST_PHY3_FUNCTION_2_SHIFT 2u
+#define     APE_PER_LOCK_REQUEST_PHY3_FUNCTION_2_MASK  0x4u
+#define GET_APE_PER_LOCK_REQUEST_PHY3_FUNCTION_2(__reg__)  (((__reg__) & 0x4) >> 2u)
+#define SET_APE_PER_LOCK_REQUEST_PHY3_FUNCTION_2(__val__)  (((__val__) << 2u) & 0x4u)
+#define     APE_PER_LOCK_REQUEST_PHY3_FUNCTION_3_SHIFT 3u
+#define     APE_PER_LOCK_REQUEST_PHY3_FUNCTION_3_MASK  0x8u
+#define GET_APE_PER_LOCK_REQUEST_PHY3_FUNCTION_3(__reg__)  (((__reg__) & 0x8) >> 3u)
+#define SET_APE_PER_LOCK_REQUEST_PHY3_FUNCTION_3(__val__)  (((__val__) << 3u) & 0x8u)
+#define     APE_PER_LOCK_REQUEST_PHY3_BOOTCODE_SHIFT 4u
+#define     APE_PER_LOCK_REQUEST_PHY3_BOOTCODE_MASK  0x10u
+#define GET_APE_PER_LOCK_REQUEST_PHY3_BOOTCODE(__reg__)  (((__reg__) & 0x10) >> 4u)
+#define SET_APE_PER_LOCK_REQUEST_PHY3_BOOTCODE(__val__)  (((__val__) << 4u) & 0x10u)
+#define     APE_PER_LOCK_REQUEST_PHY3_DRIVER_SHIFT 12u
+#define     APE_PER_LOCK_REQUEST_PHY3_DRIVER_MASK  0x1000u
+#define GET_APE_PER_LOCK_REQUEST_PHY3_DRIVER(__reg__)  (((__reg__) & 0x1000) >> 12u)
+#define SET_APE_PER_LOCK_REQUEST_PHY3_DRIVER(__val__)  (((__val__) << 12u) & 0x1000u)
+
 /** @brief Register definition for @ref APE_t.PerLockRequestPhy3. */
 typedef register_container RegAPEPerLockRequestPhy3_t {
     /** @brief 32bit direct register access. */
     BCM5719_APE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_APE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, APE, 0, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function1, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function2, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function3, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Bootcode, 4, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_11_5, 5, 7)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Driver, 12, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_13, 13, 19)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_13, 13, 19)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Driver, 12, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_11_5, 5, 7)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Bootcode, 4, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function3, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function2, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function1, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, APE, 0, 1)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "PerLockRequestPhy3"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegAPEPerLockRequestPhy3_t()
+    {
+        /** @brief constructor for @ref APE_t.PerLockRequestPhy3. */
+        r32.setName("PerLockRequestPhy3");
+        bits.APE.setBaseRegister(&r32);
+        bits.APE.setName("APE");
+        bits.Function1.setBaseRegister(&r32);
+        bits.Function1.setName("Function1");
+        bits.Function2.setBaseRegister(&r32);
+        bits.Function2.setName("Function2");
+        bits.Function3.setBaseRegister(&r32);
+        bits.Function3.setName("Function3");
+        bits.Bootcode.setBaseRegister(&r32);
+        bits.Bootcode.setName("Bootcode");
+        bits.Driver.setBaseRegister(&r32);
+        bits.Driver.setName("Driver");
+    }
+    RegAPEPerLockRequestPhy3_t& operator=(const RegAPEPerLockRequestPhy3_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegAPEPerLockRequestPhy3_t;
 
 #define REG_APE_PER_LOCK_REQUEST_PORT6 ((volatile BCM5719_APE_H_uint32_t*)0xc0018418) /*  */
+#define     APE_PER_LOCK_REQUEST_PORT6_APE_SHIFT 0u
+#define     APE_PER_LOCK_REQUEST_PORT6_APE_MASK  0x1u
+#define GET_APE_PER_LOCK_REQUEST_PORT6_APE(__reg__)  (((__reg__) & 0x1) >> 0u)
+#define SET_APE_PER_LOCK_REQUEST_PORT6_APE(__val__)  (((__val__) << 0u) & 0x1u)
+#define     APE_PER_LOCK_REQUEST_PORT6_FUNCTION_1_SHIFT 1u
+#define     APE_PER_LOCK_REQUEST_PORT6_FUNCTION_1_MASK  0x2u
+#define GET_APE_PER_LOCK_REQUEST_PORT6_FUNCTION_1(__reg__)  (((__reg__) & 0x2) >> 1u)
+#define SET_APE_PER_LOCK_REQUEST_PORT6_FUNCTION_1(__val__)  (((__val__) << 1u) & 0x2u)
+#define     APE_PER_LOCK_REQUEST_PORT6_FUNCTION_2_SHIFT 2u
+#define     APE_PER_LOCK_REQUEST_PORT6_FUNCTION_2_MASK  0x4u
+#define GET_APE_PER_LOCK_REQUEST_PORT6_FUNCTION_2(__reg__)  (((__reg__) & 0x4) >> 2u)
+#define SET_APE_PER_LOCK_REQUEST_PORT6_FUNCTION_2(__val__)  (((__val__) << 2u) & 0x4u)
+#define     APE_PER_LOCK_REQUEST_PORT6_FUNCTION_3_SHIFT 3u
+#define     APE_PER_LOCK_REQUEST_PORT6_FUNCTION_3_MASK  0x8u
+#define GET_APE_PER_LOCK_REQUEST_PORT6_FUNCTION_3(__reg__)  (((__reg__) & 0x8) >> 3u)
+#define SET_APE_PER_LOCK_REQUEST_PORT6_FUNCTION_3(__val__)  (((__val__) << 3u) & 0x8u)
+#define     APE_PER_LOCK_REQUEST_PORT6_BOOTCODE_SHIFT 4u
+#define     APE_PER_LOCK_REQUEST_PORT6_BOOTCODE_MASK  0x10u
+#define GET_APE_PER_LOCK_REQUEST_PORT6_BOOTCODE(__reg__)  (((__reg__) & 0x10) >> 4u)
+#define SET_APE_PER_LOCK_REQUEST_PORT6_BOOTCODE(__val__)  (((__val__) << 4u) & 0x10u)
+#define     APE_PER_LOCK_REQUEST_PORT6_DRIVER_SHIFT 12u
+#define     APE_PER_LOCK_REQUEST_PORT6_DRIVER_MASK  0x1000u
+#define GET_APE_PER_LOCK_REQUEST_PORT6_DRIVER(__reg__)  (((__reg__) & 0x1000) >> 12u)
+#define SET_APE_PER_LOCK_REQUEST_PORT6_DRIVER(__val__)  (((__val__) << 12u) & 0x1000u)
+
 /** @brief Register definition for @ref APE_t.PerLockRequestPort6. */
 typedef register_container RegAPEPerLockRequestPort6_t {
     /** @brief 32bit direct register access. */
     BCM5719_APE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_APE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, APE, 0, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function1, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function2, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function3, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Bootcode, 4, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_11_5, 5, 7)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Driver, 12, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_13, 13, 19)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_13, 13, 19)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Driver, 12, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_11_5, 5, 7)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Bootcode, 4, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function3, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function2, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function1, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, APE, 0, 1)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "PerLockRequestPort6"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegAPEPerLockRequestPort6_t()
+    {
+        /** @brief constructor for @ref APE_t.PerLockRequestPort6. */
+        r32.setName("PerLockRequestPort6");
+        bits.APE.setBaseRegister(&r32);
+        bits.APE.setName("APE");
+        bits.Function1.setBaseRegister(&r32);
+        bits.Function1.setName("Function1");
+        bits.Function2.setBaseRegister(&r32);
+        bits.Function2.setName("Function2");
+        bits.Function3.setBaseRegister(&r32);
+        bits.Function3.setName("Function3");
+        bits.Bootcode.setBaseRegister(&r32);
+        bits.Bootcode.setName("Bootcode");
+        bits.Driver.setBaseRegister(&r32);
+        bits.Driver.setName("Driver");
+    }
+    RegAPEPerLockRequestPort6_t& operator=(const RegAPEPerLockRequestPort6_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegAPEPerLockRequestPort6_t;
 
 #define REG_APE_PER_LOCK_REQUEST_GPIO ((volatile BCM5719_APE_H_uint32_t*)0xc001841c) /*  */
+#define     APE_PER_LOCK_REQUEST_GPIO_APE_SHIFT 0u
+#define     APE_PER_LOCK_REQUEST_GPIO_APE_MASK  0x1u
+#define GET_APE_PER_LOCK_REQUEST_GPIO_APE(__reg__)  (((__reg__) & 0x1) >> 0u)
+#define SET_APE_PER_LOCK_REQUEST_GPIO_APE(__val__)  (((__val__) << 0u) & 0x1u)
+#define     APE_PER_LOCK_REQUEST_GPIO_FUNCTION_1_SHIFT 1u
+#define     APE_PER_LOCK_REQUEST_GPIO_FUNCTION_1_MASK  0x2u
+#define GET_APE_PER_LOCK_REQUEST_GPIO_FUNCTION_1(__reg__)  (((__reg__) & 0x2) >> 1u)
+#define SET_APE_PER_LOCK_REQUEST_GPIO_FUNCTION_1(__val__)  (((__val__) << 1u) & 0x2u)
+#define     APE_PER_LOCK_REQUEST_GPIO_FUNCTION_2_SHIFT 2u
+#define     APE_PER_LOCK_REQUEST_GPIO_FUNCTION_2_MASK  0x4u
+#define GET_APE_PER_LOCK_REQUEST_GPIO_FUNCTION_2(__reg__)  (((__reg__) & 0x4) >> 2u)
+#define SET_APE_PER_LOCK_REQUEST_GPIO_FUNCTION_2(__val__)  (((__val__) << 2u) & 0x4u)
+#define     APE_PER_LOCK_REQUEST_GPIO_FUNCTION_3_SHIFT 3u
+#define     APE_PER_LOCK_REQUEST_GPIO_FUNCTION_3_MASK  0x8u
+#define GET_APE_PER_LOCK_REQUEST_GPIO_FUNCTION_3(__reg__)  (((__reg__) & 0x8) >> 3u)
+#define SET_APE_PER_LOCK_REQUEST_GPIO_FUNCTION_3(__val__)  (((__val__) << 3u) & 0x8u)
+#define     APE_PER_LOCK_REQUEST_GPIO_BOOTCODE_SHIFT 4u
+#define     APE_PER_LOCK_REQUEST_GPIO_BOOTCODE_MASK  0x10u
+#define GET_APE_PER_LOCK_REQUEST_GPIO_BOOTCODE(__reg__)  (((__reg__) & 0x10) >> 4u)
+#define SET_APE_PER_LOCK_REQUEST_GPIO_BOOTCODE(__val__)  (((__val__) << 4u) & 0x10u)
+#define     APE_PER_LOCK_REQUEST_GPIO_DRIVER_SHIFT 12u
+#define     APE_PER_LOCK_REQUEST_GPIO_DRIVER_MASK  0x1000u
+#define GET_APE_PER_LOCK_REQUEST_GPIO_DRIVER(__reg__)  (((__reg__) & 0x1000) >> 12u)
+#define SET_APE_PER_LOCK_REQUEST_GPIO_DRIVER(__val__)  (((__val__) << 12u) & 0x1000u)
+
 /** @brief Register definition for @ref APE_t.PerLockRequestGpio. */
 typedef register_container RegAPEPerLockRequestGpio_t {
     /** @brief 32bit direct register access. */
     BCM5719_APE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_APE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, APE, 0, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function1, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function2, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function3, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Bootcode, 4, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_11_5, 5, 7)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Driver, 12, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_13, 13, 19)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_13, 13, 19)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Driver, 12, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_11_5, 5, 7)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Bootcode, 4, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function3, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function2, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function1, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, APE, 0, 1)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "PerLockRequestGpio"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegAPEPerLockRequestGpio_t()
+    {
+        /** @brief constructor for @ref APE_t.PerLockRequestGpio. */
+        r32.setName("PerLockRequestGpio");
+        bits.APE.setBaseRegister(&r32);
+        bits.APE.setName("APE");
+        bits.Function1.setBaseRegister(&r32);
+        bits.Function1.setName("Function1");
+        bits.Function2.setBaseRegister(&r32);
+        bits.Function2.setName("Function2");
+        bits.Function3.setBaseRegister(&r32);
+        bits.Function3.setName("Function3");
+        bits.Bootcode.setBaseRegister(&r32);
+        bits.Bootcode.setName("Bootcode");
+        bits.Driver.setBaseRegister(&r32);
+        bits.Driver.setName("Driver");
+    }
+    RegAPEPerLockRequestGpio_t& operator=(const RegAPEPerLockRequestGpio_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegAPEPerLockRequestGpio_t;
 
 #define REG_APE_PER_LOCK_GRANT_PHY0 ((volatile BCM5719_APE_H_uint32_t*)0xc0018420) /*  */
+#define     APE_PER_LOCK_GRANT_PHY0_APE_SHIFT 0u
+#define     APE_PER_LOCK_GRANT_PHY0_APE_MASK  0x1u
+#define GET_APE_PER_LOCK_GRANT_PHY0_APE(__reg__)  (((__reg__) & 0x1) >> 0u)
+#define SET_APE_PER_LOCK_GRANT_PHY0_APE(__val__)  (((__val__) << 0u) & 0x1u)
+#define     APE_PER_LOCK_GRANT_PHY0_FUNCTION_1_SHIFT 1u
+#define     APE_PER_LOCK_GRANT_PHY0_FUNCTION_1_MASK  0x2u
+#define GET_APE_PER_LOCK_GRANT_PHY0_FUNCTION_1(__reg__)  (((__reg__) & 0x2) >> 1u)
+#define SET_APE_PER_LOCK_GRANT_PHY0_FUNCTION_1(__val__)  (((__val__) << 1u) & 0x2u)
+#define     APE_PER_LOCK_GRANT_PHY0_FUNCTION_2_SHIFT 2u
+#define     APE_PER_LOCK_GRANT_PHY0_FUNCTION_2_MASK  0x4u
+#define GET_APE_PER_LOCK_GRANT_PHY0_FUNCTION_2(__reg__)  (((__reg__) & 0x4) >> 2u)
+#define SET_APE_PER_LOCK_GRANT_PHY0_FUNCTION_2(__val__)  (((__val__) << 2u) & 0x4u)
+#define     APE_PER_LOCK_GRANT_PHY0_FUNCTION_3_SHIFT 3u
+#define     APE_PER_LOCK_GRANT_PHY0_FUNCTION_3_MASK  0x8u
+#define GET_APE_PER_LOCK_GRANT_PHY0_FUNCTION_3(__reg__)  (((__reg__) & 0x8) >> 3u)
+#define SET_APE_PER_LOCK_GRANT_PHY0_FUNCTION_3(__val__)  (((__val__) << 3u) & 0x8u)
+#define     APE_PER_LOCK_GRANT_PHY0_BOOTCODE_SHIFT 4u
+#define     APE_PER_LOCK_GRANT_PHY0_BOOTCODE_MASK  0x10u
+#define GET_APE_PER_LOCK_GRANT_PHY0_BOOTCODE(__reg__)  (((__reg__) & 0x10) >> 4u)
+#define SET_APE_PER_LOCK_GRANT_PHY0_BOOTCODE(__val__)  (((__val__) << 4u) & 0x10u)
+#define     APE_PER_LOCK_GRANT_PHY0_DRIVER_SHIFT 12u
+#define     APE_PER_LOCK_GRANT_PHY0_DRIVER_MASK  0x1000u
+#define GET_APE_PER_LOCK_GRANT_PHY0_DRIVER(__reg__)  (((__reg__) & 0x1000) >> 12u)
+#define SET_APE_PER_LOCK_GRANT_PHY0_DRIVER(__val__)  (((__val__) << 12u) & 0x1000u)
+
 /** @brief Register definition for @ref APE_t.PerLockGrantPhy0. */
 typedef register_container RegAPEPerLockGrantPhy0_t {
     /** @brief 32bit direct register access. */
     BCM5719_APE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_APE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, APE, 0, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function1, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function2, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function3, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Bootcode, 4, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_11_5, 5, 7)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Driver, 12, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_13, 13, 19)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_13, 13, 19)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Driver, 12, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_11_5, 5, 7)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Bootcode, 4, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function3, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function2, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function1, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, APE, 0, 1)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "PerLockGrantPhy0"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegAPEPerLockGrantPhy0_t()
+    {
+        /** @brief constructor for @ref APE_t.PerLockGrantPhy0. */
+        r32.setName("PerLockGrantPhy0");
+        bits.APE.setBaseRegister(&r32);
+        bits.APE.setName("APE");
+        bits.Function1.setBaseRegister(&r32);
+        bits.Function1.setName("Function1");
+        bits.Function2.setBaseRegister(&r32);
+        bits.Function2.setName("Function2");
+        bits.Function3.setBaseRegister(&r32);
+        bits.Function3.setName("Function3");
+        bits.Bootcode.setBaseRegister(&r32);
+        bits.Bootcode.setName("Bootcode");
+        bits.Driver.setBaseRegister(&r32);
+        bits.Driver.setName("Driver");
+    }
+    RegAPEPerLockGrantPhy0_t& operator=(const RegAPEPerLockGrantPhy0_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegAPEPerLockGrantPhy0_t;
 
 #define REG_APE_PER_LOCK_GRANT_GRC ((volatile BCM5719_APE_H_uint32_t*)0xc0018424) /*  */
+#define     APE_PER_LOCK_GRANT_GRC_APE_SHIFT 0u
+#define     APE_PER_LOCK_GRANT_GRC_APE_MASK  0x1u
+#define GET_APE_PER_LOCK_GRANT_GRC_APE(__reg__)  (((__reg__) & 0x1) >> 0u)
+#define SET_APE_PER_LOCK_GRANT_GRC_APE(__val__)  (((__val__) << 0u) & 0x1u)
+#define     APE_PER_LOCK_GRANT_GRC_FUNCTION_1_SHIFT 1u
+#define     APE_PER_LOCK_GRANT_GRC_FUNCTION_1_MASK  0x2u
+#define GET_APE_PER_LOCK_GRANT_GRC_FUNCTION_1(__reg__)  (((__reg__) & 0x2) >> 1u)
+#define SET_APE_PER_LOCK_GRANT_GRC_FUNCTION_1(__val__)  (((__val__) << 1u) & 0x2u)
+#define     APE_PER_LOCK_GRANT_GRC_FUNCTION_2_SHIFT 2u
+#define     APE_PER_LOCK_GRANT_GRC_FUNCTION_2_MASK  0x4u
+#define GET_APE_PER_LOCK_GRANT_GRC_FUNCTION_2(__reg__)  (((__reg__) & 0x4) >> 2u)
+#define SET_APE_PER_LOCK_GRANT_GRC_FUNCTION_2(__val__)  (((__val__) << 2u) & 0x4u)
+#define     APE_PER_LOCK_GRANT_GRC_FUNCTION_3_SHIFT 3u
+#define     APE_PER_LOCK_GRANT_GRC_FUNCTION_3_MASK  0x8u
+#define GET_APE_PER_LOCK_GRANT_GRC_FUNCTION_3(__reg__)  (((__reg__) & 0x8) >> 3u)
+#define SET_APE_PER_LOCK_GRANT_GRC_FUNCTION_3(__val__)  (((__val__) << 3u) & 0x8u)
+#define     APE_PER_LOCK_GRANT_GRC_BOOTCODE_SHIFT 4u
+#define     APE_PER_LOCK_GRANT_GRC_BOOTCODE_MASK  0x10u
+#define GET_APE_PER_LOCK_GRANT_GRC_BOOTCODE(__reg__)  (((__reg__) & 0x10) >> 4u)
+#define SET_APE_PER_LOCK_GRANT_GRC_BOOTCODE(__val__)  (((__val__) << 4u) & 0x10u)
+#define     APE_PER_LOCK_GRANT_GRC_DRIVER_SHIFT 12u
+#define     APE_PER_LOCK_GRANT_GRC_DRIVER_MASK  0x1000u
+#define GET_APE_PER_LOCK_GRANT_GRC_DRIVER(__reg__)  (((__reg__) & 0x1000) >> 12u)
+#define SET_APE_PER_LOCK_GRANT_GRC_DRIVER(__val__)  (((__val__) << 12u) & 0x1000u)
+
 /** @brief Register definition for @ref APE_t.PerLockGrantGrc. */
 typedef register_container RegAPEPerLockGrantGrc_t {
     /** @brief 32bit direct register access. */
     BCM5719_APE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_APE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, APE, 0, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function1, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function2, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function3, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Bootcode, 4, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_11_5, 5, 7)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Driver, 12, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_13, 13, 19)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_13, 13, 19)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Driver, 12, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_11_5, 5, 7)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Bootcode, 4, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function3, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function2, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function1, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, APE, 0, 1)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "PerLockGrantGrc"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegAPEPerLockGrantGrc_t()
+    {
+        /** @brief constructor for @ref APE_t.PerLockGrantGrc. */
+        r32.setName("PerLockGrantGrc");
+        bits.APE.setBaseRegister(&r32);
+        bits.APE.setName("APE");
+        bits.Function1.setBaseRegister(&r32);
+        bits.Function1.setName("Function1");
+        bits.Function2.setBaseRegister(&r32);
+        bits.Function2.setName("Function2");
+        bits.Function3.setBaseRegister(&r32);
+        bits.Function3.setName("Function3");
+        bits.Bootcode.setBaseRegister(&r32);
+        bits.Bootcode.setName("Bootcode");
+        bits.Driver.setBaseRegister(&r32);
+        bits.Driver.setName("Driver");
+    }
+    RegAPEPerLockGrantGrc_t& operator=(const RegAPEPerLockGrantGrc_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegAPEPerLockGrantGrc_t;
 
 #define REG_APE_PER_LOCK_GRANT_PHY1 ((volatile BCM5719_APE_H_uint32_t*)0xc0018428) /*  */
+#define     APE_PER_LOCK_GRANT_PHY1_APE_SHIFT 0u
+#define     APE_PER_LOCK_GRANT_PHY1_APE_MASK  0x1u
+#define GET_APE_PER_LOCK_GRANT_PHY1_APE(__reg__)  (((__reg__) & 0x1) >> 0u)
+#define SET_APE_PER_LOCK_GRANT_PHY1_APE(__val__)  (((__val__) << 0u) & 0x1u)
+#define     APE_PER_LOCK_GRANT_PHY1_FUNCTION_1_SHIFT 1u
+#define     APE_PER_LOCK_GRANT_PHY1_FUNCTION_1_MASK  0x2u
+#define GET_APE_PER_LOCK_GRANT_PHY1_FUNCTION_1(__reg__)  (((__reg__) & 0x2) >> 1u)
+#define SET_APE_PER_LOCK_GRANT_PHY1_FUNCTION_1(__val__)  (((__val__) << 1u) & 0x2u)
+#define     APE_PER_LOCK_GRANT_PHY1_FUNCTION_2_SHIFT 2u
+#define     APE_PER_LOCK_GRANT_PHY1_FUNCTION_2_MASK  0x4u
+#define GET_APE_PER_LOCK_GRANT_PHY1_FUNCTION_2(__reg__)  (((__reg__) & 0x4) >> 2u)
+#define SET_APE_PER_LOCK_GRANT_PHY1_FUNCTION_2(__val__)  (((__val__) << 2u) & 0x4u)
+#define     APE_PER_LOCK_GRANT_PHY1_FUNCTION_3_SHIFT 3u
+#define     APE_PER_LOCK_GRANT_PHY1_FUNCTION_3_MASK  0x8u
+#define GET_APE_PER_LOCK_GRANT_PHY1_FUNCTION_3(__reg__)  (((__reg__) & 0x8) >> 3u)
+#define SET_APE_PER_LOCK_GRANT_PHY1_FUNCTION_3(__val__)  (((__val__) << 3u) & 0x8u)
+#define     APE_PER_LOCK_GRANT_PHY1_BOOTCODE_SHIFT 4u
+#define     APE_PER_LOCK_GRANT_PHY1_BOOTCODE_MASK  0x10u
+#define GET_APE_PER_LOCK_GRANT_PHY1_BOOTCODE(__reg__)  (((__reg__) & 0x10) >> 4u)
+#define SET_APE_PER_LOCK_GRANT_PHY1_BOOTCODE(__val__)  (((__val__) << 4u) & 0x10u)
+#define     APE_PER_LOCK_GRANT_PHY1_DRIVER_SHIFT 12u
+#define     APE_PER_LOCK_GRANT_PHY1_DRIVER_MASK  0x1000u
+#define GET_APE_PER_LOCK_GRANT_PHY1_DRIVER(__reg__)  (((__reg__) & 0x1000) >> 12u)
+#define SET_APE_PER_LOCK_GRANT_PHY1_DRIVER(__val__)  (((__val__) << 12u) & 0x1000u)
+
 /** @brief Register definition for @ref APE_t.PerLockGrantPhy1. */
 typedef register_container RegAPEPerLockGrantPhy1_t {
     /** @brief 32bit direct register access. */
     BCM5719_APE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_APE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, APE, 0, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function1, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function2, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function3, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Bootcode, 4, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_11_5, 5, 7)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Driver, 12, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_13, 13, 19)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_13, 13, 19)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Driver, 12, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_11_5, 5, 7)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Bootcode, 4, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function3, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function2, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function1, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, APE, 0, 1)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "PerLockGrantPhy1"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegAPEPerLockGrantPhy1_t()
+    {
+        /** @brief constructor for @ref APE_t.PerLockGrantPhy1. */
+        r32.setName("PerLockGrantPhy1");
+        bits.APE.setBaseRegister(&r32);
+        bits.APE.setName("APE");
+        bits.Function1.setBaseRegister(&r32);
+        bits.Function1.setName("Function1");
+        bits.Function2.setBaseRegister(&r32);
+        bits.Function2.setName("Function2");
+        bits.Function3.setBaseRegister(&r32);
+        bits.Function3.setName("Function3");
+        bits.Bootcode.setBaseRegister(&r32);
+        bits.Bootcode.setName("Bootcode");
+        bits.Driver.setBaseRegister(&r32);
+        bits.Driver.setName("Driver");
+    }
+    RegAPEPerLockGrantPhy1_t& operator=(const RegAPEPerLockGrantPhy1_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegAPEPerLockGrantPhy1_t;
 
 #define REG_APE_PER_LOCK_GRANT_PHY2 ((volatile BCM5719_APE_H_uint32_t*)0xc001842c) /*  */
@@ -1684,31 +3651,411 @@ typedef register_container RegAPEPerLockGrantPhy2_t {
 } RegAPEPerLockGrantPhy2_t;
 
 #define REG_APE_PER_LOCK_GRANT_MEM ((volatile BCM5719_APE_H_uint32_t*)0xc0018430) /*  */
+#define     APE_PER_LOCK_GRANT_MEM_APE_SHIFT 0u
+#define     APE_PER_LOCK_GRANT_MEM_APE_MASK  0x1u
+#define GET_APE_PER_LOCK_GRANT_MEM_APE(__reg__)  (((__reg__) & 0x1) >> 0u)
+#define SET_APE_PER_LOCK_GRANT_MEM_APE(__val__)  (((__val__) << 0u) & 0x1u)
+#define     APE_PER_LOCK_GRANT_MEM_FUNCTION_1_SHIFT 1u
+#define     APE_PER_LOCK_GRANT_MEM_FUNCTION_1_MASK  0x2u
+#define GET_APE_PER_LOCK_GRANT_MEM_FUNCTION_1(__reg__)  (((__reg__) & 0x2) >> 1u)
+#define SET_APE_PER_LOCK_GRANT_MEM_FUNCTION_1(__val__)  (((__val__) << 1u) & 0x2u)
+#define     APE_PER_LOCK_GRANT_MEM_FUNCTION_2_SHIFT 2u
+#define     APE_PER_LOCK_GRANT_MEM_FUNCTION_2_MASK  0x4u
+#define GET_APE_PER_LOCK_GRANT_MEM_FUNCTION_2(__reg__)  (((__reg__) & 0x4) >> 2u)
+#define SET_APE_PER_LOCK_GRANT_MEM_FUNCTION_2(__val__)  (((__val__) << 2u) & 0x4u)
+#define     APE_PER_LOCK_GRANT_MEM_FUNCTION_3_SHIFT 3u
+#define     APE_PER_LOCK_GRANT_MEM_FUNCTION_3_MASK  0x8u
+#define GET_APE_PER_LOCK_GRANT_MEM_FUNCTION_3(__reg__)  (((__reg__) & 0x8) >> 3u)
+#define SET_APE_PER_LOCK_GRANT_MEM_FUNCTION_3(__val__)  (((__val__) << 3u) & 0x8u)
+#define     APE_PER_LOCK_GRANT_MEM_BOOTCODE_SHIFT 4u
+#define     APE_PER_LOCK_GRANT_MEM_BOOTCODE_MASK  0x10u
+#define GET_APE_PER_LOCK_GRANT_MEM_BOOTCODE(__reg__)  (((__reg__) & 0x10) >> 4u)
+#define SET_APE_PER_LOCK_GRANT_MEM_BOOTCODE(__val__)  (((__val__) << 4u) & 0x10u)
+#define     APE_PER_LOCK_GRANT_MEM_DRIVER_SHIFT 12u
+#define     APE_PER_LOCK_GRANT_MEM_DRIVER_MASK  0x1000u
+#define GET_APE_PER_LOCK_GRANT_MEM_DRIVER(__reg__)  (((__reg__) & 0x1000) >> 12u)
+#define SET_APE_PER_LOCK_GRANT_MEM_DRIVER(__val__)  (((__val__) << 12u) & 0x1000u)
+
 /** @brief Register definition for @ref APE_t.PerLockGrantMem. */
 typedef register_container RegAPEPerLockGrantMem_t {
     /** @brief 32bit direct register access. */
     BCM5719_APE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_APE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, APE, 0, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function1, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function2, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function3, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Bootcode, 4, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_11_5, 5, 7)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Driver, 12, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_13, 13, 19)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_13, 13, 19)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Driver, 12, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_11_5, 5, 7)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Bootcode, 4, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function3, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function2, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function1, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, APE, 0, 1)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "PerLockGrantMem"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegAPEPerLockGrantMem_t()
+    {
+        /** @brief constructor for @ref APE_t.PerLockGrantMem. */
+        r32.setName("PerLockGrantMem");
+        bits.APE.setBaseRegister(&r32);
+        bits.APE.setName("APE");
+        bits.Function1.setBaseRegister(&r32);
+        bits.Function1.setName("Function1");
+        bits.Function2.setBaseRegister(&r32);
+        bits.Function2.setName("Function2");
+        bits.Function3.setBaseRegister(&r32);
+        bits.Function3.setName("Function3");
+        bits.Bootcode.setBaseRegister(&r32);
+        bits.Bootcode.setName("Bootcode");
+        bits.Driver.setBaseRegister(&r32);
+        bits.Driver.setName("Driver");
+    }
+    RegAPEPerLockGrantMem_t& operator=(const RegAPEPerLockGrantMem_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegAPEPerLockGrantMem_t;
 
 #define REG_APE_PER_LOCK_GRANT_PHY3 ((volatile BCM5719_APE_H_uint32_t*)0xc0018434) /*  */
+#define     APE_PER_LOCK_GRANT_PHY3_APE_SHIFT 0u
+#define     APE_PER_LOCK_GRANT_PHY3_APE_MASK  0x1u
+#define GET_APE_PER_LOCK_GRANT_PHY3_APE(__reg__)  (((__reg__) & 0x1) >> 0u)
+#define SET_APE_PER_LOCK_GRANT_PHY3_APE(__val__)  (((__val__) << 0u) & 0x1u)
+#define     APE_PER_LOCK_GRANT_PHY3_FUNCTION_1_SHIFT 1u
+#define     APE_PER_LOCK_GRANT_PHY3_FUNCTION_1_MASK  0x2u
+#define GET_APE_PER_LOCK_GRANT_PHY3_FUNCTION_1(__reg__)  (((__reg__) & 0x2) >> 1u)
+#define SET_APE_PER_LOCK_GRANT_PHY3_FUNCTION_1(__val__)  (((__val__) << 1u) & 0x2u)
+#define     APE_PER_LOCK_GRANT_PHY3_FUNCTION_2_SHIFT 2u
+#define     APE_PER_LOCK_GRANT_PHY3_FUNCTION_2_MASK  0x4u
+#define GET_APE_PER_LOCK_GRANT_PHY3_FUNCTION_2(__reg__)  (((__reg__) & 0x4) >> 2u)
+#define SET_APE_PER_LOCK_GRANT_PHY3_FUNCTION_2(__val__)  (((__val__) << 2u) & 0x4u)
+#define     APE_PER_LOCK_GRANT_PHY3_FUNCTION_3_SHIFT 3u
+#define     APE_PER_LOCK_GRANT_PHY3_FUNCTION_3_MASK  0x8u
+#define GET_APE_PER_LOCK_GRANT_PHY3_FUNCTION_3(__reg__)  (((__reg__) & 0x8) >> 3u)
+#define SET_APE_PER_LOCK_GRANT_PHY3_FUNCTION_3(__val__)  (((__val__) << 3u) & 0x8u)
+#define     APE_PER_LOCK_GRANT_PHY3_BOOTCODE_SHIFT 4u
+#define     APE_PER_LOCK_GRANT_PHY3_BOOTCODE_MASK  0x10u
+#define GET_APE_PER_LOCK_GRANT_PHY3_BOOTCODE(__reg__)  (((__reg__) & 0x10) >> 4u)
+#define SET_APE_PER_LOCK_GRANT_PHY3_BOOTCODE(__val__)  (((__val__) << 4u) & 0x10u)
+#define     APE_PER_LOCK_GRANT_PHY3_DRIVER_SHIFT 12u
+#define     APE_PER_LOCK_GRANT_PHY3_DRIVER_MASK  0x1000u
+#define GET_APE_PER_LOCK_GRANT_PHY3_DRIVER(__reg__)  (((__reg__) & 0x1000) >> 12u)
+#define SET_APE_PER_LOCK_GRANT_PHY3_DRIVER(__val__)  (((__val__) << 12u) & 0x1000u)
+
 /** @brief Register definition for @ref APE_t.PerLockGrantPhy3. */
 typedef register_container RegAPEPerLockGrantPhy3_t {
     /** @brief 32bit direct register access. */
     BCM5719_APE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_APE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, APE, 0, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function1, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function2, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function3, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Bootcode, 4, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_11_5, 5, 7)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Driver, 12, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_13, 13, 19)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_13, 13, 19)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Driver, 12, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_11_5, 5, 7)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Bootcode, 4, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function3, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function2, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function1, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, APE, 0, 1)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "PerLockGrantPhy3"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegAPEPerLockGrantPhy3_t()
+    {
+        /** @brief constructor for @ref APE_t.PerLockGrantPhy3. */
+        r32.setName("PerLockGrantPhy3");
+        bits.APE.setBaseRegister(&r32);
+        bits.APE.setName("APE");
+        bits.Function1.setBaseRegister(&r32);
+        bits.Function1.setName("Function1");
+        bits.Function2.setBaseRegister(&r32);
+        bits.Function2.setName("Function2");
+        bits.Function3.setBaseRegister(&r32);
+        bits.Function3.setName("Function3");
+        bits.Bootcode.setBaseRegister(&r32);
+        bits.Bootcode.setName("Bootcode");
+        bits.Driver.setBaseRegister(&r32);
+        bits.Driver.setName("Driver");
+    }
+    RegAPEPerLockGrantPhy3_t& operator=(const RegAPEPerLockGrantPhy3_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegAPEPerLockGrantPhy3_t;
 
 #define REG_APE_PER_LOCK_GRANT_PORT6 ((volatile BCM5719_APE_H_uint32_t*)0xc0018438) /*  */
+#define     APE_PER_LOCK_GRANT_PORT6_APE_SHIFT 0u
+#define     APE_PER_LOCK_GRANT_PORT6_APE_MASK  0x1u
+#define GET_APE_PER_LOCK_GRANT_PORT6_APE(__reg__)  (((__reg__) & 0x1) >> 0u)
+#define SET_APE_PER_LOCK_GRANT_PORT6_APE(__val__)  (((__val__) << 0u) & 0x1u)
+#define     APE_PER_LOCK_GRANT_PORT6_FUNCTION_1_SHIFT 1u
+#define     APE_PER_LOCK_GRANT_PORT6_FUNCTION_1_MASK  0x2u
+#define GET_APE_PER_LOCK_GRANT_PORT6_FUNCTION_1(__reg__)  (((__reg__) & 0x2) >> 1u)
+#define SET_APE_PER_LOCK_GRANT_PORT6_FUNCTION_1(__val__)  (((__val__) << 1u) & 0x2u)
+#define     APE_PER_LOCK_GRANT_PORT6_FUNCTION_2_SHIFT 2u
+#define     APE_PER_LOCK_GRANT_PORT6_FUNCTION_2_MASK  0x4u
+#define GET_APE_PER_LOCK_GRANT_PORT6_FUNCTION_2(__reg__)  (((__reg__) & 0x4) >> 2u)
+#define SET_APE_PER_LOCK_GRANT_PORT6_FUNCTION_2(__val__)  (((__val__) << 2u) & 0x4u)
+#define     APE_PER_LOCK_GRANT_PORT6_FUNCTION_3_SHIFT 3u
+#define     APE_PER_LOCK_GRANT_PORT6_FUNCTION_3_MASK  0x8u
+#define GET_APE_PER_LOCK_GRANT_PORT6_FUNCTION_3(__reg__)  (((__reg__) & 0x8) >> 3u)
+#define SET_APE_PER_LOCK_GRANT_PORT6_FUNCTION_3(__val__)  (((__val__) << 3u) & 0x8u)
+#define     APE_PER_LOCK_GRANT_PORT6_BOOTCODE_SHIFT 4u
+#define     APE_PER_LOCK_GRANT_PORT6_BOOTCODE_MASK  0x10u
+#define GET_APE_PER_LOCK_GRANT_PORT6_BOOTCODE(__reg__)  (((__reg__) & 0x10) >> 4u)
+#define SET_APE_PER_LOCK_GRANT_PORT6_BOOTCODE(__val__)  (((__val__) << 4u) & 0x10u)
+#define     APE_PER_LOCK_GRANT_PORT6_DRIVER_SHIFT 12u
+#define     APE_PER_LOCK_GRANT_PORT6_DRIVER_MASK  0x1000u
+#define GET_APE_PER_LOCK_GRANT_PORT6_DRIVER(__reg__)  (((__reg__) & 0x1000) >> 12u)
+#define SET_APE_PER_LOCK_GRANT_PORT6_DRIVER(__val__)  (((__val__) << 12u) & 0x1000u)
+
 /** @brief Register definition for @ref APE_t.PerLockGrantPort6. */
 typedef register_container RegAPEPerLockGrantPort6_t {
     /** @brief 32bit direct register access. */
     BCM5719_APE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_APE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, APE, 0, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function1, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function2, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function3, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Bootcode, 4, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_11_5, 5, 7)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Driver, 12, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_13, 13, 19)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_13, 13, 19)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Driver, 12, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_11_5, 5, 7)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Bootcode, 4, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function3, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function2, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function1, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, APE, 0, 1)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "PerLockGrantPort6"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegAPEPerLockGrantPort6_t()
+    {
+        /** @brief constructor for @ref APE_t.PerLockGrantPort6. */
+        r32.setName("PerLockGrantPort6");
+        bits.APE.setBaseRegister(&r32);
+        bits.APE.setName("APE");
+        bits.Function1.setBaseRegister(&r32);
+        bits.Function1.setName("Function1");
+        bits.Function2.setBaseRegister(&r32);
+        bits.Function2.setName("Function2");
+        bits.Function3.setBaseRegister(&r32);
+        bits.Function3.setName("Function3");
+        bits.Bootcode.setBaseRegister(&r32);
+        bits.Bootcode.setName("Bootcode");
+        bits.Driver.setBaseRegister(&r32);
+        bits.Driver.setName("Driver");
+    }
+    RegAPEPerLockGrantPort6_t& operator=(const RegAPEPerLockGrantPort6_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegAPEPerLockGrantPort6_t;
 
 #define REG_APE_PER_LOCK_GRANT_GPIO ((volatile BCM5719_APE_H_uint32_t*)0xc001843c) /*  */
+#define     APE_PER_LOCK_GRANT_GPIO_APE_SHIFT 0u
+#define     APE_PER_LOCK_GRANT_GPIO_APE_MASK  0x1u
+#define GET_APE_PER_LOCK_GRANT_GPIO_APE(__reg__)  (((__reg__) & 0x1) >> 0u)
+#define SET_APE_PER_LOCK_GRANT_GPIO_APE(__val__)  (((__val__) << 0u) & 0x1u)
+#define     APE_PER_LOCK_GRANT_GPIO_FUNCTION_1_SHIFT 1u
+#define     APE_PER_LOCK_GRANT_GPIO_FUNCTION_1_MASK  0x2u
+#define GET_APE_PER_LOCK_GRANT_GPIO_FUNCTION_1(__reg__)  (((__reg__) & 0x2) >> 1u)
+#define SET_APE_PER_LOCK_GRANT_GPIO_FUNCTION_1(__val__)  (((__val__) << 1u) & 0x2u)
+#define     APE_PER_LOCK_GRANT_GPIO_FUNCTION_2_SHIFT 2u
+#define     APE_PER_LOCK_GRANT_GPIO_FUNCTION_2_MASK  0x4u
+#define GET_APE_PER_LOCK_GRANT_GPIO_FUNCTION_2(__reg__)  (((__reg__) & 0x4) >> 2u)
+#define SET_APE_PER_LOCK_GRANT_GPIO_FUNCTION_2(__val__)  (((__val__) << 2u) & 0x4u)
+#define     APE_PER_LOCK_GRANT_GPIO_FUNCTION_3_SHIFT 3u
+#define     APE_PER_LOCK_GRANT_GPIO_FUNCTION_3_MASK  0x8u
+#define GET_APE_PER_LOCK_GRANT_GPIO_FUNCTION_3(__reg__)  (((__reg__) & 0x8) >> 3u)
+#define SET_APE_PER_LOCK_GRANT_GPIO_FUNCTION_3(__val__)  (((__val__) << 3u) & 0x8u)
+#define     APE_PER_LOCK_GRANT_GPIO_BOOTCODE_SHIFT 4u
+#define     APE_PER_LOCK_GRANT_GPIO_BOOTCODE_MASK  0x10u
+#define GET_APE_PER_LOCK_GRANT_GPIO_BOOTCODE(__reg__)  (((__reg__) & 0x10) >> 4u)
+#define SET_APE_PER_LOCK_GRANT_GPIO_BOOTCODE(__val__)  (((__val__) << 4u) & 0x10u)
+#define     APE_PER_LOCK_GRANT_GPIO_DRIVER_SHIFT 12u
+#define     APE_PER_LOCK_GRANT_GPIO_DRIVER_MASK  0x1000u
+#define GET_APE_PER_LOCK_GRANT_GPIO_DRIVER(__reg__)  (((__reg__) & 0x1000) >> 12u)
+#define SET_APE_PER_LOCK_GRANT_GPIO_DRIVER(__val__)  (((__val__) << 12u) & 0x1000u)
+
 /** @brief Register definition for @ref APE_t.PerLockGrantGpio. */
 typedef register_container RegAPEPerLockGrantGpio_t {
     /** @brief 32bit direct register access. */
     BCM5719_APE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_APE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, APE, 0, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function1, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function2, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function3, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Bootcode, 4, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_11_5, 5, 7)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Driver, 12, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_13, 13, 19)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_13, 13, 19)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Driver, 12, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_11_5, 5, 7)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Bootcode, 4, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function3, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function2, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function1, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, APE, 0, 1)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "PerLockGrantGpio"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegAPEPerLockGrantGpio_t()
+    {
+        /** @brief constructor for @ref APE_t.PerLockGrantGpio. */
+        r32.setName("PerLockGrantGpio");
+        bits.APE.setBaseRegister(&r32);
+        bits.APE.setName("APE");
+        bits.Function1.setBaseRegister(&r32);
+        bits.Function1.setName("Function1");
+        bits.Function2.setBaseRegister(&r32);
+        bits.Function2.setName("Function2");
+        bits.Function3.setBaseRegister(&r32);
+        bits.Function3.setName("Function3");
+        bits.Bootcode.setBaseRegister(&r32);
+        bits.Bootcode.setName("Bootcode");
+        bits.Driver.setBaseRegister(&r32);
+        bits.Driver.setName("Driver");
+    }
+    RegAPEPerLockGrantGpio_t& operator=(const RegAPEPerLockGrantGpio_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegAPEPerLockGrantGpio_t;
 
 /** @brief Component definition for @ref APE. */
@@ -1846,13 +4193,13 @@ typedef struct {
     RegAPERcpuPciSubsystemId_t RcpuPciSubsystemId;
 
     /** @brief Unknown. Incremented by frobnicating routine. */
-    RegAPE411c_t _411c;
+    RegAPERcpuApeResetCount_t RcpuApeResetCount;
 
     /** @brief Unknown. Written by frobnicating routine. */
-    RegAPE4120_t _4120;
+    RegAPERcpuLastApeStatus_t RcpuLastApeStatus;
 
     /** @brief Unknown.  */
-    RegAPE4124_t _4124;
+    RegAPERcpuLastApeFwStatus_t RcpuLastApeFwStatus;
 
     /** @brief Set from  */
     RegAPERcpuCfgHw_t RcpuCfgHw;
@@ -1951,7 +4298,133 @@ typedef struct {
     RegAPEChipId_t ChipId;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_APE_H_uint32_t reserved_18580[3803];
+    BCM5719_APE_H_uint32_t reserved_18580[27];
+
+    /** @brief  */
+    RegAPENcsiChannel0Info_t NcsiChannel0Info;
+
+    /** @brief AEN Management Controller ID, set by BMC when sending AEN ENABLE command and used when sending AENs. */
+    RegAPENcsiChannel0Mcid_t NcsiChannel0Mcid;
+
+    /** @brief Set via NCSI ENABLE AEN. */
+    RegAPENcsiChannel0Aen_t NcsiChannel0Aen;
+
+    /** @brief  */
+    RegAPENcsiChannel0Bfilt_t NcsiChannel0Bfilt;
+
+    /** @brief  */
+    RegAPENcsiChannel0Mfilt_t NcsiChannel0Mfilt;
+
+    /** @brief This is the "Link Settings" value from NCSI Set Link. */
+    RegAPENcsiChannel0Setting1_t NcsiChannel0Setting1;
+
+    /** @brief This is the "OEM Settings" value from NCSI Set Link. */
+    RegAPENcsiChannel0Setting2_t NcsiChannel0Setting2;
+
+    /** @brief Receives VLAN mode from NCSI specification "Enable VLAN" command. */
+    RegAPENcsiChannel0Vlan_t NcsiChannel0Vlan;
+
+    /** @brief Reserved bytes to pad out data structure. */
+    BCM5719_APE_H_uint32_t reserved_18720[1];
+
+    /** @brief Lower 16 bits of this word contains upper 16 bits of the MAC. */
+    RegAPENcsiChannel0AltHostMacHigh_t NcsiChannel0AltHostMacHigh;
+
+    /** @brief Lower 16 bits of this word contains mid 16 bits of the MAC. */
+    RegAPENcsiChannel0AltHostMacMid_t NcsiChannel0AltHostMacMid;
+
+    /** @brief Lower 16 bits of this word contains low 16 bits of the MAC. */
+    RegAPENcsiChannel0AltHostMacLow_t NcsiChannel0AltHostMacLow;
+
+    /** @brief Reserved bytes to pad out data structure. */
+    BCM5719_APE_H_uint32_t reserved_18736[1];
+
+    /** @brief Lower 16 bits of this word contains upper 16 bits of the MAC. */
+    RegAPENcsiChannel0Mac0High_t NcsiChannel0Mac0High;
+
+    /** @brief Lower 16 bits of this word contains mid 16 bits of the MAC. */
+    RegAPENcsiChannel0Mac0Mid_t NcsiChannel0Mac0Mid;
+
+    /** @brief Lower 16 bits of this word contains low 16 bits of the MAC. */
+    RegAPENcsiChannel0Mac0Low_t NcsiChannel0Mac0Low;
+
+    /** @brief Reserved bytes to pad out data structure. */
+    BCM5719_APE_H_uint32_t reserved_18752[1];
+
+    /** @brief Lower 16 bits of this word contains upper 16 bits of the MAC. */
+    RegAPENcsiChannel0Mac1High_t NcsiChannel0Mac1High;
+
+    /** @brief Lower 16 bits of this word contains mid 16 bits of the MAC. */
+    RegAPENcsiChannel0Mac1Mid_t NcsiChannel0Mac1Mid;
+
+    /** @brief Lower 16 bits of this word contains low 16 bits of the MAC. */
+    RegAPENcsiChannel0Mac1Low_t NcsiChannel0Mac1Low;
+
+    /** @brief Reserved bytes to pad out data structure. */
+    BCM5719_APE_H_uint32_t reserved_18768[1];
+
+    /** @brief Lower 16 bits of this word contains upper 16 bits of the MAC. */
+    RegAPENcsiChannel0Mac2High_t NcsiChannel0Mac2High;
+
+    /** @brief Lower 16 bits of this word contains mid 16 bits of the MAC. */
+    RegAPENcsiChannel0Mac2Mid_t NcsiChannel0Mac2Mid;
+
+    /** @brief Lower 16 bits of this word contains low 16 bits of the MAC. */
+    RegAPENcsiChannel0Mac2Low_t NcsiChannel0Mac2Low;
+
+    /** @brief Reserved bytes to pad out data structure. */
+    BCM5719_APE_H_uint32_t reserved_18784[1];
+
+    /** @brief Lower 16 bits of this word contains upper 16 bits of the MAC. */
+    RegAPENcsiChannel0Mac3High_t NcsiChannel0Mac3High;
+
+    /** @brief Lower 16 bits of this word contains mid 16 bits of the MAC. */
+    RegAPENcsiChannel0Mac3Mid_t NcsiChannel0Mac3Mid;
+
+    /** @brief Lower 16 bits of this word contains low 16 bits of the MAC. */
+    RegAPENcsiChannel0Mac3Low_t NcsiChannel0Mac3Low;
+
+    /** @brief Nonzero indicates VLAN field is valid */
+    RegAPENcsiChannel0Mac0VlanValid_t NcsiChannel0Mac0VlanValid;
+
+    /** @brief  */
+    RegAPENcsiChannel0Mac0Vlan_t NcsiChannel0Mac0Vlan;
+
+    /** @brief Nonzero indicates VLAN field is valid */
+    RegAPENcsiChannel0Mac1VlanValid_t NcsiChannel0Mac1VlanValid;
+
+    /** @brief  */
+    RegAPENcsiChannel0Mac1Vlan_t NcsiChannel0Mac1Vlan;
+
+    /** @brief  */
+    RegAPENcsiChannel0Status_t NcsiChannel0Status;
+
+    /** @brief  */
+    RegAPENcsiChannel0ResetCount_t NcsiChannel0ResetCount;
+
+    /** @brief  */
+    RegAPENcsiChannel0Pxe_t NcsiChannel0Pxe;
+
+    /** @brief  */
+    RegAPENcsiChannel0Dropfil_t NcsiChannel0Dropfil;
+
+    /** @brief  */
+    RegAPENcsiChannel0Slink_t NcsiChannel0Slink;
+
+    /** @brief Reserved bytes to pad out data structure. */
+    BCM5719_APE_H_uint32_t reserved_18836[3];
+
+    /** @brief  */
+    RegAPENcsiChannel0Dbg_t NcsiChannel0Dbg;
+
+    /** @brief Reserved bytes to pad out data structure. */
+    BCM5719_APE_H_uint32_t reserved_18852[3];
+
+    /** @brief  */
+    RegAPENcsiChannel0CtrlstatRx_t NcsiChannel0CtrlstatRx;
+
+    /** @brief Reserved bytes to pad out data structure. */
+    BCM5719_APE_H_uint32_t reserved_18868[3731];
 
     /** @brief This register, and the following Per Lock Request registers work the same. The tg3 driver uses 0x0000_1000 (APELOCK_PER_REQ_DRIVER) for PHY ports (or always for function 0). */
     RegAPEPerLockRequestPhy0_t PerLockRequestPhy0;

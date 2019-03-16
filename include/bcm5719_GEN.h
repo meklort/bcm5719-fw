@@ -86,7 +86,7 @@ typedef uint32_t BCM5719_GEN_H_uint32_t;
 #define     GEN_GEN_FW_MBOX_MBOX_MASK  0xffffffffu
 #define GET_GEN_GEN_FW_MBOX_MBOX(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
 #define SET_GEN_GEN_FW_MBOX_MBOX(__val__)  (((__val__) << 0u) & 0xffffffffu)
-#define     GEN_GEN_FW_MBOX_MBOX_DRIVER_READY 0x4b657654u
+#define     GEN_GEN_FW_MBOX_MBOX_BOOTCODE_READY 0xb49a89abu
 
 
 /** @brief Register definition for @ref GEN_t.GenFwMbox. */
@@ -132,9 +132,9 @@ typedef register_container RegGENGenFwMbox_t {
 #define     GEN_GEN_DATA_SIG_SIG_MASK  0xffffffffu
 #define GET_GEN_GEN_DATA_SIG_SIG(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
 #define SET_GEN_GEN_DATA_SIG_SIG(__val__)  (((__val__) << 0u) & 0xffffffffu)
-#define     GEN_GEN_DATA_SIG_SIG_BOOTCODE_READY 0xb49a89abu
 #define     GEN_GEN_DATA_SIG_SIG_STAGE2_MAGIC_INVALID 0xbad0000u
 #define     GEN_GEN_DATA_SIG_SIG_STAGE2_CRC_INVALID 0xbad0001u
+#define     GEN_GEN_DATA_SIG_SIG_DRIVER_READY 0x4b657654u
 
 
 /** @brief Register definition for @ref GEN_t.GenDataSig. */
