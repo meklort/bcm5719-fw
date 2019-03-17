@@ -3644,10 +3644,105 @@ typedef register_container RegAPEPerLockGrantPhy1_t {
 } RegAPEPerLockGrantPhy1_t;
 
 #define REG_APE_PER_LOCK_GRANT_PHY2 ((volatile BCM5719_APE_H_uint32_t*)0xc001842c) /*  */
+#define     APE_PER_LOCK_GRANT_PHY2_APE_SHIFT 0u
+#define     APE_PER_LOCK_GRANT_PHY2_APE_MASK  0x1u
+#define GET_APE_PER_LOCK_GRANT_PHY2_APE(__reg__)  (((__reg__) & 0x1) >> 0u)
+#define SET_APE_PER_LOCK_GRANT_PHY2_APE(__val__)  (((__val__) << 0u) & 0x1u)
+#define     APE_PER_LOCK_GRANT_PHY2_FUNCTION_1_SHIFT 1u
+#define     APE_PER_LOCK_GRANT_PHY2_FUNCTION_1_MASK  0x2u
+#define GET_APE_PER_LOCK_GRANT_PHY2_FUNCTION_1(__reg__)  (((__reg__) & 0x2) >> 1u)
+#define SET_APE_PER_LOCK_GRANT_PHY2_FUNCTION_1(__val__)  (((__val__) << 1u) & 0x2u)
+#define     APE_PER_LOCK_GRANT_PHY2_FUNCTION_2_SHIFT 2u
+#define     APE_PER_LOCK_GRANT_PHY2_FUNCTION_2_MASK  0x4u
+#define GET_APE_PER_LOCK_GRANT_PHY2_FUNCTION_2(__reg__)  (((__reg__) & 0x4) >> 2u)
+#define SET_APE_PER_LOCK_GRANT_PHY2_FUNCTION_2(__val__)  (((__val__) << 2u) & 0x4u)
+#define     APE_PER_LOCK_GRANT_PHY2_FUNCTION_3_SHIFT 3u
+#define     APE_PER_LOCK_GRANT_PHY2_FUNCTION_3_MASK  0x8u
+#define GET_APE_PER_LOCK_GRANT_PHY2_FUNCTION_3(__reg__)  (((__reg__) & 0x8) >> 3u)
+#define SET_APE_PER_LOCK_GRANT_PHY2_FUNCTION_3(__val__)  (((__val__) << 3u) & 0x8u)
+#define     APE_PER_LOCK_GRANT_PHY2_BOOTCODE_SHIFT 4u
+#define     APE_PER_LOCK_GRANT_PHY2_BOOTCODE_MASK  0x10u
+#define GET_APE_PER_LOCK_GRANT_PHY2_BOOTCODE(__reg__)  (((__reg__) & 0x10) >> 4u)
+#define SET_APE_PER_LOCK_GRANT_PHY2_BOOTCODE(__val__)  (((__val__) << 4u) & 0x10u)
+#define     APE_PER_LOCK_GRANT_PHY2_DRIVER_SHIFT 12u
+#define     APE_PER_LOCK_GRANT_PHY2_DRIVER_MASK  0x1000u
+#define GET_APE_PER_LOCK_GRANT_PHY2_DRIVER(__reg__)  (((__reg__) & 0x1000) >> 12u)
+#define SET_APE_PER_LOCK_GRANT_PHY2_DRIVER(__val__)  (((__val__) << 12u) & 0x1000u)
+
 /** @brief Register definition for @ref APE_t.PerLockGrantPhy2. */
 typedef register_container RegAPEPerLockGrantPhy2_t {
     /** @brief 32bit direct register access. */
     BCM5719_APE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_APE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, APE, 0, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function1, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function2, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function3, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Bootcode, 4, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_11_5, 5, 7)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Driver, 12, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_13, 13, 19)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_13, 13, 19)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Driver, 12, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_11_5, 5, 7)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Bootcode, 4, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function3, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function2, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Function1, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, APE, 0, 1)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "PerLockGrantPhy2"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegAPEPerLockGrantPhy2_t()
+    {
+        /** @brief constructor for @ref APE_t.PerLockGrantPhy2. */
+        r32.setName("PerLockGrantPhy2");
+        bits.APE.setBaseRegister(&r32);
+        bits.APE.setName("APE");
+        bits.Function1.setBaseRegister(&r32);
+        bits.Function1.setName("Function1");
+        bits.Function2.setBaseRegister(&r32);
+        bits.Function2.setName("Function2");
+        bits.Function3.setBaseRegister(&r32);
+        bits.Function3.setName("Function3");
+        bits.Bootcode.setBaseRegister(&r32);
+        bits.Bootcode.setName("Bootcode");
+        bits.Driver.setBaseRegister(&r32);
+        bits.Driver.setName("Driver");
+    }
+    RegAPEPerLockGrantPhy2_t& operator=(const RegAPEPerLockGrantPhy2_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegAPEPerLockGrantPhy2_t;
 
 #define REG_APE_PER_LOCK_GRANT_MEM ((volatile BCM5719_APE_H_uint32_t*)0xc0018430) /*  */
