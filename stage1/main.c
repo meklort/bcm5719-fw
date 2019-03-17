@@ -47,7 +47,7 @@
 #if CXX_SIMULATOR
 #include <HAL.hpp>
 #include <endian.h>
-#define crc_swap(__x__) (__x__) /* No swapping needed on the host */
+#define crc_swap(__x__) (__x__) /* No swapping needed on the host */    
 #else
 #define be32toh(__x__) (__x__)
 #define crc_swap(__x__)  ((((__x__) & 0x000000FF) << 24) | \
@@ -59,6 +59,10 @@
 #include <bcm5719_BOOTCODE.h>
 #include <bcm5719_GEN.h>
 #include <bcm5719_DEVICE.h>
+#include <bcm5719_APE.h>
+#include <APE.h>
+
+#include <string.h>
 
 NVRAMContents_t gNVMContents;
 
@@ -86,6 +90,7 @@ int main()
 
     NVRam_enable();
     NVRam_read(0, (uint32_t *)&gNVMContents, sizeof(NVRAMContents_t) / 4);
+    NVRam_releaseLock();
 
 #if !CXX_SIMULATOR
     load_nvm_config(&gNVMContents);
@@ -94,71 +99,67 @@ int main()
     init_hw(&gNVMContents);
 #endif
 
-    reportStatus(STATUS_MAIN, 3);
+    // Send configuration information to APE.
+    APE.RcpuFwVersion.r32 = 0x0127;
+    APE.RcpuCfgFeature.r32 = GEN.GenCfgFeature.r32;
+    APE.RcpuPciVendorDeviceId.r32 = DEVICE.PciVendorDeviceId.r32;
+    APE.RcpuPciSubsystemId.r32 = DEVICE.PciSubsystemId.r32;
+    APE.RcpuCfgHw.r32 = GEN.GenCfgHw.r32;
+    APE.RcpuCfgHw2.r32 = GEN.GenCfgHw2.r32;
+    APE.RcpuCpmuStatus.bits.Status = (DEVICE.Status.r32 & 0xFFFF0000) >> 16;
+    APE.RcpuCpmuStatus.bits.Address = APE_RCPU_CPMU_STATUS_ADDRESS_ADDRESS;
 
-    // Locate, verify, and execute stage2.
-    uint32_t stage1_start  = be32toh(gNVMContents.header.bootstrapOffset);
-    uint32_t stage1_length = be32toh(gNVMContents.header.bootstrapWords) * 4; // including crc.
-
-    uint32_t stage2_start  = stage1_start + stage1_length;
-    NVRAMStage2Header_t stage2_hdr;
-    NVRam_read(stage2_start, (uint32_t*)&stage2_hdr, sizeof(stage2_hdr)/4);
-
-    uint32_t stage2_length = be32toh(stage2_hdr.length);
-    uint32_t stage2_magic = be32toh(stage2_hdr.magic);
-
-    reportStatus(STATUS_MAIN, 4);
-
-    if(BCM_NVRAM_MAGIC == stage2_magic)
+    if(APE_RCPU_SEG_SIG_SIG_RCPU_MAGIC != APE.RcpuSegSig.bits.Sig)
     {
-        // Magic matches. Attempt to load stage2.
-        NVRam_read(stage2_start + sizeof(stage2_hdr), bootcode_dest, stage2_length/4);
-        NVRam_releaseLock();
-
-        uint32_t calculated_crc = be32toh(~NVRam_crc((uint8_t*)bootcode_dest, stage2_length - 4, 0xffffffff));
-        uint32_t expected_crc = be32toh(bootcode_dest[stage2_length/4 - 1]);
-
-        if(expected_crc == crc_swap(calculated_crc))
-        {
-            reportStatus(GEN_GEN_FW_MBOX_MBOX_DRIVER_READY, 0);
-#if CXX_SIMULATOR
-            // TODO: exec stage2.
-            printf("Stage1 completed successfully with status 0x%08X.\n", (uint32_t)GEN.GenDataSig.r32);
-            free(bootcode_dest);
-            exit(0);
-#else
-           // Jump to bootcode_dest
-            void __attribute__((noreturn)) (*stage2_entry)(void) = (void*)bootcode_dest;
-            stage2_entry();
-#endif
-        }
-        else
-        {
-            // Error. Invalid CRC.
-            reportStatus(GEN_GEN_DATA_SIG_SIG_STAGE2_CRC_INVALID, 0);
-        }
+        APE.RcpuInitCount.r32 = 1;
     }
     else
     {
-        // Error. Invalid magic.
-        reportStatus(GEN_GEN_DATA_SIG_SIG_STAGE2_MAGIC_INVALID, 0);
+        APE.RcpuInitCount.r32 = APE.RcpuInitCount.r32 + 1;
     }
 
-    NVRam_releaseLock();
+    APE.RcpuApeResetCount.r32 = 0;
+    APE.RcpuLastApeStatus.r32 = 0;
+    APE.RcpuLastApeFwStatus.r32 = 0;
 
-#if CXX_SIMULATOR
-    printf("Stage1 failed with status 0x%08X.\n", (uint32_t)GEN.GenDataSig.r32);
-    free(bootcode_dest);
-    exit(-1);
-#else
+    // Mark it as valid.
+    APE.RcpuSegLength.r32 = 0x34;
+    APE.RcpuSegSig.bits.Sig  = APE_RCPU_SEG_SIG_SIG_RCPU_MAGIC;
+
+
+    // Set GEN_FIRMWARE_MBOX to BOOTCODE_READY_MAGIC.
+    reportStatus(GEN_GEN_DATA_SIG_SIG_DRIVER_READY, 0);
+    GEN.GenFwMbox.r32 = GEN_GEN_FW_MBOX_MBOX_BOOTCODE_READY;
+    GEN.GenAsfStatusMbox.r32 = GEN_GEN_FW_MBOX_MBOX_BOOTCODE_READY;
+    // Do main loop.
+
+    // Ensure all APE locks are released.
+    APE_releaseAllLocks();
+
+    DEVICE.RxCpuEventEnable.bits.VPDAttention = 1;
     for(;;)
     {
-        // Spin forever.
-        // Unable to do anything more. Halt the cpu.
-        RegDEVICERxRiscMode_t mode;
-        mode.r32 = 0;
-        mode.bits.Halt = 1;
-        DEVICE.RxRiscMode = mode;
+        // APE heartbeat.
+        // APE.RcpuApeResetCount.r32 = APE.RcpuApeResetCount.r32 + 1;
+        // APE.RcpuLastApeStatus.r32 = APE.Status.r32;
+        // APE.RcpuLastApeFwStatus.r32 = APE.FwStatus.r32;
+
+        // Spin
+        if(DEVICE.RxCpuEvent.bits.VPDAttention)
+        {
+            uint32_t vpd_offset = DEVICE.PciVpdRequest.bits.RequestedVPDOffset;
+
+            union
+            {
+                uint8_t r8[4];
+                uint32_t r32;
+            } vpd_data;
+            vpd_data.r8[0] = gNVMContents.vpd.bytes[vpd_offset];
+            vpd_data.r8[1] = gNVMContents.vpd.bytes[vpd_offset+1];
+            vpd_data.r8[2] = gNVMContents.vpd.bytes[vpd_offset+2];
+            vpd_data.r8[3] = gNVMContents.vpd.bytes[vpd_offset+3];
+            DEVICE.PciVpdResponse.r32 = vpd_data.r32;
+        }
     }
-#endif
+
 }

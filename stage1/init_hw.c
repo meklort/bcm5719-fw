@@ -481,5 +481,45 @@ void init_hw(NVRAMContents_t *nvram)
     init_mii();
     APE_releaseLock();
 
+
+    RegDEVICEBufferManagerMode_t bmm;
+    bmm.r32 = 0;
+    bmm.bits.Enable = 1;
+    bmm.bits.AttentionEnable = 1;
+    bmm.bits.ResetRXMBUFPointer = 1;
+    DEVICE.BufferManagerMode = bmm;
+
+
+    // Set REG_MISCELLANEOUS_LOCAL_CONTROL to AUTO_SEEPROM_ACCESS|GPIO_2_OUTPUT_ENABLE.
+    DEVICE.MiscellaneousLocalControl.bits.AutoSEEPROMAccess = 1;
+    DEVICE.MiscellaneousLocalControl.bits.GPIO2OutputEnable = 1;
+
+    // Setup link-aware power mode.
+    // The following must be performed while holding REG_MUTEX_{REQUEST,GRANT}; use bit 4.
+    DEVICE.MutexRequest.r32 |= (1 << 4);
+    while(0 == (DEVICE.MutexGrant.r32 & (1 << 4)))
+    {
+        // Wait for grant.
+    }
+
+    // Set REG_LINK_AWARE_POWER_MODE_CLOCK_POLICY to MAC_CLOCK_SWITCH__6_25MHZ.
+    RegDEVICELinkAwarePowerModeClockPolicy_t lapmcp;
+    lapmcp.r32 = 0;
+    lapmcp.bits.MACClockSwitch = DEVICE_LINK_AWARE_POWER_MODE_CLOCK_POLICY_MAC_CLOCK_SWITCH_6_25MHZ;
+    DEVICE.LinkAwarePowerModeClockPolicy = lapmcp;
+    // Set REG_CPMU_CONTROL to zero or more of LINK_AWARE_POWER_MODE_ENABLE, LINK_IDLE_POWER_MODE_ENABLE, LINK_SPEED_POWER_MODE_ENABLE as desired (see NVM CfgFeature).
+    RegDEVICECpmuControl_t cpmu_control;
+    cpmu_control.r32 = 0;
+    cpmu_control.bits.LinkIdlePowerModeEnable  = GEN.GenCfgFeature.bits.LinkIdle;
+    cpmu_control.bits.LinkAwarePowerModeEnable = GEN.GenCfgFeature.bits.LinkAwarePowerMode;
+    cpmu_control.bits.LinkSpeedPowerModeEnable = GEN.GenCfgFeature.bits.LinkSpeedPowerMode;
+    DEVICE.CpmuControl = cpmu_control;
+    // Release grant.
+    DEVICE.MutexGrant.r32 = (1 << 4);
+
+
+    // Mask REG_CLOCK_SPEED_OVERRIDE_POLICY__MAC_CLOCK_SPEED_OVERRIDE_ENABLE.
+    DEVICE.ClockSpeedOverridePolicy.bits.MACClockSpeedOverrideEnabled = 0;
+
     reportStatus(STATUS_INIT_HW, 0xff);
 }
