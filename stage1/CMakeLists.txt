@@ -51,12 +51,11 @@ mips_add_executable(${PROJECT_NAME}
             init_hw.c
             main.c
             crt.s)
+mips_linker_script(${PROJECT_NAME} ${LINKER_SCRIPT})
 
 target_link_libraries(${PROJECT_NAME} NVRam-mips MII-mips VPD-mips APE-mips)
 target_link_libraries(${PROJECT_NAME} bcm5719)
 target_compile_options(${PROJECT_NAME} PRIVATE -nodefaultlibs)
-target_link_libraries(${PROJECT_NAME} "--script=${LINKER_SCRIPT}")
-set_target_properties(${PROJECT_NAME} PROPERTIES LINK_DEPENDS ${LINKER_SCRIPT})
 
 
 # Simulator add_executable

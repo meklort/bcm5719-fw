@@ -72,3 +72,9 @@ function(mips_add_library target)
 
     target_compile_options(${target} PRIVATE ${MIPS_COMPILE_OPTIONS})
 endfunction(mips_add_library)
+
+function(mips_linker_script target script)
+    set_property(TARGET ${target} APPEND APPEND_STRING PROPERTY LINK_FLAGS "--script=\"${script}\"")
+
+    set_target_properties(${target} PROPERTIES LINK_DEPENDS ${script})
+endfunction(mips_linker_script)

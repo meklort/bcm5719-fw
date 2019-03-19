@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ipxact:component xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ipxact="http://www.accellera.org/XMLSchema/IPXACT/1685-2014" xsi:schemaLocation="http://www.accellera.org/images/XMLSchema/IPXACT/1685-2014/index.xsd">
+    <ipxact:vendor>meklort</ipxact:vendor>
+    <ipxact:library>&lt;PROJECT&gt;</ipxact:library>
+    <ipxact:name>Register Definitions</ipxact:name>
+    <ipxact:version>1.0</ipxact:version>
+    <ipxact:memoryMaps>
+        <!-- General Communication: 0xB50 to 0xFFF -->
+        <ipxact:memoryMap>
+            <ipxact:name>NVIC</ipxact:name>
+            <ipxact:description>Nested Vectored Interrupt Controller</ipxact:description>
+            <ipxact:addressBlock>
+                <ipxact:name>NVIC</ipxact:name>
+                <ipxact:description>Nested Vectored Interrupt Controller</ipxact:description>
+                <ipxact:baseAddress>0xE000E000</ipxact:baseAddress>
+                <!-- LINK: addressBlockDefinitionGroup: see 6.9.3, Address blockdefinition group -->
+                <!-- LINK: memoryBlockData: see 6.9.4, memoryBlockData group -->
+                <ipxact:usage>register</ipxact:usage>
+                <ipxact:volatile>false</ipxact:volatile>
+                <ipxact:register>
+                    <ipxact:name>Interrupt Control Type</ipxact:name>
+                    <ipxact:description>Read the Interrupt Controller Type Register to see the number of interrupt lines that the NVIC supports.</ipxact:description>
+                    <ipxact:addressOffset>0x4</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>INTLINESNUM</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>4</ipxact:bitWidth>
+                        <ipxact:enumeratedValues>
+                            <!-- LINK: enumeratedValue: see 6.11.10, Enumeration values -->
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>0 to 32</ipxact:name>
+                                <ipxact:value>0</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>33 to 64</ipxact:name>
+                                <ipxact:value>1</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>65 to 96</ipxact:name>
+                                <ipxact:value>2</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
+                    </ipxact:field>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>SysTick Control and Status</ipxact:name>
+                    <ipxact:description>Use the SysTick Control and Status Register to enable the SysTick features.</ipxact:description>
+                    <ipxact:addressOffset>0x10</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>ENABLE</ipxact:name>
+                        <ipxact:description>It set, counter loads with the Reload value and then begins counting down. On reaching 0, it sets the COUNTFLAG to 1 and optionally pends the SysTick handler, based on TICKINT. It then loads the Reload value again, and begins counting.</ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>TICKINT</ipxact:name>
+                        <ipxact:description>If set, counting down to 0 pends the SysTick handler.</ipxact:description>
+                        <ipxact:bitOffset>1</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>CLKSOURCE</ipxact:name>
+                        <ipxact:description>If no reference clock is provided, it is held at 1 and so gives the same time as the core clock. The core clock must be at least 2.5 times faster than the reference clock. If it is not, the count values are Unpredictable.</ipxact:description>
+                        <ipxact:bitOffset>2</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>COUNTFLAG</ipxact:name>
+                        <ipxact:description>Returns 1 if timer counted to 0 since last time this was read. Clears on read by application of any part of the SysTick Control and Status Register. If read by the debugger using the DAP, this bit is cleared on read-only if the MasterType bit in the AHB-AP Control Register is set to 0. Otherwise, the COUNTFLAG bit is not changed by the debugger read.</ipxact:description>
+                        <ipxact:bitOffset>16</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>SysTick Reload Value</ipxact:name>
+                    <ipxact:description>Use the SysTick Reload Value Register to specify the start value to load into the current value register when the counter reaches 0. It can be any value between 1 and 0x00FFFFFF. A start value of 0 is possible, but has no effect because the SysTick interrupt and COUNTFLAG are activated when counting from 1 to 0.</ipxact:description>
+                    <ipxact:addressOffset>0x14</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>RELOAD</ipxact:name>
+                        <ipxact:description>Value to load into the SysTick Current Value Register when the counter reaches 0.</ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>24</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>SysTick Current Value</ipxact:name>
+                    <ipxact:description>Use the SysTick Current Value Register to find the current value in the register.</ipxact:description>
+                    <ipxact:addressOffset>0x18</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>CURRENT</ipxact:name>
+                        <ipxact:description>Current value at the time the register is accessed. No read-modify-write protection is provided, so change with care. This register is write-clear. Writing to it with any value clears the register to 0. Clearing this register also clears the COUNTFLAG bit of the SysTick Control and Status Register.</ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>24</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>SysTick Calibration Value</ipxact:name>
+                    <ipxact:description>Use the SysTick Calibration Value Register to enable software to scale to any required speed using divide and multiply.</ipxact:description>
+                    <ipxact:addressOffset>0x1c</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>TENMS</ipxact:name>
+                        <ipxact:description>This value is the Reload value to use for 10ms timing. Depending on the value of SKEW, this might be exactly 10ms or might be the closest value. If this reads as 0, then the calibration value is not known. This is probably because the reference clock is an unknown input from the system or scalable dynamically.</ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>24</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>SKEW</ipxact:name>
+                        <ipxact:description>1 = the calibration value is not exactly 10ms because of clock frequency. This could affect its suitability as a software real time clock.</ipxact:description>
+                        <ipxact:bitOffset>30</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>NOREF</ipxact:name>
+                        <ipxact:description>1 = the reference clock is not provided.</ipxact:description>
+                        <ipxact:bitOffset>31</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                </ipxact:register>
+            </ipxact:addressBlock>
+            <ipxact:addressUnitBits>32</ipxact:addressUnitBits>
+        </ipxact:memoryMap>
+    </ipxact:memoryMaps>
+</ipxact:component>
