@@ -3230,10 +3230,10 @@
         <!-- Device NVM Registers: 0xC000_7000 to C000_7080 -->
         <ipxact:memoryMap>
             <ipxact:name>NVM</ipxact:name>
-            <ipxact:description>Device Registers</ipxact:description>
+            <ipxact:description>Non-Volatile Memory Registers</ipxact:description>
             <ipxact:addressBlock>
                 <ipxact:name>NVM</ipxact:name>
-                <ipxact:description>Device Registers</ipxact:description>
+                <ipxact:description>Non-Volatile Memory Registers</ipxact:description>
                 <ipxact:baseAddress>0xC0007000</ipxact:baseAddress>
                 <!-- LINK: addressBlockDefinitionGroup: see 6.9.3, Address blockdefinition group -->
                 <!-- LINK: memoryBlockData: see 6.9.4, memoryBlockData group -->

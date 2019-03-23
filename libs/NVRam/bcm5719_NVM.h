@@ -78,7 +78,7 @@ typedef uint32_t BCM5719_NVM_H_uint32_t;
 #define BITFIELD_END(__type__, __name__) } __name__;
 #endif /* !CXX_SIMULATOR */
 
-#define REG_NVM_BASE ((volatile void*)0xc0007000) /* Device Registers */
+#define REG_NVM_BASE ((volatile void*)0xc0007000) /* Non-Volatile Memory Registers */
 #define REG_NVM_SIZE (sizeof(NVM_t))
 
 #define REG_NVM_COMMAND ((volatile BCM5719_NVM_H_uint32_t*)0xc0007000) /*  */
@@ -943,7 +943,7 @@ typedef struct {
 
 } NVM_t;
 
-/** @brief Device Registers */
+/** @brief Non-Volatile Memory Registers */
 extern volatile NVM_t NVM;
 
 

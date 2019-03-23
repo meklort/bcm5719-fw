@@ -23,6 +23,19 @@ mv bcm5719_BOOTCODE.h ../include
 ${IPXACT} -p ${PROJECT} bcm5719_full.xml bcm5719.cpp
 mv *.cpp ../simulator/
 
-${IPXACT} -p ${PROJECT} bcm5719_full.xml bcm5719.s
+# ${IPXACT} -p ${PROJECT} bcm5719_full.xml bcm5719.s
 ${IPXACT} -p ${PROJECT} bcm5719_full.xml -t asym bcm5719_sym.s
+mv *.s ../libs/bcm5719/
+
+
+PROJECT=ape
+
+echo "Regenerating APE header"
+
+
+${IPXACT} -p ${PROJECT} NVIC.xml APE.xml APE.h
+mv APE_NVIC.h ../include/
+
+# ${IPXACT} -p ${PROJECT} NVIC.xml APE.xml APE.s
+${IPXACT} -p ${PROJECT} NVIC.xml APE.xml -t asym APE_sym.s
 mv *.s ../libs/bcm5719/
