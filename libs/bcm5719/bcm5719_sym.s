@@ -76,6 +76,10 @@
 .equ    SDBCACHE, 0x20000
 .size   SDBCACHE, 0xc800
 
+.global SHM
+.equ    SHM, 0xc0014000
+.size   SHM, 0x9b4
+
 .global TXMBUF
 .equ    TXMBUF, 0x2c800
 .size   TXMBUF, 0x7400

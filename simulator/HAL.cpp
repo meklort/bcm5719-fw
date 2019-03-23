@@ -3,6 +3,7 @@
 
 #include <bcm5719_DEVICE.h>
 #include <bcm5719_APE.h>
+#include <bcm5719_SHM.h>
 #include <bcm5719_GEN.h>
 #include <dirent.h>
 #include <endian.h>
@@ -248,10 +249,14 @@ bool initHAL(const char *pci_path, int wanted_function)
     init_bcm5719_GEN();
     init_bcm5719_GEN_mmap(&DEVICEBase[0x8000 + 0xB50]); // 0x8000 for windowed area
 
-    init_bcm5719_APE();
-    init_bcm5719_APE_mmap(APEBase);
     init_bcm5719_NVM();
     init_bcm5719_NVM_mmap(&DEVICEBase[0x7000]);
+
+    init_bcm5719_APE();
+    init_bcm5719_APE_mmap(APEBase);
+
+    init_bcm5719_SHM();
+    init_bcm5719_SHM_mmap(&DAPEBase[0x4000]);
 
     return true;
 }

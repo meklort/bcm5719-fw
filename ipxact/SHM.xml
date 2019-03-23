@@ -1,0 +1,1077 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ipxact:component xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ipxact="http://www.accellera.org/XMLSchema/IPXACT/1685-2014" xsi:schemaLocation="http://www.accellera.org/images/XMLSchema/IPXACT/1685-2014/index.xsd">
+    <ipxact:vendor>meklort</ipxact:vendor>
+    <ipxact:library>&lt;PROJECT&gt;</ipxact:library>
+    <ipxact:name>SHM Register Definitions</ipxact:name>
+    <ipxact:version>1.0</ipxact:version>
+    <ipxact:memoryMaps>
+        <!-- APE SHM Registers: 0xC001_4000 to C001_5FFF (MIPS)-->
+        <!-- APE SHM Registers: 0x6022_0000 to A022_0FFF (APE, function 0)-->
+        <!-- APE SHM Registers: 0x6022_1000 to A022_1FFF (APE, function 1)-->
+        <!-- APE SHM Registers: 0x6022_2000 to A022_2FFF (APE, function 2)-->
+        <!-- APE SHM Registers: 0x6022_3000 to A022_3FFF (APE, function 3)-->
+        <ipxact:memoryMap>
+            <ipxact:name>SHM</ipxact:name>
+            <ipxact:description>Device APE SHM Registers</ipxact:description>
+            <ipxact:addressBlock>
+                <ipxact:name>SHM</ipxact:name>
+                <ipxact:typeIdentifier>SHM</ipxact:typeIdentifier>>
+                <ipxact:description>Device APE SHM Registers</ipxact:description>
+                <ipxact:baseAddress>0xC0014000</ipxact:baseAddress>
+                <!-- LINK: addressBlockDefinitionGroup: see 6.9.3, Address blockdefinition group -->
+                <!-- LINK: memoryBlockData: see 6.9.4, memoryBlockData group -->
+                <ipxact:register>
+                    <ipxact:name>SEG_SIG</ipxact:name>
+                    <ipxact:description>APE_APE_MAGIC ('APE!') when all is well.</ipxact:description>
+                    <ipxact:addressOffset>0x0</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>FW_STATUS</ipxact:name>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0xc</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>Ready</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>8</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>unknown_31_28</ipxact:name>
+                        <ipxact:description>If this is all-ones, it appears to mean the APE FW is halted.</ipxact:description>
+                        <ipxact:bitOffset>28</ipxact:bitOffset>
+                        <ipxact:bitWidth>4</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>FW_FEATURES</ipxact:name>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0x10</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>NCSI</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>1</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>4014</ipxact:name>
+                    <ipxact:description>Unknown.</ipxact:description>
+                    <ipxact:addressOffset>0x14</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>FW_VERSION</ipxact:name>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0x18</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>Build</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>8</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Revision</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>8</ipxact:bitOffset>
+                        <ipxact:bitWidth>8</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Minor</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>16</ipxact:bitOffset>
+                        <ipxact:bitWidth>8</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Major</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>24</ipxact:bitOffset>
+                        <ipxact:bitWidth>8</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>SEG_MESSAGE_BUFFER_OFFSET</ipxact:name>
+                    <ipxact:description>Specifies the offset of a scratchpad area, relative to the  start of the APE SHM area (i.e., relative to APE_REG(0x4000)).</ipxact:description>
+                    <ipxact:addressOffset>0x1c</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>SEG_MESSAGE_BUFFER_LENGTH</ipxact:name>
+                    <ipxact:description>Specifies the size of the scratchpad area in bytes.</ipxact:description>
+                    <ipxact:addressOffset>0x20</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>4024</ipxact:name>
+                    <ipxact:description>Unknown. Bootcode related.</ipxact:description>
+                    <ipxact:addressOffset>0x24</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>4028</ipxact:name>
+                    <ipxact:description>Unknown. Bootcode related.</ipxact:description>
+                    <ipxact:addressOffset>0x28</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>RCPU_SEG_SIG</ipxact:name>
+                    <ipxact:description>Set to APE_RCPU_MAGIC ('RCPU') by RX CPU.</ipxact:description>
+                    <ipxact:addressOffset>0x100</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>Sig</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>32</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <!-- LINK: enumeratedValue: see 6.11.10, Enumeration values -->
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>RCPU_MAGIC</ipxact:name>
+                                <ipxact:value>0x52435055</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
+                    </ipxact:field>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>RCPU_SEG_LENGTH</ipxact:name>
+                    <ipxact:description>Set to 0x34.</ipxact:description>
+                    <ipxact:addressOffset>0x104</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>RCPU_INIT_COUNT</ipxact:name>
+                    <ipxact:description>Incremented by RX CPU every boot.</ipxact:description>
+                    <ipxact:addressOffset>0x108</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>RCPU_FW_VERSION</ipxact:name>
+                    <ipxact:description>Set to the bootcode version. e.g. 0x0127 -&gt; v1.39.</ipxact:description>
+                    <ipxact:addressOffset>0x10c</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>RCPU_CFG_FEATURE</ipxact:name>
+                    <ipxact:description>Set to </ipxact:description>
+                    <ipxact:addressOffset>0x110</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>RCPU_PCI_VENDOR_DEVICE_ID</ipxact:name>
+                    <ipxact:description>Set to PCI Vendor/Device ID by S2.</ipxact:description>
+                    <ipxact:addressOffset>0x114</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>RCPU_PCI_SUBSYSTEM_ID</ipxact:name>
+                    <ipxact:description>Set to PCI Subsystem Vendor/Subsystem ID by S2.</ipxact:description>
+                    <ipxact:addressOffset>0x118</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>RCPU_APE_RESET_COUNT</ipxact:name>
+                    <ipxact:description>Unknown. Incremented by frobnicating routine.</ipxact:description>
+                    <ipxact:addressOffset>0x11c</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>RCPU_LAST_APE_STATUS</ipxact:name>
+                    <ipxact:description>Unknown. Written by frobnicating routine.</ipxact:description>
+                    <ipxact:addressOffset>0x120</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>RCPU_LAST_APE_FW_STATUS</ipxact:name>
+                    <ipxact:description>Unknown. </ipxact:description>
+                    <ipxact:addressOffset>0x124</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>RCPU_CFG_HW</ipxact:name>
+                    <ipxact:description>Set from </ipxact:description>
+                    <ipxact:addressOffset>0x128</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>RCPU_CFG_HW_2</ipxact:name>
+                    <ipxact:description>Set from </ipxact:description>
+                    <ipxact:addressOffset>0x12c</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>RCPU_CPMU_STATUS</ipxact:name>
+                    <ipxact:description>Set from </ipxact:description>
+                    <ipxact:addressOffset>0x130</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>Address</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>16</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <!-- LINK: enumeratedValue: see 6.11.10, Enumeration values -->
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>ADDRESS</ipxact:name>
+                                <ipxact:value>0x362C</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Status</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>16</ipxact:bitOffset>
+                        <ipxact:bitWidth>16</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>HOST_SEG_SIG</ipxact:name>
+                    <ipxact:description>Set to APE_HOST_MAGIC ('HOST') to indicate the section is valid.</ipxact:description>
+                    <ipxact:addressOffset>0x200</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>HOST_SEG_LEN</ipxact:name>
+                    <ipxact:description>Set to 0x20.</ipxact:description>
+                    <ipxact:addressOffset>0x204</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>HOST_INIT_COUNT</ipxact:name>
+                    <ipxact:description>Incremented by host on every initialization.</ipxact:description>
+                    <ipxact:addressOffset>0x208</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>HOST_DRIVER_ID</ipxact:name>
+                    <ipxact:description>Linux sets this to 0xF0MM_mm00, where M is the major version  of Linux and m is the minor version.</ipxact:description>
+                    <ipxact:addressOffset>0x20c</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>HOST_BEHAVIOR</ipxact:name>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0x210</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>No PHYLock</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>HEARTBEAT_INTERVAL</ipxact:name>
+                    <ipxact:description>In milliseconds. Set to 0 to disable heartbeating.</ipxact:description>
+                    <ipxact:addressOffset>0x214</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>HEARTBEAT_COUNT</ipxact:name>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0x218</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>HOST_DRIVER_STATE</ipxact:name>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0x21c</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>WOL_SPEED</ipxact:name>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0x224</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>EVENT_STATUS</ipxact:name>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0x300</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>Driver Event</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>4</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Command</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>8</ipxact:bitOffset>
+                        <ipxact:bitWidth>8</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <!-- LINK: enumeratedValue: see 6.11.10, Enumeration values -->
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>State Change</ipxact:name>
+                                <ipxact:value>5</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Scratchpad Read</ipxact:name>
+                                <ipxact:value>22</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Scratchpad Write</ipxact:name>
+                                <ipxact:value>23</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>State</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>16</ipxact:bitOffset>
+                        <ipxact:bitWidth>3</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <!-- LINK: enumeratedValue: see 6.11.10, Enumeration values -->
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Start</ipxact:name>
+                                <ipxact:value>1</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Unload</ipxact:name>
+                                <ipxact:value>2</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>WOL</ipxact:name>
+                                <ipxact:value>3</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Suspend</ipxact:name>
+                                <ipxact:value>4</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Pending</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>31</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>PROT_MAGIC</ipxact:name>
+                    <ipxact:description>This is set to APE_PROT_MAGIC ('PROT') on all functions.  If it is 'PROT', the following fields (MAC0_HIGH/LOW) are valid</ipxact:description>
+                    <ipxact:addressOffset>0x308</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>PROT_MAC0_HIGH</ipxact:name>
+                    <ipxact:description>High 16 bits of MAC address 0. Only valid if </ipxact:description>
+                    <ipxact:addressOffset>0x314</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>PROT_MAC0_LOW</ipxact:name>
+                    <ipxact:description>Low 16 bits of MAC address 0.</ipxact:description>
+                    <ipxact:addressOffset>0x318</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>NCSI_SIG</ipxact:name>
+                    <ipxact:description>Set to NCSI_MAGIC ('NCSI') by APE firmware. NOTE: all words in the NCSI section are available in the function 0 SHM area only.</ipxact:description>
+                    <ipxact:addressOffset>0x800</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>NCSI_BUILD_TIME</ipxact:name>
+                    <ipxact:description>ASCII string spanning three 32-bit words. Unused trailing bytes   are set to zero.</ipxact:description>
+                    <ipxact:addressOffset>0x810</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>NCSI_BUILD_TIME_2</ipxact:name>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0x814</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>NCSI_BUILD_TIME_3</ipxact:name>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0x818</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>NCSI_BUILD_DATE</ipxact:name>
+                    <ipxact:description>ASCII string spanning three 32-bit words. Unused trailing bytes   are set to zero.</ipxact:description>
+                    <ipxact:addressOffset>0x81c</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>NCSI_BUILD_DATE_2</ipxact:name>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0x820</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>NCSI_BUILD_DATE_3</ipxact:name>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0x824</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>CHIP_ID</ipxact:name>
+                    <ipxact:description>The APE code copies the contents of Chip ID to this word</ipxact:description>
+                    <ipxact:addressOffset>0x890</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+
+                <ipxact:register>
+                    <ipxact:name>NCSI_CHANNEL0_INFO</ipxact:name>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0x900</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>Enabled</ipxact:name>
+                        <ipxact:description>This can be modified via NCSI SELECT PACKAGE and NCSI DESELECT PACKAGE.</ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>TX Passthrough</ipxact:name>
+                        <ipxact:description>TX passthrough has been enabled by BMC NCSI command.</ipxact:description>
+                        <ipxact:bitOffset>1</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Ready</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>2</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Init</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>3</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>MFILT</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>4</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>BFILT</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>5</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>SERDES</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>6</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>VLAN</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>8</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>B2H</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>10</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>B2N</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>11</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>EEE</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>12</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Driver</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>14</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>PDead</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>15</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>NCSI_CHANNEL0_MCID</ipxact:name>
+                    <ipxact:description>AEN Management Controller ID, set by BMC when sending AEN ENABLE command and used when sending AENs.</ipxact:description>
+                    <ipxact:addressOffset>0x904</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>NCSI_CHANNEL0_AEN</ipxact:name>
+                    <ipxact:description>Set via NCSI ENABLE AEN.</ipxact:description>
+                    <ipxact:addressOffset>0x908</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>Enable Link Status Change AEN</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Enable Configuration Required AEN</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>1</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Enable Host NC Driver Status Change AEN</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>2</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>NCSI_CHANNEL0_BFILT</ipxact:name>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0x90c</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>ARP Packet</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>DHCP Client Packet</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>1</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>DHCP Server Packet</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>2</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>NetBIOS Packet</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>3</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>NCSI_CHANNEL0_MFILT</ipxact:name>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0x910</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>IPv6 Neighbour Advertisement</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>IPv6 Router Advertisement</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>1</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>DHCPv6 Relay and Server Multicast</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>2</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>NCSI_CHANNEL0_SETTING_1</ipxact:name>
+                    <ipxact:description>This is the "Link Settings" value from NCSI Set Link.</ipxact:description>
+                    <ipxact:addressOffset>0x914</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>Autonegotiation enabled</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Link Speed 10M enable</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>1</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Link Speed 100M enable</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>2</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Link Speed 100M enable</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>2</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Link Speed 1000M enable</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>3</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Link Speed 10G enable</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>4</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Half duplex enable</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>8</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Full duplex enable</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>9</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Pause capability enable</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>10</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Asymmetric pause capability enable</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>11</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>OEM link settings field valid</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>12</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>NCSI_CHANNEL0_SETTING_2</ipxact:name>
+                    <ipxact:description>This is the "OEM Settings" value from NCSI Set Link.</ipxact:description>
+                    <ipxact:addressOffset>0x918</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>NCSI_CHANNEL0_VLAN</ipxact:name>
+                    <ipxact:description>Receives VLAN mode from NCSI specification "Enable VLAN" command.</ipxact:description>
+                    <ipxact:addressOffset>0x91c</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>NCSI_CHANNEL0_ALT_HOST_MAC_HIGH</ipxact:name>
+                    <ipxact:description>Lower 16 bits of this word contains upper 16 bits of the MAC.</ipxact:description>
+                    <ipxact:addressOffset>0x924</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>NCSI_CHANNEL0_ALT_HOST_MAC_MID</ipxact:name>
+                    <ipxact:description>Lower 16 bits of this word contains mid 16 bits of the MAC.</ipxact:description>
+                    <ipxact:addressOffset>0x928</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>NCSI_CHANNEL0_ALT_HOST_MAC_LOW</ipxact:name>
+                    <ipxact:description>Lower 16 bits of this word contains low 16 bits of the MAC.</ipxact:description>
+                    <ipxact:addressOffset>0x92c</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>NCSI_CHANNEL0_MAC0_HIGH</ipxact:name>
+                    <ipxact:description>Lower 16 bits of this word contains upper 16 bits of the MAC.</ipxact:description>
+                    <ipxact:addressOffset>0x934</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>NCSI_CHANNEL0_MAC0_MID</ipxact:name>
+                    <ipxact:description>Lower 16 bits of this word contains mid 16 bits of the MAC.</ipxact:description>
+                    <ipxact:addressOffset>0x938</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>NCSI_CHANNEL0_MAC0_LOW</ipxact:name>
+                    <ipxact:description>Lower 16 bits of this word contains low 16 bits of the MAC.</ipxact:description>
+                    <ipxact:addressOffset>0x93c</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>NCSI_CHANNEL0_MAC1_HIGH</ipxact:name>
+                    <ipxact:description>Lower 16 bits of this word contains upper 16 bits of the MAC.</ipxact:description>
+                    <ipxact:addressOffset>0x944</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>NCSI_CHANNEL0_MAC1_MID</ipxact:name>
+                    <ipxact:description>Lower 16 bits of this word contains mid 16 bits of the MAC.</ipxact:description>
+                    <ipxact:addressOffset>0x948</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>NCSI_CHANNEL0_MAC1_LOW</ipxact:name>
+                    <ipxact:description>Lower 16 bits of this word contains low 16 bits of the MAC.</ipxact:description>
+                    <ipxact:addressOffset>0x94c</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>NCSI_CHANNEL0_MAC2_HIGH</ipxact:name>
+                    <ipxact:description>Lower 16 bits of this word contains upper 16 bits of the MAC.</ipxact:description>
+                    <ipxact:addressOffset>0x954</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>NCSI_CHANNEL0_MAC2_MID</ipxact:name>
+                    <ipxact:description>Lower 16 bits of this word contains mid 16 bits of the MAC.</ipxact:description>
+                    <ipxact:addressOffset>0x958</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>NCSI_CHANNEL0_MAC2_LOW</ipxact:name>
+                    <ipxact:description>Lower 16 bits of this word contains low 16 bits of the MAC.</ipxact:description>
+                    <ipxact:addressOffset>0x95c</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>NCSI_CHANNEL0_MAC3_HIGH</ipxact:name>
+                    <ipxact:description>Lower 16 bits of this word contains upper 16 bits of the MAC.</ipxact:description>
+                    <ipxact:addressOffset>0x964</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>NCSI_CHANNEL0_MAC3_MID</ipxact:name>
+                    <ipxact:description>Lower 16 bits of this word contains mid 16 bits of the MAC.</ipxact:description>
+                    <ipxact:addressOffset>0x968</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>NCSI_CHANNEL0_MAC3_LOW</ipxact:name>
+                    <ipxact:description>Lower 16 bits of this word contains low 16 bits of the MAC.</ipxact:description>
+                    <ipxact:addressOffset>0x96c</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>NCSI_CHANNEL0_MAC0_VLAN_VALID</ipxact:name>
+                    <ipxact:description>Nonzero indicates VLAN field is valid</ipxact:description>
+                    <ipxact:addressOffset>0x970</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>NCSI_CHANNEL0_MAC0_VLAN</ipxact:name>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0x974</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>NCSI_CHANNEL0_MAC1_VLAN_VALID</ipxact:name>
+                    <ipxact:description>Nonzero indicates VLAN field is valid</ipxact:description>
+                    <ipxact:addressOffset>0x978</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>NCSI_CHANNEL0_MAC1_VLAN</ipxact:name>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0x97c</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>NCSI_CHANNEL0_STATUS</ipxact:name>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0x980</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>Link up</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Link Status</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>1</ipxact:bitOffset>
+                        <ipxact:bitWidth>4</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>SERDES</ipxact:name>
+                        <ipxact:description>Set from MII_REG_CONTROL__AUTO_NEGOTIATION_ENABLE. Set unconditionally in SERDES case.</ipxact:description>
+                        <ipxact:bitOffset>5</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Autonegotiation Complete</ipxact:name>
+                        <ipxact:description>Set if autonegotiation is complete.</ipxact:description>
+                        <ipxact:bitOffset>6</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Link Speed 1000M Full Duplex Capable</ipxact:name>
+                        <ipxact:description>Link partner 1000BASE-T full duplex capable</ipxact:description>
+                        <ipxact:bitOffset>9</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Link Speed 1000M Hals Duplex Capable</ipxact:name>
+                        <ipxact:description>Link partner 1000BASE-T half duplex capable</ipxact:description>
+                        <ipxact:bitOffset>10</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>NCSI_CHANNEL0_RESET_COUNT</ipxact:name>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0x984</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>NCSI_CHANNEL0_PXE</ipxact:name>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0x988</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>NCSI_CHANNEL0_DROPFIL</ipxact:name>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0x98c</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>NCSI_CHANNEL0_SLINK</ipxact:name>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0x990</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>NCSI_CHANNEL0_DBG</ipxact:name>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0x9a0</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>NCSI_CHANNEL0_CTRLSTAT_RX</ipxact:name>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0x9b0</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+            </ipxact:addressBlock>
+            <ipxact:addressUnitBits>8</ipxact:addressUnitBits>
+        </ipxact:memoryMap>
+    </ipxact:memoryMaps>
+</ipxact:component>

@@ -5,7 +5,7 @@ PROJECT=bcm5719
 
 echo "Regenerating Bcm5719 header"
 
-${IPXACT} -p ${PROJECT} DEVICE.xml NVM.xml bcm5719.xml bcm5719_full.xml
+${IPXACT} -p ${PROJECT} SHM.xml DEVICE.xml NVM.xml bcm5719.xml bcm5719_full.xml
 
 ${IPXACT} -p ${PROJECT} bcm5719_full.xml bcm5719.h
 
@@ -14,6 +14,7 @@ mv bcm5719_MII.h ../libs/MII/include/
 mv bcm5719_DEVICE.h ../include/
 mv bcm5719_GEN.h ../include/
 mv bcm5719_APE.h ../include/
+mv bcm5719_SHM.h ../include/
 mv bcm5719_RXMBUF.h ../include
 mv bcm5719_SDBCACHE.h ../include
 mv bcm5719_TXMBUF.h ../include
@@ -39,5 +40,5 @@ ${IPXACT} -p ${PROJECT} NVIC.xml APE_full.xml APE.h
 mv APE_NVIC.h ../include/
 
 # ${IPXACT} -p ${PROJECT} NVIC.xml APE_full.xml APE.s
-${IPXACT} -p ${PROJECT} NVIC.xml APE_full.xml -t asym APE_sym.s
+${IPXACT} -p ${PROJECT} SHM.xml NVIC.xml APE_full.xml -t asym APE_sym.s
 mv *.s ../libs/bcm5719/

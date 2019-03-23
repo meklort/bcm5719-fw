@@ -60,6 +60,7 @@
 #include <bcm5719_GEN.h>
 #include <bcm5719_DEVICE.h>
 #include <bcm5719_APE.h>
+#include <bcm5719_SHM.h>
 #include <APE.h>
 
 #include <string.h>
@@ -99,32 +100,32 @@ int main()
     init_hw(&gNVMContents);
 #endif
 
-    // Send configuration information to APE.
-    APE.RcpuFwVersion.r32 = 0x0127;
-    APE.RcpuCfgFeature.r32 = GEN.GenCfgFeature.r32;
-    APE.RcpuPciVendorDeviceId.r32 = DEVICE.PciVendorDeviceId.r32;
-    APE.RcpuPciSubsystemId.r32 = DEVICE.PciSubsystemId.r32;
-    APE.RcpuCfgHw.r32 = GEN.GenCfgHw.r32;
-    APE.RcpuCfgHw2.r32 = GEN.GenCfgHw2.r32;
-    APE.RcpuCpmuStatus.bits.Status = (DEVICE.Status.r32 & 0xFFFF0000) >> 16;
-    APE.RcpuCpmuStatus.bits.Address = APE_RCPU_CPMU_STATUS_ADDRESS_ADDRESS;
+    // Send configuration information to APE SHM.
+    SHM.RcpuFwVersion.r32 = 0x0127;
+    SHM.RcpuCfgFeature.r32 = GEN.GenCfgFeature.r32;
+    SHM.RcpuPciVendorDeviceId.r32 = DEVICE.PciVendorDeviceId.r32;
+    SHM.RcpuPciSubsystemId.r32 = DEVICE.PciSubsystemId.r32;
+    SHM.RcpuCfgHw.r32 = GEN.GenCfgHw.r32;
+    SHM.RcpuCfgHw2.r32 = GEN.GenCfgHw2.r32;
+    SHM.RcpuCpmuStatus.bits.Status = (DEVICE.Status.r32 & 0xFFFF0000) >> 16;
+    SHM.RcpuCpmuStatus.bits.Address = SHM_RCPU_CPMU_STATUS_ADDRESS_ADDRESS;
 
-    if(APE_RCPU_SEG_SIG_SIG_RCPU_MAGIC != APE.RcpuSegSig.bits.Sig)
+    if(SHM_RCPU_SEG_SIG_SIG_RCPU_MAGIC != SHM.RcpuSegSig.bits.Sig)
     {
-        APE.RcpuInitCount.r32 = 1;
+        SHM.RcpuInitCount.r32 = 1;
     }
     else
     {
-        APE.RcpuInitCount.r32 = APE.RcpuInitCount.r32 + 1;
+        SHM.RcpuInitCount.r32 = SHM.RcpuInitCount.r32 + 1;
     }
 
-    APE.RcpuApeResetCount.r32 = 0;
-    APE.RcpuLastApeStatus.r32 = 0;
-    APE.RcpuLastApeFwStatus.r32 = 0;
+    SHM.RcpuApeResetCount.r32 = 0;
+    SHM.RcpuLastApeStatus.r32 = 0;
+    SHM.RcpuLastApeFwStatus.r32 = 0;
 
     // Mark it as valid.
-    APE.RcpuSegLength.r32 = 0x34;
-    APE.RcpuSegSig.bits.Sig  = APE_RCPU_SEG_SIG_SIG_RCPU_MAGIC;
+    SHM.RcpuSegLength.r32 = 0x34;
+    SHM.RcpuSegSig.bits.Sig  = SHM_RCPU_SEG_SIG_SIG_RCPU_MAGIC;
 
 
     // Set GEN_FIRMWARE_MBOX to BOOTCODE_READY_MAGIC.

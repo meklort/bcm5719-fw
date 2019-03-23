@@ -68,4 +68,20 @@
 .equ    NVM, 0x60240000
 .size   NVM, 0x3c
 
+.global SHM
+.equ    SHM, 0x60220000
+.size   SHM, 0x9b4
+
+.global SHM1
+.equ    SHM1, 0x60221000
+.size   SHM1, 0x0
+
+.global SHM2
+.equ    SHM2, 0x60222000
+.size   SHM2, 0x0
+
+.global SHM3
+.equ    SHM3, 0x60223000
+.size   SHM3, 0x0
+
 
