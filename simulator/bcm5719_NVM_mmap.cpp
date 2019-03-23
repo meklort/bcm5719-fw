@@ -137,7 +137,7 @@ void init_bcm5719_NVM_mmap(void *base)
     NVM.ArbitrationWatchdog.r32.installWriteCallback(write_to_ram, &NVM_ArbitrationWatchdog_r32);
 
     /** @brief Bitmap for @ref NVM_t.AutoSenseStatus. */
-    static ram_offset_t NVM_AutoSenseStatus_r32((uint8_t *)base, (uint32_t)48);
+    static ram_offset_t NVM_AutoSenseStatus_r32((uint8_t *)base, (uint32_t)56);
     NVM.AutoSenseStatus.r32.installReadCallback(read_from_ram, &NVM_AutoSenseStatus_r32);
     NVM.AutoSenseStatus.r32.installWriteCallback(write_to_ram, &NVM_AutoSenseStatus_r32);
 

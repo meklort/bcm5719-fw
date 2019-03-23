@@ -45,3 +45,5 @@
 project(bcm5719 ASM)
 
 mips_add_library(${PROJECT_NAME} STATIC bcm5719_sym.s)
+
+arm_add_library(${PROJECT_NAME}-arm STATIC APE_sym.s)

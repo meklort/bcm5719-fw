@@ -787,19 +787,19 @@ typedef register_container RegNVMArbitrationWatchdog_t {
 #endif /* CXX_SIMULATOR */
 } RegNVMArbitrationWatchdog_t;
 
-#define REG_NVM_AUTO_SENSE_STATUS ((volatile BCM5719_NVM_H_uint32_t*)0xc0007030) /*  */
+#define REG_NVM_AUTO_SENSE_STATUS ((volatile BCM5719_NVM_H_uint32_t*)0xc0007038) /*  */
 #define     NVM_AUTO_SENSE_STATUS_AUTO_CONFIG_BUSY_SHIFT 0u
 #define     NVM_AUTO_SENSE_STATUS_AUTO_CONFIG_BUSY_MASK  0x1u
 #define GET_NVM_AUTO_SENSE_STATUS_AUTO_CONFIG_BUSY(__reg__)  (((__reg__) & 0x1) >> 0u)
 #define SET_NVM_AUTO_SENSE_STATUS_AUTO_CONFIG_BUSY(__val__)  (((__val__) << 0u) & 0x1u)
-#define     NVM_AUTO_SENSE_STATUS_AUTO_CONFIG_SUCCESSFUL_SHIFT 4u
-#define     NVM_AUTO_SENSE_STATUS_AUTO_CONFIG_SUCCESSFUL_MASK  0x10u
-#define GET_NVM_AUTO_SENSE_STATUS_AUTO_CONFIG_SUCCESSFUL(__reg__)  (((__reg__) & 0x10) >> 4u)
-#define SET_NVM_AUTO_SENSE_STATUS_AUTO_CONFIG_SUCCESSFUL(__val__)  (((__val__) << 4u) & 0x10u)
 #define     NVM_AUTO_SENSE_STATUS_AUTO_CONFIG_ENABLE_SHIFT 4u
 #define     NVM_AUTO_SENSE_STATUS_AUTO_CONFIG_ENABLE_MASK  0x10u
 #define GET_NVM_AUTO_SENSE_STATUS_AUTO_CONFIG_ENABLE(__reg__)  (((__reg__) & 0x10) >> 4u)
 #define SET_NVM_AUTO_SENSE_STATUS_AUTO_CONFIG_ENABLE(__val__)  (((__val__) << 4u) & 0x10u)
+#define     NVM_AUTO_SENSE_STATUS_AUTO_CONFIG_SUCCESSFUL_SHIFT 5u
+#define     NVM_AUTO_SENSE_STATUS_AUTO_CONFIG_SUCCESSFUL_MASK  0x20u
+#define GET_NVM_AUTO_SENSE_STATUS_AUTO_CONFIG_SUCCESSFUL(__reg__)  (((__reg__) & 0x20) >> 5u)
+#define SET_NVM_AUTO_SENSE_STATUS_AUTO_CONFIG_SUCCESSFUL(__val__)  (((__val__) << 5u) & 0x20u)
 #define     NVM_AUTO_SENSE_STATUS_AUTO_CONFIG_STATE_SHIFT 8u
 #define     NVM_AUTO_SENSE_STATUS_AUTO_CONFIG_STATE_MASK  0x1f00u
 #define GET_NVM_AUTO_SENSE_STATUS_AUTO_CONFIG_STATE(__reg__)  (((__reg__) & 0x1f00) >> 8u)
@@ -830,12 +830,12 @@ typedef register_container RegNVMAutoSenseStatus_t {
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, AutoConfigBusy, 0, 1)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_3_1, 1, 3)
-        /** @brief Auto config is successful. */
-        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, AutoConfigSuccessful, 4, 1)
         /** @brief Auto config feature is enabled through pin strap. */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, AutoConfigEnable, 4, 1)
+        /** @brief Auto config is successful. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, AutoConfigSuccessful, 5, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_7_5, 5, 3)
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_7_6, 6, 2)
         /** @brief Auto Config FSM state. */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, AutoConfigState, 8, 5)
         /** @brief Padding */
@@ -854,11 +854,11 @@ typedef register_container RegNVMAutoSenseStatus_t {
         /** @brief Auto Config FSM state. */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, AutoConfigState, 8, 5)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_7_5, 5, 3)
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_7_6, 6, 2)
+        /** @brief Auto config is successful. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, AutoConfigSuccessful, 5, 1)
         /** @brief Auto config feature is enabled through pin strap. */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, AutoConfigEnable, 4, 1)
-        /** @brief Auto config is successful. */
-        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, AutoConfigSuccessful, 4, 1)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_3_1, 1, 3)
         /** @brief Auto Configuration Busy */
@@ -880,10 +880,10 @@ typedef register_container RegNVMAutoSenseStatus_t {
         r32.setName("AutoSenseStatus");
         bits.AutoConfigBusy.setBaseRegister(&r32);
         bits.AutoConfigBusy.setName("AutoConfigBusy");
-        bits.AutoConfigSuccessful.setBaseRegister(&r32);
-        bits.AutoConfigSuccessful.setName("AutoConfigSuccessful");
         bits.AutoConfigEnable.setBaseRegister(&r32);
         bits.AutoConfigEnable.setName("AutoConfigEnable");
+        bits.AutoConfigSuccessful.setBaseRegister(&r32);
+        bits.AutoConfigSuccessful.setName("AutoConfigSuccessful");
         bits.AutoConfigState.setBaseRegister(&r32);
         bits.AutoConfigState.setName("AutoConfigState");
         bits.AutoDetectedDeviceID.setBaseRegister(&r32);
@@ -934,6 +934,9 @@ typedef struct {
 
     /** @brief  */
     RegNVMArbitrationWatchdog_t ArbitrationWatchdog;
+
+    /** @brief Reserved bytes to pad out data structure. */
+    BCM5719_NVM_H_uint32_t reserved_48[2];
 
     /** @brief  */
     RegNVMAutoSenseStatus_t AutoSenseStatus;

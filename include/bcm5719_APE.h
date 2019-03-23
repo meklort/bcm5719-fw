@@ -1732,14 +1732,14 @@ typedef register_container RegAPEChipId_t {
 #define     APE_NCSI_CHANNEL0_INFO_EEE_MASK  0x1000u
 #define GET_APE_NCSI_CHANNEL0_INFO_EEE(__reg__)  (((__reg__) & 0x1000) >> 12u)
 #define SET_APE_NCSI_CHANNEL0_INFO_EEE(__val__)  (((__val__) << 12u) & 0x1000u)
-#define     APE_NCSI_CHANNEL0_INFO_PDEAD_SHIFT 14u
-#define     APE_NCSI_CHANNEL0_INFO_PDEAD_MASK  0x4000u
-#define GET_APE_NCSI_CHANNEL0_INFO_PDEAD(__reg__)  (((__reg__) & 0x4000) >> 14u)
-#define SET_APE_NCSI_CHANNEL0_INFO_PDEAD(__val__)  (((__val__) << 14u) & 0x4000u)
 #define     APE_NCSI_CHANNEL0_INFO_DRIVER_SHIFT 14u
 #define     APE_NCSI_CHANNEL0_INFO_DRIVER_MASK  0x4000u
 #define GET_APE_NCSI_CHANNEL0_INFO_DRIVER(__reg__)  (((__reg__) & 0x4000) >> 14u)
 #define SET_APE_NCSI_CHANNEL0_INFO_DRIVER(__val__)  (((__val__) << 14u) & 0x4000u)
+#define     APE_NCSI_CHANNEL0_INFO_PDEAD_SHIFT 15u
+#define     APE_NCSI_CHANNEL0_INFO_PDEAD_MASK  0x8000u
+#define GET_APE_NCSI_CHANNEL0_INFO_PDEAD(__reg__)  (((__reg__) & 0x8000) >> 15u)
+#define SET_APE_NCSI_CHANNEL0_INFO_PDEAD(__val__)  (((__val__) << 15u) & 0x8000u)
 
 /** @brief Register definition for @ref APE_t.NcsiChannel0Info. */
 typedef register_container RegAPENcsiChannel0Info_t {
@@ -1777,18 +1777,18 @@ typedef register_container RegAPENcsiChannel0Info_t {
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_13_13, 13, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, PDead, 14, 1)
-        /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Driver, 14, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, PDead, 15, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_15, 15, 17)
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_16, 16, 16)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_15, 15, 17)
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_16, 16, 16)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, PDead, 15, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Driver, 14, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, PDead, 14, 1)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_13_13, 13, 1)
         /** @brief  */
@@ -1854,10 +1854,10 @@ typedef register_container RegAPENcsiChannel0Info_t {
         bits.B2N.setName("B2N");
         bits.EEE.setBaseRegister(&r32);
         bits.EEE.setName("EEE");
-        bits.PDead.setBaseRegister(&r32);
-        bits.PDead.setName("PDead");
         bits.Driver.setBaseRegister(&r32);
         bits.Driver.setName("Driver");
+        bits.PDead.setBaseRegister(&r32);
+        bits.PDead.setName("PDead");
     }
     RegAPENcsiChannel0Info_t& operator=(const RegAPENcsiChannel0Info_t& other)
     {
