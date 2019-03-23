@@ -44,6 +44,22 @@
 ### @endcond
 ################################################################################
 
+.global DEVICE
+.equ    DEVICE, 0xa0040000
+.size   DEVICE, 0x7c08
+
+.global DEVICE1
+.equ    DEVICE1, 0xa0050000
+.size   DEVICE1, 0x7c08
+
+.global DEVICE2
+.equ    DEVICE2, 0xa0060000
+.size   DEVICE2, 0x7c08
+
+.global DEVICE3
+.equ    DEVICE3, 0xa0070000
+.size   DEVICE3, 0x7c08
+
 .global NVIC
 .equ    NVIC, 0xe000e000
 .size   NVIC, 0xf04

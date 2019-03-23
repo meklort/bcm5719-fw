@@ -36,5 +36,67 @@
             </ipxact:addressBlock>
         </ipxact:memoryMap>
 
+        <!-- Device Registers 0xA004_0000 to 0xA004_7FFF (APE, function 0) -->
+        <ipxact:memoryMap>
+            <ipxact:name>DEVICE</ipxact:name>
+            <ipxact:description>Device Registers, function 0</ipxact:description>
+            <ipxact:addressBlock>
+                <ipxact:name>DEVICE</ipxact:name>
+                <ipxact:description>Device Registers, function 0</ipxact:description>
+                <ipxact:baseAddress>0xA0040000</ipxact:baseAddress>
+                <!-- LINK: addressBlockDefinitionGroup: see 6.9.3, Address blockdefinition group -->
+                <!-- LINK: memoryBlockData: see 6.9.4, memoryBlockData group -->
+                <ipxact:usage>register</ipxact:usage>
+                <ipxact:volatile>false</ipxact:volatile>
+            </ipxact:addressBlock>
+        </ipxact:memoryMap>
+
+        <!-- Device Registers 0xA005_0000 to 0xA005_7FFF (APE, function 1) -->
+        <ipxact:memoryMap>
+            <ipxact:name>DEVICE1</ipxact:name>
+            <ipxact:description>Device Registers, function 1</ipxact:description>
+            <ipxact:addressBlock>
+                <ipxact:name>DEVICE1</ipxact:name>
+                <ipxact:description>Device Registers, function 1</ipxact:description>
+                <ipxact:typeIdentifier>DEVICE</ipxact:typeIdentifier>>
+                <ipxact:baseAddress>0xA0050000</ipxact:baseAddress>
+                <!-- LINK: addressBlockDefinitionGroup: see 6.9.3, Address blockdefinition group -->
+                <!-- LINK: memoryBlockData: see 6.9.4, memoryBlockData group -->
+                <ipxact:usage>register</ipxact:usage>
+                <ipxact:volatile>false</ipxact:volatile>
+            </ipxact:addressBlock>
+        </ipxact:memoryMap>
+
+        <!-- Device Registers 0xA006_0000 to 0xA006_7FFF (APE, function 2) -->
+        <ipxact:memoryMap>
+            <ipxact:name>DEVICE2</ipxact:name>
+            <ipxact:description>Device Registers, function 2</ipxact:description>
+            <ipxact:addressBlock>
+                <ipxact:name>DEVICE2</ipxact:name>
+                <ipxact:description>Device Registers, function 2</ipxact:description>
+                <ipxact:typeIdentifier>DEVICE</ipxact:typeIdentifier>>
+                <ipxact:baseAddress>0xA0060000</ipxact:baseAddress>
+                <!-- LINK: addressBlockDefinitionGroup: see 6.9.3, Address blockdefinition group -->
+                <!-- LINK: memoryBlockData: see 6.9.4, memoryBlockData group -->
+                <ipxact:usage>register</ipxact:usage>
+                <ipxact:volatile>false</ipxact:volatile>
+            </ipxact:addressBlock>
+        </ipxact:memoryMap>
+
+        <!-- Device Registers 0xA007_0000 to 0xA007_7FFF (APE, function 3) -->
+        <ipxact:memoryMap>
+            <ipxact:name>DEVICE3</ipxact:name>
+            <ipxact:description>Device Registers, function 3</ipxact:description>
+            <ipxact:addressBlock>
+                <ipxact:name>DEVICE3</ipxact:name>
+                <ipxact:description>Device Registers, function 3</ipxact:description>
+                <ipxact:typeIdentifier>DEVICE</ipxact:typeIdentifier>>
+                <ipxact:baseAddress>0xA0070000</ipxact:baseAddress>
+                <!-- LINK: addressBlockDefinitionGroup: see 6.9.3, Address blockdefinition group -->
+                <!-- LINK: memoryBlockData: see 6.9.4, memoryBlockData group -->
+                <ipxact:usage>register</ipxact:usage>
+                <ipxact:volatile>false</ipxact:volatile>
+            </ipxact:addressBlock>
+        </ipxact:memoryMap>
     </ipxact:memoryMaps>
 </ipxact:component>
