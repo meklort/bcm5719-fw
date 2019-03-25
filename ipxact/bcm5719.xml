@@ -2174,7 +2174,7 @@
             <ipxact:addressUnitBits>8</ipxact:addressUnitBits>
         </ipxact:memoryMap>
 
-        <!-- APE Registers: 0xC001_4000 to C001_5FFF-->
+        <!-- APE SHM Registers: 0xC001_4000 to C001_5FFF-->
         <ipxact:memoryMap>
             <ipxact:name>SHM</ipxact:name>
             <ipxact:description>Device SHM Registers</ipxact:description>
