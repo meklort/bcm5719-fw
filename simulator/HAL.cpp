@@ -256,7 +256,7 @@ bool initHAL(const char *pci_path, int wanted_function)
     init_bcm5719_APE_mmap(APEBase);
 
     init_bcm5719_SHM();
-    init_bcm5719_SHM_mmap(&DAPEBase[0x4000]);
+    init_bcm5719_SHM_mmap(&APEBase[0x4000]);
 
     return true;
 }
