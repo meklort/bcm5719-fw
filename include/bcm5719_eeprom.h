@@ -225,7 +225,7 @@ typedef struct {
 _Static_assert(ELEMENT_OFFSET(NVRAMContents_t, info) == 0x7C, "NVRAM Info must be located at address 0x7C.");
 _Static_assert(ELEMENT_OFFSET(NVRAMContents_t, info2) == 0x200, "NVRAM Info2 must be located at address 0x200.");
 _Static_assert(ELEMENT_OFFSET(NVRAMContents_t, vpd) == 0x100, "VPD must be located at address 0x100.");
-_Static_assert(sizeof(NVRAMContents_t) == 0x28C, "sizeof(NVRAMContents) must be 0x28C.");
+_Static_assert(sizeof(NVRAMContents_t) == 0x28C, "sizeof(NVRAMContents_t) must be 0x28C.");
 
 
 typedef struct {
@@ -238,5 +238,37 @@ typedef struct {
     uint32_t words[];
     // uint32_t crc;
 } NVRAMStage2_t;
+
+
+#define APE_SECTION_FLAG_COMPRESSED         (1U<<0)
+#define APE_SECTION_FLAG_CHECKSUM_IS_CRC32  (1U<<1)
+#define APE_SECTION_FLAG_ZERO_ON_FAST_BOOT  (1U<<4)
+typedef struct {
+    uint32_t    loadAddr;
+    uint32_t    offset:24;
+    uint32_t    flags:8;
+    uint32_t    decompressedSize;
+    uint32_t    compressedSize;
+    uint32_t    crc;
+} APESection_t;
+_Static_assert(sizeof(APESection_t) == 0x14, "sizeof(APESection_t) must be 0x14.");
+
+#define APE_HEADER_MAGIC    0x1A4D4342
+typedef struct {
+    uint32_t        magic;
+    uint32_t        unk0;   // 0x03070700
+    uint8_t         name[16];
+    uint32_t        version;
+    uint32_t        entrypoint;
+
+    uint8_t         unk1;   // 0x00
+    uint8_t         words;  // 0x1E
+    uint8_t         unk2;   // 0x04
+    uint8_t         sections; // 4?
+
+    uint32_t        crc;
+    APESection_t    section[4];
+} APEHeader_t;
+_Static_assert(sizeof(APEHeader_t) == 0x1E*4, "sizeof(APESection_t) must be 0x1E*4.");
 
 #endif
