@@ -167,11 +167,28 @@ int main(int argc, char const *argv[])
     {
         APESection_t* section = &ape.header.section[i];
 
-        printf("=== Section %i ===\n", i);
+        printf("\n=== Section %i ===\n", i);
         printf("Load Addr:          0x%08X\n", section->loadAddr);
 
         printf("Offset:             0x%08X\n", section->offset);
         printf("Flags:              0x%08X\n", section->flags);
+        if(section->flags & APE_SECTION_FLAG_COMPRESSED)
+        {
+            printf("    compressed\n");
+        }
+        if(section->flags & APE_SECTION_FLAG_CHECKSUM_IS_CRC32)
+        {
+            printf("    crc32\n");
+        }
+        printf("    %s\n", section->flags & APE_SECTION_FLAG_CODE ? "code" : "data");
+        if(section->flags & APE_SECTION_FLAG_UNK0)
+        {
+            printf("    unknown\n");
+        }
+        if(section->flags & APE_SECTION_FLAG_ZERO_ON_FAST_BOOT)
+        {
+            printf("    bss\n");
+        }
         printf("Decompressed Size:  0x%08X\n", section->decompressedSize);
         printf("Compressed Size:    0x%08X\n", section->compressedSize);
         printf("CRC:                0x%08X\n", section->crc);
