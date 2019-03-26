@@ -3,7 +3,7 @@
 ## Introduction
 This library contains a clean-room reimplementation of the BCM5719 firmware based on the [Ortega](https://github.com/hlandau/ortega/blob/master/rtg-spec.md) specification.
 
-The firmware has been tested on on the [Talos II](https://wiki.raptorcs.com/wiki/Talos_II) by [Raptor Computer Systems](https://www.raptorcs.com/)
+The firmware has been tested on the [Talos II](https://wiki.raptorcs.com/wiki/Talos_II) by [Raptor Computer Systems](https://www.raptorcs.com/).
 
 **Note: This firmware is currently in development. Flashing the firmware to a network card can result in a bricked device when either an external programmer is required, or the external flash must be temporarily disabled during boot-up.**
 
@@ -33,3 +33,13 @@ This repository depends on a number of external tools
     - Firmware tool: Functional
     - Register tool: Functional
     - APE Tool: In progress
+
+## Compiling
+To compile the firmware, the following command sequence can be used:
+```bash
+mkdir build
+cd build
+cmake .. -G Ninja
+cmake --build .
+```
+
