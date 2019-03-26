@@ -423,7 +423,7 @@ int main(int argc, char const *argv[])
             uint32_t type = BCM_CODE_DIRECTORY_GET_TYPE(info);
             printf("Code Address:   0x%08X\n",
                    be32toh(nvram.contents.directory[i].codeAddress));
-            printf("Code Words:     0x%08X (%d bytes)\n", length, length);
+            printf("Code Words:     0x%08X (%ld bytes)\n", length, length * sizeof(uint32_t));
             printf("Code Offset:    0x%08X\n",
                    be32toh(nvram.contents.directory[i].directoryOffset));
             printf("Code CPU:       0x%02X\n", cpu);
@@ -435,7 +435,7 @@ int main(int argc, char const *argv[])
                 uint8_t* cd_loc = &nvram.bytes[be32toh(nvram.contents.directory[i].directoryOffset)];
                 char* cd_name = strdup("cdN.bin");
                 cd_name[2] = '0' + i;
-                if(!save_to_file(cd_name, cd_loc, length))
+                if(!save_to_file(cd_name, cd_loc, length * sizeof(uint32_t)))
                 {
                     exit(-1);
                 }
