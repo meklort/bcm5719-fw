@@ -65,7 +65,8 @@
 #include <string>
 #include <iostream>
 #include <bcm5719_GEN.h>
-
+#include <APE.h>
+#include <bcm5719_SHM.h>
 #include <elfio/elfio.hpp>
 
 #include "../NVRam/bcm5719_NVM.h"
@@ -310,6 +311,12 @@ int main(int argc, char const *argv[])
             .action("store_true")
             .help("Print device information registers.");
 
+    parser.add_option("-a", "--ape")
+            .dest("ape")
+            .set_default("0")
+            .action("store_true")
+            .help("Print ape information registers.");
+
     parser.add_option("-m", "--mii")
             .dest("mii")
             .set_default("0")
@@ -400,7 +407,6 @@ int main(int argc, char const *argv[])
         cout << "Running...\n";
         RegDEVICERxRiscMode_t mode;
         mode.r32 = 0; // Ensure single-step and halt are cleared
-        mode.bits.EnableInstructionCache = 1;
         DEVICE.RxRiscMode = mode;
         exit(0);
     }
@@ -408,18 +414,78 @@ int main(int argc, char const *argv[])
     if(options.get("mii"))
     {
         uint8_t phy = MII_getPhy();
+
         printf("MII Phy:          %d\n", phy);
-        printf("MII Control:      0x%04X\n", MII_readRegister(phy, (mii_reg_t)REG_MII_CONTROL));
-        printf("MII Status:       0x%04X\n", MII_readRegister(phy, (mii_reg_t)REG_MII_STATUS));
+                printf("MII Status:       0x%04X\n", MII_readRegister(phy, (mii_reg_t)REG_MII_STATUS));
         printf("MII PHY ID[high]: 0x%04X\n", MII_readRegister(phy, (mii_reg_t)REG_MII_PHY_ID_HIGH));
         printf("MII PHY ID[low]:  0x%04X\n", MII_readRegister(phy, (mii_reg_t)REG_MII_PHY_ID_LOW));
+
+        RegMIIControl_t control;
+        control.r16 = MII_readRegister(phy, (mii_reg_t)REG_MII_CONTROL);
+        control.print();
+
+        RegMIIAutonegotiationAdvertisement_t auto_neg_advert;
+        auto_neg_advert.r16 = MII_readRegister(phy, (mii_reg_t)REG_MII_AUTONEGOTIATION_ADVERTISEMENT);
+        auto_neg_advert.print();
+
+        RegMII1000baseTControl_t gig_control;
+        gig_control.r16 = MII_readRegister(phy, (mii_reg_t)REG_MII_1000BASE_T_CONTROL);
+        gig_control.print();
+
+        RegMIISpareControl3_t sc3;
+        sc3.r16 = MII_readRegister(phy, (mii_reg_t)REG_MII_SPARE_CONTROL_3);
+        sc3.print();
+
+        exit(0);
+    }
+
+    if(options.get("ape"))
+    {
+        APE.Mode.print();
+        APE.Status.print();
+        APE.Gpio.print();
+        SHM.FwStatus.print();
+        SHM.FwFeatures.print();
+        SHM.FwVersion.print();
+
+        printf("APE SegSig: 0x%08X\n", (uint32_t)SHM.SegSig.r32);
+        printf("APE RcpuApeResetCount: 0x%08X\n", (uint32_t)SHM.RcpuApeResetCount.r32);
+
+        printf("APE RCPU SegSig: 0x%08X\n", (uint32_t)SHM.RcpuSegSig.r32);
+        printf("APE RCPU SegLen: 0x%08X\n", (uint32_t)SHM.RcpuSegLength.r32);
+        printf("APE RCPU Init Count: 0x%08X\n", (uint32_t)SHM.RcpuInitCount.r32);
+        printf("APE RCPU FW Version: 0x%08X\n", (uint32_t)SHM.RcpuFwVersion.r32);
+
+        printf("APE RCPU CfgFeature: 0x%08X\n", (uint32_t)SHM.RcpuCfgFeature.r32);
+        printf("APE RCPU PCI Vendor/Device ID: 0x%08X\n", (uint32_t)SHM.RcpuPciVendorDeviceId.r32);
+        printf("APE RCPU PCI Subsystem ID: 0x%08X\n", (uint32_t)SHM.RcpuPciSubsystemId.r32);
+
+        printf("RegAPENcsiChannel0CtrlstatRx: 0x%08X\n", (uint32_t)SHM.NcsiChannel0CtrlstatRx.r32);
+
+
+    // Ensure all APE locks are released.
+    // APE_releaseAllLocks();
+
+
+    APE.PerLockGrantPhy0.print();
+    APE.PerLockGrantGrc.print();
+    APE.PerLockGrantPhy1.print();
+    APE.PerLockGrantPhy2.print();
+    APE.PerLockGrantMem.print();
+    APE.PerLockGrantPhy3.print();
+    APE.PerLockGrantPort6.print();
+    APE.PerLockGrantGpio.print();
+
         exit(0);
     }
 
 
     if(options.get("info"))
     {
-        printf("Gen DataSig:     0x%08X\n", (uint32_t)GEN.GenDataSig.r32);
+        printf("Gen DataSig:            0x%08X\n", (uint32_t)GEN.GenDataSig.r32);
+        printf("Gen GenFwMbox:          0x%08X\n", (uint32_t)GEN.GenFwMbox.r32);
+        printf("Gen GenAsfStatusMbox:   0x%08X\n", (uint32_t)GEN.GenAsfStatusMbox.r32);
+
         printf("Firmware Ver:    0x%08X\n", (uint32_t)GEN.GenFwVersion.r32);
         printf("Chip Id:         0x%08X\n", (uint32_t)DEVICE.ChipId.r32);
         printf("Vendor ID:       0x%04X         Device ID: 0x%04X\n", (uint16_t)DEVICE.PciVendorDeviceId.bits.VendorID, (uint16_t)DEVICE.PciVendorDeviceId.bits.DeviceID);
@@ -467,32 +533,6 @@ int main(int argc, char const *argv[])
 
         printf("\n");
 
-        // RegDEVICEStatus_t
-
-
-        // RegDEVICEFastBootProgramCounter_t
-        // RegDEVICEExpansionRomAddr_t
-
-        // RegDEVICEMiscellaneousLocalControl_t
-        // RegDEVICETimer_t
-
-        // RegDEVICEEmacMode_t
-        // RegDEVICELedControl_t
-
-        // RegDEVICEPciPowerConsumptionInfo_t
-        // RegDEVICEPciPowerDissipatedInfo_t
-
-        // RegDEVICEMtuSize_t
-
-        // RegDEVICEReceiveMacMode_t
-
-        // RegDEVICELinkAwarePowerModeClockPolicy_t
-        // RegDEVICEClockSpeedOverridePolicy_t
-        // RegDEVICEClockStatus_t
-        // RegDEVICETopLevelMiscellaneousControl1_t
-
-        // RegDEVICEMemoryArbiterMode_t
-
         printf("Reg 6408: 0x%08X\n", (uint32_t)DEVICE._6408.r32);
         printf("Reg 64c0: 0x%08X\n", (uint32_t)DEVICE._64c0.r32);
         printf("Reg 64c8: 0x%08X\n", (uint32_t)DEVICE._64c8.r32);
@@ -510,11 +550,16 @@ int main(int argc, char const *argv[])
         printf("TopLevelMiscellaneousControl1: 0x%08X\n", (uint32_t)DEVICE.TopLevelMiscellaneousControl1.r32);
         printf("MiscellaneousLocalControl:     0x%08X\n", (uint32_t)DEVICE.MiscellaneousLocalControl.r32);
 
+        DEVICE.RxRiscMode.print();
+        DEVICE.RxRiscStatus.print();
+
+        DEVICE.RxCpuEventEnable.print();
+        DEVICE.RxCpuEvent.print();
         exit(0);
     }
 
 
-    printf("APEChipId: %x\n", (uint32_t)APE.ChipId.r32);
+    printf("APEChipId: %x\n", (uint32_t)SHM.ChipId.r32);
 
     printf("EmacMode.PortMode: %0x\n", (uint32_t)DEVICE.EmacMode.bits.PortMode);
     printf("RxRiscMode: %0x\n", (uint32_t)DEVICE.RxRiscMode.r32);
