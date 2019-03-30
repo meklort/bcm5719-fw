@@ -1,10 +1,10 @@
 ################################################################################
 ###
-### @file       libs/CMakeLists.txt
+### @file       libs/APE/CMakeLists.txt
 ###
 ### @project    
 ###
-### @brief      Library CMake file
+### @brief      APE CMake file
 ###
 ################################################################################
 ###
@@ -42,15 +42,9 @@
 ### @endcond
 ################################################################################
 
+project(Compress)
 
-add_subdirectory(NVRam)
-add_subdirectory(APE)
-add_subdirectory(MII)
-add_subdirectory(VPD)
 
-add_subdirectory(OptParse)
-
-add_subdirectory(bcm5719)
-
-add_subdirectory(Compress)
-add_subdirectory(elfio)
+# Host library
+add_library(${PROJECT_NAME} STATIC decompress.c compress.c)
+target_include_directories(${PROJECT_NAME} PUBLIC include)
