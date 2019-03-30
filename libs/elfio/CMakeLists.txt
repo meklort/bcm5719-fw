@@ -1,10 +1,10 @@
 ################################################################################
 ###
-### @file       libs/CMakeLists.txt
+### @file       libs/MII/CMakeLists.txt
 ###
 ### @project    
 ###
-### @brief      Library CMake file
+### @brief      MII CMake file
 ###
 ################################################################################
 ###
@@ -42,14 +42,8 @@
 ### @endcond
 ################################################################################
 
+project(elfio)
 
-add_subdirectory(NVRam)
-add_subdirectory(APE)
-add_subdirectory(MII)
-add_subdirectory(VPD)
-
-add_subdirectory(OptParse)
-
-add_subdirectory(bcm5719)
-
-add_subdirectory(elfio)
+# Header library
+add_library(${PROJECT_NAME} INTERFACE)
+target_include_directories(${PROJECT_NAME} INTERFACE .)
