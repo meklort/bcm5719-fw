@@ -44,3 +44,5 @@
 
 add_subdirectory(bcmregtool)
 add_subdirectory(bcmflash)
+
+add_subdirectory(ape2elf)
