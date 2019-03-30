@@ -242,6 +242,8 @@ typedef struct {
 
 #define APE_SECTION_FLAG_COMPRESSED         (1U<<0)
 #define APE_SECTION_FLAG_CHECKSUM_IS_CRC32  (1U<<1)
+#define APE_SECTION_FLAG_CODE               (1U<<2)
+#define APE_SECTION_FLAG_UNK0               (1U<<3)
 #define APE_SECTION_FLAG_ZERO_ON_FAST_BOOT  (1U<<4)
 typedef struct {
     uint32_t    loadAddr;
