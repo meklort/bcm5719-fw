@@ -55,3 +55,8 @@ target_include_directories(${PROJECT_NAME} PUBLIC include)
 mips_add_library(${PROJECT_NAME}-mips STATIC ape.c)
 target_include_directories(${PROJECT_NAME}-mips PUBLIC ../../include)
 target_include_directories(${PROJECT_NAME}-mips PUBLIC include)
+
+# ARM Library
+arm_add_library(${PROJECT_NAME}-arm STATIC ape.c)
+target_include_directories(${PROJECT_NAME}-arm PUBLIC ../../include)
+target_include_directories(${PROJECT_NAME}-arm PUBLIC include)
