@@ -256,6 +256,9 @@ typedef struct {
 _Static_assert(sizeof(APESection_t) == 0x14, "sizeof(APESection_t) must be 0x14.");
 
 #define APE_HEADER_MAGIC    0x1A4D4342
+#define APE_HEADER_UNK0     0x03070700
+#define APE_HEADER_UNK1     0x00
+#define APE_HEADER_UNK2     0x04
 typedef struct {
     uint32_t        magic;
     uint32_t        unk0;   // 0x03070700
@@ -269,8 +272,8 @@ typedef struct {
     uint8_t         sections; // 4?
 
     uint32_t        crc;
-    APESection_t    section[4];
+    APESection_t    section[];
 } APEHeader_t;
-_Static_assert(sizeof(APEHeader_t) == 0x1E*4, "sizeof(APESection_t) must be 0x1E*4.");
+_Static_assert(sizeof(APEHeader_t) == 40, "sizeof(APESection_t) must be 40.");
 
 #endif
