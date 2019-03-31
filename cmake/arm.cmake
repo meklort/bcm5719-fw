@@ -62,8 +62,9 @@ function(arm_add_executable target)
 
     add_custom_command(
         TARGET ${target} POST_BUILD
-        COMMAND llvm-objcopy -O binary ${target} ${target}.bin
-        BYPRODUCTS ${target}.bin)
+        COMMAND elf2ape -i ${target} -o ${target}.bin
+        BYPRODUCTS ${target}.bin
+        DEPENDS elf2ape)
 endfunction(arm_add_executable)
 
 # ARM-specific libraries
