@@ -209,7 +209,7 @@ int main(int argc, char const *argv[])
         printf("out_length:                0x%08zX\n", out_length);
         printf("out CRC:                 0x%08X\n", calculated_crc);
 
-        if(i == 0) continue;
+        if(ape.header.sections == 4 && i == 0) continue;
         if(section->flags & APE_SECTION_FLAG_ZERO_ON_FAST_BOOT)
         {
             bss_sec->set_data((const char*)outBufferPtr, out_length);
