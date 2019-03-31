@@ -1,6 +1,6 @@
 ################################################################################
 ###
-### @file       utils/CMakeLists.txt
+### @file       utils/elf2ape/CMakeLists.txt
 ###
 ### @project    
 ###
@@ -42,8 +42,14 @@
 ### @endcond
 ################################################################################
 
-add_subdirectory(bcmregtool)
-add_subdirectory(bcmflash)
+project(elf2ape)
 
-add_subdirectory(ape2elf)
-add_subdirectory(elf2ape)
+add_definitions(-Wall -Werror)
+set(SOURCES
+    main.cpp
+)
+
+simulator_add_executable(${PROJECT_NAME} ${SOURCES})
+target_link_libraries(${PROJECT_NAME} PRIVATE NVRam VPD simulator OptParse Compress elfio)
+
+INSTALL(TARGETS ${PROJECT_NAME} DESTINATION .)
