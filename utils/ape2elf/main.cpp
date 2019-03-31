@@ -51,6 +51,11 @@
 
 #include <elfio/elfio.hpp>
 
+#define ENTRYPOINT_SYMBOL   "__start"
+#define VERSION_SYMBOL      "VERSION"
+#define STACK_END_SYMBOL   "_estack"
+#define THUMB_CODE_SYMBOL   "$t"
+
 using namespace std;
 using namespace ELFIO;
 using optparse::OptionParser;
@@ -93,10 +98,13 @@ int main(int argc, char const *argv[])
     {
         infile.read((char*)ape.bytes, MAX_SIZE);
 
-        // The file is swapped... fix it.
-        for(int i = 0; i < sizeof(ape)/sizeof(ape.words[0]); i++)
+        if(ape.words[0] == be32toh(APE_HEADER_MAGIC))
         {
-            ape.words[i] = be32toh(ape.words[i]);
+            // The file is swapped... fix it.
+            for(int i = 0; i < sizeof(ape)/sizeof(ape.words[0]); i++)
+            {
+                ape.words[i] = be32toh(ape.words[i]);
+            }
         }
 
         infile.close();
@@ -266,8 +274,9 @@ int main(int argc, char const *argv[])
 
 
         // Add label name
-        Elf32_Word _start = stra.add_string( "_start" );
-        Elf32_Word _thumb = stra.add_string( "$t" );
+        Elf32_Word _start = stra.add_string( ENTRYPOINT_SYMBOL );
+        Elf32_Word _thumb = stra.add_string( THUMB_CODE_SYMBOL );
+        Elf32_Word _version = stra.add_string( VERSION_SYMBOL );
 
         // Add symbol entry
         syma.add_symbol( _start, ape.header.entrypoint, 0, STB_GLOBAL,
@@ -278,8 +287,12 @@ int main(int argc, char const *argv[])
                                                   STT_OBJECT, 0,
                                                   text_sec->get_index() );
 
+        syma.add_symbol( _version, ape.header.version, 0, STB_GLOBAL,
+                                                  STT_OBJECT, 0,
+                                                  text_sec->get_index() );
+
         uint32_t* vectors = (uint32_t*)text_sec->get_data();
-        Elf32_Word index = stra.add_string( "_estack" );
+        Elf32_Word index = stra.add_string( STACK_END_SYMBOL );
         syma.add_symbol( index, vectors[0], 0, STB_GLOBAL,
                                                   STT_OBJECT, 0,
                                                   data_sec->get_index() );
