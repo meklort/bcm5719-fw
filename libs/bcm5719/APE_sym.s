@@ -74,14 +74,14 @@
 
 .global SHM1
 .equ    SHM1, 0x60221000
-.size   SHM1, 0x0
+.size   SHM1, 0x9b4
 
 .global SHM2
 .equ    SHM2, 0x60222000
-.size   SHM2, 0x0
+.size   SHM2, 0x9b4
 
 .global SHM3
 .equ    SHM3, 0x60223000
-.size   SHM3, 0x0
+.size   SHM3, 0x9b4
 
 
