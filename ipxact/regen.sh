@@ -34,11 +34,12 @@ PROJECT=ape
 echo "Regenerating APE header"
 
 
-${IPXACT} -p ${PROJECT} DEVICE.xml NVM.xml APE.xml APE_full.xml
+${IPXACT} -p ${PROJECT} SHM.xml NVIC.xml DEVICE.xml NVM.xml APE.xml APE_full.xml
 
-${IPXACT} -p ${PROJECT} NVIC.xml APE_full.xml APE.h
+${IPXACT} -p ${PROJECT} APE_full.xml APE.h
 mv APE_NVIC.h ../include/
 
 # ${IPXACT} -p ${PROJECT} NVIC.xml APE_full.xml APE.s
-${IPXACT} -p ${PROJECT} SHM.xml NVIC.xml APE_full.xml -t asym APE_sym.s
+${IPXACT} -p ${PROJECT} APE_full.xml -t asym APE_sym.s
 mv *.s ../libs/bcm5719/
+mv APE_SHM*.h ../include

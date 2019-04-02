@@ -561,6 +561,20 @@ typedef register_container RegDEVICELinkStatusControl_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICELinkStatusControl_t;
 
+#define REG_DEVICE_APE_MEMORY_BASE ((volatile BCM5719_DEVICE_H_uint32_t*)0xc00000f8) /* APE Memory address to read/write using the APE Memory Data register.. */
+/** @brief Register definition for @ref DEVICE_t.ApeMemoryBase. */
+typedef register_container RegDEVICEApeMemoryBase_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_DEVICE_H_uint32_t r32;
+} RegDEVICEApeMemoryBase_t;
+
+#define REG_DEVICE_APE_MEMORY_DATA ((volatile BCM5719_DEVICE_H_uint32_t*)0xc00000fc) /* APE Memory value at the location pointed by the Memory Base Register. */
+/** @brief Register definition for @ref DEVICE_t.ApeMemoryData. */
+typedef register_container RegDEVICEApeMemoryData_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_DEVICE_H_uint32_t r32;
+} RegDEVICEApeMemoryData_t;
+
 #define REG_DEVICE_EMAC_MODE ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0000400) /*  */
 #define     DEVICE_EMAC_MODE_GLOBAL_RESET_SHIFT 0u
 #define     DEVICE_EMAC_MODE_GLOBAL_RESET_MASK  0x1u
@@ -5562,7 +5576,16 @@ typedef struct {
     RegDEVICELinkStatusControl_t LinkStatusControl;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_192[208];
+    BCM5719_DEVICE_H_uint32_t reserved_192[14];
+
+    /** @brief APE Memory address to read/write using the APE Memory Data register.. */
+    RegDEVICEApeMemoryBase_t ApeMemoryBase;
+
+    /** @brief APE Memory value at the location pointed by the Memory Base Register. */
+    RegDEVICEApeMemoryData_t ApeMemoryData;
+
+    /** @brief Reserved bytes to pad out data structure. */
+    BCM5719_DEVICE_H_uint32_t reserved_256[192];
 
     /** @brief  */
     RegDEVICEEmacMode_t EmacMode;

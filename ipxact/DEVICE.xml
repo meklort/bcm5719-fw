@@ -360,6 +360,22 @@
                     </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>
+                    <ipxact:name>APE_MEMORY_BASE</ipxact:name>
+                    <ipxact:description>APE Memory address to read/write using the APE Memory Data register..</ipxact:description>
+                    <ipxact:addressOffset>0xf8</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>APE_MEMORY_DATA</ipxact:name>
+                    <ipxact:description>APE Memory value at the location pointed by the Memory Base Register.</ipxact:description>
+                    <ipxact:addressOffset>0xfc</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
                     <ipxact:name>EMAC_MODE</ipxact:name>
                     <ipxact:description></ipxact:description>
                     <ipxact:addressOffset>0x400</ipxact:addressOffset>
