@@ -2,9 +2,9 @@
 ###
 ### @file       CMakeLists.txt
 ###
-### @project    
+### @project    bcm5719
 ###
-### @brief      Top level CMake file
+### @brief      First binary stage for the bcm5719
 ###
 ################################################################################
 ###
@@ -42,20 +42,26 @@
 ### @endcond
 ################################################################################
 
-SET(CMAKE_C_COMPILER   /usr/local/bin/clang)
-SET(CMAKE_CXX_COMPILER /usr/local/bin/clang++)
-SET(CMAKE_ASM_COMPILER /usr/local/bin/clang)
 
-cmake_minimum_required(VERSION 3.5.1)
-project(bcm5719-top)
+project(ape)
 
-include(cmake/config.cmake)
+# Firmware
+set(LINKER_SCRIPT "${CMAKE_CURRENT_SOURCE_DIR}/ape.ld")
+arm_add_executable(${PROJECT_NAME}
+            main.c
+            vectors.c
+            )
+arm_linker_script(${PROJECT_NAME} ${LINKER_SCRIPT})
 
-add_subdirectory(libs)
-add_subdirectory(utils)
+target_link_libraries(${PROJECT_NAME} NVRam-arm MII-arm APE-arm	)
+target_link_libraries(${PROJECT_NAME} bcm5719-arm)
+target_compile_options(${PROJECT_NAME} PRIVATE -nodefaultlibs)
 
 
-add_subdirectory(simulator)
-add_subdirectory(stage1)
+# Simulator add_executable
+# simulator_add_executable(sim-${PROJECT_NAME}
+            # init_hw.c
+            # main.c)
 
-add_subdirectory(ape)
+# target_link_libraries(sim-${PROJECT_NAME} simulator)
+# target_link_libraries(sim-${PROJECT_NAME} NVRam MII VPD APE)
