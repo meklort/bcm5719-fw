@@ -121,6 +121,16 @@ void init_bcm5719_DEVICE_mmap(void *base)
     DEVICE.LinkStatusControl.r32.installReadCallback(read_from_ram, &DEVICE_LinkStatusControl_r32);
     DEVICE.LinkStatusControl.r32.installWriteCallback(write_to_ram, &DEVICE_LinkStatusControl_r32);
 
+    /** @brief Bitmap for @ref DEVICE_t.ApeMemoryBase. */
+    static ram_offset_t DEVICE_ApeMemoryBase_r32((uint8_t *)base, (uint32_t)248);
+    DEVICE.ApeMemoryBase.r32.installReadCallback(read_from_ram, &DEVICE_ApeMemoryBase_r32);
+    DEVICE.ApeMemoryBase.r32.installWriteCallback(write_to_ram, &DEVICE_ApeMemoryBase_r32);
+
+    /** @brief Bitmap for @ref DEVICE_t.ApeMemoryData. */
+    static ram_offset_t DEVICE_ApeMemoryData_r32((uint8_t *)base, (uint32_t)252);
+    DEVICE.ApeMemoryData.r32.installReadCallback(read_from_ram, &DEVICE_ApeMemoryData_r32);
+    DEVICE.ApeMemoryData.r32.installWriteCallback(write_to_ram, &DEVICE_ApeMemoryData_r32);
+
     /** @brief Bitmap for @ref DEVICE_t.EmacMode. */
     static ram_offset_t DEVICE_EmacMode_r32((uint8_t *)base, (uint32_t)1024);
     DEVICE.EmacMode.r32.installReadCallback(read_from_ram, &DEVICE_EmacMode_r32);

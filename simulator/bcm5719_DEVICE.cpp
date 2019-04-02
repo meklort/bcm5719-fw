@@ -65,6 +65,10 @@ void init_bcm5719_DEVICE(void)
 
     /** @brief Bitmap for @ref DEVICE_t.LinkStatusControl. */
 
+    /** @brief Bitmap for @ref DEVICE_t.ApeMemoryBase. */
+
+    /** @brief Bitmap for @ref DEVICE_t.ApeMemoryData. */
+
     /** @brief Bitmap for @ref DEVICE_t.EmacMode. */
 
     /** @brief Bitmap for @ref DEVICE_t.LedControl. */
