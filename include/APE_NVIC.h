@@ -760,14 +760,14 @@ typedef register_container RegNVICInterruptPriority1_t {
 #define     NVIC_CPU_ID_CONSTANT_MASK  0xf0000u
 #define GET_NVIC_CPU_ID_CONSTANT(__reg__)  (((__reg__) & 0xf0000) >> 16u)
 #define SET_NVIC_CPU_ID_CONSTANT(__val__)  (((__val__) << 16u) & 0xf0000u)
+#define     NVIC_CPU_ID_VARIANT_SHIFT 20u
+#define     NVIC_CPU_ID_VARIANT_MASK  0xf00000u
+#define GET_NVIC_CPU_ID_VARIANT(__reg__)  (((__reg__) & 0xf00000) >> 20u)
+#define SET_NVIC_CPU_ID_VARIANT(__val__)  (((__val__) << 20u) & 0xf00000u)
 #define     NVIC_CPU_ID_IMPLEMENTER_SHIFT 24u
 #define     NVIC_CPU_ID_IMPLEMENTER_MASK  0xf000000u
 #define GET_NVIC_CPU_ID_IMPLEMENTER(__reg__)  (((__reg__) & 0xf000000) >> 24u)
 #define SET_NVIC_CPU_ID_IMPLEMENTER(__val__)  (((__val__) << 24u) & 0xf000000u)
-#define     NVIC_CPU_ID_VARIANT_SHIFT 24u
-#define     NVIC_CPU_ID_VARIANT_MASK  0xf000000u
-#define GET_NVIC_CPU_ID_VARIANT(__reg__)  (((__reg__) & 0xf000000) >> 24u)
-#define SET_NVIC_CPU_ID_VARIANT(__val__)  (((__val__) << 24u) & 0xf000000u)
 
 /** @brief Register definition for @ref NVIC_t.CpuId. */
 typedef register_container RegNVICCpuId_t {
@@ -782,23 +782,19 @@ typedef register_container RegNVICCpuId_t {
         BITFIELD_MEMBER(APE_NVIC_H_uint32_t, PARTNO, 4, 12)
         /** @brief Priority of Interrupt 6. */
         BITFIELD_MEMBER(APE_NVIC_H_uint32_t, Constant, 16, 4)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_NVIC_H_uint32_t, reserved_23_20, 20, 4)
+        /** @brief Implementation defined variant number. */
+        BITFIELD_MEMBER(APE_NVIC_H_uint32_t, VARIANT, 20, 4)
         /** @brief Implementer code. ARM is 0x41. */
         BITFIELD_MEMBER(APE_NVIC_H_uint32_t, IMPLEMENTER, 24, 4)
-        /** @brief Implementation defined variant number. */
-        BITFIELD_MEMBER(APE_NVIC_H_uint32_t, VARIANT, 24, 4)
         /** @brief Padding */
         BITFIELD_MEMBER(APE_NVIC_H_uint32_t, reserved_31_28, 28, 4)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
         BITFIELD_MEMBER(APE_NVIC_H_uint32_t, reserved_31_28, 28, 4)
-        /** @brief Implementation defined variant number. */
-        BITFIELD_MEMBER(APE_NVIC_H_uint32_t, VARIANT, 24, 4)
         /** @brief Implementer code. ARM is 0x41. */
         BITFIELD_MEMBER(APE_NVIC_H_uint32_t, IMPLEMENTER, 24, 4)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_NVIC_H_uint32_t, reserved_23_20, 20, 4)
+        /** @brief Implementation defined variant number. */
+        BITFIELD_MEMBER(APE_NVIC_H_uint32_t, VARIANT, 20, 4)
         /** @brief Priority of Interrupt 6. */
         BITFIELD_MEMBER(APE_NVIC_H_uint32_t, Constant, 16, 4)
         /** @brief Reads as 0xF */
@@ -826,10 +822,10 @@ typedef register_container RegNVICCpuId_t {
         bits.PARTNO.setName("PARTNO");
         bits.Constant.setBaseRegister(&r32);
         bits.Constant.setName("Constant");
-        bits.IMPLEMENTER.setBaseRegister(&r32);
-        bits.IMPLEMENTER.setName("IMPLEMENTER");
         bits.VARIANT.setBaseRegister(&r32);
         bits.VARIANT.setName("VARIANT");
+        bits.IMPLEMENTER.setBaseRegister(&r32);
+        bits.IMPLEMENTER.setName("IMPLEMENTER");
     }
     RegNVICCpuId_t& operator=(const RegNVICCpuId_t& other)
     {
@@ -852,14 +848,14 @@ typedef register_container RegNVICCpuId_t {
 #define     NVIC_INTERRUPT_CONTROL_STATE_VECTPENDING_MASK  0x3ff000u
 #define GET_NVIC_INTERRUPT_CONTROL_STATE_VECTPENDING(__reg__)  (((__reg__) & 0x3ff000) >> 12u)
 #define SET_NVIC_INTERRUPT_CONTROL_STATE_VECTPENDING(__val__)  (((__val__) << 12u) & 0x3ff000u)
-#define     NVIC_INTERRUPT_CONTROL_STATE_ISRPREEMPT_SHIFT 22u
-#define     NVIC_INTERRUPT_CONTROL_STATE_ISRPREEMPT_MASK  0x400000u
-#define GET_NVIC_INTERRUPT_CONTROL_STATE_ISRPREEMPT(__reg__)  (((__reg__) & 0x400000) >> 22u)
-#define SET_NVIC_INTERRUPT_CONTROL_STATE_ISRPREEMPT(__val__)  (((__val__) << 22u) & 0x400000u)
 #define     NVIC_INTERRUPT_CONTROL_STATE_ISRPENDING_SHIFT 22u
 #define     NVIC_INTERRUPT_CONTROL_STATE_ISRPENDING_MASK  0x400000u
 #define GET_NVIC_INTERRUPT_CONTROL_STATE_ISRPENDING(__reg__)  (((__reg__) & 0x400000) >> 22u)
 #define SET_NVIC_INTERRUPT_CONTROL_STATE_ISRPENDING(__val__)  (((__val__) << 22u) & 0x400000u)
+#define     NVIC_INTERRUPT_CONTROL_STATE_ISRPREEMPT_SHIFT 23u
+#define     NVIC_INTERRUPT_CONTROL_STATE_ISRPREEMPT_MASK  0x800000u
+#define GET_NVIC_INTERRUPT_CONTROL_STATE_ISRPREEMPT(__reg__)  (((__reg__) & 0x800000) >> 23u)
+#define SET_NVIC_INTERRUPT_CONTROL_STATE_ISRPREEMPT(__val__)  (((__val__) << 23u) & 0x800000u)
 #define     NVIC_INTERRUPT_CONTROL_STATE_PENDSTCLR_SHIFT 25u
 #define     NVIC_INTERRUPT_CONTROL_STATE_PENDSTCLR_MASK  0x2000000u
 #define GET_NVIC_INTERRUPT_CONTROL_STATE_PENDSTCLR(__reg__)  (((__reg__) & 0x2000000) >> 25u)
@@ -896,12 +892,12 @@ typedef register_container RegNVICInterruptControlState_t {
         BITFIELD_MEMBER(APE_NVIC_H_uint32_t, RETTOBASE, 11, 1)
         /** @brief Pending ISR number field. VECTPENDING contains the interrupt number of the highest priority pending ISR. */
         BITFIELD_MEMBER(APE_NVIC_H_uint32_t, VECTPENDING, 12, 10)
-        /** @brief You must only use this at debug time. It indicates that a pending interrupt becomes active in the next running cycle. If C_MASKINTS is clear in the Debug Halting Control and Status Register, the interrupt is serviced. */
-        BITFIELD_MEMBER(APE_NVIC_H_uint32_t, ISRPREEMPT, 22, 1)
         /** @brief Interrupt pending flag. Excludes NMI and Faults. */
         BITFIELD_MEMBER(APE_NVIC_H_uint32_t, ISRPENDING, 22, 1)
+        /** @brief You must only use this at debug time. It indicates that a pending interrupt becomes active in the next running cycle. If C_MASKINTS is clear in the Debug Halting Control and Status Register, the interrupt is serviced. */
+        BITFIELD_MEMBER(APE_NVIC_H_uint32_t, ISRPREEMPT, 23, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(APE_NVIC_H_uint32_t, reserved_24_23, 23, 2)
+        BITFIELD_MEMBER(APE_NVIC_H_uint32_t, reserved_24_24, 24, 1)
         /** @brief Clear pending SysTick bit. */
         BITFIELD_MEMBER(APE_NVIC_H_uint32_t, PENDSTCLR, 25, 1)
         /** @brief Set a pending SysTick bit. */
@@ -928,11 +924,11 @@ typedef register_container RegNVICInterruptControlState_t {
         /** @brief Clear pending SysTick bit. */
         BITFIELD_MEMBER(APE_NVIC_H_uint32_t, PENDSTCLR, 25, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(APE_NVIC_H_uint32_t, reserved_24_23, 23, 2)
+        BITFIELD_MEMBER(APE_NVIC_H_uint32_t, reserved_24_24, 24, 1)
+        /** @brief You must only use this at debug time. It indicates that a pending interrupt becomes active in the next running cycle. If C_MASKINTS is clear in the Debug Halting Control and Status Register, the interrupt is serviced. */
+        BITFIELD_MEMBER(APE_NVIC_H_uint32_t, ISRPREEMPT, 23, 1)
         /** @brief Interrupt pending flag. Excludes NMI and Faults. */
         BITFIELD_MEMBER(APE_NVIC_H_uint32_t, ISRPENDING, 22, 1)
-        /** @brief You must only use this at debug time. It indicates that a pending interrupt becomes active in the next running cycle. If C_MASKINTS is clear in the Debug Halting Control and Status Register, the interrupt is serviced. */
-        BITFIELD_MEMBER(APE_NVIC_H_uint32_t, ISRPREEMPT, 22, 1)
         /** @brief Pending ISR number field. VECTPENDING contains the interrupt number of the highest priority pending ISR. */
         BITFIELD_MEMBER(APE_NVIC_H_uint32_t, VECTPENDING, 12, 10)
         /** @brief This bit is 1 when the set of all active exceptions minus the IPSR_current_exception yields the empty set. */
@@ -962,10 +958,10 @@ typedef register_container RegNVICInterruptControlState_t {
         bits.RETTOBASE.setName("RETTOBASE");
         bits.VECTPENDING.setBaseRegister(&r32);
         bits.VECTPENDING.setName("VECTPENDING");
-        bits.ISRPREEMPT.setBaseRegister(&r32);
-        bits.ISRPREEMPT.setName("ISRPREEMPT");
         bits.ISRPENDING.setBaseRegister(&r32);
         bits.ISRPENDING.setName("ISRPENDING");
+        bits.ISRPREEMPT.setBaseRegister(&r32);
+        bits.ISRPREEMPT.setName("ISRPREEMPT");
         bits.PENDSTCLR.setBaseRegister(&r32);
         bits.PENDSTCLR.setName("PENDSTCLR");
         bits.PENDSTSET.setBaseRegister(&r32);

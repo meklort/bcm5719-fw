@@ -319,7 +319,7 @@
                     <ipxact:field>
                         <ipxact:name>VARIANT</ipxact:name>
                         <ipxact:description>Implementation defined variant number.</ipxact:description>
-                        <ipxact:bitOffset>24</ipxact:bitOffset>
+                        <ipxact:bitOffset>20</ipxact:bitOffset>
                         <ipxact:bitWidth>4</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
@@ -369,7 +369,7 @@
                     <ipxact:field>
                         <ipxact:name>ISRPREEMPT</ipxact:name>
                         <ipxact:description>You must only use this at debug time. It indicates that a pending interrupt becomes active in the next running cycle. If C_MASKINTS is clear in the Debug Halting Control and Status Register, the interrupt is serviced.</ipxact:description>
-                        <ipxact:bitOffset>22</ipxact:bitOffset>
+                        <ipxact:bitOffset>23</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-Only</ipxact:access>
                     </ipxact:field>
