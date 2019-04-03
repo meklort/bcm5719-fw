@@ -245,13 +245,17 @@ int main(int argc, char const *argv[])
                 const char* data = psec->get_data();
                 if(data)
                 {
-                    section->compressedSize = compress((uint8_t*)&ape.bytes[byteOffset], psec->get_size() * 2, // Output, compressed
+                    uint32_t compressedSize = compress((uint8_t*)&ape.bytes[byteOffset], psec->get_size() * 2, // Output, compressed
                                                                               (const uint8_t*)data, psec->get_size());    // input, uncompressed
+                    // ROund up to nearest word.
+                    compressedSize = ((compressedSize + 3) / 4) * 4;
+
+                    section->compressedSize = compressedSize;
                     byteOffset += section->compressedSize;
                     // memcpy(&ape.bytes[byteOffset], compressed, section->compressedSize);
                     // byteOffset += section->compressedSize;
                     section->crc = NVRam_crc((const uint8_t*)data, psec->get_size(), 0);
-                    section->flags |= APE_SECTION_FLAG_CHECKSUM_IS_CRC32;
+                    section->flags |= APE_SECTION_FLAG_CHECKSUM_IS_CRC32 | APE_SECTION_FLAG_COMPRESSED;
                 }
                 else
                 {
