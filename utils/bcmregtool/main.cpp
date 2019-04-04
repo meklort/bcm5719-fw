@@ -98,7 +98,8 @@ void boot_ape_loader()
 
     int numWords = apeloader_bin_len/4;
 
-    RegAPEMode_t mode = APE.Mode;
+    RegAPEMode_t mode;
+    mode.r32 = 0;
     mode.bits.Halt = 1;
     mode.bits.FastBoot = 1;
     APE.Mode = mode;
@@ -110,8 +111,6 @@ void boot_ape_loader()
     for(int i = 0; i < numWords; i++)
     {
         SHM.write(0x0B00 + i*4, ((uint32_t*)apeloader_bin)[i]);
-
-        printf("SHM[%d]: 0x%08X ?= 0x%08X\n", i, SHM.read(0x0B00 + i*4), ((uint32_t*)apeloader_bin)[i]);
     }
 
 
@@ -127,6 +126,27 @@ void boot_ape_loader()
 
     // Wait for ready.
     while(0 == SHM.FwStatus.bits.Ready);
+}
+
+uint32_t loader_read_mem(uint32_t addr)
+{
+    SHM.LoaderArg0.r32 = addr;
+    SHM.LoaderCommand.bits.Command = SHM_LOADER_COMMAND_COMMAND_READ_MEM;
+
+    // Wait for command to be handled.
+    while(0 != SHM.LoaderCommand.bits.Command);
+
+    return (uint32_t)SHM.LoaderArg0.r32;
+}
+
+void loader_write_mem(uint32_t addr, uint32_t value)
+{
+    SHM.LoaderArg0.r32 = addr;
+    SHM.LoaderArg1.r32 = value;
+    SHM.LoaderCommand.bits.Command = SHM_LOADER_COMMAND_COMMAND_WRITE_MEM;
+
+    // Wait for command to be handled.
+    while(0 != SHM.LoaderCommand.bits.Command);
 }
 
 const string symbol_for_address(uint32_t address, uint32_t &offset)
@@ -528,38 +548,26 @@ int main(int argc, char const *argv[])
             }
         }
 
-        RegAPEMode_t mode = APE.Mode;
-        mode.bits.Halt = 1;
-        mode.bits.FastBoot = 1;
-        APE.Mode = mode;
-
-        // We hijack the complete SHM here.
-
 
         // load file.
         for(int i = 0; i < fileWords; i++)
         {
-            SHM.write(0x0B00 + i*4, ape.words[i]);
-
-            printf("SHM[%d]: 0x%08X ?= 0x%08X\n", i, SHM.read(0x0B00 + i*4), ape.words[i]);
-
-            // DEVICE.ApeMemoryBase.r32 = 0xD800 + (i * 4);
-            // DEVICE.ApeMemoryData.r32 = ape.words[i];
+            uint32_t addr = 0x10D800 + i*4;
+            loader_write_mem(addr, ape.words[i]);
         }
 
 
+        RegAPEMode_t mode;
+        mode.r32 = 0;
+        mode.bits.Halt = 1;
+        mode.bits.FastBoot = 1;
+        APE.Mode = mode;
 
-        // Start the file
-        APE.GpioMessage.r32 = 0x60220B00|2;
 
-        // DEVICE.ApeMemoryBase.r32 = 0xD800;
-        // printf("APE Memory Base: 0x%08X\n", (uint32_t)DEVICE.ApeMemoryBase.r32);
-        // printf("APE Memory Data: 0x%08X\n", (uint32_t)DEVICE.ApeMemoryData.r32);
-        // DEVICE.ApeMemoryData.r32 = ape.words[0];
-        // printf("APE Memory Base: 0x%08X\n", (uint32_t)DEVICE.ApeMemoryBase.r32);
-        // printf("APE Memory Data: 0x%08X\n", (uint32_t)DEVICE.ApeMemoryData.r32);
-        // printf("ape.words[0]:    0x%08X\n", (uint32_t)ape.words[0]);
+        // Set the payload address
+        APE.GpioMessage.r32 = 0x10D800|2;
 
+        // Boot
         mode.bits.Halt = 0;
         mode.bits.FastBoot = 1;
         mode.bits.Reset = 1;
