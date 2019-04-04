@@ -90,6 +90,45 @@ const char* regnames[32] = {
     "$ra", /* return address */
 };
 
+
+void boot_ape_loader()
+{
+    extern unsigned char apeloader_bin[];
+    extern unsigned int apeloader_bin_len;
+
+    int numWords = apeloader_bin_len/4;
+
+    RegAPEMode_t mode = APE.Mode;
+    mode.bits.Halt = 1;
+    mode.bits.FastBoot = 1;
+    APE.Mode = mode;
+
+    // We hijack the complete SHM here.
+
+
+    // load file.
+    for(int i = 0; i < numWords; i++)
+    {
+        SHM.write(0x0B00 + i*4, ((uint32_t*)apeloader_bin)[i]);
+
+        printf("SHM[%d]: 0x%08X ?= 0x%08X\n", i, SHM.read(0x0B00 + i*4), ((uint32_t*)apeloader_bin)[i]);
+    }
+
+
+    // Mark fw as not read.
+    SHM.FwStatus.bits.Ready = 0;
+    // Start the file
+    APE.GpioMessage.r32 = 0x60220B00|2;
+
+    mode.bits.Halt = 0;
+    mode.bits.FastBoot = 1;
+    mode.bits.Reset = 1;
+    APE.Mode = mode;
+
+    // Wait for ready.
+    while(0 == SHM.FwStatus.bits.Ready);
+}
+
 const string symbol_for_address(uint32_t address, uint32_t &offset)
 {
     Elf_Half sec_num = gELFIOReader.sections.size();
@@ -317,6 +356,11 @@ int main(int argc, char const *argv[])
             .action("store_true")
             .help("Print ape information registers.");
 
+    parser.add_option("-p", "--apeboot")
+            .dest("apeboot")
+            .metavar("APE_FILE")
+            .help("File to boot on the APE.");
+
     parser.add_option("-m", "--mii")
             .dest("mii")
             .set_default("0")
@@ -439,6 +483,91 @@ int main(int argc, char const *argv[])
         exit(0);
     }
 
+    if(options.is_set("apeboot"))
+    {
+        boot_ape_loader();
+
+        int fileLength = 0;
+        int fileWords = 0;
+        #define NVRAM_SIZE      (1024u * 256u) /* 256KB */
+
+        union {
+            uint8_t         bytes[NVRAM_SIZE];
+            uint32_t        words[NVRAM_SIZE/4];
+        } ape;
+
+        string &file = options["apeboot"];
+
+        fstream infile;
+        infile.open(file, fstream::in | fstream::binary);
+        if(infile.is_open())
+        {
+            // get length of file:
+            infile.seekg(0, infile.end);
+            fileLength = infile.tellg();
+            fileWords = fileLength / 4;
+            infile.seekg(0, infile.beg);
+
+            // Read in file
+            infile.read((char*)ape.bytes, fileLength);
+
+            infile.close();
+        }
+        else
+        {
+            cerr << " Unable to open file '" << file << "'" << endl;
+            exit(-1);
+        }
+
+        if(ape.words[0] == be32toh(APE_HEADER_MAGIC))
+        {
+            // The file is swapped... fix it.
+            for(int i = 0; i < sizeof(ape)/sizeof(ape.words[0]); i++)
+            {
+                ape.words[i] = be32toh(ape.words[i]);
+            }
+        }
+
+        RegAPEMode_t mode = APE.Mode;
+        mode.bits.Halt = 1;
+        mode.bits.FastBoot = 1;
+        APE.Mode = mode;
+
+        // We hijack the complete SHM here.
+
+
+        // load file.
+        for(int i = 0; i < fileWords; i++)
+        {
+            SHM.write(0x0B00 + i*4, ape.words[i]);
+
+            printf("SHM[%d]: 0x%08X ?= 0x%08X\n", i, SHM.read(0x0B00 + i*4), ape.words[i]);
+
+            // DEVICE.ApeMemoryBase.r32 = 0xD800 + (i * 4);
+            // DEVICE.ApeMemoryData.r32 = ape.words[i];
+        }
+
+
+
+        // Start the file
+        APE.GpioMessage.r32 = 0x60220B00|2;
+
+        // DEVICE.ApeMemoryBase.r32 = 0xD800;
+        // printf("APE Memory Base: 0x%08X\n", (uint32_t)DEVICE.ApeMemoryBase.r32);
+        // printf("APE Memory Data: 0x%08X\n", (uint32_t)DEVICE.ApeMemoryData.r32);
+        // DEVICE.ApeMemoryData.r32 = ape.words[0];
+        // printf("APE Memory Base: 0x%08X\n", (uint32_t)DEVICE.ApeMemoryBase.r32);
+        // printf("APE Memory Data: 0x%08X\n", (uint32_t)DEVICE.ApeMemoryData.r32);
+        // printf("ape.words[0]:    0x%08X\n", (uint32_t)ape.words[0]);
+
+        mode.bits.Halt = 0;
+        mode.bits.FastBoot = 1;
+        mode.bits.Reset = 1;
+        APE.Mode = mode;
+
+        exit(0);
+    }
+
     if(options.get("ape"))
     {
         APE.Mode.print();
@@ -449,6 +578,7 @@ int main(int argc, char const *argv[])
         SHM.FwVersion.print();
 
         printf("APE SegSig: 0x%08X\n", (uint32_t)SHM.SegSig.r32);
+        printf("APE SegLen: 0x%08X\n", (uint32_t)SHM.ApeSegLength.r32);
         printf("APE RcpuApeResetCount: 0x%08X\n", (uint32_t)SHM.RcpuApeResetCount.r32);
 
         printf("APE RCPU SegSig: 0x%08X\n", (uint32_t)SHM.RcpuSegSig.r32);
@@ -462,19 +592,19 @@ int main(int argc, char const *argv[])
 
         printf("RegAPENcsiChannel0CtrlstatRx: 0x%08X\n", (uint32_t)SHM.NcsiChannel0CtrlstatRx.r32);
 
+        // boot_ape_loader();
+        // printf("Loader Command: 0x%08X\n", (uint32_t)SHM.LoaderCommand.r32);
+        // printf("Loader Arg0: 0x%08X\n", (uint32_t)SHM.LoaderArg0.r32);
+        // printf("Loader Arg1: 0x%08X\n", (uint32_t)SHM.LoaderArg1.r32);
 
-    // Ensure all APE locks are released.
-    // APE_releaseAllLocks();
+        // SHM.LoaderArg0.r32 = 0x00100040;
+        // SHM.LoaderCommand.bits.Command = SHM_LOADER_COMMAND_COMMAND_READ_MEM;
 
-
-    APE.PerLockGrantPhy0.print();
-    APE.PerLockGrantGrc.print();
-    APE.PerLockGrantPhy1.print();
-    APE.PerLockGrantPhy2.print();
-    APE.PerLockGrantMem.print();
-    APE.PerLockGrantPhy3.print();
-    APE.PerLockGrantPort6.print();
-    APE.PerLockGrantGpio.print();
+        // // Wait for command to be handled.
+        // while(0 != SHM.LoaderCommand.bits.Command);
+        // printf("Loader Command: 0x%08X\n", (uint32_t)SHM.LoaderCommand.r32);
+        // printf("Loader Arg0: 0x%08X\n", (uint32_t)SHM.LoaderArg0.r32);
+        // printf("Loader Arg1: 0x%08X\n", (uint32_t)SHM.LoaderArg1.r32);
 
         exit(0);
     }

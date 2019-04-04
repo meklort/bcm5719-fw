@@ -82,11 +82,57 @@ typedef uint32_t APE_SHM_H_uint32_t;
 #define REG_SHM_SIZE (sizeof(SHM_t))
 
 #define REG_SHM_SEG_SIG ((volatile APE_SHM_H_uint32_t*)0x60220000) /* APE_APE_MAGIC ('APE!') when all is well. */
+#define     SHM_SEG_SIG_SIG_SHIFT 0u
+#define     SHM_SEG_SIG_SIG_MASK  0xffffffffu
+#define GET_SHM_SEG_SIG_SIG(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
+#define SET_SHM_SEG_SIG_SIG(__val__)  (((__val__) << 0u) & 0xffffffffu)
+#define     SHM_SEG_SIG_SIG_LOADER 0x10ad10adu
+
+
 /** @brief Register definition for @ref SHM_t.SegSig. */
 typedef register_container RegSHMSegSig_t {
     /** @brief 32bit direct register access. */
     APE_SHM_H_uint32_t r32;
+
+    BITFIELD_BEGIN(APE_SHM_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_SHM_H_uint32_t, Sig, 0, 32)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_SHM_H_uint32_t, Sig, 0, 32)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(APE_SHM_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "SegSig"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMSegSig_t()
+    {
+        /** @brief constructor for @ref SHM_t.SegSig. */
+        r32.setName("SegSig");
+        bits.Sig.setBaseRegister(&r32);
+        bits.Sig.setName("Sig");
+    }
+    RegSHMSegSig_t& operator=(const RegSHMSegSig_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMSegSig_t;
+
+#define REG_SHM_APE_SEG_LENGTH ((volatile APE_SHM_H_uint32_t*)0x60220004) /* Set to 0x34. */
+/** @brief Register definition for @ref SHM_t.ApeSegLength. */
+typedef register_container RegSHMApeSegLength_t {
+    /** @brief 32bit direct register access. */
+    APE_SHM_H_uint32_t r32;
+} RegSHMApeSegLength_t;
 
 #define REG_SHM_FW_STATUS ((volatile APE_SHM_H_uint32_t*)0x6022000c) /*  */
 #define     SHM_FW_STATUS_READY_SHIFT 8u
@@ -310,6 +356,69 @@ typedef register_container RegSHM4028_t {
     /** @brief 32bit direct register access. */
     APE_SHM_H_uint32_t r32;
 } RegSHM4028_t;
+
+#define REG_SHM_LOADER_COMMAND ((volatile APE_SHM_H_uint32_t*)0x60220038) /* Command sent when using the the APE loader. Zero once handled. */
+#define     SHM_LOADER_COMMAND_COMMAND_SHIFT 0u
+#define     SHM_LOADER_COMMAND_COMMAND_MASK  0xffffffffu
+#define GET_SHM_LOADER_COMMAND_COMMAND(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
+#define SET_SHM_LOADER_COMMAND_COMMAND(__val__)  (((__val__) << 0u) & 0xffffffffu)
+#define     SHM_LOADER_COMMAND_COMMAND_NOP 0x0u
+#define     SHM_LOADER_COMMAND_COMMAND_READ_MEM 0x1u
+#define     SHM_LOADER_COMMAND_COMMAND_WRITE_MEM 0x2u
+#define     SHM_LOADER_COMMAND_COMMAND_CALL 0x3u
+
+
+/** @brief Register definition for @ref SHM_t.LoaderCommand. */
+typedef register_container RegSHMLoaderCommand_t {
+    /** @brief 32bit direct register access. */
+    APE_SHM_H_uint32_t r32;
+
+    BITFIELD_BEGIN(APE_SHM_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_SHM_H_uint32_t, Command, 0, 32)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_SHM_H_uint32_t, Command, 0, 32)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(APE_SHM_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "LoaderCommand"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMLoaderCommand_t()
+    {
+        /** @brief constructor for @ref SHM_t.LoaderCommand. */
+        r32.setName("LoaderCommand");
+        bits.Command.setBaseRegister(&r32);
+        bits.Command.setName("Command");
+    }
+    RegSHMLoaderCommand_t& operator=(const RegSHMLoaderCommand_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegSHMLoaderCommand_t;
+
+#define REG_SHM_LOADER_ARG0 ((volatile APE_SHM_H_uint32_t*)0x6022003c) /* Argument 0 for the APE loader. */
+/** @brief Register definition for @ref SHM_t.LoaderArg0. */
+typedef register_container RegSHMLoaderArg0_t {
+    /** @brief 32bit direct register access. */
+    APE_SHM_H_uint32_t r32;
+} RegSHMLoaderArg0_t;
+
+#define REG_SHM_LOADER_ARG1 ((volatile APE_SHM_H_uint32_t*)0x60220040) /* Argument 1 for the APE loader. */
+/** @brief Register definition for @ref SHM_t.LoaderArg1. */
+typedef register_container RegSHMLoaderArg1_t {
+    /** @brief 32bit direct register access. */
+    APE_SHM_H_uint32_t r32;
+} RegSHMLoaderArg1_t;
 
 #define REG_SHM_RCPU_SEG_SIG ((volatile APE_SHM_H_uint32_t*)0x60220100) /* Set to APE_RCPU_MAGIC ('RCPU') by RX CPU. */
 #define     SHM_RCPU_SEG_SIG_SIG_SHIFT 0u
@@ -1605,8 +1714,11 @@ typedef struct {
     /** @brief APE_APE_MAGIC ('APE!') when all is well. */
     RegSHMSegSig_t SegSig;
 
+    /** @brief Set to 0x34. */
+    RegSHMApeSegLength_t ApeSegLength;
+
     /** @brief Reserved bytes to pad out data structure. */
-    APE_SHM_H_uint32_t reserved_4[2];
+    APE_SHM_H_uint32_t reserved_8[1];
 
     /** @brief  */
     RegSHMFwStatus_t FwStatus;
@@ -1633,7 +1745,19 @@ typedef struct {
     RegSHM4028_t _4028;
 
     /** @brief Reserved bytes to pad out data structure. */
-    APE_SHM_H_uint32_t reserved_44[53];
+    APE_SHM_H_uint32_t reserved_44[3];
+
+    /** @brief Command sent when using the the APE loader. Zero once handled. */
+    RegSHMLoaderCommand_t LoaderCommand;
+
+    /** @brief Argument 0 for the APE loader. */
+    RegSHMLoaderArg0_t LoaderArg0;
+
+    /** @brief Argument 1 for the APE loader. */
+    RegSHMLoaderArg1_t LoaderArg1;
+
+    /** @brief Reserved bytes to pad out data structure. */
+    APE_SHM_H_uint32_t reserved_68[47];
 
     /** @brief Set to APE_RCPU_MAGIC ('RCPU') by RX CPU. */
     RegSHMRcpuSegSig_t RcpuSegSig;

@@ -51,6 +51,8 @@ void init_bcm5719_SHM(void)
     /** @brief Component Registers for @ref SHM. */
     /** @brief Bitmap for @ref SHM_t.SegSig. */
 
+    /** @brief Bitmap for @ref SHM_t.ApeSegLength. */
+
     /** @brief Bitmap for @ref SHM_t.FwStatus. */
 
     /** @brief Bitmap for @ref SHM_t.FwFeatures. */
@@ -66,6 +68,12 @@ void init_bcm5719_SHM(void)
     /** @brief Bitmap for @ref SHM_t.4024. */
 
     /** @brief Bitmap for @ref SHM_t.4028. */
+
+    /** @brief Bitmap for @ref SHM_t.LoaderCommand. */
+
+    /** @brief Bitmap for @ref SHM_t.LoaderArg0. */
+
+    /** @brief Bitmap for @ref SHM_t.LoaderArg1. */
 
     /** @brief Bitmap for @ref SHM_t.RcpuSegSig. */
 

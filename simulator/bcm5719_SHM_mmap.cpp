@@ -111,6 +111,11 @@ void init_bcm5719_SHM_mmap(void *base)
     SHM.SegSig.r32.installReadCallback(read_from_ram, &SHM_SegSig_r32);
     SHM.SegSig.r32.installWriteCallback(write_to_ram, &SHM_SegSig_r32);
 
+    /** @brief Bitmap for @ref SHM_t.ApeSegLength. */
+    static ram_offset_t SHM_ApeSegLength_r32((uint8_t *)base, (uint32_t)4);
+    SHM.ApeSegLength.r32.installReadCallback(read_from_ram, &SHM_ApeSegLength_r32);
+    SHM.ApeSegLength.r32.installWriteCallback(write_to_ram, &SHM_ApeSegLength_r32);
+
     /** @brief Bitmap for @ref SHM_t.FwStatus. */
     static ram_offset_t SHM_FwStatus_r32((uint8_t *)base, (uint32_t)12);
     SHM.FwStatus.r32.installReadCallback(read_from_ram, &SHM_FwStatus_r32);
@@ -150,6 +155,21 @@ void init_bcm5719_SHM_mmap(void *base)
     static ram_offset_t SHM__4028_r32((uint8_t *)base, (uint32_t)40);
     SHM._4028.r32.installReadCallback(read_from_ram, &SHM__4028_r32);
     SHM._4028.r32.installWriteCallback(write_to_ram, &SHM__4028_r32);
+
+    /** @brief Bitmap for @ref SHM_t.LoaderCommand. */
+    static ram_offset_t SHM_LoaderCommand_r32((uint8_t *)base, (uint32_t)56);
+    SHM.LoaderCommand.r32.installReadCallback(read_from_ram, &SHM_LoaderCommand_r32);
+    SHM.LoaderCommand.r32.installWriteCallback(write_to_ram, &SHM_LoaderCommand_r32);
+
+    /** @brief Bitmap for @ref SHM_t.LoaderArg0. */
+    static ram_offset_t SHM_LoaderArg0_r32((uint8_t *)base, (uint32_t)60);
+    SHM.LoaderArg0.r32.installReadCallback(read_from_ram, &SHM_LoaderArg0_r32);
+    SHM.LoaderArg0.r32.installWriteCallback(write_to_ram, &SHM_LoaderArg0_r32);
+
+    /** @brief Bitmap for @ref SHM_t.LoaderArg1. */
+    static ram_offset_t SHM_LoaderArg1_r32((uint8_t *)base, (uint32_t)64);
+    SHM.LoaderArg1.r32.installReadCallback(read_from_ram, &SHM_LoaderArg1_r32);
+    SHM.LoaderArg1.r32.installWriteCallback(write_to_ram, &SHM_LoaderArg1_r32);
 
     /** @brief Bitmap for @ref SHM_t.RcpuSegSig. */
     static ram_offset_t SHM_RcpuSegSig_r32((uint8_t *)base, (uint32_t)256);
