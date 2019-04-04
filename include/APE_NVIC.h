@@ -2329,6 +2329,18 @@ typedef struct {
     /** @brief Use the Software Trigger Interrupt Register to pend an interrupt to trigger. */
     RegNVICSoftwareTriggerInterrupt_t SoftwareTriggerInterrupt;
 
+#ifdef CXX_SIMULATOR
+    typedef uint32_t (*read_callback_t)(uint32_t, void*);
+    read_callback_t mIndexReadCallback;
+    void* mIndexReadCallbackArgs;
+
+    typedef void (*write_callback_t)(uint32_t, uint32_t value, void*);
+    write_callback_t mIndexWriteCallback;
+    void* mIndexWriteCallbackArgs;
+
+    uint32_t read(int index) { return mIndexReadCallback(index, mIndexReadCallbackArgs); }
+    void write(int index, uint32_t value) { mIndexWriteCallback(index, value, mIndexWriteCallbackArgs); }
+#endif /* CXX_SIMULATOR */
 } NVIC_t;
 
 /** @brief Nested Vectored Interrupt Controller */

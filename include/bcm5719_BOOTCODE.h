@@ -83,6 +83,18 @@ typedef uint32_t BCM5719_BOOTCODE_H_uint32_t;
 
 /** @brief Component definition for @ref BOOTCODE. */
 typedef struct {
+#ifdef CXX_SIMULATOR
+    typedef uint32_t (*read_callback_t)(uint32_t, void*);
+    read_callback_t mIndexReadCallback;
+    void* mIndexReadCallbackArgs;
+
+    typedef void (*write_callback_t)(uint32_t, uint32_t value, void*);
+    write_callback_t mIndexWriteCallback;
+    void* mIndexWriteCallbackArgs;
+
+    uint32_t read(int index) { return mIndexReadCallback(index, mIndexReadCallbackArgs); }
+    void write(int index, uint32_t value) { mIndexWriteCallback(index, value, mIndexWriteCallbackArgs); }
+#endif /* CXX_SIMULATOR */
 } BOOTCODE_t;
 
 /** @brief Firmware load address for stage1/stage2 (ram). */

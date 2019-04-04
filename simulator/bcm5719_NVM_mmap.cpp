@@ -65,6 +65,15 @@ static uint32_t read_from_ram(uint32_t val, void *args)
     return *(uint32_t *)base;
 }
 
+static uint32_t read_from_ram_index(uint32_t index, void *args)
+{
+    uint8_t *base = (uint8_t *)args;
+    base += index;
+
+    BARRIER();
+    return *(uint32_t *)base;
+}
+
 static uint32_t write_to_ram(uint32_t val, void *args)
 {
     ram_offset_t *loc = (ram_offset_t *)args;
@@ -78,8 +87,24 @@ static uint32_t write_to_ram(uint32_t val, void *args)
     return val;
 }
 
+static void write_to_ram_index(uint32_t index, uint32_t val, void *args)
+{
+    uint8_t *base = (uint8_t *)args;
+    base += index;
+
+    BARRIER();
+    *(uint32_t *)base = val;
+    BARRIER();
+}
+
 void init_bcm5719_NVM_mmap(void *base)
 {
+    NVM.mIndexReadCallback = read_from_ram_index;
+    NVM.mIndexReadCallbackArgs = base;
+
+    NVM.mIndexWriteCallback = write_to_ram_index;
+    NVM.mIndexWriteCallbackArgs = base;
+
     /** @brief Component Registers for @ref NVM. */
     /** @brief Bitmap for @ref NVM_t.Command. */
     static ram_offset_t NVM_Command_r32((uint8_t *)base, (uint32_t)0);
