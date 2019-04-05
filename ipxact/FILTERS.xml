@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ipxact:component xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ipxact="http://www.accellera.org/XMLSchema/IPXACT/1685-2014" xsi:schemaLocation="http://www.accellera.org/images/XMLSchema/IPXACT/1685-2014/index.xsd">
+    <ipxact:vendor>meklort</ipxact:vendor>
+    <ipxact:library>&lt;PROJECT&gt;</ipxact:library>
+    <ipxact:name>Management Filters Register Definitions</ipxact:name>
+    <ipxact:version>1.0</ipxact:version>
+    <ipxact:memoryMaps>
+        <ipxact:memoryMap>
+            <ipxact:name>FILTERS</ipxact:name>
+            <ipxact:description>Management Filter Registers</ipxact:description>
+            <ipxact:addressBlock>
+                <ipxact:name>FILTERS</ipxact:name>
+                <ipxact:typeIdentifier>FILTERS</ipxact:typeIdentifier>>
+                <ipxact:description>Management Filter Registers</ipxact:description>
+                <ipxact:baseAddress>0xA0048000</ipxact:baseAddress>
+                <!-- LINK: addressBlockDefinitionGroup: see 6.9.3, Address blockdefinition group -->
+                <!-- LINK: memoryBlockData: see 6.9.4, memoryBlockData group -->
+                <ipxact:register>
+                    <ipxact:name>Element Config</ipxact:name>
+                    <ipxact:description>Element Configuration Register.</ipxact:description>
+                    <ipxact:addressOffset>0x0</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>Rule Offset</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>8</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Rule Class</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>8</ipxact:bitOffset>
+                        <ipxact:bitWidth>5</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Rule Header</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>13</ipxact:bitOffset>
+                        <ipxact:bitWidth>3</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <!-- LINK: enumeratedValue: see 6.11.10, Enumeration values -->
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>SOF</ipxact:name>
+                                <ipxact:value>0</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>IP</ipxact:name>
+                                <ipxact:value>1</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>TCP</ipxact:name>
+                                <ipxact:value>2</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>UDP</ipxact:name>
+                                <ipxact:value>3</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>DATA</ipxact:name>
+                                <ipxact:value>4</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>ICMPv4</ipxact:name>
+                                <ipxact:value>5</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>ICMPv6</ipxact:name>
+                                <ipxact:value>6</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>VLAN</ipxact:name>
+                                <ipxact:value>7</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Rule Op</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>16</ipxact:bitOffset>
+                        <ipxact:bitWidth>2</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <!-- LINK: enumeratedValue: see 6.11.10, Enumeration values -->
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>EQ</ipxact:name>
+                                <ipxact:value>0</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>NE</ipxact:name>
+                                <ipxact:value>1</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>GT</ipxact:name>
+                                <ipxact:value>2</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>LT</ipxact:name>
+                                <ipxact:value>3</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Rule Map</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>24</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Rule Discard</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>25</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Rule Mask</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>26</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Rule P3</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>27</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Rule P2</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>28</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Rule P1</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>29</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Rule And</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>30</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Rule Enable</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>31</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>Element Pattern</ipxact:name>
+                    <ipxact:description>If RULE_MASK is set, low 16 bits are a bitmask and high 16 bits are the value masked by it. If it is not set, the entire field is a 32-bit match value.</ipxact:description>
+                    <ipxact:addressOffset>0x4</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>Rule Configuration</ipxact:name>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0x100</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>Filter Set Disable</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Direct IP Fragment to APE</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>31</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>Rule Set</ipxact:name>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0x104</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>Action</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>2</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <!-- LINK: enumeratedValue: see 6.11.10, Enumeration values -->
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>To APE Only</ipxact:name>
+                                <ipxact:value>0</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>To APE And Host</ipxact:name>
+                                <ipxact:value>1</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Discard</ipxact:name>
+                                <ipxact:value>2</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Count</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>3</ipxact:bitOffset>
+                        <ipxact:bitWidth>16</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Enable</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>31</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>Rule Mask</ipxact:name>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0x184</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+            </ipxact:addressBlock>
+            <ipxact:addressUnitBits>8</ipxact:addressUnitBits>
+        </ipxact:memoryMap>
+    </ipxact:memoryMaps>
+</ipxact:component>

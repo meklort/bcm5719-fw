@@ -36,6 +36,132 @@
             </ipxact:addressBlock>
         </ipxact:memoryMap>
 
+        <!-- RX port 0xA000_0000 to 0xA000_3FFF (APE, function 0) -->
+        <ipxact:memoryMap>
+            <ipxact:name>RX_PORT</ipxact:name>
+            <ipxact:description>RX from network port, function 0</ipxact:description>
+            <ipxact:addressBlock>
+                <ipxact:name>RX_PORT</ipxact:name>
+                <ipxact:description>RX from network port, function 0</ipxact:description>
+                <ipxact:baseAddress>0xA0000000</ipxact:baseAddress>
+                <!-- LINK: addressBlockDefinitionGroup: see 6.9.3, Address blockdefinition group -->
+                <!-- LINK: memoryBlockData: see 6.9.4, memoryBlockData group -->
+                <ipxact:usage>register</ipxact:usage>
+                <ipxact:volatile>false</ipxact:volatile>
+            </ipxact:addressBlock>
+        </ipxact:memoryMap>
+
+        <!-- RX port 0xA000_4000 to 0xA000_7FFF (APE, function 1) -->
+        <ipxact:memoryMap>
+            <ipxact:name>RX_PORT1</ipxact:name>
+            <ipxact:description>RX from network port, function 1</ipxact:description>
+            <ipxact:addressBlock>
+                <ipxact:name>RX_PORT1</ipxact:name>
+                <ipxact:description>RX from network port, function 1</ipxact:description>
+                <ipxact:typeIdentifier>TX_PORT</ipxact:typeIdentifier>>
+                <ipxact:baseAddress>0xA0004000</ipxact:baseAddress>
+                <!-- LINK: addressBlockDefinitionGroup: see 6.9.3, Address blockdefinition group -->
+                <!-- LINK: memoryBlockData: see 6.9.4, memoryBlockData group -->
+                <ipxact:usage>register</ipxact:usage>
+                <ipxact:volatile>false</ipxact:volatile>
+            </ipxact:addressBlock>
+        </ipxact:memoryMap>
+
+        <!-- RX port 0xA000_8000 to 0xA000_BFFF (APE, function 1) -->
+        <ipxact:memoryMap>
+            <ipxact:name>RX_PORT2</ipxact:name>
+            <ipxact:description>RX from network port, function 2</ipxact:description>
+            <ipxact:addressBlock>
+                <ipxact:name>RX_PORT2</ipxact:name>
+                <ipxact:description>RX from network port, function 2</ipxact:description>
+                <ipxact:typeIdentifier>RX_PORT</ipxact:typeIdentifier>>
+                <ipxact:baseAddress>0xA0008000</ipxact:baseAddress>
+                <!-- LINK: addressBlockDefinitionGroup: see 6.9.3, Address blockdefinition group -->
+                <!-- LINK: memoryBlockData: see 6.9.4, memoryBlockData group -->
+                <ipxact:usage>register</ipxact:usage>
+                <ipxact:volatile>false</ipxact:volatile>
+            </ipxact:addressBlock>
+        </ipxact:memoryMap>
+
+        <!-- RX port 0xA000_C000 to 0xA000_FFFF (APE, function 1) -->
+        <ipxact:memoryMap>
+            <ipxact:name>RX_PORT3</ipxact:name>
+            <ipxact:description>RX from network port, function 3</ipxact:description>
+            <ipxact:addressBlock>
+                <ipxact:name>RX_PORT3</ipxact:name>
+                <ipxact:description>RX from network port, function 3</ipxact:description>
+                <ipxact:typeIdentifier>RX_PORT</ipxact:typeIdentifier>>
+                <ipxact:baseAddress>0xA000C000</ipxact:baseAddress>
+                <!-- LINK: addressBlockDefinitionGroup: see 6.9.3, Address blockdefinition group -->
+                <!-- LINK: memoryBlockData: see 6.9.4, memoryBlockData group -->
+                <ipxact:usage>register</ipxact:usage>
+                <ipxact:volatile>false</ipxact:volatile>
+            </ipxact:addressBlock>
+        </ipxact:memoryMap>
+
+        <!-- TX port 0xA002_0000 to 0xA002_1FFF (APE, function 0) -->
+        <ipxact:memoryMap>
+            <ipxact:name>TX_PORT</ipxact:name>
+            <ipxact:description>TX to network port, function 0</ipxact:description>
+            <ipxact:addressBlock>
+                <ipxact:name>TX_PORT</ipxact:name>
+                <ipxact:description>TX to network port, function 0</ipxact:description>
+                <ipxact:baseAddress>0xA0020000</ipxact:baseAddress>
+                <!-- LINK: addressBlockDefinitionGroup: see 6.9.3, Address blockdefinition group -->
+                <!-- LINK: memoryBlockData: see 6.9.4, memoryBlockData group -->
+                <ipxact:usage>register</ipxact:usage>
+                <ipxact:volatile>false</ipxact:volatile>
+            </ipxact:addressBlock>
+        </ipxact:memoryMap>
+
+        <!-- TX port 0xA002_2000 to 0xA002_3FFF (APE, function 1) -->
+        <ipxact:memoryMap>
+            <ipxact:name>TX_PORT1</ipxact:name>
+            <ipxact:description>TX to network port, function 1</ipxact:description>
+            <ipxact:addressBlock>
+                <ipxact:name>TX_PORT1</ipxact:name>
+                <ipxact:description>TX to network port, function 1</ipxact:description>
+                <ipxact:typeIdentifier>TX_PORT</ipxact:typeIdentifier>>
+                <ipxact:baseAddress>0xA0022000</ipxact:baseAddress>
+                <!-- LINK: addressBlockDefinitionGroup: see 6.9.3, Address blockdefinition group -->
+                <!-- LINK: memoryBlockData: see 6.9.4, memoryBlockData group -->
+                <ipxact:usage>register</ipxact:usage>
+                <ipxact:volatile>false</ipxact:volatile>
+            </ipxact:addressBlock>
+        </ipxact:memoryMap>
+
+        <!-- TX port 0xA002_4000 to 0xA002_5FFF (APE, function 1) -->
+        <ipxact:memoryMap>
+            <ipxact:name>TX_PORT2</ipxact:name>
+            <ipxact:description>TX to network port, function 2</ipxact:description>
+            <ipxact:addressBlock>
+                <ipxact:name>TX_PORT2</ipxact:name>
+                <ipxact:description>TX to network port, function 2</ipxact:description>
+                <ipxact:typeIdentifier>TX_PORT</ipxact:typeIdentifier>>
+                <ipxact:baseAddress>0xA0024000</ipxact:baseAddress>
+                <!-- LINK: addressBlockDefinitionGroup: see 6.9.3, Address blockdefinition group -->
+                <!-- LINK: memoryBlockData: see 6.9.4, memoryBlockData group -->
+                <ipxact:usage>register</ipxact:usage>
+                <ipxact:volatile>false</ipxact:volatile>
+            </ipxact:addressBlock>
+        </ipxact:memoryMap>
+
+        <!-- TX port 0xA002_5000 to 0xA002_7FFF (APE, function 1) -->
+        <ipxact:memoryMap>
+            <ipxact:name>TX_PORT3</ipxact:name>
+            <ipxact:description>TX to network port, function 3</ipxact:description>
+            <ipxact:addressBlock>
+                <ipxact:name>TX_PORT3</ipxact:name>
+                <ipxact:description>TX to network port, function 3</ipxact:description>
+                <ipxact:typeIdentifier>TX_PORT</ipxact:typeIdentifier>>
+                <ipxact:baseAddress>0xA0026000</ipxact:baseAddress>
+                <!-- LINK: addressBlockDefinitionGroup: see 6.9.3, Address blockdefinition group -->
+                <!-- LINK: memoryBlockData: see 6.9.4, memoryBlockData group -->
+                <ipxact:usage>register</ipxact:usage>
+                <ipxact:volatile>false</ipxact:volatile>
+            </ipxact:addressBlock>
+        </ipxact:memoryMap>
+
         <!-- Device Registers 0xA004_0000 to 0xA004_7FFF (APE, function 0) -->
         <ipxact:memoryMap>
             <ipxact:name>DEVICE</ipxact:name>
@@ -51,6 +177,21 @@
             </ipxact:addressBlock>
         </ipxact:memoryMap>
 
+        <ipxact:memoryMap>
+            <ipxact:name>FILTERS</ipxact:name>
+            <ipxact:description>Management Filter Registers, function 0</ipxact:description>
+            <ipxact:addressBlock>
+                <ipxact:name>FILTERS</ipxact:name>
+                <ipxact:description>Management Filter Registers, function 0</ipxact:description>
+                <ipxact:baseAddress>0xA0048000</ipxact:baseAddress>
+                <!-- LINK: addressBlockDefinitionGroup: see 6.9.3, Address blockdefinition group -->
+                <!-- LINK: memoryBlockData: see 6.9.4, memoryBlockData group -->
+                <ipxact:usage>register</ipxact:usage>
+                <ipxact:volatile>false</ipxact:volatile>
+            </ipxact:addressBlock>
+        </ipxact:memoryMap>
+
+
         <!-- Device Registers 0xA005_0000 to 0xA005_7FFF (APE, function 1) -->
         <ipxact:memoryMap>
             <ipxact:name>DEVICE1</ipxact:name>
@@ -60,6 +201,21 @@
                 <ipxact:description>Device Registers, function 1</ipxact:description>
                 <ipxact:typeIdentifier>DEVICE</ipxact:typeIdentifier>>
                 <ipxact:baseAddress>0xA0050000</ipxact:baseAddress>
+                <!-- LINK: addressBlockDefinitionGroup: see 6.9.3, Address blockdefinition group -->
+                <!-- LINK: memoryBlockData: see 6.9.4, memoryBlockData group -->
+                <ipxact:usage>register</ipxact:usage>
+                <ipxact:volatile>false</ipxact:volatile>
+            </ipxact:addressBlock>
+        </ipxact:memoryMap>
+
+        <ipxact:memoryMap>
+            <ipxact:name>FILTERS1</ipxact:name>
+            <ipxact:description>Management Filter Registers, function 1</ipxact:description>
+            <ipxact:addressBlock>
+                <ipxact:name>FILTERS1</ipxact:name>
+                <ipxact:description>Management Filter Registers, function 1</ipxact:description>
+                <ipxact:typeIdentifier>FILTERS</ipxact:typeIdentifier>>
+                <ipxact:baseAddress>0xA0058000</ipxact:baseAddress>
                 <!-- LINK: addressBlockDefinitionGroup: see 6.9.3, Address blockdefinition group -->
                 <!-- LINK: memoryBlockData: see 6.9.4, memoryBlockData group -->
                 <ipxact:usage>register</ipxact:usage>
@@ -83,6 +239,21 @@
             </ipxact:addressBlock>
         </ipxact:memoryMap>
 
+        <ipxact:memoryMap>
+            <ipxact:name>FILTERS2</ipxact:name>
+            <ipxact:description>Management Filter Registers, function 2</ipxact:description>
+            <ipxact:addressBlock>
+                <ipxact:name>FILTERS2</ipxact:name>
+                <ipxact:description>Management Filter Registers, function 2</ipxact:description>
+                <ipxact:typeIdentifier>FILTERS</ipxact:typeIdentifier>>
+                <ipxact:baseAddress>0xA0068000</ipxact:baseAddress>
+                <!-- LINK: addressBlockDefinitionGroup: see 6.9.3, Address blockdefinition group -->
+                <!-- LINK: memoryBlockData: see 6.9.4, memoryBlockData group -->
+                <ipxact:usage>register</ipxact:usage>
+                <ipxact:volatile>false</ipxact:volatile>
+            </ipxact:addressBlock>
+        </ipxact:memoryMap>
+
         <!-- Device Registers 0xA007_0000 to 0xA007_7FFF (APE, function 3) -->
         <ipxact:memoryMap>
             <ipxact:name>DEVICE3</ipxact:name>
@@ -92,6 +263,21 @@
                 <ipxact:description>Device Registers, function 3</ipxact:description>
                 <ipxact:typeIdentifier>DEVICE</ipxact:typeIdentifier>>
                 <ipxact:baseAddress>0xA0070000</ipxact:baseAddress>
+                <!-- LINK: addressBlockDefinitionGroup: see 6.9.3, Address blockdefinition group -->
+                <!-- LINK: memoryBlockData: see 6.9.4, memoryBlockData group -->
+                <ipxact:usage>register</ipxact:usage>
+                <ipxact:volatile>false</ipxact:volatile>
+            </ipxact:addressBlock>
+        </ipxact:memoryMap>
+
+        <ipxact:memoryMap>
+            <ipxact:name>FILTERS3</ipxact:name>
+            <ipxact:description>Management Filter Registers, function 3</ipxact:description>
+            <ipxact:addressBlock>
+                <ipxact:name>FILTERS3</ipxact:name>
+                <ipxact:description>Management Filter Registers, function 3</ipxact:description>
+                <ipxact:typeIdentifier>FILTERS</ipxact:typeIdentifier>>
+                <ipxact:baseAddress>0xA0078000</ipxact:baseAddress>
                 <!-- LINK: addressBlockDefinitionGroup: see 6.9.3, Address blockdefinition group -->
                 <!-- LINK: memoryBlockData: see 6.9.4, memoryBlockData group -->
                 <ipxact:usage>register</ipxact:usage>

@@ -60,6 +60,22 @@
 .equ    DEVICE3, 0xa0070000
 .size   DEVICE3, 0x7c08
 
+.global FILTERS
+.equ    FILTERS, 0xa0048000
+.size   FILTERS, 0x188
+
+.global FILTERS1
+.equ    FILTERS1, 0xa0058000
+.size   FILTERS1, 0x188
+
+.global FILTERS2
+.equ    FILTERS2, 0xa0068000
+.size   FILTERS2, 0x188
+
+.global FILTERS3
+.equ    FILTERS3, 0xa0078000
+.size   FILTERS3, 0x188
+
 .global NVIC
 .equ    NVIC, 0xe000e000
 .size   NVIC, 0xf04
@@ -67,6 +83,22 @@
 .global NVM
 .equ    NVM, 0x60240000
 .size   NVM, 0x3c
+
+.global RX_PORT
+.equ    RX_PORT, 0xa0000000
+.size   RX_PORT, 0x0
+
+.global RX_PORT1
+.equ    RX_PORT1, 0xa0004000
+.size   RX_PORT1, 0x0
+
+.global RX_PORT2
+.equ    RX_PORT2, 0xa0008000
+.size   RX_PORT2, 0x0
+
+.global RX_PORT3
+.equ    RX_PORT3, 0xa000c000
+.size   RX_PORT3, 0x0
 
 .global SHM
 .equ    SHM, 0x60220000
@@ -83,5 +115,21 @@
 .global SHM3
 .equ    SHM3, 0x60223000
 .size   SHM3, 0x9b4
+
+.global TX_PORT
+.equ    TX_PORT, 0xa0020000
+.size   TX_PORT, 0x0
+
+.global TX_PORT1
+.equ    TX_PORT1, 0xa0022000
+.size   TX_PORT1, 0x0
+
+.global TX_PORT2
+.equ    TX_PORT2, 0xa0024000
+.size   TX_PORT2, 0x0
+
+.global TX_PORT3
+.equ    TX_PORT3, 0xa0026000
+.size   TX_PORT3, 0x0
 
 
