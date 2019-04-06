@@ -100,11 +100,11 @@ public:
         unsigned int masked = value & mMask;
         if(indent)
         {
-            std::cout << std::setw(30) << mName << ": 0x" << std::hex << (masked >> mBitPosition) << std::endl;
+            std::cout << std::right << std::setw(35) << mName << ": 0x" << std::hex << (masked >> mBitPosition) << std::endl;
         }
         else
         {
-            std::cout << std::endl << mName << ": 0x" << std::hex << (masked >> mBitPosition) << std::endl;
+            std::cout << std::endl << std::left << std::setw(36) << mName <<  " 0x" << std::hex << (masked >> mBitPosition) << std::endl;
         }
     }
 
