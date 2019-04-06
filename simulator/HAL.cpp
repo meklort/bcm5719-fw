@@ -5,6 +5,9 @@
 #include <bcm5719_APE.h>
 #include <bcm5719_SHM.h>
 #include <bcm5719_GEN.h>
+#include <APE_NVIC.h>
+#include <APE_FILTERS.h>
+
 #include <dirent.h>
 #include <endian.h>
 #include <errno.h>
@@ -244,19 +247,25 @@ bool initHAL(const char *pci_path, int wanted_function)
     uint8_t *APEBase = (uint8_t *)bar[2];
 
     init_bcm5719_DEVICE();
-    init_bcm5719_DEVICE_mmap(DEVICEBase);
+    init_bcm5719_DEVICE_sim(DEVICEBase);
 
     init_bcm5719_GEN();
-    init_bcm5719_GEN_mmap(&DEVICEBase[0x8000 + 0xB50]); // 0x8000 for windowed area
+    init_bcm5719_GEN_sim(&DEVICEBase[0x8000 + 0xB50]); // 0x8000 for windowed area
 
     init_bcm5719_NVM();
-    init_bcm5719_NVM_mmap(&DEVICEBase[0x7000]);
+    init_bcm5719_NVM_sim(&DEVICEBase[0x7000]);
 
     init_bcm5719_APE();
-    init_bcm5719_APE_mmap(APEBase);
+    init_bcm5719_APE_sim(APEBase);
 
     init_bcm5719_SHM();
-    init_bcm5719_SHM_mmap(&APEBase[0x4000]);
+    init_bcm5719_SHM_sim(&APEBase[0x4000]);
+
+    init_APE_FILTERS();
+    init_APE_FILTERS_sim(NULL);
+
+    init_APE_NVIC();
+    init_APE_NVIC_sim(NULL);
 
     return true;
 }

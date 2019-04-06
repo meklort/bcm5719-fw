@@ -43,3 +43,7 @@ mv APE_NVIC.h ../include/
 ${IPXACT} -p ${PROJECT} APE_full.xml -t asym APE_sym.s
 mv *.s ../libs/bcm5719/
 mv APE_SHM*.h ../include
+mv APE_FILTERS*.h ../include
+
+${IPXACT} -p ${PROJECT} APE_full.xml -t ape_cpp APE.cpp
+mv *.cpp ../simulator/

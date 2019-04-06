@@ -52,7 +52,7 @@
 #include <stdint.h>
 
 #ifdef CXX_SIMULATOR /* Compiling c++ simulator code - uses register wrappers */
-void init_APE_NVIC_mmap(void* base);
+void init_APE_NVIC_sim(void* base);
 void init_APE_NVIC(void);
 
 #include <CXXRegister.h>
@@ -800,9 +800,9 @@ typedef register_container RegNVICInterruptPriority1_t {
 #define GET_NVIC_CPU_ID_VARIANT(__reg__)  (((__reg__) & 0xf00000) >> 20u)
 #define SET_NVIC_CPU_ID_VARIANT(__val__)  (((__val__) << 20u) & 0xf00000u)
 #define     NVIC_CPU_ID_IMPLEMENTER_SHIFT 24u
-#define     NVIC_CPU_ID_IMPLEMENTER_MASK  0xf000000u
-#define GET_NVIC_CPU_ID_IMPLEMENTER(__reg__)  (((__reg__) & 0xf000000) >> 24u)
-#define SET_NVIC_CPU_ID_IMPLEMENTER(__val__)  (((__val__) << 24u) & 0xf000000u)
+#define     NVIC_CPU_ID_IMPLEMENTER_MASK  0xff000000u
+#define GET_NVIC_CPU_ID_IMPLEMENTER(__reg__)  (((__reg__) & 0xff000000) >> 24u)
+#define SET_NVIC_CPU_ID_IMPLEMENTER(__val__)  (((__val__) << 24u) & 0xff000000u)
 
 /** @brief Register definition for @ref NVIC_t.CpuId. */
 typedef register_container RegNVICCpuId_t {
@@ -820,14 +820,10 @@ typedef register_container RegNVICCpuId_t {
         /** @brief Implementation defined variant number. */
         BITFIELD_MEMBER(APE_NVIC_H_uint32_t, VARIANT, 20, 4)
         /** @brief Implementer code. ARM is 0x41. */
-        BITFIELD_MEMBER(APE_NVIC_H_uint32_t, IMPLEMENTER, 24, 4)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_NVIC_H_uint32_t, reserved_31_28, 28, 4)
+        BITFIELD_MEMBER(APE_NVIC_H_uint32_t, IMPLEMENTER, 24, 8)
 #elif defined(__BIG_ENDIAN__)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_NVIC_H_uint32_t, reserved_31_28, 28, 4)
         /** @brief Implementer code. ARM is 0x41. */
-        BITFIELD_MEMBER(APE_NVIC_H_uint32_t, IMPLEMENTER, 24, 4)
+        BITFIELD_MEMBER(APE_NVIC_H_uint32_t, IMPLEMENTER, 24, 8)
         /** @brief Implementation defined variant number. */
         BITFIELD_MEMBER(APE_NVIC_H_uint32_t, VARIANT, 20, 4)
         /** @brief Priority of Interrupt 6. */

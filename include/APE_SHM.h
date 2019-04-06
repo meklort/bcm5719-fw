@@ -52,7 +52,7 @@
 #include <stdint.h>
 
 #ifdef CXX_SIMULATOR /* Compiling c++ simulator code - uses register wrappers */
-void init_APE_SHM_mmap(void* base);
+void init_APE_SHM_sim(void* base);
 void init_APE_SHM(void);
 
 #include <CXXRegister.h>

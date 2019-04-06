@@ -52,7 +52,7 @@
 #include <stdint.h>
 
 #ifdef CXX_SIMULATOR /* Compiling c++ simulator code - uses register wrappers */
-void init_bcm5719_BOOTCODE_mmap(void* base);
+void init_bcm5719_BOOTCODE_sim(void* base);
 void init_bcm5719_BOOTCODE(void);
 
 #include <CXXRegister.h>

@@ -52,7 +52,7 @@
 #include <stdint.h>
 
 #ifdef CXX_SIMULATOR /* Compiling c++ simulator code - uses register wrappers */
-void init_bcm5719_RXMBUF_mmap(void* base);
+void init_bcm5719_RXMBUF_sim(void* base);
 void init_bcm5719_RXMBUF(void);
 
 #include <CXXRegister.h>

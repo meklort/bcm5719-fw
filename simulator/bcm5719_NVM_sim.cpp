@@ -1,10 +1,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @file       bcm5719_NVM_mmap.cpp
+/// @file       bcm5719_NVM_sim.cpp
 ///
 /// @project    bcm5719
 ///
-/// @brief      bcm5719_NVM_mmap
+/// @brief      bcm5719_NVM_sim
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
@@ -52,8 +52,6 @@
 #define BARRIER()    do { asm volatile ("" ::: "memory"); } while(0)
 #endif
 
-typedef std::pair<uint8_t *, uint32_t> ram_offset_t;
-
 static uint32_t read_from_ram(uint32_t val, uint32_t offset, void *args)
 {
     uint8_t *base = (uint8_t *)args;
@@ -74,7 +72,7 @@ static uint32_t write_to_ram(uint32_t val, uint32_t offset, void *args)
     return val;
 }
 
-void init_bcm5719_NVM_mmap(void *base)
+void init_bcm5719_NVM_sim(void *base)
 {
     NVM.mIndexReadCallback = read_from_ram;
     NVM.mIndexReadCallbackArgs = base;

@@ -327,7 +327,7 @@
                         <ipxact:name>IMPLEMENTER</ipxact:name>
                         <ipxact:description>Implementer code. ARM is 0x41.</ipxact:description>
                         <ipxact:bitOffset>24</ipxact:bitOffset>
-                        <ipxact:bitWidth>4</ipxact:bitWidth>
+                        <ipxact:bitWidth>8</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                 </ipxact:register>
