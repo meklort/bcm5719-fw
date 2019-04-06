@@ -84,16 +84,15 @@ typedef uint32_t BCM5719_TXMBUF_H_uint32_t;
 /** @brief Component definition for @ref TXMBUF. */
 typedef struct {
 #ifdef CXX_SIMULATOR
-    typedef uint32_t (*read_callback_t)(uint32_t, void*);
-    read_callback_t mIndexReadCallback;
+    typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);
+    callback_t mIndexReadCallback;
     void* mIndexReadCallbackArgs;
 
-    typedef void (*write_callback_t)(uint32_t, uint32_t value, void*);
-    write_callback_t mIndexWriteCallback;
+    callback_t mIndexWriteCallback;
     void* mIndexWriteCallbackArgs;
 
-    uint32_t read(int index) { return mIndexReadCallback(index, mIndexReadCallbackArgs); }
-    void write(int index, uint32_t value) { mIndexWriteCallback(index, value, mIndexWriteCallbackArgs); }
+    uint32_t read(int offset) { return mIndexReadCallback(0, offset, mIndexReadCallbackArgs); }
+    void write(int offset, uint32_t value) { (void)mIndexWriteCallback(value, offset, mIndexWriteCallbackArgs); }
 #endif /* CXX_SIMULATOR */
 } TXMBUF_t;
 

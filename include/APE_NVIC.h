@@ -122,8 +122,10 @@ typedef register_container RegNVICInterruptControlType_t {
     {
         /** @brief constructor for @ref NVIC_t.InterruptControlType. */
         r32.setName("InterruptControlType");
+        r32.setComponentOffset(0x4);
         bits.INTLINESNUM.setBaseRegister(&r32);
         bits.INTLINESNUM.setName("INTLINESNUM");
+        bits.INTLINESNUM.setComponentOffset(0x4);
     }
     RegNVICInterruptControlType_t& operator=(const RegNVICInterruptControlType_t& other)
     {
@@ -198,14 +200,19 @@ typedef register_container RegNVICSystickControlAndStatus_t {
     {
         /** @brief constructor for @ref NVIC_t.SystickControlAndStatus. */
         r32.setName("SystickControlAndStatus");
+        r32.setComponentOffset(0x10);
         bits.ENABLE.setBaseRegister(&r32);
         bits.ENABLE.setName("ENABLE");
+        bits.ENABLE.setComponentOffset(0x10);
         bits.TICKINT.setBaseRegister(&r32);
         bits.TICKINT.setName("TICKINT");
+        bits.TICKINT.setComponentOffset(0x10);
         bits.CLKSOURCE.setBaseRegister(&r32);
         bits.CLKSOURCE.setName("CLKSOURCE");
+        bits.CLKSOURCE.setComponentOffset(0x10);
         bits.COUNTFLAG.setBaseRegister(&r32);
         bits.COUNTFLAG.setName("COUNTFLAG");
+        bits.COUNTFLAG.setComponentOffset(0x10);
     }
     RegNVICSystickControlAndStatus_t& operator=(const RegNVICSystickControlAndStatus_t& other)
     {
@@ -252,8 +259,10 @@ typedef register_container RegNVICSystickReloadValue_t {
     {
         /** @brief constructor for @ref NVIC_t.SystickReloadValue. */
         r32.setName("SystickReloadValue");
+        r32.setComponentOffset(0x14);
         bits.RELOAD.setBaseRegister(&r32);
         bits.RELOAD.setName("RELOAD");
+        bits.RELOAD.setComponentOffset(0x14);
     }
     RegNVICSystickReloadValue_t& operator=(const RegNVICSystickReloadValue_t& other)
     {
@@ -300,8 +309,10 @@ typedef register_container RegNVICSystickCurrentValue_t {
     {
         /** @brief constructor for @ref NVIC_t.SystickCurrentValue. */
         r32.setName("SystickCurrentValue");
+        r32.setComponentOffset(0x18);
         bits.CURRENT.setBaseRegister(&r32);
         bits.CURRENT.setName("CURRENT");
+        bits.CURRENT.setComponentOffset(0x18);
     }
     RegNVICSystickCurrentValue_t& operator=(const RegNVICSystickCurrentValue_t& other)
     {
@@ -364,12 +375,16 @@ typedef register_container RegNVICSystickCalibrationValue_t {
     {
         /** @brief constructor for @ref NVIC_t.SystickCalibrationValue. */
         r32.setName("SystickCalibrationValue");
+        r32.setComponentOffset(0x1c);
         bits.TENMS.setBaseRegister(&r32);
         bits.TENMS.setName("TENMS");
+        bits.TENMS.setComponentOffset(0x1c);
         bits.SKEW.setBaseRegister(&r32);
         bits.SKEW.setName("SKEW");
+        bits.SKEW.setComponentOffset(0x1c);
         bits.NOREF.setBaseRegister(&r32);
         bits.NOREF.setName("NOREF");
+        bits.NOREF.setComponentOffset(0x1c);
     }
     RegNVICSystickCalibrationValue_t& operator=(const RegNVICSystickCalibrationValue_t& other)
     {
@@ -412,8 +427,10 @@ typedef register_container RegNVICInterruptSetEnable_t {
     {
         /** @brief constructor for @ref NVIC_t.InterruptSetEnable. */
         r32.setName("InterruptSetEnable");
+        r32.setComponentOffset(0x100);
         bits.SETENA.setBaseRegister(&r32);
         bits.SETENA.setName("SETENA");
+        bits.SETENA.setComponentOffset(0x100);
     }
     RegNVICInterruptSetEnable_t& operator=(const RegNVICInterruptSetEnable_t& other)
     {
@@ -456,8 +473,10 @@ typedef register_container RegNVICInterruptClearEnable_t {
     {
         /** @brief constructor for @ref NVIC_t.InterruptClearEnable. */
         r32.setName("InterruptClearEnable");
+        r32.setComponentOffset(0x180);
         bits.CLRENA.setBaseRegister(&r32);
         bits.CLRENA.setName("CLRENA");
+        bits.CLRENA.setComponentOffset(0x180);
     }
     RegNVICInterruptClearEnable_t& operator=(const RegNVICInterruptClearEnable_t& other)
     {
@@ -500,8 +519,10 @@ typedef register_container RegNVICInterruptSetPending_t {
     {
         /** @brief constructor for @ref NVIC_t.InterruptSetPending. */
         r32.setName("InterruptSetPending");
+        r32.setComponentOffset(0x200);
         bits.SETPEND.setBaseRegister(&r32);
         bits.SETPEND.setName("SETPEND");
+        bits.SETPEND.setComponentOffset(0x200);
     }
     RegNVICInterruptSetPending_t& operator=(const RegNVICInterruptSetPending_t& other)
     {
@@ -544,8 +565,10 @@ typedef register_container RegNVICInterruptClearPending_t {
     {
         /** @brief constructor for @ref NVIC_t.InterruptClearPending. */
         r32.setName("InterruptClearPending");
+        r32.setComponentOffset(0x280);
         bits.CLRPEND.setBaseRegister(&r32);
         bits.CLRPEND.setName("CLRPEND");
+        bits.CLRPEND.setComponentOffset(0x280);
     }
     RegNVICInterruptClearPending_t& operator=(const RegNVICInterruptClearPending_t& other)
     {
@@ -588,8 +611,10 @@ typedef register_container RegNVICActiveBit_t {
     {
         /** @brief constructor for @ref NVIC_t.ActiveBit. */
         r32.setName("ActiveBit");
+        r32.setComponentOffset(0x300);
         bits.ACTIVE.setBaseRegister(&r32);
         bits.ACTIVE.setName("ACTIVE");
+        bits.ACTIVE.setComponentOffset(0x300);
     }
     RegNVICActiveBit_t& operator=(const RegNVICActiveBit_t& other)
     {
@@ -656,14 +681,19 @@ typedef register_container RegNVICInterruptPriority0_t {
     {
         /** @brief constructor for @ref NVIC_t.InterruptPriority0. */
         r32.setName("InterruptPriority0");
+        r32.setComponentOffset(0x400);
         bits.PRI_0.setBaseRegister(&r32);
         bits.PRI_0.setName("PRI_0");
+        bits.PRI_0.setComponentOffset(0x400);
         bits.PRI_1.setBaseRegister(&r32);
         bits.PRI_1.setName("PRI_1");
+        bits.PRI_1.setComponentOffset(0x400);
         bits.PRI_2.setBaseRegister(&r32);
         bits.PRI_2.setName("PRI_2");
+        bits.PRI_2.setComponentOffset(0x400);
         bits.PRI_3.setBaseRegister(&r32);
         bits.PRI_3.setName("PRI_3");
+        bits.PRI_3.setComponentOffset(0x400);
     }
     RegNVICInterruptPriority0_t& operator=(const RegNVICInterruptPriority0_t& other)
     {
@@ -730,14 +760,19 @@ typedef register_container RegNVICInterruptPriority1_t {
     {
         /** @brief constructor for @ref NVIC_t.InterruptPriority1. */
         r32.setName("InterruptPriority1");
+        r32.setComponentOffset(0x404);
         bits.PRI_4.setBaseRegister(&r32);
         bits.PRI_4.setName("PRI_4");
+        bits.PRI_4.setComponentOffset(0x404);
         bits.PRI_5.setBaseRegister(&r32);
         bits.PRI_5.setName("PRI_5");
+        bits.PRI_5.setComponentOffset(0x404);
         bits.PRI_6.setBaseRegister(&r32);
         bits.PRI_6.setName("PRI_6");
+        bits.PRI_6.setComponentOffset(0x404);
         bits.PRI_7.setBaseRegister(&r32);
         bits.PRI_7.setName("PRI_7");
+        bits.PRI_7.setComponentOffset(0x404);
     }
     RegNVICInterruptPriority1_t& operator=(const RegNVICInterruptPriority1_t& other)
     {
@@ -816,16 +851,22 @@ typedef register_container RegNVICCpuId_t {
     {
         /** @brief constructor for @ref NVIC_t.CpuId. */
         r32.setName("CpuId");
+        r32.setComponentOffset(0xd00);
         bits.REVISION.setBaseRegister(&r32);
         bits.REVISION.setName("REVISION");
+        bits.REVISION.setComponentOffset(0xd00);
         bits.PARTNO.setBaseRegister(&r32);
         bits.PARTNO.setName("PARTNO");
+        bits.PARTNO.setComponentOffset(0xd00);
         bits.Constant.setBaseRegister(&r32);
         bits.Constant.setName("Constant");
+        bits.Constant.setComponentOffset(0xd00);
         bits.VARIANT.setBaseRegister(&r32);
         bits.VARIANT.setName("VARIANT");
+        bits.VARIANT.setComponentOffset(0xd00);
         bits.IMPLEMENTER.setBaseRegister(&r32);
         bits.IMPLEMENTER.setName("IMPLEMENTER");
+        bits.IMPLEMENTER.setComponentOffset(0xd00);
     }
     RegNVICCpuId_t& operator=(const RegNVICCpuId_t& other)
     {
@@ -952,26 +993,37 @@ typedef register_container RegNVICInterruptControlState_t {
     {
         /** @brief constructor for @ref NVIC_t.InterruptControlState. */
         r32.setName("InterruptControlState");
+        r32.setComponentOffset(0xd04);
         bits.VECTACTIVE.setBaseRegister(&r32);
         bits.VECTACTIVE.setName("VECTACTIVE");
+        bits.VECTACTIVE.setComponentOffset(0xd04);
         bits.RETTOBASE.setBaseRegister(&r32);
         bits.RETTOBASE.setName("RETTOBASE");
+        bits.RETTOBASE.setComponentOffset(0xd04);
         bits.VECTPENDING.setBaseRegister(&r32);
         bits.VECTPENDING.setName("VECTPENDING");
+        bits.VECTPENDING.setComponentOffset(0xd04);
         bits.ISRPENDING.setBaseRegister(&r32);
         bits.ISRPENDING.setName("ISRPENDING");
+        bits.ISRPENDING.setComponentOffset(0xd04);
         bits.ISRPREEMPT.setBaseRegister(&r32);
         bits.ISRPREEMPT.setName("ISRPREEMPT");
+        bits.ISRPREEMPT.setComponentOffset(0xd04);
         bits.PENDSTCLR.setBaseRegister(&r32);
         bits.PENDSTCLR.setName("PENDSTCLR");
+        bits.PENDSTCLR.setComponentOffset(0xd04);
         bits.PENDSTSET.setBaseRegister(&r32);
         bits.PENDSTSET.setName("PENDSTSET");
+        bits.PENDSTSET.setComponentOffset(0xd04);
         bits.PENDSVCLR.setBaseRegister(&r32);
         bits.PENDSVCLR.setName("PENDSVCLR");
+        bits.PENDSVCLR.setComponentOffset(0xd04);
         bits.PENDSVSET.setBaseRegister(&r32);
         bits.PENDSVSET.setName("PENDSVSET");
+        bits.PENDSVSET.setComponentOffset(0xd04);
         bits.NMIPENDSET.setBaseRegister(&r32);
         bits.NMIPENDSET.setName("NMIPENDSET");
+        bits.NMIPENDSET.setComponentOffset(0xd04);
     }
     RegNVICInterruptControlState_t& operator=(const RegNVICInterruptControlState_t& other)
     {
@@ -1030,10 +1082,13 @@ typedef register_container RegNVICVectorTableOffset_t {
     {
         /** @brief constructor for @ref NVIC_t.VectorTableOffset. */
         r32.setName("VectorTableOffset");
+        r32.setComponentOffset(0xd08);
         bits.TBLOFF.setBaseRegister(&r32);
         bits.TBLOFF.setName("TBLOFF");
+        bits.TBLOFF.setComponentOffset(0xd08);
         bits.TBLBASE.setBaseRegister(&r32);
         bits.TBLBASE.setName("TBLBASE");
+        bits.TBLBASE.setComponentOffset(0xd08);
     }
     RegNVICVectorTableOffset_t& operator=(const RegNVICVectorTableOffset_t& other)
     {
@@ -1124,18 +1179,25 @@ typedef register_container RegNVICApplicationInterruptAndResetControl_t {
     {
         /** @brief constructor for @ref NVIC_t.ApplicationInterruptAndResetControl. */
         r32.setName("ApplicationInterruptAndResetControl");
+        r32.setComponentOffset(0xd0c);
         bits.VECTRESET.setBaseRegister(&r32);
         bits.VECTRESET.setName("VECTRESET");
+        bits.VECTRESET.setComponentOffset(0xd0c);
         bits.VECTCLRACTIVE.setBaseRegister(&r32);
         bits.VECTCLRACTIVE.setName("VECTCLRACTIVE");
+        bits.VECTCLRACTIVE.setComponentOffset(0xd0c);
         bits.SYSRESETREQ.setBaseRegister(&r32);
         bits.SYSRESETREQ.setName("SYSRESETREQ");
+        bits.SYSRESETREQ.setComponentOffset(0xd0c);
         bits.PRIGROUP.setBaseRegister(&r32);
         bits.PRIGROUP.setName("PRIGROUP");
+        bits.PRIGROUP.setComponentOffset(0xd0c);
         bits.ENDIANESS.setBaseRegister(&r32);
         bits.ENDIANESS.setName("ENDIANESS");
+        bits.ENDIANESS.setComponentOffset(0xd0c);
         bits.VECTKEY.setBaseRegister(&r32);
         bits.VECTKEY.setName("VECTKEY");
+        bits.VECTKEY.setComponentOffset(0xd0c);
     }
     RegNVICApplicationInterruptAndResetControl_t& operator=(const RegNVICApplicationInterruptAndResetControl_t& other)
     {
@@ -1206,12 +1268,16 @@ typedef register_container RegNVICSystemControl_t {
     {
         /** @brief constructor for @ref NVIC_t.SystemControl. */
         r32.setName("SystemControl");
+        r32.setComponentOffset(0xd10);
         bits.SLEEPONEXIT.setBaseRegister(&r32);
         bits.SLEEPONEXIT.setName("SLEEPONEXIT");
+        bits.SLEEPONEXIT.setComponentOffset(0xd10);
         bits.SLEEPDEEP.setBaseRegister(&r32);
         bits.SLEEPDEEP.setName("SLEEPDEEP");
+        bits.SLEEPDEEP.setComponentOffset(0xd10);
         bits.SEVONPEND.setBaseRegister(&r32);
         bits.SEVONPEND.setName("SEVONPEND");
+        bits.SEVONPEND.setComponentOffset(0xd10);
     }
     RegNVICSystemControl_t& operator=(const RegNVICSystemControl_t& other)
     {
@@ -1306,18 +1372,25 @@ typedef register_container RegNVICConfigurationControl_t {
     {
         /** @brief constructor for @ref NVIC_t.ConfigurationControl. */
         r32.setName("ConfigurationControl");
+        r32.setComponentOffset(0xd14);
         bits.NONEBASETHRDENA.setBaseRegister(&r32);
         bits.NONEBASETHRDENA.setName("NONEBASETHRDENA");
+        bits.NONEBASETHRDENA.setComponentOffset(0xd14);
         bits.USERSETMPEND.setBaseRegister(&r32);
         bits.USERSETMPEND.setName("USERSETMPEND");
+        bits.USERSETMPEND.setComponentOffset(0xd14);
         bits.UNALIGN_TRP.setBaseRegister(&r32);
         bits.UNALIGN_TRP.setName("UNALIGN_TRP");
+        bits.UNALIGN_TRP.setComponentOffset(0xd14);
         bits.DIV_0_TRP.setBaseRegister(&r32);
         bits.DIV_0_TRP.setName("DIV_0_TRP");
+        bits.DIV_0_TRP.setComponentOffset(0xd14);
         bits.BFHFNMIGN.setBaseRegister(&r32);
         bits.BFHFNMIGN.setName("BFHFNMIGN");
+        bits.BFHFNMIGN.setComponentOffset(0xd14);
         bits.STKALIGN.setBaseRegister(&r32);
         bits.STKALIGN.setName("STKALIGN");
+        bits.STKALIGN.setComponentOffset(0xd14);
     }
     RegNVICConfigurationControl_t& operator=(const RegNVICConfigurationControl_t& other)
     {
@@ -1384,14 +1457,19 @@ typedef register_container RegNVICSystemHandlerPriority4_t {
     {
         /** @brief constructor for @ref NVIC_t.SystemHandlerPriority4. */
         r32.setName("SystemHandlerPriority4");
+        r32.setComponentOffset(0xd18);
         bits.PRI_4.setBaseRegister(&r32);
         bits.PRI_4.setName("PRI_4");
+        bits.PRI_4.setComponentOffset(0xd18);
         bits.PRI_5.setBaseRegister(&r32);
         bits.PRI_5.setName("PRI_5");
+        bits.PRI_5.setComponentOffset(0xd18);
         bits.PRI_6.setBaseRegister(&r32);
         bits.PRI_6.setName("PRI_6");
+        bits.PRI_6.setComponentOffset(0xd18);
         bits.PRI_7.setBaseRegister(&r32);
         bits.PRI_7.setName("PRI_7");
+        bits.PRI_7.setComponentOffset(0xd18);
     }
     RegNVICSystemHandlerPriority4_t& operator=(const RegNVICSystemHandlerPriority4_t& other)
     {
@@ -1458,14 +1536,19 @@ typedef register_container RegNVICSystemHandlerPriority8_t {
     {
         /** @brief constructor for @ref NVIC_t.SystemHandlerPriority8. */
         r32.setName("SystemHandlerPriority8");
+        r32.setComponentOffset(0xd1c);
         bits.PRI_8.setBaseRegister(&r32);
         bits.PRI_8.setName("PRI_8");
+        bits.PRI_8.setComponentOffset(0xd1c);
         bits.PRI_9.setBaseRegister(&r32);
         bits.PRI_9.setName("PRI_9");
+        bits.PRI_9.setComponentOffset(0xd1c);
         bits.PRI_10.setBaseRegister(&r32);
         bits.PRI_10.setName("PRI_10");
+        bits.PRI_10.setComponentOffset(0xd1c);
         bits.PRI_11.setBaseRegister(&r32);
         bits.PRI_11.setName("PRI_11");
+        bits.PRI_11.setComponentOffset(0xd1c);
     }
     RegNVICSystemHandlerPriority8_t& operator=(const RegNVICSystemHandlerPriority8_t& other)
     {
@@ -1532,14 +1615,19 @@ typedef register_container RegNVICSystemHandlerPriority12_t {
     {
         /** @brief constructor for @ref NVIC_t.SystemHandlerPriority12. */
         r32.setName("SystemHandlerPriority12");
+        r32.setComponentOffset(0xd20);
         bits.PRI_12.setBaseRegister(&r32);
         bits.PRI_12.setName("PRI_12");
+        bits.PRI_12.setComponentOffset(0xd20);
         bits.PRI_13.setBaseRegister(&r32);
         bits.PRI_13.setName("PRI_13");
+        bits.PRI_13.setComponentOffset(0xd20);
         bits.PRI_14.setBaseRegister(&r32);
         bits.PRI_14.setName("PRI_14");
+        bits.PRI_14.setComponentOffset(0xd20);
         bits.PRI_15.setBaseRegister(&r32);
         bits.PRI_15.setName("PRI_15");
+        bits.PRI_15.setComponentOffset(0xd20);
     }
     RegNVICSystemHandlerPriority12_t& operator=(const RegNVICSystemHandlerPriority12_t& other)
     {
@@ -1702,34 +1790,49 @@ typedef register_container RegNVICSystemHandlerControlAndState_t {
     {
         /** @brief constructor for @ref NVIC_t.SystemHandlerControlAndState. */
         r32.setName("SystemHandlerControlAndState");
+        r32.setComponentOffset(0xd24);
         bits.MEMFAULTACT.setBaseRegister(&r32);
         bits.MEMFAULTACT.setName("MEMFAULTACT");
+        bits.MEMFAULTACT.setComponentOffset(0xd24);
         bits.BUSFAULTACT.setBaseRegister(&r32);
         bits.BUSFAULTACT.setName("BUSFAULTACT");
+        bits.BUSFAULTACT.setComponentOffset(0xd24);
         bits.USGFAULTACT.setBaseRegister(&r32);
         bits.USGFAULTACT.setName("USGFAULTACT");
+        bits.USGFAULTACT.setComponentOffset(0xd24);
         bits.SVCALLACT.setBaseRegister(&r32);
         bits.SVCALLACT.setName("SVCALLACT");
+        bits.SVCALLACT.setComponentOffset(0xd24);
         bits.MONITORACT.setBaseRegister(&r32);
         bits.MONITORACT.setName("MONITORACT");
+        bits.MONITORACT.setComponentOffset(0xd24);
         bits.PENDSVACT.setBaseRegister(&r32);
         bits.PENDSVACT.setName("PENDSVACT");
+        bits.PENDSVACT.setComponentOffset(0xd24);
         bits.SYSTICKACT.setBaseRegister(&r32);
         bits.SYSTICKACT.setName("SYSTICKACT");
+        bits.SYSTICKACT.setComponentOffset(0xd24);
         bits.USGFAULTPENDED.setBaseRegister(&r32);
         bits.USGFAULTPENDED.setName("USGFAULTPENDED");
+        bits.USGFAULTPENDED.setComponentOffset(0xd24);
         bits.MEMFAULTPENDED.setBaseRegister(&r32);
         bits.MEMFAULTPENDED.setName("MEMFAULTPENDED");
+        bits.MEMFAULTPENDED.setComponentOffset(0xd24);
         bits.BUSFAULTPENDED.setBaseRegister(&r32);
         bits.BUSFAULTPENDED.setName("BUSFAULTPENDED");
+        bits.BUSFAULTPENDED.setComponentOffset(0xd24);
         bits.SVCALLPENDED.setBaseRegister(&r32);
         bits.SVCALLPENDED.setName("SVCALLPENDED");
+        bits.SVCALLPENDED.setComponentOffset(0xd24);
         bits.MEMFAULTENA.setBaseRegister(&r32);
         bits.MEMFAULTENA.setName("MEMFAULTENA");
+        bits.MEMFAULTENA.setComponentOffset(0xd24);
         bits.BUSFAULTENA.setBaseRegister(&r32);
         bits.BUSFAULTENA.setName("BUSFAULTENA");
+        bits.BUSFAULTENA.setComponentOffset(0xd24);
         bits.USGFAULTENA.setBaseRegister(&r32);
         bits.USGFAULTENA.setName("USGFAULTENA");
+        bits.USGFAULTENA.setComponentOffset(0xd24);
     }
     RegNVICSystemHandlerControlAndState_t& operator=(const RegNVICSystemHandlerControlAndState_t& other)
     {
@@ -1796,14 +1899,19 @@ typedef register_container RegNVICFaultStatus_t {
     {
         /** @brief constructor for @ref NVIC_t.FaultStatus. */
         r32.setName("FaultStatus");
+        r32.setComponentOffset(0xd28);
         bits.MemoryManageFaultStatus.setBaseRegister(&r32);
         bits.MemoryManageFaultStatus.setName("MemoryManageFaultStatus");
+        bits.MemoryManageFaultStatus.setComponentOffset(0xd28);
         bits.BusFaultStatus.setBaseRegister(&r32);
         bits.BusFaultStatus.setName("BusFaultStatus");
+        bits.BusFaultStatus.setComponentOffset(0xd28);
         bits.UsageFaultStatus.setBaseRegister(&r32);
         bits.UsageFaultStatus.setName("UsageFaultStatus");
+        bits.UsageFaultStatus.setComponentOffset(0xd28);
         bits.Reserved.setBaseRegister(&r32);
         bits.Reserved.setName("Reserved");
+        bits.Reserved.setComponentOffset(0xd28);
     }
     RegNVICFaultStatus_t& operator=(const RegNVICFaultStatus_t& other)
     {
@@ -1870,12 +1978,16 @@ typedef register_container RegNVICHardFaultStatus_t {
     {
         /** @brief constructor for @ref NVIC_t.HardFaultStatus. */
         r32.setName("HardFaultStatus");
+        r32.setComponentOffset(0xd2c);
         bits.VECTTBL.setBaseRegister(&r32);
         bits.VECTTBL.setName("VECTTBL");
+        bits.VECTTBL.setComponentOffset(0xd2c);
         bits.FORCED.setBaseRegister(&r32);
         bits.FORCED.setName("FORCED");
+        bits.FORCED.setComponentOffset(0xd2c);
         bits.DEBUGEVT.setBaseRegister(&r32);
         bits.DEBUGEVT.setName("DEBUGEVT");
+        bits.DEBUGEVT.setComponentOffset(0xd2c);
     }
     RegNVICHardFaultStatus_t& operator=(const RegNVICHardFaultStatus_t& other)
     {
@@ -1954,16 +2066,22 @@ typedef register_container RegNVICDebugFaultStatus_t {
     {
         /** @brief constructor for @ref NVIC_t.DebugFaultStatus. */
         r32.setName("DebugFaultStatus");
+        r32.setComponentOffset(0xd30);
         bits.HALTED.setBaseRegister(&r32);
         bits.HALTED.setName("HALTED");
+        bits.HALTED.setComponentOffset(0xd30);
         bits.BKPT.setBaseRegister(&r32);
         bits.BKPT.setName("BKPT");
+        bits.BKPT.setComponentOffset(0xd30);
         bits.DWTTRAP.setBaseRegister(&r32);
         bits.DWTTRAP.setName("DWTTRAP");
+        bits.DWTTRAP.setComponentOffset(0xd30);
         bits.VCATCH.setBaseRegister(&r32);
         bits.VCATCH.setName("VCATCH");
+        bits.VCATCH.setComponentOffset(0xd30);
         bits.EXTERNAL.setBaseRegister(&r32);
         bits.EXTERNAL.setName("EXTERNAL");
+        bits.EXTERNAL.setComponentOffset(0xd30);
     }
     RegNVICDebugFaultStatus_t& operator=(const RegNVICDebugFaultStatus_t& other)
     {
@@ -2006,8 +2124,10 @@ typedef register_container RegNVICMemoryManageFaultAddress_t {
     {
         /** @brief constructor for @ref NVIC_t.MemoryManageFaultAddress. */
         r32.setName("MemoryManageFaultAddress");
+        r32.setComponentOffset(0xd34);
         bits.ADDRESS.setBaseRegister(&r32);
         bits.ADDRESS.setName("ADDRESS");
+        bits.ADDRESS.setComponentOffset(0xd34);
     }
     RegNVICMemoryManageFaultAddress_t& operator=(const RegNVICMemoryManageFaultAddress_t& other)
     {
@@ -2050,8 +2170,10 @@ typedef register_container RegNVICBusFaultAddress_t {
     {
         /** @brief constructor for @ref NVIC_t.BusFaultAddress. */
         r32.setName("BusFaultAddress");
+        r32.setComponentOffset(0xd38);
         bits.ADDRESS.setBaseRegister(&r32);
         bits.ADDRESS.setName("ADDRESS");
+        bits.ADDRESS.setComponentOffset(0xd38);
     }
     RegNVICBusFaultAddress_t& operator=(const RegNVICBusFaultAddress_t& other)
     {
@@ -2094,8 +2216,10 @@ typedef register_container RegNVICAuxiliaryFaultAddress_t {
     {
         /** @brief constructor for @ref NVIC_t.AuxiliaryFaultAddress. */
         r32.setName("AuxiliaryFaultAddress");
+        r32.setComponentOffset(0xd3c);
         bits.IMPDEF.setBaseRegister(&r32);
         bits.IMPDEF.setName("IMPDEF");
+        bits.IMPDEF.setComponentOffset(0xd3c);
     }
     RegNVICAuxiliaryFaultAddress_t& operator=(const RegNVICAuxiliaryFaultAddress_t& other)
     {
@@ -2142,8 +2266,10 @@ typedef register_container RegNVICSoftwareTriggerInterrupt_t {
     {
         /** @brief constructor for @ref NVIC_t.SoftwareTriggerInterrupt. */
         r32.setName("SoftwareTriggerInterrupt");
+        r32.setComponentOffset(0xf00);
         bits.INTID.setBaseRegister(&r32);
         bits.INTID.setName("INTID");
+        bits.INTID.setComponentOffset(0xf00);
     }
     RegNVICSoftwareTriggerInterrupt_t& operator=(const RegNVICSoftwareTriggerInterrupt_t& other)
     {
@@ -2330,16 +2456,15 @@ typedef struct {
     RegNVICSoftwareTriggerInterrupt_t SoftwareTriggerInterrupt;
 
 #ifdef CXX_SIMULATOR
-    typedef uint32_t (*read_callback_t)(uint32_t, void*);
-    read_callback_t mIndexReadCallback;
+    typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);
+    callback_t mIndexReadCallback;
     void* mIndexReadCallbackArgs;
 
-    typedef void (*write_callback_t)(uint32_t, uint32_t value, void*);
-    write_callback_t mIndexWriteCallback;
+    callback_t mIndexWriteCallback;
     void* mIndexWriteCallbackArgs;
 
-    uint32_t read(int index) { return mIndexReadCallback(index, mIndexReadCallbackArgs); }
-    void write(int index, uint32_t value) { mIndexWriteCallback(index, value, mIndexWriteCallbackArgs); }
+    uint32_t read(int offset) { return mIndexReadCallback(0, offset, mIndexReadCallbackArgs); }
+    void write(int offset, uint32_t value) { (void)mIndexWriteCallback(value, offset, mIndexWriteCallbackArgs); }
 #endif /* CXX_SIMULATOR */
 } NVIC_t;
 

@@ -182,22 +182,31 @@ typedef register_container RegAPEMode_t {
     {
         /** @brief constructor for @ref APE_t.Mode. */
         r32.setName("Mode");
+        r32.setComponentOffset(0x0);
         bits.Reset.setBaseRegister(&r32);
         bits.Reset.setName("Reset");
+        bits.Reset.setComponentOffset(0x0);
         bits.Halt.setBaseRegister(&r32);
         bits.Halt.setName("Halt");
+        bits.Halt.setComponentOffset(0x0);
         bits.FastBoot.setBaseRegister(&r32);
         bits.FastBoot.setName("FastBoot");
+        bits.FastBoot.setComponentOffset(0x0);
         bits.HostDiag.setBaseRegister(&r32);
         bits.HostDiag.setName("HostDiag");
+        bits.HostDiag.setComponentOffset(0x0);
         bits.Event1.setBaseRegister(&r32);
         bits.Event1.setName("Event1");
+        bits.Event1.setComponentOffset(0x0);
         bits.Event2.setBaseRegister(&r32);
         bits.Event2.setName("Event2");
+        bits.Event2.setComponentOffset(0x0);
         bits.GRCint.setBaseRegister(&r32);
         bits.GRCint.setName("GRCint");
+        bits.GRCint.setComponentOffset(0x0);
         bits.MemoryECC.setBaseRegister(&r32);
         bits.MemoryECC.setName("MemoryECC");
+        bits.MemoryECC.setComponentOffset(0x0);
     }
     RegAPEMode_t& operator=(const RegAPEMode_t& other)
     {
@@ -330,20 +339,28 @@ typedef register_container RegAPEStatus_t {
     {
         /** @brief constructor for @ref APE_t.Status. */
         r32.setName("Status");
+        r32.setComponentOffset(0x4);
         bits.PCIeReset.setBaseRegister(&r32);
         bits.PCIeReset.setName("PCIeReset");
+        bits.PCIeReset.setComponentOffset(0x4);
         bits.NVRAMControlReset.setBaseRegister(&r32);
         bits.NVRAMControlReset.setName("NVRAMControlReset");
+        bits.NVRAMControlReset.setComponentOffset(0x4);
         bits.LAN0Dstate.setBaseRegister(&r32);
         bits.LAN0Dstate.setName("LAN0Dstate");
+        bits.LAN0Dstate.setComponentOffset(0x4);
         bits.BootMode.setBaseRegister(&r32);
         bits.BootMode.setName("BootMode");
+        bits.BootMode.setComponentOffset(0x4);
         bits.LAN1Dstate.setBaseRegister(&r32);
         bits.LAN1Dstate.setName("LAN1Dstate");
+        bits.LAN1Dstate.setComponentOffset(0x4);
         bits.BootStatusB.setBaseRegister(&r32);
         bits.BootStatusB.setName("BootStatusB");
+        bits.BootStatusB.setComponentOffset(0x4);
         bits.BootStatusA.setBaseRegister(&r32);
         bits.BootStatusA.setName("BootStatusA");
+        bits.BootStatusA.setComponentOffset(0x4);
     }
     RegAPEStatus_t& operator=(const RegAPEStatus_t& other)
     {
@@ -358,6 +375,25 @@ typedef register_container RegAPEStatus_t {
 typedef register_container RegAPEGpioMessage_t {
     /** @brief 32bit direct register access. */
     BCM5719_APE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "GpioMessage"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegAPEGpioMessage_t()
+    {
+        /** @brief constructor for @ref APE_t.GpioMessage. */
+        r32.setName("GpioMessage");
+        r32.setComponentOffset(0x8);
+    }
+    RegAPEGpioMessage_t& operator=(const RegAPEGpioMessage_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegAPEGpioMessage_t;
 
 #define REG_APE_EVENT ((volatile BCM5719_APE_H_uint32_t*)0xc001000c) /*  */
@@ -397,8 +433,10 @@ typedef register_container RegAPEEvent_t {
     {
         /** @brief constructor for @ref APE_t.Event. */
         r32.setName("Event");
+        r32.setComponentOffset(0xc);
         bits._1.setBaseRegister(&r32);
         bits._1.setName("_1");
+        bits._1.setComponentOffset(0xc);
     }
     RegAPEEvent_t& operator=(const RegAPEEvent_t& other)
     {
@@ -473,14 +511,19 @@ typedef register_container RegAPERxbufoffsetFunc0_t {
     {
         /** @brief constructor for @ref APE_t.RxbufoffsetFunc0. */
         r32.setName("RxbufoffsetFunc0");
+        r32.setComponentOffset(0x14);
         bits.Tail.setBaseRegister(&r32);
         bits.Tail.setName("Tail");
+        bits.Tail.setComponentOffset(0x14);
         bits.Head.setBaseRegister(&r32);
         bits.Head.setName("Head");
+        bits.Head.setComponentOffset(0x14);
         bits.Count.setBaseRegister(&r32);
         bits.Count.setName("Count");
+        bits.Count.setComponentOffset(0x14);
         bits.Valid.setBaseRegister(&r32);
         bits.Valid.setName("Valid");
+        bits.Valid.setComponentOffset(0x14);
     }
     RegAPERxbufoffsetFunc0_t& operator=(const RegAPERxbufoffsetFunc0_t& other)
     {
@@ -555,14 +598,19 @@ typedef register_container RegAPERxbufoffsetFunc1_t {
     {
         /** @brief constructor for @ref APE_t.RxbufoffsetFunc1. */
         r32.setName("RxbufoffsetFunc1");
+        r32.setComponentOffset(0x18);
         bits.Tail.setBaseRegister(&r32);
         bits.Tail.setName("Tail");
+        bits.Tail.setComponentOffset(0x18);
         bits.Head.setBaseRegister(&r32);
         bits.Head.setName("Head");
+        bits.Head.setComponentOffset(0x18);
         bits.Count.setBaseRegister(&r32);
         bits.Count.setName("Count");
+        bits.Count.setComponentOffset(0x18);
         bits.Valid.setBaseRegister(&r32);
         bits.Valid.setName("Valid");
+        bits.Valid.setComponentOffset(0x18);
     }
     RegAPERxbufoffsetFunc1_t& operator=(const RegAPERxbufoffsetFunc1_t& other)
     {
@@ -577,6 +625,25 @@ typedef register_container RegAPERxbufoffsetFunc1_t {
 typedef register_container RegAPEMode2_t {
     /** @brief 32bit direct register access. */
     BCM5719_APE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "Mode2"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegAPEMode2_t()
+    {
+        /** @brief constructor for @ref APE_t.Mode2. */
+        r32.setName("Mode2");
+        r32.setComponentOffset(0x2c);
+    }
+    RegAPEMode2_t& operator=(const RegAPEMode2_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegAPEMode2_t;
 
 #define REG_APE_STATUS_2 ((volatile BCM5719_APE_H_uint32_t*)0xc0010030) /*  */
@@ -584,6 +651,25 @@ typedef register_container RegAPEMode2_t {
 typedef register_container RegAPEStatus2_t {
     /** @brief 32bit direct register access. */
     BCM5719_APE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "Status2"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegAPEStatus2_t()
+    {
+        /** @brief constructor for @ref APE_t.Status2. */
+        r32.setName("Status2");
+        r32.setComponentOffset(0x30);
+    }
+    RegAPEStatus2_t& operator=(const RegAPEStatus2_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegAPEStatus2_t;
 
 #define REG_APE_LOCK_GRANT__OBSOLETE_ ((volatile BCM5719_APE_H_uint32_t*)0xc001004c) /* See  */
@@ -591,6 +677,25 @@ typedef register_container RegAPEStatus2_t {
 typedef register_container RegAPELockGrantObsolete_t {
     /** @brief 32bit direct register access. */
     BCM5719_APE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "LockGrantObsolete"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegAPELockGrantObsolete_t()
+    {
+        /** @brief constructor for @ref APE_t.LockGrantObsolete. */
+        r32.setName("LockGrantObsolete");
+        r32.setComponentOffset(0x4c);
+    }
+    RegAPELockGrantObsolete_t& operator=(const RegAPELockGrantObsolete_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegAPELockGrantObsolete_t;
 
 #define REG_APE_B0 ((volatile BCM5719_APE_H_uint32_t*)0xc00100b0) /* Unknown. */
@@ -598,6 +703,25 @@ typedef register_container RegAPELockGrantObsolete_t {
 typedef register_container RegAPEB0_t {
     /** @brief 32bit direct register access. */
     BCM5719_APE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "B0"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegAPEB0_t()
+    {
+        /** @brief constructor for @ref APE_t.B0. */
+        r32.setName("B0");
+        r32.setComponentOffset(0xb0);
+    }
+    RegAPEB0_t& operator=(const RegAPEB0_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegAPEB0_t;
 
 #define REG_APE_GPIO ((volatile BCM5719_APE_H_uint32_t*)0xc00100b8) /*  */
@@ -733,30 +857,43 @@ typedef register_container RegAPEGpio_t {
     {
         /** @brief constructor for @ref APE_t.Gpio. */
         r32.setName("Gpio");
+        r32.setComponentOffset(0xb8);
         bits.PIN0Unknown.setBaseRegister(&r32);
         bits.PIN0Unknown.setName("PIN0Unknown");
+        bits.PIN0Unknown.setComponentOffset(0xb8);
         bits.PIN1Unknown.setBaseRegister(&r32);
         bits.PIN1Unknown.setName("PIN1Unknown");
+        bits.PIN1Unknown.setComponentOffset(0xb8);
         bits.PIN2Unknown.setBaseRegister(&r32);
         bits.PIN2Unknown.setName("PIN2Unknown");
+        bits.PIN2Unknown.setComponentOffset(0xb8);
         bits.PIN3Unknown.setBaseRegister(&r32);
         bits.PIN3Unknown.setName("PIN3Unknown");
+        bits.PIN3Unknown.setComponentOffset(0xb8);
         bits.PIN0UnknownOut.setBaseRegister(&r32);
         bits.PIN0UnknownOut.setName("PIN0UnknownOut");
+        bits.PIN0UnknownOut.setComponentOffset(0xb8);
         bits.PIN1UnknownOut.setBaseRegister(&r32);
         bits.PIN1UnknownOut.setName("PIN1UnknownOut");
+        bits.PIN1UnknownOut.setComponentOffset(0xb8);
         bits.PIN2UnknownOut.setBaseRegister(&r32);
         bits.PIN2UnknownOut.setName("PIN2UnknownOut");
+        bits.PIN2UnknownOut.setComponentOffset(0xb8);
         bits.PIN3UnknownOut.setBaseRegister(&r32);
         bits.PIN3UnknownOut.setName("PIN3UnknownOut");
+        bits.PIN3UnknownOut.setComponentOffset(0xb8);
         bits.PIN0ModeOutput.setBaseRegister(&r32);
         bits.PIN0ModeOutput.setName("PIN0ModeOutput");
+        bits.PIN0ModeOutput.setComponentOffset(0xb8);
         bits.PIN1ModeOutput.setBaseRegister(&r32);
         bits.PIN1ModeOutput.setName("PIN1ModeOutput");
+        bits.PIN1ModeOutput.setComponentOffset(0xb8);
         bits.PIN2ModeOutput.setBaseRegister(&r32);
         bits.PIN2ModeOutput.setName("PIN2ModeOutput");
+        bits.PIN2ModeOutput.setComponentOffset(0xb8);
         bits.PIN3ModeOutput.setBaseRegister(&r32);
         bits.PIN3ModeOutput.setName("PIN3ModeOutput");
+        bits.PIN3ModeOutput.setComponentOffset(0xb8);
     }
     RegAPEGpio_t& operator=(const RegAPEGpio_t& other)
     {
@@ -771,6 +908,25 @@ typedef register_container RegAPEGpio_t {
 typedef register_container RegAPEGint_t {
     /** @brief 32bit direct register access. */
     BCM5719_APE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "Gint"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegAPEGint_t()
+    {
+        /** @brief constructor for @ref APE_t.Gint. */
+        r32.setName("Gint");
+        r32.setComponentOffset(0xbc);
+    }
+    RegAPEGint_t& operator=(const RegAPEGint_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegAPEGint_t;
 
 #define REG_APE_OTP_CONTROL ((volatile BCM5719_APE_H_uint32_t*)0xc00100e8) /*  */
@@ -822,10 +978,13 @@ typedef register_container RegAPEOtpControl_t {
     {
         /** @brief constructor for @ref APE_t.OtpControl. */
         r32.setName("OtpControl");
+        r32.setComponentOffset(0xe8);
         bits.Start.setBaseRegister(&r32);
         bits.Start.setName("Start");
+        bits.Start.setComponentOffset(0xe8);
         bits.ProgEnable.setBaseRegister(&r32);
         bits.ProgEnable.setName("ProgEnable");
+        bits.ProgEnable.setComponentOffset(0xe8);
     }
     RegAPEOtpControl_t& operator=(const RegAPEOtpControl_t& other)
     {
@@ -872,8 +1031,10 @@ typedef register_container RegAPEOtpStatus_t {
     {
         /** @brief constructor for @ref APE_t.OtpStatus. */
         r32.setName("OtpStatus");
+        r32.setComponentOffset(0xec);
         bits.CommandDone.setBaseRegister(&r32);
         bits.CommandDone.setName("CommandDone");
+        bits.CommandDone.setComponentOffset(0xec);
     }
     RegAPEOtpStatus_t& operator=(const RegAPEOtpStatus_t& other)
     {
@@ -924,10 +1085,13 @@ typedef register_container RegAPEOtpAddr_t {
     {
         /** @brief constructor for @ref APE_t.OtpAddr. */
         r32.setName("OtpAddr");
+        r32.setComponentOffset(0xf0);
         bits.Address.setBaseRegister(&r32);
         bits.Address.setName("Address");
+        bits.Address.setComponentOffset(0xf0);
         bits.CPUEnable.setBaseRegister(&r32);
         bits.CPUEnable.setName("CPUEnable");
+        bits.CPUEnable.setComponentOffset(0xf0);
     }
     RegAPEOtpAddr_t& operator=(const RegAPEOtpAddr_t& other)
     {
@@ -942,6 +1106,25 @@ typedef register_container RegAPEOtpAddr_t {
 typedef register_container RegAPEOtpReadData_t {
     /** @brief 32bit direct register access. */
     BCM5719_APE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "OtpReadData"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegAPEOtpReadData_t()
+    {
+        /** @brief constructor for @ref APE_t.OtpReadData. */
+        r32.setName("OtpReadData");
+        r32.setComponentOffset(0xf8);
+    }
+    RegAPEOtpReadData_t& operator=(const RegAPEOtpReadData_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegAPEOtpReadData_t;
 
 #define REG_APE_CM3 ((volatile BCM5719_APE_H_uint32_t*)0xc0010108) /* Seems CPU control related. */
@@ -991,8 +1174,10 @@ typedef register_container RegAPECm3_t {
     {
         /** @brief constructor for @ref APE_t.Cm3. */
         r32.setName("Cm3");
+        r32.setComponentOffset(0x108);
         bits.CPUStatus.setBaseRegister(&r32);
         bits.CPUStatus.setName("CPUStatus");
+        bits.CPUStatus.setComponentOffset(0x108);
     }
     RegAPECm3_t& operator=(const RegAPECm3_t& other)
     {
@@ -1083,18 +1268,25 @@ typedef register_container RegAPEPerLockRequestPhy0_t {
     {
         /** @brief constructor for @ref APE_t.PerLockRequestPhy0. */
         r32.setName("PerLockRequestPhy0");
+        r32.setComponentOffset(0x8400);
         bits.APE.setBaseRegister(&r32);
         bits.APE.setName("APE");
+        bits.APE.setComponentOffset(0x8400);
         bits.Function1.setBaseRegister(&r32);
         bits.Function1.setName("Function1");
+        bits.Function1.setComponentOffset(0x8400);
         bits.Function2.setBaseRegister(&r32);
         bits.Function2.setName("Function2");
+        bits.Function2.setComponentOffset(0x8400);
         bits.Function3.setBaseRegister(&r32);
         bits.Function3.setName("Function3");
+        bits.Function3.setComponentOffset(0x8400);
         bits.Bootcode.setBaseRegister(&r32);
         bits.Bootcode.setName("Bootcode");
+        bits.Bootcode.setComponentOffset(0x8400);
         bits.Driver.setBaseRegister(&r32);
         bits.Driver.setName("Driver");
+        bits.Driver.setComponentOffset(0x8400);
     }
     RegAPEPerLockRequestPhy0_t& operator=(const RegAPEPerLockRequestPhy0_t& other)
     {
@@ -1185,18 +1377,25 @@ typedef register_container RegAPEPerLockRequestGrc_t {
     {
         /** @brief constructor for @ref APE_t.PerLockRequestGrc. */
         r32.setName("PerLockRequestGrc");
+        r32.setComponentOffset(0x8404);
         bits.APE.setBaseRegister(&r32);
         bits.APE.setName("APE");
+        bits.APE.setComponentOffset(0x8404);
         bits.Function1.setBaseRegister(&r32);
         bits.Function1.setName("Function1");
+        bits.Function1.setComponentOffset(0x8404);
         bits.Function2.setBaseRegister(&r32);
         bits.Function2.setName("Function2");
+        bits.Function2.setComponentOffset(0x8404);
         bits.Function3.setBaseRegister(&r32);
         bits.Function3.setName("Function3");
+        bits.Function3.setComponentOffset(0x8404);
         bits.Bootcode.setBaseRegister(&r32);
         bits.Bootcode.setName("Bootcode");
+        bits.Bootcode.setComponentOffset(0x8404);
         bits.Driver.setBaseRegister(&r32);
         bits.Driver.setName("Driver");
+        bits.Driver.setComponentOffset(0x8404);
     }
     RegAPEPerLockRequestGrc_t& operator=(const RegAPEPerLockRequestGrc_t& other)
     {
@@ -1287,18 +1486,25 @@ typedef register_container RegAPEPerLockRequestPhy1_t {
     {
         /** @brief constructor for @ref APE_t.PerLockRequestPhy1. */
         r32.setName("PerLockRequestPhy1");
+        r32.setComponentOffset(0x8408);
         bits.APE.setBaseRegister(&r32);
         bits.APE.setName("APE");
+        bits.APE.setComponentOffset(0x8408);
         bits.Function1.setBaseRegister(&r32);
         bits.Function1.setName("Function1");
+        bits.Function1.setComponentOffset(0x8408);
         bits.Function2.setBaseRegister(&r32);
         bits.Function2.setName("Function2");
+        bits.Function2.setComponentOffset(0x8408);
         bits.Function3.setBaseRegister(&r32);
         bits.Function3.setName("Function3");
+        bits.Function3.setComponentOffset(0x8408);
         bits.Bootcode.setBaseRegister(&r32);
         bits.Bootcode.setName("Bootcode");
+        bits.Bootcode.setComponentOffset(0x8408);
         bits.Driver.setBaseRegister(&r32);
         bits.Driver.setName("Driver");
+        bits.Driver.setComponentOffset(0x8408);
     }
     RegAPEPerLockRequestPhy1_t& operator=(const RegAPEPerLockRequestPhy1_t& other)
     {
@@ -1389,18 +1595,25 @@ typedef register_container RegAPEPerLockRequestPhy2_t {
     {
         /** @brief constructor for @ref APE_t.PerLockRequestPhy2. */
         r32.setName("PerLockRequestPhy2");
+        r32.setComponentOffset(0x840c);
         bits.APE.setBaseRegister(&r32);
         bits.APE.setName("APE");
+        bits.APE.setComponentOffset(0x840c);
         bits.Function1.setBaseRegister(&r32);
         bits.Function1.setName("Function1");
+        bits.Function1.setComponentOffset(0x840c);
         bits.Function2.setBaseRegister(&r32);
         bits.Function2.setName("Function2");
+        bits.Function2.setComponentOffset(0x840c);
         bits.Function3.setBaseRegister(&r32);
         bits.Function3.setName("Function3");
+        bits.Function3.setComponentOffset(0x840c);
         bits.Bootcode.setBaseRegister(&r32);
         bits.Bootcode.setName("Bootcode");
+        bits.Bootcode.setComponentOffset(0x840c);
         bits.Driver.setBaseRegister(&r32);
         bits.Driver.setName("Driver");
+        bits.Driver.setComponentOffset(0x840c);
     }
     RegAPEPerLockRequestPhy2_t& operator=(const RegAPEPerLockRequestPhy2_t& other)
     {
@@ -1491,18 +1704,25 @@ typedef register_container RegAPEPerLockRequestMem_t {
     {
         /** @brief constructor for @ref APE_t.PerLockRequestMem. */
         r32.setName("PerLockRequestMem");
+        r32.setComponentOffset(0x8410);
         bits.APE.setBaseRegister(&r32);
         bits.APE.setName("APE");
+        bits.APE.setComponentOffset(0x8410);
         bits.Function1.setBaseRegister(&r32);
         bits.Function1.setName("Function1");
+        bits.Function1.setComponentOffset(0x8410);
         bits.Function2.setBaseRegister(&r32);
         bits.Function2.setName("Function2");
+        bits.Function2.setComponentOffset(0x8410);
         bits.Function3.setBaseRegister(&r32);
         bits.Function3.setName("Function3");
+        bits.Function3.setComponentOffset(0x8410);
         bits.Bootcode.setBaseRegister(&r32);
         bits.Bootcode.setName("Bootcode");
+        bits.Bootcode.setComponentOffset(0x8410);
         bits.Driver.setBaseRegister(&r32);
         bits.Driver.setName("Driver");
+        bits.Driver.setComponentOffset(0x8410);
     }
     RegAPEPerLockRequestMem_t& operator=(const RegAPEPerLockRequestMem_t& other)
     {
@@ -1593,18 +1813,25 @@ typedef register_container RegAPEPerLockRequestPhy3_t {
     {
         /** @brief constructor for @ref APE_t.PerLockRequestPhy3. */
         r32.setName("PerLockRequestPhy3");
+        r32.setComponentOffset(0x8414);
         bits.APE.setBaseRegister(&r32);
         bits.APE.setName("APE");
+        bits.APE.setComponentOffset(0x8414);
         bits.Function1.setBaseRegister(&r32);
         bits.Function1.setName("Function1");
+        bits.Function1.setComponentOffset(0x8414);
         bits.Function2.setBaseRegister(&r32);
         bits.Function2.setName("Function2");
+        bits.Function2.setComponentOffset(0x8414);
         bits.Function3.setBaseRegister(&r32);
         bits.Function3.setName("Function3");
+        bits.Function3.setComponentOffset(0x8414);
         bits.Bootcode.setBaseRegister(&r32);
         bits.Bootcode.setName("Bootcode");
+        bits.Bootcode.setComponentOffset(0x8414);
         bits.Driver.setBaseRegister(&r32);
         bits.Driver.setName("Driver");
+        bits.Driver.setComponentOffset(0x8414);
     }
     RegAPEPerLockRequestPhy3_t& operator=(const RegAPEPerLockRequestPhy3_t& other)
     {
@@ -1695,18 +1922,25 @@ typedef register_container RegAPEPerLockRequestPort6_t {
     {
         /** @brief constructor for @ref APE_t.PerLockRequestPort6. */
         r32.setName("PerLockRequestPort6");
+        r32.setComponentOffset(0x8418);
         bits.APE.setBaseRegister(&r32);
         bits.APE.setName("APE");
+        bits.APE.setComponentOffset(0x8418);
         bits.Function1.setBaseRegister(&r32);
         bits.Function1.setName("Function1");
+        bits.Function1.setComponentOffset(0x8418);
         bits.Function2.setBaseRegister(&r32);
         bits.Function2.setName("Function2");
+        bits.Function2.setComponentOffset(0x8418);
         bits.Function3.setBaseRegister(&r32);
         bits.Function3.setName("Function3");
+        bits.Function3.setComponentOffset(0x8418);
         bits.Bootcode.setBaseRegister(&r32);
         bits.Bootcode.setName("Bootcode");
+        bits.Bootcode.setComponentOffset(0x8418);
         bits.Driver.setBaseRegister(&r32);
         bits.Driver.setName("Driver");
+        bits.Driver.setComponentOffset(0x8418);
     }
     RegAPEPerLockRequestPort6_t& operator=(const RegAPEPerLockRequestPort6_t& other)
     {
@@ -1797,18 +2031,25 @@ typedef register_container RegAPEPerLockRequestGpio_t {
     {
         /** @brief constructor for @ref APE_t.PerLockRequestGpio. */
         r32.setName("PerLockRequestGpio");
+        r32.setComponentOffset(0x841c);
         bits.APE.setBaseRegister(&r32);
         bits.APE.setName("APE");
+        bits.APE.setComponentOffset(0x841c);
         bits.Function1.setBaseRegister(&r32);
         bits.Function1.setName("Function1");
+        bits.Function1.setComponentOffset(0x841c);
         bits.Function2.setBaseRegister(&r32);
         bits.Function2.setName("Function2");
+        bits.Function2.setComponentOffset(0x841c);
         bits.Function3.setBaseRegister(&r32);
         bits.Function3.setName("Function3");
+        bits.Function3.setComponentOffset(0x841c);
         bits.Bootcode.setBaseRegister(&r32);
         bits.Bootcode.setName("Bootcode");
+        bits.Bootcode.setComponentOffset(0x841c);
         bits.Driver.setBaseRegister(&r32);
         bits.Driver.setName("Driver");
+        bits.Driver.setComponentOffset(0x841c);
     }
     RegAPEPerLockRequestGpio_t& operator=(const RegAPEPerLockRequestGpio_t& other)
     {
@@ -1899,18 +2140,25 @@ typedef register_container RegAPEPerLockGrantPhy0_t {
     {
         /** @brief constructor for @ref APE_t.PerLockGrantPhy0. */
         r32.setName("PerLockGrantPhy0");
+        r32.setComponentOffset(0x8420);
         bits.APE.setBaseRegister(&r32);
         bits.APE.setName("APE");
+        bits.APE.setComponentOffset(0x8420);
         bits.Function1.setBaseRegister(&r32);
         bits.Function1.setName("Function1");
+        bits.Function1.setComponentOffset(0x8420);
         bits.Function2.setBaseRegister(&r32);
         bits.Function2.setName("Function2");
+        bits.Function2.setComponentOffset(0x8420);
         bits.Function3.setBaseRegister(&r32);
         bits.Function3.setName("Function3");
+        bits.Function3.setComponentOffset(0x8420);
         bits.Bootcode.setBaseRegister(&r32);
         bits.Bootcode.setName("Bootcode");
+        bits.Bootcode.setComponentOffset(0x8420);
         bits.Driver.setBaseRegister(&r32);
         bits.Driver.setName("Driver");
+        bits.Driver.setComponentOffset(0x8420);
     }
     RegAPEPerLockGrantPhy0_t& operator=(const RegAPEPerLockGrantPhy0_t& other)
     {
@@ -2001,18 +2249,25 @@ typedef register_container RegAPEPerLockGrantGrc_t {
     {
         /** @brief constructor for @ref APE_t.PerLockGrantGrc. */
         r32.setName("PerLockGrantGrc");
+        r32.setComponentOffset(0x8424);
         bits.APE.setBaseRegister(&r32);
         bits.APE.setName("APE");
+        bits.APE.setComponentOffset(0x8424);
         bits.Function1.setBaseRegister(&r32);
         bits.Function1.setName("Function1");
+        bits.Function1.setComponentOffset(0x8424);
         bits.Function2.setBaseRegister(&r32);
         bits.Function2.setName("Function2");
+        bits.Function2.setComponentOffset(0x8424);
         bits.Function3.setBaseRegister(&r32);
         bits.Function3.setName("Function3");
+        bits.Function3.setComponentOffset(0x8424);
         bits.Bootcode.setBaseRegister(&r32);
         bits.Bootcode.setName("Bootcode");
+        bits.Bootcode.setComponentOffset(0x8424);
         bits.Driver.setBaseRegister(&r32);
         bits.Driver.setName("Driver");
+        bits.Driver.setComponentOffset(0x8424);
     }
     RegAPEPerLockGrantGrc_t& operator=(const RegAPEPerLockGrantGrc_t& other)
     {
@@ -2103,18 +2358,25 @@ typedef register_container RegAPEPerLockGrantPhy1_t {
     {
         /** @brief constructor for @ref APE_t.PerLockGrantPhy1. */
         r32.setName("PerLockGrantPhy1");
+        r32.setComponentOffset(0x8428);
         bits.APE.setBaseRegister(&r32);
         bits.APE.setName("APE");
+        bits.APE.setComponentOffset(0x8428);
         bits.Function1.setBaseRegister(&r32);
         bits.Function1.setName("Function1");
+        bits.Function1.setComponentOffset(0x8428);
         bits.Function2.setBaseRegister(&r32);
         bits.Function2.setName("Function2");
+        bits.Function2.setComponentOffset(0x8428);
         bits.Function3.setBaseRegister(&r32);
         bits.Function3.setName("Function3");
+        bits.Function3.setComponentOffset(0x8428);
         bits.Bootcode.setBaseRegister(&r32);
         bits.Bootcode.setName("Bootcode");
+        bits.Bootcode.setComponentOffset(0x8428);
         bits.Driver.setBaseRegister(&r32);
         bits.Driver.setName("Driver");
+        bits.Driver.setComponentOffset(0x8428);
     }
     RegAPEPerLockGrantPhy1_t& operator=(const RegAPEPerLockGrantPhy1_t& other)
     {
@@ -2205,18 +2467,25 @@ typedef register_container RegAPEPerLockGrantPhy2_t {
     {
         /** @brief constructor for @ref APE_t.PerLockGrantPhy2. */
         r32.setName("PerLockGrantPhy2");
+        r32.setComponentOffset(0x842c);
         bits.APE.setBaseRegister(&r32);
         bits.APE.setName("APE");
+        bits.APE.setComponentOffset(0x842c);
         bits.Function1.setBaseRegister(&r32);
         bits.Function1.setName("Function1");
+        bits.Function1.setComponentOffset(0x842c);
         bits.Function2.setBaseRegister(&r32);
         bits.Function2.setName("Function2");
+        bits.Function2.setComponentOffset(0x842c);
         bits.Function3.setBaseRegister(&r32);
         bits.Function3.setName("Function3");
+        bits.Function3.setComponentOffset(0x842c);
         bits.Bootcode.setBaseRegister(&r32);
         bits.Bootcode.setName("Bootcode");
+        bits.Bootcode.setComponentOffset(0x842c);
         bits.Driver.setBaseRegister(&r32);
         bits.Driver.setName("Driver");
+        bits.Driver.setComponentOffset(0x842c);
     }
     RegAPEPerLockGrantPhy2_t& operator=(const RegAPEPerLockGrantPhy2_t& other)
     {
@@ -2307,18 +2576,25 @@ typedef register_container RegAPEPerLockGrantMem_t {
     {
         /** @brief constructor for @ref APE_t.PerLockGrantMem. */
         r32.setName("PerLockGrantMem");
+        r32.setComponentOffset(0x8430);
         bits.APE.setBaseRegister(&r32);
         bits.APE.setName("APE");
+        bits.APE.setComponentOffset(0x8430);
         bits.Function1.setBaseRegister(&r32);
         bits.Function1.setName("Function1");
+        bits.Function1.setComponentOffset(0x8430);
         bits.Function2.setBaseRegister(&r32);
         bits.Function2.setName("Function2");
+        bits.Function2.setComponentOffset(0x8430);
         bits.Function3.setBaseRegister(&r32);
         bits.Function3.setName("Function3");
+        bits.Function3.setComponentOffset(0x8430);
         bits.Bootcode.setBaseRegister(&r32);
         bits.Bootcode.setName("Bootcode");
+        bits.Bootcode.setComponentOffset(0x8430);
         bits.Driver.setBaseRegister(&r32);
         bits.Driver.setName("Driver");
+        bits.Driver.setComponentOffset(0x8430);
     }
     RegAPEPerLockGrantMem_t& operator=(const RegAPEPerLockGrantMem_t& other)
     {
@@ -2409,18 +2685,25 @@ typedef register_container RegAPEPerLockGrantPhy3_t {
     {
         /** @brief constructor for @ref APE_t.PerLockGrantPhy3. */
         r32.setName("PerLockGrantPhy3");
+        r32.setComponentOffset(0x8434);
         bits.APE.setBaseRegister(&r32);
         bits.APE.setName("APE");
+        bits.APE.setComponentOffset(0x8434);
         bits.Function1.setBaseRegister(&r32);
         bits.Function1.setName("Function1");
+        bits.Function1.setComponentOffset(0x8434);
         bits.Function2.setBaseRegister(&r32);
         bits.Function2.setName("Function2");
+        bits.Function2.setComponentOffset(0x8434);
         bits.Function3.setBaseRegister(&r32);
         bits.Function3.setName("Function3");
+        bits.Function3.setComponentOffset(0x8434);
         bits.Bootcode.setBaseRegister(&r32);
         bits.Bootcode.setName("Bootcode");
+        bits.Bootcode.setComponentOffset(0x8434);
         bits.Driver.setBaseRegister(&r32);
         bits.Driver.setName("Driver");
+        bits.Driver.setComponentOffset(0x8434);
     }
     RegAPEPerLockGrantPhy3_t& operator=(const RegAPEPerLockGrantPhy3_t& other)
     {
@@ -2511,18 +2794,25 @@ typedef register_container RegAPEPerLockGrantPort6_t {
     {
         /** @brief constructor for @ref APE_t.PerLockGrantPort6. */
         r32.setName("PerLockGrantPort6");
+        r32.setComponentOffset(0x8438);
         bits.APE.setBaseRegister(&r32);
         bits.APE.setName("APE");
+        bits.APE.setComponentOffset(0x8438);
         bits.Function1.setBaseRegister(&r32);
         bits.Function1.setName("Function1");
+        bits.Function1.setComponentOffset(0x8438);
         bits.Function2.setBaseRegister(&r32);
         bits.Function2.setName("Function2");
+        bits.Function2.setComponentOffset(0x8438);
         bits.Function3.setBaseRegister(&r32);
         bits.Function3.setName("Function3");
+        bits.Function3.setComponentOffset(0x8438);
         bits.Bootcode.setBaseRegister(&r32);
         bits.Bootcode.setName("Bootcode");
+        bits.Bootcode.setComponentOffset(0x8438);
         bits.Driver.setBaseRegister(&r32);
         bits.Driver.setName("Driver");
+        bits.Driver.setComponentOffset(0x8438);
     }
     RegAPEPerLockGrantPort6_t& operator=(const RegAPEPerLockGrantPort6_t& other)
     {
@@ -2613,18 +2903,25 @@ typedef register_container RegAPEPerLockGrantGpio_t {
     {
         /** @brief constructor for @ref APE_t.PerLockGrantGpio. */
         r32.setName("PerLockGrantGpio");
+        r32.setComponentOffset(0x843c);
         bits.APE.setBaseRegister(&r32);
         bits.APE.setName("APE");
+        bits.APE.setComponentOffset(0x843c);
         bits.Function1.setBaseRegister(&r32);
         bits.Function1.setName("Function1");
+        bits.Function1.setComponentOffset(0x843c);
         bits.Function2.setBaseRegister(&r32);
         bits.Function2.setName("Function2");
+        bits.Function2.setComponentOffset(0x843c);
         bits.Function3.setBaseRegister(&r32);
         bits.Function3.setName("Function3");
+        bits.Function3.setComponentOffset(0x843c);
         bits.Bootcode.setBaseRegister(&r32);
         bits.Bootcode.setName("Bootcode");
+        bits.Bootcode.setComponentOffset(0x843c);
         bits.Driver.setBaseRegister(&r32);
         bits.Driver.setName("Driver");
+        bits.Driver.setComponentOffset(0x843c);
     }
     RegAPEPerLockGrantGpio_t& operator=(const RegAPEPerLockGrantGpio_t& other)
     {
@@ -2763,16 +3060,15 @@ typedef struct {
     RegAPEPerLockGrantGpio_t PerLockGrantGpio;
 
 #ifdef CXX_SIMULATOR
-    typedef uint32_t (*read_callback_t)(uint32_t, void*);
-    read_callback_t mIndexReadCallback;
+    typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);
+    callback_t mIndexReadCallback;
     void* mIndexReadCallbackArgs;
 
-    typedef void (*write_callback_t)(uint32_t, uint32_t value, void*);
-    write_callback_t mIndexWriteCallback;
+    callback_t mIndexWriteCallback;
     void* mIndexWriteCallbackArgs;
 
-    uint32_t read(int index) { return mIndexReadCallback(index, mIndexReadCallbackArgs); }
-    void write(int index, uint32_t value) { mIndexWriteCallback(index, value, mIndexWriteCallbackArgs); }
+    uint32_t read(int offset) { return mIndexReadCallback(0, offset, mIndexReadCallbackArgs); }
+    void write(int offset, uint32_t value) { (void)mIndexWriteCallback(value, offset, mIndexWriteCallbackArgs); }
 #endif /* CXX_SIMULATOR */
 } APE_t;
 

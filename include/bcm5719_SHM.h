@@ -116,8 +116,10 @@ typedef register_container RegSHMSegSig_t {
     {
         /** @brief constructor for @ref SHM_t.SegSig. */
         r32.setName("SegSig");
+        r32.setComponentOffset(0x0);
         bits.Sig.setBaseRegister(&r32);
         bits.Sig.setName("Sig");
+        bits.Sig.setComponentOffset(0x0);
     }
     RegSHMSegSig_t& operator=(const RegSHMSegSig_t& other)
     {
@@ -132,6 +134,25 @@ typedef register_container RegSHMSegSig_t {
 typedef register_container RegSHMApeSegLength_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "ApeSegLength"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMApeSegLength_t()
+    {
+        /** @brief constructor for @ref SHM_t.ApeSegLength. */
+        r32.setName("ApeSegLength");
+        r32.setComponentOffset(0x4);
+    }
+    RegSHMApeSegLength_t& operator=(const RegSHMApeSegLength_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMApeSegLength_t;
 
 #define REG_SHM_FW_STATUS ((volatile BCM5719_SHM_H_uint32_t*)0xc001400c) /*  */
@@ -183,10 +204,13 @@ typedef register_container RegSHMFwStatus_t {
     {
         /** @brief constructor for @ref SHM_t.FwStatus. */
         r32.setName("FwStatus");
+        r32.setComponentOffset(0xc);
         bits.Ready.setBaseRegister(&r32);
         bits.Ready.setName("Ready");
+        bits.Ready.setComponentOffset(0xc);
         bits.unknown_31_28.setBaseRegister(&r32);
         bits.unknown_31_28.setName("unknown_31_28");
+        bits.unknown_31_28.setComponentOffset(0xc);
     }
     RegSHMFwStatus_t& operator=(const RegSHMFwStatus_t& other)
     {
@@ -237,8 +261,10 @@ typedef register_container RegSHMFwFeatures_t {
     {
         /** @brief constructor for @ref SHM_t.FwFeatures. */
         r32.setName("FwFeatures");
+        r32.setComponentOffset(0x10);
         bits.NCSI.setBaseRegister(&r32);
         bits.NCSI.setName("NCSI");
+        bits.NCSI.setComponentOffset(0x10);
     }
     RegSHMFwFeatures_t& operator=(const RegSHMFwFeatures_t& other)
     {
@@ -253,6 +279,25 @@ typedef register_container RegSHMFwFeatures_t {
 typedef register_container RegSHM4014_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "4014"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHM4014_t()
+    {
+        /** @brief constructor for @ref SHM_t.4014. */
+        r32.setName("4014");
+        r32.setComponentOffset(0x14);
+    }
+    RegSHM4014_t& operator=(const RegSHM4014_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHM4014_t;
 
 #define REG_SHM_FW_VERSION ((volatile BCM5719_SHM_H_uint32_t*)0xc0014018) /*  */
@@ -312,14 +357,19 @@ typedef register_container RegSHMFwVersion_t {
     {
         /** @brief constructor for @ref SHM_t.FwVersion. */
         r32.setName("FwVersion");
+        r32.setComponentOffset(0x18);
         bits.Build.setBaseRegister(&r32);
         bits.Build.setName("Build");
+        bits.Build.setComponentOffset(0x18);
         bits.Revision.setBaseRegister(&r32);
         bits.Revision.setName("Revision");
+        bits.Revision.setComponentOffset(0x18);
         bits.Minor.setBaseRegister(&r32);
         bits.Minor.setName("Minor");
+        bits.Minor.setComponentOffset(0x18);
         bits.Major.setBaseRegister(&r32);
         bits.Major.setName("Major");
+        bits.Major.setComponentOffset(0x18);
     }
     RegSHMFwVersion_t& operator=(const RegSHMFwVersion_t& other)
     {
@@ -334,6 +384,25 @@ typedef register_container RegSHMFwVersion_t {
 typedef register_container RegSHMSegMessageBufferOffset_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "SegMessageBufferOffset"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMSegMessageBufferOffset_t()
+    {
+        /** @brief constructor for @ref SHM_t.SegMessageBufferOffset. */
+        r32.setName("SegMessageBufferOffset");
+        r32.setComponentOffset(0x1c);
+    }
+    RegSHMSegMessageBufferOffset_t& operator=(const RegSHMSegMessageBufferOffset_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMSegMessageBufferOffset_t;
 
 #define REG_SHM_SEG_MESSAGE_BUFFER_LENGTH ((volatile BCM5719_SHM_H_uint32_t*)0xc0014020) /* Specifies the size of the scratchpad area in bytes. */
@@ -341,6 +410,25 @@ typedef register_container RegSHMSegMessageBufferOffset_t {
 typedef register_container RegSHMSegMessageBufferLength_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "SegMessageBufferLength"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMSegMessageBufferLength_t()
+    {
+        /** @brief constructor for @ref SHM_t.SegMessageBufferLength. */
+        r32.setName("SegMessageBufferLength");
+        r32.setComponentOffset(0x20);
+    }
+    RegSHMSegMessageBufferLength_t& operator=(const RegSHMSegMessageBufferLength_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMSegMessageBufferLength_t;
 
 #define REG_SHM_4024 ((volatile BCM5719_SHM_H_uint32_t*)0xc0014024) /* Unknown. Bootcode related. */
@@ -348,6 +436,25 @@ typedef register_container RegSHMSegMessageBufferLength_t {
 typedef register_container RegSHM4024_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "4024"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHM4024_t()
+    {
+        /** @brief constructor for @ref SHM_t.4024. */
+        r32.setName("4024");
+        r32.setComponentOffset(0x24);
+    }
+    RegSHM4024_t& operator=(const RegSHM4024_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHM4024_t;
 
 #define REG_SHM_4028 ((volatile BCM5719_SHM_H_uint32_t*)0xc0014028) /* Unknown. Bootcode related. */
@@ -355,6 +462,25 @@ typedef register_container RegSHM4024_t {
 typedef register_container RegSHM4028_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "4028"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHM4028_t()
+    {
+        /** @brief constructor for @ref SHM_t.4028. */
+        r32.setName("4028");
+        r32.setComponentOffset(0x28);
+    }
+    RegSHM4028_t& operator=(const RegSHM4028_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHM4028_t;
 
 #define REG_SHM_LOADER_COMMAND ((volatile BCM5719_SHM_H_uint32_t*)0xc0014038) /* Command sent when using the the APE loader. Zero once handled. */
@@ -395,8 +521,10 @@ typedef register_container RegSHMLoaderCommand_t {
     {
         /** @brief constructor for @ref SHM_t.LoaderCommand. */
         r32.setName("LoaderCommand");
+        r32.setComponentOffset(0x38);
         bits.Command.setBaseRegister(&r32);
         bits.Command.setName("Command");
+        bits.Command.setComponentOffset(0x38);
     }
     RegSHMLoaderCommand_t& operator=(const RegSHMLoaderCommand_t& other)
     {
@@ -411,6 +539,25 @@ typedef register_container RegSHMLoaderCommand_t {
 typedef register_container RegSHMLoaderArg0_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "LoaderArg0"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMLoaderArg0_t()
+    {
+        /** @brief constructor for @ref SHM_t.LoaderArg0. */
+        r32.setName("LoaderArg0");
+        r32.setComponentOffset(0x3c);
+    }
+    RegSHMLoaderArg0_t& operator=(const RegSHMLoaderArg0_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMLoaderArg0_t;
 
 #define REG_SHM_LOADER_ARG1 ((volatile BCM5719_SHM_H_uint32_t*)0xc0014040) /* Argument 1 for the APE loader. */
@@ -418,6 +565,25 @@ typedef register_container RegSHMLoaderArg0_t {
 typedef register_container RegSHMLoaderArg1_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "LoaderArg1"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMLoaderArg1_t()
+    {
+        /** @brief constructor for @ref SHM_t.LoaderArg1. */
+        r32.setName("LoaderArg1");
+        r32.setComponentOffset(0x40);
+    }
+    RegSHMLoaderArg1_t& operator=(const RegSHMLoaderArg1_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMLoaderArg1_t;
 
 #define REG_SHM_RCPU_SEG_SIG ((volatile BCM5719_SHM_H_uint32_t*)0xc0014100) /* Set to APE_RCPU_MAGIC ('RCPU') by RX CPU. */
@@ -455,8 +621,10 @@ typedef register_container RegSHMRcpuSegSig_t {
     {
         /** @brief constructor for @ref SHM_t.RcpuSegSig. */
         r32.setName("RcpuSegSig");
+        r32.setComponentOffset(0x100);
         bits.Sig.setBaseRegister(&r32);
         bits.Sig.setName("Sig");
+        bits.Sig.setComponentOffset(0x100);
     }
     RegSHMRcpuSegSig_t& operator=(const RegSHMRcpuSegSig_t& other)
     {
@@ -471,6 +639,25 @@ typedef register_container RegSHMRcpuSegSig_t {
 typedef register_container RegSHMRcpuSegLength_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RcpuSegLength"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMRcpuSegLength_t()
+    {
+        /** @brief constructor for @ref SHM_t.RcpuSegLength. */
+        r32.setName("RcpuSegLength");
+        r32.setComponentOffset(0x104);
+    }
+    RegSHMRcpuSegLength_t& operator=(const RegSHMRcpuSegLength_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMRcpuSegLength_t;
 
 #define REG_SHM_RCPU_INIT_COUNT ((volatile BCM5719_SHM_H_uint32_t*)0xc0014108) /* Incremented by RX CPU every boot. */
@@ -478,6 +665,25 @@ typedef register_container RegSHMRcpuSegLength_t {
 typedef register_container RegSHMRcpuInitCount_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RcpuInitCount"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMRcpuInitCount_t()
+    {
+        /** @brief constructor for @ref SHM_t.RcpuInitCount. */
+        r32.setName("RcpuInitCount");
+        r32.setComponentOffset(0x108);
+    }
+    RegSHMRcpuInitCount_t& operator=(const RegSHMRcpuInitCount_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMRcpuInitCount_t;
 
 #define REG_SHM_RCPU_FW_VERSION ((volatile BCM5719_SHM_H_uint32_t*)0xc001410c) /* Set to the bootcode version. e.g. 0x0127 -> v1.39. */
@@ -485,6 +691,25 @@ typedef register_container RegSHMRcpuInitCount_t {
 typedef register_container RegSHMRcpuFwVersion_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RcpuFwVersion"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMRcpuFwVersion_t()
+    {
+        /** @brief constructor for @ref SHM_t.RcpuFwVersion. */
+        r32.setName("RcpuFwVersion");
+        r32.setComponentOffset(0x10c);
+    }
+    RegSHMRcpuFwVersion_t& operator=(const RegSHMRcpuFwVersion_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMRcpuFwVersion_t;
 
 #define REG_SHM_RCPU_CFG_FEATURE ((volatile BCM5719_SHM_H_uint32_t*)0xc0014110) /* Set to  */
@@ -492,6 +717,25 @@ typedef register_container RegSHMRcpuFwVersion_t {
 typedef register_container RegSHMRcpuCfgFeature_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RcpuCfgFeature"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMRcpuCfgFeature_t()
+    {
+        /** @brief constructor for @ref SHM_t.RcpuCfgFeature. */
+        r32.setName("RcpuCfgFeature");
+        r32.setComponentOffset(0x110);
+    }
+    RegSHMRcpuCfgFeature_t& operator=(const RegSHMRcpuCfgFeature_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMRcpuCfgFeature_t;
 
 #define REG_SHM_RCPU_PCI_VENDOR_DEVICE_ID ((volatile BCM5719_SHM_H_uint32_t*)0xc0014114) /* Set to PCI Vendor/Device ID by S2. */
@@ -499,6 +743,25 @@ typedef register_container RegSHMRcpuCfgFeature_t {
 typedef register_container RegSHMRcpuPciVendorDeviceId_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RcpuPciVendorDeviceId"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMRcpuPciVendorDeviceId_t()
+    {
+        /** @brief constructor for @ref SHM_t.RcpuPciVendorDeviceId. */
+        r32.setName("RcpuPciVendorDeviceId");
+        r32.setComponentOffset(0x114);
+    }
+    RegSHMRcpuPciVendorDeviceId_t& operator=(const RegSHMRcpuPciVendorDeviceId_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMRcpuPciVendorDeviceId_t;
 
 #define REG_SHM_RCPU_PCI_SUBSYSTEM_ID ((volatile BCM5719_SHM_H_uint32_t*)0xc0014118) /* Set to PCI Subsystem Vendor/Subsystem ID by S2. */
@@ -506,6 +769,25 @@ typedef register_container RegSHMRcpuPciVendorDeviceId_t {
 typedef register_container RegSHMRcpuPciSubsystemId_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RcpuPciSubsystemId"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMRcpuPciSubsystemId_t()
+    {
+        /** @brief constructor for @ref SHM_t.RcpuPciSubsystemId. */
+        r32.setName("RcpuPciSubsystemId");
+        r32.setComponentOffset(0x118);
+    }
+    RegSHMRcpuPciSubsystemId_t& operator=(const RegSHMRcpuPciSubsystemId_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMRcpuPciSubsystemId_t;
 
 #define REG_SHM_RCPU_APE_RESET_COUNT ((volatile BCM5719_SHM_H_uint32_t*)0xc001411c) /* Unknown. Incremented by frobnicating routine. */
@@ -513,6 +795,25 @@ typedef register_container RegSHMRcpuPciSubsystemId_t {
 typedef register_container RegSHMRcpuApeResetCount_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RcpuApeResetCount"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMRcpuApeResetCount_t()
+    {
+        /** @brief constructor for @ref SHM_t.RcpuApeResetCount. */
+        r32.setName("RcpuApeResetCount");
+        r32.setComponentOffset(0x11c);
+    }
+    RegSHMRcpuApeResetCount_t& operator=(const RegSHMRcpuApeResetCount_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMRcpuApeResetCount_t;
 
 #define REG_SHM_RCPU_LAST_APE_STATUS ((volatile BCM5719_SHM_H_uint32_t*)0xc0014120) /* Unknown. Written by frobnicating routine. */
@@ -520,6 +821,25 @@ typedef register_container RegSHMRcpuApeResetCount_t {
 typedef register_container RegSHMRcpuLastApeStatus_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RcpuLastApeStatus"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMRcpuLastApeStatus_t()
+    {
+        /** @brief constructor for @ref SHM_t.RcpuLastApeStatus. */
+        r32.setName("RcpuLastApeStatus");
+        r32.setComponentOffset(0x120);
+    }
+    RegSHMRcpuLastApeStatus_t& operator=(const RegSHMRcpuLastApeStatus_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMRcpuLastApeStatus_t;
 
 #define REG_SHM_RCPU_LAST_APE_FW_STATUS ((volatile BCM5719_SHM_H_uint32_t*)0xc0014124) /* Unknown.  */
@@ -527,6 +847,25 @@ typedef register_container RegSHMRcpuLastApeStatus_t {
 typedef register_container RegSHMRcpuLastApeFwStatus_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RcpuLastApeFwStatus"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMRcpuLastApeFwStatus_t()
+    {
+        /** @brief constructor for @ref SHM_t.RcpuLastApeFwStatus. */
+        r32.setName("RcpuLastApeFwStatus");
+        r32.setComponentOffset(0x124);
+    }
+    RegSHMRcpuLastApeFwStatus_t& operator=(const RegSHMRcpuLastApeFwStatus_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMRcpuLastApeFwStatus_t;
 
 #define REG_SHM_RCPU_CFG_HW ((volatile BCM5719_SHM_H_uint32_t*)0xc0014128) /* Set from  */
@@ -534,6 +873,25 @@ typedef register_container RegSHMRcpuLastApeFwStatus_t {
 typedef register_container RegSHMRcpuCfgHw_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RcpuCfgHw"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMRcpuCfgHw_t()
+    {
+        /** @brief constructor for @ref SHM_t.RcpuCfgHw. */
+        r32.setName("RcpuCfgHw");
+        r32.setComponentOffset(0x128);
+    }
+    RegSHMRcpuCfgHw_t& operator=(const RegSHMRcpuCfgHw_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMRcpuCfgHw_t;
 
 #define REG_SHM_RCPU_CFG_HW_2 ((volatile BCM5719_SHM_H_uint32_t*)0xc001412c) /* Set from  */
@@ -541,6 +899,25 @@ typedef register_container RegSHMRcpuCfgHw_t {
 typedef register_container RegSHMRcpuCfgHw2_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RcpuCfgHw2"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMRcpuCfgHw2_t()
+    {
+        /** @brief constructor for @ref SHM_t.RcpuCfgHw2. */
+        r32.setName("RcpuCfgHw2");
+        r32.setComponentOffset(0x12c);
+    }
+    RegSHMRcpuCfgHw2_t& operator=(const RegSHMRcpuCfgHw2_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMRcpuCfgHw2_t;
 
 #define REG_SHM_RCPU_CPMU_STATUS ((volatile BCM5719_SHM_H_uint32_t*)0xc0014130) /* Set from  */
@@ -586,10 +963,13 @@ typedef register_container RegSHMRcpuCpmuStatus_t {
     {
         /** @brief constructor for @ref SHM_t.RcpuCpmuStatus. */
         r32.setName("RcpuCpmuStatus");
+        r32.setComponentOffset(0x130);
         bits.Address.setBaseRegister(&r32);
         bits.Address.setName("Address");
+        bits.Address.setComponentOffset(0x130);
         bits.Status.setBaseRegister(&r32);
         bits.Status.setName("Status");
+        bits.Status.setComponentOffset(0x130);
     }
     RegSHMRcpuCpmuStatus_t& operator=(const RegSHMRcpuCpmuStatus_t& other)
     {
@@ -604,6 +984,25 @@ typedef register_container RegSHMRcpuCpmuStatus_t {
 typedef register_container RegSHMHostSegSig_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "HostSegSig"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMHostSegSig_t()
+    {
+        /** @brief constructor for @ref SHM_t.HostSegSig. */
+        r32.setName("HostSegSig");
+        r32.setComponentOffset(0x200);
+    }
+    RegSHMHostSegSig_t& operator=(const RegSHMHostSegSig_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMHostSegSig_t;
 
 #define REG_SHM_HOST_SEG_LEN ((volatile BCM5719_SHM_H_uint32_t*)0xc0014204) /* Set to 0x20. */
@@ -611,6 +1010,25 @@ typedef register_container RegSHMHostSegSig_t {
 typedef register_container RegSHMHostSegLen_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "HostSegLen"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMHostSegLen_t()
+    {
+        /** @brief constructor for @ref SHM_t.HostSegLen. */
+        r32.setName("HostSegLen");
+        r32.setComponentOffset(0x204);
+    }
+    RegSHMHostSegLen_t& operator=(const RegSHMHostSegLen_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMHostSegLen_t;
 
 #define REG_SHM_HOST_INIT_COUNT ((volatile BCM5719_SHM_H_uint32_t*)0xc0014208) /* Incremented by host on every initialization. */
@@ -618,6 +1036,25 @@ typedef register_container RegSHMHostSegLen_t {
 typedef register_container RegSHMHostInitCount_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "HostInitCount"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMHostInitCount_t()
+    {
+        /** @brief constructor for @ref SHM_t.HostInitCount. */
+        r32.setName("HostInitCount");
+        r32.setComponentOffset(0x208);
+    }
+    RegSHMHostInitCount_t& operator=(const RegSHMHostInitCount_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMHostInitCount_t;
 
 #define REG_SHM_HOST_DRIVER_ID ((volatile BCM5719_SHM_H_uint32_t*)0xc001420c) /* Linux sets this to 0xF0MM_mm00, where M is the major version  of Linux and m is the minor version. */
@@ -625,6 +1062,25 @@ typedef register_container RegSHMHostInitCount_t {
 typedef register_container RegSHMHostDriverId_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "HostDriverId"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMHostDriverId_t()
+    {
+        /** @brief constructor for @ref SHM_t.HostDriverId. */
+        r32.setName("HostDriverId");
+        r32.setComponentOffset(0x20c);
+    }
+    RegSHMHostDriverId_t& operator=(const RegSHMHostDriverId_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMHostDriverId_t;
 
 #define REG_SHM_HOST_BEHAVIOR ((volatile BCM5719_SHM_H_uint32_t*)0xc0014210) /*  */
@@ -664,8 +1120,10 @@ typedef register_container RegSHMHostBehavior_t {
     {
         /** @brief constructor for @ref SHM_t.HostBehavior. */
         r32.setName("HostBehavior");
+        r32.setComponentOffset(0x210);
         bits.NoPHYLock.setBaseRegister(&r32);
         bits.NoPHYLock.setName("NoPHYLock");
+        bits.NoPHYLock.setComponentOffset(0x210);
     }
     RegSHMHostBehavior_t& operator=(const RegSHMHostBehavior_t& other)
     {
@@ -680,6 +1138,25 @@ typedef register_container RegSHMHostBehavior_t {
 typedef register_container RegSHMHeartbeatInterval_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "HeartbeatInterval"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMHeartbeatInterval_t()
+    {
+        /** @brief constructor for @ref SHM_t.HeartbeatInterval. */
+        r32.setName("HeartbeatInterval");
+        r32.setComponentOffset(0x214);
+    }
+    RegSHMHeartbeatInterval_t& operator=(const RegSHMHeartbeatInterval_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMHeartbeatInterval_t;
 
 #define REG_SHM_HEARTBEAT_COUNT ((volatile BCM5719_SHM_H_uint32_t*)0xc0014218) /*  */
@@ -687,6 +1164,25 @@ typedef register_container RegSHMHeartbeatInterval_t {
 typedef register_container RegSHMHeartbeatCount_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "HeartbeatCount"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMHeartbeatCount_t()
+    {
+        /** @brief constructor for @ref SHM_t.HeartbeatCount. */
+        r32.setName("HeartbeatCount");
+        r32.setComponentOffset(0x218);
+    }
+    RegSHMHeartbeatCount_t& operator=(const RegSHMHeartbeatCount_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMHeartbeatCount_t;
 
 #define REG_SHM_HOST_DRIVER_STATE ((volatile BCM5719_SHM_H_uint32_t*)0xc001421c) /*  */
@@ -694,6 +1190,25 @@ typedef register_container RegSHMHeartbeatCount_t {
 typedef register_container RegSHMHostDriverState_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "HostDriverState"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMHostDriverState_t()
+    {
+        /** @brief constructor for @ref SHM_t.HostDriverState. */
+        r32.setName("HostDriverState");
+        r32.setComponentOffset(0x21c);
+    }
+    RegSHMHostDriverState_t& operator=(const RegSHMHostDriverState_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMHostDriverState_t;
 
 #define REG_SHM_WOL_SPEED ((volatile BCM5719_SHM_H_uint32_t*)0xc0014224) /*  */
@@ -701,6 +1216,25 @@ typedef register_container RegSHMHostDriverState_t {
 typedef register_container RegSHMWolSpeed_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "WolSpeed"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMWolSpeed_t()
+    {
+        /** @brief constructor for @ref SHM_t.WolSpeed. */
+        r32.setName("WolSpeed");
+        r32.setComponentOffset(0x224);
+    }
+    RegSHMWolSpeed_t& operator=(const RegSHMWolSpeed_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMWolSpeed_t;
 
 #define REG_SHM_EVENT_STATUS ((volatile BCM5719_SHM_H_uint32_t*)0xc0014300) /*  */
@@ -781,14 +1315,19 @@ typedef register_container RegSHMEventStatus_t {
     {
         /** @brief constructor for @ref SHM_t.EventStatus. */
         r32.setName("EventStatus");
+        r32.setComponentOffset(0x300);
         bits.DriverEvent.setBaseRegister(&r32);
         bits.DriverEvent.setName("DriverEvent");
+        bits.DriverEvent.setComponentOffset(0x300);
         bits.Command.setBaseRegister(&r32);
         bits.Command.setName("Command");
+        bits.Command.setComponentOffset(0x300);
         bits.State.setBaseRegister(&r32);
         bits.State.setName("State");
+        bits.State.setComponentOffset(0x300);
         bits.Pending.setBaseRegister(&r32);
         bits.Pending.setName("Pending");
+        bits.Pending.setComponentOffset(0x300);
     }
     RegSHMEventStatus_t& operator=(const RegSHMEventStatus_t& other)
     {
@@ -803,6 +1342,25 @@ typedef register_container RegSHMEventStatus_t {
 typedef register_container RegSHMProtMagic_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "ProtMagic"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMProtMagic_t()
+    {
+        /** @brief constructor for @ref SHM_t.ProtMagic. */
+        r32.setName("ProtMagic");
+        r32.setComponentOffset(0x308);
+    }
+    RegSHMProtMagic_t& operator=(const RegSHMProtMagic_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMProtMagic_t;
 
 #define REG_SHM_PROT_MAC0_HIGH ((volatile BCM5719_SHM_H_uint32_t*)0xc0014314) /* High 16 bits of MAC address 0. Only valid if  */
@@ -810,6 +1368,25 @@ typedef register_container RegSHMProtMagic_t {
 typedef register_container RegSHMProtMac0High_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "ProtMac0High"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMProtMac0High_t()
+    {
+        /** @brief constructor for @ref SHM_t.ProtMac0High. */
+        r32.setName("ProtMac0High");
+        r32.setComponentOffset(0x314);
+    }
+    RegSHMProtMac0High_t& operator=(const RegSHMProtMac0High_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMProtMac0High_t;
 
 #define REG_SHM_PROT_MAC0_LOW ((volatile BCM5719_SHM_H_uint32_t*)0xc0014318) /* Low 16 bits of MAC address 0. */
@@ -817,6 +1394,25 @@ typedef register_container RegSHMProtMac0High_t {
 typedef register_container RegSHMProtMac0Low_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "ProtMac0Low"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMProtMac0Low_t()
+    {
+        /** @brief constructor for @ref SHM_t.ProtMac0Low. */
+        r32.setName("ProtMac0Low");
+        r32.setComponentOffset(0x318);
+    }
+    RegSHMProtMac0Low_t& operator=(const RegSHMProtMac0Low_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMProtMac0Low_t;
 
 #define REG_SHM_NCSI_SIG ((volatile BCM5719_SHM_H_uint32_t*)0xc0014800) /* Set to NCSI_MAGIC ('NCSI') by APE firmware. NOTE: all words in the NCSI section are available in the function 0 SHM area only. */
@@ -824,6 +1420,25 @@ typedef register_container RegSHMProtMac0Low_t {
 typedef register_container RegSHMNcsiSig_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "NcsiSig"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMNcsiSig_t()
+    {
+        /** @brief constructor for @ref SHM_t.NcsiSig. */
+        r32.setName("NcsiSig");
+        r32.setComponentOffset(0x800);
+    }
+    RegSHMNcsiSig_t& operator=(const RegSHMNcsiSig_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMNcsiSig_t;
 
 #define REG_SHM_NCSI_BUILD_TIME ((volatile BCM5719_SHM_H_uint32_t*)0xc0014810) /* ASCII string spanning three 32-bit words. Unused trailing bytes   are set to zero. */
@@ -831,6 +1446,25 @@ typedef register_container RegSHMNcsiSig_t {
 typedef register_container RegSHMNcsiBuildTime_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "NcsiBuildTime"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMNcsiBuildTime_t()
+    {
+        /** @brief constructor for @ref SHM_t.NcsiBuildTime. */
+        r32.setName("NcsiBuildTime");
+        r32.setComponentOffset(0x810);
+    }
+    RegSHMNcsiBuildTime_t& operator=(const RegSHMNcsiBuildTime_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMNcsiBuildTime_t;
 
 #define REG_SHM_NCSI_BUILD_TIME_2 ((volatile BCM5719_SHM_H_uint32_t*)0xc0014814) /*  */
@@ -838,6 +1472,25 @@ typedef register_container RegSHMNcsiBuildTime_t {
 typedef register_container RegSHMNcsiBuildTime2_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "NcsiBuildTime2"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMNcsiBuildTime2_t()
+    {
+        /** @brief constructor for @ref SHM_t.NcsiBuildTime2. */
+        r32.setName("NcsiBuildTime2");
+        r32.setComponentOffset(0x814);
+    }
+    RegSHMNcsiBuildTime2_t& operator=(const RegSHMNcsiBuildTime2_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMNcsiBuildTime2_t;
 
 #define REG_SHM_NCSI_BUILD_TIME_3 ((volatile BCM5719_SHM_H_uint32_t*)0xc0014818) /*  */
@@ -845,6 +1498,25 @@ typedef register_container RegSHMNcsiBuildTime2_t {
 typedef register_container RegSHMNcsiBuildTime3_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "NcsiBuildTime3"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMNcsiBuildTime3_t()
+    {
+        /** @brief constructor for @ref SHM_t.NcsiBuildTime3. */
+        r32.setName("NcsiBuildTime3");
+        r32.setComponentOffset(0x818);
+    }
+    RegSHMNcsiBuildTime3_t& operator=(const RegSHMNcsiBuildTime3_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMNcsiBuildTime3_t;
 
 #define REG_SHM_NCSI_BUILD_DATE ((volatile BCM5719_SHM_H_uint32_t*)0xc001481c) /* ASCII string spanning three 32-bit words. Unused trailing bytes   are set to zero. */
@@ -852,6 +1524,25 @@ typedef register_container RegSHMNcsiBuildTime3_t {
 typedef register_container RegSHMNcsiBuildDate_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "NcsiBuildDate"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMNcsiBuildDate_t()
+    {
+        /** @brief constructor for @ref SHM_t.NcsiBuildDate. */
+        r32.setName("NcsiBuildDate");
+        r32.setComponentOffset(0x81c);
+    }
+    RegSHMNcsiBuildDate_t& operator=(const RegSHMNcsiBuildDate_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMNcsiBuildDate_t;
 
 #define REG_SHM_NCSI_BUILD_DATE_2 ((volatile BCM5719_SHM_H_uint32_t*)0xc0014820) /*  */
@@ -859,6 +1550,25 @@ typedef register_container RegSHMNcsiBuildDate_t {
 typedef register_container RegSHMNcsiBuildDate2_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "NcsiBuildDate2"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMNcsiBuildDate2_t()
+    {
+        /** @brief constructor for @ref SHM_t.NcsiBuildDate2. */
+        r32.setName("NcsiBuildDate2");
+        r32.setComponentOffset(0x820);
+    }
+    RegSHMNcsiBuildDate2_t& operator=(const RegSHMNcsiBuildDate2_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMNcsiBuildDate2_t;
 
 #define REG_SHM_NCSI_BUILD_DATE_3 ((volatile BCM5719_SHM_H_uint32_t*)0xc0014824) /*  */
@@ -866,6 +1576,25 @@ typedef register_container RegSHMNcsiBuildDate2_t {
 typedef register_container RegSHMNcsiBuildDate3_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "NcsiBuildDate3"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMNcsiBuildDate3_t()
+    {
+        /** @brief constructor for @ref SHM_t.NcsiBuildDate3. */
+        r32.setName("NcsiBuildDate3");
+        r32.setComponentOffset(0x824);
+    }
+    RegSHMNcsiBuildDate3_t& operator=(const RegSHMNcsiBuildDate3_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMNcsiBuildDate3_t;
 
 #define REG_SHM_CHIP_ID ((volatile BCM5719_SHM_H_uint32_t*)0xc0014890) /* The APE code copies the contents of Chip ID to this word */
@@ -873,6 +1602,25 @@ typedef register_container RegSHMNcsiBuildDate3_t {
 typedef register_container RegSHMChipId_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "ChipId"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMChipId_t()
+    {
+        /** @brief constructor for @ref SHM_t.ChipId. */
+        r32.setName("ChipId");
+        r32.setComponentOffset(0x890);
+    }
+    RegSHMChipId_t& operator=(const RegSHMChipId_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMChipId_t;
 
 #define REG_SHM_NCSI_CHANNEL0_INFO ((volatile BCM5719_SHM_H_uint32_t*)0xc0014900) /*  */
@@ -1020,32 +1768,46 @@ typedef register_container RegSHMNcsiChannel0Info_t {
     {
         /** @brief constructor for @ref SHM_t.NcsiChannel0Info. */
         r32.setName("NcsiChannel0Info");
+        r32.setComponentOffset(0x900);
         bits.Enabled.setBaseRegister(&r32);
         bits.Enabled.setName("Enabled");
+        bits.Enabled.setComponentOffset(0x900);
         bits.TXPassthrough.setBaseRegister(&r32);
         bits.TXPassthrough.setName("TXPassthrough");
+        bits.TXPassthrough.setComponentOffset(0x900);
         bits.Ready.setBaseRegister(&r32);
         bits.Ready.setName("Ready");
+        bits.Ready.setComponentOffset(0x900);
         bits.Init.setBaseRegister(&r32);
         bits.Init.setName("Init");
+        bits.Init.setComponentOffset(0x900);
         bits.MFILT.setBaseRegister(&r32);
         bits.MFILT.setName("MFILT");
+        bits.MFILT.setComponentOffset(0x900);
         bits.BFILT.setBaseRegister(&r32);
         bits.BFILT.setName("BFILT");
+        bits.BFILT.setComponentOffset(0x900);
         bits.SERDES.setBaseRegister(&r32);
         bits.SERDES.setName("SERDES");
+        bits.SERDES.setComponentOffset(0x900);
         bits.VLAN.setBaseRegister(&r32);
         bits.VLAN.setName("VLAN");
+        bits.VLAN.setComponentOffset(0x900);
         bits.B2H.setBaseRegister(&r32);
         bits.B2H.setName("B2H");
+        bits.B2H.setComponentOffset(0x900);
         bits.B2N.setBaseRegister(&r32);
         bits.B2N.setName("B2N");
+        bits.B2N.setComponentOffset(0x900);
         bits.EEE.setBaseRegister(&r32);
         bits.EEE.setName("EEE");
+        bits.EEE.setComponentOffset(0x900);
         bits.Driver.setBaseRegister(&r32);
         bits.Driver.setName("Driver");
+        bits.Driver.setComponentOffset(0x900);
         bits.PDead.setBaseRegister(&r32);
         bits.PDead.setName("PDead");
+        bits.PDead.setComponentOffset(0x900);
     }
     RegSHMNcsiChannel0Info_t& operator=(const RegSHMNcsiChannel0Info_t& other)
     {
@@ -1060,6 +1822,25 @@ typedef register_container RegSHMNcsiChannel0Info_t {
 typedef register_container RegSHMNcsiChannel0Mcid_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "NcsiChannel0Mcid"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMNcsiChannel0Mcid_t()
+    {
+        /** @brief constructor for @ref SHM_t.NcsiChannel0Mcid. */
+        r32.setName("NcsiChannel0Mcid");
+        r32.setComponentOffset(0x904);
+    }
+    RegSHMNcsiChannel0Mcid_t& operator=(const RegSHMNcsiChannel0Mcid_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMNcsiChannel0Mcid_t;
 
 #define REG_SHM_NCSI_CHANNEL0_AEN ((volatile BCM5719_SHM_H_uint32_t*)0xc0014908) /* Set via NCSI ENABLE AEN. */
@@ -1115,12 +1896,16 @@ typedef register_container RegSHMNcsiChannel0Aen_t {
     {
         /** @brief constructor for @ref SHM_t.NcsiChannel0Aen. */
         r32.setName("NcsiChannel0Aen");
+        r32.setComponentOffset(0x908);
         bits.EnableLinkStatusChangeAEN.setBaseRegister(&r32);
         bits.EnableLinkStatusChangeAEN.setName("EnableLinkStatusChangeAEN");
+        bits.EnableLinkStatusChangeAEN.setComponentOffset(0x908);
         bits.EnableConfigurationRequiredAEN.setBaseRegister(&r32);
         bits.EnableConfigurationRequiredAEN.setName("EnableConfigurationRequiredAEN");
+        bits.EnableConfigurationRequiredAEN.setComponentOffset(0x908);
         bits.EnableHostNCDriverStatusChangeAEN.setBaseRegister(&r32);
         bits.EnableHostNCDriverStatusChangeAEN.setName("EnableHostNCDriverStatusChangeAEN");
+        bits.EnableHostNCDriverStatusChangeAEN.setComponentOffset(0x908);
     }
     RegSHMNcsiChannel0Aen_t& operator=(const RegSHMNcsiChannel0Aen_t& other)
     {
@@ -1191,14 +1976,19 @@ typedef register_container RegSHMNcsiChannel0Bfilt_t {
     {
         /** @brief constructor for @ref SHM_t.NcsiChannel0Bfilt. */
         r32.setName("NcsiChannel0Bfilt");
+        r32.setComponentOffset(0x90c);
         bits.ARPPacket.setBaseRegister(&r32);
         bits.ARPPacket.setName("ARPPacket");
+        bits.ARPPacket.setComponentOffset(0x90c);
         bits.DHCPClientPacket.setBaseRegister(&r32);
         bits.DHCPClientPacket.setName("DHCPClientPacket");
+        bits.DHCPClientPacket.setComponentOffset(0x90c);
         bits.DHCPServerPacket.setBaseRegister(&r32);
         bits.DHCPServerPacket.setName("DHCPServerPacket");
+        bits.DHCPServerPacket.setComponentOffset(0x90c);
         bits.NetBIOSPacket.setBaseRegister(&r32);
         bits.NetBIOSPacket.setName("NetBIOSPacket");
+        bits.NetBIOSPacket.setComponentOffset(0x90c);
     }
     RegSHMNcsiChannel0Bfilt_t& operator=(const RegSHMNcsiChannel0Bfilt_t& other)
     {
@@ -1261,12 +2051,16 @@ typedef register_container RegSHMNcsiChannel0Mfilt_t {
     {
         /** @brief constructor for @ref SHM_t.NcsiChannel0Mfilt. */
         r32.setName("NcsiChannel0Mfilt");
+        r32.setComponentOffset(0x910);
         bits.IPv6NeighbourAdvertisement.setBaseRegister(&r32);
         bits.IPv6NeighbourAdvertisement.setName("IPv6NeighbourAdvertisement");
+        bits.IPv6NeighbourAdvertisement.setComponentOffset(0x910);
         bits.IPv6RouterAdvertisement.setBaseRegister(&r32);
         bits.IPv6RouterAdvertisement.setName("IPv6RouterAdvertisement");
+        bits.IPv6RouterAdvertisement.setComponentOffset(0x910);
         bits.DHCPv6RelayandServerMulticast.setBaseRegister(&r32);
         bits.DHCPv6RelayandServerMulticast.setName("DHCPv6RelayandServerMulticast");
+        bits.DHCPv6RelayandServerMulticast.setComponentOffset(0x910);
     }
     RegSHMNcsiChannel0Mfilt_t& operator=(const RegSHMNcsiChannel0Mfilt_t& other)
     {
@@ -1389,26 +2183,37 @@ typedef register_container RegSHMNcsiChannel0Setting1_t {
     {
         /** @brief constructor for @ref SHM_t.NcsiChannel0Setting1. */
         r32.setName("NcsiChannel0Setting1");
+        r32.setComponentOffset(0x914);
         bits.Autonegotiationenabled.setBaseRegister(&r32);
         bits.Autonegotiationenabled.setName("Autonegotiationenabled");
+        bits.Autonegotiationenabled.setComponentOffset(0x914);
         bits.LinkSpeed10Menable.setBaseRegister(&r32);
         bits.LinkSpeed10Menable.setName("LinkSpeed10Menable");
+        bits.LinkSpeed10Menable.setComponentOffset(0x914);
         bits.LinkSpeed100Menable.setBaseRegister(&r32);
         bits.LinkSpeed100Menable.setName("LinkSpeed100Menable");
+        bits.LinkSpeed100Menable.setComponentOffset(0x914);
         bits.LinkSpeed1000Menable.setBaseRegister(&r32);
         bits.LinkSpeed1000Menable.setName("LinkSpeed1000Menable");
+        bits.LinkSpeed1000Menable.setComponentOffset(0x914);
         bits.LinkSpeed10Genable.setBaseRegister(&r32);
         bits.LinkSpeed10Genable.setName("LinkSpeed10Genable");
+        bits.LinkSpeed10Genable.setComponentOffset(0x914);
         bits.Halfduplexenable.setBaseRegister(&r32);
         bits.Halfduplexenable.setName("Halfduplexenable");
+        bits.Halfduplexenable.setComponentOffset(0x914);
         bits.Fullduplexenable.setBaseRegister(&r32);
         bits.Fullduplexenable.setName("Fullduplexenable");
+        bits.Fullduplexenable.setComponentOffset(0x914);
         bits.Pausecapabilityenable.setBaseRegister(&r32);
         bits.Pausecapabilityenable.setName("Pausecapabilityenable");
+        bits.Pausecapabilityenable.setComponentOffset(0x914);
         bits.Asymmetricpausecapabilityenable.setBaseRegister(&r32);
         bits.Asymmetricpausecapabilityenable.setName("Asymmetricpausecapabilityenable");
+        bits.Asymmetricpausecapabilityenable.setComponentOffset(0x914);
         bits.OEMlinksettingsfieldvalid.setBaseRegister(&r32);
         bits.OEMlinksettingsfieldvalid.setName("OEMlinksettingsfieldvalid");
+        bits.OEMlinksettingsfieldvalid.setComponentOffset(0x914);
     }
     RegSHMNcsiChannel0Setting1_t& operator=(const RegSHMNcsiChannel0Setting1_t& other)
     {
@@ -1423,6 +2228,25 @@ typedef register_container RegSHMNcsiChannel0Setting1_t {
 typedef register_container RegSHMNcsiChannel0Setting2_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "NcsiChannel0Setting2"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMNcsiChannel0Setting2_t()
+    {
+        /** @brief constructor for @ref SHM_t.NcsiChannel0Setting2. */
+        r32.setName("NcsiChannel0Setting2");
+        r32.setComponentOffset(0x918);
+    }
+    RegSHMNcsiChannel0Setting2_t& operator=(const RegSHMNcsiChannel0Setting2_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMNcsiChannel0Setting2_t;
 
 #define REG_SHM_NCSI_CHANNEL0_VLAN ((volatile BCM5719_SHM_H_uint32_t*)0xc001491c) /* Receives VLAN mode from NCSI specification "Enable VLAN" command. */
@@ -1430,6 +2254,25 @@ typedef register_container RegSHMNcsiChannel0Setting2_t {
 typedef register_container RegSHMNcsiChannel0Vlan_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "NcsiChannel0Vlan"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMNcsiChannel0Vlan_t()
+    {
+        /** @brief constructor for @ref SHM_t.NcsiChannel0Vlan. */
+        r32.setName("NcsiChannel0Vlan");
+        r32.setComponentOffset(0x91c);
+    }
+    RegSHMNcsiChannel0Vlan_t& operator=(const RegSHMNcsiChannel0Vlan_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMNcsiChannel0Vlan_t;
 
 #define REG_SHM_NCSI_CHANNEL0_ALT_HOST_MAC_HIGH ((volatile BCM5719_SHM_H_uint32_t*)0xc0014924) /* Lower 16 bits of this word contains upper 16 bits of the MAC. */
@@ -1437,6 +2280,25 @@ typedef register_container RegSHMNcsiChannel0Vlan_t {
 typedef register_container RegSHMNcsiChannel0AltHostMacHigh_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "NcsiChannel0AltHostMacHigh"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMNcsiChannel0AltHostMacHigh_t()
+    {
+        /** @brief constructor for @ref SHM_t.NcsiChannel0AltHostMacHigh. */
+        r32.setName("NcsiChannel0AltHostMacHigh");
+        r32.setComponentOffset(0x924);
+    }
+    RegSHMNcsiChannel0AltHostMacHigh_t& operator=(const RegSHMNcsiChannel0AltHostMacHigh_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMNcsiChannel0AltHostMacHigh_t;
 
 #define REG_SHM_NCSI_CHANNEL0_ALT_HOST_MAC_MID ((volatile BCM5719_SHM_H_uint32_t*)0xc0014928) /* Lower 16 bits of this word contains mid 16 bits of the MAC. */
@@ -1444,6 +2306,25 @@ typedef register_container RegSHMNcsiChannel0AltHostMacHigh_t {
 typedef register_container RegSHMNcsiChannel0AltHostMacMid_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "NcsiChannel0AltHostMacMid"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMNcsiChannel0AltHostMacMid_t()
+    {
+        /** @brief constructor for @ref SHM_t.NcsiChannel0AltHostMacMid. */
+        r32.setName("NcsiChannel0AltHostMacMid");
+        r32.setComponentOffset(0x928);
+    }
+    RegSHMNcsiChannel0AltHostMacMid_t& operator=(const RegSHMNcsiChannel0AltHostMacMid_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMNcsiChannel0AltHostMacMid_t;
 
 #define REG_SHM_NCSI_CHANNEL0_ALT_HOST_MAC_LOW ((volatile BCM5719_SHM_H_uint32_t*)0xc001492c) /* Lower 16 bits of this word contains low 16 bits of the MAC. */
@@ -1451,6 +2332,25 @@ typedef register_container RegSHMNcsiChannel0AltHostMacMid_t {
 typedef register_container RegSHMNcsiChannel0AltHostMacLow_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "NcsiChannel0AltHostMacLow"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMNcsiChannel0AltHostMacLow_t()
+    {
+        /** @brief constructor for @ref SHM_t.NcsiChannel0AltHostMacLow. */
+        r32.setName("NcsiChannel0AltHostMacLow");
+        r32.setComponentOffset(0x92c);
+    }
+    RegSHMNcsiChannel0AltHostMacLow_t& operator=(const RegSHMNcsiChannel0AltHostMacLow_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMNcsiChannel0AltHostMacLow_t;
 
 #define REG_SHM_NCSI_CHANNEL0_MAC0_HIGH ((volatile BCM5719_SHM_H_uint32_t*)0xc0014934) /* Lower 16 bits of this word contains upper 16 bits of the MAC. */
@@ -1458,6 +2358,25 @@ typedef register_container RegSHMNcsiChannel0AltHostMacLow_t {
 typedef register_container RegSHMNcsiChannel0Mac0High_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "NcsiChannel0Mac0High"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMNcsiChannel0Mac0High_t()
+    {
+        /** @brief constructor for @ref SHM_t.NcsiChannel0Mac0High. */
+        r32.setName("NcsiChannel0Mac0High");
+        r32.setComponentOffset(0x934);
+    }
+    RegSHMNcsiChannel0Mac0High_t& operator=(const RegSHMNcsiChannel0Mac0High_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMNcsiChannel0Mac0High_t;
 
 #define REG_SHM_NCSI_CHANNEL0_MAC0_MID ((volatile BCM5719_SHM_H_uint32_t*)0xc0014938) /* Lower 16 bits of this word contains mid 16 bits of the MAC. */
@@ -1465,6 +2384,25 @@ typedef register_container RegSHMNcsiChannel0Mac0High_t {
 typedef register_container RegSHMNcsiChannel0Mac0Mid_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "NcsiChannel0Mac0Mid"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMNcsiChannel0Mac0Mid_t()
+    {
+        /** @brief constructor for @ref SHM_t.NcsiChannel0Mac0Mid. */
+        r32.setName("NcsiChannel0Mac0Mid");
+        r32.setComponentOffset(0x938);
+    }
+    RegSHMNcsiChannel0Mac0Mid_t& operator=(const RegSHMNcsiChannel0Mac0Mid_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMNcsiChannel0Mac0Mid_t;
 
 #define REG_SHM_NCSI_CHANNEL0_MAC0_LOW ((volatile BCM5719_SHM_H_uint32_t*)0xc001493c) /* Lower 16 bits of this word contains low 16 bits of the MAC. */
@@ -1472,6 +2410,25 @@ typedef register_container RegSHMNcsiChannel0Mac0Mid_t {
 typedef register_container RegSHMNcsiChannel0Mac0Low_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "NcsiChannel0Mac0Low"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMNcsiChannel0Mac0Low_t()
+    {
+        /** @brief constructor for @ref SHM_t.NcsiChannel0Mac0Low. */
+        r32.setName("NcsiChannel0Mac0Low");
+        r32.setComponentOffset(0x93c);
+    }
+    RegSHMNcsiChannel0Mac0Low_t& operator=(const RegSHMNcsiChannel0Mac0Low_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMNcsiChannel0Mac0Low_t;
 
 #define REG_SHM_NCSI_CHANNEL0_MAC1_HIGH ((volatile BCM5719_SHM_H_uint32_t*)0xc0014944) /* Lower 16 bits of this word contains upper 16 bits of the MAC. */
@@ -1479,6 +2436,25 @@ typedef register_container RegSHMNcsiChannel0Mac0Low_t {
 typedef register_container RegSHMNcsiChannel0Mac1High_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "NcsiChannel0Mac1High"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMNcsiChannel0Mac1High_t()
+    {
+        /** @brief constructor for @ref SHM_t.NcsiChannel0Mac1High. */
+        r32.setName("NcsiChannel0Mac1High");
+        r32.setComponentOffset(0x944);
+    }
+    RegSHMNcsiChannel0Mac1High_t& operator=(const RegSHMNcsiChannel0Mac1High_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMNcsiChannel0Mac1High_t;
 
 #define REG_SHM_NCSI_CHANNEL0_MAC1_MID ((volatile BCM5719_SHM_H_uint32_t*)0xc0014948) /* Lower 16 bits of this word contains mid 16 bits of the MAC. */
@@ -1486,6 +2462,25 @@ typedef register_container RegSHMNcsiChannel0Mac1High_t {
 typedef register_container RegSHMNcsiChannel0Mac1Mid_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "NcsiChannel0Mac1Mid"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMNcsiChannel0Mac1Mid_t()
+    {
+        /** @brief constructor for @ref SHM_t.NcsiChannel0Mac1Mid. */
+        r32.setName("NcsiChannel0Mac1Mid");
+        r32.setComponentOffset(0x948);
+    }
+    RegSHMNcsiChannel0Mac1Mid_t& operator=(const RegSHMNcsiChannel0Mac1Mid_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMNcsiChannel0Mac1Mid_t;
 
 #define REG_SHM_NCSI_CHANNEL0_MAC1_LOW ((volatile BCM5719_SHM_H_uint32_t*)0xc001494c) /* Lower 16 bits of this word contains low 16 bits of the MAC. */
@@ -1493,6 +2488,25 @@ typedef register_container RegSHMNcsiChannel0Mac1Mid_t {
 typedef register_container RegSHMNcsiChannel0Mac1Low_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "NcsiChannel0Mac1Low"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMNcsiChannel0Mac1Low_t()
+    {
+        /** @brief constructor for @ref SHM_t.NcsiChannel0Mac1Low. */
+        r32.setName("NcsiChannel0Mac1Low");
+        r32.setComponentOffset(0x94c);
+    }
+    RegSHMNcsiChannel0Mac1Low_t& operator=(const RegSHMNcsiChannel0Mac1Low_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMNcsiChannel0Mac1Low_t;
 
 #define REG_SHM_NCSI_CHANNEL0_MAC2_HIGH ((volatile BCM5719_SHM_H_uint32_t*)0xc0014954) /* Lower 16 bits of this word contains upper 16 bits of the MAC. */
@@ -1500,6 +2514,25 @@ typedef register_container RegSHMNcsiChannel0Mac1Low_t {
 typedef register_container RegSHMNcsiChannel0Mac2High_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "NcsiChannel0Mac2High"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMNcsiChannel0Mac2High_t()
+    {
+        /** @brief constructor for @ref SHM_t.NcsiChannel0Mac2High. */
+        r32.setName("NcsiChannel0Mac2High");
+        r32.setComponentOffset(0x954);
+    }
+    RegSHMNcsiChannel0Mac2High_t& operator=(const RegSHMNcsiChannel0Mac2High_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMNcsiChannel0Mac2High_t;
 
 #define REG_SHM_NCSI_CHANNEL0_MAC2_MID ((volatile BCM5719_SHM_H_uint32_t*)0xc0014958) /* Lower 16 bits of this word contains mid 16 bits of the MAC. */
@@ -1507,6 +2540,25 @@ typedef register_container RegSHMNcsiChannel0Mac2High_t {
 typedef register_container RegSHMNcsiChannel0Mac2Mid_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "NcsiChannel0Mac2Mid"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMNcsiChannel0Mac2Mid_t()
+    {
+        /** @brief constructor for @ref SHM_t.NcsiChannel0Mac2Mid. */
+        r32.setName("NcsiChannel0Mac2Mid");
+        r32.setComponentOffset(0x958);
+    }
+    RegSHMNcsiChannel0Mac2Mid_t& operator=(const RegSHMNcsiChannel0Mac2Mid_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMNcsiChannel0Mac2Mid_t;
 
 #define REG_SHM_NCSI_CHANNEL0_MAC2_LOW ((volatile BCM5719_SHM_H_uint32_t*)0xc001495c) /* Lower 16 bits of this word contains low 16 bits of the MAC. */
@@ -1514,6 +2566,25 @@ typedef register_container RegSHMNcsiChannel0Mac2Mid_t {
 typedef register_container RegSHMNcsiChannel0Mac2Low_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "NcsiChannel0Mac2Low"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMNcsiChannel0Mac2Low_t()
+    {
+        /** @brief constructor for @ref SHM_t.NcsiChannel0Mac2Low. */
+        r32.setName("NcsiChannel0Mac2Low");
+        r32.setComponentOffset(0x95c);
+    }
+    RegSHMNcsiChannel0Mac2Low_t& operator=(const RegSHMNcsiChannel0Mac2Low_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMNcsiChannel0Mac2Low_t;
 
 #define REG_SHM_NCSI_CHANNEL0_MAC3_HIGH ((volatile BCM5719_SHM_H_uint32_t*)0xc0014964) /* Lower 16 bits of this word contains upper 16 bits of the MAC. */
@@ -1521,6 +2592,25 @@ typedef register_container RegSHMNcsiChannel0Mac2Low_t {
 typedef register_container RegSHMNcsiChannel0Mac3High_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "NcsiChannel0Mac3High"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMNcsiChannel0Mac3High_t()
+    {
+        /** @brief constructor for @ref SHM_t.NcsiChannel0Mac3High. */
+        r32.setName("NcsiChannel0Mac3High");
+        r32.setComponentOffset(0x964);
+    }
+    RegSHMNcsiChannel0Mac3High_t& operator=(const RegSHMNcsiChannel0Mac3High_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMNcsiChannel0Mac3High_t;
 
 #define REG_SHM_NCSI_CHANNEL0_MAC3_MID ((volatile BCM5719_SHM_H_uint32_t*)0xc0014968) /* Lower 16 bits of this word contains mid 16 bits of the MAC. */
@@ -1528,6 +2618,25 @@ typedef register_container RegSHMNcsiChannel0Mac3High_t {
 typedef register_container RegSHMNcsiChannel0Mac3Mid_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "NcsiChannel0Mac3Mid"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMNcsiChannel0Mac3Mid_t()
+    {
+        /** @brief constructor for @ref SHM_t.NcsiChannel0Mac3Mid. */
+        r32.setName("NcsiChannel0Mac3Mid");
+        r32.setComponentOffset(0x968);
+    }
+    RegSHMNcsiChannel0Mac3Mid_t& operator=(const RegSHMNcsiChannel0Mac3Mid_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMNcsiChannel0Mac3Mid_t;
 
 #define REG_SHM_NCSI_CHANNEL0_MAC3_LOW ((volatile BCM5719_SHM_H_uint32_t*)0xc001496c) /* Lower 16 bits of this word contains low 16 bits of the MAC. */
@@ -1535,6 +2644,25 @@ typedef register_container RegSHMNcsiChannel0Mac3Mid_t {
 typedef register_container RegSHMNcsiChannel0Mac3Low_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "NcsiChannel0Mac3Low"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMNcsiChannel0Mac3Low_t()
+    {
+        /** @brief constructor for @ref SHM_t.NcsiChannel0Mac3Low. */
+        r32.setName("NcsiChannel0Mac3Low");
+        r32.setComponentOffset(0x96c);
+    }
+    RegSHMNcsiChannel0Mac3Low_t& operator=(const RegSHMNcsiChannel0Mac3Low_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMNcsiChannel0Mac3Low_t;
 
 #define REG_SHM_NCSI_CHANNEL0_MAC0_VLAN_VALID ((volatile BCM5719_SHM_H_uint32_t*)0xc0014970) /* Nonzero indicates VLAN field is valid */
@@ -1542,6 +2670,25 @@ typedef register_container RegSHMNcsiChannel0Mac3Low_t {
 typedef register_container RegSHMNcsiChannel0Mac0VlanValid_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "NcsiChannel0Mac0VlanValid"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMNcsiChannel0Mac0VlanValid_t()
+    {
+        /** @brief constructor for @ref SHM_t.NcsiChannel0Mac0VlanValid. */
+        r32.setName("NcsiChannel0Mac0VlanValid");
+        r32.setComponentOffset(0x970);
+    }
+    RegSHMNcsiChannel0Mac0VlanValid_t& operator=(const RegSHMNcsiChannel0Mac0VlanValid_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMNcsiChannel0Mac0VlanValid_t;
 
 #define REG_SHM_NCSI_CHANNEL0_MAC0_VLAN ((volatile BCM5719_SHM_H_uint32_t*)0xc0014974) /*  */
@@ -1549,6 +2696,25 @@ typedef register_container RegSHMNcsiChannel0Mac0VlanValid_t {
 typedef register_container RegSHMNcsiChannel0Mac0Vlan_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "NcsiChannel0Mac0Vlan"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMNcsiChannel0Mac0Vlan_t()
+    {
+        /** @brief constructor for @ref SHM_t.NcsiChannel0Mac0Vlan. */
+        r32.setName("NcsiChannel0Mac0Vlan");
+        r32.setComponentOffset(0x974);
+    }
+    RegSHMNcsiChannel0Mac0Vlan_t& operator=(const RegSHMNcsiChannel0Mac0Vlan_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMNcsiChannel0Mac0Vlan_t;
 
 #define REG_SHM_NCSI_CHANNEL0_MAC1_VLAN_VALID ((volatile BCM5719_SHM_H_uint32_t*)0xc0014978) /* Nonzero indicates VLAN field is valid */
@@ -1556,6 +2722,25 @@ typedef register_container RegSHMNcsiChannel0Mac0Vlan_t {
 typedef register_container RegSHMNcsiChannel0Mac1VlanValid_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "NcsiChannel0Mac1VlanValid"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMNcsiChannel0Mac1VlanValid_t()
+    {
+        /** @brief constructor for @ref SHM_t.NcsiChannel0Mac1VlanValid. */
+        r32.setName("NcsiChannel0Mac1VlanValid");
+        r32.setComponentOffset(0x978);
+    }
+    RegSHMNcsiChannel0Mac1VlanValid_t& operator=(const RegSHMNcsiChannel0Mac1VlanValid_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMNcsiChannel0Mac1VlanValid_t;
 
 #define REG_SHM_NCSI_CHANNEL0_MAC1_VLAN ((volatile BCM5719_SHM_H_uint32_t*)0xc001497c) /*  */
@@ -1563,6 +2748,25 @@ typedef register_container RegSHMNcsiChannel0Mac1VlanValid_t {
 typedef register_container RegSHMNcsiChannel0Mac1Vlan_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "NcsiChannel0Mac1Vlan"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMNcsiChannel0Mac1Vlan_t()
+    {
+        /** @brief constructor for @ref SHM_t.NcsiChannel0Mac1Vlan. */
+        r32.setName("NcsiChannel0Mac1Vlan");
+        r32.setComponentOffset(0x97c);
+    }
+    RegSHMNcsiChannel0Mac1Vlan_t& operator=(const RegSHMNcsiChannel0Mac1Vlan_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMNcsiChannel0Mac1Vlan_t;
 
 #define REG_SHM_NCSI_CHANNEL0_STATUS ((volatile BCM5719_SHM_H_uint32_t*)0xc0014980) /*  */
@@ -1646,18 +2850,25 @@ typedef register_container RegSHMNcsiChannel0Status_t {
     {
         /** @brief constructor for @ref SHM_t.NcsiChannel0Status. */
         r32.setName("NcsiChannel0Status");
+        r32.setComponentOffset(0x980);
         bits.Linkup.setBaseRegister(&r32);
         bits.Linkup.setName("Linkup");
+        bits.Linkup.setComponentOffset(0x980);
         bits.LinkStatus.setBaseRegister(&r32);
         bits.LinkStatus.setName("LinkStatus");
+        bits.LinkStatus.setComponentOffset(0x980);
         bits.SERDES.setBaseRegister(&r32);
         bits.SERDES.setName("SERDES");
+        bits.SERDES.setComponentOffset(0x980);
         bits.AutonegotiationComplete.setBaseRegister(&r32);
         bits.AutonegotiationComplete.setName("AutonegotiationComplete");
+        bits.AutonegotiationComplete.setComponentOffset(0x980);
         bits.LinkSpeed1000MFullDuplexCapable.setBaseRegister(&r32);
         bits.LinkSpeed1000MFullDuplexCapable.setName("LinkSpeed1000MFullDuplexCapable");
+        bits.LinkSpeed1000MFullDuplexCapable.setComponentOffset(0x980);
         bits.LinkSpeed1000MHalsDuplexCapable.setBaseRegister(&r32);
         bits.LinkSpeed1000MHalsDuplexCapable.setName("LinkSpeed1000MHalsDuplexCapable");
+        bits.LinkSpeed1000MHalsDuplexCapable.setComponentOffset(0x980);
     }
     RegSHMNcsiChannel0Status_t& operator=(const RegSHMNcsiChannel0Status_t& other)
     {
@@ -1672,6 +2883,25 @@ typedef register_container RegSHMNcsiChannel0Status_t {
 typedef register_container RegSHMNcsiChannel0ResetCount_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "NcsiChannel0ResetCount"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMNcsiChannel0ResetCount_t()
+    {
+        /** @brief constructor for @ref SHM_t.NcsiChannel0ResetCount. */
+        r32.setName("NcsiChannel0ResetCount");
+        r32.setComponentOffset(0x984);
+    }
+    RegSHMNcsiChannel0ResetCount_t& operator=(const RegSHMNcsiChannel0ResetCount_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMNcsiChannel0ResetCount_t;
 
 #define REG_SHM_NCSI_CHANNEL0_PXE ((volatile BCM5719_SHM_H_uint32_t*)0xc0014988) /*  */
@@ -1679,6 +2909,25 @@ typedef register_container RegSHMNcsiChannel0ResetCount_t {
 typedef register_container RegSHMNcsiChannel0Pxe_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "NcsiChannel0Pxe"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMNcsiChannel0Pxe_t()
+    {
+        /** @brief constructor for @ref SHM_t.NcsiChannel0Pxe. */
+        r32.setName("NcsiChannel0Pxe");
+        r32.setComponentOffset(0x988);
+    }
+    RegSHMNcsiChannel0Pxe_t& operator=(const RegSHMNcsiChannel0Pxe_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMNcsiChannel0Pxe_t;
 
 #define REG_SHM_NCSI_CHANNEL0_DROPFIL ((volatile BCM5719_SHM_H_uint32_t*)0xc001498c) /*  */
@@ -1686,6 +2935,25 @@ typedef register_container RegSHMNcsiChannel0Pxe_t {
 typedef register_container RegSHMNcsiChannel0Dropfil_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "NcsiChannel0Dropfil"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMNcsiChannel0Dropfil_t()
+    {
+        /** @brief constructor for @ref SHM_t.NcsiChannel0Dropfil. */
+        r32.setName("NcsiChannel0Dropfil");
+        r32.setComponentOffset(0x98c);
+    }
+    RegSHMNcsiChannel0Dropfil_t& operator=(const RegSHMNcsiChannel0Dropfil_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMNcsiChannel0Dropfil_t;
 
 #define REG_SHM_NCSI_CHANNEL0_SLINK ((volatile BCM5719_SHM_H_uint32_t*)0xc0014990) /*  */
@@ -1693,6 +2961,25 @@ typedef register_container RegSHMNcsiChannel0Dropfil_t {
 typedef register_container RegSHMNcsiChannel0Slink_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "NcsiChannel0Slink"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMNcsiChannel0Slink_t()
+    {
+        /** @brief constructor for @ref SHM_t.NcsiChannel0Slink. */
+        r32.setName("NcsiChannel0Slink");
+        r32.setComponentOffset(0x990);
+    }
+    RegSHMNcsiChannel0Slink_t& operator=(const RegSHMNcsiChannel0Slink_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMNcsiChannel0Slink_t;
 
 #define REG_SHM_NCSI_CHANNEL0_DBG ((volatile BCM5719_SHM_H_uint32_t*)0xc00149a0) /*  */
@@ -1700,6 +2987,25 @@ typedef register_container RegSHMNcsiChannel0Slink_t {
 typedef register_container RegSHMNcsiChannel0Dbg_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "NcsiChannel0Dbg"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMNcsiChannel0Dbg_t()
+    {
+        /** @brief constructor for @ref SHM_t.NcsiChannel0Dbg. */
+        r32.setName("NcsiChannel0Dbg");
+        r32.setComponentOffset(0x9a0);
+    }
+    RegSHMNcsiChannel0Dbg_t& operator=(const RegSHMNcsiChannel0Dbg_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMNcsiChannel0Dbg_t;
 
 #define REG_SHM_NCSI_CHANNEL0_CTRLSTAT_RX ((volatile BCM5719_SHM_H_uint32_t*)0xc00149b0) /*  */
@@ -1707,6 +3013,25 @@ typedef register_container RegSHMNcsiChannel0Dbg_t {
 typedef register_container RegSHMNcsiChannel0CtrlstatRx_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "NcsiChannel0CtrlstatRx"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMNcsiChannel0CtrlstatRx_t()
+    {
+        /** @brief constructor for @ref SHM_t.NcsiChannel0CtrlstatRx. */
+        r32.setName("NcsiChannel0CtrlstatRx");
+        r32.setComponentOffset(0x9b0);
+    }
+    RegSHMNcsiChannel0CtrlstatRx_t& operator=(const RegSHMNcsiChannel0CtrlstatRx_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegSHMNcsiChannel0CtrlstatRx_t;
 
 /** @brief Component definition for @ref SHM. */
@@ -2012,16 +3337,15 @@ typedef struct {
     RegSHMNcsiChannel0CtrlstatRx_t NcsiChannel0CtrlstatRx;
 
 #ifdef CXX_SIMULATOR
-    typedef uint32_t (*read_callback_t)(uint32_t, void*);
-    read_callback_t mIndexReadCallback;
+    typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);
+    callback_t mIndexReadCallback;
     void* mIndexReadCallbackArgs;
 
-    typedef void (*write_callback_t)(uint32_t, uint32_t value, void*);
-    write_callback_t mIndexWriteCallback;
+    callback_t mIndexWriteCallback;
     void* mIndexWriteCallbackArgs;
 
-    uint32_t read(int index) { return mIndexReadCallback(index, mIndexReadCallbackArgs); }
-    void write(int index, uint32_t value) { mIndexWriteCallback(index, value, mIndexWriteCallbackArgs); }
+    uint32_t read(int offset) { return mIndexReadCallback(0, offset, mIndexReadCallbackArgs); }
+    void write(int offset, uint32_t value) { (void)mIndexWriteCallback(value, offset, mIndexWriteCallbackArgs); }
 #endif /* CXX_SIMULATOR */
 } SHM_t;
 

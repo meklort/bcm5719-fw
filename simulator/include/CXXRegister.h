@@ -55,6 +55,7 @@ class CXXRegisterBase
 public:
     CXXRegisterBase(unsigned int offset, unsigned int width)
     {
+        mComponentOffset = 0;
         mMask = 0;
         mBaseRegister = NULL;
         mBitWidth = width;
@@ -84,16 +85,26 @@ public:
         return mName;
     }
 
+    void setComponentOffset(unsigned int offset)
+    {
+        mComponentOffset = offset;
+    }
+
+    unsigned int getComponentOffset(void)
+    {
+        return mComponentOffset;
+    }
+
     void print(unsigned int value, int indent = false)
     {
         unsigned int masked = value & mMask;
         if(indent)
         {
-            std::cout << std::setw(30) << mName << ": " << std::hex << (masked >> mBitPosition) << std::endl;
+            std::cout << std::setw(30) << mName << ": 0x" << std::hex << (masked >> mBitPosition) << std::endl;
         }
         else
         {
-            std::cout << std::endl << mName << ": " << std::hex << (masked >> mBitPosition) << std::endl;
+            std::cout << std::endl << mName << ": 0x" << std::hex << (masked >> mBitPosition) << std::endl;
         }
     }
 
@@ -108,6 +119,7 @@ public:
 
 
 protected:
+    unsigned int mComponentOffset;
     unsigned int mBitPosition;
     unsigned int mBitWidth;
     unsigned int mMask;
@@ -204,7 +216,7 @@ protected:
 template<typename T, unsigned int OFFSET, unsigned int WIDTH> class CXXRegister : public CXXRegisterBase
 {
 private:
-    typedef T (*callback_t)(T val, void*);
+    typedef T (*callback_t)(T val, unsigned int, void*);
     std::vector< std::pair<callback_t, void*> > mReadCallback;
     std::vector< std::pair<callback_t, void*> > mWriteCallback;
 
@@ -222,7 +234,7 @@ private:
             callback = (*it).first;
             if(callback)
             {
-                val = callback(val, (*it).second);
+                val = callback(val, mComponentOffset, (*it).second);
             }
         }
         mValue = val; 
@@ -239,7 +251,7 @@ private:
             callback = (*it).first;
             if(callback)
             {
-                val = callback(val, (*it).second);
+                val = callback(val, mComponentOffset, (*it).second);
             }
         }
 

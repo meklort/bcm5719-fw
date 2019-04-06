@@ -54,32 +54,19 @@
 
 typedef std::pair<uint8_t *, uint32_t> ram_offset_t;
 
-static uint32_t read_from_ram(uint32_t val, void *args)
-{
-    ram_offset_t *loc = (ram_offset_t *)args;
-
-    uint8_t *base = loc->first;
-    base += loc->second;
-
-    BARRIER();
-    return *(uint32_t *)base;
-}
-
-static uint32_t read_from_ram_index(uint32_t index, void *args)
+static uint32_t read_from_ram(uint32_t val, uint32_t offset, void *args)
 {
     uint8_t *base = (uint8_t *)args;
-    base += index;
+    base += offset;
 
     BARRIER();
     return *(uint32_t *)base;
 }
 
-static uint32_t write_to_ram(uint32_t val, void *args)
+static uint32_t write_to_ram(uint32_t val, uint32_t offset, void *args)
 {
-    ram_offset_t *loc = (ram_offset_t *)args;
-
-    uint8_t *base = loc->first;
-    base += loc->second;
+    uint8_t *base = (uint8_t *)args;
+    base += offset;
 
     BARRIER();
     *(uint32_t *)base = val;
@@ -87,139 +74,106 @@ static uint32_t write_to_ram(uint32_t val, void *args)
     return val;
 }
 
-static void write_to_ram_index(uint32_t index, uint32_t val, void *args)
-{
-    uint8_t *base = (uint8_t *)args;
-    base += index;
-
-    BARRIER();
-    *(uint32_t *)base = val;
-    BARRIER();
-}
-
 void init_bcm5719_GEN_mmap(void *base)
 {
-    GEN.mIndexReadCallback = read_from_ram_index;
+    GEN.mIndexReadCallback = read_from_ram;
     GEN.mIndexReadCallbackArgs = base;
 
-    GEN.mIndexWriteCallback = write_to_ram_index;
+    GEN.mIndexWriteCallback = write_to_ram;
     GEN.mIndexWriteCallbackArgs = base;
 
     /** @brief Component Registers for @ref GEN. */
     /** @brief Bitmap for @ref GEN_t.GenFwMbox. */
-    static ram_offset_t GEN_GenFwMbox_r32((uint8_t *)base, (uint32_t)0);
-    GEN.GenFwMbox.r32.installReadCallback(read_from_ram, &GEN_GenFwMbox_r32);
-    GEN.GenFwMbox.r32.installWriteCallback(write_to_ram, &GEN_GenFwMbox_r32);
+    GEN.GenFwMbox.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    GEN.GenFwMbox.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
     /** @brief Bitmap for @ref GEN_t.GenDataSig. */
-    static ram_offset_t GEN_GenDataSig_r32((uint8_t *)base, (uint32_t)4);
-    GEN.GenDataSig.r32.installReadCallback(read_from_ram, &GEN_GenDataSig_r32);
-    GEN.GenDataSig.r32.installWriteCallback(write_to_ram, &GEN_GenDataSig_r32);
+    GEN.GenDataSig.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    GEN.GenDataSig.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
     /** @brief Bitmap for @ref GEN_t.GenCfg. */
-    static ram_offset_t GEN_GenCfg_r32((uint8_t *)base, (uint32_t)8);
-    GEN.GenCfg.r32.installReadCallback(read_from_ram, &GEN_GenCfg_r32);
-    GEN.GenCfg.r32.installWriteCallback(write_to_ram, &GEN_GenCfg_r32);
+    GEN.GenCfg.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    GEN.GenCfg.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
     /** @brief Bitmap for @ref GEN_t.GenVersion. */
-    static ram_offset_t GEN_GenVersion_r32((uint8_t *)base, (uint32_t)12);
-    GEN.GenVersion.r32.installReadCallback(read_from_ram, &GEN_GenVersion_r32);
-    GEN.GenVersion.r32.installWriteCallback(write_to_ram, &GEN_GenVersion_r32);
+    GEN.GenVersion.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    GEN.GenVersion.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
     /** @brief Bitmap for @ref GEN_t.GenPhyId. */
-    static ram_offset_t GEN_GenPhyId_r32((uint8_t *)base, (uint32_t)36);
-    GEN.GenPhyId.r32.installReadCallback(read_from_ram, &GEN_GenPhyId_r32);
-    GEN.GenPhyId.r32.installWriteCallback(write_to_ram, &GEN_GenPhyId_r32);
+    GEN.GenPhyId.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    GEN.GenPhyId.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
     /** @brief Bitmap for @ref GEN_t.GenAsfStatusMbox. */
-    static ram_offset_t GEN_GenAsfStatusMbox_r32((uint8_t *)base, (uint32_t)176);
-    GEN.GenAsfStatusMbox.r32.installReadCallback(read_from_ram, &GEN_GenAsfStatusMbox_r32);
-    GEN.GenAsfStatusMbox.r32.installWriteCallback(write_to_ram, &GEN_GenAsfStatusMbox_r32);
+    GEN.GenAsfStatusMbox.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    GEN.GenAsfStatusMbox.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
     /** @brief Bitmap for @ref GEN_t.GenFwDriverStateMbox. */
-    static ram_offset_t GEN_GenFwDriverStateMbox_r32((uint8_t *)base, (uint32_t)180);
-    GEN.GenFwDriverStateMbox.r32.installReadCallback(read_from_ram, &GEN_GenFwDriverStateMbox_r32);
-    GEN.GenFwDriverStateMbox.r32.installWriteCallback(write_to_ram, &GEN_GenFwDriverStateMbox_r32);
+    GEN.GenFwDriverStateMbox.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    GEN.GenFwDriverStateMbox.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
     /** @brief Bitmap for @ref GEN_t.GenFwResetTypeMbox. */
-    static ram_offset_t GEN_GenFwResetTypeMbox_r32((uint8_t *)base, (uint32_t)184);
-    GEN.GenFwResetTypeMbox.r32.installReadCallback(read_from_ram, &GEN_GenFwResetTypeMbox_r32);
-    GEN.GenFwResetTypeMbox.r32.installWriteCallback(write_to_ram, &GEN_GenFwResetTypeMbox_r32);
+    GEN.GenFwResetTypeMbox.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    GEN.GenFwResetTypeMbox.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
     /** @brief Bitmap for @ref GEN_t.GenBc. */
-    static ram_offset_t GEN_GenBc_r32((uint8_t *)base, (uint32_t)188);
-    GEN.GenBc.r32.installReadCallback(read_from_ram, &GEN_GenBc_r32);
-    GEN.GenBc.r32.installWriteCallback(write_to_ram, &GEN_GenBc_r32);
+    GEN.GenBc.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    GEN.GenBc.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
     /** @brief Bitmap for @ref GEN_t.GenMacAddrHighMbox. */
-    static ram_offset_t GEN_GenMacAddrHighMbox_r32((uint8_t *)base, (uint32_t)196);
-    GEN.GenMacAddrHighMbox.r32.installReadCallback(read_from_ram, &GEN_GenMacAddrHighMbox_r32);
-    GEN.GenMacAddrHighMbox.r32.installWriteCallback(write_to_ram, &GEN_GenMacAddrHighMbox_r32);
+    GEN.GenMacAddrHighMbox.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    GEN.GenMacAddrHighMbox.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
     /** @brief Bitmap for @ref GEN_t.GenMacAddrLowMbox. */
-    static ram_offset_t GEN_GenMacAddrLowMbox_r32((uint8_t *)base, (uint32_t)200);
-    GEN.GenMacAddrLowMbox.r32.installReadCallback(read_from_ram, &GEN_GenMacAddrLowMbox_r32);
-    GEN.GenMacAddrLowMbox.r32.installWriteCallback(write_to_ram, &GEN_GenMacAddrLowMbox_r32);
+    GEN.GenMacAddrLowMbox.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    GEN.GenMacAddrLowMbox.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
     /** @brief Bitmap for @ref GEN_t.GenD8. */
-    static ram_offset_t GEN_GenD8_r32((uint8_t *)base, (uint32_t)216);
-    GEN.GenD8.r32.installReadCallback(read_from_ram, &GEN_GenD8_r32);
-    GEN.GenD8.r32.installWriteCallback(write_to_ram, &GEN_GenD8_r32);
+    GEN.GenD8.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    GEN.GenD8.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
     /** @brief Bitmap for @ref GEN_t.Gen1dc. */
-    static ram_offset_t GEN_Gen1dc_r32((uint8_t *)base, (uint32_t)476);
-    GEN.Gen1dc.r32.installReadCallback(read_from_ram, &GEN_Gen1dc_r32);
-    GEN.Gen1dc.r32.installWriteCallback(write_to_ram, &GEN_Gen1dc_r32);
+    GEN.Gen1dc.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    GEN.Gen1dc.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
     /** @brief Bitmap for @ref GEN_t.GenWolMbox. */
-    static ram_offset_t GEN_GenWolMbox_r32((uint8_t *)base, (uint32_t)480);
-    GEN.GenWolMbox.r32.installReadCallback(read_from_ram, &GEN_GenWolMbox_r32);
-    GEN.GenWolMbox.r32.installWriteCallback(write_to_ram, &GEN_GenWolMbox_r32);
+    GEN.GenWolMbox.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    GEN.GenWolMbox.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
     /** @brief Bitmap for @ref GEN_t.GenCfgFeature. */
-    static ram_offset_t GEN_GenCfgFeature_r32((uint8_t *)base, (uint32_t)484);
-    GEN.GenCfgFeature.r32.installReadCallback(read_from_ram, &GEN_GenCfgFeature_r32);
-    GEN.GenCfgFeature.r32.installWriteCallback(write_to_ram, &GEN_GenCfgFeature_r32);
+    GEN.GenCfgFeature.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    GEN.GenCfgFeature.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
     /** @brief Bitmap for @ref GEN_t.GenCfgHw. */
-    static ram_offset_t GEN_GenCfgHw_r32((uint8_t *)base, (uint32_t)488);
-    GEN.GenCfgHw.r32.installReadCallback(read_from_ram, &GEN_GenCfgHw_r32);
-    GEN.GenCfgHw.r32.installWriteCallback(write_to_ram, &GEN_GenCfgHw_r32);
+    GEN.GenCfgHw.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    GEN.GenCfgHw.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
     /** @brief Bitmap for @ref GEN_t.GenCfgShared. */
-    static ram_offset_t GEN_GenCfgShared_r32((uint8_t *)base, (uint32_t)492);
-    GEN.GenCfgShared.r32.installReadCallback(read_from_ram, &GEN_GenCfgShared_r32);
-    GEN.GenCfgShared.r32.installWriteCallback(write_to_ram, &GEN_GenCfgShared_r32);
+    GEN.GenCfgShared.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    GEN.GenCfgShared.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
     /** @brief Bitmap for @ref GEN_t.GenFwVersion. */
-    static ram_offset_t GEN_GenFwVersion_r32((uint8_t *)base, (uint32_t)532);
-    GEN.GenFwVersion.r32.installReadCallback(read_from_ram, &GEN_GenFwVersion_r32);
-    GEN.GenFwVersion.r32.installWriteCallback(write_to_ram, &GEN_GenFwVersion_r32);
+    GEN.GenFwVersion.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    GEN.GenFwVersion.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
     /** @brief Bitmap for @ref GEN_t.GenCfgHw2. */
-    static ram_offset_t GEN_GenCfgHw2_r32((uint8_t *)base, (uint32_t)680);
-    GEN.GenCfgHw2.r32.installReadCallback(read_from_ram, &GEN_GenCfgHw2_r32);
-    GEN.GenCfgHw2.r32.installWriteCallback(write_to_ram, &GEN_GenCfgHw2_r32);
+    GEN.GenCfgHw2.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    GEN.GenCfgHw2.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
     /** @brief Bitmap for @ref GEN_t.GenCpmuStatus. */
-    static ram_offset_t GEN_GenCpmuStatus_r32((uint8_t *)base, (uint32_t)688);
-    GEN.GenCpmuStatus.r32.installReadCallback(read_from_ram, &GEN_GenCpmuStatus_r32);
-    GEN.GenCpmuStatus.r32.installWriteCallback(write_to_ram, &GEN_GenCpmuStatus_r32);
+    GEN.GenCpmuStatus.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    GEN.GenCpmuStatus.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
     /** @brief Bitmap for @ref GEN_t.GenCfg5. */
-    static ram_offset_t GEN_GenCfg5_r32((uint8_t *)base, (uint32_t)700);
-    GEN.GenCfg5.r32.installReadCallback(read_from_ram, &GEN_GenCfg5_r32);
-    GEN.GenCfg5.r32.installWriteCallback(write_to_ram, &GEN_GenCfg5_r32);
+    GEN.GenCfg5.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    GEN.GenCfg5.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
     /** @brief Bitmap for @ref GEN_t.GenDbgControlStatus. */
-    static ram_offset_t GEN_GenDbgControlStatus_r32((uint8_t *)base, (uint32_t)864);
-    GEN.GenDbgControlStatus.r32.installReadCallback(read_from_ram, &GEN_GenDbgControlStatus_r32);
-    GEN.GenDbgControlStatus.r32.installWriteCallback(write_to_ram, &GEN_GenDbgControlStatus_r32);
+    GEN.GenDbgControlStatus.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    GEN.GenDbgControlStatus.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
     /** @brief Bitmap for @ref GEN_t.GenDbgData. */
-    static ram_offset_t GEN_GenDbgData_r32((uint8_t *)base, (uint32_t)868);
-    GEN.GenDbgData.r32.installReadCallback(read_from_ram, &GEN_GenDbgData_r32);
-    GEN.GenDbgData.r32.installWriteCallback(write_to_ram, &GEN_GenDbgData_r32);
+    GEN.GenDbgData.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    GEN.GenDbgData.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
 
 }

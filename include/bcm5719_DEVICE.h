@@ -268,44 +268,64 @@ typedef register_container RegDEVICEMiscellaneousHostControl_t {
     {
         /** @brief constructor for @ref DEVICE_t.MiscellaneousHostControl. */
         r32.setName("MiscellaneousHostControl");
+        r32.setComponentOffset(0x68);
         bits.ClearInterrupt.setBaseRegister(&r32);
         bits.ClearInterrupt.setName("ClearInterrupt");
+        bits.ClearInterrupt.setComponentOffset(0x68);
         bits.MaskInterrupt.setBaseRegister(&r32);
         bits.MaskInterrupt.setName("MaskInterrupt");
+        bits.MaskInterrupt.setComponentOffset(0x68);
         bits.EnableEndianByteSwap.setBaseRegister(&r32);
         bits.EnableEndianByteSwap.setName("EnableEndianByteSwap");
+        bits.EnableEndianByteSwap.setComponentOffset(0x68);
         bits.EnableEndianWordSwap.setBaseRegister(&r32);
         bits.EnableEndianWordSwap.setName("EnableEndianWordSwap");
+        bits.EnableEndianWordSwap.setComponentOffset(0x68);
         bits.EnablePCIStateRegisterRead_DIV_WriteCapability.setBaseRegister(&r32);
         bits.EnablePCIStateRegisterRead_DIV_WriteCapability.setName("EnablePCIStateRegisterRead_DIV_WriteCapability");
+        bits.EnablePCIStateRegisterRead_DIV_WriteCapability.setComponentOffset(0x68);
         bits.EnableClockControlRegisterRead_DIV_WriteCapability.setBaseRegister(&r32);
         bits.EnableClockControlRegisterRead_DIV_WriteCapability.setName("EnableClockControlRegisterRead_DIV_WriteCapability");
+        bits.EnableClockControlRegisterRead_DIV_WriteCapability.setComponentOffset(0x68);
         bits.EnableRegisterWordSwap.setBaseRegister(&r32);
         bits.EnableRegisterWordSwap.setName("EnableRegisterWordSwap");
+        bits.EnableRegisterWordSwap.setComponentOffset(0x68);
         bits.EnableIndirectAccess.setBaseRegister(&r32);
         bits.EnableIndirectAccess.setName("EnableIndirectAccess");
+        bits.EnableIndirectAccess.setComponentOffset(0x68);
         bits.MaskInterruptMode.setBaseRegister(&r32);
         bits.MaskInterruptMode.setName("MaskInterruptMode");
+        bits.MaskInterruptMode.setComponentOffset(0x68);
         bits.EnableTaggedStatusMode.setBaseRegister(&r32);
         bits.EnableTaggedStatusMode.setName("EnableTaggedStatusMode");
+        bits.EnableTaggedStatusMode.setComponentOffset(0x68);
         bits.RCBCheck.setBaseRegister(&r32);
         bits.RCBCheck.setName("RCBCheck");
+        bits.RCBCheck.setComponentOffset(0x68);
         bits.InterruptCheck.setBaseRegister(&r32);
         bits.InterruptCheck.setName("InterruptCheck");
+        bits.InterruptCheck.setComponentOffset(0x68);
         bits.ByteEnableRuleCheck.setBaseRegister(&r32);
         bits.ByteEnableRuleCheck.setName("ByteEnableRuleCheck");
+        bits.ByteEnableRuleCheck.setComponentOffset(0x68);
         bits.BoundaryCheck.setBaseRegister(&r32);
         bits.BoundaryCheck.setName("BoundaryCheck");
+        bits.BoundaryCheck.setComponentOffset(0x68);
         bits.LogHeaderOverflow.setBaseRegister(&r32);
         bits.LogHeaderOverflow.setName("LogHeaderOverflow");
+        bits.LogHeaderOverflow.setComponentOffset(0x68);
         bits.EnableTLPMinorErrorTolerance.setBaseRegister(&r32);
         bits.EnableTLPMinorErrorTolerance.setName("EnableTLPMinorErrorTolerance");
+        bits.EnableTLPMinorErrorTolerance.setComponentOffset(0x68);
         bits.MetalRevID.setBaseRegister(&r32);
         bits.MetalRevID.setName("MetalRevID");
+        bits.MetalRevID.setComponentOffset(0x68);
         bits.AllLayerID.setBaseRegister(&r32);
         bits.AllLayerID.setName("AllLayerID");
+        bits.AllLayerID.setComponentOffset(0x68);
         bits.ProductID.setBaseRegister(&r32);
         bits.ProductID.setName("ProductID");
+        bits.ProductID.setComponentOffset(0x68);
     }
     RegDEVICEMiscellaneousHostControl_t& operator=(const RegDEVICEMiscellaneousHostControl_t& other)
     {
@@ -432,26 +452,37 @@ typedef register_container RegDEVICEPciState_t {
     {
         /** @brief constructor for @ref DEVICE_t.PciState. */
         r32.setName("PciState");
+        r32.setComponentOffset(0x70);
         bits.PCIExpansionROMDesired.setBaseRegister(&r32);
         bits.PCIExpansionROMDesired.setName("PCIExpansionROMDesired");
+        bits.PCIExpansionROMDesired.setComponentOffset(0x70);
         bits.PCIExpansionROMRetry.setBaseRegister(&r32);
         bits.PCIExpansionROMRetry.setName("PCIExpansionROMRetry");
+        bits.PCIExpansionROMRetry.setComponentOffset(0x70);
         bits.VPDAvailable.setBaseRegister(&r32);
         bits.VPDAvailable.setName("VPDAvailable");
+        bits.VPDAvailable.setComponentOffset(0x70);
         bits.FlatView.setBaseRegister(&r32);
         bits.FlatView.setName("FlatView");
+        bits.FlatView.setComponentOffset(0x70);
         bits.MaxPCITargetRetry.setBaseRegister(&r32);
         bits.MaxPCITargetRetry.setName("MaxPCITargetRetry");
+        bits.MaxPCITargetRetry.setComponentOffset(0x70);
         bits.ConfigRetry.setBaseRegister(&r32);
         bits.ConfigRetry.setName("ConfigRetry");
+        bits.ConfigRetry.setComponentOffset(0x70);
         bits.APEControlRegisterWriteEnable.setBaseRegister(&r32);
         bits.APEControlRegisterWriteEnable.setName("APEControlRegisterWriteEnable");
+        bits.APEControlRegisterWriteEnable.setComponentOffset(0x70);
         bits.APESharedMemoryWriteEnable.setBaseRegister(&r32);
         bits.APESharedMemoryWriteEnable.setName("APESharedMemoryWriteEnable");
+        bits.APESharedMemoryWriteEnable.setComponentOffset(0x70);
         bits.APEProgramSpaceWriteEnable.setBaseRegister(&r32);
         bits.APEProgramSpaceWriteEnable.setName("APEProgramSpaceWriteEnable");
+        bits.APEProgramSpaceWriteEnable.setComponentOffset(0x70);
         bits.GenerateResetPlus.setBaseRegister(&r32);
         bits.GenerateResetPlus.setName("GenerateResetPlus");
+        bits.GenerateResetPlus.setComponentOffset(0x70);
     }
     RegDEVICEPciState_t& operator=(const RegDEVICEPciState_t& other)
     {
@@ -466,6 +497,25 @@ typedef register_container RegDEVICEPciState_t {
 typedef register_container RegDEVICERegisterBase_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RegisterBase"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICERegisterBase_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.RegisterBase. */
+        r32.setName("RegisterBase");
+        r32.setComponentOffset(0x78);
+    }
+    RegDEVICERegisterBase_t& operator=(const RegDEVICERegisterBase_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICERegisterBase_t;
 
 #define REG_DEVICE_MEMORY_BASE ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000007c) /* Local controller memory address of the NIC memory region that can be accessed via Memory Window data register. */
@@ -473,6 +523,25 @@ typedef register_container RegDEVICERegisterBase_t {
 typedef register_container RegDEVICEMemoryBase_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "MemoryBase"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICEMemoryBase_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.MemoryBase. */
+        r32.setName("MemoryBase");
+        r32.setComponentOffset(0x7c);
+    }
+    RegDEVICEMemoryBase_t& operator=(const RegDEVICEMemoryBase_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICEMemoryBase_t;
 
 #define REG_DEVICE_REGISTER_DATA ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0000080) /* Register Data at the location pointed by the Register Base Register. */
@@ -480,6 +549,25 @@ typedef register_container RegDEVICEMemoryBase_t {
 typedef register_container RegDEVICERegisterData_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RegisterData"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICERegisterData_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.RegisterData. */
+        r32.setName("RegisterData");
+        r32.setComponentOffset(0x80);
+    }
+    RegDEVICERegisterData_t& operator=(const RegDEVICERegisterData_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICERegisterData_t;
 
 #define REG_DEVICE_UNDI_RECEIVE_RETURN_RING_CONSUMER_INDEX ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0000088) /* UNDI Receive Return Ring Consumer Index Mailbox */
@@ -487,6 +575,25 @@ typedef register_container RegDEVICERegisterData_t {
 typedef register_container RegDEVICEUndiReceiveReturnRingConsumerIndex_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "UndiReceiveReturnRingConsumerIndex"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICEUndiReceiveReturnRingConsumerIndex_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.UndiReceiveReturnRingConsumerIndex. */
+        r32.setName("UndiReceiveReturnRingConsumerIndex");
+        r32.setComponentOffset(0x88);
+    }
+    RegDEVICEUndiReceiveReturnRingConsumerIndex_t& operator=(const RegDEVICEUndiReceiveReturnRingConsumerIndex_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICEUndiReceiveReturnRingConsumerIndex_t;
 
 #define REG_DEVICE_UNDI_RECEIVE_RETURN_RING_CONSUMER_INDEX_LOW ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000008c) /* UNDI Receive Return Ring Consumer Index Mailbox */
@@ -494,6 +601,25 @@ typedef register_container RegDEVICEUndiReceiveReturnRingConsumerIndex_t {
 typedef register_container RegDEVICEUndiReceiveReturnRingConsumerIndexLow_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "UndiReceiveReturnRingConsumerIndexLow"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICEUndiReceiveReturnRingConsumerIndexLow_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.UndiReceiveReturnRingConsumerIndexLow. */
+        r32.setName("UndiReceiveReturnRingConsumerIndexLow");
+        r32.setComponentOffset(0x8c);
+    }
+    RegDEVICEUndiReceiveReturnRingConsumerIndexLow_t& operator=(const RegDEVICEUndiReceiveReturnRingConsumerIndexLow_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICEUndiReceiveReturnRingConsumerIndexLow_t;
 
 #define REG_DEVICE_LINK_STATUS_CONTROL ((volatile BCM5719_DEVICE_H_uint32_t*)0xc00000bc) /* PCIe standard register. */
@@ -548,10 +674,13 @@ typedef register_container RegDEVICELinkStatusControl_t {
     {
         /** @brief constructor for @ref DEVICE_t.LinkStatusControl. */
         r32.setName("LinkStatusControl");
+        r32.setComponentOffset(0xbc);
         bits.NegotiatedLinkSpeed.setBaseRegister(&r32);
         bits.NegotiatedLinkSpeed.setName("NegotiatedLinkSpeed");
+        bits.NegotiatedLinkSpeed.setComponentOffset(0xbc);
         bits.NegotiatedLinkWidth.setBaseRegister(&r32);
         bits.NegotiatedLinkWidth.setName("NegotiatedLinkWidth");
+        bits.NegotiatedLinkWidth.setComponentOffset(0xbc);
     }
     RegDEVICELinkStatusControl_t& operator=(const RegDEVICELinkStatusControl_t& other)
     {
@@ -566,6 +695,25 @@ typedef register_container RegDEVICELinkStatusControl_t {
 typedef register_container RegDEVICEApeMemoryBase_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "ApeMemoryBase"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICEApeMemoryBase_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.ApeMemoryBase. */
+        r32.setName("ApeMemoryBase");
+        r32.setComponentOffset(0xf8);
+    }
+    RegDEVICEApeMemoryBase_t& operator=(const RegDEVICEApeMemoryBase_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICEApeMemoryBase_t;
 
 #define REG_DEVICE_APE_MEMORY_DATA ((volatile BCM5719_DEVICE_H_uint32_t*)0xc00000fc) /* APE Memory value at the location pointed by the Memory Base Register. */
@@ -573,6 +721,25 @@ typedef register_container RegDEVICEApeMemoryBase_t {
 typedef register_container RegDEVICEApeMemoryData_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "ApeMemoryData"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICEApeMemoryData_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.ApeMemoryData. */
+        r32.setName("ApeMemoryData");
+        r32.setComponentOffset(0xfc);
+    }
+    RegDEVICEApeMemoryData_t& operator=(const RegDEVICEApeMemoryData_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICEApeMemoryData_t;
 
 #define REG_DEVICE_EMAC_MODE ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0000400) /*  */
@@ -821,56 +988,82 @@ typedef register_container RegDEVICEEmacMode_t {
     {
         /** @brief constructor for @ref DEVICE_t.EmacMode. */
         r32.setName("EmacMode");
+        r32.setComponentOffset(0x400);
         bits.GlobalReset.setBaseRegister(&r32);
         bits.GlobalReset.setName("GlobalReset");
+        bits.GlobalReset.setComponentOffset(0x400);
         bits.HalfDuplex.setBaseRegister(&r32);
         bits.HalfDuplex.setName("HalfDuplex");
+        bits.HalfDuplex.setComponentOffset(0x400);
         bits.PortMode.setBaseRegister(&r32);
         bits.PortMode.setName("PortMode");
+        bits.PortMode.setComponentOffset(0x400);
         bits.LoopbackMode.setBaseRegister(&r32);
         bits.LoopbackMode.setName("LoopbackMode");
+        bits.LoopbackMode.setComponentOffset(0x400);
         bits.TaggedMACControl.setBaseRegister(&r32);
         bits.TaggedMACControl.setName("TaggedMACControl");
+        bits.TaggedMACControl.setComponentOffset(0x400);
         bits.EnableTXBursting.setBaseRegister(&r32);
         bits.EnableTXBursting.setName("EnableTXBursting");
+        bits.EnableTXBursting.setComponentOffset(0x400);
         bits.MaxDefer.setBaseRegister(&r32);
         bits.MaxDefer.setName("MaxDefer");
+        bits.MaxDefer.setComponentOffset(0x400);
         bits.EnableRXStatistics.setBaseRegister(&r32);
         bits.EnableRXStatistics.setName("EnableRXStatistics");
+        bits.EnableRXStatistics.setComponentOffset(0x400);
         bits.ClearRXStatistics.setBaseRegister(&r32);
         bits.ClearRXStatistics.setName("ClearRXStatistics");
+        bits.ClearRXStatistics.setComponentOffset(0x400);
         bits.FlushRXStatistics.setBaseRegister(&r32);
         bits.FlushRXStatistics.setName("FlushRXStatistics");
+        bits.FlushRXStatistics.setComponentOffset(0x400);
         bits.EnableTXStatistics.setBaseRegister(&r32);
         bits.EnableTXStatistics.setName("EnableTXStatistics");
+        bits.EnableTXStatistics.setComponentOffset(0x400);
         bits.ClearTXStatistics.setBaseRegister(&r32);
         bits.ClearTXStatistics.setName("ClearTXStatistics");
+        bits.ClearTXStatistics.setComponentOffset(0x400);
         bits.FlushTXStatistics.setBaseRegister(&r32);
         bits.FlushTXStatistics.setName("FlushTXStatistics");
+        bits.FlushTXStatistics.setComponentOffset(0x400);
         bits.SendConfigCommand.setBaseRegister(&r32);
         bits.SendConfigCommand.setName("SendConfigCommand");
+        bits.SendConfigCommand.setComponentOffset(0x400);
         bits.MagicPacketDetectionEnable.setBaseRegister(&r32);
         bits.MagicPacketDetectionEnable.setName("MagicPacketDetectionEnable");
+        bits.MagicPacketDetectionEnable.setComponentOffset(0x400);
         bits.ACPIPowerOnEnable.setBaseRegister(&r32);
         bits.ACPIPowerOnEnable.setName("ACPIPowerOnEnable");
+        bits.ACPIPowerOnEnable.setComponentOffset(0x400);
         bits.EnableTCE.setBaseRegister(&r32);
         bits.EnableTCE.setName("EnableTCE");
+        bits.EnableTCE.setComponentOffset(0x400);
         bits.EnableRDE.setBaseRegister(&r32);
         bits.EnableRDE.setName("EnableRDE");
+        bits.EnableRDE.setComponentOffset(0x400);
         bits.EnableFHDE.setBaseRegister(&r32);
         bits.EnableFHDE.setName("EnableFHDE");
+        bits.EnableFHDE.setComponentOffset(0x400);
         bits.KeepFrameInWOL.setBaseRegister(&r32);
         bits.KeepFrameInWOL.setName("KeepFrameInWOL");
+        bits.KeepFrameInWOL.setComponentOffset(0x400);
         bits.HaltInterestingPacketPME.setBaseRegister(&r32);
         bits.HaltInterestingPacketPME.setName("HaltInterestingPacketPME");
+        bits.HaltInterestingPacketPME.setComponentOffset(0x400);
         bits.Free_RunningACPI.setBaseRegister(&r32);
         bits.Free_RunningACPI.setName("Free_RunningACPI");
+        bits.Free_RunningACPI.setComponentOffset(0x400);
         bits.EnableAPERXPath.setBaseRegister(&r32);
         bits.EnableAPERXPath.setName("EnableAPERXPath");
+        bits.EnableAPERXPath.setComponentOffset(0x400);
         bits.EnableAPETXPath.setBaseRegister(&r32);
         bits.EnableAPETXPath.setName("EnableAPETXPath");
+        bits.EnableAPETXPath.setComponentOffset(0x400);
         bits.MACLoopbackModeControl.setBaseRegister(&r32);
         bits.MACLoopbackModeControl.setName("MACLoopbackModeControl");
+        bits.MACLoopbackModeControl.setComponentOffset(0x400);
     }
     RegDEVICEEmacMode_t& operator=(const RegDEVICEEmacMode_t& other)
     {
@@ -1042,38 +1235,55 @@ typedef register_container RegDEVICELedControl_t {
     {
         /** @brief constructor for @ref DEVICE_t.LedControl. */
         r32.setName("LedControl");
+        r32.setComponentOffset(0x40c);
         bits.OverrideLink.setBaseRegister(&r32);
         bits.OverrideLink.setName("OverrideLink");
+        bits.OverrideLink.setComponentOffset(0x40c);
         bits.LED1000.setBaseRegister(&r32);
         bits.LED1000.setName("LED1000");
+        bits.LED1000.setComponentOffset(0x40c);
         bits.LED100.setBaseRegister(&r32);
         bits.LED100.setName("LED100");
+        bits.LED100.setComponentOffset(0x40c);
         bits.LED10.setBaseRegister(&r32);
         bits.LED10.setName("LED10");
+        bits.LED10.setComponentOffset(0x40c);
         bits.OverrideTraffic.setBaseRegister(&r32);
         bits.OverrideTraffic.setName("OverrideTraffic");
+        bits.OverrideTraffic.setComponentOffset(0x40c);
         bits.LEDTrafficBlink.setBaseRegister(&r32);
         bits.LEDTrafficBlink.setName("LEDTrafficBlink");
+        bits.LEDTrafficBlink.setComponentOffset(0x40c);
         bits.LEDTraffic.setBaseRegister(&r32);
         bits.LEDTraffic.setName("LEDTraffic");
+        bits.LEDTraffic.setComponentOffset(0x40c);
         bits.LEDStatus1000.setBaseRegister(&r32);
         bits.LEDStatus1000.setName("LEDStatus1000");
+        bits.LEDStatus1000.setComponentOffset(0x40c);
         bits.LEDStatus100.setBaseRegister(&r32);
         bits.LEDStatus100.setName("LEDStatus100");
+        bits.LEDStatus100.setComponentOffset(0x40c);
         bits.LEDStatus10.setBaseRegister(&r32);
         bits.LEDStatus10.setName("LEDStatus10");
+        bits.LEDStatus10.setComponentOffset(0x40c);
         bits.LEDStatusTraffic.setBaseRegister(&r32);
         bits.LEDStatusTraffic.setName("LEDStatusTraffic");
+        bits.LEDStatusTraffic.setComponentOffset(0x40c);
         bits.LEDMode.setBaseRegister(&r32);
         bits.LEDMode.setName("LEDMode");
+        bits.LEDMode.setComponentOffset(0x40c);
         bits.MACMode.setBaseRegister(&r32);
         bits.MACMode.setName("MACMode");
+        bits.MACMode.setComponentOffset(0x40c);
         bits.SharedTraffic_DIV_LinkLEDMode.setBaseRegister(&r32);
         bits.SharedTraffic_DIV_LinkLEDMode.setName("SharedTraffic_DIV_LinkLEDMode");
+        bits.SharedTraffic_DIV_LinkLEDMode.setComponentOffset(0x40c);
         bits.BlinkPeriod.setBaseRegister(&r32);
         bits.BlinkPeriod.setName("BlinkPeriod");
+        bits.BlinkPeriod.setComponentOffset(0x40c);
         bits.OverrideBlinkRate.setBaseRegister(&r32);
         bits.OverrideBlinkRate.setName("OverrideBlinkRate");
+        bits.OverrideBlinkRate.setComponentOffset(0x40c);
     }
     RegDEVICELedControl_t& operator=(const RegDEVICELedControl_t& other)
     {
@@ -1088,6 +1298,25 @@ typedef register_container RegDEVICELedControl_t {
 typedef register_container RegDEVICEEmacMacAddresses0High_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "EmacMacAddresses0High"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICEEmacMacAddresses0High_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.EmacMacAddresses0High. */
+        r32.setName("EmacMacAddresses0High");
+        r32.setComponentOffset(0x410);
+    }
+    RegDEVICEEmacMacAddresses0High_t& operator=(const RegDEVICEEmacMacAddresses0High_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICEEmacMacAddresses0High_t;
 
 #define REG_DEVICE_EMAC_MAC_ADDRESSES_0_LOW ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0000414) /* Lower 4-byte of this node's MAC address. */
@@ -1095,6 +1324,25 @@ typedef register_container RegDEVICEEmacMacAddresses0High_t {
 typedef register_container RegDEVICEEmacMacAddresses0Low_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "EmacMacAddresses0Low"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICEEmacMacAddresses0Low_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.EmacMacAddresses0Low. */
+        r32.setName("EmacMacAddresses0Low");
+        r32.setComponentOffset(0x414);
+    }
+    RegDEVICEEmacMacAddresses0Low_t& operator=(const RegDEVICEEmacMacAddresses0Low_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICEEmacMacAddresses0Low_t;
 
 #define REG_DEVICE_EMAC_MAC_ADDRESSES_1_HIGH ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0000418) /* Upper 2-bytes of this node's MAC address. */
@@ -1102,6 +1350,25 @@ typedef register_container RegDEVICEEmacMacAddresses0Low_t {
 typedef register_container RegDEVICEEmacMacAddresses1High_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "EmacMacAddresses1High"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICEEmacMacAddresses1High_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.EmacMacAddresses1High. */
+        r32.setName("EmacMacAddresses1High");
+        r32.setComponentOffset(0x418);
+    }
+    RegDEVICEEmacMacAddresses1High_t& operator=(const RegDEVICEEmacMacAddresses1High_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICEEmacMacAddresses1High_t;
 
 #define REG_DEVICE_EMAC_MAC_ADDRESSES_1_LOW ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000041c) /* Lower 4-byte of this node's MAC address. */
@@ -1109,6 +1376,25 @@ typedef register_container RegDEVICEEmacMacAddresses1High_t {
 typedef register_container RegDEVICEEmacMacAddresses1Low_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "EmacMacAddresses1Low"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICEEmacMacAddresses1Low_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.EmacMacAddresses1Low. */
+        r32.setName("EmacMacAddresses1Low");
+        r32.setComponentOffset(0x41c);
+    }
+    RegDEVICEEmacMacAddresses1Low_t& operator=(const RegDEVICEEmacMacAddresses1Low_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICEEmacMacAddresses1Low_t;
 
 #define REG_DEVICE_EMAC_MAC_ADDRESSES_2_HIGH ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0000420) /* Upper 2-bytes of this node's MAC address. */
@@ -1116,6 +1402,25 @@ typedef register_container RegDEVICEEmacMacAddresses1Low_t {
 typedef register_container RegDEVICEEmacMacAddresses2High_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "EmacMacAddresses2High"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICEEmacMacAddresses2High_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.EmacMacAddresses2High. */
+        r32.setName("EmacMacAddresses2High");
+        r32.setComponentOffset(0x420);
+    }
+    RegDEVICEEmacMacAddresses2High_t& operator=(const RegDEVICEEmacMacAddresses2High_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICEEmacMacAddresses2High_t;
 
 #define REG_DEVICE_EMAC_MAC_ADDRESSES_2_LOW ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0000424) /* Lower 4-byte of this node's MAC address. */
@@ -1123,6 +1428,25 @@ typedef register_container RegDEVICEEmacMacAddresses2High_t {
 typedef register_container RegDEVICEEmacMacAddresses2Low_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "EmacMacAddresses2Low"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICEEmacMacAddresses2Low_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.EmacMacAddresses2Low. */
+        r32.setName("EmacMacAddresses2Low");
+        r32.setComponentOffset(0x424);
+    }
+    RegDEVICEEmacMacAddresses2Low_t& operator=(const RegDEVICEEmacMacAddresses2Low_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICEEmacMacAddresses2Low_t;
 
 #define REG_DEVICE_EMAC_MAC_ADDRESSES_3_HIGH ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0000428) /* Upper 2-bytes of this node's MAC address. */
@@ -1130,6 +1454,25 @@ typedef register_container RegDEVICEEmacMacAddresses2Low_t {
 typedef register_container RegDEVICEEmacMacAddresses3High_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "EmacMacAddresses3High"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICEEmacMacAddresses3High_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.EmacMacAddresses3High. */
+        r32.setName("EmacMacAddresses3High");
+        r32.setComponentOffset(0x428);
+    }
+    RegDEVICEEmacMacAddresses3High_t& operator=(const RegDEVICEEmacMacAddresses3High_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICEEmacMacAddresses3High_t;
 
 #define REG_DEVICE_EMAC_MAC_ADDRESSES_3_LOW ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000042c) /* Lower 4-byte of this node's MAC address. */
@@ -1137,6 +1480,25 @@ typedef register_container RegDEVICEEmacMacAddresses3High_t {
 typedef register_container RegDEVICEEmacMacAddresses3Low_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "EmacMacAddresses3Low"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICEEmacMacAddresses3Low_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.EmacMacAddresses3Low. */
+        r32.setName("EmacMacAddresses3Low");
+        r32.setComponentOffset(0x42c);
+    }
+    RegDEVICEEmacMacAddresses3Low_t& operator=(const RegDEVICEEmacMacAddresses3Low_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICEEmacMacAddresses3Low_t;
 
 #define REG_DEVICE_WOL_PATTERN_POINTER ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0000430) /* Specifies the offset into the 6KB BD memory for frame comparison. (Bits 3:0 are ignored to align the memory address to a natural 128-bit boundary). */
@@ -1144,6 +1506,25 @@ typedef register_container RegDEVICEEmacMacAddresses3Low_t {
 typedef register_container RegDEVICEWolPatternPointer_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "WolPatternPointer"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICEWolPatternPointer_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.WolPatternPointer. */
+        r32.setName("WolPatternPointer");
+        r32.setComponentOffset(0x430);
+    }
+    RegDEVICEWolPatternPointer_t& operator=(const RegDEVICEWolPatternPointer_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICEWolPatternPointer_t;
 
 #define REG_DEVICE_WOL_PATTERN_CFG ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0000434) /*  */
@@ -1151,6 +1532,25 @@ typedef register_container RegDEVICEWolPatternPointer_t {
 typedef register_container RegDEVICEWolPatternCfg_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "WolPatternCfg"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICEWolPatternCfg_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.WolPatternCfg. */
+        r32.setName("WolPatternCfg");
+        r32.setComponentOffset(0x434);
+    }
+    RegDEVICEWolPatternCfg_t& operator=(const RegDEVICEWolPatternCfg_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICEWolPatternCfg_t;
 
 #define REG_DEVICE_MTU_SIZE ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000043c) /* 2-byte field which is the largest size frame that will be accepted without being marked as oversize. */
@@ -1190,8 +1590,10 @@ typedef register_container RegDEVICEMtuSize_t {
     {
         /** @brief constructor for @ref DEVICE_t.MtuSize. */
         r32.setName("MtuSize");
+        r32.setComponentOffset(0x43c);
         bits.MTU.setBaseRegister(&r32);
         bits.MTU.setName("MTU");
+        bits.MTU.setComponentOffset(0x43c);
     }
     RegDEVICEMtuSize_t& operator=(const RegDEVICEMtuSize_t& other)
     {
@@ -1290,18 +1692,25 @@ typedef register_container RegDEVICEMiiCommunication_t {
     {
         /** @brief constructor for @ref DEVICE_t.MiiCommunication. */
         r32.setName("MiiCommunication");
+        r32.setComponentOffset(0x44c);
         bits.TransactionData.setBaseRegister(&r32);
         bits.TransactionData.setName("TransactionData");
+        bits.TransactionData.setComponentOffset(0x44c);
         bits.RegisterAddress.setBaseRegister(&r32);
         bits.RegisterAddress.setName("RegisterAddress");
+        bits.RegisterAddress.setComponentOffset(0x44c);
         bits.PHYAddress.setBaseRegister(&r32);
         bits.PHYAddress.setName("PHYAddress");
+        bits.PHYAddress.setComponentOffset(0x44c);
         bits.Command.setBaseRegister(&r32);
         bits.Command.setName("Command");
+        bits.Command.setComponentOffset(0x44c);
         bits.ReadFailed.setBaseRegister(&r32);
         bits.ReadFailed.setName("ReadFailed");
+        bits.ReadFailed.setComponentOffset(0x44c);
         bits.Start_DIV_Busy.setBaseRegister(&r32);
         bits.Start_DIV_Busy.setName("Start_DIV_Busy");
+        bits.Start_DIV_Busy.setComponentOffset(0x44c);
     }
     RegDEVICEMiiCommunication_t& operator=(const RegDEVICEMiiCommunication_t& other)
     {
@@ -1372,12 +1781,16 @@ typedef register_container RegDEVICEMiiMode_t {
     {
         /** @brief constructor for @ref DEVICE_t.MiiMode. */
         r32.setName("MiiMode");
+        r32.setComponentOffset(0x454);
         bits.PHYAddress.setBaseRegister(&r32);
         bits.PHYAddress.setName("PHYAddress");
+        bits.PHYAddress.setComponentOffset(0x454);
         bits.ConstantMDIO_DIV_MDCClockSpeed.setBaseRegister(&r32);
         bits.ConstantMDIO_DIV_MDCClockSpeed.setName("ConstantMDIO_DIV_MDCClockSpeed");
+        bits.ConstantMDIO_DIV_MDCClockSpeed.setComponentOffset(0x454);
         bits.MIIClockCount.setBaseRegister(&r32);
         bits.MIIClockCount.setName("MIIClockCount");
+        bits.MIIClockCount.setComponentOffset(0x454);
     }
     RegDEVICEMiiMode_t& operator=(const RegDEVICEMiiMode_t& other)
     {
@@ -1492,24 +1905,34 @@ typedef register_container RegDEVICETransmitMacMode_t {
     {
         /** @brief constructor for @ref DEVICE_t.TransmitMacMode. */
         r32.setName("TransmitMacMode");
+        r32.setComponentOffset(0x45c);
         bits.Reset.setBaseRegister(&r32);
         bits.Reset.setName("Reset");
+        bits.Reset.setComponentOffset(0x45c);
         bits.EnableTCE.setBaseRegister(&r32);
         bits.EnableTCE.setName("EnableTCE");
+        bits.EnableTCE.setComponentOffset(0x45c);
         bits.EnableFlowControl.setBaseRegister(&r32);
         bits.EnableFlowControl.setName("EnableFlowControl");
+        bits.EnableFlowControl.setComponentOffset(0x45c);
         bits.EnableBigBackoff.setBaseRegister(&r32);
         bits.EnableBigBackoff.setName("EnableBigBackoff");
+        bits.EnableBigBackoff.setComponentOffset(0x45c);
         bits.EnableLongPause.setBaseRegister(&r32);
         bits.EnableLongPause.setName("EnableLongPause");
+        bits.EnableLongPause.setComponentOffset(0x45c);
         bits.LinkAwareEnable.setBaseRegister(&r32);
         bits.LinkAwareEnable.setName("LinkAwareEnable");
+        bits.LinkAwareEnable.setComponentOffset(0x45c);
         bits.TxMBUFCorruptionLockupFixEnable.setBaseRegister(&r32);
         bits.TxMBUFCorruptionLockupFixEnable.setName("TxMBUFCorruptionLockupFixEnable");
+        bits.TxMBUFCorruptionLockupFixEnable.setComponentOffset(0x45c);
         bits.EnableTXESPOffload.setBaseRegister(&r32);
         bits.EnableTXESPOffload.setName("EnableTXESPOffload");
+        bits.EnableTXESPOffload.setComponentOffset(0x45c);
         bits.EnableTXAHOffload.setBaseRegister(&r32);
         bits.EnableTXAHOffload.setName("EnableTXAHOffload");
+        bits.EnableTXAHOffload.setComponentOffset(0x45c);
     }
     RegDEVICETransmitMacMode_t& operator=(const RegDEVICETransmitMacMode_t& other)
     {
@@ -1588,14 +2011,19 @@ typedef register_container RegDEVICEReceiveMacMode_t {
     {
         /** @brief constructor for @ref DEVICE_t.ReceiveMacMode. */
         r32.setName("ReceiveMacMode");
+        r32.setComponentOffset(0x468);
         bits.Reset.setBaseRegister(&r32);
         bits.Reset.setName("Reset");
+        bits.Reset.setComponentOffset(0x468);
         bits.Enable.setBaseRegister(&r32);
         bits.Enable.setName("Enable");
+        bits.Enable.setComponentOffset(0x468);
         bits.PromiscuousMode.setBaseRegister(&r32);
         bits.PromiscuousMode.setName("PromiscuousMode");
+        bits.PromiscuousMode.setComponentOffset(0x468);
         bits.APEPromiscuousMode.setBaseRegister(&r32);
         bits.APEPromiscuousMode.setName("APEPromiscuousMode");
+        bits.APEPromiscuousMode.setComponentOffset(0x468);
     }
     RegDEVICEReceiveMacMode_t& operator=(const RegDEVICEReceiveMacMode_t& other)
     {
@@ -1733,30 +2161,43 @@ typedef register_container RegDEVICESgmiiStatus_t {
     {
         /** @brief constructor for @ref DEVICE_t.SgmiiStatus. */
         r32.setName("SgmiiStatus");
+        r32.setComponentOffset(0x5b4);
         bits.AutonegotiationComplete.setBaseRegister(&r32);
         bits.AutonegotiationComplete.setName("AutonegotiationComplete");
+        bits.AutonegotiationComplete.setComponentOffset(0x5b4);
         bits.LinkStatus.setBaseRegister(&r32);
         bits.LinkStatus.setName("LinkStatus");
+        bits.LinkStatus.setComponentOffset(0x5b4);
         bits.DuplexStatus.setBaseRegister(&r32);
         bits.DuplexStatus.setName("DuplexStatus");
+        bits.DuplexStatus.setComponentOffset(0x5b4);
         bits.Speed1000.setBaseRegister(&r32);
         bits.Speed1000.setName("Speed1000");
+        bits.Speed1000.setComponentOffset(0x5b4);
         bits.Speed100.setBaseRegister(&r32);
         bits.Speed100.setName("Speed100");
+        bits.Speed100.setComponentOffset(0x5b4);
         bits.NextPageRX.setBaseRegister(&r32);
         bits.NextPageRX.setName("NextPageRX");
+        bits.NextPageRX.setComponentOffset(0x5b4);
         bits.PauseRX.setBaseRegister(&r32);
         bits.PauseRX.setName("PauseRX");
+        bits.PauseRX.setComponentOffset(0x5b4);
         bits.PauseTX.setBaseRegister(&r32);
         bits.PauseTX.setName("PauseTX");
+        bits.PauseTX.setComponentOffset(0x5b4);
         bits.MediaSelectionMode.setBaseRegister(&r32);
         bits.MediaSelectionMode.setName("MediaSelectionMode");
+        bits.MediaSelectionMode.setComponentOffset(0x5b4);
         bits.PCSCRSDetect.setBaseRegister(&r32);
         bits.PCSCRSDetect.setName("PCSCRSDetect");
+        bits.PCSCRSDetect.setComponentOffset(0x5b4);
         bits.ExternalCRSDetect.setBaseRegister(&r32);
         bits.ExternalCRSDetect.setName("ExternalCRSDetect");
+        bits.ExternalCRSDetect.setComponentOffset(0x5b4);
         bits.LinkPartnerAutonegotiationCapability.setBaseRegister(&r32);
         bits.LinkPartnerAutonegotiationCapability.setName("LinkPartnerAutonegotiationCapability");
+        bits.LinkPartnerAutonegotiationCapability.setComponentOffset(0x5b4);
     }
     RegDEVICESgmiiStatus_t& operator=(const RegDEVICESgmiiStatus_t& other)
     {
@@ -1915,30 +2356,43 @@ typedef register_container RegDEVICECpmuControl_t {
     {
         /** @brief constructor for @ref DEVICE_t.CpmuControl. */
         r32.setName("CpmuControl");
+        r32.setComponentOffset(0x3600);
         bits.CPMUSoftwareReset.setBaseRegister(&r32);
         bits.CPMUSoftwareReset.setName("CPMUSoftwareReset");
+        bits.CPMUSoftwareReset.setComponentOffset(0x3600);
         bits.CPMURegisterSoftwareReset.setBaseRegister(&r32);
         bits.CPMURegisterSoftwareReset.setName("CPMURegisterSoftwareReset");
+        bits.CPMURegisterSoftwareReset.setComponentOffset(0x3600);
         bits.PowerDown.setBaseRegister(&r32);
         bits.PowerDown.setName("PowerDown");
+        bits.PowerDown.setComponentOffset(0x3600);
         bits.APESleepModeEnable.setBaseRegister(&r32);
         bits.APESleepModeEnable.setName("APESleepModeEnable");
+        bits.APESleepModeEnable.setComponentOffset(0x3600);
         bits.APEDeepSleepModeEnable.setBaseRegister(&r32);
         bits.APEDeepSleepModeEnable.setName("APEDeepSleepModeEnable");
+        bits.APEDeepSleepModeEnable.setComponentOffset(0x3600);
         bits.LinkIdlePowerModeEnable.setBaseRegister(&r32);
         bits.LinkIdlePowerModeEnable.setName("LinkIdlePowerModeEnable");
+        bits.LinkIdlePowerModeEnable.setComponentOffset(0x3600);
         bits.LinkAwarePowerModeEnable.setBaseRegister(&r32);
         bits.LinkAwarePowerModeEnable.setName("LinkAwarePowerModeEnable");
+        bits.LinkAwarePowerModeEnable.setComponentOffset(0x3600);
         bits.LinkSpeedPowerModeEnable.setBaseRegister(&r32);
         bits.LinkSpeedPowerModeEnable.setName("LinkSpeedPowerModeEnable");
+        bits.LinkSpeedPowerModeEnable.setComponentOffset(0x3600);
         bits.GPHY10MBReceiveOnlyModeEnable.setBaseRegister(&r32);
         bits.GPHY10MBReceiveOnlyModeEnable.setName("GPHY10MBReceiveOnlyModeEnable");
+        bits.GPHY10MBReceiveOnlyModeEnable.setComponentOffset(0x3600);
         bits.LegacyTimerEnable.setBaseRegister(&r32);
         bits.LegacyTimerEnable.setName("LegacyTimerEnable");
+        bits.LegacyTimerEnable.setComponentOffset(0x3600);
         bits.SGMII_DIV_PCSPowerDown.setBaseRegister(&r32);
         bits.SGMII_DIV_PCSPowerDown.setName("SGMII_DIV_PCSPowerDown");
+        bits.SGMII_DIV_PCSPowerDown.setComponentOffset(0x3600);
         bits.SoftwareControlledGPHYForceDLLOn.setBaseRegister(&r32);
         bits.SoftwareControlledGPHYForceDLLOn.setName("SoftwareControlledGPHYForceDLLOn");
+        bits.SoftwareControlledGPHYForceDLLOn.setComponentOffset(0x3600);
     }
     RegDEVICECpmuControl_t& operator=(const RegDEVICECpmuControl_t& other)
     {
@@ -2001,8 +2455,10 @@ typedef register_container RegDEVICELinkAwarePowerModeClockPolicy_t {
     {
         /** @brief constructor for @ref DEVICE_t.LinkAwarePowerModeClockPolicy. */
         r32.setName("LinkAwarePowerModeClockPolicy");
+        r32.setComponentOffset(0x3610);
         bits.MACClockSwitch.setBaseRegister(&r32);
         bits.MACClockSwitch.setName("MACClockSwitch");
+        bits.MACClockSwitch.setComponentOffset(0x3610);
     }
     RegDEVICELinkAwarePowerModeClockPolicy_t& operator=(const RegDEVICELinkAwarePowerModeClockPolicy_t& other)
     {
@@ -2061,10 +2517,13 @@ typedef register_container RegDEVICEClockSpeedOverridePolicy_t {
     {
         /** @brief constructor for @ref DEVICE_t.ClockSpeedOverridePolicy. */
         r32.setName("ClockSpeedOverridePolicy");
+        r32.setComponentOffset(0x3624);
         bits.MACClockSwitch.setBaseRegister(&r32);
         bits.MACClockSwitch.setName("MACClockSwitch");
+        bits.MACClockSwitch.setComponentOffset(0x3624);
         bits.MACClockSpeedOverrideEnabled.setBaseRegister(&r32);
         bits.MACClockSpeedOverrideEnabled.setName("MACClockSpeedOverrideEnabled");
+        bits.MACClockSpeedOverrideEnabled.setComponentOffset(0x3624);
     }
     RegDEVICEClockSpeedOverridePolicy_t& operator=(const RegDEVICEClockSpeedOverridePolicy_t& other)
     {
@@ -2240,38 +2699,55 @@ typedef register_container RegDEVICEStatus_t {
     {
         /** @brief constructor for @ref DEVICE_t.Status. */
         r32.setName("Status");
+        r32.setComponentOffset(0x362c);
         bits.PowerManagementStateMachineState.setBaseRegister(&r32);
         bits.PowerManagementStateMachineState.setName("PowerManagementStateMachineState");
+        bits.PowerManagementStateMachineState.setComponentOffset(0x362c);
         bits.CPMUPowerState.setBaseRegister(&r32);
         bits.CPMUPowerState.setName("CPMUPowerState");
+        bits.CPMUPowerState.setComponentOffset(0x362c);
         bits.EnergyDetectStatus.setBaseRegister(&r32);
         bits.EnergyDetectStatus.setName("EnergyDetectStatus");
+        bits.EnergyDetectStatus.setComponentOffset(0x362c);
         bits.PowerState.setBaseRegister(&r32);
         bits.PowerState.setName("PowerState");
+        bits.PowerState.setComponentOffset(0x362c);
         bits.VMAINPowerStatus.setBaseRegister(&r32);
         bits.VMAINPowerStatus.setName("VMAINPowerStatus");
+        bits.VMAINPowerStatus.setComponentOffset(0x362c);
         bits.WOLMagicPacketDetectionEnablePort0.setBaseRegister(&r32);
         bits.WOLMagicPacketDetectionEnablePort0.setName("WOLMagicPacketDetectionEnablePort0");
+        bits.WOLMagicPacketDetectionEnablePort0.setComponentOffset(0x362c);
         bits.WOLACPIDetectionEnablePort0.setBaseRegister(&r32);
         bits.WOLACPIDetectionEnablePort0.setName("WOLACPIDetectionEnablePort0");
+        bits.WOLACPIDetectionEnablePort0.setComponentOffset(0x362c);
         bits.NCSIDLLLockStatus.setBaseRegister(&r32);
         bits.NCSIDLLLockStatus.setName("NCSIDLLLockStatus");
+        bits.NCSIDLLLockStatus.setComponentOffset(0x362c);
         bits.GPHYDLLLockStatus.setBaseRegister(&r32);
         bits.GPHYDLLLockStatus.setName("GPHYDLLLockStatus");
+        bits.GPHYDLLLockStatus.setComponentOffset(0x362c);
         bits.LinkIdleStatus.setBaseRegister(&r32);
         bits.LinkIdleStatus.setName("LinkIdleStatus");
+        bits.LinkIdleStatus.setComponentOffset(0x362c);
         bits.EthernetLinkStatus.setBaseRegister(&r32);
         bits.EthernetLinkStatus.setName("EthernetLinkStatus");
+        bits.EthernetLinkStatus.setComponentOffset(0x362c);
         bits.WOLMagicPacketDetectionEnablePort1.setBaseRegister(&r32);
         bits.WOLMagicPacketDetectionEnablePort1.setName("WOLMagicPacketDetectionEnablePort1");
+        bits.WOLMagicPacketDetectionEnablePort1.setComponentOffset(0x362c);
         bits.WOLACPIDetectionEnablePort1.setBaseRegister(&r32);
         bits.WOLACPIDetectionEnablePort1.setName("WOLACPIDetectionEnablePort1");
+        bits.WOLACPIDetectionEnablePort1.setComponentOffset(0x362c);
         bits.APEStatus.setBaseRegister(&r32);
         bits.APEStatus.setName("APEStatus");
+        bits.APEStatus.setComponentOffset(0x362c);
         bits.FunctionEnable.setBaseRegister(&r32);
         bits.FunctionEnable.setName("FunctionEnable");
+        bits.FunctionEnable.setComponentOffset(0x362c);
         bits.FunctionNumber.setBaseRegister(&r32);
         bits.FunctionNumber.setName("FunctionNumber");
+        bits.FunctionNumber.setComponentOffset(0x362c);
     }
     RegDEVICEStatus_t& operator=(const RegDEVICEStatus_t& other)
     {
@@ -2286,6 +2762,25 @@ typedef register_container RegDEVICEStatus_t {
 typedef register_container RegDEVICEClockStatus_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "ClockStatus"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICEClockStatus_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.ClockStatus. */
+        r32.setName("ClockStatus");
+        r32.setComponentOffset(0x3630);
+    }
+    RegDEVICEClockStatus_t& operator=(const RegDEVICEClockStatus_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICEClockStatus_t;
 
 #define REG_DEVICE_GPHY_CONTROL_STATUS ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0003638) /*  */
@@ -2397,24 +2892,34 @@ typedef register_container RegDEVICEGphyControlStatus_t {
     {
         /** @brief constructor for @ref DEVICE_t.GphyControlStatus. */
         r32.setName("GphyControlStatus");
+        r32.setComponentOffset(0x3638);
         bits.GPHYIDDQ.setBaseRegister(&r32);
         bits.GPHYIDDQ.setName("GPHYIDDQ");
+        bits.GPHYIDDQ.setComponentOffset(0x3638);
         bits.BIASIDDQ.setBaseRegister(&r32);
         bits.BIASIDDQ.setName("BIASIDDQ");
+        bits.BIASIDDQ.setComponentOffset(0x3638);
         bits.CPMUSoftwareReset.setBaseRegister(&r32);
         bits.CPMUSoftwareReset.setName("CPMUSoftwareReset");
+        bits.CPMUSoftwareReset.setComponentOffset(0x3638);
         bits.CPMURegisterSoftwareReset.setBaseRegister(&r32);
         bits.CPMURegisterSoftwareReset.setName("CPMURegisterSoftwareReset");
+        bits.CPMURegisterSoftwareReset.setComponentOffset(0x3638);
         bits.PowerDown.setBaseRegister(&r32);
         bits.PowerDown.setName("PowerDown");
+        bits.PowerDown.setComponentOffset(0x3638);
         bits.SGMII_DIV_PCSPowerDown.setBaseRegister(&r32);
         bits.SGMII_DIV_PCSPowerDown.setName("SGMII_DIV_PCSPowerDown");
+        bits.SGMII_DIV_PCSPowerDown.setComponentOffset(0x3638);
         bits.NCSIPLLLockStatus.setBaseRegister(&r32);
         bits.NCSIPLLLockStatus.setName("NCSIPLLLockStatus");
+        bits.NCSIPLLLockStatus.setComponentOffset(0x3638);
         bits.TLPClockSource.setBaseRegister(&r32);
         bits.TLPClockSource.setName("TLPClockSource");
+        bits.TLPClockSource.setComponentOffset(0x3638);
         bits.SwitchingRegulatorPowerDown.setBaseRegister(&r32);
         bits.SwitchingRegulatorPowerDown.setName("SwitchingRegulatorPowerDown");
+        bits.SwitchingRegulatorPowerDown.setComponentOffset(0x3638);
     }
     RegDEVICEGphyControlStatus_t& operator=(const RegDEVICEGphyControlStatus_t& other)
     {
@@ -2429,6 +2934,25 @@ typedef register_container RegDEVICEGphyControlStatus_t {
 typedef register_container RegDEVICEChipId_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "ChipId"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICEChipId_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.ChipId. */
+        r32.setName("ChipId");
+        r32.setComponentOffset(0x3658);
+    }
+    RegDEVICEChipId_t& operator=(const RegDEVICEChipId_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICEChipId_t;
 
 #define REG_DEVICE_MUTEX_REQUEST ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000365c) /* Writing a 1 to any of these bits pends a Mutex lock request on behalf of a software agent. The bit is subsequently latched by hardware and shall read 1 as long as the request is pending. Writing a 0 to a bit shall have no effect. */
@@ -2436,6 +2960,25 @@ typedef register_container RegDEVICEChipId_t {
 typedef register_container RegDEVICEMutexRequest_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "MutexRequest"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICEMutexRequest_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.MutexRequest. */
+        r32.setName("MutexRequest");
+        r32.setComponentOffset(0x365c);
+    }
+    RegDEVICEMutexRequest_t& operator=(const RegDEVICEMutexRequest_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICEMutexRequest_t;
 
 #define REG_DEVICE_MUTEX_GRANT ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0003660) /* Reading this field shall return a maximum of one set bit at any time. The set bit shall point to the lock owner. If the Mutex is not locked, then a read shall return a value 0x0000. Writing a 1 to the already set bit shall relinquish the lock and the set bit shall be cleared. Writing a 1 to an unset bit shall cancel the corresponding pending request if there was one, and the pairing bit in the Mutex_Request_Reg shall be cleared. */
@@ -2443,6 +2986,25 @@ typedef register_container RegDEVICEMutexRequest_t {
 typedef register_container RegDEVICEMutexGrant_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "MutexGrant"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICEMutexGrant_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.MutexGrant. */
+        r32.setName("MutexGrant");
+        r32.setComponentOffset(0x3660);
+    }
+    RegDEVICEMutexGrant_t& operator=(const RegDEVICEMutexGrant_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICEMutexGrant_t;
 
 #define REG_DEVICE_GPHY_STRAP ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0003664) /*  */
@@ -2502,12 +3064,16 @@ typedef register_container RegDEVICEGphyStrap_t {
     {
         /** @brief constructor for @ref DEVICE_t.GphyStrap. */
         r32.setName("GphyStrap");
+        r32.setComponentOffset(0x3664);
         bits.TXMBUFECCEnable.setBaseRegister(&r32);
         bits.TXMBUFECCEnable.setName("TXMBUFECCEnable");
+        bits.TXMBUFECCEnable.setComponentOffset(0x3664);
         bits.RXMBUFECCEnable.setBaseRegister(&r32);
         bits.RXMBUFECCEnable.setName("RXMBUFECCEnable");
+        bits.RXMBUFECCEnable.setComponentOffset(0x3664);
         bits.RXCPUSPADECCEnable.setBaseRegister(&r32);
         bits.RXCPUSPADECCEnable.setName("RXCPUSPADECCEnable");
+        bits.RXCPUSPADECCEnable.setComponentOffset(0x3664);
     }
     RegDEVICEGphyStrap_t& operator=(const RegDEVICEGphyStrap_t& other)
     {
@@ -2566,10 +3132,13 @@ typedef register_container RegDEVICETopLevelMiscellaneousControl1_t {
     {
         /** @brief constructor for @ref DEVICE_t.TopLevelMiscellaneousControl1. */
         r32.setName("TopLevelMiscellaneousControl1");
+        r32.setComponentOffset(0x367c);
         bits.NCSIClockOutputDisable.setBaseRegister(&r32);
         bits.NCSIClockOutputDisable.setName("NCSIClockOutputDisable");
+        bits.NCSIClockOutputDisable.setComponentOffset(0x367c);
         bits.LowPowerIDDQMode.setBaseRegister(&r32);
         bits.LowPowerIDDQMode.setName("LowPowerIDDQMode");
+        bits.LowPowerIDDQMode.setComponentOffset(0x367c);
     }
     RegDEVICETopLevelMiscellaneousControl1_t& operator=(const RegDEVICETopLevelMiscellaneousControl1_t& other)
     {
@@ -2712,32 +3281,46 @@ typedef register_container RegDEVICEEeeMode_t {
     {
         /** @brief constructor for @ref DEVICE_t.EeeMode. */
         r32.setName("EeeMode");
+        r32.setComponentOffset(0x36b0);
         bits.RXCPUAllowLPI.setBaseRegister(&r32);
         bits.RXCPUAllowLPI.setName("RXCPUAllowLPI");
+        bits.RXCPUAllowLPI.setComponentOffset(0x36b0);
         bits.DriveAllowLPI.setBaseRegister(&r32);
         bits.DriveAllowLPI.setName("DriveAllowLPI");
+        bits.DriveAllowLPI.setComponentOffset(0x36b0);
         bits.APETXDetectionEnable.setBaseRegister(&r32);
         bits.APETXDetectionEnable.setName("APETXDetectionEnable");
+        bits.APETXDetectionEnable.setComponentOffset(0x36b0);
         bits.EEELinkIdleDetectionEnable.setBaseRegister(&r32);
         bits.EEELinkIdleDetectionEnable.setName("EEELinkIdleDetectionEnable");
+        bits.EEELinkIdleDetectionEnable.setComponentOffset(0x36b0);
         bits.PCIeL1ExitDetectionEnable.setBaseRegister(&r32);
         bits.PCIeL1ExitDetectionEnable.setName("PCIeL1ExitDetectionEnable");
+        bits.PCIeL1ExitDetectionEnable.setComponentOffset(0x36b0);
         bits.RXCPUAllowLPIEnable.setBaseRegister(&r32);
         bits.RXCPUAllowLPIEnable.setName("RXCPUAllowLPIEnable");
+        bits.RXCPUAllowLPIEnable.setComponentOffset(0x36b0);
         bits.SendIndexDetectionEnable.setBaseRegister(&r32);
         bits.SendIndexDetectionEnable.setName("SendIndexDetectionEnable");
+        bits.SendIndexDetectionEnable.setComponentOffset(0x36b0);
         bits.UserLPIEnable.setBaseRegister(&r32);
         bits.UserLPIEnable.setName("UserLPIEnable");
+        bits.UserLPIEnable.setComponentOffset(0x36b0);
         bits.TXLPIEnable.setBaseRegister(&r32);
         bits.TXLPIEnable.setName("TXLPIEnable");
+        bits.TXLPIEnable.setComponentOffset(0x36b0);
         bits.RXLPIEnable.setBaseRegister(&r32);
         bits.RXLPIEnable.setName("RXLPIEnable");
+        bits.RXLPIEnable.setComponentOffset(0x36b0);
         bits.AutoWakeEnable.setBaseRegister(&r32);
         bits.AutoWakeEnable.setName("AutoWakeEnable");
+        bits.AutoWakeEnable.setComponentOffset(0x36b0);
         bits.BlockTime.setBaseRegister(&r32);
         bits.BlockTime.setName("BlockTime");
+        bits.BlockTime.setComponentOffset(0x36b0);
         bits.DriveAllowLPIEnable.setBaseRegister(&r32);
         bits.DriveAllowLPIEnable.setName("DriveAllowLPIEnable");
+        bits.DriveAllowLPIEnable.setComponentOffset(0x36b0);
     }
     RegDEVICEEeeMode_t& operator=(const RegDEVICEEeeMode_t& other)
     {
@@ -2788,8 +3371,10 @@ typedef register_container RegDEVICEEeeLinkIdleControl_t {
     {
         /** @brief constructor for @ref DEVICE_t.EeeLinkIdleControl. */
         r32.setName("EeeLinkIdleControl");
+        r32.setComponentOffset(0x36bc);
         bits.DebugUARTIdle.setBaseRegister(&r32);
         bits.DebugUARTIdle.setName("DebugUARTIdle");
+        bits.DebugUARTIdle.setComponentOffset(0x36bc);
     }
     RegDEVICEEeeLinkIdleControl_t& operator=(const RegDEVICEEeeLinkIdleControl_t& other)
     {
@@ -2840,10 +3425,13 @@ typedef register_container RegDEVICEEeeControl_t {
     {
         /** @brief constructor for @ref DEVICE_t.EeeControl. */
         r32.setName("EeeControl");
+        r32.setComponentOffset(0x36d0);
         bits.ExitTime.setBaseRegister(&r32);
         bits.ExitTime.setName("ExitTime");
+        bits.ExitTime.setComponentOffset(0x36d0);
         bits.MinimumAssert.setBaseRegister(&r32);
         bits.MinimumAssert.setName("MinimumAssert");
+        bits.MinimumAssert.setComponentOffset(0x36d0);
     }
     RegDEVICEEeeControl_t& operator=(const RegDEVICEEeeControl_t& other)
     {
@@ -2858,6 +3446,25 @@ typedef register_container RegDEVICEEeeControl_t {
 typedef register_container RegDEVICEGlobalMutexRequest_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "GlobalMutexRequest"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICEGlobalMutexRequest_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.GlobalMutexRequest. */
+        r32.setName("GlobalMutexRequest");
+        r32.setComponentOffset(0x36f0);
+    }
+    RegDEVICEGlobalMutexRequest_t& operator=(const RegDEVICEGlobalMutexRequest_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICEGlobalMutexRequest_t;
 
 #define REG_DEVICE_GLOBAL_MUTEX_GRANT ((volatile BCM5719_DEVICE_H_uint32_t*)0xc00036f4) /*  */
@@ -2865,6 +3472,25 @@ typedef register_container RegDEVICEGlobalMutexRequest_t {
 typedef register_container RegDEVICEGlobalMutexGrant_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "GlobalMutexGrant"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICEGlobalMutexGrant_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.GlobalMutexGrant. */
+        r32.setName("GlobalMutexGrant");
+        r32.setComponentOffset(0x36f4);
+    }
+    RegDEVICEGlobalMutexGrant_t& operator=(const RegDEVICEGlobalMutexGrant_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICEGlobalMutexGrant_t;
 
 #define REG_DEVICE_MEMORY_ARBITER_MODE ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0004000) /*  */
@@ -2908,8 +3534,10 @@ typedef register_container RegDEVICEMemoryArbiterMode_t {
     {
         /** @brief constructor for @ref DEVICE_t.MemoryArbiterMode. */
         r32.setName("MemoryArbiterMode");
+        r32.setComponentOffset(0x4000);
         bits.Enable.setBaseRegister(&r32);
         bits.Enable.setName("Enable");
+        bits.Enable.setComponentOffset(0x4000);
     }
     RegDEVICEMemoryArbiterMode_t& operator=(const RegDEVICEMemoryArbiterMode_t& other)
     {
@@ -2980,12 +3608,16 @@ typedef register_container RegDEVICEBufferManagerMode_t {
     {
         /** @brief constructor for @ref DEVICE_t.BufferManagerMode. */
         r32.setName("BufferManagerMode");
+        r32.setComponentOffset(0x4400);
         bits.Enable.setBaseRegister(&r32);
         bits.Enable.setName("Enable");
+        bits.Enable.setComponentOffset(0x4400);
         bits.AttentionEnable.setBaseRegister(&r32);
         bits.AttentionEnable.setName("AttentionEnable");
+        bits.AttentionEnable.setComponentOffset(0x4400);
         bits.ResetRXMBUFPointer.setBaseRegister(&r32);
         bits.ResetRXMBUFPointer.setName("ResetRXMBUFPointer");
+        bits.ResetRXMBUFPointer.setComponentOffset(0x4400);
     }
     RegDEVICEBufferManagerMode_t& operator=(const RegDEVICEBufferManagerMode_t& other)
     {
@@ -3054,10 +3686,13 @@ typedef register_container RegDEVICELsoNonlsoBdReadDmaCorruptionEnableControl_t 
     {
         /** @brief constructor for @ref DEVICE_t.LsoNonlsoBdReadDmaCorruptionEnableControl. */
         r32.setName("LsoNonlsoBdReadDmaCorruptionEnableControl");
+        r32.setComponentOffset(0x4910);
         bits.PCIRequestBurstLengthforBDRDMAEngine.setBaseRegister(&r32);
         bits.PCIRequestBurstLengthforBDRDMAEngine.setName("PCIRequestBurstLengthforBDRDMAEngine");
+        bits.PCIRequestBurstLengthforBDRDMAEngine.setComponentOffset(0x4910);
         bits.PCIRequestBurstLengthforNonLSORDMAEngine.setBaseRegister(&r32);
         bits.PCIRequestBurstLengthforNonLSORDMAEngine.setName("PCIRequestBurstLengthforNonLSORDMAEngine");
+        bits.PCIRequestBurstLengthforNonLSORDMAEngine.setComponentOffset(0x4910);
     }
     RegDEVICELsoNonlsoBdReadDmaCorruptionEnableControl_t& operator=(const RegDEVICELsoNonlsoBdReadDmaCorruptionEnableControl_t& other)
     {
@@ -3212,34 +3847,49 @@ typedef register_container RegDEVICERxRiscMode_t {
     {
         /** @brief constructor for @ref DEVICE_t.RxRiscMode. */
         r32.setName("RxRiscMode");
+        r32.setComponentOffset(0x5000);
         bits.Reset.setBaseRegister(&r32);
         bits.Reset.setName("Reset");
+        bits.Reset.setComponentOffset(0x5000);
         bits.SingleStep.setBaseRegister(&r32);
         bits.SingleStep.setName("SingleStep");
+        bits.SingleStep.setComponentOffset(0x5000);
         bits.Page0DataHalt.setBaseRegister(&r32);
         bits.Page0DataHalt.setName("Page0DataHalt");
+        bits.Page0DataHalt.setComponentOffset(0x5000);
         bits.Page0InstrHalt.setBaseRegister(&r32);
         bits.Page0InstrHalt.setName("Page0InstrHalt");
+        bits.Page0InstrHalt.setComponentOffset(0x5000);
         bits.EnableDataCache.setBaseRegister(&r32);
         bits.EnableDataCache.setName("EnableDataCache");
+        bits.EnableDataCache.setComponentOffset(0x5000);
         bits.ROMFail.setBaseRegister(&r32);
         bits.ROMFail.setName("ROMFail");
+        bits.ROMFail.setComponentOffset(0x5000);
         bits.EnableWatchdog.setBaseRegister(&r32);
         bits.EnableWatchdog.setName("EnableWatchdog");
+        bits.EnableWatchdog.setComponentOffset(0x5000);
         bits.EnableInstructionCache.setBaseRegister(&r32);
         bits.EnableInstructionCache.setName("EnableInstructionCache");
+        bits.EnableInstructionCache.setComponentOffset(0x5000);
         bits.FlushInstructionCache.setBaseRegister(&r32);
         bits.FlushInstructionCache.setName("FlushInstructionCache");
+        bits.FlushInstructionCache.setComponentOffset(0x5000);
         bits.Halt.setBaseRegister(&r32);
         bits.Halt.setName("Halt");
+        bits.Halt.setComponentOffset(0x5000);
         bits.InvalidDataAccessHalt.setBaseRegister(&r32);
         bits.InvalidDataAccessHalt.setName("InvalidDataAccessHalt");
+        bits.InvalidDataAccessHalt.setComponentOffset(0x5000);
         bits.InvalidInstructionAccessHalt.setBaseRegister(&r32);
         bits.InvalidInstructionAccessHalt.setName("InvalidInstructionAccessHalt");
+        bits.InvalidInstructionAccessHalt.setComponentOffset(0x5000);
         bits.EnableMemoryAddressTrapHalt.setBaseRegister(&r32);
         bits.EnableMemoryAddressTrapHalt.setName("EnableMemoryAddressTrapHalt");
+        bits.EnableMemoryAddressTrapHalt.setComponentOffset(0x5000);
         bits.EnableRegisterAddressTrapHalt.setBaseRegister(&r32);
         bits.EnableRegisterAddressTrapHalt.setName("EnableRegisterAddressTrapHalt");
+        bits.EnableRegisterAddressTrapHalt.setComponentOffset(0x5000);
     }
     RegDEVICERxRiscMode_t& operator=(const RegDEVICERxRiscMode_t& other)
     {
@@ -3402,36 +4052,52 @@ typedef register_container RegDEVICERxRiscStatus_t {
     {
         /** @brief constructor for @ref DEVICE_t.RxRiscStatus. */
         r32.setName("RxRiscStatus");
+        r32.setComponentOffset(0x5004);
         bits.HardwareBreakpoint.setBaseRegister(&r32);
         bits.HardwareBreakpoint.setName("HardwareBreakpoint");
+        bits.HardwareBreakpoint.setComponentOffset(0x5004);
         bits.HaltInstructionExecuted.setBaseRegister(&r32);
         bits.HaltInstructionExecuted.setName("HaltInstructionExecuted");
+        bits.HaltInstructionExecuted.setComponentOffset(0x5004);
         bits.InvalidInstruction.setBaseRegister(&r32);
         bits.InvalidInstruction.setName("InvalidInstruction");
+        bits.InvalidInstruction.setComponentOffset(0x5004);
         bits.Page0DataRefeence.setBaseRegister(&r32);
         bits.Page0DataRefeence.setName("Page0DataRefeence");
+        bits.Page0DataRefeence.setComponentOffset(0x5004);
         bits.Page0InstructionReference.setBaseRegister(&r32);
         bits.Page0InstructionReference.setName("Page0InstructionReference");
+        bits.Page0InstructionReference.setComponentOffset(0x5004);
         bits.InvalidDataAccess.setBaseRegister(&r32);
         bits.InvalidDataAccess.setName("InvalidDataAccess");
+        bits.InvalidDataAccess.setComponentOffset(0x5004);
         bits.InvalidInstructionFetch.setBaseRegister(&r32);
         bits.InvalidInstructionFetch.setName("InvalidInstructionFetch");
+        bits.InvalidInstructionFetch.setComponentOffset(0x5004);
         bits.BadMemoryAlignment.setBaseRegister(&r32);
         bits.BadMemoryAlignment.setName("BadMemoryAlignment");
+        bits.BadMemoryAlignment.setComponentOffset(0x5004);
         bits.MemoryAddressTrap.setBaseRegister(&r32);
         bits.MemoryAddressTrap.setName("MemoryAddressTrap");
+        bits.MemoryAddressTrap.setComponentOffset(0x5004);
         bits.RegisterAddressTrap.setBaseRegister(&r32);
         bits.RegisterAddressTrap.setName("RegisterAddressTrap");
+        bits.RegisterAddressTrap.setComponentOffset(0x5004);
         bits.Halted.setBaseRegister(&r32);
         bits.Halted.setName("Halted");
+        bits.Halted.setComponentOffset(0x5004);
         bits.Unknown.setBaseRegister(&r32);
         bits.Unknown.setName("Unknown");
+        bits.Unknown.setComponentOffset(0x5004);
         bits.DataAccessStall.setBaseRegister(&r32);
         bits.DataAccessStall.setName("DataAccessStall");
+        bits.DataAccessStall.setComponentOffset(0x5004);
         bits.InstructionFetchStall.setBaseRegister(&r32);
         bits.InstructionFetchStall.setName("InstructionFetchStall");
+        bits.InstructionFetchStall.setComponentOffset(0x5004);
         bits.BlockingRead.setBaseRegister(&r32);
         bits.BlockingRead.setName("BlockingRead");
+        bits.BlockingRead.setComponentOffset(0x5004);
     }
     RegDEVICERxRiscStatus_t& operator=(const RegDEVICERxRiscStatus_t& other)
     {
@@ -3446,6 +4112,25 @@ typedef register_container RegDEVICERxRiscStatus_t {
 typedef register_container RegDEVICERxRiscProgramCounter_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RxRiscProgramCounter"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICERxRiscProgramCounter_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.RxRiscProgramCounter. */
+        r32.setName("RxRiscProgramCounter");
+        r32.setComponentOffset(0x501c);
+    }
+    RegDEVICERxRiscProgramCounter_t& operator=(const RegDEVICERxRiscProgramCounter_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscProgramCounter_t;
 
 #define REG_DEVICE_RX_RISC_CURRENT_INSTRUCTION ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005020) /* This undocumented register contains the current word located at the program counter address loaded in  */
@@ -3453,6 +4138,25 @@ typedef register_container RegDEVICERxRiscProgramCounter_t {
 typedef register_container RegDEVICERxRiscCurrentInstruction_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RxRiscCurrentInstruction"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICERxRiscCurrentInstruction_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.RxRiscCurrentInstruction. */
+        r32.setName("RxRiscCurrentInstruction");
+        r32.setComponentOffset(0x5020);
+    }
+    RegDEVICERxRiscCurrentInstruction_t& operator=(const RegDEVICERxRiscCurrentInstruction_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscCurrentInstruction_t;
 
 #define REG_DEVICE_RX_RISC_HARDWARE_BREAKPOINT ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005034) /* This register is used to set a hardware breakpoint based on the RISC's program counter (PC). If the PC equals the value in this register, and the hardware breakpoint is enabled, the RISC is halted and the appropriate stopping condition is indicated in the RISC State Register. To enable the hardware breakpoint, simply write the byte address of the instruction to break on and clear the Disable Hardware Breakpoint bit. */
@@ -3460,6 +4164,25 @@ typedef register_container RegDEVICERxRiscCurrentInstruction_t {
 typedef register_container RegDEVICERxRiscHardwareBreakpoint_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RxRiscHardwareBreakpoint"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICERxRiscHardwareBreakpoint_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.RxRiscHardwareBreakpoint. */
+        r32.setName("RxRiscHardwareBreakpoint");
+        r32.setComponentOffset(0x5034);
+    }
+    RegDEVICERxRiscHardwareBreakpoint_t& operator=(const RegDEVICERxRiscHardwareBreakpoint_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscHardwareBreakpoint_t;
 
 #define REG_DEVICE_RX_RISC_REGISTER_0 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005200) /* $zero (R0) */
@@ -3467,6 +4190,25 @@ typedef register_container RegDEVICERxRiscHardwareBreakpoint_t {
 typedef register_container RegDEVICERxRiscRegister0_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RxRiscRegister0"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICERxRiscRegister0_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.RxRiscRegister0. */
+        r32.setName("RxRiscRegister0");
+        r32.setComponentOffset(0x5200);
+    }
+    RegDEVICERxRiscRegister0_t& operator=(const RegDEVICERxRiscRegister0_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister0_t;
 
 #define REG_DEVICE_RX_RISC_REGISTER_1 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005204) /* $at (R1) */
@@ -3474,6 +4216,25 @@ typedef register_container RegDEVICERxRiscRegister0_t {
 typedef register_container RegDEVICERxRiscRegister1_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RxRiscRegister1"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICERxRiscRegister1_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.RxRiscRegister1. */
+        r32.setName("RxRiscRegister1");
+        r32.setComponentOffset(0x5204);
+    }
+    RegDEVICERxRiscRegister1_t& operator=(const RegDEVICERxRiscRegister1_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister1_t;
 
 #define REG_DEVICE_RX_RISC_REGISTER_2 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005208) /* $v0 (R2) */
@@ -3481,6 +4242,25 @@ typedef register_container RegDEVICERxRiscRegister1_t {
 typedef register_container RegDEVICERxRiscRegister2_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RxRiscRegister2"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICERxRiscRegister2_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.RxRiscRegister2. */
+        r32.setName("RxRiscRegister2");
+        r32.setComponentOffset(0x5208);
+    }
+    RegDEVICERxRiscRegister2_t& operator=(const RegDEVICERxRiscRegister2_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister2_t;
 
 #define REG_DEVICE_RX_RISC_REGISTER_3 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000520c) /* $v1 (R3) */
@@ -3488,6 +4268,25 @@ typedef register_container RegDEVICERxRiscRegister2_t {
 typedef register_container RegDEVICERxRiscRegister3_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RxRiscRegister3"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICERxRiscRegister3_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.RxRiscRegister3. */
+        r32.setName("RxRiscRegister3");
+        r32.setComponentOffset(0x520c);
+    }
+    RegDEVICERxRiscRegister3_t& operator=(const RegDEVICERxRiscRegister3_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister3_t;
 
 #define REG_DEVICE_RX_RISC_REGISTER_4 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005210) /* $a0 (R4) */
@@ -3495,6 +4294,25 @@ typedef register_container RegDEVICERxRiscRegister3_t {
 typedef register_container RegDEVICERxRiscRegister4_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RxRiscRegister4"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICERxRiscRegister4_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.RxRiscRegister4. */
+        r32.setName("RxRiscRegister4");
+        r32.setComponentOffset(0x5210);
+    }
+    RegDEVICERxRiscRegister4_t& operator=(const RegDEVICERxRiscRegister4_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister4_t;
 
 #define REG_DEVICE_RX_RISC_REGISTER_5 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005214) /* $a1 (R5) */
@@ -3502,6 +4320,25 @@ typedef register_container RegDEVICERxRiscRegister4_t {
 typedef register_container RegDEVICERxRiscRegister5_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RxRiscRegister5"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICERxRiscRegister5_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.RxRiscRegister5. */
+        r32.setName("RxRiscRegister5");
+        r32.setComponentOffset(0x5214);
+    }
+    RegDEVICERxRiscRegister5_t& operator=(const RegDEVICERxRiscRegister5_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister5_t;
 
 #define REG_DEVICE_RX_RISC_REGISTER_6 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005218) /* $a2 (R6) */
@@ -3509,6 +4346,25 @@ typedef register_container RegDEVICERxRiscRegister5_t {
 typedef register_container RegDEVICERxRiscRegister6_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RxRiscRegister6"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICERxRiscRegister6_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.RxRiscRegister6. */
+        r32.setName("RxRiscRegister6");
+        r32.setComponentOffset(0x5218);
+    }
+    RegDEVICERxRiscRegister6_t& operator=(const RegDEVICERxRiscRegister6_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister6_t;
 
 #define REG_DEVICE_RX_RISC_REGISTER_7 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000521c) /* $a3 (R7) */
@@ -3516,6 +4372,25 @@ typedef register_container RegDEVICERxRiscRegister6_t {
 typedef register_container RegDEVICERxRiscRegister7_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RxRiscRegister7"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICERxRiscRegister7_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.RxRiscRegister7. */
+        r32.setName("RxRiscRegister7");
+        r32.setComponentOffset(0x521c);
+    }
+    RegDEVICERxRiscRegister7_t& operator=(const RegDEVICERxRiscRegister7_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister7_t;
 
 #define REG_DEVICE_RX_RISC_REGISTER_8 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005220) /* $t0 (R8) */
@@ -3523,6 +4398,25 @@ typedef register_container RegDEVICERxRiscRegister7_t {
 typedef register_container RegDEVICERxRiscRegister8_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RxRiscRegister8"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICERxRiscRegister8_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.RxRiscRegister8. */
+        r32.setName("RxRiscRegister8");
+        r32.setComponentOffset(0x5220);
+    }
+    RegDEVICERxRiscRegister8_t& operator=(const RegDEVICERxRiscRegister8_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister8_t;
 
 #define REG_DEVICE_RX_RISC_REGISTER_9 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005224) /* $t1 (R9) */
@@ -3530,6 +4424,25 @@ typedef register_container RegDEVICERxRiscRegister8_t {
 typedef register_container RegDEVICERxRiscRegister9_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RxRiscRegister9"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICERxRiscRegister9_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.RxRiscRegister9. */
+        r32.setName("RxRiscRegister9");
+        r32.setComponentOffset(0x5224);
+    }
+    RegDEVICERxRiscRegister9_t& operator=(const RegDEVICERxRiscRegister9_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister9_t;
 
 #define REG_DEVICE_RX_RISC_REGISTER_10 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005228) /* $t2 (R10) */
@@ -3537,6 +4450,25 @@ typedef register_container RegDEVICERxRiscRegister9_t {
 typedef register_container RegDEVICERxRiscRegister10_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RxRiscRegister10"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICERxRiscRegister10_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.RxRiscRegister10. */
+        r32.setName("RxRiscRegister10");
+        r32.setComponentOffset(0x5228);
+    }
+    RegDEVICERxRiscRegister10_t& operator=(const RegDEVICERxRiscRegister10_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister10_t;
 
 #define REG_DEVICE_RX_RISC_REGISTER_11 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000522c) /* $t3 (R11) */
@@ -3544,6 +4476,25 @@ typedef register_container RegDEVICERxRiscRegister10_t {
 typedef register_container RegDEVICERxRiscRegister11_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RxRiscRegister11"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICERxRiscRegister11_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.RxRiscRegister11. */
+        r32.setName("RxRiscRegister11");
+        r32.setComponentOffset(0x522c);
+    }
+    RegDEVICERxRiscRegister11_t& operator=(const RegDEVICERxRiscRegister11_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister11_t;
 
 #define REG_DEVICE_RX_RISC_REGISTER_12 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005230) /* $t4 (R12) */
@@ -3551,6 +4502,25 @@ typedef register_container RegDEVICERxRiscRegister11_t {
 typedef register_container RegDEVICERxRiscRegister12_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RxRiscRegister12"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICERxRiscRegister12_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.RxRiscRegister12. */
+        r32.setName("RxRiscRegister12");
+        r32.setComponentOffset(0x5230);
+    }
+    RegDEVICERxRiscRegister12_t& operator=(const RegDEVICERxRiscRegister12_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister12_t;
 
 #define REG_DEVICE_RX_RISC_REGISTER_13 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005234) /* $t5 (R13) */
@@ -3558,6 +4528,25 @@ typedef register_container RegDEVICERxRiscRegister12_t {
 typedef register_container RegDEVICERxRiscRegister13_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RxRiscRegister13"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICERxRiscRegister13_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.RxRiscRegister13. */
+        r32.setName("RxRiscRegister13");
+        r32.setComponentOffset(0x5234);
+    }
+    RegDEVICERxRiscRegister13_t& operator=(const RegDEVICERxRiscRegister13_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister13_t;
 
 #define REG_DEVICE_RX_RISC_REGISTER_14 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005238) /* $t6 (R14) */
@@ -3565,6 +4554,25 @@ typedef register_container RegDEVICERxRiscRegister13_t {
 typedef register_container RegDEVICERxRiscRegister14_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RxRiscRegister14"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICERxRiscRegister14_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.RxRiscRegister14. */
+        r32.setName("RxRiscRegister14");
+        r32.setComponentOffset(0x5238);
+    }
+    RegDEVICERxRiscRegister14_t& operator=(const RegDEVICERxRiscRegister14_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister14_t;
 
 #define REG_DEVICE_RX_RISC_REGISTER_15 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000523c) /* $t7 (R15) */
@@ -3572,6 +4580,25 @@ typedef register_container RegDEVICERxRiscRegister14_t {
 typedef register_container RegDEVICERxRiscRegister15_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RxRiscRegister15"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICERxRiscRegister15_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.RxRiscRegister15. */
+        r32.setName("RxRiscRegister15");
+        r32.setComponentOffset(0x523c);
+    }
+    RegDEVICERxRiscRegister15_t& operator=(const RegDEVICERxRiscRegister15_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister15_t;
 
 #define REG_DEVICE_RX_RISC_REGISTER_16 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005240) /* $s0 (R16) */
@@ -3579,6 +4606,25 @@ typedef register_container RegDEVICERxRiscRegister15_t {
 typedef register_container RegDEVICERxRiscRegister16_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RxRiscRegister16"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICERxRiscRegister16_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.RxRiscRegister16. */
+        r32.setName("RxRiscRegister16");
+        r32.setComponentOffset(0x5240);
+    }
+    RegDEVICERxRiscRegister16_t& operator=(const RegDEVICERxRiscRegister16_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister16_t;
 
 #define REG_DEVICE_RX_RISC_REGISTER_17 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005244) /* $s1 (R17) */
@@ -3586,6 +4632,25 @@ typedef register_container RegDEVICERxRiscRegister16_t {
 typedef register_container RegDEVICERxRiscRegister17_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RxRiscRegister17"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICERxRiscRegister17_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.RxRiscRegister17. */
+        r32.setName("RxRiscRegister17");
+        r32.setComponentOffset(0x5244);
+    }
+    RegDEVICERxRiscRegister17_t& operator=(const RegDEVICERxRiscRegister17_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister17_t;
 
 #define REG_DEVICE_RX_RISC_REGISTER_18 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005248) /* $s2 (R18) */
@@ -3593,6 +4658,25 @@ typedef register_container RegDEVICERxRiscRegister17_t {
 typedef register_container RegDEVICERxRiscRegister18_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RxRiscRegister18"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICERxRiscRegister18_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.RxRiscRegister18. */
+        r32.setName("RxRiscRegister18");
+        r32.setComponentOffset(0x5248);
+    }
+    RegDEVICERxRiscRegister18_t& operator=(const RegDEVICERxRiscRegister18_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister18_t;
 
 #define REG_DEVICE_RX_RISC_REGISTER_19 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000524c) /* $s3 (R19) */
@@ -3600,6 +4684,25 @@ typedef register_container RegDEVICERxRiscRegister18_t {
 typedef register_container RegDEVICERxRiscRegister19_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RxRiscRegister19"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICERxRiscRegister19_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.RxRiscRegister19. */
+        r32.setName("RxRiscRegister19");
+        r32.setComponentOffset(0x524c);
+    }
+    RegDEVICERxRiscRegister19_t& operator=(const RegDEVICERxRiscRegister19_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister19_t;
 
 #define REG_DEVICE_RX_RISC_REGISTER_20 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005250) /* $s4 (R20) */
@@ -3607,6 +4710,25 @@ typedef register_container RegDEVICERxRiscRegister19_t {
 typedef register_container RegDEVICERxRiscRegister20_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RxRiscRegister20"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICERxRiscRegister20_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.RxRiscRegister20. */
+        r32.setName("RxRiscRegister20");
+        r32.setComponentOffset(0x5250);
+    }
+    RegDEVICERxRiscRegister20_t& operator=(const RegDEVICERxRiscRegister20_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister20_t;
 
 #define REG_DEVICE_RX_RISC_REGISTER_21 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005254) /* $s5 (R21) */
@@ -3614,6 +4736,25 @@ typedef register_container RegDEVICERxRiscRegister20_t {
 typedef register_container RegDEVICERxRiscRegister21_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RxRiscRegister21"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICERxRiscRegister21_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.RxRiscRegister21. */
+        r32.setName("RxRiscRegister21");
+        r32.setComponentOffset(0x5254);
+    }
+    RegDEVICERxRiscRegister21_t& operator=(const RegDEVICERxRiscRegister21_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister21_t;
 
 #define REG_DEVICE_RX_RISC_REGISTER_22 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005258) /* $s6 (R22) */
@@ -3621,6 +4762,25 @@ typedef register_container RegDEVICERxRiscRegister21_t {
 typedef register_container RegDEVICERxRiscRegister22_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RxRiscRegister22"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICERxRiscRegister22_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.RxRiscRegister22. */
+        r32.setName("RxRiscRegister22");
+        r32.setComponentOffset(0x5258);
+    }
+    RegDEVICERxRiscRegister22_t& operator=(const RegDEVICERxRiscRegister22_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister22_t;
 
 #define REG_DEVICE_RX_RISC_REGISTER_23 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000525c) /* $s7 (R23) */
@@ -3628,6 +4788,25 @@ typedef register_container RegDEVICERxRiscRegister22_t {
 typedef register_container RegDEVICERxRiscRegister23_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RxRiscRegister23"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICERxRiscRegister23_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.RxRiscRegister23. */
+        r32.setName("RxRiscRegister23");
+        r32.setComponentOffset(0x525c);
+    }
+    RegDEVICERxRiscRegister23_t& operator=(const RegDEVICERxRiscRegister23_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister23_t;
 
 #define REG_DEVICE_RX_RISC_REGISTER_24 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005260) /* $t8 (R24) */
@@ -3635,6 +4814,25 @@ typedef register_container RegDEVICERxRiscRegister23_t {
 typedef register_container RegDEVICERxRiscRegister24_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RxRiscRegister24"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICERxRiscRegister24_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.RxRiscRegister24. */
+        r32.setName("RxRiscRegister24");
+        r32.setComponentOffset(0x5260);
+    }
+    RegDEVICERxRiscRegister24_t& operator=(const RegDEVICERxRiscRegister24_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister24_t;
 
 #define REG_DEVICE_RX_RISC_REGISTER_25 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005264) /* $t9 (R25) */
@@ -3642,6 +4840,25 @@ typedef register_container RegDEVICERxRiscRegister24_t {
 typedef register_container RegDEVICERxRiscRegister25_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RxRiscRegister25"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICERxRiscRegister25_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.RxRiscRegister25. */
+        r32.setName("RxRiscRegister25");
+        r32.setComponentOffset(0x5264);
+    }
+    RegDEVICERxRiscRegister25_t& operator=(const RegDEVICERxRiscRegister25_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister25_t;
 
 #define REG_DEVICE_RX_RISC_REGISTER_26 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005268) /* $k0 (R26) */
@@ -3649,6 +4866,25 @@ typedef register_container RegDEVICERxRiscRegister25_t {
 typedef register_container RegDEVICERxRiscRegister26_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RxRiscRegister26"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICERxRiscRegister26_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.RxRiscRegister26. */
+        r32.setName("RxRiscRegister26");
+        r32.setComponentOffset(0x5268);
+    }
+    RegDEVICERxRiscRegister26_t& operator=(const RegDEVICERxRiscRegister26_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister26_t;
 
 #define REG_DEVICE_RX_RISC_REGISTER_27 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000526c) /* $k1 (R27) */
@@ -3656,6 +4892,25 @@ typedef register_container RegDEVICERxRiscRegister26_t {
 typedef register_container RegDEVICERxRiscRegister27_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RxRiscRegister27"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICERxRiscRegister27_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.RxRiscRegister27. */
+        r32.setName("RxRiscRegister27");
+        r32.setComponentOffset(0x526c);
+    }
+    RegDEVICERxRiscRegister27_t& operator=(const RegDEVICERxRiscRegister27_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister27_t;
 
 #define REG_DEVICE_RX_RISC_REGISTER_28 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005270) /* $gp (R28) */
@@ -3663,6 +4918,25 @@ typedef register_container RegDEVICERxRiscRegister27_t {
 typedef register_container RegDEVICERxRiscRegister28_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RxRiscRegister28"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICERxRiscRegister28_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.RxRiscRegister28. */
+        r32.setName("RxRiscRegister28");
+        r32.setComponentOffset(0x5270);
+    }
+    RegDEVICERxRiscRegister28_t& operator=(const RegDEVICERxRiscRegister28_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister28_t;
 
 #define REG_DEVICE_RX_RISC_REGISTER_29 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005274) /* $sp (R29) */
@@ -3670,6 +4944,25 @@ typedef register_container RegDEVICERxRiscRegister28_t {
 typedef register_container RegDEVICERxRiscRegister29_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RxRiscRegister29"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICERxRiscRegister29_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.RxRiscRegister29. */
+        r32.setName("RxRiscRegister29");
+        r32.setComponentOffset(0x5274);
+    }
+    RegDEVICERxRiscRegister29_t& operator=(const RegDEVICERxRiscRegister29_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister29_t;
 
 #define REG_DEVICE_RX_RISC_REGISTER_30 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005278) /* $fp (R30) */
@@ -3677,6 +4970,25 @@ typedef register_container RegDEVICERxRiscRegister29_t {
 typedef register_container RegDEVICERxRiscRegister30_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RxRiscRegister30"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICERxRiscRegister30_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.RxRiscRegister30. */
+        r32.setName("RxRiscRegister30");
+        r32.setComponentOffset(0x5278);
+    }
+    RegDEVICERxRiscRegister30_t& operator=(const RegDEVICERxRiscRegister30_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister30_t;
 
 #define REG_DEVICE_RX_RISC_REGISTER_31 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000527c) /* $ra (R31) */
@@ -3684,6 +4996,25 @@ typedef register_container RegDEVICERxRiscRegister30_t {
 typedef register_container RegDEVICERxRiscRegister31_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RxRiscRegister31"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICERxRiscRegister31_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.RxRiscRegister31. */
+        r32.setName("RxRiscRegister31");
+        r32.setComponentOffset(0x527c);
+    }
+    RegDEVICERxRiscRegister31_t& operator=(const RegDEVICERxRiscRegister31_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister31_t;
 
 #define REG_DEVICE_6408 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006408) /*  */
@@ -3691,6 +5022,25 @@ typedef register_container RegDEVICERxRiscRegister31_t {
 typedef register_container RegDEVICE6408_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "6408"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICE6408_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.6408. */
+        r32.setName("6408");
+        r32.setComponentOffset(0x6408);
+    }
+    RegDEVICE6408_t& operator=(const RegDEVICE6408_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICE6408_t;
 
 #define REG_DEVICE_PCI_POWER_CONSUMPTION_INFO ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006410) /* This undocumented register is used to set PCIe Power Consumption information as reported in configuration space. It is loaded from NVM configuration data. */
@@ -3698,6 +5048,25 @@ typedef register_container RegDEVICE6408_t {
 typedef register_container RegDEVICEPciPowerConsumptionInfo_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "PciPowerConsumptionInfo"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICEPciPowerConsumptionInfo_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.PciPowerConsumptionInfo. */
+        r32.setName("PciPowerConsumptionInfo");
+        r32.setComponentOffset(0x6410);
+    }
+    RegDEVICEPciPowerConsumptionInfo_t& operator=(const RegDEVICEPciPowerConsumptionInfo_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICEPciPowerConsumptionInfo_t;
 
 #define REG_DEVICE_PCI_POWER_DISSIPATED_INFO ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006414) /* This undocumented register is used to set PCIe Power Dissipated information as reported in configuration space. It is loaded from NVM configuration data. */
@@ -3705,6 +5074,25 @@ typedef register_container RegDEVICEPciPowerConsumptionInfo_t {
 typedef register_container RegDEVICEPciPowerDissipatedInfo_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "PciPowerDissipatedInfo"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICEPciPowerDissipatedInfo_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.PciPowerDissipatedInfo. */
+        r32.setName("PciPowerDissipatedInfo");
+        r32.setComponentOffset(0x6414);
+    }
+    RegDEVICEPciPowerDissipatedInfo_t& operator=(const RegDEVICEPciPowerDissipatedInfo_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICEPciPowerDissipatedInfo_t;
 
 #define REG_DEVICE_PCI_VPD_REQUEST ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000642c) /* This undocumented register appears to be used to implement the PCI VPD capability. It is set to the VPD offset which was requested by the host by writing to the VPD register. */
@@ -3748,8 +5136,10 @@ typedef register_container RegDEVICEPciVpdRequest_t {
     {
         /** @brief constructor for @ref DEVICE_t.PciVpdRequest. */
         r32.setName("PciVpdRequest");
+        r32.setComponentOffset(0x642c);
         bits.RequestedVPDOffset.setBaseRegister(&r32);
         bits.RequestedVPDOffset.setName("RequestedVPDOffset");
+        bits.RequestedVPDOffset.setComponentOffset(0x642c);
     }
     RegDEVICEPciVpdRequest_t& operator=(const RegDEVICEPciVpdRequest_t& other)
     {
@@ -3764,6 +5154,25 @@ typedef register_container RegDEVICEPciVpdRequest_t {
 typedef register_container RegDEVICEPciVpdResponse_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "PciVpdResponse"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICEPciVpdResponse_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.PciVpdResponse. */
+        r32.setName("PciVpdResponse");
+        r32.setComponentOffset(0x6430);
+    }
+    RegDEVICEPciVpdResponse_t& operator=(const RegDEVICEPciVpdResponse_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICEPciVpdResponse_t;
 
 #define REG_DEVICE_PCI_VENDOR_DEVICE_ID ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006434) /* This is the undocumented register used to set the PCI Vendor/Device ID, which is configurable from NVM. */
@@ -3807,10 +5216,13 @@ typedef register_container RegDEVICEPciVendorDeviceId_t {
     {
         /** @brief constructor for @ref DEVICE_t.PciVendorDeviceId. */
         r32.setName("PciVendorDeviceId");
+        r32.setComponentOffset(0x6434);
         bits.DeviceID.setBaseRegister(&r32);
         bits.DeviceID.setName("DeviceID");
+        bits.DeviceID.setComponentOffset(0x6434);
         bits.VendorID.setBaseRegister(&r32);
         bits.VendorID.setName("VendorID");
+        bits.VendorID.setComponentOffset(0x6434);
     }
     RegDEVICEPciVendorDeviceId_t& operator=(const RegDEVICEPciVendorDeviceId_t& other)
     {
@@ -3861,10 +5273,13 @@ typedef register_container RegDEVICEPciSubsystemId_t {
     {
         /** @brief constructor for @ref DEVICE_t.PciSubsystemId. */
         r32.setName("PciSubsystemId");
+        r32.setComponentOffset(0x6438);
         bits.SubsystemVendorID.setBaseRegister(&r32);
         bits.SubsystemVendorID.setName("SubsystemVendorID");
+        bits.SubsystemVendorID.setComponentOffset(0x6438);
         bits.SubsystemID.setBaseRegister(&r32);
         bits.SubsystemID.setName("SubsystemID");
+        bits.SubsystemID.setComponentOffset(0x6438);
     }
     RegDEVICEPciSubsystemId_t& operator=(const RegDEVICEPciSubsystemId_t& other)
     {
@@ -3879,6 +5294,25 @@ typedef register_container RegDEVICEPciSubsystemId_t {
 typedef register_container RegDEVICEPciClassCodeRevision_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "PciClassCodeRevision"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICEPciClassCodeRevision_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.PciClassCodeRevision. */
+        r32.setName("PciClassCodeRevision");
+        r32.setComponentOffset(0x643c);
+    }
+    RegDEVICEPciClassCodeRevision_t& operator=(const RegDEVICEPciClassCodeRevision_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICEPciClassCodeRevision_t;
 
 #define REG_DEVICE_64C0 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc00064c0) /*  */
@@ -3886,6 +5320,25 @@ typedef register_container RegDEVICEPciClassCodeRevision_t {
 typedef register_container RegDEVICE64c0_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "64c0"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICE64c0_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.64c0. */
+        r32.setName("64c0");
+        r32.setComponentOffset(0x64c0);
+    }
+    RegDEVICE64c0_t& operator=(const RegDEVICE64c0_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICE64c0_t;
 
 #define REG_DEVICE_64C8 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc00064c8) /*  */
@@ -3893,6 +5346,25 @@ typedef register_container RegDEVICE64c0_t {
 typedef register_container RegDEVICE64c8_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "64c8"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICE64c8_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.64c8. */
+        r32.setName("64c8");
+        r32.setComponentOffset(0x64c8);
+    }
+    RegDEVICE64c8_t& operator=(const RegDEVICE64c8_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICE64c8_t;
 
 #define REG_DEVICE_64DC ((volatile BCM5719_DEVICE_H_uint32_t*)0xc00064dc) /*  */
@@ -3900,6 +5372,25 @@ typedef register_container RegDEVICE64c8_t {
 typedef register_container RegDEVICE64dc_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "64dc"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICE64dc_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.64dc. */
+        r32.setName("64dc");
+        r32.setComponentOffset(0x64dc);
+    }
+    RegDEVICE64dc_t& operator=(const RegDEVICE64dc_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICE64dc_t;
 
 #define REG_DEVICE_PCI_SERIAL_NUMBER_LOW ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006504) /* This sets the low 32 bits of the 64-bit device serial number, which isexposed as a PCIe capability in configuration space. */
@@ -3907,6 +5398,25 @@ typedef register_container RegDEVICE64dc_t {
 typedef register_container RegDEVICEPciSerialNumberLow_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "PciSerialNumberLow"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICEPciSerialNumberLow_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.PciSerialNumberLow. */
+        r32.setName("PciSerialNumberLow");
+        r32.setComponentOffset(0x6504);
+    }
+    RegDEVICEPciSerialNumberLow_t& operator=(const RegDEVICEPciSerialNumberLow_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICEPciSerialNumberLow_t;
 
 #define REG_DEVICE_PCI_SERIAL_NUMBER_HIGH ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006508) /* This sets the high 32 bits of the 64-bit device serial number, which isexposed as a PCIe capability in configuration space. */
@@ -3914,6 +5424,25 @@ typedef register_container RegDEVICEPciSerialNumberLow_t {
 typedef register_container RegDEVICEPciSerialNumberHigh_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "PciSerialNumberHigh"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICEPciSerialNumberHigh_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.PciSerialNumberHigh. */
+        r32.setName("PciSerialNumberHigh");
+        r32.setComponentOffset(0x6508);
+    }
+    RegDEVICEPciSerialNumberHigh_t& operator=(const RegDEVICEPciSerialNumberHigh_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICEPciSerialNumberHigh_t;
 
 #define REG_DEVICE_PCI_POWER_BUDGET_0 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006510) /* Used to report power budget capability data to the host. The values are loaded from NVM, and up to eight values may be specified.  */
@@ -4014,18 +5543,25 @@ typedef register_container RegDEVICEPciPowerBudget0_t {
     {
         /** @brief constructor for @ref DEVICE_t.PciPowerBudget0. */
         r32.setName("PciPowerBudget0");
+        r32.setComponentOffset(0x6510);
         bits.BasePower.setBaseRegister(&r32);
         bits.BasePower.setName("BasePower");
+        bits.BasePower.setComponentOffset(0x6510);
         bits.DataScale.setBaseRegister(&r32);
         bits.DataScale.setName("DataScale");
+        bits.DataScale.setComponentOffset(0x6510);
         bits.PMSubState.setBaseRegister(&r32);
         bits.PMSubState.setName("PMSubState");
+        bits.PMSubState.setComponentOffset(0x6510);
         bits.PMState.setBaseRegister(&r32);
         bits.PMState.setName("PMState");
+        bits.PMState.setComponentOffset(0x6510);
         bits.Type.setBaseRegister(&r32);
         bits.Type.setName("Type");
+        bits.Type.setComponentOffset(0x6510);
         bits.PowerRail.setBaseRegister(&r32);
         bits.PowerRail.setName("PowerRail");
+        bits.PowerRail.setComponentOffset(0x6510);
     }
     RegDEVICEPciPowerBudget0_t& operator=(const RegDEVICEPciPowerBudget0_t& other)
     {
@@ -4133,18 +5669,25 @@ typedef register_container RegDEVICEPciPowerBudget1_t {
     {
         /** @brief constructor for @ref DEVICE_t.PciPowerBudget1. */
         r32.setName("PciPowerBudget1");
+        r32.setComponentOffset(0x6514);
         bits.BasePower.setBaseRegister(&r32);
         bits.BasePower.setName("BasePower");
+        bits.BasePower.setComponentOffset(0x6514);
         bits.DataScale.setBaseRegister(&r32);
         bits.DataScale.setName("DataScale");
+        bits.DataScale.setComponentOffset(0x6514);
         bits.PMSubState.setBaseRegister(&r32);
         bits.PMSubState.setName("PMSubState");
+        bits.PMSubState.setComponentOffset(0x6514);
         bits.PMState.setBaseRegister(&r32);
         bits.PMState.setName("PMState");
+        bits.PMState.setComponentOffset(0x6514);
         bits.Type.setBaseRegister(&r32);
         bits.Type.setName("Type");
+        bits.Type.setComponentOffset(0x6514);
         bits.PowerRail.setBaseRegister(&r32);
         bits.PowerRail.setName("PowerRail");
+        bits.PowerRail.setComponentOffset(0x6514);
     }
     RegDEVICEPciPowerBudget1_t& operator=(const RegDEVICEPciPowerBudget1_t& other)
     {
@@ -4252,18 +5795,25 @@ typedef register_container RegDEVICEPciPowerBudget2_t {
     {
         /** @brief constructor for @ref DEVICE_t.PciPowerBudget2. */
         r32.setName("PciPowerBudget2");
+        r32.setComponentOffset(0x6518);
         bits.BasePower.setBaseRegister(&r32);
         bits.BasePower.setName("BasePower");
+        bits.BasePower.setComponentOffset(0x6518);
         bits.DataScale.setBaseRegister(&r32);
         bits.DataScale.setName("DataScale");
+        bits.DataScale.setComponentOffset(0x6518);
         bits.PMSubState.setBaseRegister(&r32);
         bits.PMSubState.setName("PMSubState");
+        bits.PMSubState.setComponentOffset(0x6518);
         bits.PMState.setBaseRegister(&r32);
         bits.PMState.setName("PMState");
+        bits.PMState.setComponentOffset(0x6518);
         bits.Type.setBaseRegister(&r32);
         bits.Type.setName("Type");
+        bits.Type.setComponentOffset(0x6518);
         bits.PowerRail.setBaseRegister(&r32);
         bits.PowerRail.setName("PowerRail");
+        bits.PowerRail.setComponentOffset(0x6518);
     }
     RegDEVICEPciPowerBudget2_t& operator=(const RegDEVICEPciPowerBudget2_t& other)
     {
@@ -4371,18 +5921,25 @@ typedef register_container RegDEVICEPciPowerBudget3_t {
     {
         /** @brief constructor for @ref DEVICE_t.PciPowerBudget3. */
         r32.setName("PciPowerBudget3");
+        r32.setComponentOffset(0x651c);
         bits.BasePower.setBaseRegister(&r32);
         bits.BasePower.setName("BasePower");
+        bits.BasePower.setComponentOffset(0x651c);
         bits.DataScale.setBaseRegister(&r32);
         bits.DataScale.setName("DataScale");
+        bits.DataScale.setComponentOffset(0x651c);
         bits.PMSubState.setBaseRegister(&r32);
         bits.PMSubState.setName("PMSubState");
+        bits.PMSubState.setComponentOffset(0x651c);
         bits.PMState.setBaseRegister(&r32);
         bits.PMState.setName("PMState");
+        bits.PMState.setComponentOffset(0x651c);
         bits.Type.setBaseRegister(&r32);
         bits.Type.setName("Type");
+        bits.Type.setComponentOffset(0x651c);
         bits.PowerRail.setBaseRegister(&r32);
         bits.PowerRail.setName("PowerRail");
+        bits.PowerRail.setComponentOffset(0x651c);
     }
     RegDEVICEPciPowerBudget3_t& operator=(const RegDEVICEPciPowerBudget3_t& other)
     {
@@ -4490,18 +6047,25 @@ typedef register_container RegDEVICEPciPowerBudget4_t {
     {
         /** @brief constructor for @ref DEVICE_t.PciPowerBudget4. */
         r32.setName("PciPowerBudget4");
+        r32.setComponentOffset(0x6520);
         bits.BasePower.setBaseRegister(&r32);
         bits.BasePower.setName("BasePower");
+        bits.BasePower.setComponentOffset(0x6520);
         bits.DataScale.setBaseRegister(&r32);
         bits.DataScale.setName("DataScale");
+        bits.DataScale.setComponentOffset(0x6520);
         bits.PMSubState.setBaseRegister(&r32);
         bits.PMSubState.setName("PMSubState");
+        bits.PMSubState.setComponentOffset(0x6520);
         bits.PMState.setBaseRegister(&r32);
         bits.PMState.setName("PMState");
+        bits.PMState.setComponentOffset(0x6520);
         bits.Type.setBaseRegister(&r32);
         bits.Type.setName("Type");
+        bits.Type.setComponentOffset(0x6520);
         bits.PowerRail.setBaseRegister(&r32);
         bits.PowerRail.setName("PowerRail");
+        bits.PowerRail.setComponentOffset(0x6520);
     }
     RegDEVICEPciPowerBudget4_t& operator=(const RegDEVICEPciPowerBudget4_t& other)
     {
@@ -4609,18 +6173,25 @@ typedef register_container RegDEVICEPciPowerBudget5_t {
     {
         /** @brief constructor for @ref DEVICE_t.PciPowerBudget5. */
         r32.setName("PciPowerBudget5");
+        r32.setComponentOffset(0x6524);
         bits.BasePower.setBaseRegister(&r32);
         bits.BasePower.setName("BasePower");
+        bits.BasePower.setComponentOffset(0x6524);
         bits.DataScale.setBaseRegister(&r32);
         bits.DataScale.setName("DataScale");
+        bits.DataScale.setComponentOffset(0x6524);
         bits.PMSubState.setBaseRegister(&r32);
         bits.PMSubState.setName("PMSubState");
+        bits.PMSubState.setComponentOffset(0x6524);
         bits.PMState.setBaseRegister(&r32);
         bits.PMState.setName("PMState");
+        bits.PMState.setComponentOffset(0x6524);
         bits.Type.setBaseRegister(&r32);
         bits.Type.setName("Type");
+        bits.Type.setComponentOffset(0x6524);
         bits.PowerRail.setBaseRegister(&r32);
         bits.PowerRail.setName("PowerRail");
+        bits.PowerRail.setComponentOffset(0x6524);
     }
     RegDEVICEPciPowerBudget5_t& operator=(const RegDEVICEPciPowerBudget5_t& other)
     {
@@ -4728,18 +6299,25 @@ typedef register_container RegDEVICEPciPowerBudget6_t {
     {
         /** @brief constructor for @ref DEVICE_t.PciPowerBudget6. */
         r32.setName("PciPowerBudget6");
+        r32.setComponentOffset(0x6528);
         bits.BasePower.setBaseRegister(&r32);
         bits.BasePower.setName("BasePower");
+        bits.BasePower.setComponentOffset(0x6528);
         bits.DataScale.setBaseRegister(&r32);
         bits.DataScale.setName("DataScale");
+        bits.DataScale.setComponentOffset(0x6528);
         bits.PMSubState.setBaseRegister(&r32);
         bits.PMSubState.setName("PMSubState");
+        bits.PMSubState.setComponentOffset(0x6528);
         bits.PMState.setBaseRegister(&r32);
         bits.PMState.setName("PMState");
+        bits.PMState.setComponentOffset(0x6528);
         bits.Type.setBaseRegister(&r32);
         bits.Type.setName("Type");
+        bits.Type.setComponentOffset(0x6528);
         bits.PowerRail.setBaseRegister(&r32);
         bits.PowerRail.setName("PowerRail");
+        bits.PowerRail.setComponentOffset(0x6528);
     }
     RegDEVICEPciPowerBudget6_t& operator=(const RegDEVICEPciPowerBudget6_t& other)
     {
@@ -4847,18 +6425,25 @@ typedef register_container RegDEVICEPciPowerBudget7_t {
     {
         /** @brief constructor for @ref DEVICE_t.PciPowerBudget7. */
         r32.setName("PciPowerBudget7");
+        r32.setComponentOffset(0x652c);
         bits.BasePower.setBaseRegister(&r32);
         bits.BasePower.setName("BasePower");
+        bits.BasePower.setComponentOffset(0x652c);
         bits.DataScale.setBaseRegister(&r32);
         bits.DataScale.setName("DataScale");
+        bits.DataScale.setComponentOffset(0x652c);
         bits.PMSubState.setBaseRegister(&r32);
         bits.PMSubState.setName("PMSubState");
+        bits.PMSubState.setComponentOffset(0x652c);
         bits.PMState.setBaseRegister(&r32);
         bits.PMState.setName("PMState");
+        bits.PMState.setComponentOffset(0x652c);
         bits.Type.setBaseRegister(&r32);
         bits.Type.setName("Type");
+        bits.Type.setComponentOffset(0x652c);
         bits.PowerRail.setBaseRegister(&r32);
         bits.PowerRail.setName("PowerRail");
+        bits.PowerRail.setComponentOffset(0x652c);
     }
     RegDEVICEPciPowerBudget7_t& operator=(const RegDEVICEPciPowerBudget7_t& other)
     {
@@ -4873,6 +6458,25 @@ typedef register_container RegDEVICEPciPowerBudget7_t {
 typedef register_container RegDEVICE6530_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "6530"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICE6530_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.6530. */
+        r32.setName("6530");
+        r32.setComponentOffset(0x6530);
+    }
+    RegDEVICE6530_t& operator=(const RegDEVICE6530_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICE6530_t;
 
 #define REG_DEVICE_6550 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006550) /* The LSB in this undocumented and unknown register is set if the device is a LOM (LAN-on-Motherboard) design (i.e., builtin to a system and not an expansion card). */
@@ -4880,6 +6484,25 @@ typedef register_container RegDEVICE6530_t {
 typedef register_container RegDEVICE6550_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "6550"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICE6550_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.6550. */
+        r32.setName("6550");
+        r32.setComponentOffset(0x6550);
+    }
+    RegDEVICE6550_t& operator=(const RegDEVICE6550_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICE6550_t;
 
 #define REG_DEVICE_65F4 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc00065f4) /*  */
@@ -4887,6 +6510,25 @@ typedef register_container RegDEVICE6550_t {
 typedef register_container RegDEVICE65f4_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "65f4"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICE65f4_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.65f4. */
+        r32.setName("65f4");
+        r32.setComponentOffset(0x65f4);
+    }
+    RegDEVICE65f4_t& operator=(const RegDEVICE65f4_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICE65f4_t;
 
 #define REG_DEVICE_GRC_MODE_CONTROL ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006800) /*  */
@@ -4970,16 +6612,22 @@ typedef register_container RegDEVICEGrcModeControl_t {
     {
         /** @brief constructor for @ref DEVICE_t.GrcModeControl. */
         r32.setName("GrcModeControl");
+        r32.setComponentOffset(0x6800);
         bits.TimeSyncModeEnable.setBaseRegister(&r32);
         bits.TimeSyncModeEnable.setName("TimeSyncModeEnable");
+        bits.TimeSyncModeEnable.setComponentOffset(0x6800);
         bits.NVRAMWriteEnable.setBaseRegister(&r32);
         bits.NVRAMWriteEnable.setName("NVRAMWriteEnable");
+        bits.NVRAMWriteEnable.setComponentOffset(0x6800);
         bits.PCIeTL_DIV_DL_DIV_PLMapping1.setBaseRegister(&r32);
         bits.PCIeTL_DIV_DL_DIV_PLMapping1.setName("PCIeTL_DIV_DL_DIV_PLMapping1");
+        bits.PCIeTL_DIV_DL_DIV_PLMapping1.setComponentOffset(0x6800);
         bits.PCIeTL_DIV_DL_DIV_PLMapping2.setBaseRegister(&r32);
         bits.PCIeTL_DIV_DL_DIV_PLMapping2.setName("PCIeTL_DIV_DL_DIV_PLMapping2");
+        bits.PCIeTL_DIV_DL_DIV_PLMapping2.setComponentOffset(0x6800);
         bits.PCIeTL_DIV_DL_DIV_PLMapping3.setBaseRegister(&r32);
         bits.PCIeTL_DIV_DL_DIV_PLMapping3.setName("PCIeTL_DIV_DL_DIV_PLMapping3");
+        bits.PCIeTL_DIV_DL_DIV_PLMapping3.setComponentOffset(0x6800);
     }
     RegDEVICEGrcModeControl_t& operator=(const RegDEVICEGrcModeControl_t& other)
     {
@@ -5022,8 +6670,10 @@ typedef register_container RegDEVICEMiscellaneousConfig_t {
     {
         /** @brief constructor for @ref DEVICE_t.MiscellaneousConfig. */
         r32.setName("MiscellaneousConfig");
+        r32.setComponentOffset(0x6804);
         bits.all.setBaseRegister(&r32);
         bits.all.setName("all");
+        bits.all.setComponentOffset(0x6804);
     }
     RegDEVICEMiscellaneousConfig_t& operator=(const RegDEVICEMiscellaneousConfig_t& other)
     {
@@ -5150,26 +6800,37 @@ typedef register_container RegDEVICEMiscellaneousLocalControl_t {
     {
         /** @brief constructor for @ref DEVICE_t.MiscellaneousLocalControl. */
         r32.setName("MiscellaneousLocalControl");
+        r32.setComponentOffset(0x6808);
         bits.GPIO0Input.setBaseRegister(&r32);
         bits.GPIO0Input.setName("GPIO0Input");
+        bits.GPIO0Input.setComponentOffset(0x6808);
         bits.GPIO1Input.setBaseRegister(&r32);
         bits.GPIO1Input.setName("GPIO1Input");
+        bits.GPIO1Input.setComponentOffset(0x6808);
         bits.GPIO2Input.setBaseRegister(&r32);
         bits.GPIO2Input.setName("GPIO2Input");
+        bits.GPIO2Input.setComponentOffset(0x6808);
         bits.GPIO0OutputEnable.setBaseRegister(&r32);
         bits.GPIO0OutputEnable.setName("GPIO0OutputEnable");
+        bits.GPIO0OutputEnable.setComponentOffset(0x6808);
         bits.GPIO1OutputEnable.setBaseRegister(&r32);
         bits.GPIO1OutputEnable.setName("GPIO1OutputEnable");
+        bits.GPIO1OutputEnable.setComponentOffset(0x6808);
         bits.GPIO2OutputEnable.setBaseRegister(&r32);
         bits.GPIO2OutputEnable.setName("GPIO2OutputEnable");
+        bits.GPIO2OutputEnable.setComponentOffset(0x6808);
         bits.GPIO0Output.setBaseRegister(&r32);
         bits.GPIO0Output.setName("GPIO0Output");
+        bits.GPIO0Output.setComponentOffset(0x6808);
         bits.GPIO1Output.setBaseRegister(&r32);
         bits.GPIO1Output.setName("GPIO1Output");
+        bits.GPIO1Output.setComponentOffset(0x6808);
         bits.GPIO2Output.setBaseRegister(&r32);
         bits.GPIO2Output.setName("GPIO2Output");
+        bits.GPIO2Output.setComponentOffset(0x6808);
         bits.AutoSEEPROMAccess.setBaseRegister(&r32);
         bits.AutoSEEPROMAccess.setName("AutoSEEPROMAccess");
+        bits.AutoSEEPROMAccess.setComponentOffset(0x6808);
     }
     RegDEVICEMiscellaneousLocalControl_t& operator=(const RegDEVICEMiscellaneousLocalControl_t& other)
     {
@@ -5184,6 +6845,25 @@ typedef register_container RegDEVICEMiscellaneousLocalControl_t {
 typedef register_container RegDEVICETimer_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "Timer"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICETimer_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.Timer. */
+        r32.setName("Timer");
+        r32.setComponentOffset(0x680c);
+    }
+    RegDEVICETimer_t& operator=(const RegDEVICETimer_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICETimer_t;
 
 #define REG_DEVICE_RX_CPU_EVENT ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006810) /*  */
@@ -5255,14 +6935,19 @@ typedef register_container RegDEVICERxCpuEvent_t {
     {
         /** @brief constructor for @ref DEVICE_t.RxCpuEvent. */
         r32.setName("RxCpuEvent");
+        r32.setComponentOffset(0x6810);
         bits.MACAttention.setBaseRegister(&r32);
         bits.MACAttention.setName("MACAttention");
+        bits.MACAttention.setComponentOffset(0x6810);
         bits.RXCPUAttention.setBaseRegister(&r32);
         bits.RXCPUAttention.setName("RXCPUAttention");
+        bits.RXCPUAttention.setComponentOffset(0x6810);
         bits.Timer.setBaseRegister(&r32);
         bits.Timer.setName("Timer");
+        bits.Timer.setComponentOffset(0x6810);
         bits.VPDAttention.setBaseRegister(&r32);
         bits.VPDAttention.setName("VPDAttention");
+        bits.VPDAttention.setComponentOffset(0x6810);
     }
     RegDEVICERxCpuEvent_t& operator=(const RegDEVICERxCpuEvent_t& other)
     {
@@ -5277,6 +6962,25 @@ typedef register_container RegDEVICERxCpuEvent_t {
 typedef register_container RegDEVICE6838_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "6838"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICE6838_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.6838. */
+        r32.setName("6838");
+        r32.setComponentOffset(0x6838);
+    }
+    RegDEVICE6838_t& operator=(const RegDEVICE6838_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICE6838_t;
 
 #define REG_DEVICE_MDI_CONTROL ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006844) /* The register manual only mentions this in the changelog; it was removed from the manual in a previous revision. :| */
@@ -5284,6 +6988,25 @@ typedef register_container RegDEVICE6838_t {
 typedef register_container RegDEVICEMdiControl_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "MdiControl"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICEMdiControl_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.MdiControl. */
+        r32.setName("MdiControl");
+        r32.setComponentOffset(0x6844);
+    }
+    RegDEVICEMdiControl_t& operator=(const RegDEVICEMdiControl_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICEMdiControl_t;
 
 #define REG_DEVICE_RX_CPU_EVENT_ENABLE ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000684c) /*  */
@@ -5327,8 +7050,10 @@ typedef register_container RegDEVICERxCpuEventEnable_t {
     {
         /** @brief constructor for @ref DEVICE_t.RxCpuEventEnable. */
         r32.setName("RxCpuEventEnable");
+        r32.setComponentOffset(0x684c);
         bits.VPDAttention.setBaseRegister(&r32);
         bits.VPDAttention.setName("VPDAttention");
+        bits.VPDAttention.setComponentOffset(0x684c);
     }
     RegDEVICERxCpuEventEnable_t& operator=(const RegDEVICERxCpuEventEnable_t& other)
     {
@@ -5379,10 +7104,13 @@ typedef register_container RegDEVICEFastBootProgramCounter_t {
     {
         /** @brief constructor for @ref DEVICE_t.FastBootProgramCounter. */
         r32.setName("FastBootProgramCounter");
+        r32.setComponentOffset(0x6894);
         bits.ProgramCounter.setBaseRegister(&r32);
         bits.ProgramCounter.setName("ProgramCounter");
+        bits.ProgramCounter.setComponentOffset(0x6894);
         bits.Enable.setBaseRegister(&r32);
         bits.Enable.setName("Enable");
+        bits.Enable.setComponentOffset(0x6894);
     }
     RegDEVICEFastBootProgramCounter_t& operator=(const RegDEVICEFastBootProgramCounter_t& other)
     {
@@ -5397,6 +7125,25 @@ typedef register_container RegDEVICEFastBootProgramCounter_t {
 typedef register_container RegDEVICEExpansionRomAddr_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "ExpansionRomAddr"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICEExpansionRomAddr_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.ExpansionRomAddr. */
+        r32.setName("ExpansionRomAddr");
+        r32.setComponentOffset(0x68ec);
+    }
+    RegDEVICEExpansionRomAddr_t& operator=(const RegDEVICEExpansionRomAddr_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICEExpansionRomAddr_t;
 
 #define REG_DEVICE_68F0 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc00068f0) /*  */
@@ -5404,6 +7151,25 @@ typedef register_container RegDEVICEExpansionRomAddr_t {
 typedef register_container RegDEVICE68f0_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "68f0"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICE68f0_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.68f0. */
+        r32.setName("68f0");
+        r32.setComponentOffset(0x68f0);
+    }
+    RegDEVICE68f0_t& operator=(const RegDEVICE68f0_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICE68f0_t;
 
 #define REG_DEVICE_EAV_REF_CLOCK_CONTROL ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006908) /*  */
@@ -5508,16 +7274,22 @@ typedef register_container RegDEVICEEavRefClockControl_t {
     {
         /** @brief constructor for @ref DEVICE_t.EavRefClockControl. */
         r32.setName("EavRefClockControl");
+        r32.setComponentOffset(0x6908);
         bits.TimesyncGPIOMapping.setBaseRegister(&r32);
         bits.TimesyncGPIOMapping.setName("TimesyncGPIOMapping");
+        bits.TimesyncGPIOMapping.setComponentOffset(0x6908);
         bits.APEGPIO0Mapping.setBaseRegister(&r32);
         bits.APEGPIO0Mapping.setName("APEGPIO0Mapping");
+        bits.APEGPIO0Mapping.setComponentOffset(0x6908);
         bits.APEGPIO1Mapping.setBaseRegister(&r32);
         bits.APEGPIO1Mapping.setName("APEGPIO1Mapping");
+        bits.APEGPIO1Mapping.setComponentOffset(0x6908);
         bits.APEGPIO2Mapping.setBaseRegister(&r32);
         bits.APEGPIO2Mapping.setName("APEGPIO2Mapping");
+        bits.APEGPIO2Mapping.setComponentOffset(0x6908);
         bits.APEGPIO3Mapping.setBaseRegister(&r32);
         bits.APEGPIO3Mapping.setName("APEGPIO3Mapping");
+        bits.APEGPIO3Mapping.setComponentOffset(0x6908);
     }
     RegDEVICEEavRefClockControl_t& operator=(const RegDEVICEEavRefClockControl_t& other)
     {
@@ -5532,6 +7304,25 @@ typedef register_container RegDEVICEEavRefClockControl_t {
 typedef register_container RegDEVICE7c04_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "7c04"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICE7c04_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.7c04. */
+        r32.setName("7c04");
+        r32.setComponentOffset(0x7c04);
+    }
+    RegDEVICE7c04_t& operator=(const RegDEVICE7c04_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegDEVICE7c04_t;
 
 /** @brief Component definition for @ref DEVICE. */
@@ -6050,16 +7841,15 @@ typedef struct {
     RegDEVICE7c04_t _7c04;
 
 #ifdef CXX_SIMULATOR
-    typedef uint32_t (*read_callback_t)(uint32_t, void*);
-    read_callback_t mIndexReadCallback;
+    typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);
+    callback_t mIndexReadCallback;
     void* mIndexReadCallbackArgs;
 
-    typedef void (*write_callback_t)(uint32_t, uint32_t value, void*);
-    write_callback_t mIndexWriteCallback;
+    callback_t mIndexWriteCallback;
     void* mIndexWriteCallbackArgs;
 
-    uint32_t read(int index) { return mIndexReadCallback(index, mIndexReadCallbackArgs); }
-    void write(int index, uint32_t value) { mIndexWriteCallback(index, value, mIndexWriteCallbackArgs); }
+    uint32_t read(int offset) { return mIndexReadCallback(0, offset, mIndexReadCallbackArgs); }
+    void write(int offset, uint32_t value) { (void)mIndexWriteCallback(value, offset, mIndexWriteCallbackArgs); }
 #endif /* CXX_SIMULATOR */
 } DEVICE_t;
 

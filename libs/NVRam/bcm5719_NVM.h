@@ -182,22 +182,31 @@ typedef register_container RegNVMCommand_t {
     {
         /** @brief constructor for @ref NVM_t.Command. */
         r32.setName("Command");
+        r32.setComponentOffset(0x0);
         bits.Done.setBaseRegister(&r32);
         bits.Done.setName("Done");
+        bits.Done.setComponentOffset(0x0);
         bits.Doit.setBaseRegister(&r32);
         bits.Doit.setName("Doit");
+        bits.Doit.setComponentOffset(0x0);
         bits.Wr.setBaseRegister(&r32);
         bits.Wr.setName("Wr");
+        bits.Wr.setComponentOffset(0x0);
         bits.Erase.setBaseRegister(&r32);
         bits.Erase.setName("Erase");
+        bits.Erase.setComponentOffset(0x0);
         bits.First.setBaseRegister(&r32);
         bits.First.setName("First");
+        bits.First.setComponentOffset(0x0);
         bits.Last.setBaseRegister(&r32);
         bits.Last.setName("Last");
+        bits.Last.setComponentOffset(0x0);
         bits.WriteEnableCommand.setBaseRegister(&r32);
         bits.WriteEnableCommand.setName("WriteEnableCommand");
+        bits.WriteEnableCommand.setComponentOffset(0x0);
         bits.WriteDisableCommand.setBaseRegister(&r32);
         bits.WriteDisableCommand.setName("WriteDisableCommand");
+        bits.WriteDisableCommand.setComponentOffset(0x0);
     }
     RegNVMCommand_t& operator=(const RegNVMCommand_t& other)
     {
@@ -212,6 +221,25 @@ typedef register_container RegNVMCommand_t {
 typedef register_container RegNVMWrite_t {
     /** @brief 32bit direct register access. */
     BCM5719_NVM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "Write"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegNVMWrite_t()
+    {
+        /** @brief constructor for @ref NVM_t.Write. */
+        r32.setName("Write");
+        r32.setComponentOffset(0x8);
+    }
+    RegNVMWrite_t& operator=(const RegNVMWrite_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegNVMWrite_t;
 
 #define REG_NVM_ADDR ((volatile BCM5719_NVM_H_uint32_t*)0xc000700c) /* The 24 bit address for a read or write operation (must be 4 byte aligned). */
@@ -219,6 +247,25 @@ typedef register_container RegNVMWrite_t {
 typedef register_container RegNVMAddr_t {
     /** @brief 32bit direct register access. */
     BCM5719_NVM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "Addr"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegNVMAddr_t()
+    {
+        /** @brief constructor for @ref NVM_t.Addr. */
+        r32.setName("Addr");
+        r32.setComponentOffset(0xc);
+    }
+    RegNVMAddr_t& operator=(const RegNVMAddr_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegNVMAddr_t;
 
 #define REG_NVM_READ ((volatile BCM5719_NVM_H_uint32_t*)0xc0007010) /* 32bits of read data are used when read commands are executed. */
@@ -226,6 +273,25 @@ typedef register_container RegNVMAddr_t {
 typedef register_container RegNVMRead_t {
     /** @brief 32bit direct register access. */
     BCM5719_NVM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "Read"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegNVMRead_t()
+    {
+        /** @brief constructor for @ref NVM_t.Read. */
+        r32.setName("Read");
+        r32.setComponentOffset(0x10);
+    }
+    RegNVMRead_t& operator=(const RegNVMRead_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegNVMRead_t;
 
 #define REG_NVM_NVM_CFG_1 ((volatile BCM5719_NVM_H_uint32_t*)0xc0007014) /*  */
@@ -324,18 +390,25 @@ typedef register_container RegNVMNvmCfg1_t {
     {
         /** @brief constructor for @ref NVM_t.NvmCfg1. */
         r32.setName("NvmCfg1");
+        r32.setComponentOffset(0x14);
         bits.FlashMode.setBaseRegister(&r32);
         bits.FlashMode.setName("FlashMode");
+        bits.FlashMode.setComponentOffset(0x14);
         bits.BufferMode.setBaseRegister(&r32);
         bits.BufferMode.setName("BufferMode");
+        bits.BufferMode.setComponentOffset(0x14);
         bits.SPICLKDIV.setBaseRegister(&r32);
         bits.SPICLKDIV.setName("SPICLKDIV");
+        bits.SPICLKDIV.setComponentOffset(0x14);
         bits.ProtectMode.setBaseRegister(&r32);
         bits.ProtectMode.setName("ProtectMode");
+        bits.ProtectMode.setComponentOffset(0x14);
         bits.FlashSize.setBaseRegister(&r32);
         bits.FlashSize.setName("FlashSize");
+        bits.FlashSize.setComponentOffset(0x14);
         bits.PageSize.setBaseRegister(&r32);
         bits.PageSize.setName("PageSize");
+        bits.PageSize.setComponentOffset(0x14);
     }
     RegNVMNvmCfg1_t& operator=(const RegNVMNvmCfg1_t& other)
     {
@@ -394,10 +467,13 @@ typedef register_container RegNVMNvmCfg2_t {
     {
         /** @brief constructor for @ref NVM_t.NvmCfg2. */
         r32.setName("NvmCfg2");
+        r32.setComponentOffset(0x18);
         bits.EraseCommand.setBaseRegister(&r32);
         bits.EraseCommand.setName("EraseCommand");
+        bits.EraseCommand.setComponentOffset(0x18);
         bits.StatusCommand.setBaseRegister(&r32);
         bits.StatusCommand.setName("StatusCommand");
+        bits.StatusCommand.setComponentOffset(0x18);
     }
     RegNVMNvmCfg2_t& operator=(const RegNVMNvmCfg2_t& other)
     {
@@ -456,10 +532,13 @@ typedef register_container RegNVMNvmCfg3_t {
     {
         /** @brief constructor for @ref NVM_t.NvmCfg3. */
         r32.setName("NvmCfg3");
+        r32.setComponentOffset(0x1c);
         bits.WriteCommand.setBaseRegister(&r32);
         bits.WriteCommand.setName("WriteCommand");
+        bits.WriteCommand.setComponentOffset(0x1c);
         bits.ReadCommand.setBaseRegister(&r32);
         bits.ReadCommand.setName("ReadCommand");
+        bits.ReadCommand.setComponentOffset(0x1c);
     }
     RegNVMNvmCfg3_t& operator=(const RegNVMNvmCfg3_t& other)
     {
@@ -594,30 +673,43 @@ typedef register_container RegNVMSoftwareArbitration_t {
     {
         /** @brief constructor for @ref NVM_t.SoftwareArbitration. */
         r32.setName("SoftwareArbitration");
+        r32.setComponentOffset(0x20);
         bits.ReqSet0.setBaseRegister(&r32);
         bits.ReqSet0.setName("ReqSet0");
+        bits.ReqSet0.setComponentOffset(0x20);
         bits.ReqSet1.setBaseRegister(&r32);
         bits.ReqSet1.setName("ReqSet1");
+        bits.ReqSet1.setComponentOffset(0x20);
         bits.ReqSet2.setBaseRegister(&r32);
         bits.ReqSet2.setName("ReqSet2");
+        bits.ReqSet2.setComponentOffset(0x20);
         bits.ReqSet3.setBaseRegister(&r32);
         bits.ReqSet3.setName("ReqSet3");
+        bits.ReqSet3.setComponentOffset(0x20);
         bits.ReqClr0.setBaseRegister(&r32);
         bits.ReqClr0.setName("ReqClr0");
+        bits.ReqClr0.setComponentOffset(0x20);
         bits.ReqClr1.setBaseRegister(&r32);
         bits.ReqClr1.setName("ReqClr1");
+        bits.ReqClr1.setComponentOffset(0x20);
         bits.ReqClr2.setBaseRegister(&r32);
         bits.ReqClr2.setName("ReqClr2");
+        bits.ReqClr2.setComponentOffset(0x20);
         bits.ReqClr3.setBaseRegister(&r32);
         bits.ReqClr3.setName("ReqClr3");
+        bits.ReqClr3.setComponentOffset(0x20);
         bits.ArbWon0.setBaseRegister(&r32);
         bits.ArbWon0.setName("ArbWon0");
+        bits.ArbWon0.setComponentOffset(0x20);
         bits.ArbWon1.setBaseRegister(&r32);
         bits.ArbWon1.setName("ArbWon1");
+        bits.ArbWon1.setComponentOffset(0x20);
         bits.ArbWon2.setBaseRegister(&r32);
         bits.ArbWon2.setName("ArbWon2");
+        bits.ArbWon2.setComponentOffset(0x20);
         bits.ArbWon3.setBaseRegister(&r32);
         bits.ArbWon3.setName("ArbWon3");
+        bits.ArbWon3.setComponentOffset(0x20);
     }
     RegNVMSoftwareArbitration_t& operator=(const RegNVMSoftwareArbitration_t& other)
     {
@@ -672,10 +764,13 @@ typedef register_container RegNVMAccess_t {
     {
         /** @brief constructor for @ref NVM_t.Access. */
         r32.setName("Access");
+        r32.setComponentOffset(0x24);
         bits.Enable.setBaseRegister(&r32);
         bits.Enable.setName("Enable");
+        bits.Enable.setComponentOffset(0x24);
         bits.WriteEnable.setBaseRegister(&r32);
         bits.WriteEnable.setName("WriteEnable");
+        bits.WriteEnable.setComponentOffset(0x24);
     }
     RegNVMAccess_t& operator=(const RegNVMAccess_t& other)
     {
@@ -730,10 +825,13 @@ typedef register_container RegNVMNvmWrite1_t {
     {
         /** @brief constructor for @ref NVM_t.NvmWrite1. */
         r32.setName("NvmWrite1");
+        r32.setComponentOffset(0x28);
         bits.WriteEnableCommand.setBaseRegister(&r32);
         bits.WriteEnableCommand.setName("WriteEnableCommand");
+        bits.WriteEnableCommand.setComponentOffset(0x28);
         bits.WriteDisableCommand.setBaseRegister(&r32);
         bits.WriteDisableCommand.setName("WriteDisableCommand");
+        bits.WriteDisableCommand.setComponentOffset(0x28);
     }
     RegNVMNvmWrite1_t& operator=(const RegNVMNvmWrite1_t& other)
     {
@@ -776,8 +874,10 @@ typedef register_container RegNVMArbitrationWatchdog_t {
     {
         /** @brief constructor for @ref NVM_t.ArbitrationWatchdog. */
         r32.setName("ArbitrationWatchdog");
+        r32.setComponentOffset(0x2c);
         bits.reserved.setBaseRegister(&r32);
         bits.reserved.setName("reserved");
+        bits.reserved.setComponentOffset(0x2c);
     }
     RegNVMArbitrationWatchdog_t& operator=(const RegNVMArbitrationWatchdog_t& other)
     {
@@ -878,16 +978,22 @@ typedef register_container RegNVMAutoSenseStatus_t {
     {
         /** @brief constructor for @ref NVM_t.AutoSenseStatus. */
         r32.setName("AutoSenseStatus");
+        r32.setComponentOffset(0x38);
         bits.AutoConfigBusy.setBaseRegister(&r32);
         bits.AutoConfigBusy.setName("AutoConfigBusy");
+        bits.AutoConfigBusy.setComponentOffset(0x38);
         bits.AutoConfigEnable.setBaseRegister(&r32);
         bits.AutoConfigEnable.setName("AutoConfigEnable");
+        bits.AutoConfigEnable.setComponentOffset(0x38);
         bits.AutoConfigSuccessful.setBaseRegister(&r32);
         bits.AutoConfigSuccessful.setName("AutoConfigSuccessful");
+        bits.AutoConfigSuccessful.setComponentOffset(0x38);
         bits.AutoConfigState.setBaseRegister(&r32);
         bits.AutoConfigState.setName("AutoConfigState");
+        bits.AutoConfigState.setComponentOffset(0x38);
         bits.AutoDetectedDeviceID.setBaseRegister(&r32);
         bits.AutoDetectedDeviceID.setName("AutoDetectedDeviceID");
+        bits.AutoDetectedDeviceID.setComponentOffset(0x38);
     }
     RegNVMAutoSenseStatus_t& operator=(const RegNVMAutoSenseStatus_t& other)
     {
@@ -942,16 +1048,15 @@ typedef struct {
     RegNVMAutoSenseStatus_t AutoSenseStatus;
 
 #ifdef CXX_SIMULATOR
-    typedef uint32_t (*read_callback_t)(uint32_t, void*);
-    read_callback_t mIndexReadCallback;
+    typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);
+    callback_t mIndexReadCallback;
     void* mIndexReadCallbackArgs;
 
-    typedef void (*write_callback_t)(uint32_t, uint32_t value, void*);
-    write_callback_t mIndexWriteCallback;
+    callback_t mIndexWriteCallback;
     void* mIndexWriteCallbackArgs;
 
-    uint32_t read(int index) { return mIndexReadCallback(index, mIndexReadCallbackArgs); }
-    void write(int index, uint32_t value) { mIndexWriteCallback(index, value, mIndexWriteCallbackArgs); }
+    uint32_t read(int offset) { return mIndexReadCallback(0, offset, mIndexReadCallbackArgs); }
+    void write(int offset, uint32_t value) { (void)mIndexWriteCallback(value, offset, mIndexWriteCallbackArgs); }
 #endif /* CXX_SIMULATOR */
 } NVM_t;
 

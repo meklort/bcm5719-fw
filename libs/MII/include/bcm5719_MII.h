@@ -203,28 +203,40 @@ typedef register_container RegMIIControl_t {
     {
         /** @brief constructor for @ref MII_t.Control. */
         r16.setName("Control");
+        r16.setComponentOffset(0x0);
         bits.UnidirectionalMode_GPHYonly_.setBaseRegister(&r16);
         bits.UnidirectionalMode_GPHYonly_.setName("UnidirectionalMode_GPHYonly_");
+        bits.UnidirectionalMode_GPHYonly_.setComponentOffset(0x0);
         bits.SpeedSelectMSB.setBaseRegister(&r16);
         bits.SpeedSelectMSB.setName("SpeedSelectMSB");
+        bits.SpeedSelectMSB.setComponentOffset(0x0);
         bits.CollisionTestMode.setBaseRegister(&r16);
         bits.CollisionTestMode.setName("CollisionTestMode");
+        bits.CollisionTestMode.setComponentOffset(0x0);
         bits.FullDuplexMode.setBaseRegister(&r16);
         bits.FullDuplexMode.setName("FullDuplexMode");
+        bits.FullDuplexMode.setComponentOffset(0x0);
         bits.RestartAutonegotiation.setBaseRegister(&r16);
         bits.RestartAutonegotiation.setName("RestartAutonegotiation");
+        bits.RestartAutonegotiation.setComponentOffset(0x0);
         bits.Isolate_GPHYonly_.setBaseRegister(&r16);
         bits.Isolate_GPHYonly_.setName("Isolate_GPHYonly_");
+        bits.Isolate_GPHYonly_.setComponentOffset(0x0);
         bits.PowerDown.setBaseRegister(&r16);
         bits.PowerDown.setName("PowerDown");
+        bits.PowerDown.setComponentOffset(0x0);
         bits.AutoNegotiationEnable.setBaseRegister(&r16);
         bits.AutoNegotiationEnable.setName("AutoNegotiationEnable");
+        bits.AutoNegotiationEnable.setComponentOffset(0x0);
         bits.SpeedSelectLSB.setBaseRegister(&r16);
         bits.SpeedSelectLSB.setName("SpeedSelectLSB");
+        bits.SpeedSelectLSB.setComponentOffset(0x0);
         bits.LoopbackMode.setBaseRegister(&r16);
         bits.LoopbackMode.setName("LoopbackMode");
+        bits.LoopbackMode.setComponentOffset(0x0);
         bits.Reset.setBaseRegister(&r16);
         bits.Reset.setName("Reset");
+        bits.Reset.setComponentOffset(0x0);
     }
     RegMIIControl_t& operator=(const RegMIIControl_t& other)
     {
@@ -387,38 +399,55 @@ typedef register_container RegMIIStatus_t {
     {
         /** @brief constructor for @ref MII_t.Status. */
         r16.setName("Status");
+        r16.setComponentOffset(0x1);
         bits.ExtendedCapabilitiesSupported.setBaseRegister(&r16);
         bits.ExtendedCapabilitiesSupported.setName("ExtendedCapabilitiesSupported");
+        bits.ExtendedCapabilitiesSupported.setComponentOffset(0x1);
         bits.JabberDetected.setBaseRegister(&r16);
         bits.JabberDetected.setName("JabberDetected");
+        bits.JabberDetected.setComponentOffset(0x1);
         bits.LinkOK.setBaseRegister(&r16);
         bits.LinkOK.setName("LinkOK");
+        bits.LinkOK.setComponentOffset(0x1);
         bits.AutoNegotiationCapable.setBaseRegister(&r16);
         bits.AutoNegotiationCapable.setName("AutoNegotiationCapable");
+        bits.AutoNegotiationCapable.setComponentOffset(0x1);
         bits.RemoteFaultDetected.setBaseRegister(&r16);
         bits.RemoteFaultDetected.setName("RemoteFaultDetected");
+        bits.RemoteFaultDetected.setComponentOffset(0x1);
         bits.AutoNegotiationComplete.setBaseRegister(&r16);
         bits.AutoNegotiationComplete.setName("AutoNegotiationComplete");
+        bits.AutoNegotiationComplete.setComponentOffset(0x1);
         bits.MFPreambleSuppression.setBaseRegister(&r16);
         bits.MFPreambleSuppression.setName("MFPreambleSuppression");
+        bits.MFPreambleSuppression.setComponentOffset(0x1);
         bits.UnidirectionalCapable_GPHYonly_.setBaseRegister(&r16);
         bits.UnidirectionalCapable_GPHYonly_.setName("UnidirectionalCapable_GPHYonly_");
+        bits.UnidirectionalCapable_GPHYonly_.setComponentOffset(0x1);
         bits.ExtendedStatusSupported.setBaseRegister(&r16);
         bits.ExtendedStatusSupported.setName("ExtendedStatusSupported");
+        bits.ExtendedStatusSupported.setComponentOffset(0x1);
         bits._100BASE_T2HalfDuplexCapable.setBaseRegister(&r16);
         bits._100BASE_T2HalfDuplexCapable.setName("_100BASE_T2HalfDuplexCapable");
+        bits._100BASE_T2HalfDuplexCapable.setComponentOffset(0x1);
         bits._100BASE_T2FullDuplexCapable.setBaseRegister(&r16);
         bits._100BASE_T2FullDuplexCapable.setName("_100BASE_T2FullDuplexCapable");
+        bits._100BASE_T2FullDuplexCapable.setComponentOffset(0x1);
         bits._10BASE_THalfDuplexCapable.setBaseRegister(&r16);
         bits._10BASE_THalfDuplexCapable.setName("_10BASE_THalfDuplexCapable");
+        bits._10BASE_THalfDuplexCapable.setComponentOffset(0x1);
         bits._10BASE_TFullDuplexCapable.setBaseRegister(&r16);
         bits._10BASE_TFullDuplexCapable.setName("_10BASE_TFullDuplexCapable");
+        bits._10BASE_TFullDuplexCapable.setComponentOffset(0x1);
         bits._100BASE_XHalfDuplexCapable.setBaseRegister(&r16);
         bits._100BASE_XHalfDuplexCapable.setName("_100BASE_XHalfDuplexCapable");
+        bits._100BASE_XHalfDuplexCapable.setComponentOffset(0x1);
         bits._100BASE_XFullDuplexCapable.setBaseRegister(&r16);
         bits._100BASE_XFullDuplexCapable.setName("_100BASE_XFullDuplexCapable");
+        bits._100BASE_XFullDuplexCapable.setComponentOffset(0x1);
         bits._100BASE_T4Capable.setBaseRegister(&r16);
         bits._100BASE_T4Capable.setName("_100BASE_T4Capable");
+        bits._100BASE_T4Capable.setComponentOffset(0x1);
     }
     RegMIIStatus_t& operator=(const RegMIIStatus_t& other)
     {
@@ -461,8 +490,10 @@ typedef register_container RegMIIPhyIdHigh_t {
     {
         /** @brief constructor for @ref MII_t.PhyIdHigh. */
         r16.setName("PhyIdHigh");
+        r16.setComponentOffset(0x2);
         bits.OUIHigh.setBaseRegister(&r16);
         bits.OUIHigh.setName("OUIHigh");
+        bits.OUIHigh.setComponentOffset(0x2);
     }
     RegMIIPhyIdHigh_t& operator=(const RegMIIPhyIdHigh_t& other)
     {
@@ -521,12 +552,16 @@ typedef register_container RegMIIPhyIdLow_t {
     {
         /** @brief constructor for @ref MII_t.PhyIdLow. */
         r16.setName("PhyIdLow");
+        r16.setComponentOffset(0x3);
         bits.Revision.setBaseRegister(&r16);
         bits.Revision.setName("Revision");
+        bits.Revision.setComponentOffset(0x3);
         bits.Model.setBaseRegister(&r16);
         bits.Model.setName("Model");
+        bits.Model.setComponentOffset(0x3);
         bits.OUILow.setBaseRegister(&r16);
         bits.OUILow.setName("OUILow");
+        bits.OUILow.setComponentOffset(0x3);
     }
     RegMIIPhyIdLow_t& operator=(const RegMIIPhyIdLow_t& other)
     {
@@ -651,26 +686,37 @@ typedef register_container RegMIIAutonegotiationAdvertisement_t {
     {
         /** @brief constructor for @ref MII_t.AutonegotiationAdvertisement. */
         r16.setName("AutonegotiationAdvertisement");
+        r16.setComponentOffset(0x4);
         bits.ProtocolSelect.setBaseRegister(&r16);
         bits.ProtocolSelect.setName("ProtocolSelect");
+        bits.ProtocolSelect.setComponentOffset(0x4);
         bits._10BASE_THalfDuplexCapable.setBaseRegister(&r16);
         bits._10BASE_THalfDuplexCapable.setName("_10BASE_THalfDuplexCapable");
+        bits._10BASE_THalfDuplexCapable.setComponentOffset(0x4);
         bits._10BASE_TFullDuplexCapable.setBaseRegister(&r16);
         bits._10BASE_TFullDuplexCapable.setName("_10BASE_TFullDuplexCapable");
+        bits._10BASE_TFullDuplexCapable.setComponentOffset(0x4);
         bits._100BASE_TXHalfDuplexCapable.setBaseRegister(&r16);
         bits._100BASE_TXHalfDuplexCapable.setName("_100BASE_TXHalfDuplexCapable");
+        bits._100BASE_TXHalfDuplexCapable.setComponentOffset(0x4);
         bits._100BASE_TXFullDuplexCapable.setBaseRegister(&r16);
         bits._100BASE_TXFullDuplexCapable.setName("_100BASE_TXFullDuplexCapable");
+        bits._100BASE_TXFullDuplexCapable.setComponentOffset(0x4);
         bits._100BASE_T4Capable.setBaseRegister(&r16);
         bits._100BASE_T4Capable.setName("_100BASE_T4Capable");
+        bits._100BASE_T4Capable.setComponentOffset(0x4);
         bits.PauseCapable.setBaseRegister(&r16);
         bits.PauseCapable.setName("PauseCapable");
+        bits.PauseCapable.setComponentOffset(0x4);
         bits.AsymmetricPauseCapable.setBaseRegister(&r16);
         bits.AsymmetricPauseCapable.setName("AsymmetricPauseCapable");
+        bits.AsymmetricPauseCapable.setComponentOffset(0x4);
         bits.RemoteFault.setBaseRegister(&r16);
         bits.RemoteFault.setName("RemoteFault");
+        bits.RemoteFault.setComponentOffset(0x4);
         bits.NextPage.setBaseRegister(&r16);
         bits.NextPage.setName("NextPage");
+        bits.NextPage.setComponentOffset(0x4);
     }
     RegMIIAutonegotiationAdvertisement_t& operator=(const RegMIIAutonegotiationAdvertisement_t& other)
     {
@@ -797,28 +843,40 @@ typedef register_container RegMIIAutonegotiationLinkPartnerAbilityBasePage_t {
     {
         /** @brief constructor for @ref MII_t.AutonegotiationLinkPartnerAbilityBasePage. */
         r16.setName("AutonegotiationLinkPartnerAbilityBasePage");
+        r16.setComponentOffset(0x5);
         bits.ProtocolSelector.setBaseRegister(&r16);
         bits.ProtocolSelector.setName("ProtocolSelector");
+        bits.ProtocolSelector.setComponentOffset(0x5);
         bits._10BASE_THalfDuplexCapable.setBaseRegister(&r16);
         bits._10BASE_THalfDuplexCapable.setName("_10BASE_THalfDuplexCapable");
+        bits._10BASE_THalfDuplexCapable.setComponentOffset(0x5);
         bits._10BASE_TFullDuplexCapable.setBaseRegister(&r16);
         bits._10BASE_TFullDuplexCapable.setName("_10BASE_TFullDuplexCapable");
+        bits._10BASE_TFullDuplexCapable.setComponentOffset(0x5);
         bits._100BASE_TXHalfDuplexCapable.setBaseRegister(&r16);
         bits._100BASE_TXHalfDuplexCapable.setName("_100BASE_TXHalfDuplexCapable");
+        bits._100BASE_TXHalfDuplexCapable.setComponentOffset(0x5);
         bits._100BASE_TXFullDuplexCapable.setBaseRegister(&r16);
         bits._100BASE_TXFullDuplexCapable.setName("_100BASE_TXFullDuplexCapable");
+        bits._100BASE_TXFullDuplexCapable.setComponentOffset(0x5);
         bits._100BASE_T4Capable.setBaseRegister(&r16);
         bits._100BASE_T4Capable.setName("_100BASE_T4Capable");
+        bits._100BASE_T4Capable.setComponentOffset(0x5);
         bits.PauseCapable.setBaseRegister(&r16);
         bits.PauseCapable.setName("PauseCapable");
+        bits.PauseCapable.setComponentOffset(0x5);
         bits.AsymmetricPauseCapable.setBaseRegister(&r16);
         bits.AsymmetricPauseCapable.setName("AsymmetricPauseCapable");
+        bits.AsymmetricPauseCapable.setComponentOffset(0x5);
         bits.RemoteFault.setBaseRegister(&r16);
         bits.RemoteFault.setName("RemoteFault");
+        bits.RemoteFault.setComponentOffset(0x5);
         bits.Acknowledge.setBaseRegister(&r16);
         bits.Acknowledge.setName("Acknowledge");
+        bits.Acknowledge.setComponentOffset(0x5);
         bits.NextPage.setBaseRegister(&r16);
         bits.NextPage.setName("NextPage");
+        bits.NextPage.setComponentOffset(0x5);
     }
     RegMIIAutonegotiationLinkPartnerAbilityBasePage_t& operator=(const RegMIIAutonegotiationLinkPartnerAbilityBasePage_t& other)
     {
@@ -920,20 +978,28 @@ typedef register_container RegMIIAutonegotiationExpansion_t {
     {
         /** @brief constructor for @ref MII_t.AutonegotiationExpansion. */
         r16.setName("AutonegotiationExpansion");
+        r16.setComponentOffset(0x6);
         bits.LinkPartnerAutonegotiationCapable.setBaseRegister(&r16);
         bits.LinkPartnerAutonegotiationCapable.setName("LinkPartnerAutonegotiationCapable");
+        bits.LinkPartnerAutonegotiationCapable.setComponentOffset(0x6);
         bits.PageReceived.setBaseRegister(&r16);
         bits.PageReceived.setName("PageReceived");
+        bits.PageReceived.setComponentOffset(0x6);
         bits.NextPageCapable.setBaseRegister(&r16);
         bits.NextPageCapable.setName("NextPageCapable");
+        bits.NextPageCapable.setComponentOffset(0x6);
         bits.LinkPartnerNextPageCapable.setBaseRegister(&r16);
         bits.LinkPartnerNextPageCapable.setName("LinkPartnerNextPageCapable");
+        bits.LinkPartnerNextPageCapable.setComponentOffset(0x6);
         bits.ParallelDetectionFault.setBaseRegister(&r16);
         bits.ParallelDetectionFault.setName("ParallelDetectionFault");
+        bits.ParallelDetectionFault.setComponentOffset(0x6);
         bits.NextPageReceiveLocation.setBaseRegister(&r16);
         bits.NextPageReceiveLocation.setName("NextPageReceiveLocation");
+        bits.NextPageReceiveLocation.setComponentOffset(0x6);
         bits.NextPageReceiveLocationCapable.setBaseRegister(&r16);
         bits.NextPageReceiveLocationCapable.setName("NextPageReceiveLocationCapable");
+        bits.NextPageReceiveLocationCapable.setComponentOffset(0x6);
     }
     RegMIIAutonegotiationExpansion_t& operator=(const RegMIIAutonegotiationExpansion_t& other)
     {
@@ -1012,16 +1078,22 @@ typedef register_container RegMIIAutonegotiationNextPageTransmit_t {
     {
         /** @brief constructor for @ref MII_t.AutonegotiationNextPageTransmit. */
         r16.setName("AutonegotiationNextPageTransmit");
+        r16.setComponentOffset(0x7);
         bits.CodeField.setBaseRegister(&r16);
         bits.CodeField.setName("CodeField");
+        bits.CodeField.setComponentOffset(0x7);
         bits.Toggle.setBaseRegister(&r16);
         bits.Toggle.setName("Toggle");
+        bits.Toggle.setComponentOffset(0x7);
         bits.Acknowledge2.setBaseRegister(&r16);
         bits.Acknowledge2.setName("Acknowledge2");
+        bits.Acknowledge2.setComponentOffset(0x7);
         bits.MessagePage.setBaseRegister(&r16);
         bits.MessagePage.setName("MessagePage");
+        bits.MessagePage.setComponentOffset(0x7);
         bits.NextPage.setBaseRegister(&r16);
         bits.NextPage.setName("NextPage");
+        bits.NextPage.setComponentOffset(0x7);
     }
     RegMIIAutonegotiationNextPageTransmit_t& operator=(const RegMIIAutonegotiationNextPageTransmit_t& other)
     {
@@ -1104,18 +1176,25 @@ typedef register_container RegMIIAutonegotiationLinkPartnerAbilityNextPage_t {
     {
         /** @brief constructor for @ref MII_t.AutonegotiationLinkPartnerAbilityNextPage. */
         r16.setName("AutonegotiationLinkPartnerAbilityNextPage");
+        r16.setComponentOffset(0x8);
         bits.CodeField.setBaseRegister(&r16);
         bits.CodeField.setName("CodeField");
+        bits.CodeField.setComponentOffset(0x8);
         bits.Toggle2.setBaseRegister(&r16);
         bits.Toggle2.setName("Toggle2");
+        bits.Toggle2.setComponentOffset(0x8);
         bits.Acknowledge2.setBaseRegister(&r16);
         bits.Acknowledge2.setName("Acknowledge2");
+        bits.Acknowledge2.setComponentOffset(0x8);
         bits.MessagePage.setBaseRegister(&r16);
         bits.MessagePage.setName("MessagePage");
+        bits.MessagePage.setComponentOffset(0x8);
         bits.Acknowledge3.setBaseRegister(&r16);
         bits.Acknowledge3.setName("Acknowledge3");
+        bits.Acknowledge3.setComponentOffset(0x8);
         bits.NextPage.setBaseRegister(&r16);
         bits.NextPage.setName("NextPage");
+        bits.NextPage.setComponentOffset(0x8);
     }
     RegMIIAutonegotiationLinkPartnerAbilityNextPage_t& operator=(const RegMIIAutonegotiationLinkPartnerAbilityNextPage_t& other)
     {
@@ -1202,18 +1281,25 @@ typedef register_container RegMII1000baseTControl_t {
     {
         /** @brief constructor for @ref MII_t.1000baseTControl. */
         r16.setName("1000baseTControl");
+        r16.setComponentOffset(0x9);
         bits.Advertise1000BASE_THalfDuplex.setBaseRegister(&r16);
         bits.Advertise1000BASE_THalfDuplex.setName("Advertise1000BASE_THalfDuplex");
+        bits.Advertise1000BASE_THalfDuplex.setComponentOffset(0x9);
         bits.Advertise1000BASE_TFullDuplex.setBaseRegister(&r16);
         bits.Advertise1000BASE_TFullDuplex.setName("Advertise1000BASE_TFullDuplex");
+        bits.Advertise1000BASE_TFullDuplex.setComponentOffset(0x9);
         bits.RepeaterDTE.setBaseRegister(&r16);
         bits.RepeaterDTE.setName("RepeaterDTE");
+        bits.RepeaterDTE.setComponentOffset(0x9);
         bits.MasterSlaveConfigValue.setBaseRegister(&r16);
         bits.MasterSlaveConfigValue.setName("MasterSlaveConfigValue");
+        bits.MasterSlaveConfigValue.setComponentOffset(0x9);
         bits.MasterSlaveConfigEnable.setBaseRegister(&r16);
         bits.MasterSlaveConfigEnable.setName("MasterSlaveConfigEnable");
+        bits.MasterSlaveConfigEnable.setComponentOffset(0x9);
         bits.TestMode.setBaseRegister(&r16);
         bits.TestMode.setName("TestMode");
+        bits.TestMode.setComponentOffset(0x9);
     }
     RegMII1000baseTControl_t& operator=(const RegMII1000baseTControl_t& other)
     {
@@ -1308,20 +1394,28 @@ typedef register_container RegMII1000baseTStatus_t {
     {
         /** @brief constructor for @ref MII_t.1000baseTStatus. */
         r16.setName("1000baseTStatus");
+        r16.setComponentOffset(0xa);
         bits.IdleErrorCount.setBaseRegister(&r16);
         bits.IdleErrorCount.setName("IdleErrorCount");
+        bits.IdleErrorCount.setComponentOffset(0xa);
         bits.LinkPartner1000BASE_THalfDuplexCapable.setBaseRegister(&r16);
         bits.LinkPartner1000BASE_THalfDuplexCapable.setName("LinkPartner1000BASE_THalfDuplexCapable");
+        bits.LinkPartner1000BASE_THalfDuplexCapable.setComponentOffset(0xa);
         bits.LinkPartner1000BASE_TFullDuplexCapable.setBaseRegister(&r16);
         bits.LinkPartner1000BASE_TFullDuplexCapable.setName("LinkPartner1000BASE_TFullDuplexCapable");
+        bits.LinkPartner1000BASE_TFullDuplexCapable.setComponentOffset(0xa);
         bits.RemoteReceiverStatus.setBaseRegister(&r16);
         bits.RemoteReceiverStatus.setName("RemoteReceiverStatus");
+        bits.RemoteReceiverStatus.setComponentOffset(0xa);
         bits.LocalReceiverStatus.setBaseRegister(&r16);
         bits.LocalReceiverStatus.setName("LocalReceiverStatus");
+        bits.LocalReceiverStatus.setComponentOffset(0xa);
         bits.MasterSlaveConfigResolution.setBaseRegister(&r16);
         bits.MasterSlaveConfigResolution.setName("MasterSlaveConfigResolution");
+        bits.MasterSlaveConfigResolution.setComponentOffset(0xa);
         bits.MasterSlaveConfigFault.setBaseRegister(&r16);
         bits.MasterSlaveConfigFault.setName("MasterSlaveConfigFault");
+        bits.MasterSlaveConfigFault.setComponentOffset(0xa);
     }
     RegMII1000baseTStatus_t& operator=(const RegMII1000baseTStatus_t& other)
     {
@@ -1388,12 +1482,16 @@ typedef register_container RegMIIBroadreachLreAccess_t {
     {
         /** @brief constructor for @ref MII_t.BroadreachLreAccess. */
         r16.setName("BroadreachLreAccess");
+        r16.setComponentOffset(0xe);
         bits.LRERegisterAccessStatus.setBaseRegister(&r16);
         bits.LRERegisterAccessStatus.setName("LRERegisterAccessStatus");
+        bits.LRERegisterAccessStatus.setComponentOffset(0xe);
         bits.LRERegisterOverrideValue.setBaseRegister(&r16);
         bits.LRERegisterOverrideValue.setName("LRERegisterOverrideValue");
+        bits.LRERegisterOverrideValue.setComponentOffset(0xe);
         bits.EnableLRERegisterAccessOverride.setBaseRegister(&r16);
         bits.EnableLRERegisterAccessOverride.setName("EnableLRERegisterAccessOverride");
+        bits.EnableLRERegisterAccessOverride.setComponentOffset(0xe);
     }
     RegMIIBroadreachLreAccess_t& operator=(const RegMIIBroadreachLreAccess_t& other)
     {
@@ -1460,12 +1558,16 @@ typedef register_container RegMIIIeeeExtendedStatus_t {
     {
         /** @brief constructor for @ref MII_t.IeeeExtendedStatus. */
         r16.setName("IeeeExtendedStatus");
+        r16.setComponentOffset(0xf);
         bits._1000BASE_THalfDuplexCapable.setBaseRegister(&r16);
         bits._1000BASE_THalfDuplexCapable.setName("_1000BASE_THalfDuplexCapable");
+        bits._1000BASE_THalfDuplexCapable.setComponentOffset(0xf);
         bits._1000BASE_TFullDuplexCapable.setBaseRegister(&r16);
         bits._1000BASE_TFullDuplexCapable.setName("_1000BASE_TFullDuplexCapable");
+        bits._1000BASE_TFullDuplexCapable.setComponentOffset(0xf);
         bits._1000BASE_XHalfDuplexCapable.setBaseRegister(&r16);
         bits._1000BASE_XHalfDuplexCapable.setName("_1000BASE_XHalfDuplexCapable");
+        bits._1000BASE_XHalfDuplexCapable.setComponentOffset(0xf);
     }
     RegMIIIeeeExtendedStatus_t& operator=(const RegMIIIeeeExtendedStatus_t& other)
     {
@@ -1628,38 +1730,55 @@ typedef register_container RegMIIPhyExtendedControl_t {
     {
         /** @brief constructor for @ref MII_t.PhyExtendedControl. */
         r16.setName("PhyExtendedControl");
+        r16.setComponentOffset(0x10);
         bits.GMII_DIV_RGMIIFIFOElasticityLSB.setBaseRegister(&r16);
         bits.GMII_DIV_RGMIIFIFOElasticityLSB.setName("GMII_DIV_RGMIIFIFOElasticityLSB");
+        bits.GMII_DIV_RGMIIFIFOElasticityLSB.setComponentOffset(0x10);
         bits.UnidirectionalEnable.setBaseRegister(&r16);
         bits.UnidirectionalEnable.setName("UnidirectionalEnable");
+        bits.UnidirectionalEnable.setComponentOffset(0x10);
         bits.BlockTXENMode.setBaseRegister(&r16);
         bits.BlockTXENMode.setName("BlockTXENMode");
+        bits.BlockTXENMode.setComponentOffset(0x10);
         bits.ForceLEDsOff.setBaseRegister(&r16);
         bits.ForceLEDsOff.setName("ForceLEDsOff");
+        bits.ForceLEDsOff.setComponentOffset(0x10);
         bits.ForceLEDsOn.setBaseRegister(&r16);
         bits.ForceLEDsOn.setName("ForceLEDsOn");
+        bits.ForceLEDsOn.setComponentOffset(0x10);
         bits.EnableLEDTrafficMode.setBaseRegister(&r16);
         bits.EnableLEDTrafficMode.setName("EnableLEDTrafficMode");
+        bits.EnableLEDTrafficMode.setComponentOffset(0x10);
         bits.ResetScrambler.setBaseRegister(&r16);
         bits.ResetScrambler.setName("ResetScrambler");
+        bits.ResetScrambler.setComponentOffset(0x10);
         bits.BypassAlignment.setBaseRegister(&r16);
         bits.BypassAlignment.setName("BypassAlignment");
+        bits.BypassAlignment.setComponentOffset(0x10);
         bits.BypassNRZI_DIV_MLT3.setBaseRegister(&r16);
         bits.BypassNRZI_DIV_MLT3.setName("BypassNRZI_DIV_MLT3");
+        bits.BypassNRZI_DIV_MLT3.setComponentOffset(0x10);
         bits.BypassScrambler.setBaseRegister(&r16);
         bits.BypassScrambler.setName("BypassScrambler");
+        bits.BypassScrambler.setComponentOffset(0x10);
         bits.BypassEncoder.setBaseRegister(&r16);
         bits.BypassEncoder.setName("BypassEncoder");
+        bits.BypassEncoder.setComponentOffset(0x10);
         bits.ForceInterrupt.setBaseRegister(&r16);
         bits.ForceInterrupt.setName("ForceInterrupt");
+        bits.ForceInterrupt.setComponentOffset(0x10);
         bits.InterruptDisable.setBaseRegister(&r16);
         bits.InterruptDisable.setName("InterruptDisable");
+        bits.InterruptDisable.setComponentOffset(0x10);
         bits.TransmitDisable.setBaseRegister(&r16);
         bits.TransmitDisable.setName("TransmitDisable");
+        bits.TransmitDisable.setComponentOffset(0x10);
         bits.DisableAutomaticMDICrossover.setBaseRegister(&r16);
         bits.DisableAutomaticMDICrossover.setName("DisableAutomaticMDICrossover");
+        bits.DisableAutomaticMDICrossover.setComponentOffset(0x10);
         bits.MAC_DIV_PHYInterfaceMode.setBaseRegister(&r16);
         bits.MAC_DIV_PHYInterfaceMode.setName("MAC_DIV_PHYInterfaceMode");
+        bits.MAC_DIV_PHYInterfaceMode.setComponentOffset(0x10);
     }
     RegMIIPhyExtendedControl_t& operator=(const RegMIIPhyExtendedControl_t& other)
     {
@@ -1822,38 +1941,55 @@ typedef register_container RegMIIPhyExtendedStatus_t {
     {
         /** @brief constructor for @ref MII_t.PhyExtendedStatus. */
         r16.setName("PhyExtendedStatus");
+        r16.setComponentOffset(0x11);
         bits.MLT3CodeErrorDetected.setBaseRegister(&r16);
         bits.MLT3CodeErrorDetected.setName("MLT3CodeErrorDetected");
+        bits.MLT3CodeErrorDetected.setComponentOffset(0x11);
         bits.LockErrorDetected.setBaseRegister(&r16);
         bits.LockErrorDetected.setName("LockErrorDetected");
+        bits.LockErrorDetected.setComponentOffset(0x11);
         bits.TransmitErrorDetected.setBaseRegister(&r16);
         bits.TransmitErrorDetected.setName("TransmitErrorDetected");
+        bits.TransmitErrorDetected.setComponentOffset(0x11);
         bits.ReceiveErrorDetected.setBaseRegister(&r16);
         bits.ReceiveErrorDetected.setName("ReceiveErrorDetected");
+        bits.ReceiveErrorDetected.setComponentOffset(0x11);
         bits.BadESDDetected.setBaseRegister(&r16);
         bits.BadESDDetected.setName("BadESDDetected");
+        bits.BadESDDetected.setComponentOffset(0x11);
         bits.BadSSDDetected.setBaseRegister(&r16);
         bits.BadSSDDetected.setName("BadSSDDetected");
+        bits.BadSSDDetected.setComponentOffset(0x11);
         bits.CarrierExtensionErrorDetected.setBaseRegister(&r16);
         bits.CarrierExtensionErrorDetected.setName("CarrierExtensionErrorDetected");
+        bits.CarrierExtensionErrorDetected.setComponentOffset(0x11);
         bits.CRCErrorDetected.setBaseRegister(&r16);
         bits.CRCErrorDetected.setName("CRCErrorDetected");
+        bits.CRCErrorDetected.setComponentOffset(0x11);
         bits.LinkStatus.setBaseRegister(&r16);
         bits.LinkStatus.setName("LinkStatus");
+        bits.LinkStatus.setComponentOffset(0x11);
         bits.Locked.setBaseRegister(&r16);
         bits.Locked.setName("Locked");
+        bits.Locked.setComponentOffset(0x11);
         bits.LocalReceiverStatus.setBaseRegister(&r16);
         bits.LocalReceiverStatus.setName("LocalReceiverStatus");
+        bits.LocalReceiverStatus.setComponentOffset(0x11);
         bits.RemoteReceiverStatus.setBaseRegister(&r16);
         bits.RemoteReceiverStatus.setName("RemoteReceiverStatus");
+        bits.RemoteReceiverStatus.setComponentOffset(0x11);
         bits.InterruptStatus.setBaseRegister(&r16);
         bits.InterruptStatus.setName("InterruptStatus");
+        bits.InterruptStatus.setComponentOffset(0x11);
         bits.MDICrossoverState.setBaseRegister(&r16);
         bits.MDICrossoverState.setName("MDICrossoverState");
+        bits.MDICrossoverState.setComponentOffset(0x11);
         bits.WirespeedDowngrade.setBaseRegister(&r16);
         bits.WirespeedDowngrade.setName("WirespeedDowngrade");
+        bits.WirespeedDowngrade.setComponentOffset(0x11);
         bits.AutonegotiationBasePageSelectorFieldMismatch.setBaseRegister(&r16);
         bits.AutonegotiationBasePageSelectorFieldMismatch.setName("AutonegotiationBasePageSelectorFieldMismatch");
+        bits.AutonegotiationBasePageSelectorFieldMismatch.setComponentOffset(0x11);
     }
     RegMIIPhyExtendedStatus_t& operator=(const RegMIIPhyExtendedStatus_t& other)
     {
@@ -1896,8 +2032,10 @@ typedef register_container RegMIIReceiveErrorCounter_t {
     {
         /** @brief constructor for @ref MII_t.ReceiveErrorCounter. */
         r16.setName("ReceiveErrorCounter");
+        r16.setComponentOffset(0x12);
         bits.ReceiveErrorCounter.setBaseRegister(&r16);
         bits.ReceiveErrorCounter.setName("ReceiveErrorCounter");
+        bits.ReceiveErrorCounter.setComponentOffset(0x12);
     }
     RegMIIReceiveErrorCounter_t& operator=(const RegMIIReceiveErrorCounter_t& other)
     {
@@ -1948,10 +2086,13 @@ typedef register_container RegMIIFalseCarrierSenseCounter_t {
     {
         /** @brief constructor for @ref MII_t.FalseCarrierSenseCounter. */
         r16.setName("FalseCarrierSenseCounter");
+        r16.setComponentOffset(0x13);
         bits.FalseCarrierSenseCounter.setBaseRegister(&r16);
         bits.FalseCarrierSenseCounter.setName("FalseCarrierSenseCounter");
+        bits.FalseCarrierSenseCounter.setComponentOffset(0x13);
         bits.SERDESBERCounter.setBaseRegister(&r16);
         bits.SERDESBERCounter.setName("SERDESBERCounter");
+        bits.SERDESBERCounter.setComponentOffset(0x13);
     }
     RegMIIFalseCarrierSenseCounter_t& operator=(const RegMIIFalseCarrierSenseCounter_t& other)
     {
@@ -2002,10 +2143,13 @@ typedef register_container RegMIILocalRemoteReceiverNotOkCounter_t {
     {
         /** @brief constructor for @ref MII_t.LocalRemoteReceiverNotOkCounter. */
         r16.setName("LocalRemoteReceiverNotOkCounter");
+        r16.setComponentOffset(0x14);
         bits.RemoteReceiverNotOKCounter.setBaseRegister(&r16);
         bits.RemoteReceiverNotOKCounter.setName("RemoteReceiverNotOKCounter");
+        bits.RemoteReceiverNotOKCounter.setComponentOffset(0x14);
         bits.LocalReceiverNotOKCounter.setBaseRegister(&r16);
         bits.LocalReceiverNotOKCounter.setName("LocalReceiverNotOKCounter");
+        bits.LocalReceiverNotOKCounter.setComponentOffset(0x14);
     }
     RegMIILocalRemoteReceiverNotOkCounter_t& operator=(const RegMIILocalRemoteReceiverNotOkCounter_t& other)
     {
@@ -2124,26 +2268,37 @@ typedef register_container RegMIIAuxiliaryControl_t {
     {
         /** @brief constructor for @ref MII_t.AuxiliaryControl. */
         r16.setName("AuxiliaryControl");
+        r16.setComponentOffset(0x18);
         bits.ShadowRegisterSelector.setBaseRegister(&r16);
         bits.ShadowRegisterSelector.setName("ShadowRegisterSelector");
+        bits.ShadowRegisterSelector.setComponentOffset(0x18);
         bits.DiagnosticMode.setBaseRegister(&r16);
         bits.DiagnosticMode.setName("DiagnosticMode");
+        bits.DiagnosticMode.setComponentOffset(0x18);
         bits.DisableInversePRF.setBaseRegister(&r16);
         bits.DisableInversePRF.setName("DisableInversePRF");
+        bits.DisableInversePRF.setComponentOffset(0x18);
         bits.DisablePartialResponseFilter.setBaseRegister(&r16);
         bits.DisablePartialResponseFilter.setName("DisablePartialResponseFilter");
+        bits.DisablePartialResponseFilter.setComponentOffset(0x18);
         bits.ReceiveSlicing.setBaseRegister(&r16);
         bits.ReceiveSlicing.setName("ReceiveSlicing");
+        bits.ReceiveSlicing.setComponentOffset(0x18);
         bits.Transmit6dBCoding.setBaseRegister(&r16);
         bits.Transmit6dBCoding.setName("Transmit6dBCoding");
+        bits.Transmit6dBCoding.setComponentOffset(0x18);
         bits.EnableSM_DSPClock.setBaseRegister(&r16);
         bits.EnableSM_DSPClock.setName("EnableSM_DSPClock");
+        bits.EnableSM_DSPClock.setComponentOffset(0x18);
         bits.EdgerateControl.setBaseRegister(&r16);
         bits.EdgerateControl.setName("EdgerateControl");
+        bits.EdgerateControl.setComponentOffset(0x18);
         bits.ExtendedPacketLength.setBaseRegister(&r16);
         bits.ExtendedPacketLength.setName("ExtendedPacketLength");
+        bits.ExtendedPacketLength.setComponentOffset(0x18);
         bits.ExternalLoopback.setBaseRegister(&r16);
         bits.ExternalLoopback.setName("ExternalLoopback");
+        bits.ExternalLoopback.setComponentOffset(0x18);
     }
     RegMIIAuxiliaryControl_t& operator=(const RegMIIAuxiliaryControl_t& other)
     {
@@ -2290,34 +2445,49 @@ typedef register_container RegMIIAuxiliaryStatusSummary_t {
     {
         /** @brief constructor for @ref MII_t.AuxiliaryStatusSummary. */
         r16.setName("AuxiliaryStatusSummary");
+        r16.setComponentOffset(0x19);
         bits.PauseResolution_TransmitDirection.setBaseRegister(&r16);
         bits.PauseResolution_TransmitDirection.setName("PauseResolution_TransmitDirection");
+        bits.PauseResolution_TransmitDirection.setComponentOffset(0x19);
         bits.PauseResolution_ReceiveDirection.setBaseRegister(&r16);
         bits.PauseResolution_ReceiveDirection.setName("PauseResolution_ReceiveDirection");
+        bits.PauseResolution_ReceiveDirection.setComponentOffset(0x19);
         bits.LinkStatus.setBaseRegister(&r16);
         bits.LinkStatus.setName("LinkStatus");
+        bits.LinkStatus.setComponentOffset(0x19);
         bits.LinkPartnerNextPageCapable.setBaseRegister(&r16);
         bits.LinkPartnerNextPageCapable.setName("LinkPartnerNextPageCapable");
+        bits.LinkPartnerNextPageCapable.setComponentOffset(0x19);
         bits.LinkPartnerAutonegotiationCapable.setBaseRegister(&r16);
         bits.LinkPartnerAutonegotiationCapable.setName("LinkPartnerAutonegotiationCapable");
+        bits.LinkPartnerAutonegotiationCapable.setComponentOffset(0x19);
         bits.PageReceived.setBaseRegister(&r16);
         bits.PageReceived.setName("PageReceived");
+        bits.PageReceived.setComponentOffset(0x19);
         bits.RemoteFault.setBaseRegister(&r16);
         bits.RemoteFault.setName("RemoteFault");
+        bits.RemoteFault.setComponentOffset(0x19);
         bits.ParallelDetectionFault.setBaseRegister(&r16);
         bits.ParallelDetectionFault.setName("ParallelDetectionFault");
+        bits.ParallelDetectionFault.setComponentOffset(0x19);
         bits.AutonegotiationHCD.setBaseRegister(&r16);
         bits.AutonegotiationHCD.setName("AutonegotiationHCD");
+        bits.AutonegotiationHCD.setComponentOffset(0x19);
         bits.AutonegotiationNextPageWait.setBaseRegister(&r16);
         bits.AutonegotiationNextPageWait.setName("AutonegotiationNextPageWait");
+        bits.AutonegotiationNextPageWait.setComponentOffset(0x19);
         bits.AutonegotiationAbilityDetect.setBaseRegister(&r16);
         bits.AutonegotiationAbilityDetect.setName("AutonegotiationAbilityDetect");
+        bits.AutonegotiationAbilityDetect.setComponentOffset(0x19);
         bits.AutonegotiationACKDetect.setBaseRegister(&r16);
         bits.AutonegotiationACKDetect.setName("AutonegotiationACKDetect");
+        bits.AutonegotiationACKDetect.setComponentOffset(0x19);
         bits.AutonegotiationCompleteACK.setBaseRegister(&r16);
         bits.AutonegotiationCompleteACK.setName("AutonegotiationCompleteACK");
+        bits.AutonegotiationCompleteACK.setComponentOffset(0x19);
         bits.AutonegotiationComplete.setBaseRegister(&r16);
         bits.AutonegotiationComplete.setName("AutonegotiationComplete");
+        bits.AutonegotiationComplete.setComponentOffset(0x19);
     }
     RegMIIAuxiliaryStatusSummary_t& operator=(const RegMIIAuxiliaryStatusSummary_t& other)
     {
@@ -2476,36 +2646,52 @@ typedef register_container RegMIIInterruptStatus_t {
     {
         /** @brief constructor for @ref MII_t.InterruptStatus. */
         r16.setName("InterruptStatus");
+        r16.setComponentOffset(0x1a);
         bits.CRCError.setBaseRegister(&r16);
         bits.CRCError.setName("CRCError");
+        bits.CRCError.setComponentOffset(0x1a);
         bits.LinkStatusChange.setBaseRegister(&r16);
         bits.LinkStatusChange.setName("LinkStatusChange");
+        bits.LinkStatusChange.setComponentOffset(0x1a);
         bits.LinkSpeedChange.setBaseRegister(&r16);
         bits.LinkSpeedChange.setName("LinkSpeedChange");
+        bits.LinkSpeedChange.setComponentOffset(0x1a);
         bits.DuplexModeChange.setBaseRegister(&r16);
         bits.DuplexModeChange.setName("DuplexModeChange");
+        bits.DuplexModeChange.setComponentOffset(0x1a);
         bits.LocalReceiverStatusChange.setBaseRegister(&r16);
         bits.LocalReceiverStatusChange.setName("LocalReceiverStatusChange");
+        bits.LocalReceiverStatusChange.setComponentOffset(0x1a);
         bits.RemoteReceiverStatusChange.setBaseRegister(&r16);
         bits.RemoteReceiverStatusChange.setName("RemoteReceiverStatusChange");
+        bits.RemoteReceiverStatusChange.setComponentOffset(0x1a);
         bits.ScramblerSyncError.setBaseRegister(&r16);
         bits.ScramblerSyncError.setName("ScramblerSyncError");
+        bits.ScramblerSyncError.setComponentOffset(0x1a);
         bits.NegotiatedUnsupportedHCD.setBaseRegister(&r16);
         bits.NegotiatedUnsupportedHCD.setName("NegotiatedUnsupportedHCD");
+        bits.NegotiatedUnsupportedHCD.setComponentOffset(0x1a);
         bits.NoHCD.setBaseRegister(&r16);
         bits.NoHCD.setName("NoHCD");
+        bits.NoHCD.setComponentOffset(0x1a);
         bits.HCDNoLink.setBaseRegister(&r16);
         bits.HCDNoLink.setName("HCDNoLink");
+        bits.HCDNoLink.setComponentOffset(0x1a);
         bits.AutonegotiationPageRX.setBaseRegister(&r16);
         bits.AutonegotiationPageRX.setName("AutonegotiationPageRX");
+        bits.AutonegotiationPageRX.setComponentOffset(0x1a);
         bits.ExceededLowCounterThreshold.setBaseRegister(&r16);
         bits.ExceededLowCounterThreshold.setName("ExceededLowCounterThreshold");
+        bits.ExceededLowCounterThreshold.setComponentOffset(0x1a);
         bits.MDIXStatusChange.setBaseRegister(&r16);
         bits.MDIXStatusChange.setName("MDIXStatusChange");
+        bits.MDIXStatusChange.setComponentOffset(0x1a);
         bits.IllegalPairSwap.setBaseRegister(&r16);
         bits.IllegalPairSwap.setName("IllegalPairSwap");
+        bits.IllegalPairSwap.setComponentOffset(0x1a);
         bits.IPStatusChange.setBaseRegister(&r16);
         bits.IPStatusChange.setName("IPStatusChange");
+        bits.IPStatusChange.setComponentOffset(0x1a);
     }
     RegMIIInterruptStatus_t& operator=(const RegMIIInterruptStatus_t& other)
     {
@@ -2548,8 +2734,10 @@ typedef register_container RegMIIInterruptMask_t {
     {
         /** @brief constructor for @ref MII_t.InterruptMask. */
         r16.setName("InterruptMask");
+        r16.setComponentOffset(0x1b);
         bits.InterruptMaskVector.setBaseRegister(&r16);
         bits.InterruptMaskVector.setName("InterruptMaskVector");
+        bits.InterruptMaskVector.setComponentOffset(0x1b);
     }
     RegMIIInterruptMask_t& operator=(const RegMIIInterruptMask_t& other)
     {
@@ -2612,12 +2800,16 @@ typedef register_container RegMIICabletronLed_t {
     {
         /** @brief constructor for @ref MII_t.CabletronLed. */
         r16.setName("CabletronLed");
+        r16.setComponentOffset(0x1c);
         bits.CabletronLED.setBaseRegister(&r16);
         bits.CabletronLED.setName("CabletronLED");
+        bits.CabletronLED.setComponentOffset(0x1c);
         bits.ShadowRegisterSelector.setBaseRegister(&r16);
         bits.ShadowRegisterSelector.setName("ShadowRegisterSelector");
+        bits.ShadowRegisterSelector.setComponentOffset(0x1c);
         bits.WriteEnable.setBaseRegister(&r16);
         bits.WriteEnable.setName("WriteEnable");
+        bits.WriteEnable.setComponentOffset(0x1c);
     }
     RegMIICabletronLed_t& operator=(const RegMIICabletronLed_t& other)
     {
@@ -2756,32 +2948,46 @@ typedef register_container RegMIITest1_t {
     {
         /** @brief constructor for @ref MII_t.Test1. */
         r16.setName("Test1");
+        r16.setComponentOffset(0x1e);
         bits.MainDACTrim.setBaseRegister(&r16);
         bits.MainDACTrim.setName("MainDACTrim");
+        bits.MainDACTrim.setComponentOffset(0x1e);
         bits.MainDACEnableSoftwareTrimSetting.setBaseRegister(&r16);
         bits.MainDACEnableSoftwareTrimSetting.setName("MainDACEnableSoftwareTrimSetting");
+        bits.MainDACEnableSoftwareTrimSetting.setComponentOffset(0x1e);
         bits.DisablePolarityEncode.setBaseRegister(&r16);
         bits.DisablePolarityEncode.setName("DisablePolarityEncode");
+        bits.DisablePolarityEncode.setComponentOffset(0x1e);
         bits.ReceiveWatchdogTimerDisable.setBaseRegister(&r16);
         bits.ReceiveWatchdogTimerDisable.setName("ReceiveWatchdogTimerDisable");
+        bits.ReceiveWatchdogTimerDisable.setComponentOffset(0x1e);
         bits.ManualSwapMDIState.setBaseRegister(&r16);
         bits.ManualSwapMDIState.setName("ManualSwapMDIState");
+        bits.ManualSwapMDIState.setComponentOffset(0x1e);
         bits.FastTimers.setBaseRegister(&r16);
         bits.FastTimers.setName("FastTimers");
+        bits.FastTimers.setComponentOffset(0x1e);
         bits.ExternalLink.setBaseRegister(&r16);
         bits.ExternalLink.setName("ExternalLink");
+        bits.ExternalLink.setComponentOffset(0x1e);
         bits.ScramblerTest.setBaseRegister(&r16);
         bits.ScramblerTest.setName("ScramblerTest");
+        bits.ScramblerTest.setComponentOffset(0x1e);
         bits.ForceLock.setBaseRegister(&r16);
         bits.ForceLock.setName("ForceLock");
+        bits.ForceLock.setComponentOffset(0x1e);
         bits.ForceLink.setBaseRegister(&r16);
         bits.ForceLink.setName("ForceLink");
+        bits.ForceLink.setComponentOffset(0x1e);
         bits.CounterTestMode.setBaseRegister(&r16);
         bits.CounterTestMode.setName("CounterTestMode");
+        bits.CounterTestMode.setComponentOffset(0x1e);
         bits.TransmitErrorCodeVisibility.setBaseRegister(&r16);
         bits.TransmitErrorCodeVisibility.setName("TransmitErrorCodeVisibility");
+        bits.TransmitErrorCodeVisibility.setComponentOffset(0x1e);
         bits.CRCErrorCountVisibility.setBaseRegister(&r16);
         bits.CRCErrorCountVisibility.setName("CRCErrorCountVisibility");
+        bits.CRCErrorCountVisibility.setComponentOffset(0x1e);
     }
     RegMIITest1_t& operator=(const RegMIITest1_t& other)
     {
@@ -2796,6 +3002,25 @@ typedef register_container RegMIITest1_t {
 typedef register_container RegMIIBlockSelect_t {
     /** @brief 16bit direct register access. */
     BCM5719_MII_H_uint16_t r16;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "BlockSelect"; }
+
+    /** @brief Print register value. */
+    void print(void) { r16.print(); }
+
+    RegMIIBlockSelect_t()
+    {
+        /** @brief constructor for @ref MII_t.BlockSelect. */
+        r16.setName("BlockSelect");
+        r16.setComponentOffset(0x1f);
+    }
+    RegMIIBlockSelect_t& operator=(const RegMIIBlockSelect_t& other)
+    {
+        r16 = other.r16;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
 } RegMIIBlockSelect_t;
 
 #define REG_MII_10BASE_T ((volatile BCM5719_MII_H_uint16_t*)0x118) /* Note: Shadow Register Selector: 1 */
@@ -2935,34 +3160,49 @@ typedef register_container RegMII10baseT_t {
     {
         /** @brief constructor for @ref MII_t.10baseT. */
         r16.setName("10baseT");
+        r16.setComponentOffset(0x118);
         bits.ShadowRegisterSelector.setBaseRegister(&r16);
         bits.ShadowRegisterSelector.setName("ShadowRegisterSelector");
+        bits.ShadowRegisterSelector.setComponentOffset(0x118);
         bits._10Base_TPolarityErrorCountMax.setBaseRegister(&r16);
         bits._10Base_TPolarityErrorCountMax.setName("_10Base_TPolarityErrorCountMax");
+        bits._10Base_TPolarityErrorCountMax.setComponentOffset(0x118);
         bits._10Base_TNoDribble.setBaseRegister(&r16);
         bits._10Base_TNoDribble.setName("_10Base_TNoDribble");
+        bits._10Base_TNoDribble.setComponentOffset(0x118);
         bits.SQEEnableMode.setBaseRegister(&r16);
         bits.SQEEnableMode.setName("SQEEnableMode");
+        bits.SQEEnableMode.setComponentOffset(0x118);
         bits._10BTEchoMode.setBaseRegister(&r16);
         bits._10BTEchoMode.setName("_10BTEchoMode");
+        bits._10BTEchoMode.setComponentOffset(0x118);
         bits._10Base_TSignalDetectThreshold.setBaseRegister(&r16);
         bits._10Base_TSignalDetectThreshold.setName("_10Base_TSignalDetectThreshold");
+        bits._10Base_TSignalDetectThreshold.setComponentOffset(0x118);
         bits._10Base_TSignalDetectAutoswitch.setBaseRegister(&r16);
         bits._10Base_TSignalDetectAutoswitch.setName("_10Base_TSignalDetectAutoswitch");
+        bits._10Base_TSignalDetectAutoswitch.setComponentOffset(0x118);
         bits.JabberDisable.setBaseRegister(&r16);
         bits.JabberDisable.setName("JabberDisable");
+        bits.JabberDisable.setComponentOffset(0x118);
         bits.ClassA_DIV_BLineDriverSelect.setBaseRegister(&r16);
         bits.ClassA_DIV_BLineDriverSelect.setName("ClassA_DIV_BLineDriverSelect");
+        bits.ClassA_DIV_BLineDriverSelect.setComponentOffset(0x118);
         bits._10BTTXCInvertMode.setBaseRegister(&r16);
         bits._10BTTXCInvertMode.setName("_10BTTXCInvertMode");
+        bits._10BTTXCInvertMode.setComponentOffset(0x118);
         bits.BlockRXDVExtension.setBaseRegister(&r16);
         bits.BlockRXDVExtension.setName("BlockRXDVExtension");
+        bits.BlockRXDVExtension.setComponentOffset(0x118);
         bits.PolarityError.setBaseRegister(&r16);
         bits.PolarityError.setName("PolarityError");
+        bits.PolarityError.setComponentOffset(0x118);
         bits.EOFError.setBaseRegister(&r16);
         bits.EOFError.setName("EOFError");
+        bits.EOFError.setComponentOffset(0x118);
         bits.ManchesterCodeError.setBaseRegister(&r16);
         bits.ManchesterCodeError.setName("ManchesterCodeError");
+        bits.ManchesterCodeError.setComponentOffset(0x118);
     }
     RegMII10baseT_t& operator=(const RegMII10baseT_t& other)
     {
@@ -3025,12 +3265,16 @@ typedef register_container RegMIIDllSelection_t {
     {
         /** @brief constructor for @ref MII_t.DllSelection. */
         r16.setName("DllSelection");
+        r16.setComponentOffset(0x11c);
         bits.HighQualityClockTestMode.setBaseRegister(&r16);
         bits.HighQualityClockTestMode.setName("HighQualityClockTestMode");
+        bits.HighQualityClockTestMode.setComponentOffset(0x11c);
         bits.ShadowRegisterSelector.setBaseRegister(&r16);
         bits.ShadowRegisterSelector.setName("ShadowRegisterSelector");
+        bits.ShadowRegisterSelector.setComponentOffset(0x11c);
         bits.WriteEnable.setBaseRegister(&r16);
         bits.WriteEnable.setName("WriteEnable");
+        bits.WriteEnable.setComponentOffset(0x11c);
     }
     RegMIIDllSelection_t& operator=(const RegMIIDllSelection_t& other)
     {
@@ -3093,10 +3337,13 @@ typedef register_container RegMIIPowerAndMiiControl_t {
     {
         /** @brief constructor for @ref MII_t.PowerAndMiiControl. */
         r16.setName("PowerAndMiiControl");
+        r16.setComponentOffset(0x218);
         bits.ShadowRegisterSelector.setBaseRegister(&r16);
         bits.ShadowRegisterSelector.setName("ShadowRegisterSelector");
+        bits.ShadowRegisterSelector.setComponentOffset(0x218);
         bits.SuperIsolate.setBaseRegister(&r16);
         bits.SuperIsolate.setName("SuperIsolate");
+        bits.SuperIsolate.setComponentOffset(0x218);
     }
     RegMIIPowerAndMiiControl_t& operator=(const RegMIIPowerAndMiiControl_t& other)
     {
@@ -3223,28 +3470,40 @@ typedef register_container RegMIISpareControl1_t {
     {
         /** @brief constructor for @ref MII_t.SpareControl1. */
         r16.setName("SpareControl1");
+        r16.setComponentOffset(0x21c);
         bits.LinkLEDMode.setBaseRegister(&r16);
         bits.LinkLEDMode.setName("LinkLEDMode");
+        bits.LinkLEDMode.setComponentOffset(0x21c);
         bits.LostTokenFixDisable.setBaseRegister(&r16);
         bits.LostTokenFixDisable.setName("LostTokenFixDisable");
+        bits.LostTokenFixDisable.setComponentOffset(0x21c);
         bits.BicolorLinkSpeedLEDMode.setBaseRegister(&r16);
         bits.BicolorLinkSpeedLEDMode.setName("BicolorLinkSpeedLEDMode");
+        bits.BicolorLinkSpeedLEDMode.setComponentOffset(0x21c);
         bits._100FXModeCopperPath.setBaseRegister(&r16);
         bits._100FXModeCopperPath.setName("_100FXModeCopperPath");
+        bits._100FXModeCopperPath.setComponentOffset(0x21c);
         bits.UseFilteredSD.setBaseRegister(&r16);
         bits.UseFilteredSD.setName("UseFilteredSD");
+        bits.UseFilteredSD.setComponentOffset(0x21c);
         bits.CFC_INITFILTEREnable.setBaseRegister(&r16);
         bits.CFC_INITFILTEREnable.setName("CFC_INITFILTEREnable");
+        bits.CFC_INITFILTEREnable.setComponentOffset(0x21c);
         bits.InvertSDPin.setBaseRegister(&r16);
         bits.InvertSDPin.setName("InvertSDPin");
+        bits.InvertSDPin.setComponentOffset(0x21c);
         bits.ForceSDOn.setBaseRegister(&r16);
         bits.ForceSDOn.setName("ForceSDOn");
+        bits.ForceSDOn.setComponentOffset(0x21c);
         bits.SDStatus.setBaseRegister(&r16);
         bits.SDStatus.setName("SDStatus");
+        bits.SDStatus.setComponentOffset(0x21c);
         bits.ShadowRegisterSelector.setBaseRegister(&r16);
         bits.ShadowRegisterSelector.setName("ShadowRegisterSelector");
+        bits.ShadowRegisterSelector.setComponentOffset(0x21c);
         bits.WriteEnable.setBaseRegister(&r16);
         bits.WriteEnable.setName("WriteEnable");
+        bits.WriteEnable.setComponentOffset(0x21c);
     }
     RegMIISpareControl1_t& operator=(const RegMIISpareControl1_t& other)
     {
@@ -3335,20 +3594,28 @@ typedef register_container RegMIIClockAlignmentControl_t {
     {
         /** @brief constructor for @ref MII_t.ClockAlignmentControl. */
         r16.setName("ClockAlignmentControl");
+        r16.setComponentOffset(0x31c);
         bits.DelayLineSelector.setBaseRegister(&r16);
         bits.DelayLineSelector.setName("DelayLineSelector");
+        bits.DelayLineSelector.setComponentOffset(0x31c);
         bits.DelayValue.setBaseRegister(&r16);
         bits.DelayValue.setName("DelayValue");
+        bits.DelayValue.setComponentOffset(0x31c);
         bits.RXCLKAlignmentStrobe.setBaseRegister(&r16);
         bits.RXCLKAlignmentStrobe.setName("RXCLKAlignmentStrobe");
+        bits.RXCLKAlignmentStrobe.setComponentOffset(0x31c);
         bits.GMIIClockAlignmentStrobe.setBaseRegister(&r16);
         bits.GMIIClockAlignmentStrobe.setName("GMIIClockAlignmentStrobe");
+        bits.GMIIClockAlignmentStrobe.setComponentOffset(0x31c);
         bits.GTXCLKDelayBypassDisable.setBaseRegister(&r16);
         bits.GTXCLKDelayBypassDisable.setName("GTXCLKDelayBypassDisable");
+        bits.GTXCLKDelayBypassDisable.setComponentOffset(0x31c);
         bits.ShadowRegisterSelector.setBaseRegister(&r16);
         bits.ShadowRegisterSelector.setName("ShadowRegisterSelector");
+        bits.ShadowRegisterSelector.setComponentOffset(0x31c);
         bits.WriteEnable.setBaseRegister(&r16);
         bits.WriteEnable.setName("WriteEnable");
+        bits.WriteEnable.setComponentOffset(0x31c);
     }
     RegMIIClockAlignmentControl_t& operator=(const RegMIIClockAlignmentControl_t& other)
     {
@@ -3471,26 +3738,37 @@ typedef register_container RegMIIMiscTest1_t {
     {
         /** @brief constructor for @ref MII_t.MiscTest1. */
         r16.setName("MiscTest1");
+        r16.setComponentOffset(0x418);
         bits.ShadowRegisterSelector.setBaseRegister(&r16);
         bits.ShadowRegisterSelector.setName("ShadowRegisterSelector");
+        bits.ShadowRegisterSelector.setComponentOffset(0x418);
         bits.Halfout.setBaseRegister(&r16);
         bits.Halfout.setName("Halfout");
+        bits.Halfout.setComponentOffset(0x418);
         bits.SwapRXMDIX.setBaseRegister(&r16);
         bits.SwapRXMDIX.setName("SwapRXMDIX");
+        bits.SwapRXMDIX.setComponentOffset(0x418);
         bits._10BTBypassCRS.setBaseRegister(&r16);
         bits._10BTBypassCRS.setName("_10BTBypassCRS");
+        bits._10BTBypassCRS.setComponentOffset(0x418);
         bits._10BTBypassADC.setBaseRegister(&r16);
         bits._10BTBypassADC.setName("_10BTBypassADC");
+        bits._10BTBypassADC.setComponentOffset(0x418);
         bits._10BTClockResetEnable.setBaseRegister(&r16);
         bits._10BTClockResetEnable.setName("_10BTClockResetEnable");
+        bits._10BTClockResetEnable.setComponentOffset(0x418);
         bits._10BTIdleBypass.setBaseRegister(&r16);
         bits._10BTIdleBypass.setName("_10BTIdleBypass");
+        bits._10BTIdleBypass.setComponentOffset(0x418);
         bits._10BTPolarityBypass.setBaseRegister(&r16);
         bits._10BTPolarityBypass.setName("_10BTPolarityBypass");
+        bits._10BTPolarityBypass.setComponentOffset(0x418);
         bits._10BTWakeup.setBaseRegister(&r16);
         bits._10BTWakeup.setName("_10BTWakeup");
+        bits._10BTWakeup.setComponentOffset(0x418);
         bits.RemoteLoopbackTristate.setBaseRegister(&r16);
         bits.RemoteLoopbackTristate.setName("RemoteLoopbackTristate");
+        bits.RemoteLoopbackTristate.setComponentOffset(0x418);
     }
     RegMIIMiscTest1_t& operator=(const RegMIIMiscTest1_t& other)
     {
@@ -3601,24 +3879,34 @@ typedef register_container RegMIISpareControl2_t {
     {
         /** @brief constructor for @ref MII_t.SpareControl2. */
         r16.setName("SpareControl2");
+        r16.setComponentOffset(0x41c);
         bits.TestOnByte7_0.setBaseRegister(&r16);
         bits.TestOnByte7_0.setName("TestOnByte7_0");
+        bits.TestOnByte7_0.setComponentOffset(0x41c);
         bits.EnergyDetectOnIntrPin.setBaseRegister(&r16);
         bits.EnergyDetectOnIntrPin.setName("EnergyDetectOnIntrPin");
+        bits.EnergyDetectOnIntrPin.setComponentOffset(0x41c);
         bits.WirespeedRetryLimit.setBaseRegister(&r16);
         bits.WirespeedRetryLimit.setName("WirespeedRetryLimit");
+        bits.WirespeedRetryLimit.setComponentOffset(0x41c);
         bits.EnableTXCRXCTristate.setBaseRegister(&r16);
         bits.EnableTXCRXCTristate.setName("EnableTXCRXCTristate");
+        bits.EnableTXCRXCTristate.setComponentOffset(0x41c);
         bits.DisablePHYA2.setBaseRegister(&r16);
         bits.DisablePHYA2.setName("DisablePHYA2");
+        bits.DisablePHYA2.setComponentOffset(0x41c);
         bits.SelectTPOUT_RXD.setBaseRegister(&r16);
         bits.SelectTPOUT_RXD.setName("SelectTPOUT_RXD");
+        bits.SelectTPOUT_RXD.setComponentOffset(0x41c);
         bits.WirespeedRetryDisable.setBaseRegister(&r16);
         bits.WirespeedRetryDisable.setName("WirespeedRetryDisable");
+        bits.WirespeedRetryDisable.setComponentOffset(0x41c);
         bits.ShadowRegisterSelector.setBaseRegister(&r16);
         bits.ShadowRegisterSelector.setName("ShadowRegisterSelector");
+        bits.ShadowRegisterSelector.setComponentOffset(0x41c);
         bits.WriteEnable.setBaseRegister(&r16);
         bits.WriteEnable.setName("WriteEnable");
+        bits.WriteEnable.setComponentOffset(0x41c);
     }
     RegMIISpareControl2_t& operator=(const RegMIISpareControl2_t& other)
     {
@@ -3753,30 +4041,43 @@ typedef register_container RegMIIMiscTest2_t {
     {
         /** @brief constructor for @ref MII_t.MiscTest2. */
         r16.setName("MiscTest2");
+        r16.setComponentOffset(0x518);
         bits.ShadowRegisterSelector.setBaseRegister(&r16);
         bits.ShadowRegisterSelector.setName("ShadowRegisterSelector");
+        bits.ShadowRegisterSelector.setComponentOffset(0x518);
         bits.EnPWRDNTDAC.setBaseRegister(&r16);
         bits.EnPWRDNTDAC.setName("EnPWRDNTDAC");
+        bits.EnPWRDNTDAC.setComponentOffset(0x518);
         bits.Enableforce_mdix.setBaseRegister(&r16);
         bits.Enableforce_mdix.setName("Enableforce_mdix");
+        bits.Enableforce_mdix.setComponentOffset(0x518);
         bits.EnableECasNEXT.setBaseRegister(&r16);
         bits.EnableECasNEXT.setName("EnableECasNEXT");
+        bits.EnableECasNEXT.setComponentOffset(0x518);
         bits.OldPCSEncodingTX.setBaseRegister(&r16);
         bits.OldPCSEncodingTX.setName("OldPCSEncodingTX");
+        bits.OldPCSEncodingTX.setComponentOffset(0x518);
         bits.OldPCSEncodingRX.setBaseRegister(&r16);
         bits.OldPCSEncodingRX.setName("OldPCSEncodingRX");
+        bits.OldPCSEncodingRX.setComponentOffset(0x518);
         bits.DisableAutoEncodingCorrection.setBaseRegister(&r16);
         bits.DisableAutoEncodingCorrection.setName("DisableAutoEncodingCorrection");
+        bits.DisableAutoEncodingCorrection.setComponentOffset(0x518);
         bits.ENCErrorScale.setBaseRegister(&r16);
         bits.ENCErrorScale.setName("ENCErrorScale");
+        bits.ENCErrorScale.setComponentOffset(0x518);
         bits.ClassA_DIV_BEnable.setBaseRegister(&r16);
         bits.ClassA_DIV_BEnable.setName("ClassA_DIV_BEnable");
+        bits.ClassA_DIV_BEnable.setComponentOffset(0x518);
         bits.ClassA_DIV_BDVTEnable.setBaseRegister(&r16);
         bits.ClassA_DIV_BDVTEnable.setName("ClassA_DIV_BDVTEnable");
+        bits.ClassA_DIV_BDVTEnable.setComponentOffset(0x518);
         bits.ADCFIFOTXFix.setBaseRegister(&r16);
         bits.ADCFIFOTXFix.setName("ADCFIFOTXFix");
+        bits.ADCFIFOTXFix.setComponentOffset(0x518);
         bits.CopperEnergyDetectOverride.setBaseRegister(&r16);
         bits.CopperEnergyDetectOverride.setName("CopperEnergyDetectOverride");
+        bits.CopperEnergyDetectOverride.setComponentOffset(0x518);
     }
     RegMIIMiscTest2_t& operator=(const RegMIIMiscTest2_t& other)
     {
@@ -3907,30 +4208,43 @@ typedef register_container RegMIISpareControl3_t {
     {
         /** @brief constructor for @ref MII_t.SpareControl3. */
         r16.setName("SpareControl3");
+        r16.setComponentOffset(0x51c);
         bits.CLK125OutputEnable.setBaseRegister(&r16);
         bits.CLK125OutputEnable.setName("CLK125OutputEnable");
+        bits.CLK125OutputEnable.setComponentOffset(0x51c);
         bits.Auto_PowerDownDLLOffDisable.setBaseRegister(&r16);
         bits.Auto_PowerDownDLLOffDisable.setName("Auto_PowerDownDLLOffDisable");
+        bits.Auto_PowerDownDLLOffDisable.setComponentOffset(0x51c);
         bits.SIGDETDeassertTimerLengthen.setBaseRegister(&r16);
         bits.SIGDETDeassertTimerLengthen.setName("SIGDETDeassertTimerLengthen");
+        bits.SIGDETDeassertTimerLengthen.setComponentOffset(0x51c);
         bits.DisableLowPowerTOBase_TLinkMode.setBaseRegister(&r16);
         bits.DisableLowPowerTOBase_TLinkMode.setName("DisableLowPowerTOBase_TLinkMode");
+        bits.DisableLowPowerTOBase_TLinkMode.setComponentOffset(0x51c);
         bits.LowPowerENCDisable.setBaseRegister(&r16);
         bits.LowPowerENCDisable.setName("LowPowerENCDisable");
+        bits.LowPowerENCDisable.setComponentOffset(0x51c);
         bits.EnergyDetectChangeMuxSelect.setBaseRegister(&r16);
         bits.EnergyDetectChangeMuxSelect.setName("EnergyDetectChangeMuxSelect");
+        bits.EnergyDetectChangeMuxSelect.setComponentOffset(0x51c);
         bits.TXCOffEnable.setBaseRegister(&r16);
         bits.TXCOffEnable.setName("TXCOffEnable");
+        bits.TXCOffEnable.setComponentOffset(0x51c);
         bits._10BTCarrierRejectFilterEnable.setBaseRegister(&r16);
         bits._10BTCarrierRejectFilterEnable.setName("_10BTCarrierRejectFilterEnable");
+        bits._10BTCarrierRejectFilterEnable.setComponentOffset(0x51c);
         bits.TXCRXCDisableDuringAutoPowerDown.setBaseRegister(&r16);
         bits.TXCRXCDisableDuringAutoPowerDown.setName("TXCRXCDisableDuringAutoPowerDown");
+        bits.TXCRXCDisableDuringAutoPowerDown.setComponentOffset(0x51c);
         bits.DLLLockEnableDuringAutoPowerDown.setBaseRegister(&r16);
         bits.DLLLockEnableDuringAutoPowerDown.setName("DLLLockEnableDuringAutoPowerDown");
+        bits.DLLLockEnableDuringAutoPowerDown.setComponentOffset(0x51c);
         bits.ShadowRegisterSelector.setBaseRegister(&r16);
         bits.ShadowRegisterSelector.setName("ShadowRegisterSelector");
+        bits.ShadowRegisterSelector.setComponentOffset(0x51c);
         bits.WriteEnable.setBaseRegister(&r16);
         bits.WriteEnable.setName("WriteEnable");
+        bits.WriteEnable.setComponentOffset(0x51c);
     }
     RegMIISpareControl3_t& operator=(const RegMIISpareControl3_t& other)
     {
@@ -4061,30 +4375,43 @@ typedef register_container RegMIIMiscellaneousControl_t {
     {
         /** @brief constructor for @ref MII_t.MiscellaneousControl. */
         r16.setName("MiscellaneousControl");
+        r16.setComponentOffset(0x718);
         bits.ShadowRegisterSelector.setBaseRegister(&r16);
         bits.ShadowRegisterSelector.setName("ShadowRegisterSelector");
+        bits.ShadowRegisterSelector.setComponentOffset(0x718);
         bits.MDIOAllPhySelect.setBaseRegister(&r16);
         bits.MDIOAllPhySelect.setName("MDIOAllPhySelect");
+        bits.MDIOAllPhySelect.setComponentOffset(0x718);
         bits.WirespeedEnable.setBaseRegister(&r16);
         bits.WirespeedEnable.setName("WirespeedEnable");
+        bits.WirespeedEnable.setComponentOffset(0x718);
         bits.RGMIIOut_Of_BandStatusDisable.setBaseRegister(&r16);
         bits.RGMIIOut_Of_BandStatusDisable.setName("RGMIIOut_Of_BandStatusDisable");
+        bits.RGMIIOut_Of_BandStatusDisable.setComponentOffset(0x718);
         bits.RGMIIRXERMode.setBaseRegister(&r16);
         bits.RGMIIRXERMode.setName("RGMIIRXERMode");
+        bits.RGMIIRXERMode.setComponentOffset(0x718);
         bits.RGMIIMode.setBaseRegister(&r16);
         bits.RGMIIMode.setName("RGMIIMode");
+        bits.RGMIIMode.setComponentOffset(0x718);
         bits.RGMIITimingMode.setBaseRegister(&r16);
         bits.RGMIITimingMode.setName("RGMIITimingMode");
+        bits.RGMIITimingMode.setComponentOffset(0x718);
         bits.ForceAutoMDIXMode.setBaseRegister(&r16);
         bits.ForceAutoMDIXMode.setName("ForceAutoMDIXMode");
+        bits.ForceAutoMDIXMode.setComponentOffset(0x718);
         bits.BypassWirespeedTimer.setBaseRegister(&r16);
         bits.BypassWirespeedTimer.setName("BypassWirespeedTimer");
+        bits.BypassWirespeedTimer.setComponentOffset(0x718);
         bits.PacketCounterMode.setBaseRegister(&r16);
         bits.PacketCounterMode.setName("PacketCounterMode");
+        bits.PacketCounterMode.setComponentOffset(0x718);
         bits.ShadowRegisterReadSelector.setBaseRegister(&r16);
         bits.ShadowRegisterReadSelector.setName("ShadowRegisterReadSelector");
+        bits.ShadowRegisterReadSelector.setComponentOffset(0x718);
         bits.WriteEnable.setBaseRegister(&r16);
         bits.WriteEnable.setName("WriteEnable");
+        bits.WriteEnable.setComponentOffset(0x718);
     }
     RegMIIMiscellaneousControl_t& operator=(const RegMIIMiscellaneousControl_t& other)
     {
@@ -4241,16 +4568,15 @@ typedef struct {
     RegMIIMiscellaneousControl_t MiscellaneousControl;
 
 #ifdef CXX_SIMULATOR
-    typedef uint32_t (*read_callback_t)(uint32_t, void*);
-    read_callback_t mIndexReadCallback;
+    typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);
+    callback_t mIndexReadCallback;
     void* mIndexReadCallbackArgs;
 
-    typedef void (*write_callback_t)(uint32_t, uint32_t value, void*);
-    write_callback_t mIndexWriteCallback;
+    callback_t mIndexWriteCallback;
     void* mIndexWriteCallbackArgs;
 
-    uint32_t read(int index) { return mIndexReadCallback(index, mIndexReadCallbackArgs); }
-    void write(int index, uint32_t value) { mIndexWriteCallback(index, value, mIndexWriteCallbackArgs); }
+    uint32_t read(int offset) { return mIndexReadCallback(0, offset, mIndexReadCallbackArgs); }
+    void write(int offset, uint32_t value) { (void)mIndexWriteCallback(value, offset, mIndexWriteCallbackArgs); }
 #endif /* CXX_SIMULATOR */
 } MII_t;
 
