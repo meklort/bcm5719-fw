@@ -50,6 +50,7 @@ typedef struct {
     RegFILTERSElementConfig_t cfg;
     RegFILTERSElementPattern_t pat;
 } FilterElementInit_t;
+
 static const FilterElementInit_t gElementInit[32] = {
     [0] = {{0}},
     [1] = {{0}},
@@ -334,6 +335,310 @@ static const FilterElementInit_t gElementInit[32] = {
 
 };
 
+typedef struct {
+    RegFILTERSRuleSet_t     set;
+    RegFILTERSRuleMask_t    mask;
+} FilterRuleInit_t;
+static const FilterRuleInit_t gRuleInit[32] = {
+    // S-0. Unused.
+    [0] = {{0}},
+
+    // S-1. ACTION=TO_APE_AND_HOST, COUNT=0, ENABLE=1, MASK=0x0003_0000.
+    [1] = {
+        .set = {.bits = {
+            .Action = FILTERS_RULE_SET_ACTION_TO_APE_AND_HOST,
+            .reserved_2_2 = 0,
+            .Count = 0,
+            .reserved_30_19 = 0,
+            .Enable = 1,
+        }},
+        .mask = {.r32 = 0x00030000},
+    },
+
+    // S-2. ACTION=TO_APE_AND_HOST, COUNT=0, ENABLE=1, MASK=0x0005_0000.
+    [2] = {
+        .set = {.bits = {
+            .Action = FILTERS_RULE_SET_ACTION_TO_APE_AND_HOST,
+            .reserved_2_2 = 0,
+            .Count = 0,
+            .reserved_30_19 = 0,
+            .Enable = 1,
+        }},
+        .mask = {.r32 = 0x00050000},
+    },
+
+    // S-3. ACTION=TO_APE_AND_HOST, COUNT=2, ENABLE=recommend 1, MASK=0x0009_0000
+    [3] = {
+        .set = {.bits = {
+            .Action = FILTERS_RULE_SET_ACTION_TO_APE_AND_HOST,
+            .reserved_2_2 = 0,
+            .Count = 2,
+            .reserved_30_19 = 0,
+            .Enable = 1,
+        }},
+        .mask = {.r32 = 0x00090000},
+    },
+
+    // S-4. ACTION=T0_APE_AND_HOST, COUNT=0, ENABLE=1, MASK=0x0001_0000.
+    [4] = {
+        .set = {.bits = {
+            .Action = FILTERS_RULE_SET_ACTION_TO_APE_AND_HOST,
+            .reserved_2_2 = 0,
+            .Count = 0,
+            .reserved_30_19 = 0,
+            .Enable = 1,
+        }},
+        .mask = {.r32 = 0x00010000},
+    },
+
+    // S-5. Not used, initialize to zero.
+    [5] = {{0}},
+    // S-6. Not used, initialize to zero.
+    [6] = {{0}},
+    // S-7. Not used, initialize to zero.
+    [7] = {{0}},
+    // S-8. Not used, initialize to zero.
+    [8] = {{0}},
+
+    // S-9. ACTION=TO_APE_AND_HOST, COUNT=2, ENABLE=recommend 1, MASK=0x3008_0000.
+    [9] = {
+        .set = {.bits = {
+            .Action = FILTERS_RULE_SET_ACTION_TO_APE_AND_HOST,
+            .reserved_2_2 = 0,
+            .Count = 2,
+            .reserved_30_19 = 0,
+            .Enable = 1,
+        }},
+        .mask = {.r32 = 0x30080000},
+    },
+
+    // S-10. ACTION=TO_APE_AND_HOST, COUNT=0, ENABLE=1 (essential for RX), MASK=0x3100_0000.
+    [10] = {
+        .set = {.bits = {
+            .Action = FILTERS_RULE_SET_ACTION_TO_APE_AND_HOST,
+            .reserved_2_2 = 0,
+            .Count = 0,
+            .reserved_30_19 = 0,
+            .Enable = 1,
+        }},
+        .mask = {.r32 = 0x31000000},
+    },
+
+    // S-11. ACTION=TO_APE_AND_HOST, COUNT=0, ENABLE=1 (essential for RX), MASK=0x3200_0000.
+    [11] = {
+        .set = {.bits = {
+            .Action = FILTERS_RULE_SET_ACTION_TO_APE_AND_HOST,
+            .reserved_2_2 = 0,
+            .Count = 0,
+            .reserved_30_19 = 0,
+            .Enable = 1,
+        }},
+        .mask = {.r32 = 0x32000000},
+    },
+
+    // S-12. ACTION=TO_APE_AND_HOST, COUNT=0, ENABLE=1 (essential for RX), MASK=0x3400_0000.
+    [12] = {
+        .set = {.bits = {
+            .Action = FILTERS_RULE_SET_ACTION_TO_APE_AND_HOST,
+            .reserved_2_2 = 0,
+            .Count = 0,
+            .reserved_30_19 = 0,
+            .Enable = 1,
+        }},
+        .mask = {.r32 = 0x34000000},
+    },
+
+    // S-13. ACTION=TO_APE_AND_HOST, COUNT=0, ENABLE=1 (essential for RX), MASK=0x3800_0000.
+    [13] = {
+        .set = {.bits = {
+            .Action = FILTERS_RULE_SET_ACTION_TO_APE_AND_HOST,
+            .reserved_2_2 = 0,
+            .Count = 0,
+            .reserved_30_19 = 0,
+            .Enable = 1,
+        }},
+        .mask = {.r32 = 0x38000000},
+    },
+
+    // S-14. ACTION=TO_APE_AND_HOST, COUNT=2, ENABLE=1 (essential for RX), MASK=0x3000_0000.
+    [14] = {
+        .set = {.bits = {
+            .Action = FILTERS_RULE_SET_ACTION_TO_APE_AND_HOST,
+            .reserved_2_2 = 0,
+            .Count = 2,
+            .reserved_30_19 = 0,
+            .Enable = 1,
+        }},
+        .mask = {.r32 = 0x30000000},
+    },
+
+    // S-15. Not used, initialize to zero.
+    [15] = {{0}},
+    // S-16. Not used, initialize to zero.
+    [16] = {{0}},
+    // S-17. Not used, initialize to zero.
+    [17] = {{0}},
+
+    // S-18. ACTION=TO_APE_AND_HOST, COUNT=2, ENABLE=recommend 1, MASK=0x8008_0000.
+    [18] = {
+        .set = {.bits = {
+            .Action = FILTERS_RULE_SET_ACTION_TO_APE_AND_HOST,
+            .reserved_2_2 = 0,
+            .Count = 2,
+            .reserved_30_19 = 0,
+            .Enable = 1,
+        }},
+        .mask = {.r32 = 0x80080000},
+    },
+
+    // S-19. ACTION=TO_APE_AND_HOST, COUNT=0, ENABLE=0, MASK=(0b11)<<(2*0).
+    [19] = {
+        .set = {.bits = {
+            .Action = FILTERS_RULE_SET_ACTION_TO_APE_AND_HOST,
+            .reserved_2_2 = 0,
+            .Count = 0,
+            .reserved_30_19 = 0,
+            .Enable = 0,
+        }},
+        .mask = {.r32 = (0x3)<<(2*0)},
+    },
+
+    // S-20. ACTION=TO_APE_AND_HOST, COUNT=0, ENABLE=0, MASK=(0b11)<<(2*1).
+    [20] = {
+        .set = {.bits = {
+            .Action = FILTERS_RULE_SET_ACTION_TO_APE_AND_HOST,
+            .reserved_2_2 = 0,
+            .Count = 0,
+            .reserved_30_19 = 0,
+            .Enable = 0,
+        }},
+        .mask = {.r32 = (0x3)<<(2*1)},
+    },
+
+    // S-21. ACTION=TO_APE_AND_HOST, COUNT=0, ENABLE=0, MASK=(0b11)<<(2*2).
+    [21] = {
+        .set = {.bits = {
+            .Action = FILTERS_RULE_SET_ACTION_TO_APE_AND_HOST,
+            .reserved_2_2 = 0,
+            .Count = 0,
+            .reserved_30_19 = 0,
+            .Enable = 0,
+        }},
+        .mask = {.r32 = (0x3)<<(2*2)},
+    },
+
+    // S-22. ACTION=TO_APE_AND_HOST, COUNT=0, ENABLE=0, MASK=(0b11)<<(2*3).
+    [22] = {
+        .set = {.bits = {
+            .Action = FILTERS_RULE_SET_ACTION_TO_APE_AND_HOST,
+            .reserved_2_2 = 0,
+            .Count = 0,
+            .reserved_30_19 = 0,
+            .Enable = 0,
+        }},
+        .mask = {.r32 = (0x3)<<(2*3)},
+    },
+
+    // S-23. ACTION=TO_APE_AND_HOST, COUNT=0, ENABLE=0, MASK=(0b11)<<(2*4).
+    [23] = {
+        .set = {.bits = {
+            .Action = FILTERS_RULE_SET_ACTION_TO_APE_AND_HOST,
+            .reserved_2_2 = 0,
+            .Count = 0,
+            .reserved_30_19 = 0,
+            .Enable = 0,
+        }},
+        .mask = {.r32 = (0x3)<<(2*4)},
+    },
+
+    // S-24. ACTION=TO_APE_AND_HOST, COUNT=0, ENABLE=0, MASK=(0b11)<<(2*5).
+    [24] = {
+        .set = {.bits = {
+            .Action = FILTERS_RULE_SET_ACTION_TO_APE_AND_HOST,
+            .reserved_2_2 = 0,
+            .Count = 0,
+            .reserved_30_19 = 0,
+            .Enable = 0,
+        }},
+        .mask = {.r32 = (0x3)<<(2*5)},
+    },
+
+    // S-25. ACTION=TO_APE_AND_HOST, COUNT=0, ENABLE=0, MASK=(0b11)<<(2*6).
+    [25] = {
+        .set = {.bits = {
+            .Action = FILTERS_RULE_SET_ACTION_TO_APE_AND_HOST,
+            .reserved_2_2 = 0,
+            .Count = 0,
+            .reserved_30_19 = 0,
+            .Enable = 0,
+        }},
+        .mask = {.r32 = (0x3)<<(2*6)},
+    },
+
+    // S-26. ACTION=TO_APE_AND_HOST, COUNT=0, ENABLE=0, MASK=(0b11)<<(2*7).
+    [26] = {
+        .set = {.bits = {
+            .Action = FILTERS_RULE_SET_ACTION_TO_APE_AND_HOST,
+            .reserved_2_2 = 0,
+            .Count = 0,
+            .reserved_30_19 = 0,
+            .Enable = 0,
+        }},
+        .mask = {.r32 = (0x3)<<(2*7)},
+    },
+
+    // S-27. Not used, initialize to zero.
+    [27] = {{0}},
+
+    // S-28. ACTION=TO_APE_AND_HOST, COUNT=0, ENABLE=0, MASK=0x4010_0000.
+    [28] = {
+        .set = {.bits = {
+            .Action = FILTERS_RULE_SET_ACTION_TO_APE_AND_HOST,
+            .reserved_2_2 = 0,
+            .Count = 0,
+            .reserved_30_19 = 0,
+            .Enable = 0,
+        }},
+        .mask = {.r32 = 0x40100000},
+    },
+
+    // S-29. ACTION=TO_APE_AND_HOST, COUNT=0, ENABLE=0, MASK=0x4020_0000.
+    [29] = {
+        .set = {.bits = {
+            .Action = FILTERS_RULE_SET_ACTION_TO_APE_AND_HOST,
+            .reserved_2_2 = 0,
+            .Count = 0,
+            .reserved_30_19 = 0,
+            .Enable = 0,
+        }},
+        .mask = {.r32 = 0x40200000},
+    },
+
+    // S-30. ACTION=TO_APE_AND_HOST, COUNT=0, ENABLE=0, MASK=0x4020_0000.
+    [30] = {
+        .set = {.bits = {
+            .Action = FILTERS_RULE_SET_ACTION_TO_APE_AND_HOST,
+            .reserved_2_2 = 0,
+            .Count = 0,
+            .reserved_30_19 = 0,
+            .Enable = 0,
+        }},
+        .mask = {.r32 = 0x40200000},
+    },
+
+    // S-31. ACTION=TO_APE_AND_HOST, COUNT=0, ENABLE=0, MASK=0x8000_0000.
+    [31] = {
+        .set = {.bits = {
+            .Action = FILTERS_RULE_SET_ACTION_TO_APE_AND_HOST,
+            .reserved_2_2 = 0,
+            .Count = 0,
+            .reserved_30_19 = 0,
+            .Enable = 0,
+        }},
+        .mask = {.r32 = 0x80000000},
+    },
+};
+
 void initRxFromNetwork(void)
 {
     for(int i = 0; i < 32; i++)
@@ -342,4 +647,11 @@ void initRxFromNetwork(void)
         FILTERS.ElementPattern[i] = gElementInit[i].pat;
     }
 
+    for(int i = 1; i < 32; i++)
+    {
+        FILTERS.RuleSet[i-1] = gRuleInit[i].set;
+        FILTERS.RuleMask[i-1] = gRuleInit[i].mask;
+    }
+
+    FILTERS.RuleConfiguration.r32 = 0;
 }
