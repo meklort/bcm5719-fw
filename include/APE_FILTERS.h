@@ -266,7 +266,7 @@ typedef register_container RegFILTERSElementConfig_t {
 #endif /* CXX_SIMULATOR */
 } RegFILTERSElementConfig_t;
 
-#define REG_FILTERS_ELEMENT_PATTERN ((volatile APE_FILTERS_H_uint32_t*)0xa0048004) /* If RULE_MASK is set, low 16 bits are a bitmask and high 16 bits are the value masked by it. If it is not set, the entire field is a 32-bit match value. */
+#define REG_FILTERS_ELEMENT_PATTERN ((volatile APE_FILTERS_H_uint32_t*)0xa0048080) /* If RULE_MASK is set, low 16 bits are a bitmask and high 16 bits are the value masked by it. If it is not set, the entire field is a 32-bit match value. */
 /** @brief Register definition for @ref FILTERS_t.ElementPattern. */
 typedef register_container RegFILTERSElementPattern_t {
     /** @brief 32bit direct register access. */
@@ -282,7 +282,7 @@ typedef register_container RegFILTERSElementPattern_t {
     {
         /** @brief constructor for @ref FILTERS_t.ElementPattern. */
         r32.setName("ElementPattern");
-        r32.setComponentOffset(0x4);
+        r32.setComponentOffset(0x80);
     }
     RegFILTERSElementPattern_t& operator=(const RegFILTERSElementPattern_t& other)
     {
@@ -462,25 +462,22 @@ typedef register_container RegFILTERSRuleMask_t {
 /** @brief Component definition for @ref FILTERS. */
 typedef struct {
     /** @brief Element Configuration Register. */
-    RegFILTERSElementConfig_t ElementConfig;
+    RegFILTERSElementConfig_t ElementConfig[32];
 
     /** @brief If RULE_MASK is set, low 16 bits are a bitmask and high 16 bits are the value masked by it. If it is not set, the entire field is a 32-bit match value. */
-    RegFILTERSElementPattern_t ElementPattern;
-
-    /** @brief Reserved bytes to pad out data structure. */
-    APE_FILTERS_H_uint32_t reserved_8[62];
+    RegFILTERSElementPattern_t ElementPattern[32];
 
     /** @brief  */
     RegFILTERSRuleConfiguration_t RuleConfiguration;
 
     /** @brief  */
-    RegFILTERSRuleSet_t RuleSet;
+    RegFILTERSRuleSet_t RuleSet[31];
 
     /** @brief Reserved bytes to pad out data structure. */
-    APE_FILTERS_H_uint32_t reserved_264[31];
+    APE_FILTERS_H_uint32_t reserved_384[1];
 
     /** @brief  */
-    RegFILTERSRuleMask_t RuleMask;
+    RegFILTERSRuleMask_t RuleMask[31];
 
 #ifdef CXX_SIMULATOR
     typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);

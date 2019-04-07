@@ -19,6 +19,7 @@
                     <ipxact:name>Element Config</ipxact:name>
                     <ipxact:description>Element Configuration Register.</ipxact:description>
                     <ipxact:addressOffset>0x0</ipxact:addressOffset>
+                    <ipxact:dim>32</ipxact:dim>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
@@ -164,7 +165,8 @@
                 <ipxact:register>
                     <ipxact:name>Element Pattern</ipxact:name>
                     <ipxact:description>If RULE_MASK is set, low 16 bits are a bitmask and high 16 bits are the value masked by it. If it is not set, the entire field is a 32-bit match value.</ipxact:description>
-                    <ipxact:addressOffset>0x4</ipxact:addressOffset>
+                    <ipxact:addressOffset>0x80</ipxact:addressOffset>
+                    <ipxact:dim>32</ipxact:dim>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
@@ -195,6 +197,7 @@
                     <ipxact:name>Rule Set</ipxact:name>
                     <ipxact:description></ipxact:description>
                     <ipxact:addressOffset>0x104</ipxact:addressOffset>
+                    <ipxact:dim>31</ipxact:dim>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
@@ -239,6 +242,7 @@
                     <ipxact:name>Rule Mask</ipxact:name>
                     <ipxact:description></ipxact:description>
                     <ipxact:addressOffset>0x184</ipxact:addressOffset>
+                    <ipxact:dim>31</ipxact:dim>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>

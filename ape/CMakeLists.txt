@@ -50,6 +50,7 @@ set(LINKER_SCRIPT "${CMAKE_CURRENT_SOURCE_DIR}/ape.ld")
 arm_add_executable(${PROJECT_NAME}
             main.c
             vectors.c
+            rx_from_network.c
             )
 arm_linker_script(${PROJECT_NAME} ${LINKER_SCRIPT})
 
