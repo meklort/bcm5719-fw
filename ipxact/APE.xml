@@ -21,6 +21,18 @@
             <ipxact:addressUnitBits>32</ipxact:addressUnitBits>
         </ipxact:memoryMap>
 
+        <!-- APE Registers: 0xC001_0000 to  C001_8FFF-->
+        <ipxact:memoryMap>
+            <ipxact:name>APE</ipxact:name>
+            <ipxact:description>Device APE Registers</ipxact:description>
+            <ipxact:addressBlock>
+                <ipxact:name>APE</ipxact:name>
+                <ipxact:description>Device APE Registers</ipxact:description>
+                <ipxact:baseAddress>0x60200000</ipxact:baseAddress>
+            </ipxact:addressBlock>
+            <ipxact:addressUnitBits>8</ipxact:addressUnitBits>
+        </ipxact:memoryMap>
+
         <!-- Device NVM Registers: 0x6024_0000 to 6024_0080 (APE) -->
         <ipxact:memoryMap>
             <ipxact:name>NVM</ipxact:name>

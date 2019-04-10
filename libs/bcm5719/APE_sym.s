@@ -44,6 +44,10 @@
 ### @endcond
 ################################################################################
 
+.global APE
+.equ    APE, 0x60200000
+.size   APE, 0x8440
+
 .global DEVICE
 .equ    DEVICE, 0xa0040000
 .size   DEVICE, 0x7c08

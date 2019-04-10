@@ -1,11 +1,11 @@
 #!/bin/bash
-
+set -e
 IPXACT=~/ipxact/build/ipxact
 PROJECT=bcm5719
 
 echo "Regenerating Bcm5719 header"
 
-${IPXACT} -p ${PROJECT} SHM.xml DEVICE.xml NVM.xml bcm5719.xml bcm5719_full.xml
+${IPXACT} -p ${PROJECT} APE_component.xml SHM.xml DEVICE.xml NVM.xml bcm5719.xml bcm5719_full.xml
 
 ${IPXACT} -p ${PROJECT} bcm5719_full.xml bcm5719.h
 
@@ -34,7 +34,7 @@ PROJECT=ape
 echo "Regenerating APE header"
 
 
-${IPXACT} -p ${PROJECT} FILTERS.xml SHM.xml NVIC.xml DEVICE.xml NVM.xml APE.xml APE_full.xml
+${IPXACT} -p ${PROJECT} APE_component.xml FILTERS.xml SHM.xml NVIC.xml DEVICE.xml NVM.xml APE.xml APE_full.xml
 
 ${IPXACT} -p ${PROJECT} APE_full.xml APE.h
 mv APE_NVIC.h ../include/

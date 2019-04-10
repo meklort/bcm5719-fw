@@ -105,6 +105,10 @@ void init_bcm5719_APE_sim(void *base)
     APE.RxbufoffsetFunc1.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     APE.RxbufoffsetFunc1.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    /** @brief Bitmap for @ref APE_t.TxToNetDoorbellFunc0. */
+    APE.TxToNetDoorbellFunc0.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.TxToNetDoorbellFunc0.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
     /** @brief Bitmap for @ref APE_t.Mode2. */
     APE.Mode2.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     APE.Mode2.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
@@ -117,9 +121,41 @@ void init_bcm5719_APE_sim(void *base)
     APE.LockGrantObsolete.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     APE.LockGrantObsolete.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
-    /** @brief Bitmap for @ref APE_t.B0. */
-    APE.B0.r32.installReadCallback(read_from_ram, (uint8_t *)base);
-    APE.B0.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+    /** @brief Bitmap for @ref APE_t.RxPoolModeStatus0. */
+    APE.RxPoolModeStatus0.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.RxPoolModeStatus0.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.RxPoolModeStatus1. */
+    APE.RxPoolModeStatus1.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.RxPoolModeStatus1.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.RxPoolRetire0. */
+    APE.RxPoolRetire0.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.RxPoolRetire0.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.RxPoolRetire1. */
+    APE.RxPoolRetire1.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.RxPoolRetire1.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.TxToNetPoolModeStatus0. */
+    APE.TxToNetPoolModeStatus0.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.TxToNetPoolModeStatus0.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.TxToNetBufferAllocator0. */
+    APE.TxToNetBufferAllocator0.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.TxToNetBufferAllocator0.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.Tick1mhz. */
+    APE.Tick1mhz.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.Tick1mhz.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.Tick1khz. */
+    APE.Tick1khz.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.Tick1khz.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.Tick10hz. */
+    APE.Tick10hz.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.Tick10hz.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
     /** @brief Bitmap for @ref APE_t.Gpio. */
     APE.Gpio.r32.installReadCallback(read_from_ram, (uint8_t *)base);
@@ -145,9 +181,69 @@ void init_bcm5719_APE_sim(void *base)
     APE.OtpReadData.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     APE.OtpReadData.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
-    /** @brief Bitmap for @ref APE_t.Cm3. */
-    APE.Cm3.r32.installReadCallback(read_from_ram, (uint8_t *)base);
-    APE.Cm3.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+    /** @brief Bitmap for @ref APE_t.CpuStatus. */
+    APE.CpuStatus.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.CpuStatus.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.TxToNetPoolModeStatus1. */
+    APE.TxToNetPoolModeStatus1.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.TxToNetPoolModeStatus1.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.TxToNetBufferAllocator1. */
+    APE.TxToNetBufferAllocator1.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.TxToNetBufferAllocator1.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.TxToNetDoorbellFunc1. */
+    APE.TxToNetDoorbellFunc1.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.TxToNetDoorbellFunc1.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.RxbufoffsetFunc2. */
+    APE.RxbufoffsetFunc2.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.RxbufoffsetFunc2.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.TxToNetDoorbellFunc2. */
+    APE.TxToNetDoorbellFunc2.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.TxToNetDoorbellFunc2.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.RxPoolModeStatus2. */
+    APE.RxPoolModeStatus2.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.RxPoolModeStatus2.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.RxPoolRetire2. */
+    APE.RxPoolRetire2.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.RxPoolRetire2.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.TxToNetPoolModeStatus2. */
+    APE.TxToNetPoolModeStatus2.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.TxToNetPoolModeStatus2.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.TxToNetBufferAllocator2. */
+    APE.TxToNetBufferAllocator2.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.TxToNetBufferAllocator2.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.RxbufoffsetFunc3. */
+    APE.RxbufoffsetFunc3.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.RxbufoffsetFunc3.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.TxToNetDoorbellFunc3. */
+    APE.TxToNetDoorbellFunc3.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.TxToNetDoorbellFunc3.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.RxPoolModeStatus3. */
+    APE.RxPoolModeStatus3.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.RxPoolModeStatus3.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.RxPoolRetire3. */
+    APE.RxPoolRetire3.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.RxPoolRetire3.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.TxToNetPoolModeStatus3. */
+    APE.TxToNetPoolModeStatus3.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.TxToNetPoolModeStatus3.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.TxToNetBufferAllocator3. */
+    APE.TxToNetBufferAllocator3.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.TxToNetBufferAllocator3.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
     /** @brief Bitmap for @ref APE_t.PerLockRequestPhy0. */
     APE.PerLockRequestPhy0.r32.installReadCallback(read_from_ram, (uint8_t *)base);

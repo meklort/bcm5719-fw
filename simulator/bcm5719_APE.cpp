@@ -61,13 +61,31 @@ void init_bcm5719_APE(void)
 
     /** @brief Bitmap for @ref APE_t.RxbufoffsetFunc1. */
 
+    /** @brief Bitmap for @ref APE_t.TxToNetDoorbellFunc0. */
+
     /** @brief Bitmap for @ref APE_t.Mode2. */
 
     /** @brief Bitmap for @ref APE_t.Status2. */
 
     /** @brief Bitmap for @ref APE_t.LockGrantObsolete. */
 
-    /** @brief Bitmap for @ref APE_t.B0. */
+    /** @brief Bitmap for @ref APE_t.RxPoolModeStatus0. */
+
+    /** @brief Bitmap for @ref APE_t.RxPoolModeStatus1. */
+
+    /** @brief Bitmap for @ref APE_t.RxPoolRetire0. */
+
+    /** @brief Bitmap for @ref APE_t.RxPoolRetire1. */
+
+    /** @brief Bitmap for @ref APE_t.TxToNetPoolModeStatus0. */
+
+    /** @brief Bitmap for @ref APE_t.TxToNetBufferAllocator0. */
+
+    /** @brief Bitmap for @ref APE_t.Tick1mhz. */
+
+    /** @brief Bitmap for @ref APE_t.Tick1khz. */
+
+    /** @brief Bitmap for @ref APE_t.Tick10hz. */
 
     /** @brief Bitmap for @ref APE_t.Gpio. */
 
@@ -81,7 +99,37 @@ void init_bcm5719_APE(void)
 
     /** @brief Bitmap for @ref APE_t.OtpReadData. */
 
-    /** @brief Bitmap for @ref APE_t.Cm3. */
+    /** @brief Bitmap for @ref APE_t.CpuStatus. */
+
+    /** @brief Bitmap for @ref APE_t.TxToNetPoolModeStatus1. */
+
+    /** @brief Bitmap for @ref APE_t.TxToNetBufferAllocator1. */
+
+    /** @brief Bitmap for @ref APE_t.TxToNetDoorbellFunc1. */
+
+    /** @brief Bitmap for @ref APE_t.RxbufoffsetFunc2. */
+
+    /** @brief Bitmap for @ref APE_t.TxToNetDoorbellFunc2. */
+
+    /** @brief Bitmap for @ref APE_t.RxPoolModeStatus2. */
+
+    /** @brief Bitmap for @ref APE_t.RxPoolRetire2. */
+
+    /** @brief Bitmap for @ref APE_t.TxToNetPoolModeStatus2. */
+
+    /** @brief Bitmap for @ref APE_t.TxToNetBufferAllocator2. */
+
+    /** @brief Bitmap for @ref APE_t.RxbufoffsetFunc3. */
+
+    /** @brief Bitmap for @ref APE_t.TxToNetDoorbellFunc3. */
+
+    /** @brief Bitmap for @ref APE_t.RxPoolModeStatus3. */
+
+    /** @brief Bitmap for @ref APE_t.RxPoolRetire3. */
+
+    /** @brief Bitmap for @ref APE_t.TxToNetPoolModeStatus3. */
+
+    /** @brief Bitmap for @ref APE_t.TxToNetBufferAllocator3. */
 
     /** @brief Bitmap for @ref APE_t.PerLockRequestPhy0. */
 
