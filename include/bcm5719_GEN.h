@@ -116,10 +116,8 @@ typedef register_container RegGENGenFwMbox_t {
     {
         /** @brief constructor for @ref GEN_t.GenFwMbox. */
         r32.setName("GenFwMbox");
-        r32.setComponentOffset(0x0);
         bits.MBOX.setBaseRegister(&r32);
         bits.MBOX.setName("MBOX");
-        bits.MBOX.setComponentOffset(0x0);
     }
     RegGENGenFwMbox_t& operator=(const RegGENGenFwMbox_t& other)
     {
@@ -166,10 +164,8 @@ typedef register_container RegGENGenDataSig_t {
     {
         /** @brief constructor for @ref GEN_t.GenDataSig. */
         r32.setName("GenDataSig");
-        r32.setComponentOffset(0x4);
         bits.SIG.setBaseRegister(&r32);
         bits.SIG.setName("SIG");
-        bits.SIG.setComponentOffset(0x4);
     }
     RegGENGenDataSig_t& operator=(const RegGENGenDataSig_t& other)
     {
@@ -240,19 +236,14 @@ typedef register_container RegGENGenCfg_t {
     {
         /** @brief constructor for @ref GEN_t.GenCfg. */
         r32.setName("GenCfg");
-        r32.setComponentOffset(0x8);
         bits.PHYType_GPHY.setBaseRegister(&r32);
         bits.PHYType_GPHY.setName("PHYType_GPHY");
-        bits.PHYType_GPHY.setComponentOffset(0x8);
         bits.PHYType_SERDES.setBaseRegister(&r32);
         bits.PHYType_SERDES.setName("PHYType_SERDES");
-        bits.PHYType_SERDES.setComponentOffset(0x8);
         bits.WOLEnable.setBaseRegister(&r32);
         bits.WOLEnable.setName("WOLEnable");
-        bits.WOLEnable.setComponentOffset(0x8);
         bits.TODO.setBaseRegister(&r32);
         bits.TODO.setName("TODO");
-        bits.TODO.setComponentOffset(0x8);
     }
     RegGENGenCfg_t& operator=(const RegGENGenCfg_t& other)
     {
@@ -278,7 +269,6 @@ typedef register_container RegGENGenVersion_t {
     {
         /** @brief constructor for @ref GEN_t.GenVersion. */
         r32.setName("GenVersion");
-        r32.setComponentOffset(0xc);
     }
     RegGENGenVersion_t& operator=(const RegGENGenVersion_t& other)
     {
@@ -304,7 +294,6 @@ typedef register_container RegGENGenPhyId_t {
     {
         /** @brief constructor for @ref GEN_t.GenPhyId. */
         r32.setName("GenPhyId");
-        r32.setComponentOffset(0x24);
     }
     RegGENGenPhyId_t& operator=(const RegGENGenPhyId_t& other)
     {
@@ -330,7 +319,6 @@ typedef register_container RegGENGenAsfStatusMbox_t {
     {
         /** @brief constructor for @ref GEN_t.GenAsfStatusMbox. */
         r32.setName("GenAsfStatusMbox");
-        r32.setComponentOffset(0xb0);
     }
     RegGENGenAsfStatusMbox_t& operator=(const RegGENGenAsfStatusMbox_t& other)
     {
@@ -356,7 +344,6 @@ typedef register_container RegGENGenFwDriverStateMbox_t {
     {
         /** @brief constructor for @ref GEN_t.GenFwDriverStateMbox. */
         r32.setName("GenFwDriverStateMbox");
-        r32.setComponentOffset(0xb4);
     }
     RegGENGenFwDriverStateMbox_t& operator=(const RegGENGenFwDriverStateMbox_t& other)
     {
@@ -382,7 +369,6 @@ typedef register_container RegGENGenFwResetTypeMbox_t {
     {
         /** @brief constructor for @ref GEN_t.GenFwResetTypeMbox. */
         r32.setName("GenFwResetTypeMbox");
-        r32.setComponentOffset(0xb8);
     }
     RegGENGenFwResetTypeMbox_t& operator=(const RegGENGenFwResetTypeMbox_t& other)
     {
@@ -408,7 +394,6 @@ typedef register_container RegGENGenBc_t {
     {
         /** @brief constructor for @ref GEN_t.GenBc. */
         r32.setName("GenBc");
-        r32.setComponentOffset(0xbc);
     }
     RegGENGenBc_t& operator=(const RegGENGenBc_t& other)
     {
@@ -434,7 +419,6 @@ typedef register_container RegGENGenMacAddrHighMbox_t {
     {
         /** @brief constructor for @ref GEN_t.GenMacAddrHighMbox. */
         r32.setName("GenMacAddrHighMbox");
-        r32.setComponentOffset(0xc4);
     }
     RegGENGenMacAddrHighMbox_t& operator=(const RegGENGenMacAddrHighMbox_t& other)
     {
@@ -460,7 +444,6 @@ typedef register_container RegGENGenMacAddrLowMbox_t {
     {
         /** @brief constructor for @ref GEN_t.GenMacAddrLowMbox. */
         r32.setName("GenMacAddrLowMbox");
-        r32.setComponentOffset(0xc8);
     }
     RegGENGenMacAddrLowMbox_t& operator=(const RegGENGenMacAddrLowMbox_t& other)
     {
@@ -539,19 +522,14 @@ typedef register_container RegGENGenD8_t {
     {
         /** @brief constructor for @ref GEN_t.GenD8. */
         r32.setName("GenD8");
-        r32.setComponentOffset(0xd8);
         bits.SkipMainLoopInit.setBaseRegister(&r32);
         bits.SkipMainLoopInit.setName("SkipMainLoopInit");
-        bits.SkipMainLoopInit.setComponentOffset(0xd8);
         bits.ForceWOL.setBaseRegister(&r32);
         bits.ForceWOL.setName("ForceWOL");
-        bits.ForceWOL.setComponentOffset(0xd8);
         bits.NoModifyMiscellaneousControl.setBaseRegister(&r32);
         bits.NoModifyMiscellaneousControl.setName("NoModifyMiscellaneousControl");
-        bits.NoModifyMiscellaneousControl.setComponentOffset(0xd8);
         bits.unknown_7_7.setBaseRegister(&r32);
         bits.unknown_7_7.setName("unknown_7_7");
-        bits.unknown_7_7.setComponentOffset(0xd8);
     }
     RegGENGenD8_t& operator=(const RegGENGenD8_t& other)
     {
@@ -577,7 +555,6 @@ typedef register_container RegGENGen1dc_t {
     {
         /** @brief constructor for @ref GEN_t.Gen1dc. */
         r32.setName("Gen1dc");
-        r32.setComponentOffset(0x1dc);
     }
     RegGENGen1dc_t& operator=(const RegGENGen1dc_t& other)
     {
@@ -603,7 +580,6 @@ typedef register_container RegGENGenWolMbox_t {
     {
         /** @brief constructor for @ref GEN_t.GenWolMbox. */
         r32.setName("GenWolMbox");
-        r32.setComponentOffset(0x1e0);
     }
     RegGENGenWolMbox_t& operator=(const RegGENGenWolMbox_t& other)
     {
@@ -794,64 +770,44 @@ typedef register_container RegGENGenCfgFeature_t {
     {
         /** @brief constructor for @ref GEN_t.GenCfgFeature. */
         r32.setName("GenCfgFeature");
-        r32.setComponentOffset(0x1e4);
         bits.WOLEnable.setBaseRegister(&r32);
         bits.WOLEnable.setName("WOLEnable");
-        bits.WOLEnable.setComponentOffset(0x1e4);
         bits.PXEEnable.setBaseRegister(&r32);
         bits.PXEEnable.setName("PXEEnable");
-        bits.PXEEnable.setComponentOffset(0x1e4);
         bits.PXESpeed.setBaseRegister(&r32);
         bits.PXESpeed.setName("PXESpeed");
-        bits.PXESpeed.setComponentOffset(0x1e4);
         bits.ASFEnable.setBaseRegister(&r32);
         bits.ASFEnable.setName("ASFEnable");
-        bits.ASFEnable.setComponentOffset(0x1e4);
         bits.PXEBARSize.setBaseRegister(&r32);
         bits.PXEBARSize.setName("PXEBARSize");
-        bits.PXEBARSize.setComponentOffset(0x1e4);
         bits.DisableSetupMessage.setBaseRegister(&r32);
         bits.DisableSetupMessage.setName("DisableSetupMessage");
-        bits.DisableSetupMessage.setComponentOffset(0x1e4);
         bits.HotkeyOption.setBaseRegister(&r32);
         bits.HotkeyOption.setName("HotkeyOption");
-        bits.HotkeyOption.setComponentOffset(0x1e4);
         bits.PXEBootstrapType.setBaseRegister(&r32);
         bits.PXEBootstrapType.setName("PXEBootstrapType");
-        bits.PXEBootstrapType.setComponentOffset(0x1e4);
         bits.PXEMessageTimeout.setBaseRegister(&r32);
         bits.PXEMessageTimeout.setName("PXEMessageTimeout");
-        bits.PXEMessageTimeout.setComponentOffset(0x1e4);
         bits.PXEBootProtocol.setBaseRegister(&r32);
         bits.PXEBootProtocol.setName("PXEBootProtocol");
-        bits.PXEBootProtocol.setComponentOffset(0x1e4);
         bits.LOMDesign.setBaseRegister(&r32);
         bits.LOMDesign.setName("LOMDesign");
-        bits.LOMDesign.setComponentOffset(0x1e4);
         bits.VAUXCutoffDelay.setBaseRegister(&r32);
         bits.VAUXCutoffDelay.setName("VAUXCutoffDelay");
-        bits.VAUXCutoffDelay.setComponentOffset(0x1e4);
         bits.WOLLimit10.setBaseRegister(&r32);
         bits.WOLLimit10.setName("WOLLimit10");
-        bits.WOLLimit10.setComponentOffset(0x1e4);
         bits.LinkIdle.setBaseRegister(&r32);
         bits.LinkIdle.setName("LinkIdle");
-        bits.LinkIdle.setComponentOffset(0x1e4);
         bits.unknown_27_27.setBaseRegister(&r32);
         bits.unknown_27_27.setName("unknown_27_27");
-        bits.unknown_27_27.setComponentOffset(0x1e4);
         bits.CableSense.setBaseRegister(&r32);
         bits.CableSense.setName("CableSense");
-        bits.CableSense.setComponentOffset(0x1e4);
         bits.MBAVLANEnable.setBaseRegister(&r32);
         bits.MBAVLANEnable.setName("MBAVLANEnable");
-        bits.MBAVLANEnable.setComponentOffset(0x1e4);
         bits.LinkAwarePowerMode.setBaseRegister(&r32);
         bits.LinkAwarePowerMode.setName("LinkAwarePowerMode");
-        bits.LinkAwarePowerMode.setComponentOffset(0x1e4);
         bits.LinkSpeedPowerMode.setBaseRegister(&r32);
         bits.LinkSpeedPowerMode.setName("LinkSpeedPowerMode");
-        bits.LinkSpeedPowerMode.setComponentOffset(0x1e4);
     }
     RegGENGenCfgFeature_t& operator=(const RegGENGenCfgFeature_t& other)
     {
@@ -987,40 +943,28 @@ typedef register_container RegGENGenCfgHw_t {
     {
         /** @brief constructor for @ref GEN_t.GenCfgHw. */
         r32.setName("GenCfgHw");
-        r32.setComponentOffset(0x1e8);
         bits.LegacyLEDControl.setBaseRegister(&r32);
         bits.LegacyLEDControl.setName("LegacyLEDControl");
-        bits.LegacyLEDControl.setComponentOffset(0x1e8);
         bits.ReverseN_Way.setBaseRegister(&r32);
         bits.ReverseN_Way.setName("ReverseN_Way");
-        bits.ReverseN_Way.setComponentOffset(0x1e8);
         bits.MiniPCI.setBaseRegister(&r32);
         bits.MiniPCI.setName("MiniPCI");
-        bits.MiniPCI.setComponentOffset(0x1e8);
         bits.AutoPowerdownEnable.setBaseRegister(&r32);
         bits.AutoPowerdownEnable.setName("AutoPowerdownEnable");
-        bits.AutoPowerdownEnable.setComponentOffset(0x1e8);
         bits.SHASTALEDControl.setBaseRegister(&r32);
         bits.SHASTALEDControl.setName("SHASTALEDControl");
-        bits.SHASTALEDControl.setComponentOffset(0x1e8);
         bits.TimeSyncModeEnable.setBaseRegister(&r32);
         bits.TimeSyncModeEnable.setName("TimeSyncModeEnable");
-        bits.TimeSyncModeEnable.setComponentOffset(0x1e8);
         bits.TimesyncGPIOMapping.setBaseRegister(&r32);
         bits.TimesyncGPIOMapping.setName("TimesyncGPIOMapping");
-        bits.TimesyncGPIOMapping.setComponentOffset(0x1e8);
         bits.APEGPIO0Mapping.setBaseRegister(&r32);
         bits.APEGPIO0Mapping.setName("APEGPIO0Mapping");
-        bits.APEGPIO0Mapping.setComponentOffset(0x1e8);
         bits.APEGPIO1Mapping.setBaseRegister(&r32);
         bits.APEGPIO1Mapping.setName("APEGPIO1Mapping");
-        bits.APEGPIO1Mapping.setComponentOffset(0x1e8);
         bits.APEGPIO2Mapping.setBaseRegister(&r32);
         bits.APEGPIO2Mapping.setName("APEGPIO2Mapping");
-        bits.APEGPIO2Mapping.setComponentOffset(0x1e8);
         bits.APEGPIO3Mapping.setBaseRegister(&r32);
         bits.APEGPIO3Mapping.setName("APEGPIO3Mapping");
-        bits.APEGPIO3Mapping.setComponentOffset(0x1e8);
     }
     RegGENGenCfgHw_t& operator=(const RegGENGenCfgHw_t& other)
     {
@@ -1175,46 +1119,32 @@ typedef register_container RegGENGenCfgShared_t {
     {
         /** @brief constructor for @ref GEN_t.GenCfgShared. */
         r32.setName("GenCfgShared");
-        r32.setComponentOffset(0x1ec);
         bits.PortSwap.setBaseRegister(&r32);
         bits.PortSwap.setName("PortSwap");
-        bits.PortSwap.setComponentOffset(0x1ec);
         bits.ASPMDebounce.setBaseRegister(&r32);
         bits.ASPMDebounce.setName("ASPMDebounce");
-        bits.ASPMDebounce.setComponentOffset(0x1ec);
         bits.FiberWoLCapable.setBaseRegister(&r32);
         bits.FiberWoLCapable.setName("FiberWoLCapable");
-        bits.FiberWoLCapable.setComponentOffset(0x1ec);
         bits.DisablePowerSaving.setBaseRegister(&r32);
         bits.DisablePowerSaving.setName("DisablePowerSaving");
-        bits.DisablePowerSaving.setComponentOffset(0x1ec);
         bits.unknown_7_7.setBaseRegister(&r32);
         bits.unknown_7_7.setName("unknown_7_7");
-        bits.unknown_7_7.setComponentOffset(0x1ec);
         bits.unknown_8_8.setBaseRegister(&r32);
         bits.unknown_8_8.setName("unknown_8_8");
-        bits.unknown_8_8.setComponentOffset(0x1ec);
         bits.unknown_10_9.setBaseRegister(&r32);
         bits.unknown_10_9.setName("unknown_10_9");
-        bits.unknown_10_9.setComponentOffset(0x1ec);
         bits.unknown_15_15.setBaseRegister(&r32);
         bits.unknown_15_15.setName("unknown_15_15");
-        bits.unknown_15_15.setComponentOffset(0x1ec);
         bits.LinkFlapAvoid.setBaseRegister(&r32);
         bits.LinkFlapAvoid.setName("LinkFlapAvoid");
-        bits.LinkFlapAvoid.setComponentOffset(0x1ec);
         bits._1GonVAUXOK.setBaseRegister(&r32);
         bits._1GonVAUXOK.setName("_1GonVAUXOK");
-        bits._1GonVAUXOK.setComponentOffset(0x1ec);
         bits.unknown_27_26.setBaseRegister(&r32);
         bits.unknown_27_26.setName("unknown_27_26");
-        bits.unknown_27_26.setComponentOffset(0x1ec);
         bits.unknown_29_28.setBaseRegister(&r32);
         bits.unknown_29_28.setName("unknown_29_28");
-        bits.unknown_29_28.setComponentOffset(0x1ec);
         bits.unknown_31_30.setBaseRegister(&r32);
         bits.unknown_31_30.setName("unknown_31_30");
-        bits.unknown_31_30.setComponentOffset(0x1ec);
     }
     RegGENGenCfgShared_t& operator=(const RegGENGenCfgShared_t& other)
     {
@@ -1240,7 +1170,6 @@ typedef register_container RegGENGenFwVersion_t {
     {
         /** @brief constructor for @ref GEN_t.GenFwVersion. */
         r32.setName("GenFwVersion");
-        r32.setComponentOffset(0x214);
     }
     RegGENGenFwVersion_t& operator=(const RegGENGenFwVersion_t& other)
     {
@@ -1343,28 +1272,20 @@ typedef register_container RegGENGenCfgHw2_t {
     {
         /** @brief constructor for @ref GEN_t.GenCfgHw2. */
         r32.setName("GenCfgHw2");
-        r32.setComponentOffset(0x2a8);
         bits.EnableAutonegotiation.setBaseRegister(&r32);
         bits.EnableAutonegotiation.setName("EnableAutonegotiation");
-        bits.EnableAutonegotiation.setComponentOffset(0x2a8);
         bits.ExpansionROMEnable.setBaseRegister(&r32);
         bits.ExpansionROMEnable.setName("ExpansionROMEnable");
-        bits.ExpansionROMEnable.setComponentOffset(0x2a8);
         bits.unknown_2_2.setBaseRegister(&r32);
         bits.unknown_2_2.setName("unknown_2_2");
-        bits.unknown_2_2.setComponentOffset(0x2a8);
         bits.UnknownSERDES1310.setBaseRegister(&r32);
         bits.UnknownSERDES1310.setName("UnknownSERDES1310");
-        bits.UnknownSERDES1310.setComponentOffset(0x2a8);
         bits.UnknownSERDES1312.setBaseRegister(&r32);
         bits.UnknownSERDES1312.setName("UnknownSERDES1312");
-        bits.UnknownSERDES1312.setComponentOffset(0x2a8);
         bits.UnknownSERDES1010_01.setBaseRegister(&r32);
         bits.UnknownSERDES1010_01.setName("UnknownSERDES1010_01");
-        bits.UnknownSERDES1010_01.setComponentOffset(0x2a8);
         bits.UnknownSERDES1010_10.setBaseRegister(&r32);
         bits.UnknownSERDES1010_10.setName("UnknownSERDES1010_10");
-        bits.UnknownSERDES1010_10.setComponentOffset(0x2a8);
     }
     RegGENGenCfgHw2_t& operator=(const RegGENGenCfgHw2_t& other)
     {
@@ -1390,7 +1311,6 @@ typedef register_container RegGENGenCpmuStatus_t {
     {
         /** @brief constructor for @ref GEN_t.GenCpmuStatus. */
         r32.setName("GenCpmuStatus");
-        r32.setComponentOffset(0x2b0);
     }
     RegGENGenCpmuStatus_t& operator=(const RegGENGenCpmuStatus_t& other)
     {
@@ -1453,16 +1373,12 @@ typedef register_container RegGENGenCfg5_t {
     {
         /** @brief constructor for @ref GEN_t.GenCfg5. */
         r32.setName("GenCfg5");
-        r32.setComponentOffset(0x2bc);
         bits.unknown_0_0.setBaseRegister(&r32);
         bits.unknown_0_0.setName("unknown_0_0");
-        bits.unknown_0_0.setComponentOffset(0x2bc);
         bits.Disable1GHalfAdv.setBaseRegister(&r32);
         bits.Disable1GHalfAdv.setName("Disable1GHalfAdv");
-        bits.Disable1GHalfAdv.setComponentOffset(0x2bc);
         bits.unknown_3_2.setBaseRegister(&r32);
         bits.unknown_3_2.setName("unknown_3_2");
-        bits.unknown_3_2.setComponentOffset(0x2bc);
     }
     RegGENGenCfg5_t& operator=(const RegGENGenCfg5_t& other)
     {
@@ -1521,13 +1437,10 @@ typedef register_container RegGENGenDbgControlStatus_t {
     {
         /** @brief constructor for @ref GEN_t.GenDbgControlStatus. */
         r32.setName("GenDbgControlStatus");
-        r32.setComponentOffset(0x360);
         bits.DebugEnabled.setBaseRegister(&r32);
         bits.DebugEnabled.setName("DebugEnabled");
-        bits.DebugEnabled.setComponentOffset(0x360);
         bits.DataAvailable.setBaseRegister(&r32);
         bits.DataAvailable.setName("DataAvailable");
-        bits.DataAvailable.setComponentOffset(0x360);
     }
     RegGENGenDbgControlStatus_t& operator=(const RegGENGenDbgControlStatus_t& other)
     {
@@ -1574,10 +1487,8 @@ typedef register_container RegGENGenDbgData_t {
     {
         /** @brief constructor for @ref GEN_t.GenDbgData. */
         r32.setName("GenDbgData");
-        r32.setComponentOffset(0x364);
         bits.DebugByte.setBaseRegister(&r32);
         bits.DebugByte.setName("DebugByte");
-        bits.DebugByte.setComponentOffset(0x364);
     }
     RegGENGenDbgData_t& operator=(const RegGENGenDbgData_t& other)
     {
@@ -1588,7 +1499,7 @@ typedef register_container RegGENGenDbgData_t {
 } RegGENGenDbgData_t;
 
 /** @brief Component definition for @ref GEN. */
-typedef struct {
+typedef struct GEN_t {
     /** @brief  */
     RegGENGenFwMbox_t GenFwMbox;
 
@@ -1689,6 +1600,32 @@ typedef struct {
     RegGENGenDbgData_t GenDbgData;
 
 #ifdef CXX_SIMULATOR
+    GEN_t()
+    {
+        GenFwMbox.r32.setComponentOffset(0x0);
+        GenDataSig.r32.setComponentOffset(0x4);
+        GenCfg.r32.setComponentOffset(0x8);
+        GenVersion.r32.setComponentOffset(0xc);
+        GenPhyId.r32.setComponentOffset(0x24);
+        GenAsfStatusMbox.r32.setComponentOffset(0xb0);
+        GenFwDriverStateMbox.r32.setComponentOffset(0xb4);
+        GenFwResetTypeMbox.r32.setComponentOffset(0xb8);
+        GenBc.r32.setComponentOffset(0xbc);
+        GenMacAddrHighMbox.r32.setComponentOffset(0xc4);
+        GenMacAddrLowMbox.r32.setComponentOffset(0xc8);
+        GenD8.r32.setComponentOffset(0xd8);
+        Gen1dc.r32.setComponentOffset(0x1dc);
+        GenWolMbox.r32.setComponentOffset(0x1e0);
+        GenCfgFeature.r32.setComponentOffset(0x1e4);
+        GenCfgHw.r32.setComponentOffset(0x1e8);
+        GenCfgShared.r32.setComponentOffset(0x1ec);
+        GenFwVersion.r32.setComponentOffset(0x214);
+        GenCfgHw2.r32.setComponentOffset(0x2a8);
+        GenCpmuStatus.r32.setComponentOffset(0x2b0);
+        GenCfg5.r32.setComponentOffset(0x2bc);
+        GenDbgControlStatus.r32.setComponentOffset(0x360);
+        GenDbgData.r32.setComponentOffset(0x364);
+    }
     typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);
     callback_t mIndexReadCallback;
     void* mIndexReadCallbackArgs;

@@ -82,8 +82,11 @@ typedef uint32_t BCM5719_TXMBUF_H_uint32_t;
 #define REG_TXMBUF_SIZE (0x7400)
 
 /** @brief Component definition for @ref TXMBUF. */
-typedef struct {
+typedef struct TXMBUF_t {
 #ifdef CXX_SIMULATOR
+    TXMBUF_t()
+    {
+    }
     typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);
     callback_t mIndexReadCallback;
     void* mIndexReadCallbackArgs;

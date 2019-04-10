@@ -82,8 +82,11 @@ typedef uint32_t BCM5719_BOOTCODE_H_uint32_t;
 #define REG_BOOTCODE_SIZE (0x7000)
 
 /** @brief Component definition for @ref BOOTCODE. */
-typedef struct {
+typedef struct BOOTCODE_t {
 #ifdef CXX_SIMULATOR
+    BOOTCODE_t()
+    {
+    }
     typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);
     callback_t mIndexReadCallback;
     void* mIndexReadCallbackArgs;

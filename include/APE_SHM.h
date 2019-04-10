@@ -116,10 +116,8 @@ typedef register_container RegSHMSegSig_t {
     {
         /** @brief constructor for @ref SHM_t.SegSig. */
         r32.setName("SegSig");
-        r32.setComponentOffset(0x0);
         bits.Sig.setBaseRegister(&r32);
         bits.Sig.setName("Sig");
-        bits.Sig.setComponentOffset(0x0);
     }
     RegSHMSegSig_t& operator=(const RegSHMSegSig_t& other)
     {
@@ -145,7 +143,6 @@ typedef register_container RegSHMApeSegLength_t {
     {
         /** @brief constructor for @ref SHM_t.ApeSegLength. */
         r32.setName("ApeSegLength");
-        r32.setComponentOffset(0x4);
     }
     RegSHMApeSegLength_t& operator=(const RegSHMApeSegLength_t& other)
     {
@@ -204,13 +201,10 @@ typedef register_container RegSHMFwStatus_t {
     {
         /** @brief constructor for @ref SHM_t.FwStatus. */
         r32.setName("FwStatus");
-        r32.setComponentOffset(0xc);
         bits.Ready.setBaseRegister(&r32);
         bits.Ready.setName("Ready");
-        bits.Ready.setComponentOffset(0xc);
         bits.unknown_31_28.setBaseRegister(&r32);
         bits.unknown_31_28.setName("unknown_31_28");
-        bits.unknown_31_28.setComponentOffset(0xc);
     }
     RegSHMFwStatus_t& operator=(const RegSHMFwStatus_t& other)
     {
@@ -261,10 +255,8 @@ typedef register_container RegSHMFwFeatures_t {
     {
         /** @brief constructor for @ref SHM_t.FwFeatures. */
         r32.setName("FwFeatures");
-        r32.setComponentOffset(0x10);
         bits.NCSI.setBaseRegister(&r32);
         bits.NCSI.setName("NCSI");
-        bits.NCSI.setComponentOffset(0x10);
     }
     RegSHMFwFeatures_t& operator=(const RegSHMFwFeatures_t& other)
     {
@@ -290,7 +282,6 @@ typedef register_container RegSHM4014_t {
     {
         /** @brief constructor for @ref SHM_t.4014. */
         r32.setName("4014");
-        r32.setComponentOffset(0x14);
     }
     RegSHM4014_t& operator=(const RegSHM4014_t& other)
     {
@@ -357,19 +348,14 @@ typedef register_container RegSHMFwVersion_t {
     {
         /** @brief constructor for @ref SHM_t.FwVersion. */
         r32.setName("FwVersion");
-        r32.setComponentOffset(0x18);
         bits.Build.setBaseRegister(&r32);
         bits.Build.setName("Build");
-        bits.Build.setComponentOffset(0x18);
         bits.Revision.setBaseRegister(&r32);
         bits.Revision.setName("Revision");
-        bits.Revision.setComponentOffset(0x18);
         bits.Minor.setBaseRegister(&r32);
         bits.Minor.setName("Minor");
-        bits.Minor.setComponentOffset(0x18);
         bits.Major.setBaseRegister(&r32);
         bits.Major.setName("Major");
-        bits.Major.setComponentOffset(0x18);
     }
     RegSHMFwVersion_t& operator=(const RegSHMFwVersion_t& other)
     {
@@ -395,7 +381,6 @@ typedef register_container RegSHMSegMessageBufferOffset_t {
     {
         /** @brief constructor for @ref SHM_t.SegMessageBufferOffset. */
         r32.setName("SegMessageBufferOffset");
-        r32.setComponentOffset(0x1c);
     }
     RegSHMSegMessageBufferOffset_t& operator=(const RegSHMSegMessageBufferOffset_t& other)
     {
@@ -421,7 +406,6 @@ typedef register_container RegSHMSegMessageBufferLength_t {
     {
         /** @brief constructor for @ref SHM_t.SegMessageBufferLength. */
         r32.setName("SegMessageBufferLength");
-        r32.setComponentOffset(0x20);
     }
     RegSHMSegMessageBufferLength_t& operator=(const RegSHMSegMessageBufferLength_t& other)
     {
@@ -447,7 +431,6 @@ typedef register_container RegSHM4024_t {
     {
         /** @brief constructor for @ref SHM_t.4024. */
         r32.setName("4024");
-        r32.setComponentOffset(0x24);
     }
     RegSHM4024_t& operator=(const RegSHM4024_t& other)
     {
@@ -473,7 +456,6 @@ typedef register_container RegSHM4028_t {
     {
         /** @brief constructor for @ref SHM_t.4028. */
         r32.setName("4028");
-        r32.setComponentOffset(0x28);
     }
     RegSHM4028_t& operator=(const RegSHM4028_t& other)
     {
@@ -521,10 +503,8 @@ typedef register_container RegSHMLoaderCommand_t {
     {
         /** @brief constructor for @ref SHM_t.LoaderCommand. */
         r32.setName("LoaderCommand");
-        r32.setComponentOffset(0x38);
         bits.Command.setBaseRegister(&r32);
         bits.Command.setName("Command");
-        bits.Command.setComponentOffset(0x38);
     }
     RegSHMLoaderCommand_t& operator=(const RegSHMLoaderCommand_t& other)
     {
@@ -550,7 +530,6 @@ typedef register_container RegSHMLoaderArg0_t {
     {
         /** @brief constructor for @ref SHM_t.LoaderArg0. */
         r32.setName("LoaderArg0");
-        r32.setComponentOffset(0x3c);
     }
     RegSHMLoaderArg0_t& operator=(const RegSHMLoaderArg0_t& other)
     {
@@ -576,7 +555,6 @@ typedef register_container RegSHMLoaderArg1_t {
     {
         /** @brief constructor for @ref SHM_t.LoaderArg1. */
         r32.setName("LoaderArg1");
-        r32.setComponentOffset(0x40);
     }
     RegSHMLoaderArg1_t& operator=(const RegSHMLoaderArg1_t& other)
     {
@@ -621,10 +599,8 @@ typedef register_container RegSHMRcpuSegSig_t {
     {
         /** @brief constructor for @ref SHM_t.RcpuSegSig. */
         r32.setName("RcpuSegSig");
-        r32.setComponentOffset(0x100);
         bits.Sig.setBaseRegister(&r32);
         bits.Sig.setName("Sig");
-        bits.Sig.setComponentOffset(0x100);
     }
     RegSHMRcpuSegSig_t& operator=(const RegSHMRcpuSegSig_t& other)
     {
@@ -650,7 +626,6 @@ typedef register_container RegSHMRcpuSegLength_t {
     {
         /** @brief constructor for @ref SHM_t.RcpuSegLength. */
         r32.setName("RcpuSegLength");
-        r32.setComponentOffset(0x104);
     }
     RegSHMRcpuSegLength_t& operator=(const RegSHMRcpuSegLength_t& other)
     {
@@ -676,7 +651,6 @@ typedef register_container RegSHMRcpuInitCount_t {
     {
         /** @brief constructor for @ref SHM_t.RcpuInitCount. */
         r32.setName("RcpuInitCount");
-        r32.setComponentOffset(0x108);
     }
     RegSHMRcpuInitCount_t& operator=(const RegSHMRcpuInitCount_t& other)
     {
@@ -702,7 +676,6 @@ typedef register_container RegSHMRcpuFwVersion_t {
     {
         /** @brief constructor for @ref SHM_t.RcpuFwVersion. */
         r32.setName("RcpuFwVersion");
-        r32.setComponentOffset(0x10c);
     }
     RegSHMRcpuFwVersion_t& operator=(const RegSHMRcpuFwVersion_t& other)
     {
@@ -728,7 +701,6 @@ typedef register_container RegSHMRcpuCfgFeature_t {
     {
         /** @brief constructor for @ref SHM_t.RcpuCfgFeature. */
         r32.setName("RcpuCfgFeature");
-        r32.setComponentOffset(0x110);
     }
     RegSHMRcpuCfgFeature_t& operator=(const RegSHMRcpuCfgFeature_t& other)
     {
@@ -754,7 +726,6 @@ typedef register_container RegSHMRcpuPciVendorDeviceId_t {
     {
         /** @brief constructor for @ref SHM_t.RcpuPciVendorDeviceId. */
         r32.setName("RcpuPciVendorDeviceId");
-        r32.setComponentOffset(0x114);
     }
     RegSHMRcpuPciVendorDeviceId_t& operator=(const RegSHMRcpuPciVendorDeviceId_t& other)
     {
@@ -780,7 +751,6 @@ typedef register_container RegSHMRcpuPciSubsystemId_t {
     {
         /** @brief constructor for @ref SHM_t.RcpuPciSubsystemId. */
         r32.setName("RcpuPciSubsystemId");
-        r32.setComponentOffset(0x118);
     }
     RegSHMRcpuPciSubsystemId_t& operator=(const RegSHMRcpuPciSubsystemId_t& other)
     {
@@ -806,7 +776,6 @@ typedef register_container RegSHMRcpuApeResetCount_t {
     {
         /** @brief constructor for @ref SHM_t.RcpuApeResetCount. */
         r32.setName("RcpuApeResetCount");
-        r32.setComponentOffset(0x11c);
     }
     RegSHMRcpuApeResetCount_t& operator=(const RegSHMRcpuApeResetCount_t& other)
     {
@@ -832,7 +801,6 @@ typedef register_container RegSHMRcpuLastApeStatus_t {
     {
         /** @brief constructor for @ref SHM_t.RcpuLastApeStatus. */
         r32.setName("RcpuLastApeStatus");
-        r32.setComponentOffset(0x120);
     }
     RegSHMRcpuLastApeStatus_t& operator=(const RegSHMRcpuLastApeStatus_t& other)
     {
@@ -858,7 +826,6 @@ typedef register_container RegSHMRcpuLastApeFwStatus_t {
     {
         /** @brief constructor for @ref SHM_t.RcpuLastApeFwStatus. */
         r32.setName("RcpuLastApeFwStatus");
-        r32.setComponentOffset(0x124);
     }
     RegSHMRcpuLastApeFwStatus_t& operator=(const RegSHMRcpuLastApeFwStatus_t& other)
     {
@@ -884,7 +851,6 @@ typedef register_container RegSHMRcpuCfgHw_t {
     {
         /** @brief constructor for @ref SHM_t.RcpuCfgHw. */
         r32.setName("RcpuCfgHw");
-        r32.setComponentOffset(0x128);
     }
     RegSHMRcpuCfgHw_t& operator=(const RegSHMRcpuCfgHw_t& other)
     {
@@ -910,7 +876,6 @@ typedef register_container RegSHMRcpuCfgHw2_t {
     {
         /** @brief constructor for @ref SHM_t.RcpuCfgHw2. */
         r32.setName("RcpuCfgHw2");
-        r32.setComponentOffset(0x12c);
     }
     RegSHMRcpuCfgHw2_t& operator=(const RegSHMRcpuCfgHw2_t& other)
     {
@@ -963,13 +928,10 @@ typedef register_container RegSHMRcpuCpmuStatus_t {
     {
         /** @brief constructor for @ref SHM_t.RcpuCpmuStatus. */
         r32.setName("RcpuCpmuStatus");
-        r32.setComponentOffset(0x130);
         bits.Address.setBaseRegister(&r32);
         bits.Address.setName("Address");
-        bits.Address.setComponentOffset(0x130);
         bits.Status.setBaseRegister(&r32);
         bits.Status.setName("Status");
-        bits.Status.setComponentOffset(0x130);
     }
     RegSHMRcpuCpmuStatus_t& operator=(const RegSHMRcpuCpmuStatus_t& other)
     {
@@ -995,7 +957,6 @@ typedef register_container RegSHMHostSegSig_t {
     {
         /** @brief constructor for @ref SHM_t.HostSegSig. */
         r32.setName("HostSegSig");
-        r32.setComponentOffset(0x200);
     }
     RegSHMHostSegSig_t& operator=(const RegSHMHostSegSig_t& other)
     {
@@ -1021,7 +982,6 @@ typedef register_container RegSHMHostSegLen_t {
     {
         /** @brief constructor for @ref SHM_t.HostSegLen. */
         r32.setName("HostSegLen");
-        r32.setComponentOffset(0x204);
     }
     RegSHMHostSegLen_t& operator=(const RegSHMHostSegLen_t& other)
     {
@@ -1047,7 +1007,6 @@ typedef register_container RegSHMHostInitCount_t {
     {
         /** @brief constructor for @ref SHM_t.HostInitCount. */
         r32.setName("HostInitCount");
-        r32.setComponentOffset(0x208);
     }
     RegSHMHostInitCount_t& operator=(const RegSHMHostInitCount_t& other)
     {
@@ -1073,7 +1032,6 @@ typedef register_container RegSHMHostDriverId_t {
     {
         /** @brief constructor for @ref SHM_t.HostDriverId. */
         r32.setName("HostDriverId");
-        r32.setComponentOffset(0x20c);
     }
     RegSHMHostDriverId_t& operator=(const RegSHMHostDriverId_t& other)
     {
@@ -1120,10 +1078,8 @@ typedef register_container RegSHMHostBehavior_t {
     {
         /** @brief constructor for @ref SHM_t.HostBehavior. */
         r32.setName("HostBehavior");
-        r32.setComponentOffset(0x210);
         bits.NoPHYLock.setBaseRegister(&r32);
         bits.NoPHYLock.setName("NoPHYLock");
-        bits.NoPHYLock.setComponentOffset(0x210);
     }
     RegSHMHostBehavior_t& operator=(const RegSHMHostBehavior_t& other)
     {
@@ -1149,7 +1105,6 @@ typedef register_container RegSHMHeartbeatInterval_t {
     {
         /** @brief constructor for @ref SHM_t.HeartbeatInterval. */
         r32.setName("HeartbeatInterval");
-        r32.setComponentOffset(0x214);
     }
     RegSHMHeartbeatInterval_t& operator=(const RegSHMHeartbeatInterval_t& other)
     {
@@ -1175,7 +1130,6 @@ typedef register_container RegSHMHeartbeatCount_t {
     {
         /** @brief constructor for @ref SHM_t.HeartbeatCount. */
         r32.setName("HeartbeatCount");
-        r32.setComponentOffset(0x218);
     }
     RegSHMHeartbeatCount_t& operator=(const RegSHMHeartbeatCount_t& other)
     {
@@ -1201,7 +1155,6 @@ typedef register_container RegSHMHostDriverState_t {
     {
         /** @brief constructor for @ref SHM_t.HostDriverState. */
         r32.setName("HostDriverState");
-        r32.setComponentOffset(0x21c);
     }
     RegSHMHostDriverState_t& operator=(const RegSHMHostDriverState_t& other)
     {
@@ -1227,7 +1180,6 @@ typedef register_container RegSHMWolSpeed_t {
     {
         /** @brief constructor for @ref SHM_t.WolSpeed. */
         r32.setName("WolSpeed");
-        r32.setComponentOffset(0x224);
     }
     RegSHMWolSpeed_t& operator=(const RegSHMWolSpeed_t& other)
     {
@@ -1315,19 +1267,14 @@ typedef register_container RegSHMEventStatus_t {
     {
         /** @brief constructor for @ref SHM_t.EventStatus. */
         r32.setName("EventStatus");
-        r32.setComponentOffset(0x300);
         bits.DriverEvent.setBaseRegister(&r32);
         bits.DriverEvent.setName("DriverEvent");
-        bits.DriverEvent.setComponentOffset(0x300);
         bits.Command.setBaseRegister(&r32);
         bits.Command.setName("Command");
-        bits.Command.setComponentOffset(0x300);
         bits.State.setBaseRegister(&r32);
         bits.State.setName("State");
-        bits.State.setComponentOffset(0x300);
         bits.Pending.setBaseRegister(&r32);
         bits.Pending.setName("Pending");
-        bits.Pending.setComponentOffset(0x300);
     }
     RegSHMEventStatus_t& operator=(const RegSHMEventStatus_t& other)
     {
@@ -1353,7 +1300,6 @@ typedef register_container RegSHMProtMagic_t {
     {
         /** @brief constructor for @ref SHM_t.ProtMagic. */
         r32.setName("ProtMagic");
-        r32.setComponentOffset(0x308);
     }
     RegSHMProtMagic_t& operator=(const RegSHMProtMagic_t& other)
     {
@@ -1379,7 +1325,6 @@ typedef register_container RegSHMProtMac0High_t {
     {
         /** @brief constructor for @ref SHM_t.ProtMac0High. */
         r32.setName("ProtMac0High");
-        r32.setComponentOffset(0x314);
     }
     RegSHMProtMac0High_t& operator=(const RegSHMProtMac0High_t& other)
     {
@@ -1405,7 +1350,6 @@ typedef register_container RegSHMProtMac0Low_t {
     {
         /** @brief constructor for @ref SHM_t.ProtMac0Low. */
         r32.setName("ProtMac0Low");
-        r32.setComponentOffset(0x318);
     }
     RegSHMProtMac0Low_t& operator=(const RegSHMProtMac0Low_t& other)
     {
@@ -1431,7 +1375,6 @@ typedef register_container RegSHMNcsiSig_t {
     {
         /** @brief constructor for @ref SHM_t.NcsiSig. */
         r32.setName("NcsiSig");
-        r32.setComponentOffset(0x800);
     }
     RegSHMNcsiSig_t& operator=(const RegSHMNcsiSig_t& other)
     {
@@ -1457,7 +1400,6 @@ typedef register_container RegSHMNcsiBuildTime_t {
     {
         /** @brief constructor for @ref SHM_t.NcsiBuildTime. */
         r32.setName("NcsiBuildTime");
-        r32.setComponentOffset(0x810);
     }
     RegSHMNcsiBuildTime_t& operator=(const RegSHMNcsiBuildTime_t& other)
     {
@@ -1483,7 +1425,6 @@ typedef register_container RegSHMNcsiBuildTime2_t {
     {
         /** @brief constructor for @ref SHM_t.NcsiBuildTime2. */
         r32.setName("NcsiBuildTime2");
-        r32.setComponentOffset(0x814);
     }
     RegSHMNcsiBuildTime2_t& operator=(const RegSHMNcsiBuildTime2_t& other)
     {
@@ -1509,7 +1450,6 @@ typedef register_container RegSHMNcsiBuildTime3_t {
     {
         /** @brief constructor for @ref SHM_t.NcsiBuildTime3. */
         r32.setName("NcsiBuildTime3");
-        r32.setComponentOffset(0x818);
     }
     RegSHMNcsiBuildTime3_t& operator=(const RegSHMNcsiBuildTime3_t& other)
     {
@@ -1535,7 +1475,6 @@ typedef register_container RegSHMNcsiBuildDate_t {
     {
         /** @brief constructor for @ref SHM_t.NcsiBuildDate. */
         r32.setName("NcsiBuildDate");
-        r32.setComponentOffset(0x81c);
     }
     RegSHMNcsiBuildDate_t& operator=(const RegSHMNcsiBuildDate_t& other)
     {
@@ -1561,7 +1500,6 @@ typedef register_container RegSHMNcsiBuildDate2_t {
     {
         /** @brief constructor for @ref SHM_t.NcsiBuildDate2. */
         r32.setName("NcsiBuildDate2");
-        r32.setComponentOffset(0x820);
     }
     RegSHMNcsiBuildDate2_t& operator=(const RegSHMNcsiBuildDate2_t& other)
     {
@@ -1587,7 +1525,6 @@ typedef register_container RegSHMNcsiBuildDate3_t {
     {
         /** @brief constructor for @ref SHM_t.NcsiBuildDate3. */
         r32.setName("NcsiBuildDate3");
-        r32.setComponentOffset(0x824);
     }
     RegSHMNcsiBuildDate3_t& operator=(const RegSHMNcsiBuildDate3_t& other)
     {
@@ -1613,7 +1550,6 @@ typedef register_container RegSHMChipId_t {
     {
         /** @brief constructor for @ref SHM_t.ChipId. */
         r32.setName("ChipId");
-        r32.setComponentOffset(0x890);
     }
     RegSHMChipId_t& operator=(const RegSHMChipId_t& other)
     {
@@ -1768,46 +1704,32 @@ typedef register_container RegSHMNcsiChannel0Info_t {
     {
         /** @brief constructor for @ref SHM_t.NcsiChannel0Info. */
         r32.setName("NcsiChannel0Info");
-        r32.setComponentOffset(0x900);
         bits.Enabled.setBaseRegister(&r32);
         bits.Enabled.setName("Enabled");
-        bits.Enabled.setComponentOffset(0x900);
         bits.TXPassthrough.setBaseRegister(&r32);
         bits.TXPassthrough.setName("TXPassthrough");
-        bits.TXPassthrough.setComponentOffset(0x900);
         bits.Ready.setBaseRegister(&r32);
         bits.Ready.setName("Ready");
-        bits.Ready.setComponentOffset(0x900);
         bits.Init.setBaseRegister(&r32);
         bits.Init.setName("Init");
-        bits.Init.setComponentOffset(0x900);
         bits.MFILT.setBaseRegister(&r32);
         bits.MFILT.setName("MFILT");
-        bits.MFILT.setComponentOffset(0x900);
         bits.BFILT.setBaseRegister(&r32);
         bits.BFILT.setName("BFILT");
-        bits.BFILT.setComponentOffset(0x900);
         bits.SERDES.setBaseRegister(&r32);
         bits.SERDES.setName("SERDES");
-        bits.SERDES.setComponentOffset(0x900);
         bits.VLAN.setBaseRegister(&r32);
         bits.VLAN.setName("VLAN");
-        bits.VLAN.setComponentOffset(0x900);
         bits.B2H.setBaseRegister(&r32);
         bits.B2H.setName("B2H");
-        bits.B2H.setComponentOffset(0x900);
         bits.B2N.setBaseRegister(&r32);
         bits.B2N.setName("B2N");
-        bits.B2N.setComponentOffset(0x900);
         bits.EEE.setBaseRegister(&r32);
         bits.EEE.setName("EEE");
-        bits.EEE.setComponentOffset(0x900);
         bits.Driver.setBaseRegister(&r32);
         bits.Driver.setName("Driver");
-        bits.Driver.setComponentOffset(0x900);
         bits.PDead.setBaseRegister(&r32);
         bits.PDead.setName("PDead");
-        bits.PDead.setComponentOffset(0x900);
     }
     RegSHMNcsiChannel0Info_t& operator=(const RegSHMNcsiChannel0Info_t& other)
     {
@@ -1833,7 +1755,6 @@ typedef register_container RegSHMNcsiChannel0Mcid_t {
     {
         /** @brief constructor for @ref SHM_t.NcsiChannel0Mcid. */
         r32.setName("NcsiChannel0Mcid");
-        r32.setComponentOffset(0x904);
     }
     RegSHMNcsiChannel0Mcid_t& operator=(const RegSHMNcsiChannel0Mcid_t& other)
     {
@@ -1896,16 +1817,12 @@ typedef register_container RegSHMNcsiChannel0Aen_t {
     {
         /** @brief constructor for @ref SHM_t.NcsiChannel0Aen. */
         r32.setName("NcsiChannel0Aen");
-        r32.setComponentOffset(0x908);
         bits.EnableLinkStatusChangeAEN.setBaseRegister(&r32);
         bits.EnableLinkStatusChangeAEN.setName("EnableLinkStatusChangeAEN");
-        bits.EnableLinkStatusChangeAEN.setComponentOffset(0x908);
         bits.EnableConfigurationRequiredAEN.setBaseRegister(&r32);
         bits.EnableConfigurationRequiredAEN.setName("EnableConfigurationRequiredAEN");
-        bits.EnableConfigurationRequiredAEN.setComponentOffset(0x908);
         bits.EnableHostNCDriverStatusChangeAEN.setBaseRegister(&r32);
         bits.EnableHostNCDriverStatusChangeAEN.setName("EnableHostNCDriverStatusChangeAEN");
-        bits.EnableHostNCDriverStatusChangeAEN.setComponentOffset(0x908);
     }
     RegSHMNcsiChannel0Aen_t& operator=(const RegSHMNcsiChannel0Aen_t& other)
     {
@@ -1976,19 +1893,14 @@ typedef register_container RegSHMNcsiChannel0Bfilt_t {
     {
         /** @brief constructor for @ref SHM_t.NcsiChannel0Bfilt. */
         r32.setName("NcsiChannel0Bfilt");
-        r32.setComponentOffset(0x90c);
         bits.ARPPacket.setBaseRegister(&r32);
         bits.ARPPacket.setName("ARPPacket");
-        bits.ARPPacket.setComponentOffset(0x90c);
         bits.DHCPClientPacket.setBaseRegister(&r32);
         bits.DHCPClientPacket.setName("DHCPClientPacket");
-        bits.DHCPClientPacket.setComponentOffset(0x90c);
         bits.DHCPServerPacket.setBaseRegister(&r32);
         bits.DHCPServerPacket.setName("DHCPServerPacket");
-        bits.DHCPServerPacket.setComponentOffset(0x90c);
         bits.NetBIOSPacket.setBaseRegister(&r32);
         bits.NetBIOSPacket.setName("NetBIOSPacket");
-        bits.NetBIOSPacket.setComponentOffset(0x90c);
     }
     RegSHMNcsiChannel0Bfilt_t& operator=(const RegSHMNcsiChannel0Bfilt_t& other)
     {
@@ -2051,16 +1963,12 @@ typedef register_container RegSHMNcsiChannel0Mfilt_t {
     {
         /** @brief constructor for @ref SHM_t.NcsiChannel0Mfilt. */
         r32.setName("NcsiChannel0Mfilt");
-        r32.setComponentOffset(0x910);
         bits.IPv6NeighbourAdvertisement.setBaseRegister(&r32);
         bits.IPv6NeighbourAdvertisement.setName("IPv6NeighbourAdvertisement");
-        bits.IPv6NeighbourAdvertisement.setComponentOffset(0x910);
         bits.IPv6RouterAdvertisement.setBaseRegister(&r32);
         bits.IPv6RouterAdvertisement.setName("IPv6RouterAdvertisement");
-        bits.IPv6RouterAdvertisement.setComponentOffset(0x910);
         bits.DHCPv6RelayandServerMulticast.setBaseRegister(&r32);
         bits.DHCPv6RelayandServerMulticast.setName("DHCPv6RelayandServerMulticast");
-        bits.DHCPv6RelayandServerMulticast.setComponentOffset(0x910);
     }
     RegSHMNcsiChannel0Mfilt_t& operator=(const RegSHMNcsiChannel0Mfilt_t& other)
     {
@@ -2183,37 +2091,26 @@ typedef register_container RegSHMNcsiChannel0Setting1_t {
     {
         /** @brief constructor for @ref SHM_t.NcsiChannel0Setting1. */
         r32.setName("NcsiChannel0Setting1");
-        r32.setComponentOffset(0x914);
         bits.Autonegotiationenabled.setBaseRegister(&r32);
         bits.Autonegotiationenabled.setName("Autonegotiationenabled");
-        bits.Autonegotiationenabled.setComponentOffset(0x914);
         bits.LinkSpeed10Menable.setBaseRegister(&r32);
         bits.LinkSpeed10Menable.setName("LinkSpeed10Menable");
-        bits.LinkSpeed10Menable.setComponentOffset(0x914);
         bits.LinkSpeed100Menable.setBaseRegister(&r32);
         bits.LinkSpeed100Menable.setName("LinkSpeed100Menable");
-        bits.LinkSpeed100Menable.setComponentOffset(0x914);
         bits.LinkSpeed1000Menable.setBaseRegister(&r32);
         bits.LinkSpeed1000Menable.setName("LinkSpeed1000Menable");
-        bits.LinkSpeed1000Menable.setComponentOffset(0x914);
         bits.LinkSpeed10Genable.setBaseRegister(&r32);
         bits.LinkSpeed10Genable.setName("LinkSpeed10Genable");
-        bits.LinkSpeed10Genable.setComponentOffset(0x914);
         bits.Halfduplexenable.setBaseRegister(&r32);
         bits.Halfduplexenable.setName("Halfduplexenable");
-        bits.Halfduplexenable.setComponentOffset(0x914);
         bits.Fullduplexenable.setBaseRegister(&r32);
         bits.Fullduplexenable.setName("Fullduplexenable");
-        bits.Fullduplexenable.setComponentOffset(0x914);
         bits.Pausecapabilityenable.setBaseRegister(&r32);
         bits.Pausecapabilityenable.setName("Pausecapabilityenable");
-        bits.Pausecapabilityenable.setComponentOffset(0x914);
         bits.Asymmetricpausecapabilityenable.setBaseRegister(&r32);
         bits.Asymmetricpausecapabilityenable.setName("Asymmetricpausecapabilityenable");
-        bits.Asymmetricpausecapabilityenable.setComponentOffset(0x914);
         bits.OEMlinksettingsfieldvalid.setBaseRegister(&r32);
         bits.OEMlinksettingsfieldvalid.setName("OEMlinksettingsfieldvalid");
-        bits.OEMlinksettingsfieldvalid.setComponentOffset(0x914);
     }
     RegSHMNcsiChannel0Setting1_t& operator=(const RegSHMNcsiChannel0Setting1_t& other)
     {
@@ -2239,7 +2136,6 @@ typedef register_container RegSHMNcsiChannel0Setting2_t {
     {
         /** @brief constructor for @ref SHM_t.NcsiChannel0Setting2. */
         r32.setName("NcsiChannel0Setting2");
-        r32.setComponentOffset(0x918);
     }
     RegSHMNcsiChannel0Setting2_t& operator=(const RegSHMNcsiChannel0Setting2_t& other)
     {
@@ -2265,7 +2161,6 @@ typedef register_container RegSHMNcsiChannel0Vlan_t {
     {
         /** @brief constructor for @ref SHM_t.NcsiChannel0Vlan. */
         r32.setName("NcsiChannel0Vlan");
-        r32.setComponentOffset(0x91c);
     }
     RegSHMNcsiChannel0Vlan_t& operator=(const RegSHMNcsiChannel0Vlan_t& other)
     {
@@ -2291,7 +2186,6 @@ typedef register_container RegSHMNcsiChannel0AltHostMacHigh_t {
     {
         /** @brief constructor for @ref SHM_t.NcsiChannel0AltHostMacHigh. */
         r32.setName("NcsiChannel0AltHostMacHigh");
-        r32.setComponentOffset(0x924);
     }
     RegSHMNcsiChannel0AltHostMacHigh_t& operator=(const RegSHMNcsiChannel0AltHostMacHigh_t& other)
     {
@@ -2317,7 +2211,6 @@ typedef register_container RegSHMNcsiChannel0AltHostMacMid_t {
     {
         /** @brief constructor for @ref SHM_t.NcsiChannel0AltHostMacMid. */
         r32.setName("NcsiChannel0AltHostMacMid");
-        r32.setComponentOffset(0x928);
     }
     RegSHMNcsiChannel0AltHostMacMid_t& operator=(const RegSHMNcsiChannel0AltHostMacMid_t& other)
     {
@@ -2343,7 +2236,6 @@ typedef register_container RegSHMNcsiChannel0AltHostMacLow_t {
     {
         /** @brief constructor for @ref SHM_t.NcsiChannel0AltHostMacLow. */
         r32.setName("NcsiChannel0AltHostMacLow");
-        r32.setComponentOffset(0x92c);
     }
     RegSHMNcsiChannel0AltHostMacLow_t& operator=(const RegSHMNcsiChannel0AltHostMacLow_t& other)
     {
@@ -2369,7 +2261,6 @@ typedef register_container RegSHMNcsiChannel0Mac0High_t {
     {
         /** @brief constructor for @ref SHM_t.NcsiChannel0Mac0High. */
         r32.setName("NcsiChannel0Mac0High");
-        r32.setComponentOffset(0x934);
     }
     RegSHMNcsiChannel0Mac0High_t& operator=(const RegSHMNcsiChannel0Mac0High_t& other)
     {
@@ -2395,7 +2286,6 @@ typedef register_container RegSHMNcsiChannel0Mac0Mid_t {
     {
         /** @brief constructor for @ref SHM_t.NcsiChannel0Mac0Mid. */
         r32.setName("NcsiChannel0Mac0Mid");
-        r32.setComponentOffset(0x938);
     }
     RegSHMNcsiChannel0Mac0Mid_t& operator=(const RegSHMNcsiChannel0Mac0Mid_t& other)
     {
@@ -2421,7 +2311,6 @@ typedef register_container RegSHMNcsiChannel0Mac0Low_t {
     {
         /** @brief constructor for @ref SHM_t.NcsiChannel0Mac0Low. */
         r32.setName("NcsiChannel0Mac0Low");
-        r32.setComponentOffset(0x93c);
     }
     RegSHMNcsiChannel0Mac0Low_t& operator=(const RegSHMNcsiChannel0Mac0Low_t& other)
     {
@@ -2447,7 +2336,6 @@ typedef register_container RegSHMNcsiChannel0Mac1High_t {
     {
         /** @brief constructor for @ref SHM_t.NcsiChannel0Mac1High. */
         r32.setName("NcsiChannel0Mac1High");
-        r32.setComponentOffset(0x944);
     }
     RegSHMNcsiChannel0Mac1High_t& operator=(const RegSHMNcsiChannel0Mac1High_t& other)
     {
@@ -2473,7 +2361,6 @@ typedef register_container RegSHMNcsiChannel0Mac1Mid_t {
     {
         /** @brief constructor for @ref SHM_t.NcsiChannel0Mac1Mid. */
         r32.setName("NcsiChannel0Mac1Mid");
-        r32.setComponentOffset(0x948);
     }
     RegSHMNcsiChannel0Mac1Mid_t& operator=(const RegSHMNcsiChannel0Mac1Mid_t& other)
     {
@@ -2499,7 +2386,6 @@ typedef register_container RegSHMNcsiChannel0Mac1Low_t {
     {
         /** @brief constructor for @ref SHM_t.NcsiChannel0Mac1Low. */
         r32.setName("NcsiChannel0Mac1Low");
-        r32.setComponentOffset(0x94c);
     }
     RegSHMNcsiChannel0Mac1Low_t& operator=(const RegSHMNcsiChannel0Mac1Low_t& other)
     {
@@ -2525,7 +2411,6 @@ typedef register_container RegSHMNcsiChannel0Mac2High_t {
     {
         /** @brief constructor for @ref SHM_t.NcsiChannel0Mac2High. */
         r32.setName("NcsiChannel0Mac2High");
-        r32.setComponentOffset(0x954);
     }
     RegSHMNcsiChannel0Mac2High_t& operator=(const RegSHMNcsiChannel0Mac2High_t& other)
     {
@@ -2551,7 +2436,6 @@ typedef register_container RegSHMNcsiChannel0Mac2Mid_t {
     {
         /** @brief constructor for @ref SHM_t.NcsiChannel0Mac2Mid. */
         r32.setName("NcsiChannel0Mac2Mid");
-        r32.setComponentOffset(0x958);
     }
     RegSHMNcsiChannel0Mac2Mid_t& operator=(const RegSHMNcsiChannel0Mac2Mid_t& other)
     {
@@ -2577,7 +2461,6 @@ typedef register_container RegSHMNcsiChannel0Mac2Low_t {
     {
         /** @brief constructor for @ref SHM_t.NcsiChannel0Mac2Low. */
         r32.setName("NcsiChannel0Mac2Low");
-        r32.setComponentOffset(0x95c);
     }
     RegSHMNcsiChannel0Mac2Low_t& operator=(const RegSHMNcsiChannel0Mac2Low_t& other)
     {
@@ -2603,7 +2486,6 @@ typedef register_container RegSHMNcsiChannel0Mac3High_t {
     {
         /** @brief constructor for @ref SHM_t.NcsiChannel0Mac3High. */
         r32.setName("NcsiChannel0Mac3High");
-        r32.setComponentOffset(0x964);
     }
     RegSHMNcsiChannel0Mac3High_t& operator=(const RegSHMNcsiChannel0Mac3High_t& other)
     {
@@ -2629,7 +2511,6 @@ typedef register_container RegSHMNcsiChannel0Mac3Mid_t {
     {
         /** @brief constructor for @ref SHM_t.NcsiChannel0Mac3Mid. */
         r32.setName("NcsiChannel0Mac3Mid");
-        r32.setComponentOffset(0x968);
     }
     RegSHMNcsiChannel0Mac3Mid_t& operator=(const RegSHMNcsiChannel0Mac3Mid_t& other)
     {
@@ -2655,7 +2536,6 @@ typedef register_container RegSHMNcsiChannel0Mac3Low_t {
     {
         /** @brief constructor for @ref SHM_t.NcsiChannel0Mac3Low. */
         r32.setName("NcsiChannel0Mac3Low");
-        r32.setComponentOffset(0x96c);
     }
     RegSHMNcsiChannel0Mac3Low_t& operator=(const RegSHMNcsiChannel0Mac3Low_t& other)
     {
@@ -2681,7 +2561,6 @@ typedef register_container RegSHMNcsiChannel0Mac0VlanValid_t {
     {
         /** @brief constructor for @ref SHM_t.NcsiChannel0Mac0VlanValid. */
         r32.setName("NcsiChannel0Mac0VlanValid");
-        r32.setComponentOffset(0x970);
     }
     RegSHMNcsiChannel0Mac0VlanValid_t& operator=(const RegSHMNcsiChannel0Mac0VlanValid_t& other)
     {
@@ -2707,7 +2586,6 @@ typedef register_container RegSHMNcsiChannel0Mac0Vlan_t {
     {
         /** @brief constructor for @ref SHM_t.NcsiChannel0Mac0Vlan. */
         r32.setName("NcsiChannel0Mac0Vlan");
-        r32.setComponentOffset(0x974);
     }
     RegSHMNcsiChannel0Mac0Vlan_t& operator=(const RegSHMNcsiChannel0Mac0Vlan_t& other)
     {
@@ -2733,7 +2611,6 @@ typedef register_container RegSHMNcsiChannel0Mac1VlanValid_t {
     {
         /** @brief constructor for @ref SHM_t.NcsiChannel0Mac1VlanValid. */
         r32.setName("NcsiChannel0Mac1VlanValid");
-        r32.setComponentOffset(0x978);
     }
     RegSHMNcsiChannel0Mac1VlanValid_t& operator=(const RegSHMNcsiChannel0Mac1VlanValid_t& other)
     {
@@ -2759,7 +2636,6 @@ typedef register_container RegSHMNcsiChannel0Mac1Vlan_t {
     {
         /** @brief constructor for @ref SHM_t.NcsiChannel0Mac1Vlan. */
         r32.setName("NcsiChannel0Mac1Vlan");
-        r32.setComponentOffset(0x97c);
     }
     RegSHMNcsiChannel0Mac1Vlan_t& operator=(const RegSHMNcsiChannel0Mac1Vlan_t& other)
     {
@@ -2850,25 +2726,18 @@ typedef register_container RegSHMNcsiChannel0Status_t {
     {
         /** @brief constructor for @ref SHM_t.NcsiChannel0Status. */
         r32.setName("NcsiChannel0Status");
-        r32.setComponentOffset(0x980);
         bits.Linkup.setBaseRegister(&r32);
         bits.Linkup.setName("Linkup");
-        bits.Linkup.setComponentOffset(0x980);
         bits.LinkStatus.setBaseRegister(&r32);
         bits.LinkStatus.setName("LinkStatus");
-        bits.LinkStatus.setComponentOffset(0x980);
         bits.SERDES.setBaseRegister(&r32);
         bits.SERDES.setName("SERDES");
-        bits.SERDES.setComponentOffset(0x980);
         bits.AutonegotiationComplete.setBaseRegister(&r32);
         bits.AutonegotiationComplete.setName("AutonegotiationComplete");
-        bits.AutonegotiationComplete.setComponentOffset(0x980);
         bits.LinkSpeed1000MFullDuplexCapable.setBaseRegister(&r32);
         bits.LinkSpeed1000MFullDuplexCapable.setName("LinkSpeed1000MFullDuplexCapable");
-        bits.LinkSpeed1000MFullDuplexCapable.setComponentOffset(0x980);
         bits.LinkSpeed1000MHalsDuplexCapable.setBaseRegister(&r32);
         bits.LinkSpeed1000MHalsDuplexCapable.setName("LinkSpeed1000MHalsDuplexCapable");
-        bits.LinkSpeed1000MHalsDuplexCapable.setComponentOffset(0x980);
     }
     RegSHMNcsiChannel0Status_t& operator=(const RegSHMNcsiChannel0Status_t& other)
     {
@@ -2894,7 +2763,6 @@ typedef register_container RegSHMNcsiChannel0ResetCount_t {
     {
         /** @brief constructor for @ref SHM_t.NcsiChannel0ResetCount. */
         r32.setName("NcsiChannel0ResetCount");
-        r32.setComponentOffset(0x984);
     }
     RegSHMNcsiChannel0ResetCount_t& operator=(const RegSHMNcsiChannel0ResetCount_t& other)
     {
@@ -2920,7 +2788,6 @@ typedef register_container RegSHMNcsiChannel0Pxe_t {
     {
         /** @brief constructor for @ref SHM_t.NcsiChannel0Pxe. */
         r32.setName("NcsiChannel0Pxe");
-        r32.setComponentOffset(0x988);
     }
     RegSHMNcsiChannel0Pxe_t& operator=(const RegSHMNcsiChannel0Pxe_t& other)
     {
@@ -2946,7 +2813,6 @@ typedef register_container RegSHMNcsiChannel0Dropfil_t {
     {
         /** @brief constructor for @ref SHM_t.NcsiChannel0Dropfil. */
         r32.setName("NcsiChannel0Dropfil");
-        r32.setComponentOffset(0x98c);
     }
     RegSHMNcsiChannel0Dropfil_t& operator=(const RegSHMNcsiChannel0Dropfil_t& other)
     {
@@ -2972,7 +2838,6 @@ typedef register_container RegSHMNcsiChannel0Slink_t {
     {
         /** @brief constructor for @ref SHM_t.NcsiChannel0Slink. */
         r32.setName("NcsiChannel0Slink");
-        r32.setComponentOffset(0x990);
     }
     RegSHMNcsiChannel0Slink_t& operator=(const RegSHMNcsiChannel0Slink_t& other)
     {
@@ -2998,7 +2863,6 @@ typedef register_container RegSHMNcsiChannel0Dbg_t {
     {
         /** @brief constructor for @ref SHM_t.NcsiChannel0Dbg. */
         r32.setName("NcsiChannel0Dbg");
-        r32.setComponentOffset(0x9a0);
     }
     RegSHMNcsiChannel0Dbg_t& operator=(const RegSHMNcsiChannel0Dbg_t& other)
     {
@@ -3024,7 +2888,6 @@ typedef register_container RegSHMNcsiChannel0CtrlstatRx_t {
     {
         /** @brief constructor for @ref SHM_t.NcsiChannel0CtrlstatRx. */
         r32.setName("NcsiChannel0CtrlstatRx");
-        r32.setComponentOffset(0x9b0);
     }
     RegSHMNcsiChannel0CtrlstatRx_t& operator=(const RegSHMNcsiChannel0CtrlstatRx_t& other)
     {
@@ -3035,7 +2898,7 @@ typedef register_container RegSHMNcsiChannel0CtrlstatRx_t {
 } RegSHMNcsiChannel0CtrlstatRx_t;
 
 /** @brief Component definition for @ref SHM. */
-typedef struct {
+typedef struct SHM_t {
     /** @brief APE_APE_MAGIC ('APE!') when all is well. */
     RegSHMSegSig_t SegSig;
 
@@ -3337,6 +3200,90 @@ typedef struct {
     RegSHMNcsiChannel0CtrlstatRx_t NcsiChannel0CtrlstatRx;
 
 #ifdef CXX_SIMULATOR
+    SHM_t()
+    {
+        SegSig.r32.setComponentOffset(0x0);
+        ApeSegLength.r32.setComponentOffset(0x4);
+        FwStatus.r32.setComponentOffset(0xc);
+        FwFeatures.r32.setComponentOffset(0x10);
+        _4014.r32.setComponentOffset(0x14);
+        FwVersion.r32.setComponentOffset(0x18);
+        SegMessageBufferOffset.r32.setComponentOffset(0x1c);
+        SegMessageBufferLength.r32.setComponentOffset(0x20);
+        _4024.r32.setComponentOffset(0x24);
+        _4028.r32.setComponentOffset(0x28);
+        LoaderCommand.r32.setComponentOffset(0x38);
+        LoaderArg0.r32.setComponentOffset(0x3c);
+        LoaderArg1.r32.setComponentOffset(0x40);
+        RcpuSegSig.r32.setComponentOffset(0x100);
+        RcpuSegLength.r32.setComponentOffset(0x104);
+        RcpuInitCount.r32.setComponentOffset(0x108);
+        RcpuFwVersion.r32.setComponentOffset(0x10c);
+        RcpuCfgFeature.r32.setComponentOffset(0x110);
+        RcpuPciVendorDeviceId.r32.setComponentOffset(0x114);
+        RcpuPciSubsystemId.r32.setComponentOffset(0x118);
+        RcpuApeResetCount.r32.setComponentOffset(0x11c);
+        RcpuLastApeStatus.r32.setComponentOffset(0x120);
+        RcpuLastApeFwStatus.r32.setComponentOffset(0x124);
+        RcpuCfgHw.r32.setComponentOffset(0x128);
+        RcpuCfgHw2.r32.setComponentOffset(0x12c);
+        RcpuCpmuStatus.r32.setComponentOffset(0x130);
+        HostSegSig.r32.setComponentOffset(0x200);
+        HostSegLen.r32.setComponentOffset(0x204);
+        HostInitCount.r32.setComponentOffset(0x208);
+        HostDriverId.r32.setComponentOffset(0x20c);
+        HostBehavior.r32.setComponentOffset(0x210);
+        HeartbeatInterval.r32.setComponentOffset(0x214);
+        HeartbeatCount.r32.setComponentOffset(0x218);
+        HostDriverState.r32.setComponentOffset(0x21c);
+        WolSpeed.r32.setComponentOffset(0x224);
+        EventStatus.r32.setComponentOffset(0x300);
+        ProtMagic.r32.setComponentOffset(0x308);
+        ProtMac0High.r32.setComponentOffset(0x314);
+        ProtMac0Low.r32.setComponentOffset(0x318);
+        NcsiSig.r32.setComponentOffset(0x800);
+        NcsiBuildTime.r32.setComponentOffset(0x810);
+        NcsiBuildTime2.r32.setComponentOffset(0x814);
+        NcsiBuildTime3.r32.setComponentOffset(0x818);
+        NcsiBuildDate.r32.setComponentOffset(0x81c);
+        NcsiBuildDate2.r32.setComponentOffset(0x820);
+        NcsiBuildDate3.r32.setComponentOffset(0x824);
+        ChipId.r32.setComponentOffset(0x890);
+        NcsiChannel0Info.r32.setComponentOffset(0x900);
+        NcsiChannel0Mcid.r32.setComponentOffset(0x904);
+        NcsiChannel0Aen.r32.setComponentOffset(0x908);
+        NcsiChannel0Bfilt.r32.setComponentOffset(0x90c);
+        NcsiChannel0Mfilt.r32.setComponentOffset(0x910);
+        NcsiChannel0Setting1.r32.setComponentOffset(0x914);
+        NcsiChannel0Setting2.r32.setComponentOffset(0x918);
+        NcsiChannel0Vlan.r32.setComponentOffset(0x91c);
+        NcsiChannel0AltHostMacHigh.r32.setComponentOffset(0x924);
+        NcsiChannel0AltHostMacMid.r32.setComponentOffset(0x928);
+        NcsiChannel0AltHostMacLow.r32.setComponentOffset(0x92c);
+        NcsiChannel0Mac0High.r32.setComponentOffset(0x934);
+        NcsiChannel0Mac0Mid.r32.setComponentOffset(0x938);
+        NcsiChannel0Mac0Low.r32.setComponentOffset(0x93c);
+        NcsiChannel0Mac1High.r32.setComponentOffset(0x944);
+        NcsiChannel0Mac1Mid.r32.setComponentOffset(0x948);
+        NcsiChannel0Mac1Low.r32.setComponentOffset(0x94c);
+        NcsiChannel0Mac2High.r32.setComponentOffset(0x954);
+        NcsiChannel0Mac2Mid.r32.setComponentOffset(0x958);
+        NcsiChannel0Mac2Low.r32.setComponentOffset(0x95c);
+        NcsiChannel0Mac3High.r32.setComponentOffset(0x964);
+        NcsiChannel0Mac3Mid.r32.setComponentOffset(0x968);
+        NcsiChannel0Mac3Low.r32.setComponentOffset(0x96c);
+        NcsiChannel0Mac0VlanValid.r32.setComponentOffset(0x970);
+        NcsiChannel0Mac0Vlan.r32.setComponentOffset(0x974);
+        NcsiChannel0Mac1VlanValid.r32.setComponentOffset(0x978);
+        NcsiChannel0Mac1Vlan.r32.setComponentOffset(0x97c);
+        NcsiChannel0Status.r32.setComponentOffset(0x980);
+        NcsiChannel0ResetCount.r32.setComponentOffset(0x984);
+        NcsiChannel0Pxe.r32.setComponentOffset(0x988);
+        NcsiChannel0Dropfil.r32.setComponentOffset(0x98c);
+        NcsiChannel0Slink.r32.setComponentOffset(0x990);
+        NcsiChannel0Dbg.r32.setComponentOffset(0x9a0);
+        NcsiChannel0CtrlstatRx.r32.setComponentOffset(0x9b0);
+    }
     typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);
     callback_t mIndexReadCallback;
     void* mIndexReadCallbackArgs;

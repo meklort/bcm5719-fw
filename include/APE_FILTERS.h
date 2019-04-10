@@ -220,43 +220,30 @@ typedef register_container RegFILTERSElementConfig_t {
     {
         /** @brief constructor for @ref FILTERS_t.ElementConfig. */
         r32.setName("ElementConfig");
-        r32.setComponentOffset(0x0);
         bits.RuleOffset.setBaseRegister(&r32);
         bits.RuleOffset.setName("RuleOffset");
-        bits.RuleOffset.setComponentOffset(0x0);
         bits.RuleClass.setBaseRegister(&r32);
         bits.RuleClass.setName("RuleClass");
-        bits.RuleClass.setComponentOffset(0x0);
         bits.RuleHeader.setBaseRegister(&r32);
         bits.RuleHeader.setName("RuleHeader");
-        bits.RuleHeader.setComponentOffset(0x0);
         bits.RuleOp.setBaseRegister(&r32);
         bits.RuleOp.setName("RuleOp");
-        bits.RuleOp.setComponentOffset(0x0);
         bits.RuleMap.setBaseRegister(&r32);
         bits.RuleMap.setName("RuleMap");
-        bits.RuleMap.setComponentOffset(0x0);
         bits.RuleDiscard.setBaseRegister(&r32);
         bits.RuleDiscard.setName("RuleDiscard");
-        bits.RuleDiscard.setComponentOffset(0x0);
         bits.RuleMask.setBaseRegister(&r32);
         bits.RuleMask.setName("RuleMask");
-        bits.RuleMask.setComponentOffset(0x0);
         bits.RuleP3.setBaseRegister(&r32);
         bits.RuleP3.setName("RuleP3");
-        bits.RuleP3.setComponentOffset(0x0);
         bits.RuleP2.setBaseRegister(&r32);
         bits.RuleP2.setName("RuleP2");
-        bits.RuleP2.setComponentOffset(0x0);
         bits.RuleP1.setBaseRegister(&r32);
         bits.RuleP1.setName("RuleP1");
-        bits.RuleP1.setComponentOffset(0x0);
         bits.RuleAnd.setBaseRegister(&r32);
         bits.RuleAnd.setName("RuleAnd");
-        bits.RuleAnd.setComponentOffset(0x0);
         bits.RuleEnable.setBaseRegister(&r32);
         bits.RuleEnable.setName("RuleEnable");
-        bits.RuleEnable.setComponentOffset(0x0);
     }
     RegFILTERSElementConfig_t& operator=(const RegFILTERSElementConfig_t& other)
     {
@@ -282,7 +269,6 @@ typedef register_container RegFILTERSElementPattern_t {
     {
         /** @brief constructor for @ref FILTERS_t.ElementPattern. */
         r32.setName("ElementPattern");
-        r32.setComponentOffset(0x80);
     }
     RegFILTERSElementPattern_t& operator=(const RegFILTERSElementPattern_t& other)
     {
@@ -337,13 +323,10 @@ typedef register_container RegFILTERSRuleConfiguration_t {
     {
         /** @brief constructor for @ref FILTERS_t.RuleConfiguration. */
         r32.setName("RuleConfiguration");
-        r32.setComponentOffset(0x100);
         bits.FilterSetDisable.setBaseRegister(&r32);
         bits.FilterSetDisable.setName("FilterSetDisable");
-        bits.FilterSetDisable.setComponentOffset(0x100);
         bits.DirectIPFragmenttoAPE.setBaseRegister(&r32);
         bits.DirectIPFragmenttoAPE.setName("DirectIPFragmenttoAPE");
-        bits.DirectIPFragmenttoAPE.setComponentOffset(0x100);
     }
     RegFILTERSRuleConfiguration_t& operator=(const RegFILTERSRuleConfiguration_t& other)
     {
@@ -414,16 +397,12 @@ typedef register_container RegFILTERSRuleSet_t {
     {
         /** @brief constructor for @ref FILTERS_t.RuleSet. */
         r32.setName("RuleSet");
-        r32.setComponentOffset(0x104);
         bits.Action.setBaseRegister(&r32);
         bits.Action.setName("Action");
-        bits.Action.setComponentOffset(0x104);
         bits.Count.setBaseRegister(&r32);
         bits.Count.setName("Count");
-        bits.Count.setComponentOffset(0x104);
         bits.Enable.setBaseRegister(&r32);
         bits.Enable.setName("Enable");
-        bits.Enable.setComponentOffset(0x104);
     }
     RegFILTERSRuleSet_t& operator=(const RegFILTERSRuleSet_t& other)
     {
@@ -449,7 +428,6 @@ typedef register_container RegFILTERSRuleMask_t {
     {
         /** @brief constructor for @ref FILTERS_t.RuleMask. */
         r32.setName("RuleMask");
-        r32.setComponentOffset(0x184);
     }
     RegFILTERSRuleMask_t& operator=(const RegFILTERSRuleMask_t& other)
     {
@@ -460,7 +438,7 @@ typedef register_container RegFILTERSRuleMask_t {
 } RegFILTERSRuleMask_t;
 
 /** @brief Component definition for @ref FILTERS. */
-typedef struct {
+typedef struct FILTERS_t {
     /** @brief Element Configuration Register. */
     RegFILTERSElementConfig_t ElementConfig[32];
 
@@ -480,6 +458,26 @@ typedef struct {
     RegFILTERSRuleMask_t RuleMask[31];
 
 #ifdef CXX_SIMULATOR
+    FILTERS_t()
+    {
+        for(int i = 0; i < 32; i++)
+        {
+            ElementConfig[i].r32.setComponentOffset(0x0 + (i * 4));
+        }
+        for(int i = 0; i < 32; i++)
+        {
+            ElementPattern[i].r32.setComponentOffset(0x80 + (i * 4));
+        }
+        RuleConfiguration.r32.setComponentOffset(0x100);
+        for(int i = 0; i < 31; i++)
+        {
+            RuleSet[i].r32.setComponentOffset(0x104 + (i * 4));
+        }
+        for(int i = 0; i < 31; i++)
+        {
+            RuleMask[i].r32.setComponentOffset(0x184 + (i * 4));
+        }
+    }
     typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);
     callback_t mIndexReadCallback;
     void* mIndexReadCallbackArgs;

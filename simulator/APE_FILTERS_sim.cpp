@@ -91,15 +91,15 @@ void init_APE_FILTERS_sim(void *arg0)
     /** @brief Bitmap for @ref FILTERS_t.ElementConfig. */
     for(int i = 0; i < 32; i++)
     {
-        FILTERS.ElementConfig[i].r32.installReadCallback(loader_read_mem, ((uint8_t *)base) + (i * 4));
-        FILTERS.ElementConfig[i].r32.installWriteCallback(loader_write_mem, ((uint8_t *)base) + (i * 4));
+        FILTERS.ElementConfig[i].r32.installReadCallback(loader_read_mem, (uint8_t *)base);
+        FILTERS.ElementConfig[i].r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
     }
 
     /** @brief Bitmap for @ref FILTERS_t.ElementPattern. */
     for(int i = 0; i < 32; i++)
     {
-        FILTERS.ElementPattern[i].r32.installReadCallback(loader_read_mem, ((uint8_t *)base) + (i * 4));
-        FILTERS.ElementPattern[i].r32.installWriteCallback(loader_write_mem, ((uint8_t *)base) + (i * 4));
+        FILTERS.ElementPattern[i].r32.installReadCallback(loader_read_mem, (uint8_t *)base);
+        FILTERS.ElementPattern[i].r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
     }
 
     /** @brief Bitmap for @ref FILTERS_t.RuleConfiguration. */
@@ -109,15 +109,15 @@ void init_APE_FILTERS_sim(void *arg0)
     /** @brief Bitmap for @ref FILTERS_t.RuleSet. */
     for(int i = 0; i < 31; i++)
     {
-        FILTERS.RuleSet[i].r32.installReadCallback(loader_read_mem, ((uint8_t *)base) + (i * 4));
-        FILTERS.RuleSet[i].r32.installWriteCallback(loader_write_mem, ((uint8_t *)base) + (i * 4));
+        FILTERS.RuleSet[i].r32.installReadCallback(loader_read_mem, (uint8_t *)base);
+        FILTERS.RuleSet[i].r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
     }
 
     /** @brief Bitmap for @ref FILTERS_t.RuleMask. */
     for(int i = 0; i < 31; i++)
     {
-        FILTERS.RuleMask[i].r32.installReadCallback(loader_read_mem, ((uint8_t *)base) + (i * 4));
-        FILTERS.RuleMask[i].r32.installWriteCallback(loader_write_mem, ((uint8_t *)base) + (i * 4));
+        FILTERS.RuleMask[i].r32.installReadCallback(loader_read_mem, (uint8_t *)base);
+        FILTERS.RuleMask[i].r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
     }
 
 

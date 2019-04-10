@@ -82,8 +82,11 @@ typedef uint32_t BCM5719_SDBCACHE_H_uint32_t;
 #define REG_SDBCACHE_SIZE (0xc800)
 
 /** @brief Component definition for @ref SDBCACHE. */
-typedef struct {
+typedef struct SDBCACHE_t {
 #ifdef CXX_SIMULATOR
+    SDBCACHE_t()
+    {
+    }
     typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);
     callback_t mIndexReadCallback;
     void* mIndexReadCallbackArgs;
