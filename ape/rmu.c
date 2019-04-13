@@ -77,7 +77,8 @@ void initRMU(void)
     rxControl.r32 = 0;
     rxControl.bits.FlowControl = 1;
     rxControl.bits.HWM = 0x240;
-
+    rxControl.r32 |= (0x201F << 11) ; /* XON_THRESHOLD */
+    APE.BmcToNcRxControl = rxControl;
 
     // Set REG_APE__NC_BMC_TX_CONTROL to 0.
     RegAPEBmcToNcTxControl_t txControl;
