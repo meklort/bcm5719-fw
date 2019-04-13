@@ -71,8 +71,6 @@ void initRMU(void)
     rmuControl.r32 |= (1 << 19) | (1 << 20);
     APE.RmuControl = rmuControl;
 
-    APE.RmuControl = rmuControl;
-
     // Set REG_APE__BMC_NC_RX_CONTROL to FLOW_CONTROL=0 or 1, HWM=0x240, XON_THRESHOLD=0x201F.
     // Note: FLOW_CONTROL=1 enables the hardware to automatically send PAUSE frames to the BMC. tcpdump can detect these, so keeping flow control on gives you a way to detect when the RX state machine has gotten wedged.
     RegAPEBmcToNcRxControl_t rxControl;
