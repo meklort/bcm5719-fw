@@ -1,16 +1,16 @@
 ################################################################################
 ###
-### @file       libs/CMakeLists.txt
+### @file       libs/Ethernet/CMakeLists.txt
 ###
 ### @project    
 ###
-### @brief      Library CMake file
+### @brief      Ethernet CMake file
 ###
 ################################################################################
 ###
 ################################################################################
 ###
-### @copyright Copyright (c) 2018, Evan Lojewski
+### @copyright Copyright (c) 2019, Evan Lojewski
 ### @cond
 ###
 ### All rights reserved.
@@ -42,17 +42,16 @@
 ### @endcond
 ################################################################################
 
+project(NCSI)
 
-add_subdirectory(NVRam)
-add_subdirectory(APE)
-add_subdirectory(MII)
-add_subdirectory(VPD)
 
-add_subdirectory(NCSI)
+# Host Simulation library
+simulator_add_library(${PROJECT_NAME} STATIC ncsi.c)
+target_link_libraries(${PROJECT_NAME} PRIVATE simulator)
+target_include_directories(${PROJECT_NAME} PUBLIC ../../include)
+target_include_directories(${PROJECT_NAME} PUBLIC include)
 
-add_subdirectory(OptParse)
-
-add_subdirectory(bcm5719)
-
-add_subdirectory(Compress)
-add_subdirectory(elfio)
+# ARM Library
+arm_add_library(${PROJECT_NAME}-arm STATIC ncsi.c)
+target_include_directories(${PROJECT_NAME}-arm PUBLIC ../../include)
+target_include_directories(${PROJECT_NAME}-arm PUBLIC include)
