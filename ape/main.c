@@ -96,5 +96,6 @@ void __attribute__((noreturn)) loaderLoop(void)
 void __attribute__((noreturn)) __start()
 {
     initRxFromNetwork();
+    initRMU();
     loaderLoop();
 }

@@ -51,6 +51,7 @@ arm_add_executable(${PROJECT_NAME}
             main.c
             vectors.c
             rx_from_network.c
+            rmu.c
             )
 arm_linker_script(${PROJECT_NAME} ${LINKER_SCRIPT})
 
