@@ -131,6 +131,62 @@ void init_bcm5719_APE(void)
 
     /** @brief Bitmap for @ref APE_t.TxToNetBufferAllocator3. */
 
+    /** @brief Bitmap for @ref APE_t.BmcToNcRxStatus. */
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcSourceMacHigh. */
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcSourceMacLow. */
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcSourceMacMatch0High. */
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcSourceMacMatch0Low. */
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcSourceMacMatch1High. */
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcSourceMacMatch1Low. */
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcSourceMacMatch2High. */
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcSourceMacMatch2Low. */
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcSourceMacMatch3High. */
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcSourceMacMatch3Low. */
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcSourceMacMatch4High. */
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcSourceMacMatch4Low. */
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcSourceMacMatch5High. */
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcSourceMacMatch5Low. */
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcSourceMacMatch6High. */
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcSourceMacMatch6Low. */
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcSourceMacMatch7High. */
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcSourceMacMatch7Low. */
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcRxVlan. */
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcReadBuffer. */
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcRxControl. */
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcTxStatus. */
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcTxControl. */
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcTxBuffer. */
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcTxBufferLast. */
+
+    /** @brief Bitmap for @ref APE_t.RmuControl. */
+
+    /** @brief Bitmap for @ref APE_t.ArbControl. */
+
     /** @brief Bitmap for @ref APE_t.PerLockRequestPhy0. */
 
     /** @brief Bitmap for @ref APE_t.PerLockRequestGrc. */

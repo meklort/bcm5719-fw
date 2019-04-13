@@ -245,6 +245,118 @@ void init_bcm5719_APE_sim(void *base)
     APE.TxToNetBufferAllocator3.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     APE.TxToNetBufferAllocator3.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    /** @brief Bitmap for @ref APE_t.BmcToNcRxStatus. */
+    APE.BmcToNcRxStatus.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.BmcToNcRxStatus.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcSourceMacHigh. */
+    APE.BmcToNcSourceMacHigh.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.BmcToNcSourceMacHigh.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcSourceMacLow. */
+    APE.BmcToNcSourceMacLow.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.BmcToNcSourceMacLow.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcSourceMacMatch0High. */
+    APE.BmcToNcSourceMacMatch0High.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.BmcToNcSourceMacMatch0High.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcSourceMacMatch0Low. */
+    APE.BmcToNcSourceMacMatch0Low.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.BmcToNcSourceMacMatch0Low.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcSourceMacMatch1High. */
+    APE.BmcToNcSourceMacMatch1High.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.BmcToNcSourceMacMatch1High.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcSourceMacMatch1Low. */
+    APE.BmcToNcSourceMacMatch1Low.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.BmcToNcSourceMacMatch1Low.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcSourceMacMatch2High. */
+    APE.BmcToNcSourceMacMatch2High.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.BmcToNcSourceMacMatch2High.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcSourceMacMatch2Low. */
+    APE.BmcToNcSourceMacMatch2Low.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.BmcToNcSourceMacMatch2Low.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcSourceMacMatch3High. */
+    APE.BmcToNcSourceMacMatch3High.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.BmcToNcSourceMacMatch3High.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcSourceMacMatch3Low. */
+    APE.BmcToNcSourceMacMatch3Low.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.BmcToNcSourceMacMatch3Low.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcSourceMacMatch4High. */
+    APE.BmcToNcSourceMacMatch4High.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.BmcToNcSourceMacMatch4High.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcSourceMacMatch4Low. */
+    APE.BmcToNcSourceMacMatch4Low.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.BmcToNcSourceMacMatch4Low.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcSourceMacMatch5High. */
+    APE.BmcToNcSourceMacMatch5High.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.BmcToNcSourceMacMatch5High.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcSourceMacMatch5Low. */
+    APE.BmcToNcSourceMacMatch5Low.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.BmcToNcSourceMacMatch5Low.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcSourceMacMatch6High. */
+    APE.BmcToNcSourceMacMatch6High.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.BmcToNcSourceMacMatch6High.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcSourceMacMatch6Low. */
+    APE.BmcToNcSourceMacMatch6Low.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.BmcToNcSourceMacMatch6Low.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcSourceMacMatch7High. */
+    APE.BmcToNcSourceMacMatch7High.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.BmcToNcSourceMacMatch7High.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcSourceMacMatch7Low. */
+    APE.BmcToNcSourceMacMatch7Low.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.BmcToNcSourceMacMatch7Low.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcRxVlan. */
+    APE.BmcToNcRxVlan.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.BmcToNcRxVlan.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcReadBuffer. */
+    APE.BmcToNcReadBuffer.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.BmcToNcReadBuffer.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcRxControl. */
+    APE.BmcToNcRxControl.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.BmcToNcRxControl.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcTxStatus. */
+    APE.BmcToNcTxStatus.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.BmcToNcTxStatus.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcTxControl. */
+    APE.BmcToNcTxControl.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.BmcToNcTxControl.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcTxBuffer. */
+    APE.BmcToNcTxBuffer.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.BmcToNcTxBuffer.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.BmcToNcTxBufferLast. */
+    APE.BmcToNcTxBufferLast.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.BmcToNcTxBufferLast.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.RmuControl. */
+    APE.RmuControl.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.RmuControl.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.ArbControl. */
+    APE.ArbControl.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.ArbControl.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
     /** @brief Bitmap for @ref APE_t.PerLockRequestPhy0. */
     APE.PerLockRequestPhy0.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     APE.PerLockRequestPhy0.r32.installWriteCallback(write_to_ram, (uint8_t *)base);

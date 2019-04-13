@@ -38,6 +38,7 @@ ${IPXACT} -p ${PROJECT} APE_component.xml FILTERS.xml SHM.xml NVIC.xml DEVICE.xm
 
 ${IPXACT} -p ${PROJECT} APE_full.xml APE.h
 mv APE_NVIC.h ../include/
+mv APE_APE.h ../include/
 
 # ${IPXACT} -p ${PROJECT} NVIC.xml APE_full.xml APE.s
 ${IPXACT} -p ${PROJECT} APE_full.xml -t asym APE_sym.s
