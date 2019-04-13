@@ -48,6 +48,17 @@
             </ipxact:addressBlock>
         </ipxact:memoryMap>
 
+        <!-- APE Registers: 0xC001_0000 to  C001_8FFF-->
+        <ipxact:memoryMap>
+            <ipxact:name>APE_PERI</ipxact:name>
+            <ipxact:description>Device APE Registers</ipxact:description>
+            <ipxact:addressBlock>
+                <ipxact:name>APE_PERI</ipxact:name>
+                <ipxact:description>Device APE Registers</ipxact:description>
+                <ipxact:baseAddress>0x60240000</ipxact:baseAddress>
+            </ipxact:addressBlock>
+            <ipxact:addressUnitBits>8</ipxact:addressUnitBits>
+        </ipxact:memoryMap>
         <!-- RX port 0xA000_0000 to 0xA000_3FFF (APE, function 0) -->
         <ipxact:memoryMap>
             <ipxact:name>RX_PORT</ipxact:name>

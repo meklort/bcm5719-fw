@@ -1751,10 +1751,21 @@
                         </ipxact:enumeratedValues>
                     </ipxact:field>
                 </ipxact:register>
+            </ipxact:addressBlock>
+            <ipxact:addressUnitBits>8</ipxact:addressUnitBits>
+        </ipxact:memoryMap>
+        <ipxact:memoryMap>
+            <ipxact:name>APE_PERI</ipxact:name>
+            <ipxact:description>Device APE Peripheral Registers</ipxact:description>
+            <ipxact:addressBlock>
+                <ipxact:name>APE_PERI</ipxact:name>
+                <ipxact:description>Device APE Peripheral Registers</ipxact:description>
+                <ipxact:typeIdentifier>APE_PERI</ipxact:typeIdentifier>>
+                <ipxact:baseAddress>0xC0018000</ipxact:baseAddress>
                 <ipxact:register>
                     <ipxact:name>BMC to NC RX Status</ipxact:name>
                     <ipxact:description></ipxact:description>
-                    <ipxact:addressOffset>0x8300</ipxact:addressOffset>
+                    <ipxact:addressOffset>0x300</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
@@ -1846,7 +1857,7 @@
                 <ipxact:register>
                     <ipxact:name>BMC to NC Source MAC High</ipxact:name>
                     <ipxact:description></ipxact:description>
-                    <ipxact:addressOffset>0x8304</ipxact:addressOffset>
+                    <ipxact:addressOffset>0x304</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
@@ -1854,7 +1865,7 @@
                 <ipxact:register>
                     <ipxact:name>BMC to NC Source MAC Low</ipxact:name>
                     <ipxact:description></ipxact:description>
-                    <ipxact:addressOffset>0x8308</ipxact:addressOffset>
+                    <ipxact:addressOffset>0x308</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
@@ -1862,7 +1873,7 @@
                 <ipxact:register>
                     <ipxact:name>BMC to NC Source MAC Match 0 High</ipxact:name>
                     <ipxact:description></ipxact:description>
-                    <ipxact:addressOffset>0x830c</ipxact:addressOffset>
+                    <ipxact:addressOffset>0x30c</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
@@ -1870,7 +1881,7 @@
                 <ipxact:register>
                     <ipxact:name>BMC to NC Source MAC Match 0 Low</ipxact:name>
                     <ipxact:description></ipxact:description>
-                    <ipxact:addressOffset>0x8310</ipxact:addressOffset>
+                    <ipxact:addressOffset>0x310</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
@@ -1878,7 +1889,7 @@
                 <ipxact:register>
                     <ipxact:name>BMC to NC Source MAC Match 1 High</ipxact:name>
                     <ipxact:description></ipxact:description>
-                    <ipxact:addressOffset>0x8314</ipxact:addressOffset>
+                    <ipxact:addressOffset>0x314</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
@@ -1886,7 +1897,7 @@
                 <ipxact:register>
                     <ipxact:name>BMC to NC Source MAC Match 1 Low</ipxact:name>
                     <ipxact:description></ipxact:description>
-                    <ipxact:addressOffset>0x8318</ipxact:addressOffset>
+                    <ipxact:addressOffset>0x318</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
@@ -1894,7 +1905,7 @@
                 <ipxact:register>
                     <ipxact:name>BMC to NC Source MAC Match 2 High</ipxact:name>
                     <ipxact:description></ipxact:description>
-                    <ipxact:addressOffset>0x831c</ipxact:addressOffset>
+                    <ipxact:addressOffset>0x31c</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
@@ -1902,7 +1913,7 @@
                 <ipxact:register>
                     <ipxact:name>BMC to NC Source MAC Match 2 Low</ipxact:name>
                     <ipxact:description></ipxact:description>
-                    <ipxact:addressOffset>0x8320</ipxact:addressOffset>
+                    <ipxact:addressOffset>0x320</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
@@ -1910,7 +1921,7 @@
                 <ipxact:register>
                     <ipxact:name>BMC to NC Source MAC Match 3 High</ipxact:name>
                     <ipxact:description></ipxact:description>
-                    <ipxact:addressOffset>0x8324</ipxact:addressOffset>
+                    <ipxact:addressOffset>0x324</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
@@ -1918,7 +1929,7 @@
                 <ipxact:register>
                     <ipxact:name>BMC to NC Source MAC Match 3 Low</ipxact:name>
                     <ipxact:description></ipxact:description>
-                    <ipxact:addressOffset>0x8328</ipxact:addressOffset>
+                    <ipxact:addressOffset>0x328</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
@@ -1926,7 +1937,7 @@
                 <ipxact:register>
                     <ipxact:name>BMC to NC Source MAC Match 4 High</ipxact:name>
                     <ipxact:description></ipxact:description>
-                    <ipxact:addressOffset>0x832c</ipxact:addressOffset>
+                    <ipxact:addressOffset>0x32c</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
@@ -1934,7 +1945,7 @@
                 <ipxact:register>
                     <ipxact:name>BMC to NC Source MAC Match 4 Low</ipxact:name>
                     <ipxact:description></ipxact:description>
-                    <ipxact:addressOffset>0x8330</ipxact:addressOffset>
+                    <ipxact:addressOffset>0x330</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
@@ -1942,7 +1953,7 @@
                 <ipxact:register>
                     <ipxact:name>BMC to NC Source MAC Match 5 High</ipxact:name>
                     <ipxact:description></ipxact:description>
-                    <ipxact:addressOffset>0x8334</ipxact:addressOffset>
+                    <ipxact:addressOffset>0x334</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
@@ -1950,7 +1961,7 @@
                 <ipxact:register>
                     <ipxact:name>BMC to NC Source MAC Match 5 Low</ipxact:name>
                     <ipxact:description></ipxact:description>
-                    <ipxact:addressOffset>0x8338</ipxact:addressOffset>
+                    <ipxact:addressOffset>0x338</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
@@ -1958,7 +1969,7 @@
                 <ipxact:register>
                     <ipxact:name>BMC to NC Source MAC Match 6 High</ipxact:name>
                     <ipxact:description></ipxact:description>
-                    <ipxact:addressOffset>0x833c</ipxact:addressOffset>
+                    <ipxact:addressOffset>0x33c</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
@@ -1966,7 +1977,7 @@
                 <ipxact:register>
                     <ipxact:name>BMC to NC Source MAC Match 6 Low</ipxact:name>
                     <ipxact:description></ipxact:description>
-                    <ipxact:addressOffset>0x8340</ipxact:addressOffset>
+                    <ipxact:addressOffset>0x340</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
@@ -1974,7 +1985,7 @@
                 <ipxact:register>
                     <ipxact:name>BMC to NC Source MAC Match 7 High</ipxact:name>
                     <ipxact:description></ipxact:description>
-                    <ipxact:addressOffset>0x8344</ipxact:addressOffset>
+                    <ipxact:addressOffset>0x344</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
@@ -1982,7 +1993,7 @@
                 <ipxact:register>
                     <ipxact:name>BMC to NC Source MAC Match 7 Low</ipxact:name>
                     <ipxact:description></ipxact:description>
-                    <ipxact:addressOffset>0x8348</ipxact:addressOffset>
+                    <ipxact:addressOffset>0x348</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
@@ -1990,7 +2001,7 @@
                 <ipxact:register>
                     <ipxact:name>BMC to NC RX VLAN</ipxact:name>
                     <ipxact:description></ipxact:description>
-                    <ipxact:addressOffset>0x834c</ipxact:addressOffset>
+                    <ipxact:addressOffset>0x34c</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
@@ -2005,7 +2016,7 @@
                 <ipxact:register>
                     <ipxact:name>BMC to NC Read Buffer</ipxact:name>
                     <ipxact:description></ipxact:description>
-                    <ipxact:addressOffset>0x8350</ipxact:addressOffset>
+                    <ipxact:addressOffset>0x350</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
@@ -2013,7 +2024,7 @@
                 <ipxact:register>
                     <ipxact:name>BMC to NC RX Control</ipxact:name>
                     <ipxact:description></ipxact:description>
-                    <ipxact:addressOffset>0x8354</ipxact:addressOffset>
+                    <ipxact:addressOffset>0x354</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
@@ -2049,7 +2060,7 @@
                 <ipxact:register>
                     <ipxact:name>BMC to NC TX Status</ipxact:name>
                     <ipxact:description></ipxact:description>
-                    <ipxact:addressOffset>0x8370</ipxact:addressOffset>
+                    <ipxact:addressOffset>0x370</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
@@ -2099,7 +2110,7 @@
                 <ipxact:register>
                     <ipxact:name>BMC to NC TX Control</ipxact:name>
                     <ipxact:description></ipxact:description>
-                    <ipxact:addressOffset>0x8374</ipxact:addressOffset>
+                    <ipxact:addressOffset>0x374</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
@@ -2177,7 +2188,7 @@
                 <ipxact:register>
                     <ipxact:name>BMC to NC TX Buffer</ipxact:name>
                     <ipxact:description></ipxact:description>
-                    <ipxact:addressOffset>0x8378</ipxact:addressOffset>
+                    <ipxact:addressOffset>0x378</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
@@ -2185,7 +2196,7 @@
                 <ipxact:register>
                     <ipxact:name>BMC to NC TX Buffer Last</ipxact:name>
                     <ipxact:description></ipxact:description>
-                    <ipxact:addressOffset>0x837c</ipxact:addressOffset>
+                    <ipxact:addressOffset>0x37c</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
@@ -2193,7 +2204,7 @@
                 <ipxact:register>
                     <ipxact:name>RMU Control</ipxact:name>
                     <ipxact:description></ipxact:description>
-                    <ipxact:addressOffset>0x83a0</ipxact:addressOffset>
+                    <ipxact:addressOffset>0x3a0</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
@@ -2250,7 +2261,7 @@
                 <ipxact:register>
                     <ipxact:name>ARB Control</ipxact:name>
                     <ipxact:description></ipxact:description>
-                    <ipxact:addressOffset>0x83a4</ipxact:addressOffset>
+                    <ipxact:addressOffset>0x3a4</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
@@ -2314,7 +2325,7 @@
                 <ipxact:register>
                     <ipxact:name>PER_LOCK_REQUEST_PHY0</ipxact:name>
                     <ipxact:description>This register, and the following Per Lock Request registers work the same. The tg3 driver uses 0x0000_1000 (APELOCK_PER_REQ_DRIVER) for PHY ports (or always for function 0).</ipxact:description>
-                    <ipxact:addressOffset>0x8400</ipxact:addressOffset>
+                    <ipxact:addressOffset>0x400</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
@@ -2364,7 +2375,7 @@
                 <ipxact:register>
                     <ipxact:name>PER_LOCK_REQUEST_GRC</ipxact:name>
                     <ipxact:description></ipxact:description>
-                    <ipxact:addressOffset>0x8404</ipxact:addressOffset>
+                    <ipxact:addressOffset>0x404</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
@@ -2414,7 +2425,7 @@
                 <ipxact:register>
                     <ipxact:name>PER_LOCK_REQUEST_PHY1</ipxact:name>
                     <ipxact:description></ipxact:description>
-                    <ipxact:addressOffset>0x8408</ipxact:addressOffset>
+                    <ipxact:addressOffset>0x408</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
@@ -2464,7 +2475,7 @@
                 <ipxact:register>
                     <ipxact:name>PER_LOCK_REQUEST_PHY2</ipxact:name>
                     <ipxact:description></ipxact:description>
-                    <ipxact:addressOffset>0x840c</ipxact:addressOffset>
+                    <ipxact:addressOffset>0x40c</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
@@ -2514,7 +2525,7 @@
                 <ipxact:register>
                     <ipxact:name>PER_LOCK_REQUEST_MEM</ipxact:name>
                     <ipxact:description></ipxact:description>
-                    <ipxact:addressOffset>0x8410</ipxact:addressOffset>
+                    <ipxact:addressOffset>0x410</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
@@ -2564,7 +2575,7 @@
                 <ipxact:register>
                     <ipxact:name>PER_LOCK_REQUEST_PHY3</ipxact:name>
                     <ipxact:description></ipxact:description>
-                    <ipxact:addressOffset>0x8414</ipxact:addressOffset>
+                    <ipxact:addressOffset>0x414</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
@@ -2614,7 +2625,7 @@
                 <ipxact:register>
                     <ipxact:name>PER_LOCK_REQUEST_PORT6</ipxact:name>
                     <ipxact:description></ipxact:description>
-                    <ipxact:addressOffset>0x8418</ipxact:addressOffset>
+                    <ipxact:addressOffset>0x418</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
@@ -2664,7 +2675,7 @@
                 <ipxact:register>
                     <ipxact:name>PER_LOCK_REQUEST_GPIO</ipxact:name>
                     <ipxact:description></ipxact:description>
-                    <ipxact:addressOffset>0x841c</ipxact:addressOffset>
+                    <ipxact:addressOffset>0x41c</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
@@ -2714,7 +2725,7 @@
                 <ipxact:register>
                     <ipxact:name>PER_LOCK_GRANT_PHY0</ipxact:name>
                     <ipxact:description></ipxact:description>
-                    <ipxact:addressOffset>0x8420</ipxact:addressOffset>
+                    <ipxact:addressOffset>0x420</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
@@ -2764,7 +2775,7 @@
                 <ipxact:register>
                     <ipxact:name>PER_LOCK_GRANT_GRC</ipxact:name>
                     <ipxact:description></ipxact:description>
-                    <ipxact:addressOffset>0x8424</ipxact:addressOffset>
+                    <ipxact:addressOffset>0x424</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
@@ -2814,7 +2825,7 @@
                 <ipxact:register>
                     <ipxact:name>PER_LOCK_GRANT_PHY1</ipxact:name>
                     <ipxact:description></ipxact:description>
-                    <ipxact:addressOffset>0x8428</ipxact:addressOffset>
+                    <ipxact:addressOffset>0x428</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
@@ -2864,7 +2875,7 @@
                 <ipxact:register>
                     <ipxact:name>PER_LOCK_GRANT_PHY2</ipxact:name>
                     <ipxact:description></ipxact:description>
-                    <ipxact:addressOffset>0x842c</ipxact:addressOffset>
+                    <ipxact:addressOffset>0x42c</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
@@ -2914,7 +2925,7 @@
                 <ipxact:register>
                     <ipxact:name>PER_LOCK_GRANT_MEM</ipxact:name>
                     <ipxact:description></ipxact:description>
-                    <ipxact:addressOffset>0x8430</ipxact:addressOffset>
+                    <ipxact:addressOffset>0x430</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
@@ -2964,7 +2975,7 @@
                 <ipxact:register>
                     <ipxact:name>PER_LOCK_GRANT_PHY3</ipxact:name>
                     <ipxact:description></ipxact:description>
-                    <ipxact:addressOffset>0x8434</ipxact:addressOffset>
+                    <ipxact:addressOffset>0x434</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
@@ -3014,7 +3025,7 @@
                 <ipxact:register>
                     <ipxact:name>PER_LOCK_GRANT_PORT6</ipxact:name>
                     <ipxact:description></ipxact:description>
-                    <ipxact:addressOffset>0x8438</ipxact:addressOffset>
+                    <ipxact:addressOffset>0x438</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
@@ -3064,7 +3075,7 @@
                 <ipxact:register>
                     <ipxact:name>PER_LOCK_GRANT_GPIO</ipxact:name>
                     <ipxact:description></ipxact:description>
-                    <ipxact:addressOffset>0x843c</ipxact:addressOffset>
+                    <ipxact:addressOffset>0x43c</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>

@@ -3,6 +3,7 @@
 
 #include <bcm5719_DEVICE.h>
 #include <bcm5719_APE.h>
+#include <bcm5719_APE_PERI.h>
 #include <bcm5719_SHM.h>
 #include <bcm5719_GEN.h>
 #include <APE_NVIC.h>
@@ -257,6 +258,9 @@ bool initHAL(const char *pci_path, int wanted_function)
 
     init_bcm5719_APE();
     init_bcm5719_APE_sim(APEBase);
+
+    init_bcm5719_APE_PERI();
+    init_bcm5719_APE_PERI_sim(&APEBase[0x8000]);
 
     init_bcm5719_SHM();
     init_bcm5719_SHM_sim(&APEBase[0x4000]);

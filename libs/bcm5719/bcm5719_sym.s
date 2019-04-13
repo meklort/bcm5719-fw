@@ -46,7 +46,11 @@
 
 .global APE
 .equ    APE, 0xc0010000
-.size   APE, 0x8440
+.size   APE, 0x328
+
+.global APE_PERI
+.equ    APE_PERI, 0xc0018000
+.size   APE_PERI, 0x440
 
 .global BOOTCODE
 .equ    BOOTCODE, 0x8000000

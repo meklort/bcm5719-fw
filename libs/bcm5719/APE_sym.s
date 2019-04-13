@@ -46,7 +46,11 @@
 
 .global APE
 .equ    APE, 0x60200000
-.size   APE, 0x8440
+.size   APE, 0x328
+
+.global APE_PERI
+.equ    APE_PERI, 0x60240000
+.size   APE_PERI, 0x440
 
 .global DEVICE
 .equ    DEVICE, 0xa0040000

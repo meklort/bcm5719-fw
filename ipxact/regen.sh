@@ -14,6 +14,7 @@ mv bcm5719_MII.h ../libs/MII/include/
 mv bcm5719_DEVICE.h ../include/
 mv bcm5719_GEN.h ../include/
 mv bcm5719_APE.h ../include/
+mv bcm5719_APE_PERI.h ../include/
 mv bcm5719_SHM.h ../include/
 mv bcm5719_RXMBUF.h ../include
 mv bcm5719_SDBCACHE.h ../include
@@ -39,6 +40,7 @@ ${IPXACT} -p ${PROJECT} APE_component.xml FILTERS.xml SHM.xml NVIC.xml DEVICE.xm
 ${IPXACT} -p ${PROJECT} APE_full.xml APE.h
 mv APE_NVIC.h ../include/
 mv APE_APE.h ../include/
+mv APE_APE_PERI.h ../include/
 
 # ${IPXACT} -p ${PROJECT} NVIC.xml APE_full.xml APE.s
 ${IPXACT} -p ${PROJECT} APE_full.xml -t asym APE_sym.s
