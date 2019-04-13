@@ -109,4 +109,5 @@ void initRMU(void)
     arbControl.bits.PackageID = 0; /* TODO: allow to be configured as per NC-SI spec. */
     arbControl.bits.Start = 1;
     arbControl.bits.TKNREL = 0x14;
+    APE.ArbControl = arbControl;
 }
