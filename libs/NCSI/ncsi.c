@@ -44,7 +44,11 @@
 
 #include <NCSI.h>
 #include <APE_APE_PERI.h>
-
+#include <APE_SHM.h>
+#include <APE_SHM_CHANNEL0.h>
+#include <APE_SHM_CHANNEL1.h>
+#include <APE_SHM_CHANNEL2.h>
+#include <APE_SHM_CHANNEL3.h>
 #include <stdbool.h>
 
 #define MAX_CHANNELS        4
@@ -62,7 +66,11 @@ typedef struct {
     uint32_t AENEnables; /* Corresponds to an enable bit for each AEN packet */
     bool AsyncronousTrafficEn; /* When set, AEN and passthrough traffic can be sent from the NC to the MC */
     bool PassthroughTXTrafficEn; /* When set, the NC is allowed to transmit passthrough traffic from the MC to the NC. */
-
+#ifdef CXX_SIMULATOR
+    SHM_CHANNEL_t* shm;
+#else
+    volatile SHM_CHANNEL_t* shm;
+#endif
 } channel_state_t;
 
 // Response frame - global and usable by one thread at a time only.
@@ -100,7 +108,36 @@ typedef struct {
 package_state_t gPackageState = {
     .numChannels = MAX_CHANNELS,
     .selected = false,
-    .channel = {{0}},
+    .channel = {
+        [0] = {
+            .initialized = false,
+            .AENEnables = false,
+            .AsyncronousTrafficEn = false,
+            .PassthroughTXTrafficEn = false,
+            .shm = &SHM_CHANNEL0,
+        },
+        [1] = {
+            .initialized = false,
+            .AENEnables = false,
+            .AsyncronousTrafficEn = false,
+            .PassthroughTXTrafficEn = false,
+            .shm = &SHM_CHANNEL1,
+        },
+        [2] = {
+            .initialized = false,
+            .AENEnables = false,
+            .AsyncronousTrafficEn = false,
+            .PassthroughTXTrafficEn = false,
+            .shm = &SHM_CHANNEL2,
+        },
+        [3] = {
+            .initialized = false,
+            .AENEnables = false,
+            .AsyncronousTrafficEn = false,
+            .PassthroughTXTrafficEn = false,
+            .shm = &SHM_CHANNEL3,
+        },
+    },
 };
 
 void sendNCSIResponse(uint8_t InstanceID, uint8_t channelID, uint16_t controlID,
@@ -327,12 +364,14 @@ void handleNCSIFrame(NetworkFrame_t* frame)
     uint8_t command = frame->controlPacket.ControlPacketType;
     uint16_t payloadLength = frame->controlPacket.PayloadLength;
     ncsi_handler_t *handler = &gNCSIHandlers[command];
+    channel_state_t *channel = ((ch == CHANNEL_ID_PACKAGE) ? 0 : &gPackageState.channel[ch]);
 
     if(handler->fn)
     {
         if(ch != CHANNEL_ID_PACKAGE &&
             ch >= gPackageState.numChannels)
         {
+            channel = 0;
 #if CXX_SIMULATOR
             printf("[%x] Invalid channel: %d\n", command, ch);
 #endif
@@ -344,8 +383,8 @@ void handleNCSIFrame(NetworkFrame_t* frame)
                 NCSI_RESPONSE_CODE_COMMAND_FAILED,
                 NCSI_REASON_CODE_INVALID_PARAM);
         }
-        else if( (true  == handler->packageCommand && ch != CHANNEL_ID_PACKAGE) ||
-            (false == handler->packageCommand && ch == CHANNEL_ID_PACKAGE))
+        else if( (true  == handler->packageCommand && channel) ||
+            (false == handler->packageCommand && !channel))
         {
 #if CXX_SIMULATOR
             printf("[%x] Invalid channel for command: %d\n", command, ch);
@@ -390,6 +429,10 @@ void handleNCSIFrame(NetworkFrame_t* frame)
         }
         else
         {
+            if(channel)
+            {
+                ++channel->shm->NcsiChannelCtrlstatRx.r32;
+            }
             gPackageState.selected = true;
             handler->fn(frame);
         }
@@ -420,6 +463,8 @@ void resetChannel(int ch)
     channel->AENEnables = false;
     channel->AsyncronousTrafficEn = false;
     channel->PassthroughTXTrafficEn = false;
+
+    channel->shm->NcsiChannelCtrlstatRx.r32 = 0;
 }
 
 void sendNCSIResponse(uint8_t InstanceID, uint8_t channelID, uint16_t controlID, uint16_t response_code, uint16_t reasons_code)

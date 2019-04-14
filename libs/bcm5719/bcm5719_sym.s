@@ -52,25 +52,37 @@
 .equ    APE_PERI, 0xc0018000
 .size   APE_PERI, 0x440
 
-.global BOOTCODE
-.equ    BOOTCODE, 0x8000000
-.size   BOOTCODE, 0x7000
+.global SHM
+.equ    SHM, 0xc0014000
+.size   SHM, 0x894
+
+.global SHM_CHANNEL0
+.equ    SHM_CHANNEL0, 0xc0014900
+.size   SHM_CHANNEL0, 0xcc
+
+.global SHM_CHANNEL1
+.equ    SHM_CHANNEL1, 0xc0014a00
+.size   SHM_CHANNEL1, 0xcc
+
+.global SHM_CHANNEL2
+.equ    SHM_CHANNEL2, 0xc0014b00
+.size   SHM_CHANNEL2, 0xcc
+
+.global SHM_CHANNEL3
+.equ    SHM_CHANNEL3, 0xc0014c00
+.size   SHM_CHANNEL3, 0xcc
 
 .global DEVICE
 .equ    DEVICE, 0xc0000000
 .size   DEVICE, 0x7c08
 
-.global GEN
-.equ    GEN, 0xb50
-.size   GEN, 0x368
-
-.global MII
-.equ    MII, 0x0
-.size   MII, 0x71a
-
 .global NVM
 .equ    NVM, 0xc0007000
 .size   NVM, 0x3c
+
+.global GEN
+.equ    GEN, 0xb50
+.size   GEN, 0x368
 
 .global RXMBUF
 .equ    RXMBUF, 0x10000
@@ -80,12 +92,16 @@
 .equ    SDBCACHE, 0x20000
 .size   SDBCACHE, 0xc800
 
-.global SHM
-.equ    SHM, 0xc0014000
-.size   SHM, 0x9b4
-
 .global TXMBUF
 .equ    TXMBUF, 0x2c800
 .size   TXMBUF, 0x7400
+
+.global BOOTCODE
+.equ    BOOTCODE, 0x8000000
+.size   BOOTCODE, 0x7000
+
+.global MII
+.equ    MII, 0x0
+.size   MII, 0x71a
 
 

@@ -17,6 +17,14 @@ simulator_add_library(${PROJECT_NAME} STATIC
             bcm5719_APE_PERI_sim.cpp
             bcm5719_SHM.cpp
             bcm5719_SHM_sim.cpp
+            bcm5719_SHM_CHANNEL0.cpp
+            bcm5719_SHM_CHANNEL0_sim.cpp
+            bcm5719_SHM_CHANNEL1.cpp
+            bcm5719_SHM_CHANNEL1_sim.cpp
+            bcm5719_SHM_CHANNEL2.cpp
+            bcm5719_SHM_CHANNEL2_sim.cpp
+            bcm5719_SHM_CHANNEL3.cpp
+            bcm5719_SHM_CHANNEL3_sim.cpp
 
             # APE indirect registers
             APE_FILTERS.cpp

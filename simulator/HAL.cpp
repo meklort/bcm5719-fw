@@ -5,6 +5,10 @@
 #include <bcm5719_APE.h>
 #include <bcm5719_APE_PERI.h>
 #include <bcm5719_SHM.h>
+#include <bcm5719_SHM_CHANNEL0.h>
+#include <bcm5719_SHM_CHANNEL1.h>
+#include <bcm5719_SHM_CHANNEL2.h>
+#include <bcm5719_SHM_CHANNEL3.h>
 #include <bcm5719_GEN.h>
 #include <APE_NVIC.h>
 #include <APE_FILTERS.h>
@@ -264,6 +268,15 @@ bool initHAL(const char *pci_path, int wanted_function)
 
     init_bcm5719_SHM();
     init_bcm5719_SHM_sim(&APEBase[0x4000]);
+
+    init_bcm5719_SHM_CHANNEL0();
+    init_bcm5719_SHM_CHANNEL0_sim(&APEBase[0x4900]);
+    init_bcm5719_SHM_CHANNEL1();
+    init_bcm5719_SHM_CHANNEL1_sim(&APEBase[0x4a00]);
+    init_bcm5719_SHM_CHANNEL2();
+    init_bcm5719_SHM_CHANNEL2_sim(&APEBase[0x4b00]);
+    init_bcm5719_SHM_CHANNEL3();
+    init_bcm5719_SHM_CHANNEL3_sim(&APEBase[0x4c00]);
 
     init_APE_FILTERS();
     init_APE_FILTERS_sim(NULL);

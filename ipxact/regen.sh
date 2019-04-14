@@ -16,6 +16,7 @@ mv bcm5719_GEN.h ../include/
 mv bcm5719_APE.h ../include/
 mv bcm5719_APE_PERI.h ../include/
 mv bcm5719_SHM.h ../include/
+mv bcm5719_SHM_CHANNEL*.h ../include/
 mv bcm5719_RXMBUF.h ../include
 mv bcm5719_SDBCACHE.h ../include
 mv bcm5719_TXMBUF.h ../include
@@ -49,4 +50,8 @@ mv APE_SHM*.h ../include
 mv APE_FILTERS*.h ../include
 
 ${IPXACT} -p ${PROJECT} APE_full.xml -t ape_cpp APE.cpp
+rm APE_APE*.cpp
+rm APE_SHM*.cpp
+rm APE_NVM*.cpp
+rm APE_DEVICE*.cpp
 mv *.cpp ../simulator/

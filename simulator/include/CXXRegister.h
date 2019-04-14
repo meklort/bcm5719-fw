@@ -368,10 +368,22 @@ public:
         return this->operator=(operator T() + val);
     }
 
+    T operator++(void)
+    {
+        // Read - add - Write
+        return this->operator=(operator T() + 1);
+    }
+
     T operator-=(T val)
     {
         // Read - sub - Write
         return this->operator=(operator T() - val);
+    }
+
+    T operator--(void)
+    {
+        // Read - sub - Write
+        return this->operator=(operator T() - 1);
     }
 
     T operator*=(T val)
