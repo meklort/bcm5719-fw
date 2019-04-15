@@ -67,7 +67,15 @@
 #include <bcm5719_GEN.h>
 #include <APE.h>
 #include <bcm5719_SHM.h>
+#include <bcm5719_SHM_CHANNEL0.h>
 #include <elfio/elfio.hpp>
+
+#include <APE_FILTERS.h>
+#include <APE_NVIC.h>
+#include <APE_APE_PERI.h>
+
+#include <Ethernet.h>
+#include <NCSI.h>
 
 #include "../NVRam/bcm5719_NVM.h"
 
@@ -598,39 +606,21 @@ int main(int argc, char const *argv[])
         printf("APE RCPU PCI Vendor/Device ID: 0x%08X\n", (uint32_t)SHM.RcpuPciVendorDeviceId.r32);
         printf("APE RCPU PCI Subsystem ID: 0x%08X\n", (uint32_t)SHM.RcpuPciSubsystemId.r32);
 
-        printf("RegAPENcsiChannel0CtrlstatRx: 0x%08X\n", (uint32_t)SHM.NcsiChannel0CtrlstatRx.r32);
-
-        // boot_ape_loader();
-        // printf("Loader Command: 0x%08X\n", (uint32_t)SHM.LoaderCommand.r32);
-        // printf("Loader Arg0: 0x%08X\n", (uint32_t)SHM.LoaderArg0.r32);
-        // printf("Loader Arg1: 0x%08X\n", (uint32_t)SHM.LoaderArg1.r32);
-
-        // SHM.LoaderArg0.r32 = 0x00100040;
-        // SHM.LoaderCommand.bits.Command = SHM_LOADER_COMMAND_COMMAND_READ_MEM;
-
-        // // Wait for command to be handled.
-        // while(0 != SHM.LoaderCommand.bits.Command);
-        // printf("Loader Command: 0x%08X\n", (uint32_t)SHM.LoaderCommand.r32);
-        // printf("Loader Arg0: 0x%08X\n", (uint32_t)SHM.LoaderArg0.r32);
-        // printf("Loader Arg1: 0x%08X\n", (uint32_t)SHM.LoaderArg1.r32);
-
         exit(0);
     }
 
 
     if(options.get("info"))
     {
-        printf("Gen DataSig:            0x%08X\n", (uint32_t)GEN.GenDataSig.r32);
-        printf("Gen GenFwMbox:          0x%08X\n", (uint32_t)GEN.GenFwMbox.r32);
-        printf("Gen GenAsfStatusMbox:   0x%08X\n", (uint32_t)GEN.GenAsfStatusMbox.r32);
-
-        printf("Firmware Ver:    0x%08X\n", (uint32_t)GEN.GenFwVersion.r32);
-        printf("Chip Id:         0x%08X\n", (uint32_t)DEVICE.ChipId.r32);
-        printf("Vendor ID:       0x%04X         Device ID: 0x%04X\n", (uint16_t)DEVICE.PciVendorDeviceId.bits.VendorID, (uint16_t)DEVICE.PciVendorDeviceId.bits.DeviceID);
-        printf("Subsystem Vend:  0x%04X      Subsystem ID: 0x%04X\n", (uint16_t)DEVICE.PciSubsystemId.bits.SubsystemVendorID, (uint16_t)DEVICE.PciSubsystemId.bits.SubsystemID);
-        printf("Class Code Rev:  0x%08X\n", (uint32_t)DEVICE.PciClassCodeRevision.r32);
-        printf("Function En:     0x%X\n", (uint32_t)DEVICE.Status.bits.FunctionEnable);
-        printf("Function Num:    %d\n", (uint32_t)DEVICE.Status.bits.FunctionNumber);
+        GEN.GenDataSig.print();
+        GEN.GenFwMbox.print();
+        GEN.GenAsfStatusMbox.print();
+        GEN.GenFwVersion.print();
+        DEVICE.ChipId.print();
+        DEVICE.PciVendorDeviceId.print();
+        DEVICE.PciSubsystemId.print();
+        DEVICE.PciClassCodeRevision.print();
+        DEVICE.Status.print();
 
 
         // GenCfgFeature

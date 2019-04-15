@@ -9,7 +9,7 @@ set(SOURCES
 )
 
 simulator_add_executable(${PROJECT_NAME} ${SOURCES})
-target_link_libraries(${PROJECT_NAME} PRIVATE NVRam VPD MII APE apeloader-binary)
+target_link_libraries(${PROJECT_NAME} PRIVATE NVRam VPD MII APE apeloader-binary NCSI)
 target_link_libraries(${PROJECT_NAME} PRIVATE simulator OptParse elfio)
 
 INSTALL(TARGETS ${PROJECT_NAME} DESTINATION .)
