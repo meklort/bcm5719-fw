@@ -128,32 +128,50 @@ _Static_assert(sizeof(ControlPacketHeader_t) == 16 + PACKET_OFFSET, "sizeof(Cont
 #define CONTROL_PACKET_OEM_COMMAND                      (0x50)
 
 
-typedef union {
+typedef struct {
     // Bytes 0 - 27
     ControlPacketHeader_t   header;
 
     // Byte 28 - 31
-    uint32_t checksumHigh:16;
     uint32_t headerPadding:16;
+    uint32_t checksumHigh:16;
 
     // Bytes 32 - 35
-    uint32_t pad:16;
     uint32_t checksumLow;
+    uint32_t pad:16;
 } ClearInitialState_t;
 
-typedef union {
+typedef struct {
     // Bytes 0 - 27
     ControlPacketHeader_t   header;
 
     // Byte 28 - 31
     uint32_t HardwareArbitartionDisabled:8;
+    uint32_t reserved_0:8;
     uint32_t headerPadding:16;
 
     // Bytes 32 - 35
-    uint32_t pad:16;
     uint32_t checksumLow;
+    uint32_t pad:16;
 } SelectPackage_t;
 
+typedef struct {
+    // Bytes 0 - 27
+    ControlPacketHeader_t   header;
+
+    // Byte 28 - 31
+    uint32_t AEN_MC_ID:8;
+    uint32_t reserved_0:8;
+    uint32_t headerPadding:16;
+
+    // Bytes 32 - 35
+    uint32_t AENControl_High:16;
+    uint32_t reserved_1:16;
+
+    // Bytes 36 - 39
+    uint32_t pad:16;
+    uint32_t AENControl_Low:16;
+} AENEnable_t;
 
 
 
@@ -228,6 +246,10 @@ typedef union {
     ControlPacketHeader_t controlPacket;
 
     ClearInitialState_t clearInitialState;
+
+    SelectPackage_t selectPackage;
+
+    AENEnable_t AENEnable;
 
     /* Response Packets */
     ResponsePacketHeader_t  responsePacket;
