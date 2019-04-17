@@ -65,7 +65,7 @@ _Static_assert(sizeof(EthernetHeader_t) == 16, "sizeof(EthernetHeader_t) must be
 #define ETHERNET_HEADER_OFFSET      0
 
 #define PACKET_OFFSET           (12)
-typedef struct 
+typedef struct
 {
     // Bytes 0 - 11 - Ethernet Header
     uint8_t  DestinationAddress[6];
@@ -173,9 +173,26 @@ typedef struct {
     uint32_t AENControl_Low:16;
 } AENEnable_t;
 
+typedef struct {
+    // Bytes 0 - 27
+    ControlPacketHeader_t   header;
+
+    // Byte 28 - 31
+    uint32_t LinkSettings_High:16;
+    uint32_t headerPadding:16;
+
+    // Bytes 32 - 35
+    uint32_t OEMLinkSettings_High:16;
+    uint32_t LinkSettings_Low:16;
+
+    // Bytes 36 - 39
+    uint32_t pad:16;
+    uint32_t OEMLinkSettings_Low:16;
+} SetLink_t;
 
 
-typedef struct 
+
+typedef struct
 {
     // Bytes 0 - 11
     uint8_t  DestinationAddress[6];
@@ -213,28 +230,55 @@ typedef struct
 #endif
 } ResponsePacketHeader_t;
 
+typedef struct
+{
+    // Bytes 0 - 11
+    uint8_t  DestinationAddress[6];
+    uint8_t  SourceAddress[6];
 
-// typedef union {
-//     struct {
-//         EthernetHeader_t    header;
-//     } header;
+#ifdef __LITTLE_ENDIAN__
+    // Bytes 12 - 15
+    uint32_t HeaderRevision:8;         /* Should be 1 */
+    uint32_t ManagmentControllerID:8;  /* Should be 0 */
+    uint32_t EtherType:16; // part of Ethernet header.
 
-//     struct {
-//         uint8_t padding[CONTROL_PACKET_OFFSET];
-//         ControlPacketHeader_t header;
-//     } controlPacket;
+    // Bytes 16 - 19
+    uint32_t ChannelID:8;
+    uint32_t ControlPacketType:8;
+    uint32_t InstanceID:8;
+    uint32_t reserved_0:8;
 
-//     struct {
-//         uint8_t padding[CONTROL_PACKET_PAYLOAD_OFFSET];
+    // Bytes 20 - 23
+    uint32_t reserved_2:16;
+    uint32_t PayloadLength:12;
+    uint32_t reserved_1:4;
 
-//         uint32_t checksumHigh:16;
-//         uint32_t reserved:16;
+    // Bytes 24 - 27
+    uint32_t reserved_3;
 
-//         uint32_t pad:16
-//         uint32_t checksumLow:16;
-//     } selectPackage
-// } SelectPackage_t;
+    // Bytes 28 - 31
+    uint16_t ResponseCode;
+    uint16_t reserved_4;
 
+    // Bytes 32 - 35
+    uint16_t LinkStatus_High;
+    uint16_t ReasonCode;
+
+    // Bytes 36 - 39
+    uint16_t OtherIndications_High;
+    uint16_t LinkStatus_Low;
+
+    // Bytes 40 - 43
+    uint16_t OEMLinkStatus_High;
+    uint16_t OtherIndications_Low;
+
+    // Bytes 44 - 47
+    uint16_t pad;
+    uint16_t OEMLinkStatus_Low;
+#else
+#error Not tested
+#endif
+} LinkStatusResponsePacketHeader_t;
 
 typedef union {
     // Ethernet frame must be at least 64 bytes.
@@ -251,8 +295,12 @@ typedef union {
 
     AENEnable_t AENEnable;
 
+    SetLink_t setLink;
+
     /* Response Packets */
     ResponsePacketHeader_t  responsePacket;
+
+    LinkStatusResponsePacketHeader_t    linkStatusResponse;
 } NetworkFrame_t;
 
 

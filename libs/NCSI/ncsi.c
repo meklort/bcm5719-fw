@@ -88,13 +88,43 @@ NetworkFrame_t gResponseFrame =
         .InstanceID = 0,        /* Filled in by appropriate handler. */
         .reserved_0 = 0,
         .reserved_2 = 0,
-        .PayloadLength = 0,     /* Filled in by appropriate handler. */
+        .PayloadLength = 4,
         .reserved_1 = 0,
 
         .ResponseCode = 0,
         .reserved_4 = 0,
         .reserved_5 = 0,
         .ReasonCode = 0,
+    }
+};
+
+NetworkFrame_t gLinkStatusResponseFrame =
+{
+    .linkStatusResponse = {
+        .DestinationAddress = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF},
+        .SourceAddress =      {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF},
+
+        .HeaderRevision = 1,
+        .ManagmentControllerID = 0,
+        .EtherType = ETHER_TYPE_NCSI,
+        .ChannelID = 0,         /* Filled in by appropriate handler. */
+        .ControlPacketType = CONTROL_PACKET_TYPE_RESPONSE | CONTROL_PACKET_TYPE_GET_LINK_STATUS,
+        .InstanceID = 0,        /* Filled in by appropriate handler. */
+        .reserved_0 = 0,
+        .reserved_2 = 0,
+        .PayloadLength = 16,
+        .reserved_1 = 0,
+
+        .ResponseCode = 0,
+        .reserved_4 = 0,
+        .LinkStatus_High = 0,
+        .ReasonCode = 0,
+        .OtherIndications_High = 0,
+        .LinkStatus_Low = 0,
+        .OEMLinkStatus_High = 0,
+        .OtherIndications_Low = 0,
+        .pad = 0,
+        .OEMLinkStatus_Low = 0,
     }
 };
 
@@ -106,7 +136,7 @@ typedef struct {
 } package_state_t;
 
 package_state_t gPackageState = {
-    .numChannels = MAX_CHANNELS,
+    .numChannels = 1 /*MAX_CHANNELS*/,
     .selected = false,
     .channel = {
         [0] = {
@@ -132,8 +162,17 @@ package_state_t gPackageState = {
     },
 };
 
-void sendNCSIResponse(uint8_t InstanceID, uint8_t channelID, uint16_t controlID,
-                    uint16_t response_code, uint16_t reasons_code);
+void sendNCSIResponse(uint8_t InstanceID,
+                    uint8_t channelID, 
+                    uint16_t controlID,
+                    uint16_t response_code,
+                    uint16_t reasons_code);
+void sendNCSILinkStatusResponse(uint8_t InstanceID,
+                    uint8_t channelID, 
+                    uint32_t LinkStatus,
+                    uint32_t OEMLinkStatus,
+                    uint32_t OtherIndications);
+
 void resetChannel(int ch);
 
 #if CXX_SIMULATOR
@@ -315,18 +354,100 @@ static void AENEnableHandler(NetworkFrame_t* frame)
         NCSI_RESPONSE_CODE_COMMAND_COMPLETE, NCSI_REASON_CODE_NONE);
 }
 
+
+
 static void setLinkHandler(NetworkFrame_t* frame)
 {
+    uint32_t LinkSettings = (frame->setLink.LinkSettings_Low | (frame->setLink.LinkSettings_High << 16));
+    uint32_t OEMLinkSettings = (frame->setLink.OEMLinkSettings_Low | (frame->setLink.OEMLinkSettings_High << 16));
 #if CXX_SIMULATOR
-    printf("Set Link: channel %x\n", frame->controlPacket.ChannelID);
+    printf("Set Link: LinkSettings %x\n", LinkSettings);
+    printf("Set Link: OEMLinkSettings %x\n", OEMLinkSettings);
 #endif
+
+    int ch = frame->controlPacket.ChannelID & CHANNEL_ID_MASK;
+    channel_state_t* channel = &(gPackageState.channel[ch]);
+    channel->shm->NcsiChannelSetting1.r32 = LinkSettings;
+    channel->shm->NcsiChannelSetting2.r32 = OEMLinkSettings;
+
+    sendNCSIResponse(
+        frame->controlPacket.InstanceID,
+        frame->controlPacket.ChannelID,
+        frame->controlPacket.ControlPacketType,
+        NCSI_RESPONSE_CODE_COMMAND_COMPLETE, NCSI_REASON_CODE_NONE);
 }
 
 static void getLinkStatusHandler(NetworkFrame_t* frame)
 {
+    RegSHM_CHANNELNcsiChannelStatus_t linkStatus;
+    linkStatus.r32 = 0;
+    linkStatus.bits.Linkup = 1;
+    linkStatus.bits.LinkStatus = 7;
+    linkStatus.bits.SERDES = 1;
+    linkStatus.bits.AutonegotiationComplete = 1;
+    linkStatus.bits.LinkSpeed1000MFullDuplexCapable = 1;
+    linkStatus.bits.LinkSpeed1000MHalsDuplexCapable = 1;
+
+
+    uint32_t LinkStatus       = linkStatus.r32;
+    uint32_t OEMLinkStatus    = 0;
+    uint32_t OtherIndications = 0;
 #if CXX_SIMULATOR
     printf("Get Link Status: channel %x\n", frame->controlPacket.ChannelID);
 #endif
+
+    sendNCSILinkStatusResponse(
+        frame->controlPacket.InstanceID,
+        frame->controlPacket.ChannelID, LinkStatus, OEMLinkStatus, OtherIndications);
+
+}
+
+static void disableVLANHandler(NetworkFrame_t* frame)
+{
+    // TODO
+#if CXX_SIMULATOR
+    int ch = frame->controlPacket.ChannelID & CHANNEL_ID_MASK;
+    printf("Disable VLAN: channel %x\n", ch);
+#endif
+    // gPackageState.channel[ch].shm->NcsiChannelInfo.bits.Enabled = false;
+
+    sendNCSIResponse(
+        frame->controlPacket.InstanceID,
+        frame->controlPacket.ChannelID,
+        frame->controlPacket.ControlPacketType,
+        NCSI_RESPONSE_CODE_COMMAND_COMPLETE, NCSI_REASON_CODE_NONE);
+}
+
+static void setMACAddressHandler(NetworkFrame_t* frame)
+{
+    // TODO
+#if CXX_SIMULATOR
+    int ch = frame->controlPacket.ChannelID & CHANNEL_ID_MASK;
+    printf("Set MAC: channel %x\n", ch);
+#endif
+    // gPackageState.channel[ch].shm->NcsiChannelInfo.bits.Enabled = false;
+
+    sendNCSIResponse(
+        frame->controlPacket.InstanceID,
+        frame->controlPacket.ChannelID,
+        frame->controlPacket.ControlPacketType,
+        NCSI_RESPONSE_CODE_COMMAND_COMPLETE, NCSI_REASON_CODE_NONE);
+}
+
+static void enableBroadcastFilteringHandler(NetworkFrame_t* frame)
+{
+    // TODO
+#if CXX_SIMULATOR
+    int ch = frame->controlPacket.ChannelID & CHANNEL_ID_MASK;
+    printf("Enable Broadcast Filtering: channel %x\n", ch);
+#endif
+    // gPackageState.channel[ch].shm->NcsiChannelInfo.bits.Enabled = false;
+
+    sendNCSIResponse(
+        frame->controlPacket.InstanceID,
+        frame->controlPacket.ChannelID,
+        frame->controlPacket.ControlPacketType,
+        NCSI_RESPONSE_CODE_COMMAND_COMPLETE, NCSI_REASON_CODE_NONE);
 }
 
 // CLEAR INITIAL STATE, SELECT PACKAGE, DESELECT PACKAGE, ENABLE CHANNEL, DISABLE CHANNEL, RESET CHANNEL, ENABLE CHANNEL NETWORK TX, DISABLE CHANNEL NETWORK TX,
@@ -347,9 +468,9 @@ ncsi_handler_t gNCSIHandlers[] =
     [0x0A] = {.payloadLength = 0, .ignoreInit = false, .packageCommand = false, .fn = getLinkStatusHandler},
     [0x0B] = {.payloadLength = 8, .ignoreInit = false, .packageCommand = false, .fn = unknownHandler},
     [0x0C] = {.payloadLength = 4, .ignoreInit = false, .packageCommand = false, .fn = unknownHandler},
-    [0x0D] = {.payloadLength = 0, .ignoreInit = false, .packageCommand = false, .fn = unknownHandler},
-    [0x0E] = {.payloadLength = 8, .ignoreInit = false, .packageCommand = false, .fn = unknownHandler},
-    [0x10] = {.payloadLength = 4, .ignoreInit = false, .packageCommand = false, .fn = unknownHandler},
+    [0x0D] = {.payloadLength = 0, .ignoreInit = false, .packageCommand = false, .fn = disableVLANHandler},
+    [0x0E] = {.payloadLength = 8, .ignoreInit = false, .packageCommand = false, .fn = setMACAddressHandler},
+    [0x10] = {.payloadLength = 4, .ignoreInit = false, .packageCommand = false, .fn = enableBroadcastFilteringHandler},
     [0x11] = {.payloadLength = 0, .ignoreInit = false, .packageCommand = false, .fn = unknownHandler},
     [0x12] = {.payloadLength = 4, .ignoreInit = false, .packageCommand = false, .fn = unknownHandler},
     [0x13] = {.payloadLength = 0, .ignoreInit = false, .packageCommand = false, .fn = unknownHandler},
@@ -472,6 +593,49 @@ void resetChannel(int ch)
     channel->shm->NcsiChannelCtrlstatRx.r32 = 0;
 }
 
+void sendNCSILinkStatusResponse(uint8_t InstanceID, uint8_t channelID, uint32_t LinkStatus, uint32_t OEMLinkStatus, uint32_t OtherIndications)
+{
+    uint32_t packetSize = ETHERNET_FRAME_MIN - 4;
+    uint32_t packetWords = ((packetSize + 3) / 4);
+    uint32_t lastBytes = packetSize % 4;
+
+    RegAPE_PERIBmcToNcTxControl_t txControl;
+    txControl.r32 = 0;
+    txControl.bits.LastByteCount = lastBytes;
+
+    gLinkStatusResponseFrame.linkStatusResponse.ChannelID = channelID;
+    gLinkStatusResponseFrame.linkStatusResponse.InstanceID = InstanceID;
+    gLinkStatusResponseFrame.linkStatusResponse.ResponseCode = NCSI_RESPONSE_CODE_COMMAND_COMPLETE;
+    gLinkStatusResponseFrame.linkStatusResponse.ReasonCode = NCSI_REASON_CODE_NONE;
+
+    gLinkStatusResponseFrame.linkStatusResponse.LinkStatus_High         = LinkStatus >> 16;
+    gLinkStatusResponseFrame.linkStatusResponse.LinkStatus_Low          = LinkStatus & 0xffff;
+    gLinkStatusResponseFrame.linkStatusResponse.OEMLinkStatus_High      = OEMLinkStatus >> 16;
+    gLinkStatusResponseFrame.linkStatusResponse.OEMLinkStatus_Low       = OEMLinkStatus & 0xffff;
+    gLinkStatusResponseFrame.linkStatusResponse.OtherIndications_High   = OtherIndications >> 16;
+    gLinkStatusResponseFrame.linkStatusResponse.OtherIndications_Low    = OtherIndications & 0xffff;
+
+    // Wait for enough free space.
+    while(APE_PERI.BmcToNcTxStatus.bits.InFifo < packetWords);
+
+    // Transmit.
+    for(int i = 0; i < packetWords-1; i++)
+    {
+#if CXX_SIMULATOR
+    printf("Transmitting word %d: 0x%08x\n", i, gLinkStatusResponseFrame.words[i]);
+#endif
+        APE_PERI.BmcToNcTxBuffer.r32 = gLinkStatusResponseFrame.words[i];
+    }
+
+    APE_PERI.BmcToNcTxControl = txControl;
+
+#if CXX_SIMULATOR
+    printf("Transmitting last word %d: 0x%08x\n", packetWords - 1, gLinkStatusResponseFrame.words[packetWords - 1]);
+#endif
+
+    APE_PERI.BmcToNcTxBufferLast.r32 = gLinkStatusResponseFrame.words[packetWords - 1];
+}
+
 void sendNCSIResponse(uint8_t InstanceID, uint8_t channelID, uint16_t controlID, uint16_t response_code, uint16_t reasons_code)
 {
     uint32_t packetSize = ETHERNET_FRAME_MIN - 4;
@@ -485,14 +649,13 @@ void sendNCSIResponse(uint8_t InstanceID, uint8_t channelID, uint16_t controlID,
     gResponseFrame.responsePacket.ChannelID = channelID;
     gResponseFrame.responsePacket.ControlPacketType = controlID | CONTROL_PACKET_TYPE_RESPONSE;
     gResponseFrame.responsePacket.InstanceID = InstanceID;
-    gResponseFrame.responsePacket.PayloadLength = 4; 
     // Payload data - 4 bytes
     gResponseFrame.responsePacket.ResponseCode = response_code;
     gResponseFrame.responsePacket.ReasonCode = reasons_code;
     // NetworkFrame_t frame;
     // frame.
 
-    // Wait for enough free space. 
+    // Wait for enough free space.
     while(APE_PERI.BmcToNcTxStatus.bits.InFifo < packetWords);
 
     // Transmit.
