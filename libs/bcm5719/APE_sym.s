@@ -54,7 +54,7 @@
 
 .global FILTERS
 .equ    FILTERS, 0xa0048000
-.size   FILTERS, 0x188
+.size   FILTERS, 0x200
 
 .global SHM
 .equ    SHM, 0x60220000
@@ -94,15 +94,15 @@
 
 .global RX_PORT1
 .equ    RX_PORT1, 0xa0004000
-.size   RX_PORT1, 0x0
+.size   RX_PORT1, 0x4000
 
 .global RX_PORT2
 .equ    RX_PORT2, 0xa0008000
-.size   RX_PORT2, 0x0
+.size   RX_PORT2, 0x4000
 
 .global RX_PORT3
 .equ    RX_PORT3, 0xa000c000
-.size   RX_PORT3, 0x0
+.size   RX_PORT3, 0x4000
 
 .global TX_PORT
 .equ    TX_PORT, 0xa0020000
@@ -126,7 +126,7 @@
 
 .global FILTERS1
 .equ    FILTERS1, 0xa0058000
-.size   FILTERS1, 0x188
+.size   FILTERS1, 0x200
 
 .global DEVICE2
 .equ    DEVICE2, 0xa0060000
@@ -134,7 +134,7 @@
 
 .global FILTERS2
 .equ    FILTERS2, 0xa0068000
-.size   FILTERS2, 0x188
+.size   FILTERS2, 0x200
 
 .global DEVICE3
 .equ    DEVICE3, 0xa0070000
@@ -142,7 +142,7 @@
 
 .global FILTERS3
 .equ    FILTERS3, 0xa0078000
-.size   FILTERS3, 0x188
+.size   FILTERS3, 0x200
 
 .global SHM1
 .equ    SHM1, 0x60221000

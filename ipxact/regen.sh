@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-IPXACT=~/ipxact/build/ipxact
+IPXACT=~/git/ipxact/build/ipxact
 PROJECT=bcm5719
 
 echo "Regenerating Bcm5719 header"
@@ -42,12 +42,12 @@ ${IPXACT} -p ${PROJECT} APE_full.xml APE.h
 mv APE_NVIC.h ../include/
 mv APE_APE.h ../include/
 mv APE_APE_PERI.h ../include/
+mv APE_SHM*.h ../include
+mv APE_FILTERS*.h ../include
 
 # ${IPXACT} -p ${PROJECT} NVIC.xml APE_full.xml APE.s
 ${IPXACT} -p ${PROJECT} APE_full.xml -t asym APE_sym.s
 mv *.s ../libs/bcm5719/
-mv APE_SHM*.h ../include
-mv APE_FILTERS*.h ../include
 
 ${IPXACT} -p ${PROJECT} APE_full.xml -t ape_cpp APE.cpp
 rm APE_APE*.cpp

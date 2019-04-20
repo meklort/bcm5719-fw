@@ -81,12 +81,21 @@
             <ipxact:addressBlock>
                 <ipxact:name>RX_PORT1</ipxact:name>
                 <ipxact:description>RX from network port, function 1</ipxact:description>
-                <ipxact:typeIdentifier>TX_PORT</ipxact:typeIdentifier>>
+                <ipxact:typeIdentifier>RX_PORT</ipxact:typeIdentifier>>
                 <ipxact:baseAddress>0xA0004000</ipxact:baseAddress>
                 <!-- LINK: addressBlockDefinitionGroup: see 6.9.3, Address blockdefinition group -->
                 <!-- LINK: memoryBlockData: see 6.9.4, memoryBlockData group -->
                 <ipxact:usage>register</ipxact:usage>
                 <ipxact:volatile>false</ipxact:volatile>
+                <ipxact:register>
+                    <ipxact:name>queue</ipxact:name>
+                    <ipxact:description>This is the memory range into which frames received and directed towards the APE are placed by the hardware. The hardware will tell you where in this region the frame has been placed.</ipxact:description>
+                    <ipxact:addressOffset>0x0</ipxact:addressOffset>
+                    <ipxact:dim>0x1000</ipxact:dim>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
             </ipxact:addressBlock>
         </ipxact:memoryMap>
 
