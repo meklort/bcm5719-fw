@@ -301,7 +301,7 @@
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>RXBufOffset Func0</ipxact:name>
-                    <ipxact:description>This is examined on the APE Packet RX interrupt, and indicates the offset of an incoming (from-network) frame within the APE memory space, which provides access to the from-network RX buffer.</ipxact:description>
+                    <ipxact:description>This is examined on the APE Packet RX interrupt, and indicates the offset of an incoming (from-network) frame within the APE memory space, which provides access to the from-network RX buffer. The fields are block numbers (block size 128 bytes).</ipxact:description>
                     <ipxact:addressOffset>0x14</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
@@ -1856,135 +1856,247 @@
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>BMC to NC Source MAC High</ipxact:name>
-                    <ipxact:description></ipxact:description>
+                    <ipxact:description>Upper four bytes of the MAC</ipxact:description>
                     <ipxact:addressOffset>0x304</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>High</ipxact:name>
+                        <ipxact:description>Upper four bytes of the MAC</ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>32</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>BMC to NC Source MAC Low</ipxact:name>
-                    <ipxact:description></ipxact:description>
+                    <ipxact:description>Lower two bytes of the MAC</ipxact:description>
                     <ipxact:addressOffset>0x308</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>Low</ipxact:name>
+                        <ipxact:description>Lower two bytes of the MAC</ipxact:description>
+                        <ipxact:bitOffset>16</ipxact:bitOffset>
+                        <ipxact:bitWidth>16</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>BMC to NC Source MAC Match 0 High</ipxact:name>
-                    <ipxact:description></ipxact:description>
+                    <ipxact:description>Upper four bytes of the MAC</ipxact:description>
                     <ipxact:addressOffset>0x30c</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>High</ipxact:name>
+                        <ipxact:description>Upper four bytes of the MAC</ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>32</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>BMC to NC Source MAC Match 0 Low</ipxact:name>
-                    <ipxact:description></ipxact:description>
+                    <ipxact:description>Lower two bytes of the MAC</ipxact:description>
                     <ipxact:addressOffset>0x310</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>Low</ipxact:name>
+                        <ipxact:description>Lower two bytes of the MAC</ipxact:description>
+                        <ipxact:bitOffset>16</ipxact:bitOffset>
+                        <ipxact:bitWidth>16</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>BMC to NC Source MAC Match 1 High</ipxact:name>
-                    <ipxact:description></ipxact:description>
+                    <ipxact:description>Upper four bytes of the MAC</ipxact:description>
                     <ipxact:addressOffset>0x314</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>High</ipxact:name>
+                        <ipxact:description>Upper four bytes of the MAC</ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>32</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>BMC to NC Source MAC Match 1 Low</ipxact:name>
-                    <ipxact:description></ipxact:description>
+                    <ipxact:description>Lower two bytes of the MAC</ipxact:description>
                     <ipxact:addressOffset>0x318</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>Low</ipxact:name>
+                        <ipxact:description>Lower two bytes of the MAC</ipxact:description>
+                        <ipxact:bitOffset>16</ipxact:bitOffset>
+                        <ipxact:bitWidth>16</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>BMC to NC Source MAC Match 2 High</ipxact:name>
-                    <ipxact:description></ipxact:description>
+                    <ipxact:description>Upper four bytes of the MAC</ipxact:description>
                     <ipxact:addressOffset>0x31c</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>High</ipxact:name>
+                        <ipxact:description>Upper four bytes of the MAC</ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>32</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>BMC to NC Source MAC Match 2 Low</ipxact:name>
-                    <ipxact:description></ipxact:description>
+                    <ipxact:description>Lower two bytes of the MAC</ipxact:description>
                     <ipxact:addressOffset>0x320</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>Low</ipxact:name>
+                        <ipxact:description>Lower two bytes of the MAC</ipxact:description>
+                        <ipxact:bitOffset>16</ipxact:bitOffset>
+                        <ipxact:bitWidth>16</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>BMC to NC Source MAC Match 3 High</ipxact:name>
-                    <ipxact:description></ipxact:description>
+                    <ipxact:description>Upper four bytes of the MAC</ipxact:description>
                     <ipxact:addressOffset>0x324</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>High</ipxact:name>
+                        <ipxact:description>Upper four bytes of the MAC</ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>32</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>BMC to NC Source MAC Match 3 Low</ipxact:name>
-                    <ipxact:description></ipxact:description>
+                    <ipxact:description>Lower two bytes of the MAC</ipxact:description>
                     <ipxact:addressOffset>0x328</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>Low</ipxact:name>
+                        <ipxact:description>Lower two bytes of the MAC</ipxact:description>
+                        <ipxact:bitOffset>16</ipxact:bitOffset>
+                        <ipxact:bitWidth>16</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>BMC to NC Source MAC Match 4 High</ipxact:name>
-                    <ipxact:description></ipxact:description>
+                    <ipxact:description>Upper four bytes of the MAC</ipxact:description>
                     <ipxact:addressOffset>0x32c</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>High</ipxact:name>
+                        <ipxact:description>Upper four bytes of the MAC</ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>32</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>BMC to NC Source MAC Match 4 Low</ipxact:name>
-                    <ipxact:description></ipxact:description>
+                    <ipxact:description>Lower two bytes of the MAC</ipxact:description>
                     <ipxact:addressOffset>0x330</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>Low</ipxact:name>
+                        <ipxact:description>Lower two bytes of the MAC</ipxact:description>
+                        <ipxact:bitOffset>16</ipxact:bitOffset>
+                        <ipxact:bitWidth>16</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>BMC to NC Source MAC Match 5 High</ipxact:name>
-                    <ipxact:description></ipxact:description>
+                    <ipxact:description>Upper four bytes of the MAC</ipxact:description>
                     <ipxact:addressOffset>0x334</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>High</ipxact:name>
+                        <ipxact:description>Upper four bytes of the MAC</ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>32</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>BMC to NC Source MAC Match 5 Low</ipxact:name>
-                    <ipxact:description></ipxact:description>
+                    <ipxact:description>Lower two bytes of the MAC</ipxact:description>
                     <ipxact:addressOffset>0x338</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>Low</ipxact:name>
+                        <ipxact:description>Lower two bytes of the MAC</ipxact:description>
+                        <ipxact:bitOffset>16</ipxact:bitOffset>
+                        <ipxact:bitWidth>16</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>BMC to NC Source MAC Match 6 High</ipxact:name>
-                    <ipxact:description></ipxact:description>
+                    <ipxact:description>Upper four bytes of the MAC</ipxact:description>
                     <ipxact:addressOffset>0x33c</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>High</ipxact:name>
+                        <ipxact:description>Upper four bytes of the MAC</ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>32</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>BMC to NC Source MAC Match 6 Low</ipxact:name>
-                    <ipxact:description></ipxact:description>
+                    <ipxact:description>Lower two bytes of the MAC</ipxact:description>
                     <ipxact:addressOffset>0x340</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>Low</ipxact:name>
+                        <ipxact:description>Lower two bytes of the MAC</ipxact:description>
+                        <ipxact:bitOffset>16</ipxact:bitOffset>
+                        <ipxact:bitWidth>16</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>BMC to NC Source MAC Match 7 High</ipxact:name>
-                    <ipxact:description></ipxact:description>
+                    <ipxact:description>Upper four bytes of the MAC</ipxact:description>
                     <ipxact:addressOffset>0x344</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
@@ -1992,11 +2104,25 @@
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>BMC to NC Source MAC Match 7 Low</ipxact:name>
-                    <ipxact:description></ipxact:description>
+                    <ipxact:description>Lower two bytes of the MAC</ipxact:description>
                     <ipxact:addressOffset>0x348</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>Low</ipxact:name>
+                        <ipxact:description>Lower two bytes of the MAC</ipxact:description>
+                        <ipxact:bitOffset>16</ipxact:bitOffset>
+                        <ipxact:bitWidth>16</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>High</ipxact:name>
+                        <ipxact:description>Upper four bytes of the MAC</ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>32</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>BMC to NC RX VLAN</ipxact:name>

@@ -44,6 +44,7 @@ mv APE_APE.h ../include/
 mv APE_APE_PERI.h ../include/
 mv APE_SHM*.h ../include
 mv APE_FILTERS*.h ../include
+mv APE_DEVICE*.h ../include
 
 # ${IPXACT} -p ${PROJECT} NVIC.xml APE_full.xml APE.s
 ${IPXACT} -p ${PROJECT} APE_full.xml -t asym APE_sym.s

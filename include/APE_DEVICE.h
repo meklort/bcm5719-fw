@@ -1,10 +1,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @file       bcm5719_DEVICE.h
+/// @file       APE_DEVICE.h
 ///
-/// @project    bcm5719
+/// @project    ape
 ///
-/// @brief      bcm5719_DEVICE
+/// @brief      APE_DEVICE
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
@@ -42,26 +42,26 @@
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
 
-/** @defgroup BCM5719_DEVICE_H    bcm5719_DEVICE */
-/** @addtogroup BCM5719_DEVICE_H
+/** @defgroup APE_DEVICE_H    APE_DEVICE */
+/** @addtogroup APE_DEVICE_H
  * @{
  */
-#ifndef BCM5719_DEVICE_H
-#define BCM5719_DEVICE_H
+#ifndef APE_DEVICE_H
+#define APE_DEVICE_H
 
 #include <stdint.h>
 
 #ifdef CXX_SIMULATOR /* Compiling c++ simulator code - uses register wrappers */
-void init_bcm5719_DEVICE_sim(void* base);
-void init_bcm5719_DEVICE(void);
+void init_APE_DEVICE_sim(void* base);
+void init_APE_DEVICE(void);
 
 #include <CXXRegister.h>
-typedef CXXRegister<uint8_t,  0,  8> BCM5719_DEVICE_H_uint8_t;
-typedef CXXRegister<uint16_t, 0, 16> BCM5719_DEVICE_H_uint16_t;
-typedef CXXRegister<uint32_t, 0, 32> BCM5719_DEVICE_H_uint32_t;
-#define BCM5719_DEVICE_H_uint8_t_bitfield(__pos__, __width__)  CXXRegister<uint8_t,  __pos__, __width__>
-#define BCM5719_DEVICE_H_uint16_t_bitfield(__pos__, __width__) CXXRegister<uint16_t, __pos__, __width__>
-#define BCM5719_DEVICE_H_uint32_t_bitfield(__pos__, __width__) CXXRegister<uint32_t, __pos__, __width__>
+typedef CXXRegister<uint8_t,  0,  8> APE_DEVICE_H_uint8_t;
+typedef CXXRegister<uint16_t, 0, 16> APE_DEVICE_H_uint16_t;
+typedef CXXRegister<uint32_t, 0, 32> APE_DEVICE_H_uint32_t;
+#define APE_DEVICE_H_uint8_t_bitfield(__pos__, __width__)  CXXRegister<uint8_t,  __pos__, __width__>
+#define APE_DEVICE_H_uint16_t_bitfield(__pos__, __width__) CXXRegister<uint16_t, __pos__, __width__>
+#define APE_DEVICE_H_uint32_t_bitfield(__pos__, __width__) CXXRegister<uint32_t, __pos__, __width__>
 #define register_container struct
 #define volatile
 #define BITFIELD_BEGIN(__type__, __name__) struct {
@@ -69,19 +69,19 @@ typedef CXXRegister<uint32_t, 0, 32> BCM5719_DEVICE_H_uint32_t;
 #define BITFIELD_END(__type__, __name__) } __name__;
 
 #else /* Firmware Data types */
-typedef uint8_t  BCM5719_DEVICE_H_uint8_t;
-typedef uint16_t BCM5719_DEVICE_H_uint16_t;
-typedef uint32_t BCM5719_DEVICE_H_uint32_t;
+typedef uint8_t  APE_DEVICE_H_uint8_t;
+typedef uint16_t APE_DEVICE_H_uint16_t;
+typedef uint32_t APE_DEVICE_H_uint32_t;
 #define register_container union
 #define BITFIELD_BEGIN(__type__, __name__) struct {
 #define BITFIELD_MEMBER(__type__, __name__, __offset__, __bits__) __type__ __name__:__bits__;
 #define BITFIELD_END(__type__, __name__) } __name__;
 #endif /* !CXX_SIMULATOR */
 
-#define REG_DEVICE_BASE ((volatile void*)0xc0000000) /* Device Registers */
+#define REG_DEVICE_BASE ((volatile void*)0xa0040000) /* Device Registers, function 0 */
 #define REG_DEVICE_SIZE (sizeof(DEVICE_t))
 
-#define REG_DEVICE_MISCELLANEOUS_HOST_CONTROL ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0000068) /*  */
+#define REG_DEVICE_MISCELLANEOUS_HOST_CONTROL ((volatile APE_DEVICE_H_uint32_t*)0xa0040068) /*  */
 #define     DEVICE_MISCELLANEOUS_HOST_CONTROL_CLEAR_INTERRUPT_SHIFT 0u
 #define     DEVICE_MISCELLANEOUS_HOST_CONTROL_CLEAR_INTERRUPT_MASK  0x1u
 #define GET_DEVICE_MISCELLANEOUS_HOST_CONTROL_CLEAR_INTERRUPT(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -172,91 +172,91 @@ typedef uint32_t BCM5719_DEVICE_H_uint32_t;
 /** @brief Register definition for @ref DEVICE_t.MiscellaneousHostControl. */
 typedef register_container RegDEVICEMiscellaneousHostControl_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief Setting this bit will clear interrupt as long as the mask interrupt bit is not set. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ClearInterrupt, 0, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, ClearInterrupt, 0, 1)
         /** @brief Setting this bit will mask future interrupt events from being generated. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MaskInterrupt, 1, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, MaskInterrupt, 1, 1)
         /** @brief Set this bit to enable endian byte swapping when accessing through PCIE target interface. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableEndianByteSwap, 2, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableEndianByteSwap, 2, 1)
         /** @brief Set this bit to enable endian word swapping when accessing through PCIE target interface. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableEndianWordSwap, 3, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableEndianWordSwap, 3, 1)
         /** @brief Set this bit to enable PCI state register read/ write capability, otherwise the register is read only. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnablePCIStateRegisterRead_DIV_WriteCapability, 4, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnablePCIStateRegisterRead_DIV_WriteCapability, 4, 1)
         /** @brief Set this bit enable clock control register read/ write capability, otherwise, the clock control register is read only. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableClockControlRegisterRead_DIV_WriteCapability, 5, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableClockControlRegisterRead_DIV_WriteCapability, 5, 1)
         /** @brief Set this bit to enable word swapping when accessing registers through the PCI target device. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableRegisterWordSwap, 6, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableRegisterWordSwap, 6, 1)
         /** @brief Set this bit to enable indirect addressing mode. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableIndirectAccess, 7, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableIndirectAccess, 7, 1)
         /** @brief When set, the interrupt is masked. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MaskInterruptMode, 8, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, MaskInterruptMode, 8, 1)
         /** @brief When set, an unique 8-bit tag value will be inserted into the Status block status tag. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableTaggedStatusMode, 9, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableTaggedStatusMode, 9, 1)
         /** @brief Set this bit to enable RCB check. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, RCBCheck, 10, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, RCBCheck, 10, 1)
         /** @brief Set this bit to enable the interrupt check. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, InterruptCheck, 11, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, InterruptCheck, 11, 1)
         /** @brief Set this bit to enable the byte enable rule check. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ByteEnableRuleCheck, 12, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, ByteEnableRuleCheck, 12, 1)
         /** @brief Set this bit to enable crossing 4 KB boundary check. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BoundaryCheck, 13, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, BoundaryCheck, 13, 1)
         /** @brief Set this bit to enable log header due to overflow. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LogHeaderOverflow, 14, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, LogHeaderOverflow, 14, 1)
         /** @brief Set this bit to enable TLP minor error tolerance (ATTR/TC/LOCK command). */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableTLPMinorErrorTolerance, 15, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableTLPMinorErrorTolerance, 15, 1)
         /** @brief Metal Rev Number */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MetalRevID, 16, 8)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, MetalRevID, 16, 8)
         /** @brief External All Layer Revision ID. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, AllLayerID, 24, 4)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, AllLayerID, 24, 4)
         /** @brief Product ID. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ProductID, 28, 4)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, ProductID, 28, 4)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Product ID. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ProductID, 28, 4)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, ProductID, 28, 4)
         /** @brief External All Layer Revision ID. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, AllLayerID, 24, 4)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, AllLayerID, 24, 4)
         /** @brief Metal Rev Number */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MetalRevID, 16, 8)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, MetalRevID, 16, 8)
         /** @brief Set this bit to enable TLP minor error tolerance (ATTR/TC/LOCK command). */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableTLPMinorErrorTolerance, 15, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableTLPMinorErrorTolerance, 15, 1)
         /** @brief Set this bit to enable log header due to overflow. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LogHeaderOverflow, 14, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, LogHeaderOverflow, 14, 1)
         /** @brief Set this bit to enable crossing 4 KB boundary check. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BoundaryCheck, 13, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, BoundaryCheck, 13, 1)
         /** @brief Set this bit to enable the byte enable rule check. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ByteEnableRuleCheck, 12, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, ByteEnableRuleCheck, 12, 1)
         /** @brief Set this bit to enable the interrupt check. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, InterruptCheck, 11, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, InterruptCheck, 11, 1)
         /** @brief Set this bit to enable RCB check. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, RCBCheck, 10, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, RCBCheck, 10, 1)
         /** @brief When set, an unique 8-bit tag value will be inserted into the Status block status tag. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableTaggedStatusMode, 9, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableTaggedStatusMode, 9, 1)
         /** @brief When set, the interrupt is masked. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MaskInterruptMode, 8, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, MaskInterruptMode, 8, 1)
         /** @brief Set this bit to enable indirect addressing mode. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableIndirectAccess, 7, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableIndirectAccess, 7, 1)
         /** @brief Set this bit to enable word swapping when accessing registers through the PCI target device. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableRegisterWordSwap, 6, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableRegisterWordSwap, 6, 1)
         /** @brief Set this bit enable clock control register read/ write capability, otherwise, the clock control register is read only. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableClockControlRegisterRead_DIV_WriteCapability, 5, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableClockControlRegisterRead_DIV_WriteCapability, 5, 1)
         /** @brief Set this bit to enable PCI state register read/ write capability, otherwise the register is read only. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnablePCIStateRegisterRead_DIV_WriteCapability, 4, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnablePCIStateRegisterRead_DIV_WriteCapability, 4, 1)
         /** @brief Set this bit to enable endian word swapping when accessing through PCIE target interface. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableEndianWordSwap, 3, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableEndianWordSwap, 3, 1)
         /** @brief Set this bit to enable endian byte swapping when accessing through PCIE target interface. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableEndianByteSwap, 2, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableEndianByteSwap, 2, 1)
         /** @brief Setting this bit will mask future interrupt events from being generated. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MaskInterrupt, 1, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, MaskInterrupt, 1, 1)
         /** @brief Setting this bit will clear interrupt as long as the mask interrupt bit is not set. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ClearInterrupt, 0, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, ClearInterrupt, 0, 1)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "MiscellaneousHostControl"; }
@@ -315,7 +315,7 @@ typedef register_container RegDEVICEMiscellaneousHostControl_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEMiscellaneousHostControl_t;
 
-#define REG_DEVICE_PCI_STATE ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0000070) /*  */
+#define REG_DEVICE_PCI_STATE ((volatile APE_DEVICE_H_uint32_t*)0xa0040070) /*  */
 #define     DEVICE_PCI_STATE_PCI_EXPANSION_ROM_DESIRED_SHIFT 5u
 #define     DEVICE_PCI_STATE_PCI_EXPANSION_ROM_DESIRED_MASK  0x20u
 #define GET_DEVICE_PCI_STATE_PCI_EXPANSION_ROM_DESIRED(__reg__)  (((__reg__) & 0x20) >> 5u)
@@ -360,67 +360,67 @@ typedef register_container RegDEVICEMiscellaneousHostControl_t {
 /** @brief Register definition for @ref DEVICE_t.PciState. */
 typedef register_container RegDEVICEPciState_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_4_0, 0, 5)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_4_0, 0, 5)
         /** @brief Enable PCI ROM base address register to be visible to the PCI host */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PCIExpansionROMDesired, 5, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PCIExpansionROMDesired, 5, 1)
         /** @brief Force PCI Retry for accesses to Expansion ROM region if enabled */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PCIExpansionROMRetry, 6, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PCIExpansionROMRetry, 6, 1)
         /** @brief This bit reads as 1 if the VPD region of the NVRAM can be accessed by the host */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, VPDAvailable, 7, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, VPDAvailable, 7, 1)
         /** @brief Asserted if the Base Address register presents a 32 MB PCI Address map flat view, otherwise, indicates a 64 KB PCI Address map in standard view */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, FlatView, 8, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, FlatView, 8, 1)
         /** @brief Indicates the number of PCI clock cycles before Retry occurs, in multiple of 8. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MaxPCITargetRetry, 9, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, MaxPCITargetRetry, 9, 3)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_14_12, 12, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_14_12, 12, 3)
         /** @brief When asserted, forces all config access to be retried. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ConfigRetry, 15, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, ConfigRetry, 15, 1)
         /** @brief When this bit is set the APE control registers may be written. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APEControlRegisterWriteEnable, 16, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, APEControlRegisterWriteEnable, 16, 1)
         /** @brief When this bit is set the APE shared memory region may be written. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APESharedMemoryWriteEnable, 17, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, APESharedMemoryWriteEnable, 17, 1)
         /** @brief When this bit is set the APE program space may be written. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APEProgramSpaceWriteEnable, 18, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, APEProgramSpaceWriteEnable, 18, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GenerateResetPlus, 19, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, GenerateResetPlus, 19, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_20, 20, 12)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_20, 20, 12)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_20, 20, 12)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_20, 20, 12)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GenerateResetPlus, 19, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, GenerateResetPlus, 19, 1)
         /** @brief When this bit is set the APE program space may be written. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APEProgramSpaceWriteEnable, 18, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, APEProgramSpaceWriteEnable, 18, 1)
         /** @brief When this bit is set the APE shared memory region may be written. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APESharedMemoryWriteEnable, 17, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, APESharedMemoryWriteEnable, 17, 1)
         /** @brief When this bit is set the APE control registers may be written. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APEControlRegisterWriteEnable, 16, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, APEControlRegisterWriteEnable, 16, 1)
         /** @brief When asserted, forces all config access to be retried. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ConfigRetry, 15, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, ConfigRetry, 15, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_14_12, 12, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_14_12, 12, 3)
         /** @brief Indicates the number of PCI clock cycles before Retry occurs, in multiple of 8. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MaxPCITargetRetry, 9, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, MaxPCITargetRetry, 9, 3)
         /** @brief Asserted if the Base Address register presents a 32 MB PCI Address map flat view, otherwise, indicates a 64 KB PCI Address map in standard view */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, FlatView, 8, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, FlatView, 8, 1)
         /** @brief This bit reads as 1 if the VPD region of the NVRAM can be accessed by the host */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, VPDAvailable, 7, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, VPDAvailable, 7, 1)
         /** @brief Force PCI Retry for accesses to Expansion ROM region if enabled */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PCIExpansionROMRetry, 6, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PCIExpansionROMRetry, 6, 1)
         /** @brief Enable PCI ROM base address register to be visible to the PCI host */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PCIExpansionROMDesired, 5, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PCIExpansionROMDesired, 5, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_4_0, 0, 5)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_4_0, 0, 5)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "PciState"; }
@@ -461,11 +461,11 @@ typedef register_container RegDEVICEPciState_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPciState_t;
 
-#define REG_DEVICE_REGISTER_BASE ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0000078) /* Local controller memory address of a register than can be written or read by writing to the register data register. */
+#define REG_DEVICE_REGISTER_BASE ((volatile APE_DEVICE_H_uint32_t*)0xa0040078) /* Local controller memory address of a register than can be written or read by writing to the register data register. */
 /** @brief Register definition for @ref DEVICE_t.RegisterBase. */
 typedef register_container RegDEVICERegisterBase_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "RegisterBase"; }
@@ -486,11 +486,11 @@ typedef register_container RegDEVICERegisterBase_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERegisterBase_t;
 
-#define REG_DEVICE_MEMORY_BASE ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000007c) /* Local controller memory address of the NIC memory region that can be accessed via Memory Window data register. */
+#define REG_DEVICE_MEMORY_BASE ((volatile APE_DEVICE_H_uint32_t*)0xa004007c) /* Local controller memory address of the NIC memory region that can be accessed via Memory Window data register. */
 /** @brief Register definition for @ref DEVICE_t.MemoryBase. */
 typedef register_container RegDEVICEMemoryBase_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "MemoryBase"; }
@@ -511,11 +511,11 @@ typedef register_container RegDEVICEMemoryBase_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEMemoryBase_t;
 
-#define REG_DEVICE_REGISTER_DATA ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0000080) /* Register Data at the location pointed by the Register Base Register. */
+#define REG_DEVICE_REGISTER_DATA ((volatile APE_DEVICE_H_uint32_t*)0xa0040080) /* Register Data at the location pointed by the Register Base Register. */
 /** @brief Register definition for @ref DEVICE_t.RegisterData. */
 typedef register_container RegDEVICERegisterData_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "RegisterData"; }
@@ -536,11 +536,11 @@ typedef register_container RegDEVICERegisterData_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERegisterData_t;
 
-#define REG_DEVICE_UNDI_RECEIVE_RETURN_RING_CONSUMER_INDEX ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0000088) /* UNDI Receive Return Ring Consumer Index Mailbox */
+#define REG_DEVICE_UNDI_RECEIVE_RETURN_RING_CONSUMER_INDEX ((volatile APE_DEVICE_H_uint32_t*)0xa0040088) /* UNDI Receive Return Ring Consumer Index Mailbox */
 /** @brief Register definition for @ref DEVICE_t.UndiReceiveReturnRingConsumerIndex. */
 typedef register_container RegDEVICEUndiReceiveReturnRingConsumerIndex_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "UndiReceiveReturnRingConsumerIndex"; }
@@ -561,11 +561,11 @@ typedef register_container RegDEVICEUndiReceiveReturnRingConsumerIndex_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEUndiReceiveReturnRingConsumerIndex_t;
 
-#define REG_DEVICE_UNDI_RECEIVE_RETURN_RING_CONSUMER_INDEX_LOW ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000008c) /* UNDI Receive Return Ring Consumer Index Mailbox */
+#define REG_DEVICE_UNDI_RECEIVE_RETURN_RING_CONSUMER_INDEX_LOW ((volatile APE_DEVICE_H_uint32_t*)0xa004008c) /* UNDI Receive Return Ring Consumer Index Mailbox */
 /** @brief Register definition for @ref DEVICE_t.UndiReceiveReturnRingConsumerIndexLow. */
 typedef register_container RegDEVICEUndiReceiveReturnRingConsumerIndexLow_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "UndiReceiveReturnRingConsumerIndexLow"; }
@@ -586,7 +586,7 @@ typedef register_container RegDEVICEUndiReceiveReturnRingConsumerIndexLow_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEUndiReceiveReturnRingConsumerIndexLow_t;
 
-#define REG_DEVICE_LINK_STATUS_CONTROL ((volatile BCM5719_DEVICE_H_uint32_t*)0xc00000bc) /* PCIe standard register. */
+#define REG_DEVICE_LINK_STATUS_CONTROL ((volatile APE_DEVICE_H_uint32_t*)0xa00400bc) /* PCIe standard register. */
 #define     DEVICE_LINK_STATUS_CONTROL_NEGOTIATED_LINK_SPEED_SHIFT 16u
 #define     DEVICE_LINK_STATUS_CONTROL_NEGOTIATED_LINK_SPEED_MASK  0xf0000u
 #define GET_DEVICE_LINK_STATUS_CONTROL_NEGOTIATED_LINK_SPEED(__reg__)  (((__reg__) & 0xf0000) >> 16u)
@@ -602,31 +602,31 @@ typedef register_container RegDEVICEUndiReceiveReturnRingConsumerIndexLow_t {
 /** @brief Register definition for @ref DEVICE_t.LinkStatusControl. */
 typedef register_container RegDEVICELinkStatusControl_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_15_0, 0, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_15_0, 0, 16)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, NegotiatedLinkSpeed, 16, 4)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, NegotiatedLinkSpeed, 16, 4)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, NegotiatedLinkWidth, 20, 6)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, NegotiatedLinkWidth, 20, 6)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_26, 26, 6)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_26, 26, 6)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_26, 26, 6)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_26, 26, 6)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, NegotiatedLinkWidth, 20, 6)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, NegotiatedLinkWidth, 20, 6)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, NegotiatedLinkSpeed, 16, 4)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, NegotiatedLinkSpeed, 16, 4)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_15_0, 0, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_15_0, 0, 16)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "LinkStatusControl"; }
@@ -651,11 +651,11 @@ typedef register_container RegDEVICELinkStatusControl_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICELinkStatusControl_t;
 
-#define REG_DEVICE_APE_MEMORY_BASE ((volatile BCM5719_DEVICE_H_uint32_t*)0xc00000f8) /* APE Memory address to read/write using the APE Memory Data register.. */
+#define REG_DEVICE_APE_MEMORY_BASE ((volatile APE_DEVICE_H_uint32_t*)0xa00400f8) /* APE Memory address to read/write using the APE Memory Data register.. */
 /** @brief Register definition for @ref DEVICE_t.ApeMemoryBase. */
 typedef register_container RegDEVICEApeMemoryBase_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "ApeMemoryBase"; }
@@ -676,11 +676,11 @@ typedef register_container RegDEVICEApeMemoryBase_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEApeMemoryBase_t;
 
-#define REG_DEVICE_APE_MEMORY_DATA ((volatile BCM5719_DEVICE_H_uint32_t*)0xc00000fc) /* APE Memory value at the location pointed by the Memory Base Register. */
+#define REG_DEVICE_APE_MEMORY_DATA ((volatile APE_DEVICE_H_uint32_t*)0xa00400fc) /* APE Memory value at the location pointed by the Memory Base Register. */
 /** @brief Register definition for @ref DEVICE_t.ApeMemoryData. */
 typedef register_container RegDEVICEApeMemoryData_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "ApeMemoryData"; }
@@ -701,7 +701,7 @@ typedef register_container RegDEVICEApeMemoryData_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEApeMemoryData_t;
 
-#define REG_DEVICE_EMAC_MODE ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0000400) /*  */
+#define REG_DEVICE_EMAC_MODE ((volatile APE_DEVICE_H_uint32_t*)0xa0040400) /*  */
 #define     DEVICE_EMAC_MODE_GLOBAL_RESET_SHIFT 0u
 #define     DEVICE_EMAC_MODE_GLOBAL_RESET_MASK  0x1u
 #define GET_DEVICE_EMAC_MODE_GLOBAL_RESET(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -811,131 +811,131 @@ typedef register_container RegDEVICEApeMemoryData_t {
 /** @brief Register definition for @ref DEVICE_t.EmacMode. */
 typedef register_container RegDEVICEEmacMode_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief When this bit is set to 1, the MAC state machine is reset. This is a self-clearing bit. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GlobalReset, 0, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, GlobalReset, 0, 1)
         /** @brief When set, the MII/GMII interface is configured to operate in half-duplex mode and the CSMA/ CD state machines in the MAC are set to half-duplex mode. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, HalfDuplex, 1, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, HalfDuplex, 1, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PortMode, 2, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PortMode, 2, 2)
         /** @brief When set, an internal loopback path is enabled from the transmit MAC to the receive MAC. This bit is provided for diagnostic purposes only. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LoopbackMode, 4, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, LoopbackMode, 4, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_6_5, 5, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_6_5, 5, 2)
         /** @brief Allow the MAC to receive tagged MAC control packets. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, TaggedMACControl, 7, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, TaggedMACControl, 7, 1)
         /** @brief Enable transmit bursting in gigabit half-duplex mode. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableTXBursting, 8, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableTXBursting, 8, 1)
         /** @brief Enable Max Deferral checking statistic. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MaxDefer, 9, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, MaxDefer, 9, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_10_10, 10, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_10_10, 10, 1)
         /** @brief Enable receive statistics external updates. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableRXStatistics, 11, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableRXStatistics, 11, 1)
         /** @brief Clear receive statistics internal RAM. This bit is self-clearing. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ClearRXStatistics, 12, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, ClearRXStatistics, 12, 1)
         /** @brief Write receive statistics to external memory. This bit is self-clearing. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, FlushRXStatistics, 13, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, FlushRXStatistics, 13, 1)
         /** @brief Enable transmit statistics external updates. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableTXStatistics, 14, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableTXStatistics, 14, 1)
         /** @brief Clear transmit statistics internal RAM. This bit is self-clearing. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ClearTXStatistics, 15, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, ClearTXStatistics, 15, 1)
         /** @brief Write transmit statistics to external memory. This bit is self-clearing. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, FlushTXStatistics, 16, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, FlushTXStatistics, 16, 1)
         /** @brief Send config commands when in TBI mode. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SendConfigCommand, 17, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, SendConfigCommand, 17, 1)
         /** @brief Enable Magic Packet detection. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MagicPacketDetectionEnable, 18, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, MagicPacketDetectionEnable, 18, 1)
         /** @brief Enable Wake on LAN filters when in powerdown mode. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ACPIPowerOnEnable, 19, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, ACPIPowerOnEnable, 19, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_20_20, 20, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_20_20, 20, 1)
         /** @brief Enable Transmit DMA engine. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableTCE, 21, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableTCE, 21, 1)
         /** @brief Enable RDMA engine. Must be set for normal operation. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableRDE, 22, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableRDE, 22, 1)
         /** @brief Enable receive Frame Header DMA engine. Must be set for normal operation. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableFHDE, 23, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableFHDE, 23, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, KeepFrameInWOL, 24, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, KeepFrameInWOL, 24, 1)
         /** @brief When this bit is set, the WOL signal will not be asserted on an interesting packet match. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, HaltInterestingPacketPME, 25, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, HaltInterestingPacketPME, 25, 1)
         /** @brief When this bit is set, the ACPI state machine will continue running when a match is found. When this bit is clear, the ACPI state machine will halt when a match is found. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Free_RunningACPI, 26, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Free_RunningACPI, 26, 1)
         /** @brief This bit must be written a 1 for APE subsystem to receive packets from the EMAC. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableAPERXPath, 27, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableAPERXPath, 27, 1)
         /** @brief This bit must be written a 1 for the EMAC to transmit APE packets. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableAPETXPath, 28, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableAPETXPath, 28, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MACLoopbackModeControl, 29, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, MACLoopbackModeControl, 29, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_30, 30, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_30, 30, 2)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_30, 30, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_30, 30, 2)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MACLoopbackModeControl, 29, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, MACLoopbackModeControl, 29, 1)
         /** @brief This bit must be written a 1 for the EMAC to transmit APE packets. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableAPETXPath, 28, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableAPETXPath, 28, 1)
         /** @brief This bit must be written a 1 for APE subsystem to receive packets from the EMAC. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableAPERXPath, 27, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableAPERXPath, 27, 1)
         /** @brief When this bit is set, the ACPI state machine will continue running when a match is found. When this bit is clear, the ACPI state machine will halt when a match is found. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Free_RunningACPI, 26, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Free_RunningACPI, 26, 1)
         /** @brief When this bit is set, the WOL signal will not be asserted on an interesting packet match. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, HaltInterestingPacketPME, 25, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, HaltInterestingPacketPME, 25, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, KeepFrameInWOL, 24, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, KeepFrameInWOL, 24, 1)
         /** @brief Enable receive Frame Header DMA engine. Must be set for normal operation. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableFHDE, 23, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableFHDE, 23, 1)
         /** @brief Enable RDMA engine. Must be set for normal operation. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableRDE, 22, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableRDE, 22, 1)
         /** @brief Enable Transmit DMA engine. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableTCE, 21, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableTCE, 21, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_20_20, 20, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_20_20, 20, 1)
         /** @brief Enable Wake on LAN filters when in powerdown mode. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ACPIPowerOnEnable, 19, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, ACPIPowerOnEnable, 19, 1)
         /** @brief Enable Magic Packet detection. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MagicPacketDetectionEnable, 18, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, MagicPacketDetectionEnable, 18, 1)
         /** @brief Send config commands when in TBI mode. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SendConfigCommand, 17, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, SendConfigCommand, 17, 1)
         /** @brief Write transmit statistics to external memory. This bit is self-clearing. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, FlushTXStatistics, 16, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, FlushTXStatistics, 16, 1)
         /** @brief Clear transmit statistics internal RAM. This bit is self-clearing. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ClearTXStatistics, 15, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, ClearTXStatistics, 15, 1)
         /** @brief Enable transmit statistics external updates. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableTXStatistics, 14, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableTXStatistics, 14, 1)
         /** @brief Write receive statistics to external memory. This bit is self-clearing. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, FlushRXStatistics, 13, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, FlushRXStatistics, 13, 1)
         /** @brief Clear receive statistics internal RAM. This bit is self-clearing. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ClearRXStatistics, 12, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, ClearRXStatistics, 12, 1)
         /** @brief Enable receive statistics external updates. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableRXStatistics, 11, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableRXStatistics, 11, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_10_10, 10, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_10_10, 10, 1)
         /** @brief Enable Max Deferral checking statistic. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MaxDefer, 9, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, MaxDefer, 9, 1)
         /** @brief Enable transmit bursting in gigabit half-duplex mode. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableTXBursting, 8, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableTXBursting, 8, 1)
         /** @brief Allow the MAC to receive tagged MAC control packets. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, TaggedMACControl, 7, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, TaggedMACControl, 7, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_6_5, 5, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_6_5, 5, 2)
         /** @brief When set, an internal loopback path is enabled from the transmit MAC to the receive MAC. This bit is provided for diagnostic purposes only. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LoopbackMode, 4, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, LoopbackMode, 4, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PortMode, 2, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PortMode, 2, 2)
         /** @brief When set, the MII/GMII interface is configured to operate in half-duplex mode and the CSMA/ CD state machines in the MAC are set to half-duplex mode. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, HalfDuplex, 1, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, HalfDuplex, 1, 1)
         /** @brief When this bit is set to 1, the MAC state machine is reset. This is a self-clearing bit. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GlobalReset, 0, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, GlobalReset, 0, 1)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "EmacMode"; }
@@ -1006,7 +1006,7 @@ typedef register_container RegDEVICEEmacMode_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEEmacMode_t;
 
-#define REG_DEVICE_LED_CONTROL ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000040c) /*  */
+#define REG_DEVICE_LED_CONTROL ((volatile APE_DEVICE_H_uint32_t*)0xa004040c) /*  */
 #define     DEVICE_LED_CONTROL_OVERRIDE_LINK_SHIFT 0u
 #define     DEVICE_LED_CONTROL_OVERRIDE_LINK_MASK  0x1u
 #define GET_DEVICE_LED_CONTROL_OVERRIDE_LINK(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -1080,83 +1080,83 @@ typedef register_container RegDEVICEEmacMode_t {
 /** @brief Register definition for @ref DEVICE_t.LedControl. */
 typedef register_container RegDEVICELedControl_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief If set, overrides hardware control of the three link LEDs. The LEDs will be controlled via bits [3:1]. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, OverrideLink, 0, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, OverrideLink, 0, 1)
         /** @brief If set along with the LED Override bit, turns on the 1000 Mbps LED. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LED1000, 1, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, LED1000, 1, 1)
         /** @brief If set along with the LED Override bit, turns on the 100 Mbps LED. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LED100, 2, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, LED100, 2, 1)
         /** @brief If set along with the LED Override bit, turns on the 10 Mbps LED. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LED10, 3, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, LED10, 3, 1)
         /** @brief If set, overrides hardware control of the Traffic LED. The Traffic LED will then be controlled via bits [6:5]. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, OverrideTraffic, 4, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, OverrideTraffic, 4, 1)
         /** @brief If set along with the Override Traffic bit and Traffic LED bit, the Traffic LED will blink with the blink rate specified in Override Blink Rate (bit 31) and Blink Period (bits [30:19]) fields. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LEDTrafficBlink, 5, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, LEDTrafficBlink, 5, 1)
         /** @brief If set along with the Override Traffic bit, the Traffic LED is turned on. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LEDTraffic, 6, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, LEDTraffic, 6, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LEDStatus1000, 7, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, LEDStatus1000, 7, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LEDStatus100, 8, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, LEDStatus100, 8, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LEDStatus10, 9, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, LEDStatus10, 9, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LEDStatusTraffic, 10, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, LEDStatusTraffic, 10, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LEDMode, 11, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, LEDMode, 11, 2)
         /** @brief When this bit is set, the traffic LED blinks only when traffic is addressed for the device (The LED_MODE field must be set to 00 before enabling this bit). */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MACMode, 13, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, MACMode, 13, 1)
         /** @brief When this bit is set, the Link LED is solid green when there is a link and blinks when there is traffic. (The LED_MODE field must be set to 00 before enabling this bit). */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SharedTraffic_DIV_LinkLEDMode, 14, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, SharedTraffic_DIV_LinkLEDMode, 14, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_18_15, 15, 4)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_18_15, 15, 4)
         /** @brief Specifies the period of each blink cycle (on+off) for Traffic LED in milliseconds. Must be a nonzero value. This 12-bit field is reset to 0x040, giving a default blink period of approximately 15.9Hz. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BlinkPeriod, 19, 12)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, BlinkPeriod, 19, 12)
         /** @brief If set, the blink rate for the Traffic LED is determined by the Blink Period field (bit 30 to bit 19). This bit is rest to 1. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, OverrideBlinkRate, 31, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, OverrideBlinkRate, 31, 1)
 #elif defined(__BIG_ENDIAN__)
         /** @brief If set, the blink rate for the Traffic LED is determined by the Blink Period field (bit 30 to bit 19). This bit is rest to 1. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, OverrideBlinkRate, 31, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, OverrideBlinkRate, 31, 1)
         /** @brief Specifies the period of each blink cycle (on+off) for Traffic LED in milliseconds. Must be a nonzero value. This 12-bit field is reset to 0x040, giving a default blink period of approximately 15.9Hz. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BlinkPeriod, 19, 12)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, BlinkPeriod, 19, 12)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_18_15, 15, 4)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_18_15, 15, 4)
         /** @brief When this bit is set, the Link LED is solid green when there is a link and blinks when there is traffic. (The LED_MODE field must be set to 00 before enabling this bit). */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SharedTraffic_DIV_LinkLEDMode, 14, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, SharedTraffic_DIV_LinkLEDMode, 14, 1)
         /** @brief When this bit is set, the traffic LED blinks only when traffic is addressed for the device (The LED_MODE field must be set to 00 before enabling this bit). */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MACMode, 13, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, MACMode, 13, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LEDMode, 11, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, LEDMode, 11, 2)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LEDStatusTraffic, 10, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, LEDStatusTraffic, 10, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LEDStatus10, 9, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, LEDStatus10, 9, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LEDStatus100, 8, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, LEDStatus100, 8, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LEDStatus1000, 7, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, LEDStatus1000, 7, 1)
         /** @brief If set along with the Override Traffic bit, the Traffic LED is turned on. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LEDTraffic, 6, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, LEDTraffic, 6, 1)
         /** @brief If set along with the Override Traffic bit and Traffic LED bit, the Traffic LED will blink with the blink rate specified in Override Blink Rate (bit 31) and Blink Period (bits [30:19]) fields. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LEDTrafficBlink, 5, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, LEDTrafficBlink, 5, 1)
         /** @brief If set, overrides hardware control of the Traffic LED. The Traffic LED will then be controlled via bits [6:5]. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, OverrideTraffic, 4, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, OverrideTraffic, 4, 1)
         /** @brief If set along with the LED Override bit, turns on the 10 Mbps LED. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LED10, 3, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, LED10, 3, 1)
         /** @brief If set along with the LED Override bit, turns on the 100 Mbps LED. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LED100, 2, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, LED100, 2, 1)
         /** @brief If set along with the LED Override bit, turns on the 1000 Mbps LED. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LED1000, 1, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, LED1000, 1, 1)
         /** @brief If set, overrides hardware control of the three link LEDs. The LEDs will be controlled via bits [3:1]. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, OverrideLink, 0, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, OverrideLink, 0, 1)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "LedControl"; }
@@ -1209,11 +1209,11 @@ typedef register_container RegDEVICELedControl_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICELedControl_t;
 
-#define REG_DEVICE_EMAC_MAC_ADDRESSES_0_HIGH ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0000410) /* Upper 2-bytes of this node's MAC address. */
+#define REG_DEVICE_EMAC_MAC_ADDRESSES_0_HIGH ((volatile APE_DEVICE_H_uint32_t*)0xa0040410) /* Upper 2-bytes of this node's MAC address. */
 /** @brief Register definition for @ref DEVICE_t.EmacMacAddresses0High. */
 typedef register_container RegDEVICEEmacMacAddresses0High_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "EmacMacAddresses0High"; }
@@ -1234,11 +1234,11 @@ typedef register_container RegDEVICEEmacMacAddresses0High_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEEmacMacAddresses0High_t;
 
-#define REG_DEVICE_EMAC_MAC_ADDRESSES_0_LOW ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0000414) /* Lower 4-byte of this node's MAC address. */
+#define REG_DEVICE_EMAC_MAC_ADDRESSES_0_LOW ((volatile APE_DEVICE_H_uint32_t*)0xa0040414) /* Lower 4-byte of this node's MAC address. */
 /** @brief Register definition for @ref DEVICE_t.EmacMacAddresses0Low. */
 typedef register_container RegDEVICEEmacMacAddresses0Low_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "EmacMacAddresses0Low"; }
@@ -1259,11 +1259,11 @@ typedef register_container RegDEVICEEmacMacAddresses0Low_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEEmacMacAddresses0Low_t;
 
-#define REG_DEVICE_EMAC_MAC_ADDRESSES_1_HIGH ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0000418) /* Upper 2-bytes of this node's MAC address. */
+#define REG_DEVICE_EMAC_MAC_ADDRESSES_1_HIGH ((volatile APE_DEVICE_H_uint32_t*)0xa0040418) /* Upper 2-bytes of this node's MAC address. */
 /** @brief Register definition for @ref DEVICE_t.EmacMacAddresses1High. */
 typedef register_container RegDEVICEEmacMacAddresses1High_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "EmacMacAddresses1High"; }
@@ -1284,11 +1284,11 @@ typedef register_container RegDEVICEEmacMacAddresses1High_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEEmacMacAddresses1High_t;
 
-#define REG_DEVICE_EMAC_MAC_ADDRESSES_1_LOW ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000041c) /* Lower 4-byte of this node's MAC address. */
+#define REG_DEVICE_EMAC_MAC_ADDRESSES_1_LOW ((volatile APE_DEVICE_H_uint32_t*)0xa004041c) /* Lower 4-byte of this node's MAC address. */
 /** @brief Register definition for @ref DEVICE_t.EmacMacAddresses1Low. */
 typedef register_container RegDEVICEEmacMacAddresses1Low_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "EmacMacAddresses1Low"; }
@@ -1309,11 +1309,11 @@ typedef register_container RegDEVICEEmacMacAddresses1Low_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEEmacMacAddresses1Low_t;
 
-#define REG_DEVICE_EMAC_MAC_ADDRESSES_2_HIGH ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0000420) /* Upper 2-bytes of this node's MAC address. */
+#define REG_DEVICE_EMAC_MAC_ADDRESSES_2_HIGH ((volatile APE_DEVICE_H_uint32_t*)0xa0040420) /* Upper 2-bytes of this node's MAC address. */
 /** @brief Register definition for @ref DEVICE_t.EmacMacAddresses2High. */
 typedef register_container RegDEVICEEmacMacAddresses2High_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "EmacMacAddresses2High"; }
@@ -1334,11 +1334,11 @@ typedef register_container RegDEVICEEmacMacAddresses2High_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEEmacMacAddresses2High_t;
 
-#define REG_DEVICE_EMAC_MAC_ADDRESSES_2_LOW ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0000424) /* Lower 4-byte of this node's MAC address. */
+#define REG_DEVICE_EMAC_MAC_ADDRESSES_2_LOW ((volatile APE_DEVICE_H_uint32_t*)0xa0040424) /* Lower 4-byte of this node's MAC address. */
 /** @brief Register definition for @ref DEVICE_t.EmacMacAddresses2Low. */
 typedef register_container RegDEVICEEmacMacAddresses2Low_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "EmacMacAddresses2Low"; }
@@ -1359,11 +1359,11 @@ typedef register_container RegDEVICEEmacMacAddresses2Low_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEEmacMacAddresses2Low_t;
 
-#define REG_DEVICE_EMAC_MAC_ADDRESSES_3_HIGH ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0000428) /* Upper 2-bytes of this node's MAC address. */
+#define REG_DEVICE_EMAC_MAC_ADDRESSES_3_HIGH ((volatile APE_DEVICE_H_uint32_t*)0xa0040428) /* Upper 2-bytes of this node's MAC address. */
 /** @brief Register definition for @ref DEVICE_t.EmacMacAddresses3High. */
 typedef register_container RegDEVICEEmacMacAddresses3High_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "EmacMacAddresses3High"; }
@@ -1384,11 +1384,11 @@ typedef register_container RegDEVICEEmacMacAddresses3High_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEEmacMacAddresses3High_t;
 
-#define REG_DEVICE_EMAC_MAC_ADDRESSES_3_LOW ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000042c) /* Lower 4-byte of this node's MAC address. */
+#define REG_DEVICE_EMAC_MAC_ADDRESSES_3_LOW ((volatile APE_DEVICE_H_uint32_t*)0xa004042c) /* Lower 4-byte of this node's MAC address. */
 /** @brief Register definition for @ref DEVICE_t.EmacMacAddresses3Low. */
 typedef register_container RegDEVICEEmacMacAddresses3Low_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "EmacMacAddresses3Low"; }
@@ -1409,11 +1409,11 @@ typedef register_container RegDEVICEEmacMacAddresses3Low_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEEmacMacAddresses3Low_t;
 
-#define REG_DEVICE_WOL_PATTERN_POINTER ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0000430) /* Specifies the offset into the 6KB BD memory for frame comparison. (Bits 3:0 are ignored to align the memory address to a natural 128-bit boundary). */
+#define REG_DEVICE_WOL_PATTERN_POINTER ((volatile APE_DEVICE_H_uint32_t*)0xa0040430) /* Specifies the offset into the 6KB BD memory for frame comparison. (Bits 3:0 are ignored to align the memory address to a natural 128-bit boundary). */
 /** @brief Register definition for @ref DEVICE_t.WolPatternPointer. */
 typedef register_container RegDEVICEWolPatternPointer_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "WolPatternPointer"; }
@@ -1434,11 +1434,11 @@ typedef register_container RegDEVICEWolPatternPointer_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEWolPatternPointer_t;
 
-#define REG_DEVICE_WOL_PATTERN_CFG ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0000434) /*  */
+#define REG_DEVICE_WOL_PATTERN_CFG ((volatile APE_DEVICE_H_uint32_t*)0xa0040434) /*  */
 /** @brief Register definition for @ref DEVICE_t.WolPatternCfg. */
 typedef register_container RegDEVICEWolPatternCfg_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "WolPatternCfg"; }
@@ -1459,7 +1459,7 @@ typedef register_container RegDEVICEWolPatternCfg_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEWolPatternCfg_t;
 
-#define REG_DEVICE_MTU_SIZE ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000043c) /* 2-byte field which is the largest size frame that will be accepted without being marked as oversize. */
+#define REG_DEVICE_MTU_SIZE ((volatile APE_DEVICE_H_uint32_t*)0xa004043c) /* 2-byte field which is the largest size frame that will be accepted without being marked as oversize. */
 #define     DEVICE_MTU_SIZE_MTU_SHIFT 0u
 #define     DEVICE_MTU_SIZE_MTU_MASK  0xffffu
 #define GET_DEVICE_MTU_SIZE_MTU(__reg__)  (((__reg__) & 0xffff) >> 0u)
@@ -1468,23 +1468,23 @@ typedef register_container RegDEVICEWolPatternCfg_t {
 /** @brief Register definition for @ref DEVICE_t.MtuSize. */
 typedef register_container RegDEVICEMtuSize_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief 2-byte field which is the largest size frame that will be accepted without being marked as oversize. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MTU, 0, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, MTU, 0, 16)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_16, 16, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_16, 16, 16)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_16, 16, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_16, 16, 16)
         /** @brief 2-byte field which is the largest size frame that will be accepted without being marked as oversize. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MTU, 0, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, MTU, 0, 16)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "MtuSize"; }
@@ -1507,7 +1507,7 @@ typedef register_container RegDEVICEMtuSize_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEMtuSize_t;
 
-#define REG_DEVICE_MII_COMMUNICATION ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000044c) /*  */
+#define REG_DEVICE_MII_COMMUNICATION ((volatile APE_DEVICE_H_uint32_t*)0xa004044c) /*  */
 #define     DEVICE_MII_COMMUNICATION_TRANSACTION_DATA_SHIFT 0u
 #define     DEVICE_MII_COMMUNICATION_TRANSACTION_DATA_MASK  0xffffu
 #define GET_DEVICE_MII_COMMUNICATION_TRANSACTION_DATA(__reg__)  (((__reg__) & 0xffff) >> 0u)
@@ -1548,43 +1548,43 @@ typedef register_container RegDEVICEMtuSize_t {
 /** @brief Register definition for @ref DEVICE_t.MiiCommunication. */
 typedef register_container RegDEVICEMiiCommunication_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief When configured for a write command, the data stored at this location is written to the PHY at the specified PHY and register address. During a read command, the data returned by the PHY is stored at this location. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, TransactionData, 0, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, TransactionData, 0, 16)
         /** @brief Address of the register to be read or written. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, RegisterAddress, 16, 5)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, RegisterAddress, 16, 5)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PHYAddress, 21, 5)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PHYAddress, 21, 5)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Command, 26, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Command, 26, 2)
         /** @brief When set, the transceiver device did not drive the bus during the attempted read transaction. Valid after the Start/Busy bit is cleared. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ReadFailed, 28, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, ReadFailed, 28, 1)
         /** @brief Set this bit to start a transaction. While it is high, it indicates that the current transaction is still ongoing. If enabled, generates an attention via EMAC Status Register MI Completion bit (bit 22). */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Start_DIV_Busy, 29, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Start_DIV_Busy, 29, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_30, 30, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_30, 30, 2)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_30, 30, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_30, 30, 2)
         /** @brief Set this bit to start a transaction. While it is high, it indicates that the current transaction is still ongoing. If enabled, generates an attention via EMAC Status Register MI Completion bit (bit 22). */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Start_DIV_Busy, 29, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Start_DIV_Busy, 29, 1)
         /** @brief When set, the transceiver device did not drive the bus during the attempted read transaction. Valid after the Start/Busy bit is cleared. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ReadFailed, 28, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, ReadFailed, 28, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Command, 26, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Command, 26, 2)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PHYAddress, 21, 5)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PHYAddress, 21, 5)
         /** @brief Address of the register to be read or written. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, RegisterAddress, 16, 5)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, RegisterAddress, 16, 5)
         /** @brief When configured for a write command, the data stored at this location is written to the PHY at the specified PHY and register address. During a read command, the data returned by the PHY is stored at this location. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, TransactionData, 0, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, TransactionData, 0, 16)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "MiiCommunication"; }
@@ -1617,7 +1617,7 @@ typedef register_container RegDEVICEMiiCommunication_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEMiiCommunication_t;
 
-#define REG_DEVICE_MII_MODE ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0000454) /*  */
+#define REG_DEVICE_MII_MODE ((volatile APE_DEVICE_H_uint32_t*)0xa0040454) /*  */
 #define     DEVICE_MII_MODE_PHY_ADDRESS_SHIFT 5u
 #define     DEVICE_MII_MODE_PHY_ADDRESS_MASK  0x3e0u
 #define GET_DEVICE_MII_MODE_PHY_ADDRESS(__reg__)  (((__reg__) & 0x3e0) >> 5u)
@@ -1634,39 +1634,39 @@ typedef register_container RegDEVICEMiiCommunication_t {
 /** @brief Register definition for @ref DEVICE_t.MiiMode. */
 typedef register_container RegDEVICEMiiMode_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_4_0, 0, 5)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_4_0, 0, 5)
         /** @brief This field specifies the PHY Address. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PHYAddress, 5, 5)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PHYAddress, 5, 5)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_14_10, 10, 5)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_14_10, 10, 5)
         /** @brief Enable ~500Khz constant MII management interface (MDIO/MDC) frequency regardless core clock frequency. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ConstantMDIO_DIV_MDCClockSpeed, 15, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, ConstantMDIO_DIV_MDCClockSpeed, 15, 1)
         /** @brief Counter to divide CORE_CLK (62.5 MHz) to generate the MI clock. CORE_CLK/2/(MII Clock Count + 1). */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MIIClockCount, 16, 5)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, MIIClockCount, 16, 5)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
         /** @brief Counter to divide CORE_CLK (62.5 MHz) to generate the MI clock. CORE_CLK/2/(MII Clock Count + 1). */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MIIClockCount, 16, 5)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, MIIClockCount, 16, 5)
         /** @brief Enable ~500Khz constant MII management interface (MDIO/MDC) frequency regardless core clock frequency. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ConstantMDIO_DIV_MDCClockSpeed, 15, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, ConstantMDIO_DIV_MDCClockSpeed, 15, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_14_10, 10, 5)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_14_10, 10, 5)
         /** @brief This field specifies the PHY Address. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PHYAddress, 5, 5)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PHYAddress, 5, 5)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_4_0, 0, 5)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_4_0, 0, 5)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "MiiMode"; }
@@ -1693,7 +1693,7 @@ typedef register_container RegDEVICEMiiMode_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEMiiMode_t;
 
-#define REG_DEVICE_TRANSMIT_MAC_MODE ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000045c) /*  */
+#define REG_DEVICE_TRANSMIT_MAC_MODE ((volatile APE_DEVICE_H_uint32_t*)0xa004045c) /*  */
 #define     DEVICE_TRANSMIT_MAC_MODE_RESET_SHIFT 0u
 #define     DEVICE_TRANSMIT_MAC_MODE_RESET_MASK  0x1u
 #define GET_DEVICE_TRANSMIT_MAC_MODE_RESET(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -1734,59 +1734,59 @@ typedef register_container RegDEVICEMiiMode_t {
 /** @brief Register definition for @ref DEVICE_t.TransmitMacMode. */
 typedef register_container RegDEVICETransmitMacMode_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief When this bit is set to 1, the Transmit MAC state machine will be reset. This is a self-clearing bit. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Reset, 0, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Reset, 0, 1)
         /** @brief Used to be enable TDE in legacy-same purpose. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableTCE, 1, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableTCE, 1, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_3_2, 2, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_3_2, 2, 2)
         /** @brief MAC will send 802.3x flow control frames. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableFlowControl, 4, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableFlowControl, 4, 1)
         /** @brief MAC will use larger than normal back-off algorithm. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableBigBackoff, 5, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableBigBackoff, 5, 1)
         /** @brief When set, the Pause time value set in the transmitted PAUSE frames is 0xFFFF. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableLongPause, 6, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableLongPause, 6, 1)
         /** @brief When set, transmission of packets by the MAC is enabled only when link is up. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LinkAwareEnable, 7, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, LinkAwareEnable, 7, 1)
         /** @brief When set, TXMBUF corruption lockup fix is enabled. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, TxMBUFCorruptionLockupFixEnable, 8, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, TxMBUFCorruptionLockupFixEnable, 8, 1)
         /** @brief A value 1 enables the TX ESP offload feature. When 0, offloaded ESP packet gets dropped. This value must be static. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableTXESPOffload, 9, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableTXESPOffload, 9, 1)
         /** @brief A value 1 enables the TX AH offload feature. When 0, offloaded AH packet gets dropped. This value must be static. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableTXAHOffload, 10, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableTXAHOffload, 10, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_11, 11, 21)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_11, 11, 21)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_11, 11, 21)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_11, 11, 21)
         /** @brief A value 1 enables the TX AH offload feature. When 0, offloaded AH packet gets dropped. This value must be static. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableTXAHOffload, 10, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableTXAHOffload, 10, 1)
         /** @brief A value 1 enables the TX ESP offload feature. When 0, offloaded ESP packet gets dropped. This value must be static. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableTXESPOffload, 9, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableTXESPOffload, 9, 1)
         /** @brief When set, TXMBUF corruption lockup fix is enabled. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, TxMBUFCorruptionLockupFixEnable, 8, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, TxMBUFCorruptionLockupFixEnable, 8, 1)
         /** @brief When set, transmission of packets by the MAC is enabled only when link is up. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LinkAwareEnable, 7, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, LinkAwareEnable, 7, 1)
         /** @brief When set, the Pause time value set in the transmitted PAUSE frames is 0xFFFF. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableLongPause, 6, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableLongPause, 6, 1)
         /** @brief MAC will use larger than normal back-off algorithm. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableBigBackoff, 5, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableBigBackoff, 5, 1)
         /** @brief MAC will send 802.3x flow control frames. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableFlowControl, 4, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableFlowControl, 4, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_3_2, 2, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_3_2, 2, 2)
         /** @brief Used to be enable TDE in legacy-same purpose. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableTCE, 1, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableTCE, 1, 1)
         /** @brief When this bit is set to 1, the Transmit MAC state machine will be reset. This is a self-clearing bit. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Reset, 0, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Reset, 0, 1)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "TransmitMacMode"; }
@@ -1825,7 +1825,7 @@ typedef register_container RegDEVICETransmitMacMode_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICETransmitMacMode_t;
 
-#define REG_DEVICE_RECEIVE_MAC_MODE ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0000468) /*  */
+#define REG_DEVICE_RECEIVE_MAC_MODE ((volatile APE_DEVICE_H_uint32_t*)0xa0040468) /*  */
 #define     DEVICE_RECEIVE_MAC_MODE_RESET_SHIFT 0u
 #define     DEVICE_RECEIVE_MAC_MODE_RESET_MASK  0x1u
 #define GET_DEVICE_RECEIVE_MAC_MODE_RESET(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -1846,43 +1846,43 @@ typedef register_container RegDEVICETransmitMacMode_t {
 /** @brief Register definition for @ref DEVICE_t.ReceiveMacMode. */
 typedef register_container RegDEVICEReceiveMacMode_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief When this bit is set to 1, the Receive MAC state machine will be reset. This is a self-clearing bit. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Reset, 0, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Reset, 0, 1)
         /** @brief This bit controls whether the Receive MAC state machine is active or not. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Enable, 1, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Enable, 1, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_7_2, 2, 6)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_7_2, 2, 6)
         /** @brief When set, no source address or MC hashing checking will be performed on incoming frames. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PromiscuousMode, 8, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PromiscuousMode, 8, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_24_9, 9, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_24_9, 9, 16)
         /** @brief When set, no source address or MC hashing checking will be performed on incoming frames on APE filter path. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APEPromiscuousMode, 25, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, APEPromiscuousMode, 25, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_26, 26, 6)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_26, 26, 6)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_26, 26, 6)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_26, 26, 6)
         /** @brief When set, no source address or MC hashing checking will be performed on incoming frames on APE filter path. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APEPromiscuousMode, 25, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, APEPromiscuousMode, 25, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_24_9, 9, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_24_9, 9, 16)
         /** @brief When set, no source address or MC hashing checking will be performed on incoming frames. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PromiscuousMode, 8, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PromiscuousMode, 8, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_7_2, 2, 6)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_7_2, 2, 6)
         /** @brief This bit controls whether the Receive MAC state machine is active or not. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Enable, 1, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Enable, 1, 1)
         /** @brief When this bit is set to 1, the Receive MAC state machine will be reset. This is a self-clearing bit. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Reset, 0, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Reset, 0, 1)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "ReceiveMacMode"; }
@@ -1911,7 +1911,7 @@ typedef register_container RegDEVICEReceiveMacMode_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEReceiveMacMode_t;
 
-#define REG_DEVICE_PERFECT_MATCH1_HIGH ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0000540) /*  */
+#define REG_DEVICE_PERFECT_MATCH1_HIGH ((volatile APE_DEVICE_H_uint32_t*)0xa0040540) /*  */
 #define     DEVICE_PERFECT_MATCH1_HIGH_HIGH_SHIFT 0u
 #define     DEVICE_PERFECT_MATCH1_HIGH_HIGH_MASK  0xffffu
 #define GET_DEVICE_PERFECT_MATCH1_HIGH_HIGH(__reg__)  (((__reg__) & 0xffff) >> 0u)
@@ -1920,23 +1920,23 @@ typedef register_container RegDEVICEReceiveMacMode_t {
 /** @brief Register definition for @ref DEVICE_t.PerfectMatch1High. */
 typedef register_container RegDEVICEPerfectMatch1High_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief Upper two bytes of the MAC */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, High, 0, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, High, 0, 16)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_16, 16, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_16, 16, 16)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_16, 16, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_16, 16, 16)
         /** @brief Upper two bytes of the MAC */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, High, 0, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, High, 0, 16)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "PerfectMatch1High"; }
@@ -1959,7 +1959,7 @@ typedef register_container RegDEVICEPerfectMatch1High_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPerfectMatch1High_t;
 
-#define REG_DEVICE_PERFECT_MATCH1_LOW ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0000544) /*  */
+#define REG_DEVICE_PERFECT_MATCH1_LOW ((volatile APE_DEVICE_H_uint32_t*)0xa0040544) /*  */
 #define     DEVICE_PERFECT_MATCH1_LOW_LOW_SHIFT 0u
 #define     DEVICE_PERFECT_MATCH1_LOW_LOW_MASK  0xffffffffu
 #define GET_DEVICE_PERFECT_MATCH1_LOW_LOW(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
@@ -1968,19 +1968,19 @@ typedef register_container RegDEVICEPerfectMatch1High_t {
 /** @brief Register definition for @ref DEVICE_t.PerfectMatch1Low. */
 typedef register_container RegDEVICEPerfectMatch1Low_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief Lower four bytes of the MAC */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Low, 0, 32)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Low, 0, 32)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Lower four bytes of the MAC */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Low, 0, 32)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Low, 0, 32)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "PerfectMatch1Low"; }
@@ -2003,7 +2003,7 @@ typedef register_container RegDEVICEPerfectMatch1Low_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPerfectMatch1Low_t;
 
-#define REG_DEVICE_PERFECT_MATCH2_HIGH ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0000548) /*  */
+#define REG_DEVICE_PERFECT_MATCH2_HIGH ((volatile APE_DEVICE_H_uint32_t*)0xa0040548) /*  */
 #define     DEVICE_PERFECT_MATCH2_HIGH_HIGH_SHIFT 0u
 #define     DEVICE_PERFECT_MATCH2_HIGH_HIGH_MASK  0xffffu
 #define GET_DEVICE_PERFECT_MATCH2_HIGH_HIGH(__reg__)  (((__reg__) & 0xffff) >> 0u)
@@ -2012,23 +2012,23 @@ typedef register_container RegDEVICEPerfectMatch1Low_t {
 /** @brief Register definition for @ref DEVICE_t.PerfectMatch2High. */
 typedef register_container RegDEVICEPerfectMatch2High_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief Upper two bytes of the MAC */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, High, 0, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, High, 0, 16)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_16, 16, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_16, 16, 16)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_16, 16, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_16, 16, 16)
         /** @brief Upper two bytes of the MAC */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, High, 0, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, High, 0, 16)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "PerfectMatch2High"; }
@@ -2051,7 +2051,7 @@ typedef register_container RegDEVICEPerfectMatch2High_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPerfectMatch2High_t;
 
-#define REG_DEVICE_PERFECT_MATCH2_LOW ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000054c) /*  */
+#define REG_DEVICE_PERFECT_MATCH2_LOW ((volatile APE_DEVICE_H_uint32_t*)0xa004054c) /*  */
 #define     DEVICE_PERFECT_MATCH2_LOW_LOW_SHIFT 0u
 #define     DEVICE_PERFECT_MATCH2_LOW_LOW_MASK  0xffffffffu
 #define GET_DEVICE_PERFECT_MATCH2_LOW_LOW(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
@@ -2060,19 +2060,19 @@ typedef register_container RegDEVICEPerfectMatch2High_t {
 /** @brief Register definition for @ref DEVICE_t.PerfectMatch2Low. */
 typedef register_container RegDEVICEPerfectMatch2Low_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief Lower four bytes of the MAC */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Low, 0, 32)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Low, 0, 32)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Lower four bytes of the MAC */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Low, 0, 32)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Low, 0, 32)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "PerfectMatch2Low"; }
@@ -2095,7 +2095,7 @@ typedef register_container RegDEVICEPerfectMatch2Low_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPerfectMatch2Low_t;
 
-#define REG_DEVICE_PERFECT_MATCH3_HIGH ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0000550) /*  */
+#define REG_DEVICE_PERFECT_MATCH3_HIGH ((volatile APE_DEVICE_H_uint32_t*)0xa0040550) /*  */
 #define     DEVICE_PERFECT_MATCH3_HIGH_HIGH_SHIFT 0u
 #define     DEVICE_PERFECT_MATCH3_HIGH_HIGH_MASK  0xffffu
 #define GET_DEVICE_PERFECT_MATCH3_HIGH_HIGH(__reg__)  (((__reg__) & 0xffff) >> 0u)
@@ -2104,23 +2104,23 @@ typedef register_container RegDEVICEPerfectMatch2Low_t {
 /** @brief Register definition for @ref DEVICE_t.PerfectMatch3High. */
 typedef register_container RegDEVICEPerfectMatch3High_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief Upper two bytes of the MAC */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, High, 0, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, High, 0, 16)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_16, 16, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_16, 16, 16)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_16, 16, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_16, 16, 16)
         /** @brief Upper two bytes of the MAC */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, High, 0, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, High, 0, 16)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "PerfectMatch3High"; }
@@ -2143,7 +2143,7 @@ typedef register_container RegDEVICEPerfectMatch3High_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPerfectMatch3High_t;
 
-#define REG_DEVICE_PERFECT_MATCH3_LOW ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0000554) /*  */
+#define REG_DEVICE_PERFECT_MATCH3_LOW ((volatile APE_DEVICE_H_uint32_t*)0xa0040554) /*  */
 #define     DEVICE_PERFECT_MATCH3_LOW_LOW_SHIFT 0u
 #define     DEVICE_PERFECT_MATCH3_LOW_LOW_MASK  0xffffffffu
 #define GET_DEVICE_PERFECT_MATCH3_LOW_LOW(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
@@ -2152,19 +2152,19 @@ typedef register_container RegDEVICEPerfectMatch3High_t {
 /** @brief Register definition for @ref DEVICE_t.PerfectMatch3Low. */
 typedef register_container RegDEVICEPerfectMatch3Low_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief Lower four bytes of the MAC */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Low, 0, 32)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Low, 0, 32)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Lower four bytes of the MAC */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Low, 0, 32)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Low, 0, 32)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "PerfectMatch3Low"; }
@@ -2187,7 +2187,7 @@ typedef register_container RegDEVICEPerfectMatch3Low_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPerfectMatch3Low_t;
 
-#define REG_DEVICE_PERFECT_MATCH4_HIGH ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0000558) /*  */
+#define REG_DEVICE_PERFECT_MATCH4_HIGH ((volatile APE_DEVICE_H_uint32_t*)0xa0040558) /*  */
 #define     DEVICE_PERFECT_MATCH4_HIGH_HIGH_SHIFT 0u
 #define     DEVICE_PERFECT_MATCH4_HIGH_HIGH_MASK  0xffffu
 #define GET_DEVICE_PERFECT_MATCH4_HIGH_HIGH(__reg__)  (((__reg__) & 0xffff) >> 0u)
@@ -2196,23 +2196,23 @@ typedef register_container RegDEVICEPerfectMatch3Low_t {
 /** @brief Register definition for @ref DEVICE_t.PerfectMatch4High. */
 typedef register_container RegDEVICEPerfectMatch4High_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief Upper two bytes of the MAC */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, High, 0, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, High, 0, 16)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_16, 16, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_16, 16, 16)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_16, 16, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_16, 16, 16)
         /** @brief Upper two bytes of the MAC */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, High, 0, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, High, 0, 16)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "PerfectMatch4High"; }
@@ -2235,7 +2235,7 @@ typedef register_container RegDEVICEPerfectMatch4High_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPerfectMatch4High_t;
 
-#define REG_DEVICE_PERFECT_MATCH4_LOW ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000055c) /*  */
+#define REG_DEVICE_PERFECT_MATCH4_LOW ((volatile APE_DEVICE_H_uint32_t*)0xa004055c) /*  */
 #define     DEVICE_PERFECT_MATCH4_LOW_LOW_SHIFT 0u
 #define     DEVICE_PERFECT_MATCH4_LOW_LOW_MASK  0xffffffffu
 #define GET_DEVICE_PERFECT_MATCH4_LOW_LOW(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
@@ -2244,19 +2244,19 @@ typedef register_container RegDEVICEPerfectMatch4High_t {
 /** @brief Register definition for @ref DEVICE_t.PerfectMatch4Low. */
 typedef register_container RegDEVICEPerfectMatch4Low_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief Lower four bytes of the MAC */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Low, 0, 32)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Low, 0, 32)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Lower four bytes of the MAC */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Low, 0, 32)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Low, 0, 32)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "PerfectMatch4Low"; }
@@ -2279,7 +2279,7 @@ typedef register_container RegDEVICEPerfectMatch4Low_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPerfectMatch4Low_t;
 
-#define REG_DEVICE_SGMII_STATUS ((volatile BCM5719_DEVICE_H_uint32_t*)0xc00005b4) /* This register reflects various status of the respective SGMII port when enabled. */
+#define REG_DEVICE_SGMII_STATUS ((volatile APE_DEVICE_H_uint32_t*)0xa00405b4) /* This register reflects various status of the respective SGMII port when enabled. */
 #define     DEVICE_SGMII_STATUS_AUTONEGOTIATION_COMPLETE_SHIFT 0u
 #define     DEVICE_SGMII_STATUS_AUTONEGOTIATION_COMPLETE_MASK  0x1u
 #define GET_DEVICE_SGMII_STATUS_AUTONEGOTIATION_COMPLETE(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -2335,67 +2335,67 @@ typedef register_container RegDEVICEPerfectMatch4Low_t {
 /** @brief Register definition for @ref DEVICE_t.SgmiiStatus. */
 typedef register_container RegDEVICESgmiiStatus_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief Auto-negotiation process has completed. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, AutonegotiationComplete, 0, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, AutonegotiationComplete, 0, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LinkStatus, 1, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, LinkStatus, 1, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DuplexStatus, 2, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, DuplexStatus, 2, 1)
         /** @brief The SGMII Link currently operable at 1 Gbps data speed. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Speed1000, 3, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Speed1000, 3, 1)
         /** @brief The SGMII Link currently operable at 100mbps data speed. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Speed100, 4, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Speed100, 4, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, NextPageRX, 5, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, NextPageRX, 5, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PauseRX, 6, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PauseRX, 6, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PauseTX, 7, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PauseTX, 7, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MediaSelectionMode, 8, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, MediaSelectionMode, 8, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PCSCRSDetect, 9, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PCSCRSDetect, 9, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ExternalCRSDetect, 10, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, ExternalCRSDetect, 10, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_15_11, 11, 5)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_15_11, 11, 5)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LinkPartnerAutonegotiationCapability, 16, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, LinkPartnerAutonegotiationCapability, 16, 16)
 #elif defined(__BIG_ENDIAN__)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LinkPartnerAutonegotiationCapability, 16, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, LinkPartnerAutonegotiationCapability, 16, 16)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_15_11, 11, 5)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_15_11, 11, 5)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ExternalCRSDetect, 10, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, ExternalCRSDetect, 10, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PCSCRSDetect, 9, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PCSCRSDetect, 9, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MediaSelectionMode, 8, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, MediaSelectionMode, 8, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PauseTX, 7, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PauseTX, 7, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PauseRX, 6, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PauseRX, 6, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, NextPageRX, 5, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, NextPageRX, 5, 1)
         /** @brief The SGMII Link currently operable at 100mbps data speed. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Speed100, 4, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Speed100, 4, 1)
         /** @brief The SGMII Link currently operable at 1 Gbps data speed. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Speed1000, 3, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Speed1000, 3, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DuplexStatus, 2, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, DuplexStatus, 2, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LinkStatus, 1, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, LinkStatus, 1, 1)
         /** @brief Auto-negotiation process has completed. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, AutonegotiationComplete, 0, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, AutonegotiationComplete, 0, 1)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "SgmiiStatus"; }
@@ -2440,7 +2440,7 @@ typedef register_container RegDEVICESgmiiStatus_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICESgmiiStatus_t;
 
-#define REG_DEVICE_CPMU_CONTROL ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0003600) /*  */
+#define REG_DEVICE_CPMU_CONTROL ((volatile APE_DEVICE_H_uint32_t*)0xa0043600) /*  */
 #define     DEVICE_CPMU_CONTROL_CPMU_SOFTWARE_RESET_SHIFT 0u
 #define     DEVICE_CPMU_CONTROL_CPMU_SOFTWARE_RESET_MASK  0x1u
 #define GET_DEVICE_CPMU_CONTROL_CPMU_SOFTWARE_RESET(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -2493,91 +2493,91 @@ typedef register_container RegDEVICESgmiiStatus_t {
 /** @brief Register definition for @ref DEVICE_t.CpmuControl. */
 typedef register_container RegDEVICECpmuControl_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, CPMUSoftwareReset, 0, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, CPMUSoftwareReset, 0, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, CPMURegisterSoftwareReset, 1, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, CPMURegisterSoftwareReset, 1, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerDown, 2, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PowerDown, 2, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_3_3, 3, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_3_3, 3, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APESleepModeEnable, 4, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, APESleepModeEnable, 4, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APEDeepSleepModeEnable, 5, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, APEDeepSleepModeEnable, 5, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_8_6, 6, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_8_6, 6, 3)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LinkIdlePowerModeEnable, 9, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, LinkIdlePowerModeEnable, 9, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LinkAwarePowerModeEnable, 10, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, LinkAwarePowerModeEnable, 10, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_13_11, 11, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_13_11, 11, 3)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LinkSpeedPowerModeEnable, 14, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, LinkSpeedPowerModeEnable, 14, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_15_15, 15, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_15_15, 15, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPHY10MBReceiveOnlyModeEnable, 16, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, GPHY10MBReceiveOnlyModeEnable, 16, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_17_17, 17, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_17_17, 17, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LegacyTimerEnable, 18, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, LegacyTimerEnable, 18, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SGMII_DIV_PCSPowerDown, 19, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, SGMII_DIV_PCSPowerDown, 19, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_27_20, 20, 8)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_27_20, 20, 8)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SoftwareControlledGPHYForceDLLOn, 28, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, SoftwareControlledGPHYForceDLLOn, 28, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_29, 29, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_29, 29, 3)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_29, 29, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_29, 29, 3)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SoftwareControlledGPHYForceDLLOn, 28, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, SoftwareControlledGPHYForceDLLOn, 28, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_27_20, 20, 8)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_27_20, 20, 8)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SGMII_DIV_PCSPowerDown, 19, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, SGMII_DIV_PCSPowerDown, 19, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LegacyTimerEnable, 18, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, LegacyTimerEnable, 18, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_17_17, 17, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_17_17, 17, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPHY10MBReceiveOnlyModeEnable, 16, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, GPHY10MBReceiveOnlyModeEnable, 16, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_15_15, 15, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_15_15, 15, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LinkSpeedPowerModeEnable, 14, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, LinkSpeedPowerModeEnable, 14, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_13_11, 11, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_13_11, 11, 3)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LinkAwarePowerModeEnable, 10, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, LinkAwarePowerModeEnable, 10, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LinkIdlePowerModeEnable, 9, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, LinkIdlePowerModeEnable, 9, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_8_6, 6, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_8_6, 6, 3)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APEDeepSleepModeEnable, 5, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, APEDeepSleepModeEnable, 5, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APESleepModeEnable, 4, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, APESleepModeEnable, 4, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_3_3, 3, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_3_3, 3, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerDown, 2, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PowerDown, 2, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, CPMURegisterSoftwareReset, 1, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, CPMURegisterSoftwareReset, 1, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, CPMUSoftwareReset, 0, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, CPMUSoftwareReset, 0, 1)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "CpmuControl"; }
@@ -2622,7 +2622,7 @@ typedef register_container RegDEVICECpmuControl_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICECpmuControl_t;
 
-#define REG_DEVICE_LINK_AWARE_POWER_MODE_CLOCK_POLICY ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0003610) /*  */
+#define REG_DEVICE_LINK_AWARE_POWER_MODE_CLOCK_POLICY ((volatile APE_DEVICE_H_uint32_t*)0xa0043610) /*  */
 #define     DEVICE_LINK_AWARE_POWER_MODE_CLOCK_POLICY_MAC_CLOCK_SWITCH_SHIFT 16u
 #define     DEVICE_LINK_AWARE_POWER_MODE_CLOCK_POLICY_MAC_CLOCK_SWITCH_MASK  0x1f0000u
 #define GET_DEVICE_LINK_AWARE_POWER_MODE_CLOCK_POLICY_MAC_CLOCK_SWITCH(__reg__)  (((__reg__) & 0x1f0000) >> 16u)
@@ -2643,27 +2643,27 @@ typedef register_container RegDEVICECpmuControl_t {
 /** @brief Register definition for @ref DEVICE_t.LinkAwarePowerModeClockPolicy. */
 typedef register_container RegDEVICELinkAwarePowerModeClockPolicy_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_15_0, 0, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_15_0, 0, 16)
         /** @brief Software Controlled MAC Core Clock Speed Select. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MACClockSwitch, 16, 5)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, MACClockSwitch, 16, 5)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
         /** @brief Software Controlled MAC Core Clock Speed Select. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MACClockSwitch, 16, 5)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, MACClockSwitch, 16, 5)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_15_0, 0, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_15_0, 0, 16)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "LinkAwarePowerModeClockPolicy"; }
@@ -2686,7 +2686,7 @@ typedef register_container RegDEVICELinkAwarePowerModeClockPolicy_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICELinkAwarePowerModeClockPolicy_t;
 
-#define REG_DEVICE_CLOCK_SPEED_OVERRIDE_POLICY ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0003624) /*  */
+#define REG_DEVICE_CLOCK_SPEED_OVERRIDE_POLICY ((volatile APE_DEVICE_H_uint32_t*)0xa0043624) /*  */
 #define     DEVICE_CLOCK_SPEED_OVERRIDE_POLICY_MAC_CLOCK_SWITCH_SHIFT 16u
 #define     DEVICE_CLOCK_SPEED_OVERRIDE_POLICY_MAC_CLOCK_SWITCH_MASK  0x1f0000u
 #define GET_DEVICE_CLOCK_SPEED_OVERRIDE_POLICY_MAC_CLOCK_SWITCH(__reg__)  (((__reg__) & 0x1f0000) >> 16u)
@@ -2699,31 +2699,31 @@ typedef register_container RegDEVICELinkAwarePowerModeClockPolicy_t {
 /** @brief Register definition for @ref DEVICE_t.ClockSpeedOverridePolicy. */
 typedef register_container RegDEVICEClockSpeedOverridePolicy_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_15_0, 0, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_15_0, 0, 16)
         /** @brief Software Controlled MAC Core Clock Speed Select */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MACClockSwitch, 16, 5)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, MACClockSwitch, 16, 5)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_30_21, 21, 10)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_30_21, 21, 10)
         /** @brief Enable MAC clock speed override */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MACClockSpeedOverrideEnabled, 31, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, MACClockSpeedOverrideEnabled, 31, 1)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Enable MAC clock speed override */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MACClockSpeedOverrideEnabled, 31, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, MACClockSpeedOverrideEnabled, 31, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_30_21, 21, 10)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_30_21, 21, 10)
         /** @brief Software Controlled MAC Core Clock Speed Select */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MACClockSwitch, 16, 5)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, MACClockSwitch, 16, 5)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_15_0, 0, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_15_0, 0, 16)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "ClockSpeedOverridePolicy"; }
@@ -2748,7 +2748,7 @@ typedef register_container RegDEVICEClockSpeedOverridePolicy_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEClockSpeedOverridePolicy_t;
 
-#define REG_DEVICE_STATUS ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000362c) /*  */
+#define REG_DEVICE_STATUS ((volatile APE_DEVICE_H_uint32_t*)0xa004362c) /*  */
 #define     DEVICE_STATUS_POWER_MANAGEMENT_STATE_MACHINE_STATE_SHIFT 0u
 #define     DEVICE_STATUS_POWER_MANAGEMENT_STATE_MACHINE_STATE_MASK  0xfu
 #define GET_DEVICE_STATUS_POWER_MANAGEMENT_STATE_MACHINE_STATE(__reg__)  (((__reg__) & 0xf) >> 0u)
@@ -2826,83 +2826,83 @@ typedef register_container RegDEVICEClockSpeedOverridePolicy_t {
 /** @brief Register definition for @ref DEVICE_t.Status. */
 typedef register_container RegDEVICEStatus_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerManagementStateMachineState, 0, 4)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PowerManagementStateMachineState, 0, 4)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, CPMUPowerState, 4, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, CPMUPowerState, 4, 3)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnergyDetectStatus, 7, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnergyDetectStatus, 7, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerState, 8, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PowerState, 8, 2)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_12_10, 10, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_12_10, 10, 3)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, VMAINPowerStatus, 13, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, VMAINPowerStatus, 13, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, WOLMagicPacketDetectionEnablePort0, 14, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, WOLMagicPacketDetectionEnablePort0, 14, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, WOLACPIDetectionEnablePort0, 15, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, WOLACPIDetectionEnablePort0, 15, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, NCSIDLLLockStatus, 16, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, NCSIDLLLockStatus, 16, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPHYDLLLockStatus, 17, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, GPHYDLLLockStatus, 17, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LinkIdleStatus, 18, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, LinkIdleStatus, 18, 1)
         /** @brief EthernetLink Status */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EthernetLinkStatus, 19, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EthernetLinkStatus, 19, 2)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, WOLMagicPacketDetectionEnablePort1, 21, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, WOLMagicPacketDetectionEnablePort1, 21, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, WOLACPIDetectionEnablePort1, 22, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, WOLACPIDetectionEnablePort1, 22, 1)
         /** @brief APE Engine Status */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APEStatus, 23, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, APEStatus, 23, 2)
         /** @brief Function Enable input from System BIOS */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, FunctionEnable, 25, 5)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, FunctionEnable, 25, 5)
         /** @brief PCIE function number */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, FunctionNumber, 30, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, FunctionNumber, 30, 2)
 #elif defined(__BIG_ENDIAN__)
         /** @brief PCIE function number */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, FunctionNumber, 30, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, FunctionNumber, 30, 2)
         /** @brief Function Enable input from System BIOS */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, FunctionEnable, 25, 5)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, FunctionEnable, 25, 5)
         /** @brief APE Engine Status */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APEStatus, 23, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, APEStatus, 23, 2)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, WOLACPIDetectionEnablePort1, 22, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, WOLACPIDetectionEnablePort1, 22, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, WOLMagicPacketDetectionEnablePort1, 21, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, WOLMagicPacketDetectionEnablePort1, 21, 1)
         /** @brief EthernetLink Status */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EthernetLinkStatus, 19, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EthernetLinkStatus, 19, 2)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LinkIdleStatus, 18, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, LinkIdleStatus, 18, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPHYDLLLockStatus, 17, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, GPHYDLLLockStatus, 17, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, NCSIDLLLockStatus, 16, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, NCSIDLLLockStatus, 16, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, WOLACPIDetectionEnablePort0, 15, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, WOLACPIDetectionEnablePort0, 15, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, WOLMagicPacketDetectionEnablePort0, 14, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, WOLMagicPacketDetectionEnablePort0, 14, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, VMAINPowerStatus, 13, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, VMAINPowerStatus, 13, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_12_10, 10, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_12_10, 10, 3)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerState, 8, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PowerState, 8, 2)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnergyDetectStatus, 7, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnergyDetectStatus, 7, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, CPMUPowerState, 4, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, CPMUPowerState, 4, 3)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerManagementStateMachineState, 0, 4)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PowerManagementStateMachineState, 0, 4)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "Status"; }
@@ -2955,11 +2955,11 @@ typedef register_container RegDEVICEStatus_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEStatus_t;
 
-#define REG_DEVICE_CLOCK_STATUS ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0003630) /*  */
+#define REG_DEVICE_CLOCK_STATUS ((volatile APE_DEVICE_H_uint32_t*)0xa0043630) /*  */
 /** @brief Register definition for @ref DEVICE_t.ClockStatus. */
 typedef register_container RegDEVICEClockStatus_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "ClockStatus"; }
@@ -2980,7 +2980,7 @@ typedef register_container RegDEVICEClockStatus_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEClockStatus_t;
 
-#define REG_DEVICE_GPHY_CONTROL_STATUS ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0003638) /*  */
+#define REG_DEVICE_GPHY_CONTROL_STATUS ((volatile APE_DEVICE_H_uint32_t*)0xa0043638) /*  */
 #define     DEVICE_GPHY_CONTROL_STATUS_GPHY_IDDQ_SHIFT 0u
 #define     DEVICE_GPHY_CONTROL_STATUS_GPHY_IDDQ_MASK  0x1u
 #define GET_DEVICE_GPHY_CONTROL_STATUS_GPHY_IDDQ(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -3021,63 +3021,63 @@ typedef register_container RegDEVICEClockStatus_t {
 /** @brief Register definition for @ref DEVICE_t.GphyControlStatus. */
 typedef register_container RegDEVICEGphyControlStatus_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief When this bit is set, GPHY will be powered down. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPHYIDDQ, 0, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, GPHYIDDQ, 0, 1)
         /** @brief When this bit is set, BIAS will be powered down. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BIASIDDQ, 1, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, BIASIDDQ, 1, 1)
         /** @brief Software reset for all the CPMU logic expect for registers. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, CPMUSoftwareReset, 2, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, CPMUSoftwareReset, 2, 1)
         /** @brief Software reset for resetting all the registers to default. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, CPMURegisterSoftwareReset, 3, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, CPMURegisterSoftwareReset, 3, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerDown, 4, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PowerDown, 4, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_14_5, 5, 10)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_14_5, 5, 10)
         /** @brief Setting this bit will powerdown SGMII-PCS module. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SGMII_DIV_PCSPowerDown, 15, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, SGMII_DIV_PCSPowerDown, 15, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_24_16, 16, 9)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_24_16, 16, 9)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, NCSIPLLLockStatus, 25, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, NCSIPLLLockStatus, 25, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, TLPClockSource, 26, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, TLPClockSource, 26, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SwitchingRegulatorPowerDown, 27, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, SwitchingRegulatorPowerDown, 27, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_28, 28, 4)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_28, 28, 4)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_28, 28, 4)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_28, 28, 4)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SwitchingRegulatorPowerDown, 27, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, SwitchingRegulatorPowerDown, 27, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, TLPClockSource, 26, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, TLPClockSource, 26, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, NCSIPLLLockStatus, 25, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, NCSIPLLLockStatus, 25, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_24_16, 16, 9)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_24_16, 16, 9)
         /** @brief Setting this bit will powerdown SGMII-PCS module. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SGMII_DIV_PCSPowerDown, 15, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, SGMII_DIV_PCSPowerDown, 15, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_14_5, 5, 10)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_14_5, 5, 10)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerDown, 4, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PowerDown, 4, 1)
         /** @brief Software reset for resetting all the registers to default. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, CPMURegisterSoftwareReset, 3, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, CPMURegisterSoftwareReset, 3, 1)
         /** @brief Software reset for all the CPMU logic expect for registers. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, CPMUSoftwareReset, 2, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, CPMUSoftwareReset, 2, 1)
         /** @brief When this bit is set, BIAS will be powered down. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BIASIDDQ, 1, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, BIASIDDQ, 1, 1)
         /** @brief When this bit is set, GPHY will be powered down. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPHYIDDQ, 0, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, GPHYIDDQ, 0, 1)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "GphyControlStatus"; }
@@ -3116,11 +3116,11 @@ typedef register_container RegDEVICEGphyControlStatus_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEGphyControlStatus_t;
 
-#define REG_DEVICE_CHIP_ID ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0003658) /*  */
+#define REG_DEVICE_CHIP_ID ((volatile APE_DEVICE_H_uint32_t*)0xa0043658) /*  */
 /** @brief Register definition for @ref DEVICE_t.ChipId. */
 typedef register_container RegDEVICEChipId_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "ChipId"; }
@@ -3141,11 +3141,11 @@ typedef register_container RegDEVICEChipId_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEChipId_t;
 
-#define REG_DEVICE_MUTEX_REQUEST ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000365c) /* Writing a 1 to any of these bits pends a Mutex lock request on behalf of a software agent. The bit is subsequently latched by hardware and shall read 1 as long as the request is pending. Writing a 0 to a bit shall have no effect. */
+#define REG_DEVICE_MUTEX_REQUEST ((volatile APE_DEVICE_H_uint32_t*)0xa004365c) /* Writing a 1 to any of these bits pends a Mutex lock request on behalf of a software agent. The bit is subsequently latched by hardware and shall read 1 as long as the request is pending. Writing a 0 to a bit shall have no effect. */
 /** @brief Register definition for @ref DEVICE_t.MutexRequest. */
 typedef register_container RegDEVICEMutexRequest_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "MutexRequest"; }
@@ -3166,11 +3166,11 @@ typedef register_container RegDEVICEMutexRequest_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEMutexRequest_t;
 
-#define REG_DEVICE_MUTEX_GRANT ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0003660) /* Reading this field shall return a maximum of one set bit at any time. The set bit shall point to the lock owner. If the Mutex is not locked, then a read shall return a value 0x0000. Writing a 1 to the already set bit shall relinquish the lock and the set bit shall be cleared. Writing a 1 to an unset bit shall cancel the corresponding pending request if there was one, and the pairing bit in the Mutex_Request_Reg shall be cleared. */
+#define REG_DEVICE_MUTEX_GRANT ((volatile APE_DEVICE_H_uint32_t*)0xa0043660) /* Reading this field shall return a maximum of one set bit at any time. The set bit shall point to the lock owner. If the Mutex is not locked, then a read shall return a value 0x0000. Writing a 1 to the already set bit shall relinquish the lock and the set bit shall be cleared. Writing a 1 to an unset bit shall cancel the corresponding pending request if there was one, and the pairing bit in the Mutex_Request_Reg shall be cleared. */
 /** @brief Register definition for @ref DEVICE_t.MutexGrant. */
 typedef register_container RegDEVICEMutexGrant_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "MutexGrant"; }
@@ -3191,7 +3191,7 @@ typedef register_container RegDEVICEMutexGrant_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEMutexGrant_t;
 
-#define REG_DEVICE_GPHY_STRAP ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0003664) /*  */
+#define REG_DEVICE_GPHY_STRAP ((volatile APE_DEVICE_H_uint32_t*)0xa0043664) /*  */
 #define     DEVICE_GPHY_STRAP_TXMBUF_ECC_ENABLE_SHIFT 2u
 #define     DEVICE_GPHY_STRAP_TXMBUF_ECC_ENABLE_MASK  0x4u
 #define GET_DEVICE_GPHY_STRAP_TXMBUF_ECC_ENABLE(__reg__)  (((__reg__) & 0x4) >> 2u)
@@ -3208,35 +3208,35 @@ typedef register_container RegDEVICEMutexGrant_t {
 /** @brief Register definition for @ref DEVICE_t.GphyStrap. */
 typedef register_container RegDEVICEGphyStrap_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_1_0, 0, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_1_0, 0, 2)
         /** @brief Enable TXMBUF ECC. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, TXMBUFECCEnable, 2, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, TXMBUFECCEnable, 2, 1)
         /** @brief Enable RXMBUF ECC. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, RXMBUFECCEnable, 3, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, RXMBUFECCEnable, 3, 1)
         /** @brief Enable ECC for rxcpu scratchpad. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, RXCPUSPADECCEnable, 4, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, RXCPUSPADECCEnable, 4, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_5, 5, 27)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_5, 5, 27)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_5, 5, 27)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_5, 5, 27)
         /** @brief Enable ECC for rxcpu scratchpad. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, RXCPUSPADECCEnable, 4, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, RXCPUSPADECCEnable, 4, 1)
         /** @brief Enable RXMBUF ECC. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, RXMBUFECCEnable, 3, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, RXMBUFECCEnable, 3, 1)
         /** @brief Enable TXMBUF ECC. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, TXMBUFECCEnable, 2, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, TXMBUFECCEnable, 2, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_1_0, 0, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_1_0, 0, 2)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "GphyStrap"; }
@@ -3263,7 +3263,7 @@ typedef register_container RegDEVICEGphyStrap_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEGphyStrap_t;
 
-#define REG_DEVICE_TOP_LEVEL_MISCELLANEOUS_CONTROL_1 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000367c) /*  */
+#define REG_DEVICE_TOP_LEVEL_MISCELLANEOUS_CONTROL_1 ((volatile APE_DEVICE_H_uint32_t*)0xa004367c) /*  */
 #define     DEVICE_TOP_LEVEL_MISCELLANEOUS_CONTROL_1_NCSI_CLOCK_OUTPUT_DISABLE_SHIFT 4u
 #define     DEVICE_TOP_LEVEL_MISCELLANEOUS_CONTROL_1_NCSI_CLOCK_OUTPUT_DISABLE_MASK  0x10u
 #define GET_DEVICE_TOP_LEVEL_MISCELLANEOUS_CONTROL_1_NCSI_CLOCK_OUTPUT_DISABLE(__reg__)  (((__reg__) & 0x10) >> 4u)
@@ -3276,31 +3276,31 @@ typedef register_container RegDEVICEGphyStrap_t {
 /** @brief Register definition for @ref DEVICE_t.TopLevelMiscellaneousControl1. */
 typedef register_container RegDEVICETopLevelMiscellaneousControl1_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_3_0, 0, 4)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_3_0, 0, 4)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, NCSIClockOutputDisable, 4, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, NCSIClockOutputDisable, 4, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LowPowerIDDQMode, 5, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, LowPowerIDDQMode, 5, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_6, 6, 26)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_6, 6, 26)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_6, 6, 26)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_6, 6, 26)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LowPowerIDDQMode, 5, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, LowPowerIDDQMode, 5, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, NCSIClockOutputDisable, 4, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, NCSIClockOutputDisable, 4, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_3_0, 0, 4)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_3_0, 0, 4)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "TopLevelMiscellaneousControl1"; }
@@ -3325,7 +3325,7 @@ typedef register_container RegDEVICETopLevelMiscellaneousControl1_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICETopLevelMiscellaneousControl1_t;
 
-#define REG_DEVICE_EEE_MODE ((volatile BCM5719_DEVICE_H_uint32_t*)0xc00036b0) /*  */
+#define REG_DEVICE_EEE_MODE ((volatile APE_DEVICE_H_uint32_t*)0xa00436b0) /*  */
 #define     DEVICE_EEE_MODE_RX_CPU_ALLOW_LPI_SHIFT 0u
 #define     DEVICE_EEE_MODE_RX_CPU_ALLOW_LPI_MASK  0x1u
 #define GET_DEVICE_EEE_MODE_RX_CPU_ALLOW_LPI(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -3382,71 +3382,71 @@ typedef register_container RegDEVICETopLevelMiscellaneousControl1_t {
 /** @brief Register definition for @ref DEVICE_t.EeeMode. */
 typedef register_container RegDEVICEEeeMode_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, RXCPUAllowLPI, 0, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, RXCPUAllowLPI, 0, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DriveAllowLPI, 1, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, DriveAllowLPI, 1, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APETXDetectionEnable, 2, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, APETXDetectionEnable, 2, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EEELinkIdleDetectionEnable, 3, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EEELinkIdleDetectionEnable, 3, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PCIeL1ExitDetectionEnable, 4, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PCIeL1ExitDetectionEnable, 4, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, RXCPUAllowLPIEnable, 5, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, RXCPUAllowLPIEnable, 5, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SendIndexDetectionEnable, 6, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, SendIndexDetectionEnable, 6, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, UserLPIEnable, 7, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, UserLPIEnable, 7, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, TXLPIEnable, 8, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, TXLPIEnable, 8, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, RXLPIEnable, 9, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, RXLPIEnable, 9, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, AutoWakeEnable, 10, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, AutoWakeEnable, 10, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BlockTime, 11, 8)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, BlockTime, 11, 8)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DriveAllowLPIEnable, 19, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, DriveAllowLPIEnable, 19, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_20, 20, 12)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_20, 20, 12)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_20, 20, 12)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_20, 20, 12)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DriveAllowLPIEnable, 19, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, DriveAllowLPIEnable, 19, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BlockTime, 11, 8)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, BlockTime, 11, 8)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, AutoWakeEnable, 10, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, AutoWakeEnable, 10, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, RXLPIEnable, 9, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, RXLPIEnable, 9, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, TXLPIEnable, 8, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, TXLPIEnable, 8, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, UserLPIEnable, 7, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, UserLPIEnable, 7, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SendIndexDetectionEnable, 6, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, SendIndexDetectionEnable, 6, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, RXCPUAllowLPIEnable, 5, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, RXCPUAllowLPIEnable, 5, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PCIeL1ExitDetectionEnable, 4, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PCIeL1ExitDetectionEnable, 4, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EEELinkIdleDetectionEnable, 3, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EEELinkIdleDetectionEnable, 3, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APETXDetectionEnable, 2, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, APETXDetectionEnable, 2, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DriveAllowLPI, 1, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, DriveAllowLPI, 1, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, RXCPUAllowLPI, 0, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, RXCPUAllowLPI, 0, 1)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "EeeMode"; }
@@ -3493,7 +3493,7 @@ typedef register_container RegDEVICEEeeMode_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEEeeMode_t;
 
-#define REG_DEVICE_EEE_LINK_IDLE_CONTROL ((volatile BCM5719_DEVICE_H_uint32_t*)0xc00036bc) /*  */
+#define REG_DEVICE_EEE_LINK_IDLE_CONTROL ((volatile APE_DEVICE_H_uint32_t*)0xa00436bc) /*  */
 #define     DEVICE_EEE_LINK_IDLE_CONTROL_DEBUG_UART_IDLE_SHIFT 2u
 #define     DEVICE_EEE_LINK_IDLE_CONTROL_DEBUG_UART_IDLE_MASK  0x4u
 #define GET_DEVICE_EEE_LINK_IDLE_CONTROL_DEBUG_UART_IDLE(__reg__)  (((__reg__) & 0x4) >> 2u)
@@ -3502,27 +3502,27 @@ typedef register_container RegDEVICEEeeMode_t {
 /** @brief Register definition for @ref DEVICE_t.EeeLinkIdleControl. */
 typedef register_container RegDEVICEEeeLinkIdleControl_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_1_0, 0, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_1_0, 0, 2)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DebugUARTIdle, 2, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, DebugUARTIdle, 2, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_3, 3, 29)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_3, 3, 29)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_3, 3, 29)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_3, 3, 29)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DebugUARTIdle, 2, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, DebugUARTIdle, 2, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_1_0, 0, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_1_0, 0, 2)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "EeeLinkIdleControl"; }
@@ -3545,7 +3545,7 @@ typedef register_container RegDEVICEEeeLinkIdleControl_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEEeeLinkIdleControl_t;
 
-#define REG_DEVICE_EEE_CONTROL ((volatile BCM5719_DEVICE_H_uint32_t*)0xc00036d0) /*  */
+#define REG_DEVICE_EEE_CONTROL ((volatile APE_DEVICE_H_uint32_t*)0xa00436d0) /*  */
 #define     DEVICE_EEE_CONTROL_EXIT_TIME_SHIFT 0u
 #define     DEVICE_EEE_CONTROL_EXIT_TIME_MASK  0xffffu
 #define GET_DEVICE_EEE_CONTROL_EXIT_TIME(__reg__)  (((__reg__) & 0xffff) >> 0u)
@@ -3558,23 +3558,23 @@ typedef register_container RegDEVICEEeeLinkIdleControl_t {
 /** @brief Register definition for @ref DEVICE_t.EeeControl. */
 typedef register_container RegDEVICEEeeControl_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ExitTime, 0, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, ExitTime, 0, 16)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MinimumAssert, 16, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, MinimumAssert, 16, 16)
 #elif defined(__BIG_ENDIAN__)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MinimumAssert, 16, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, MinimumAssert, 16, 16)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ExitTime, 0, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, ExitTime, 0, 16)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "EeeControl"; }
@@ -3599,11 +3599,11 @@ typedef register_container RegDEVICEEeeControl_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEEeeControl_t;
 
-#define REG_DEVICE_GLOBAL_MUTEX_REQUEST ((volatile BCM5719_DEVICE_H_uint32_t*)0xc00036f0) /*  */
+#define REG_DEVICE_GLOBAL_MUTEX_REQUEST ((volatile APE_DEVICE_H_uint32_t*)0xa00436f0) /*  */
 /** @brief Register definition for @ref DEVICE_t.GlobalMutexRequest. */
 typedef register_container RegDEVICEGlobalMutexRequest_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "GlobalMutexRequest"; }
@@ -3624,11 +3624,11 @@ typedef register_container RegDEVICEGlobalMutexRequest_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEGlobalMutexRequest_t;
 
-#define REG_DEVICE_GLOBAL_MUTEX_GRANT ((volatile BCM5719_DEVICE_H_uint32_t*)0xc00036f4) /*  */
+#define REG_DEVICE_GLOBAL_MUTEX_GRANT ((volatile APE_DEVICE_H_uint32_t*)0xa00436f4) /*  */
 /** @brief Register definition for @ref DEVICE_t.GlobalMutexGrant. */
 typedef register_container RegDEVICEGlobalMutexGrant_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "GlobalMutexGrant"; }
@@ -3649,7 +3649,7 @@ typedef register_container RegDEVICEGlobalMutexGrant_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEGlobalMutexGrant_t;
 
-#define REG_DEVICE_MEMORY_ARBITER_MODE ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0004000) /*  */
+#define REG_DEVICE_MEMORY_ARBITER_MODE ((volatile APE_DEVICE_H_uint32_t*)0xa0044000) /*  */
 #define     DEVICE_MEMORY_ARBITER_MODE_ENABLE_SHIFT 1u
 #define     DEVICE_MEMORY_ARBITER_MODE_ENABLE_MASK  0x2u
 #define GET_DEVICE_MEMORY_ARBITER_MODE_ENABLE(__reg__)  (((__reg__) & 0x2) >> 1u)
@@ -3658,27 +3658,27 @@ typedef register_container RegDEVICEGlobalMutexGrant_t {
 /** @brief Register definition for @ref DEVICE_t.MemoryArbiterMode. */
 typedef register_container RegDEVICEMemoryArbiterMode_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_0_0, 0, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_0_0, 0, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Enable, 1, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Enable, 1, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_2, 2, 30)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_2, 2, 30)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_2, 2, 30)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_2, 2, 30)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Enable, 1, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Enable, 1, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_0_0, 0, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_0_0, 0, 1)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "MemoryArbiterMode"; }
@@ -3701,7 +3701,7 @@ typedef register_container RegDEVICEMemoryArbiterMode_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEMemoryArbiterMode_t;
 
-#define REG_DEVICE_BUFFER_MANAGER_MODE ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0004400) /*  */
+#define REG_DEVICE_BUFFER_MANAGER_MODE ((volatile APE_DEVICE_H_uint32_t*)0xa0044400) /*  */
 #define     DEVICE_BUFFER_MANAGER_MODE_ENABLE_SHIFT 1u
 #define     DEVICE_BUFFER_MANAGER_MODE_ENABLE_MASK  0x2u
 #define GET_DEVICE_BUFFER_MANAGER_MODE_ENABLE(__reg__)  (((__reg__) & 0x2) >> 1u)
@@ -3718,39 +3718,39 @@ typedef register_container RegDEVICEMemoryArbiterMode_t {
 /** @brief Register definition for @ref DEVICE_t.BufferManagerMode. */
 typedef register_container RegDEVICEBufferManagerMode_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_0_0, 0, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_0_0, 0, 1)
         /** @brief This bit controls whether the Buffer Manager is active or not. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Enable, 1, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Enable, 1, 1)
         /** @brief When this bit is set to 1, an internal attention is generated when an error occurs. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, AttentionEnable, 2, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, AttentionEnable, 2, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_4_3, 3, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_4_3, 3, 2)
         /** @brief When this bit is set, it will cause the RXMBUF allocation and deallocation pointer to reset back to the RXMBUF base. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ResetRXMBUFPointer, 5, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, ResetRXMBUFPointer, 5, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_6, 6, 26)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_6, 6, 26)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_6, 6, 26)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_6, 6, 26)
         /** @brief When this bit is set, it will cause the RXMBUF allocation and deallocation pointer to reset back to the RXMBUF base. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ResetRXMBUFPointer, 5, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, ResetRXMBUFPointer, 5, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_4_3, 3, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_4_3, 3, 2)
         /** @brief When this bit is set to 1, an internal attention is generated when an error occurs. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, AttentionEnable, 2, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, AttentionEnable, 2, 1)
         /** @brief This bit controls whether the Buffer Manager is active or not. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Enable, 1, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Enable, 1, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_0_0, 0, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_0_0, 0, 1)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "BufferManagerMode"; }
@@ -3777,7 +3777,7 @@ typedef register_container RegDEVICEBufferManagerMode_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEBufferManagerMode_t;
 
-#define REG_DEVICE_LSO_NONLSO_BD_READ_DMA_CORRUPTION_ENABLE_CONTROL ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0004910) /*  */
+#define REG_DEVICE_LSO_NONLSO_BD_READ_DMA_CORRUPTION_ENABLE_CONTROL ((volatile APE_DEVICE_H_uint32_t*)0xa0044910) /*  */
 #define     DEVICE_LSO_NONLSO_BD_READ_DMA_CORRUPTION_ENABLE_CONTROL_PCI_REQUEST_BURST_LENGTH_FOR_BD_RDMA_ENGINE_SHIFT 16u
 #define     DEVICE_LSO_NONLSO_BD_READ_DMA_CORRUPTION_ENABLE_CONTROL_PCI_REQUEST_BURST_LENGTH_FOR_BD_RDMA_ENGINE_MASK  0x30000u
 #define GET_DEVICE_LSO_NONLSO_BD_READ_DMA_CORRUPTION_ENABLE_CONTROL_PCI_REQUEST_BURST_LENGTH_FOR_BD_RDMA_ENGINE(__reg__)  (((__reg__) & 0x30000) >> 16u)
@@ -3800,31 +3800,31 @@ typedef register_container RegDEVICEBufferManagerMode_t {
 /** @brief Register definition for @ref DEVICE_t.LsoNonlsoBdReadDmaCorruptionEnableControl. */
 typedef register_container RegDEVICELsoNonlsoBdReadDmaCorruptionEnableControl_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_15_0, 0, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_15_0, 0, 16)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PCIRequestBurstLengthforBDRDMAEngine, 16, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PCIRequestBurstLengthforBDRDMAEngine, 16, 2)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PCIRequestBurstLengthforNonLSORDMAEngine, 18, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PCIRequestBurstLengthforNonLSORDMAEngine, 18, 2)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_20, 20, 12)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_20, 20, 12)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_20, 20, 12)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_20, 20, 12)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PCIRequestBurstLengthforNonLSORDMAEngine, 18, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PCIRequestBurstLengthforNonLSORDMAEngine, 18, 2)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PCIRequestBurstLengthforBDRDMAEngine, 16, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PCIRequestBurstLengthforBDRDMAEngine, 16, 2)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_15_0, 0, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_15_0, 0, 16)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "LsoNonlsoBdReadDmaCorruptionEnableControl"; }
@@ -3849,7 +3849,7 @@ typedef register_container RegDEVICELsoNonlsoBdReadDmaCorruptionEnableControl_t 
 #endif /* CXX_SIMULATOR */
 } RegDEVICELsoNonlsoBdReadDmaCorruptionEnableControl_t;
 
-#define REG_DEVICE_RX_RISC_MODE ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005000) /*  */
+#define REG_DEVICE_RX_RISC_MODE ((volatile APE_DEVICE_H_uint32_t*)0xa0045000) /*  */
 #define     DEVICE_RX_RISC_MODE_RESET_SHIFT 0u
 #define     DEVICE_RX_RISC_MODE_RESET_MASK  0x1u
 #define GET_DEVICE_RX_RISC_MODE_RESET(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -3910,79 +3910,79 @@ typedef register_container RegDEVICELsoNonlsoBdReadDmaCorruptionEnableControl_t 
 /** @brief Register definition for @ref DEVICE_t.RxRiscMode. */
 typedef register_container RegDEVICERxRiscMode_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief Self-clearing bit which resets only the RX RISC. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Reset, 0, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Reset, 0, 1)
         /** @brief Advances the RX RISC's PC for one cycle. If halting condition still exists, the RX RISC will again halt; otherwise, it will resume normal operation. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SingleStep, 1, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, SingleStep, 1, 1)
         /** @brief When set, data references to the first 256 bytes of SRAM force the RX RISC to halt and cause bit 3 in the RX RISC state register to be latched. Cleared on reset and Watchdog interrupt. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Page0DataHalt, 2, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Page0DataHalt, 2, 1)
         /** @brief When set, instruction references to the first 256 bytes of SRAM force the RX RISC to halt and cause bit 4 in the RX RISC state register to be latched. Cleared on reset and Watchdog interrupt. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Page0InstrHalt, 3, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Page0InstrHalt, 3, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_4_4, 4, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_4_4, 4, 1)
         /** @brief Enables the data cache. Cleared on reset. Note: Firmware developers should take care to clear this bit before polling internal SRAM memory locations, because the RX RISC processor uses a two-element LRU caching algorithm, which is not affected by writes from the PCI interface. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableDataCache, 5, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableDataCache, 5, 1)
         /** @brief Asserted on reset. Cleared by ROM code after it successfully loads code from NVRAM. Afterwards, this bit can be used by software for any purpose. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ROMFail, 6, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, ROMFail, 6, 1)
         /** @brief Enables watchdog interrupt state machine. Used in conjunction with Watchdog Clear register, Watchdog Saved PC register and Watchdog Vector register. Cleared on reset and Watchdog interrupt. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableWatchdog, 7, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableWatchdog, 7, 1)
         /** @brief Enables prefetch logic within the instruction cache. When disabled only a single cache line is read on a cache miss. Cleared on reset. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableInstructionCache, 8, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableInstructionCache, 8, 1)
         /** @brief Self-clearing bit which forces the instruction cache to flush. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, FlushInstructionCache, 9, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, FlushInstructionCache, 9, 1)
         /** @brief Set by TX RISC or the host to halt the RX RISC. Cleared on reset and Watchdog interrupt. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Halt, 10, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Halt, 10, 1)
         /** @brief When set, the condition that causes RX RISC state bit 5 to be set, also halts the RX RISC. Set by reset. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, InvalidDataAccessHalt, 11, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, InvalidDataAccessHalt, 11, 1)
         /** @brief When set, the condition that causes RX RISC state bit 6 to be set, also halts the RX RISC. Set by reset. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, InvalidInstructionAccessHalt, 12, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, InvalidInstructionAccessHalt, 12, 1)
         /** @brief When set, if the MA raises the trap signal to this processor, it will halt. CLeared on reset and Watchdog interrupt. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableMemoryAddressTrapHalt, 13, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableMemoryAddressTrapHalt, 13, 1)
         /** @brief When set, if the GRC raises the trap signal to this processor, it will halt. CLeared on reset and Watchdog interrupt. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableRegisterAddressTrapHalt, 14, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableRegisterAddressTrapHalt, 14, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_15, 15, 17)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_15, 15, 17)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_15, 15, 17)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_15, 15, 17)
         /** @brief When set, if the GRC raises the trap signal to this processor, it will halt. CLeared on reset and Watchdog interrupt. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableRegisterAddressTrapHalt, 14, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableRegisterAddressTrapHalt, 14, 1)
         /** @brief When set, if the MA raises the trap signal to this processor, it will halt. CLeared on reset and Watchdog interrupt. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableMemoryAddressTrapHalt, 13, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableMemoryAddressTrapHalt, 13, 1)
         /** @brief When set, the condition that causes RX RISC state bit 6 to be set, also halts the RX RISC. Set by reset. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, InvalidInstructionAccessHalt, 12, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, InvalidInstructionAccessHalt, 12, 1)
         /** @brief When set, the condition that causes RX RISC state bit 5 to be set, also halts the RX RISC. Set by reset. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, InvalidDataAccessHalt, 11, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, InvalidDataAccessHalt, 11, 1)
         /** @brief Set by TX RISC or the host to halt the RX RISC. Cleared on reset and Watchdog interrupt. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Halt, 10, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Halt, 10, 1)
         /** @brief Self-clearing bit which forces the instruction cache to flush. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, FlushInstructionCache, 9, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, FlushInstructionCache, 9, 1)
         /** @brief Enables prefetch logic within the instruction cache. When disabled only a single cache line is read on a cache miss. Cleared on reset. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableInstructionCache, 8, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableInstructionCache, 8, 1)
         /** @brief Enables watchdog interrupt state machine. Used in conjunction with Watchdog Clear register, Watchdog Saved PC register and Watchdog Vector register. Cleared on reset and Watchdog interrupt. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableWatchdog, 7, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableWatchdog, 7, 1)
         /** @brief Asserted on reset. Cleared by ROM code after it successfully loads code from NVRAM. Afterwards, this bit can be used by software for any purpose. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ROMFail, 6, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, ROMFail, 6, 1)
         /** @brief Enables the data cache. Cleared on reset. Note: Firmware developers should take care to clear this bit before polling internal SRAM memory locations, because the RX RISC processor uses a two-element LRU caching algorithm, which is not affected by writes from the PCI interface. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EnableDataCache, 5, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableDataCache, 5, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_4_4, 4, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_4_4, 4, 1)
         /** @brief When set, instruction references to the first 256 bytes of SRAM force the RX RISC to halt and cause bit 4 in the RX RISC state register to be latched. Cleared on reset and Watchdog interrupt. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Page0InstrHalt, 3, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Page0InstrHalt, 3, 1)
         /** @brief When set, data references to the first 256 bytes of SRAM force the RX RISC to halt and cause bit 3 in the RX RISC state register to be latched. Cleared on reset and Watchdog interrupt. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Page0DataHalt, 2, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Page0DataHalt, 2, 1)
         /** @brief Advances the RX RISC's PC for one cycle. If halting condition still exists, the RX RISC will again halt; otherwise, it will resume normal operation. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SingleStep, 1, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, SingleStep, 1, 1)
         /** @brief Self-clearing bit which resets only the RX RISC. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Reset, 0, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Reset, 0, 1)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "RxRiscMode"; }
@@ -4031,7 +4031,7 @@ typedef register_container RegDEVICERxRiscMode_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscMode_t;
 
-#define REG_DEVICE_RX_RISC_STATUS ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005004) /*  */
+#define REG_DEVICE_RX_RISC_STATUS ((volatile APE_DEVICE_H_uint32_t*)0xa0045004) /*  */
 #define     DEVICE_RX_RISC_STATUS_HARDWARE_BREAKPOINT_SHIFT 0u
 #define     DEVICE_RX_RISC_STATUS_HARDWARE_BREAKPOINT_MASK  0x1u
 #define GET_DEVICE_RX_RISC_STATUS_HARDWARE_BREAKPOINT(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -4096,83 +4096,83 @@ typedef register_container RegDEVICERxRiscMode_t {
 /** @brief Register definition for @ref DEVICE_t.RxRiscStatus. */
 typedef register_container RegDEVICERxRiscStatus_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief When enabled in mode register, indicates hardware breakpoint has been reached. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, HardwareBreakpoint, 0, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, HardwareBreakpoint, 0, 1)
         /** @brief When enabled in mode register, indicates hardware breakpoint has been reached. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, HaltInstructionExecuted, 1, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, HaltInstructionExecuted, 1, 1)
         /** @brief Invalid instruction fetched. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, InvalidInstruction, 2, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, InvalidInstruction, 2, 1)
         /** @brief When enabled in mode register, indicates data reference within lower 256 bytes of SRAM. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Page0DataRefeence, 3, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Page0DataRefeence, 3, 1)
         /** @brief When enabled in mode register, indicates the address in the PC is within the lower 256 bytes of SRAM. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Page0InstructionReference, 4, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Page0InstructionReference, 4, 1)
         /** @brief Data reference to illegal location. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, InvalidDataAccess, 5, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, InvalidDataAccess, 5, 1)
         /** @brief Program Counter (PC) is set to invalid location in processor address space. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, InvalidInstructionFetch, 6, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, InvalidInstructionFetch, 6, 1)
         /** @brief Load or Store instruction was executed with the least significant two address bits not valid for the width of the operation (e.g., Load word or Load Half-word from an odd byte address). */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BadMemoryAlignment, 7, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, BadMemoryAlignment, 7, 1)
         /** @brief A signal was received from the Memory Arbiter indicating that some BCM5700 block, possibly this processor, accessed a memory location that triggered a software trap. The MA registers are used to configure memory address trapping. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MemoryAddressTrap, 8, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, MemoryAddressTrap, 8, 1)
         /** @brief A signal was received from the Global Resources block indicating that this processor accessed a register location that triggered a software trap. The GRC registers are used to configure register address trapping. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, RegisterAddressTrap, 9, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, RegisterAddressTrap, 9, 1)
         /** @brief The RX RISC was explicitly halted via bit 10 in the RX RISC Mode register. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Halted, 10, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Halted, 10, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Unknown, 11, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Unknown, 11, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_13_12, 12, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_13_12, 12, 2)
         /** @brief The processor is currently stalled due to a data access. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DataAccessStall, 14, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, DataAccessStall, 14, 1)
         /** @brief The processor is currently stalled due to an instruction fetch. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, InstructionFetchStall, 15, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, InstructionFetchStall, 15, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_30_16, 16, 15)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_30_16, 16, 15)
         /** @brief A blocking data cache miss occurred, causing the RX RISC to stall while data is fetched from external (to the RX RISC) memory. This is intended as a debugging tool. No state is saved other than the fact that the miss occurred. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BlockingRead, 31, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, BlockingRead, 31, 1)
 #elif defined(__BIG_ENDIAN__)
         /** @brief A blocking data cache miss occurred, causing the RX RISC to stall while data is fetched from external (to the RX RISC) memory. This is intended as a debugging tool. No state is saved other than the fact that the miss occurred. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BlockingRead, 31, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, BlockingRead, 31, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_30_16, 16, 15)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_30_16, 16, 15)
         /** @brief The processor is currently stalled due to an instruction fetch. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, InstructionFetchStall, 15, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, InstructionFetchStall, 15, 1)
         /** @brief The processor is currently stalled due to a data access. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DataAccessStall, 14, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, DataAccessStall, 14, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_13_12, 12, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_13_12, 12, 2)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Unknown, 11, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Unknown, 11, 1)
         /** @brief The RX RISC was explicitly halted via bit 10 in the RX RISC Mode register. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Halted, 10, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Halted, 10, 1)
         /** @brief A signal was received from the Global Resources block indicating that this processor accessed a register location that triggered a software trap. The GRC registers are used to configure register address trapping. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, RegisterAddressTrap, 9, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, RegisterAddressTrap, 9, 1)
         /** @brief A signal was received from the Memory Arbiter indicating that some BCM5700 block, possibly this processor, accessed a memory location that triggered a software trap. The MA registers are used to configure memory address trapping. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MemoryAddressTrap, 8, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, MemoryAddressTrap, 8, 1)
         /** @brief Load or Store instruction was executed with the least significant two address bits not valid for the width of the operation (e.g., Load word or Load Half-word from an odd byte address). */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BadMemoryAlignment, 7, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, BadMemoryAlignment, 7, 1)
         /** @brief Program Counter (PC) is set to invalid location in processor address space. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, InvalidInstructionFetch, 6, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, InvalidInstructionFetch, 6, 1)
         /** @brief Data reference to illegal location. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, InvalidDataAccess, 5, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, InvalidDataAccess, 5, 1)
         /** @brief When enabled in mode register, indicates the address in the PC is within the lower 256 bytes of SRAM. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Page0InstructionReference, 4, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Page0InstructionReference, 4, 1)
         /** @brief When enabled in mode register, indicates data reference within lower 256 bytes of SRAM. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Page0DataRefeence, 3, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Page0DataRefeence, 3, 1)
         /** @brief Invalid instruction fetched. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, InvalidInstruction, 2, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, InvalidInstruction, 2, 1)
         /** @brief When enabled in mode register, indicates hardware breakpoint has been reached. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, HaltInstructionExecuted, 1, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, HaltInstructionExecuted, 1, 1)
         /** @brief When enabled in mode register, indicates hardware breakpoint has been reached. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, HardwareBreakpoint, 0, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, HardwareBreakpoint, 0, 1)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "RxRiscStatus"; }
@@ -4223,11 +4223,11 @@ typedef register_container RegDEVICERxRiscStatus_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscStatus_t;
 
-#define REG_DEVICE_RX_RISC_PROGRAM_COUNTER ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000501c) /* The program counter register can be used to read or write the current Program Counter of the each CPU. Reads can occur at any time, however writes can only be performed when the CPU is halted. Writes will also clear any pending instruction in the decode stage of the pipeline. Bits 31-2 are implemented. 1s written to bits 1-0 are ignored. */
+#define REG_DEVICE_RX_RISC_PROGRAM_COUNTER ((volatile APE_DEVICE_H_uint32_t*)0xa004501c) /* The program counter register can be used to read or write the current Program Counter of the each CPU. Reads can occur at any time, however writes can only be performed when the CPU is halted. Writes will also clear any pending instruction in the decode stage of the pipeline. Bits 31-2 are implemented. 1s written to bits 1-0 are ignored. */
 /** @brief Register definition for @ref DEVICE_t.RxRiscProgramCounter. */
 typedef register_container RegDEVICERxRiscProgramCounter_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "RxRiscProgramCounter"; }
@@ -4248,11 +4248,11 @@ typedef register_container RegDEVICERxRiscProgramCounter_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscProgramCounter_t;
 
-#define REG_DEVICE_RX_RISC_CURRENT_INSTRUCTION ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005020) /* This undocumented register contains the current word located at the program counter address loaded in  */
+#define REG_DEVICE_RX_RISC_CURRENT_INSTRUCTION ((volatile APE_DEVICE_H_uint32_t*)0xa0045020) /* This undocumented register contains the current word located at the program counter address loaded in  */
 /** @brief Register definition for @ref DEVICE_t.RxRiscCurrentInstruction. */
 typedef register_container RegDEVICERxRiscCurrentInstruction_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "RxRiscCurrentInstruction"; }
@@ -4273,11 +4273,11 @@ typedef register_container RegDEVICERxRiscCurrentInstruction_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscCurrentInstruction_t;
 
-#define REG_DEVICE_RX_RISC_HARDWARE_BREAKPOINT ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005034) /* This register is used to set a hardware breakpoint based on the RISC's program counter (PC). If the PC equals the value in this register, and the hardware breakpoint is enabled, the RISC is halted and the appropriate stopping condition is indicated in the RISC State Register. To enable the hardware breakpoint, simply write the byte address of the instruction to break on and clear the Disable Hardware Breakpoint bit. */
+#define REG_DEVICE_RX_RISC_HARDWARE_BREAKPOINT ((volatile APE_DEVICE_H_uint32_t*)0xa0045034) /* This register is used to set a hardware breakpoint based on the RISC's program counter (PC). If the PC equals the value in this register, and the hardware breakpoint is enabled, the RISC is halted and the appropriate stopping condition is indicated in the RISC State Register. To enable the hardware breakpoint, simply write the byte address of the instruction to break on and clear the Disable Hardware Breakpoint bit. */
 /** @brief Register definition for @ref DEVICE_t.RxRiscHardwareBreakpoint. */
 typedef register_container RegDEVICERxRiscHardwareBreakpoint_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "RxRiscHardwareBreakpoint"; }
@@ -4298,11 +4298,11 @@ typedef register_container RegDEVICERxRiscHardwareBreakpoint_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscHardwareBreakpoint_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_0 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005200) /* $zero (R0) */
+#define REG_DEVICE_RX_RISC_REGISTER_0 ((volatile APE_DEVICE_H_uint32_t*)0xa0045200) /* $zero (R0) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister0. */
 typedef register_container RegDEVICERxRiscRegister0_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "RxRiscRegister0"; }
@@ -4323,11 +4323,11 @@ typedef register_container RegDEVICERxRiscRegister0_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister0_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_1 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005204) /* $at (R1) */
+#define REG_DEVICE_RX_RISC_REGISTER_1 ((volatile APE_DEVICE_H_uint32_t*)0xa0045204) /* $at (R1) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister1. */
 typedef register_container RegDEVICERxRiscRegister1_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "RxRiscRegister1"; }
@@ -4348,11 +4348,11 @@ typedef register_container RegDEVICERxRiscRegister1_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister1_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_2 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005208) /* $v0 (R2) */
+#define REG_DEVICE_RX_RISC_REGISTER_2 ((volatile APE_DEVICE_H_uint32_t*)0xa0045208) /* $v0 (R2) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister2. */
 typedef register_container RegDEVICERxRiscRegister2_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "RxRiscRegister2"; }
@@ -4373,11 +4373,11 @@ typedef register_container RegDEVICERxRiscRegister2_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister2_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_3 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000520c) /* $v1 (R3) */
+#define REG_DEVICE_RX_RISC_REGISTER_3 ((volatile APE_DEVICE_H_uint32_t*)0xa004520c) /* $v1 (R3) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister3. */
 typedef register_container RegDEVICERxRiscRegister3_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "RxRiscRegister3"; }
@@ -4398,11 +4398,11 @@ typedef register_container RegDEVICERxRiscRegister3_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister3_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_4 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005210) /* $a0 (R4) */
+#define REG_DEVICE_RX_RISC_REGISTER_4 ((volatile APE_DEVICE_H_uint32_t*)0xa0045210) /* $a0 (R4) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister4. */
 typedef register_container RegDEVICERxRiscRegister4_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "RxRiscRegister4"; }
@@ -4423,11 +4423,11 @@ typedef register_container RegDEVICERxRiscRegister4_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister4_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_5 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005214) /* $a1 (R5) */
+#define REG_DEVICE_RX_RISC_REGISTER_5 ((volatile APE_DEVICE_H_uint32_t*)0xa0045214) /* $a1 (R5) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister5. */
 typedef register_container RegDEVICERxRiscRegister5_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "RxRiscRegister5"; }
@@ -4448,11 +4448,11 @@ typedef register_container RegDEVICERxRiscRegister5_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister5_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_6 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005218) /* $a2 (R6) */
+#define REG_DEVICE_RX_RISC_REGISTER_6 ((volatile APE_DEVICE_H_uint32_t*)0xa0045218) /* $a2 (R6) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister6. */
 typedef register_container RegDEVICERxRiscRegister6_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "RxRiscRegister6"; }
@@ -4473,11 +4473,11 @@ typedef register_container RegDEVICERxRiscRegister6_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister6_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_7 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000521c) /* $a3 (R7) */
+#define REG_DEVICE_RX_RISC_REGISTER_7 ((volatile APE_DEVICE_H_uint32_t*)0xa004521c) /* $a3 (R7) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister7. */
 typedef register_container RegDEVICERxRiscRegister7_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "RxRiscRegister7"; }
@@ -4498,11 +4498,11 @@ typedef register_container RegDEVICERxRiscRegister7_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister7_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_8 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005220) /* $t0 (R8) */
+#define REG_DEVICE_RX_RISC_REGISTER_8 ((volatile APE_DEVICE_H_uint32_t*)0xa0045220) /* $t0 (R8) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister8. */
 typedef register_container RegDEVICERxRiscRegister8_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "RxRiscRegister8"; }
@@ -4523,11 +4523,11 @@ typedef register_container RegDEVICERxRiscRegister8_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister8_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_9 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005224) /* $t1 (R9) */
+#define REG_DEVICE_RX_RISC_REGISTER_9 ((volatile APE_DEVICE_H_uint32_t*)0xa0045224) /* $t1 (R9) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister9. */
 typedef register_container RegDEVICERxRiscRegister9_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "RxRiscRegister9"; }
@@ -4548,11 +4548,11 @@ typedef register_container RegDEVICERxRiscRegister9_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister9_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_10 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005228) /* $t2 (R10) */
+#define REG_DEVICE_RX_RISC_REGISTER_10 ((volatile APE_DEVICE_H_uint32_t*)0xa0045228) /* $t2 (R10) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister10. */
 typedef register_container RegDEVICERxRiscRegister10_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "RxRiscRegister10"; }
@@ -4573,11 +4573,11 @@ typedef register_container RegDEVICERxRiscRegister10_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister10_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_11 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000522c) /* $t3 (R11) */
+#define REG_DEVICE_RX_RISC_REGISTER_11 ((volatile APE_DEVICE_H_uint32_t*)0xa004522c) /* $t3 (R11) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister11. */
 typedef register_container RegDEVICERxRiscRegister11_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "RxRiscRegister11"; }
@@ -4598,11 +4598,11 @@ typedef register_container RegDEVICERxRiscRegister11_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister11_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_12 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005230) /* $t4 (R12) */
+#define REG_DEVICE_RX_RISC_REGISTER_12 ((volatile APE_DEVICE_H_uint32_t*)0xa0045230) /* $t4 (R12) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister12. */
 typedef register_container RegDEVICERxRiscRegister12_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "RxRiscRegister12"; }
@@ -4623,11 +4623,11 @@ typedef register_container RegDEVICERxRiscRegister12_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister12_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_13 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005234) /* $t5 (R13) */
+#define REG_DEVICE_RX_RISC_REGISTER_13 ((volatile APE_DEVICE_H_uint32_t*)0xa0045234) /* $t5 (R13) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister13. */
 typedef register_container RegDEVICERxRiscRegister13_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "RxRiscRegister13"; }
@@ -4648,11 +4648,11 @@ typedef register_container RegDEVICERxRiscRegister13_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister13_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_14 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005238) /* $t6 (R14) */
+#define REG_DEVICE_RX_RISC_REGISTER_14 ((volatile APE_DEVICE_H_uint32_t*)0xa0045238) /* $t6 (R14) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister14. */
 typedef register_container RegDEVICERxRiscRegister14_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "RxRiscRegister14"; }
@@ -4673,11 +4673,11 @@ typedef register_container RegDEVICERxRiscRegister14_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister14_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_15 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000523c) /* $t7 (R15) */
+#define REG_DEVICE_RX_RISC_REGISTER_15 ((volatile APE_DEVICE_H_uint32_t*)0xa004523c) /* $t7 (R15) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister15. */
 typedef register_container RegDEVICERxRiscRegister15_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "RxRiscRegister15"; }
@@ -4698,11 +4698,11 @@ typedef register_container RegDEVICERxRiscRegister15_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister15_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_16 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005240) /* $s0 (R16) */
+#define REG_DEVICE_RX_RISC_REGISTER_16 ((volatile APE_DEVICE_H_uint32_t*)0xa0045240) /* $s0 (R16) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister16. */
 typedef register_container RegDEVICERxRiscRegister16_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "RxRiscRegister16"; }
@@ -4723,11 +4723,11 @@ typedef register_container RegDEVICERxRiscRegister16_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister16_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_17 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005244) /* $s1 (R17) */
+#define REG_DEVICE_RX_RISC_REGISTER_17 ((volatile APE_DEVICE_H_uint32_t*)0xa0045244) /* $s1 (R17) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister17. */
 typedef register_container RegDEVICERxRiscRegister17_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "RxRiscRegister17"; }
@@ -4748,11 +4748,11 @@ typedef register_container RegDEVICERxRiscRegister17_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister17_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_18 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005248) /* $s2 (R18) */
+#define REG_DEVICE_RX_RISC_REGISTER_18 ((volatile APE_DEVICE_H_uint32_t*)0xa0045248) /* $s2 (R18) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister18. */
 typedef register_container RegDEVICERxRiscRegister18_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "RxRiscRegister18"; }
@@ -4773,11 +4773,11 @@ typedef register_container RegDEVICERxRiscRegister18_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister18_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_19 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000524c) /* $s3 (R19) */
+#define REG_DEVICE_RX_RISC_REGISTER_19 ((volatile APE_DEVICE_H_uint32_t*)0xa004524c) /* $s3 (R19) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister19. */
 typedef register_container RegDEVICERxRiscRegister19_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "RxRiscRegister19"; }
@@ -4798,11 +4798,11 @@ typedef register_container RegDEVICERxRiscRegister19_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister19_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_20 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005250) /* $s4 (R20) */
+#define REG_DEVICE_RX_RISC_REGISTER_20 ((volatile APE_DEVICE_H_uint32_t*)0xa0045250) /* $s4 (R20) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister20. */
 typedef register_container RegDEVICERxRiscRegister20_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "RxRiscRegister20"; }
@@ -4823,11 +4823,11 @@ typedef register_container RegDEVICERxRiscRegister20_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister20_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_21 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005254) /* $s5 (R21) */
+#define REG_DEVICE_RX_RISC_REGISTER_21 ((volatile APE_DEVICE_H_uint32_t*)0xa0045254) /* $s5 (R21) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister21. */
 typedef register_container RegDEVICERxRiscRegister21_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "RxRiscRegister21"; }
@@ -4848,11 +4848,11 @@ typedef register_container RegDEVICERxRiscRegister21_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister21_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_22 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005258) /* $s6 (R22) */
+#define REG_DEVICE_RX_RISC_REGISTER_22 ((volatile APE_DEVICE_H_uint32_t*)0xa0045258) /* $s6 (R22) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister22. */
 typedef register_container RegDEVICERxRiscRegister22_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "RxRiscRegister22"; }
@@ -4873,11 +4873,11 @@ typedef register_container RegDEVICERxRiscRegister22_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister22_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_23 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000525c) /* $s7 (R23) */
+#define REG_DEVICE_RX_RISC_REGISTER_23 ((volatile APE_DEVICE_H_uint32_t*)0xa004525c) /* $s7 (R23) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister23. */
 typedef register_container RegDEVICERxRiscRegister23_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "RxRiscRegister23"; }
@@ -4898,11 +4898,11 @@ typedef register_container RegDEVICERxRiscRegister23_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister23_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_24 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005260) /* $t8 (R24) */
+#define REG_DEVICE_RX_RISC_REGISTER_24 ((volatile APE_DEVICE_H_uint32_t*)0xa0045260) /* $t8 (R24) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister24. */
 typedef register_container RegDEVICERxRiscRegister24_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "RxRiscRegister24"; }
@@ -4923,11 +4923,11 @@ typedef register_container RegDEVICERxRiscRegister24_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister24_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_25 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005264) /* $t9 (R25) */
+#define REG_DEVICE_RX_RISC_REGISTER_25 ((volatile APE_DEVICE_H_uint32_t*)0xa0045264) /* $t9 (R25) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister25. */
 typedef register_container RegDEVICERxRiscRegister25_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "RxRiscRegister25"; }
@@ -4948,11 +4948,11 @@ typedef register_container RegDEVICERxRiscRegister25_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister25_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_26 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005268) /* $k0 (R26) */
+#define REG_DEVICE_RX_RISC_REGISTER_26 ((volatile APE_DEVICE_H_uint32_t*)0xa0045268) /* $k0 (R26) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister26. */
 typedef register_container RegDEVICERxRiscRegister26_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "RxRiscRegister26"; }
@@ -4973,11 +4973,11 @@ typedef register_container RegDEVICERxRiscRegister26_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister26_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_27 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000526c) /* $k1 (R27) */
+#define REG_DEVICE_RX_RISC_REGISTER_27 ((volatile APE_DEVICE_H_uint32_t*)0xa004526c) /* $k1 (R27) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister27. */
 typedef register_container RegDEVICERxRiscRegister27_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "RxRiscRegister27"; }
@@ -4998,11 +4998,11 @@ typedef register_container RegDEVICERxRiscRegister27_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister27_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_28 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005270) /* $gp (R28) */
+#define REG_DEVICE_RX_RISC_REGISTER_28 ((volatile APE_DEVICE_H_uint32_t*)0xa0045270) /* $gp (R28) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister28. */
 typedef register_container RegDEVICERxRiscRegister28_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "RxRiscRegister28"; }
@@ -5023,11 +5023,11 @@ typedef register_container RegDEVICERxRiscRegister28_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister28_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_29 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005274) /* $sp (R29) */
+#define REG_DEVICE_RX_RISC_REGISTER_29 ((volatile APE_DEVICE_H_uint32_t*)0xa0045274) /* $sp (R29) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister29. */
 typedef register_container RegDEVICERxRiscRegister29_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "RxRiscRegister29"; }
@@ -5048,11 +5048,11 @@ typedef register_container RegDEVICERxRiscRegister29_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister29_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_30 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005278) /* $fp (R30) */
+#define REG_DEVICE_RX_RISC_REGISTER_30 ((volatile APE_DEVICE_H_uint32_t*)0xa0045278) /* $fp (R30) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister30. */
 typedef register_container RegDEVICERxRiscRegister30_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "RxRiscRegister30"; }
@@ -5073,11 +5073,11 @@ typedef register_container RegDEVICERxRiscRegister30_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister30_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_31 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000527c) /* $ra (R31) */
+#define REG_DEVICE_RX_RISC_REGISTER_31 ((volatile APE_DEVICE_H_uint32_t*)0xa004527c) /* $ra (R31) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister31. */
 typedef register_container RegDEVICERxRiscRegister31_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "RxRiscRegister31"; }
@@ -5098,11 +5098,11 @@ typedef register_container RegDEVICERxRiscRegister31_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister31_t;
 
-#define REG_DEVICE_6408 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006408) /*  */
+#define REG_DEVICE_6408 ((volatile APE_DEVICE_H_uint32_t*)0xa0046408) /*  */
 /** @brief Register definition for @ref DEVICE_t.6408. */
 typedef register_container RegDEVICE6408_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "6408"; }
@@ -5123,11 +5123,11 @@ typedef register_container RegDEVICE6408_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICE6408_t;
 
-#define REG_DEVICE_PCI_POWER_CONSUMPTION_INFO ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006410) /* This undocumented register is used to set PCIe Power Consumption information as reported in configuration space. It is loaded from NVM configuration data. */
+#define REG_DEVICE_PCI_POWER_CONSUMPTION_INFO ((volatile APE_DEVICE_H_uint32_t*)0xa0046410) /* This undocumented register is used to set PCIe Power Consumption information as reported in configuration space. It is loaded from NVM configuration data. */
 /** @brief Register definition for @ref DEVICE_t.PciPowerConsumptionInfo. */
 typedef register_container RegDEVICEPciPowerConsumptionInfo_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "PciPowerConsumptionInfo"; }
@@ -5148,11 +5148,11 @@ typedef register_container RegDEVICEPciPowerConsumptionInfo_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPciPowerConsumptionInfo_t;
 
-#define REG_DEVICE_PCI_POWER_DISSIPATED_INFO ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006414) /* This undocumented register is used to set PCIe Power Dissipated information as reported in configuration space. It is loaded from NVM configuration data. */
+#define REG_DEVICE_PCI_POWER_DISSIPATED_INFO ((volatile APE_DEVICE_H_uint32_t*)0xa0046414) /* This undocumented register is used to set PCIe Power Dissipated information as reported in configuration space. It is loaded from NVM configuration data. */
 /** @brief Register definition for @ref DEVICE_t.PciPowerDissipatedInfo. */
 typedef register_container RegDEVICEPciPowerDissipatedInfo_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "PciPowerDissipatedInfo"; }
@@ -5173,7 +5173,7 @@ typedef register_container RegDEVICEPciPowerDissipatedInfo_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPciPowerDissipatedInfo_t;
 
-#define REG_DEVICE_PCI_VPD_REQUEST ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000642c) /* This undocumented register appears to be used to implement the PCI VPD capability. It is set to the VPD offset which was requested by the host by writing to the VPD register. */
+#define REG_DEVICE_PCI_VPD_REQUEST ((volatile APE_DEVICE_H_uint32_t*)0xa004642c) /* This undocumented register appears to be used to implement the PCI VPD capability. It is set to the VPD offset which was requested by the host by writing to the VPD register. */
 #define     DEVICE_PCI_VPD_REQUEST_REQUESTED_VPD_OFFSET_SHIFT 16u
 #define     DEVICE_PCI_VPD_REQUEST_REQUESTED_VPD_OFFSET_MASK  0x7fff0000u
 #define GET_DEVICE_PCI_VPD_REQUEST_REQUESTED_VPD_OFFSET(__reg__)  (((__reg__) & 0x7fff0000) >> 16u)
@@ -5182,27 +5182,27 @@ typedef register_container RegDEVICEPciPowerDissipatedInfo_t {
 /** @brief Register definition for @ref DEVICE_t.PciVpdRequest. */
 typedef register_container RegDEVICEPciVpdRequest_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_15_0, 0, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_15_0, 0, 16)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, RequestedVPDOffset, 16, 15)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, RequestedVPDOffset, 16, 15)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_31, 31, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_31, 31, 1)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_31, 31, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_31, 31, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, RequestedVPDOffset, 16, 15)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, RequestedVPDOffset, 16, 15)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_15_0, 0, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_15_0, 0, 16)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "PciVpdRequest"; }
@@ -5225,11 +5225,11 @@ typedef register_container RegDEVICEPciVpdRequest_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPciVpdRequest_t;
 
-#define REG_DEVICE_PCI_VPD_RESPONSE ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006430) /* This undocumented register appears to be used to implement the PCI VPD capability. Bootcode writes the 32 bits of data loaded from the word requested by  */
+#define REG_DEVICE_PCI_VPD_RESPONSE ((volatile APE_DEVICE_H_uint32_t*)0xa0046430) /* This undocumented register appears to be used to implement the PCI VPD capability. Bootcode writes the 32 bits of data loaded from the word requested by  */
 /** @brief Register definition for @ref DEVICE_t.PciVpdResponse. */
 typedef register_container RegDEVICEPciVpdResponse_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "PciVpdResponse"; }
@@ -5250,7 +5250,7 @@ typedef register_container RegDEVICEPciVpdResponse_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPciVpdResponse_t;
 
-#define REG_DEVICE_PCI_VENDOR_DEVICE_ID ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006434) /* This is the undocumented register used to set the PCI Vendor/Device ID, which is configurable from NVM. */
+#define REG_DEVICE_PCI_VENDOR_DEVICE_ID ((volatile APE_DEVICE_H_uint32_t*)0xa0046434) /* This is the undocumented register used to set the PCI Vendor/Device ID, which is configurable from NVM. */
 #define     DEVICE_PCI_VENDOR_DEVICE_ID_DEVICE_ID_SHIFT 0u
 #define     DEVICE_PCI_VENDOR_DEVICE_ID_DEVICE_ID_MASK  0xffffu
 #define GET_DEVICE_PCI_VENDOR_DEVICE_ID_DEVICE_ID(__reg__)  (((__reg__) & 0xffff) >> 0u)
@@ -5263,23 +5263,23 @@ typedef register_container RegDEVICEPciVpdResponse_t {
 /** @brief Register definition for @ref DEVICE_t.PciVendorDeviceId. */
 typedef register_container RegDEVICEPciVendorDeviceId_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DeviceID, 0, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, DeviceID, 0, 16)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, VendorID, 16, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, VendorID, 16, 16)
 #elif defined(__BIG_ENDIAN__)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, VendorID, 16, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, VendorID, 16, 16)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DeviceID, 0, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, DeviceID, 0, 16)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "PciVendorDeviceId"; }
@@ -5304,7 +5304,7 @@ typedef register_container RegDEVICEPciVendorDeviceId_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPciVendorDeviceId_t;
 
-#define REG_DEVICE_PCI_SUBSYSTEM_ID ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006438) /* This is the undocumented register used to set the PCI Subsystem/Subsystem Vendor ID, which is configurable from NVM. */
+#define REG_DEVICE_PCI_SUBSYSTEM_ID ((volatile APE_DEVICE_H_uint32_t*)0xa0046438) /* This is the undocumented register used to set the PCI Subsystem/Subsystem Vendor ID, which is configurable from NVM. */
 #define     DEVICE_PCI_SUBSYSTEM_ID_SUBSYSTEM_VENDOR_ID_SHIFT 0u
 #define     DEVICE_PCI_SUBSYSTEM_ID_SUBSYSTEM_VENDOR_ID_MASK  0xffffu
 #define GET_DEVICE_PCI_SUBSYSTEM_ID_SUBSYSTEM_VENDOR_ID(__reg__)  (((__reg__) & 0xffff) >> 0u)
@@ -5317,23 +5317,23 @@ typedef register_container RegDEVICEPciVendorDeviceId_t {
 /** @brief Register definition for @ref DEVICE_t.PciSubsystemId. */
 typedef register_container RegDEVICEPciSubsystemId_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SubsystemVendorID, 0, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, SubsystemVendorID, 0, 16)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SubsystemID, 16, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, SubsystemID, 16, 16)
 #elif defined(__BIG_ENDIAN__)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SubsystemID, 16, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, SubsystemID, 16, 16)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SubsystemVendorID, 0, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, SubsystemVendorID, 0, 16)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "PciSubsystemId"; }
@@ -5358,11 +5358,11 @@ typedef register_container RegDEVICEPciSubsystemId_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPciSubsystemId_t;
 
-#define REG_DEVICE_PCI_CLASS_CODE_REVISION ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000643c) /* This undocumented register is suspected to set the class code and device revision in PCI configuration space. Unconfirmed. */
+#define REG_DEVICE_PCI_CLASS_CODE_REVISION ((volatile APE_DEVICE_H_uint32_t*)0xa004643c) /* This undocumented register is suspected to set the class code and device revision in PCI configuration space. Unconfirmed. */
 /** @brief Register definition for @ref DEVICE_t.PciClassCodeRevision. */
 typedef register_container RegDEVICEPciClassCodeRevision_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "PciClassCodeRevision"; }
@@ -5383,11 +5383,11 @@ typedef register_container RegDEVICEPciClassCodeRevision_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPciClassCodeRevision_t;
 
-#define REG_DEVICE_64C0 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc00064c0) /*  */
+#define REG_DEVICE_64C0 ((volatile APE_DEVICE_H_uint32_t*)0xa00464c0) /*  */
 /** @brief Register definition for @ref DEVICE_t.64c0. */
 typedef register_container RegDEVICE64c0_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "64c0"; }
@@ -5408,11 +5408,11 @@ typedef register_container RegDEVICE64c0_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICE64c0_t;
 
-#define REG_DEVICE_64C8 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc00064c8) /*  */
+#define REG_DEVICE_64C8 ((volatile APE_DEVICE_H_uint32_t*)0xa00464c8) /*  */
 /** @brief Register definition for @ref DEVICE_t.64c8. */
 typedef register_container RegDEVICE64c8_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "64c8"; }
@@ -5433,11 +5433,11 @@ typedef register_container RegDEVICE64c8_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICE64c8_t;
 
-#define REG_DEVICE_64DC ((volatile BCM5719_DEVICE_H_uint32_t*)0xc00064dc) /*  */
+#define REG_DEVICE_64DC ((volatile APE_DEVICE_H_uint32_t*)0xa00464dc) /*  */
 /** @brief Register definition for @ref DEVICE_t.64dc. */
 typedef register_container RegDEVICE64dc_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "64dc"; }
@@ -5458,11 +5458,11 @@ typedef register_container RegDEVICE64dc_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICE64dc_t;
 
-#define REG_DEVICE_PCI_SERIAL_NUMBER_LOW ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006504) /* This sets the low 32 bits of the 64-bit device serial number, which isexposed as a PCIe capability in configuration space. */
+#define REG_DEVICE_PCI_SERIAL_NUMBER_LOW ((volatile APE_DEVICE_H_uint32_t*)0xa0046504) /* This sets the low 32 bits of the 64-bit device serial number, which isexposed as a PCIe capability in configuration space. */
 /** @brief Register definition for @ref DEVICE_t.PciSerialNumberLow. */
 typedef register_container RegDEVICEPciSerialNumberLow_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "PciSerialNumberLow"; }
@@ -5483,11 +5483,11 @@ typedef register_container RegDEVICEPciSerialNumberLow_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPciSerialNumberLow_t;
 
-#define REG_DEVICE_PCI_SERIAL_NUMBER_HIGH ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006508) /* This sets the high 32 bits of the 64-bit device serial number, which isexposed as a PCIe capability in configuration space. */
+#define REG_DEVICE_PCI_SERIAL_NUMBER_HIGH ((volatile APE_DEVICE_H_uint32_t*)0xa0046508) /* This sets the high 32 bits of the 64-bit device serial number, which isexposed as a PCIe capability in configuration space. */
 /** @brief Register definition for @ref DEVICE_t.PciSerialNumberHigh. */
 typedef register_container RegDEVICEPciSerialNumberHigh_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "PciSerialNumberHigh"; }
@@ -5508,7 +5508,7 @@ typedef register_container RegDEVICEPciSerialNumberHigh_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPciSerialNumberHigh_t;
 
-#define REG_DEVICE_PCI_POWER_BUDGET_0 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006510) /* Used to report power budget capability data to the host. The values are loaded from NVM, and up to eight values may be specified.  */
+#define REG_DEVICE_PCI_POWER_BUDGET_0 ((volatile APE_DEVICE_H_uint32_t*)0xa0046510) /* Used to report power budget capability data to the host. The values are loaded from NVM, and up to eight values may be specified.  */
 #define     DEVICE_PCI_POWER_BUDGET_0_BASE_POWER_SHIFT 0u
 #define     DEVICE_PCI_POWER_BUDGET_0_BASE_POWER_MASK  0xffu
 #define GET_DEVICE_PCI_POWER_BUDGET_0_BASE_POWER(__reg__)  (((__reg__) & 0xff) >> 0u)
@@ -5558,43 +5558,43 @@ typedef register_container RegDEVICEPciSerialNumberHigh_t {
 /** @brief Register definition for @ref DEVICE_t.PciPowerBudget0. */
 typedef register_container RegDEVICEPciPowerBudget0_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief Specifies in watts the base power value in the given operating condition. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BasePower, 0, 8)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, BasePower, 0, 8)
         /** @brief Specifies the scale to apply to the Base Power value. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DataScale, 8, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, DataScale, 8, 2)
         /** @brief Specifies the power management sub state of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMSubState, 10, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PMSubState, 10, 3)
         /** @brief Specifies the power management state of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMState, 13, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PMState, 13, 2)
         /** @brief Specifies the power management state of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Type, 15, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Type, 15, 3)
         /** @brief Specifies the thermal load or power rail of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PowerRail, 18, 3)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
         /** @brief Specifies the thermal load or power rail of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PowerRail, 18, 3)
         /** @brief Specifies the power management state of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Type, 15, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Type, 15, 3)
         /** @brief Specifies the power management state of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMState, 13, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PMState, 13, 2)
         /** @brief Specifies the power management sub state of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMSubState, 10, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PMSubState, 10, 3)
         /** @brief Specifies the scale to apply to the Base Power value. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DataScale, 8, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, DataScale, 8, 2)
         /** @brief Specifies in watts the base power value in the given operating condition. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BasePower, 0, 8)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, BasePower, 0, 8)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "PciPowerBudget0"; }
@@ -5627,7 +5627,7 @@ typedef register_container RegDEVICEPciPowerBudget0_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPciPowerBudget0_t;
 
-#define REG_DEVICE_PCI_POWER_BUDGET_1 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006514) /* See  */
+#define REG_DEVICE_PCI_POWER_BUDGET_1 ((volatile APE_DEVICE_H_uint32_t*)0xa0046514) /* See  */
 #define     DEVICE_PCI_POWER_BUDGET_1_BASE_POWER_SHIFT 0u
 #define     DEVICE_PCI_POWER_BUDGET_1_BASE_POWER_MASK  0xffu
 #define GET_DEVICE_PCI_POWER_BUDGET_1_BASE_POWER(__reg__)  (((__reg__) & 0xff) >> 0u)
@@ -5677,43 +5677,43 @@ typedef register_container RegDEVICEPciPowerBudget0_t {
 /** @brief Register definition for @ref DEVICE_t.PciPowerBudget1. */
 typedef register_container RegDEVICEPciPowerBudget1_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief Specifies in watts the base power value in the given operating condition. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BasePower, 0, 8)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, BasePower, 0, 8)
         /** @brief Specifies the scale to apply to the Base Power value. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DataScale, 8, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, DataScale, 8, 2)
         /** @brief Specifies the power management sub state of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMSubState, 10, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PMSubState, 10, 3)
         /** @brief Specifies the power management state of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMState, 13, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PMState, 13, 2)
         /** @brief Specifies the power management state of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Type, 15, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Type, 15, 3)
         /** @brief Specifies the thermal load or power rail of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PowerRail, 18, 3)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
         /** @brief Specifies the thermal load or power rail of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PowerRail, 18, 3)
         /** @brief Specifies the power management state of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Type, 15, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Type, 15, 3)
         /** @brief Specifies the power management state of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMState, 13, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PMState, 13, 2)
         /** @brief Specifies the power management sub state of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMSubState, 10, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PMSubState, 10, 3)
         /** @brief Specifies the scale to apply to the Base Power value. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DataScale, 8, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, DataScale, 8, 2)
         /** @brief Specifies in watts the base power value in the given operating condition. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BasePower, 0, 8)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, BasePower, 0, 8)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "PciPowerBudget1"; }
@@ -5746,7 +5746,7 @@ typedef register_container RegDEVICEPciPowerBudget1_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPciPowerBudget1_t;
 
-#define REG_DEVICE_PCI_POWER_BUDGET_2 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006518) /* See  */
+#define REG_DEVICE_PCI_POWER_BUDGET_2 ((volatile APE_DEVICE_H_uint32_t*)0xa0046518) /* See  */
 #define     DEVICE_PCI_POWER_BUDGET_2_BASE_POWER_SHIFT 0u
 #define     DEVICE_PCI_POWER_BUDGET_2_BASE_POWER_MASK  0xffu
 #define GET_DEVICE_PCI_POWER_BUDGET_2_BASE_POWER(__reg__)  (((__reg__) & 0xff) >> 0u)
@@ -5796,43 +5796,43 @@ typedef register_container RegDEVICEPciPowerBudget1_t {
 /** @brief Register definition for @ref DEVICE_t.PciPowerBudget2. */
 typedef register_container RegDEVICEPciPowerBudget2_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief Specifies in watts the base power value in the given operating condition. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BasePower, 0, 8)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, BasePower, 0, 8)
         /** @brief Specifies the scale to apply to the Base Power value. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DataScale, 8, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, DataScale, 8, 2)
         /** @brief Specifies the power management sub state of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMSubState, 10, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PMSubState, 10, 3)
         /** @brief Specifies the power management state of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMState, 13, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PMState, 13, 2)
         /** @brief Specifies the power management state of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Type, 15, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Type, 15, 3)
         /** @brief Specifies the thermal load or power rail of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PowerRail, 18, 3)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
         /** @brief Specifies the thermal load or power rail of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PowerRail, 18, 3)
         /** @brief Specifies the power management state of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Type, 15, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Type, 15, 3)
         /** @brief Specifies the power management state of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMState, 13, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PMState, 13, 2)
         /** @brief Specifies the power management sub state of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMSubState, 10, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PMSubState, 10, 3)
         /** @brief Specifies the scale to apply to the Base Power value. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DataScale, 8, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, DataScale, 8, 2)
         /** @brief Specifies in watts the base power value in the given operating condition. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BasePower, 0, 8)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, BasePower, 0, 8)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "PciPowerBudget2"; }
@@ -5865,7 +5865,7 @@ typedef register_container RegDEVICEPciPowerBudget2_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPciPowerBudget2_t;
 
-#define REG_DEVICE_PCI_POWER_BUDGET_3 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000651c) /* See  */
+#define REG_DEVICE_PCI_POWER_BUDGET_3 ((volatile APE_DEVICE_H_uint32_t*)0xa004651c) /* See  */
 #define     DEVICE_PCI_POWER_BUDGET_3_BASE_POWER_SHIFT 0u
 #define     DEVICE_PCI_POWER_BUDGET_3_BASE_POWER_MASK  0xffu
 #define GET_DEVICE_PCI_POWER_BUDGET_3_BASE_POWER(__reg__)  (((__reg__) & 0xff) >> 0u)
@@ -5915,43 +5915,43 @@ typedef register_container RegDEVICEPciPowerBudget2_t {
 /** @brief Register definition for @ref DEVICE_t.PciPowerBudget3. */
 typedef register_container RegDEVICEPciPowerBudget3_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief Specifies in watts the base power value in the given operating condition. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BasePower, 0, 8)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, BasePower, 0, 8)
         /** @brief Specifies the scale to apply to the Base Power value. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DataScale, 8, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, DataScale, 8, 2)
         /** @brief Specifies the power management sub state of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMSubState, 10, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PMSubState, 10, 3)
         /** @brief Specifies the power management state of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMState, 13, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PMState, 13, 2)
         /** @brief Specifies the power management state of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Type, 15, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Type, 15, 3)
         /** @brief Specifies the thermal load or power rail of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PowerRail, 18, 3)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
         /** @brief Specifies the thermal load or power rail of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PowerRail, 18, 3)
         /** @brief Specifies the power management state of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Type, 15, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Type, 15, 3)
         /** @brief Specifies the power management state of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMState, 13, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PMState, 13, 2)
         /** @brief Specifies the power management sub state of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMSubState, 10, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PMSubState, 10, 3)
         /** @brief Specifies the scale to apply to the Base Power value. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DataScale, 8, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, DataScale, 8, 2)
         /** @brief Specifies in watts the base power value in the given operating condition. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BasePower, 0, 8)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, BasePower, 0, 8)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "PciPowerBudget3"; }
@@ -5984,7 +5984,7 @@ typedef register_container RegDEVICEPciPowerBudget3_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPciPowerBudget3_t;
 
-#define REG_DEVICE_PCI_POWER_BUDGET_4 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006520) /* See  */
+#define REG_DEVICE_PCI_POWER_BUDGET_4 ((volatile APE_DEVICE_H_uint32_t*)0xa0046520) /* See  */
 #define     DEVICE_PCI_POWER_BUDGET_4_BASE_POWER_SHIFT 0u
 #define     DEVICE_PCI_POWER_BUDGET_4_BASE_POWER_MASK  0xffu
 #define GET_DEVICE_PCI_POWER_BUDGET_4_BASE_POWER(__reg__)  (((__reg__) & 0xff) >> 0u)
@@ -6034,43 +6034,43 @@ typedef register_container RegDEVICEPciPowerBudget3_t {
 /** @brief Register definition for @ref DEVICE_t.PciPowerBudget4. */
 typedef register_container RegDEVICEPciPowerBudget4_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief Specifies in watts the base power value in the given operating condition. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BasePower, 0, 8)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, BasePower, 0, 8)
         /** @brief Specifies the scale to apply to the Base Power value. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DataScale, 8, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, DataScale, 8, 2)
         /** @brief Specifies the power management sub state of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMSubState, 10, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PMSubState, 10, 3)
         /** @brief Specifies the power management state of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMState, 13, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PMState, 13, 2)
         /** @brief Specifies the power management state of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Type, 15, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Type, 15, 3)
         /** @brief Specifies the thermal load or power rail of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PowerRail, 18, 3)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
         /** @brief Specifies the thermal load or power rail of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PowerRail, 18, 3)
         /** @brief Specifies the power management state of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Type, 15, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Type, 15, 3)
         /** @brief Specifies the power management state of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMState, 13, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PMState, 13, 2)
         /** @brief Specifies the power management sub state of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMSubState, 10, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PMSubState, 10, 3)
         /** @brief Specifies the scale to apply to the Base Power value. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DataScale, 8, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, DataScale, 8, 2)
         /** @brief Specifies in watts the base power value in the given operating condition. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BasePower, 0, 8)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, BasePower, 0, 8)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "PciPowerBudget4"; }
@@ -6103,7 +6103,7 @@ typedef register_container RegDEVICEPciPowerBudget4_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPciPowerBudget4_t;
 
-#define REG_DEVICE_PCI_POWER_BUDGET_5 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006524) /* See  */
+#define REG_DEVICE_PCI_POWER_BUDGET_5 ((volatile APE_DEVICE_H_uint32_t*)0xa0046524) /* See  */
 #define     DEVICE_PCI_POWER_BUDGET_5_BASE_POWER_SHIFT 0u
 #define     DEVICE_PCI_POWER_BUDGET_5_BASE_POWER_MASK  0xffu
 #define GET_DEVICE_PCI_POWER_BUDGET_5_BASE_POWER(__reg__)  (((__reg__) & 0xff) >> 0u)
@@ -6153,43 +6153,43 @@ typedef register_container RegDEVICEPciPowerBudget4_t {
 /** @brief Register definition for @ref DEVICE_t.PciPowerBudget5. */
 typedef register_container RegDEVICEPciPowerBudget5_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief Specifies in watts the base power value in the given operating condition. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BasePower, 0, 8)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, BasePower, 0, 8)
         /** @brief Specifies the scale to apply to the Base Power value. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DataScale, 8, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, DataScale, 8, 2)
         /** @brief Specifies the power management sub state of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMSubState, 10, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PMSubState, 10, 3)
         /** @brief Specifies the power management state of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMState, 13, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PMState, 13, 2)
         /** @brief Specifies the power management state of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Type, 15, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Type, 15, 3)
         /** @brief Specifies the thermal load or power rail of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PowerRail, 18, 3)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
         /** @brief Specifies the thermal load or power rail of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PowerRail, 18, 3)
         /** @brief Specifies the power management state of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Type, 15, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Type, 15, 3)
         /** @brief Specifies the power management state of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMState, 13, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PMState, 13, 2)
         /** @brief Specifies the power management sub state of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMSubState, 10, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PMSubState, 10, 3)
         /** @brief Specifies the scale to apply to the Base Power value. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DataScale, 8, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, DataScale, 8, 2)
         /** @brief Specifies in watts the base power value in the given operating condition. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BasePower, 0, 8)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, BasePower, 0, 8)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "PciPowerBudget5"; }
@@ -6222,7 +6222,7 @@ typedef register_container RegDEVICEPciPowerBudget5_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPciPowerBudget5_t;
 
-#define REG_DEVICE_PCI_POWER_BUDGET_6 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006528) /* See  */
+#define REG_DEVICE_PCI_POWER_BUDGET_6 ((volatile APE_DEVICE_H_uint32_t*)0xa0046528) /* See  */
 #define     DEVICE_PCI_POWER_BUDGET_6_BASE_POWER_SHIFT 0u
 #define     DEVICE_PCI_POWER_BUDGET_6_BASE_POWER_MASK  0xffu
 #define GET_DEVICE_PCI_POWER_BUDGET_6_BASE_POWER(__reg__)  (((__reg__) & 0xff) >> 0u)
@@ -6272,43 +6272,43 @@ typedef register_container RegDEVICEPciPowerBudget5_t {
 /** @brief Register definition for @ref DEVICE_t.PciPowerBudget6. */
 typedef register_container RegDEVICEPciPowerBudget6_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief Specifies in watts the base power value in the given operating condition. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BasePower, 0, 8)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, BasePower, 0, 8)
         /** @brief Specifies the scale to apply to the Base Power value. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DataScale, 8, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, DataScale, 8, 2)
         /** @brief Specifies the power management sub state of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMSubState, 10, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PMSubState, 10, 3)
         /** @brief Specifies the power management state of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMState, 13, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PMState, 13, 2)
         /** @brief Specifies the power management state of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Type, 15, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Type, 15, 3)
         /** @brief Specifies the thermal load or power rail of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PowerRail, 18, 3)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
         /** @brief Specifies the thermal load or power rail of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PowerRail, 18, 3)
         /** @brief Specifies the power management state of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Type, 15, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Type, 15, 3)
         /** @brief Specifies the power management state of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMState, 13, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PMState, 13, 2)
         /** @brief Specifies the power management sub state of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMSubState, 10, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PMSubState, 10, 3)
         /** @brief Specifies the scale to apply to the Base Power value. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DataScale, 8, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, DataScale, 8, 2)
         /** @brief Specifies in watts the base power value in the given operating condition. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BasePower, 0, 8)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, BasePower, 0, 8)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "PciPowerBudget6"; }
@@ -6341,7 +6341,7 @@ typedef register_container RegDEVICEPciPowerBudget6_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPciPowerBudget6_t;
 
-#define REG_DEVICE_PCI_POWER_BUDGET_7 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000652c) /* See  */
+#define REG_DEVICE_PCI_POWER_BUDGET_7 ((volatile APE_DEVICE_H_uint32_t*)0xa004652c) /* See  */
 #define     DEVICE_PCI_POWER_BUDGET_7_BASE_POWER_SHIFT 0u
 #define     DEVICE_PCI_POWER_BUDGET_7_BASE_POWER_MASK  0xffu
 #define GET_DEVICE_PCI_POWER_BUDGET_7_BASE_POWER(__reg__)  (((__reg__) & 0xff) >> 0u)
@@ -6391,43 +6391,43 @@ typedef register_container RegDEVICEPciPowerBudget6_t {
 /** @brief Register definition for @ref DEVICE_t.PciPowerBudget7. */
 typedef register_container RegDEVICEPciPowerBudget7_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief Specifies in watts the base power value in the given operating condition. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BasePower, 0, 8)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, BasePower, 0, 8)
         /** @brief Specifies the scale to apply to the Base Power value. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DataScale, 8, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, DataScale, 8, 2)
         /** @brief Specifies the power management sub state of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMSubState, 10, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PMSubState, 10, 3)
         /** @brief Specifies the power management state of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMState, 13, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PMState, 13, 2)
         /** @brief Specifies the power management state of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Type, 15, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Type, 15, 3)
         /** @brief Specifies the thermal load or power rail of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PowerRail, 18, 3)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
         /** @brief Specifies the thermal load or power rail of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerRail, 18, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PowerRail, 18, 3)
         /** @brief Specifies the power management state of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Type, 15, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Type, 15, 3)
         /** @brief Specifies the power management state of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMState, 13, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PMState, 13, 2)
         /** @brief Specifies the power management sub state of the operating condition being described. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMSubState, 10, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PMSubState, 10, 3)
         /** @brief Specifies the scale to apply to the Base Power value. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DataScale, 8, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, DataScale, 8, 2)
         /** @brief Specifies in watts the base power value in the given operating condition. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BasePower, 0, 8)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, BasePower, 0, 8)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "PciPowerBudget7"; }
@@ -6460,11 +6460,11 @@ typedef register_container RegDEVICEPciPowerBudget7_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPciPowerBudget7_t;
 
-#define REG_DEVICE_6530 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006530) /*  */
+#define REG_DEVICE_6530 ((volatile APE_DEVICE_H_uint32_t*)0xa0046530) /*  */
 /** @brief Register definition for @ref DEVICE_t.6530. */
 typedef register_container RegDEVICE6530_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "6530"; }
@@ -6485,11 +6485,11 @@ typedef register_container RegDEVICE6530_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICE6530_t;
 
-#define REG_DEVICE_6550 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006550) /* The LSB in this undocumented and unknown register is set if the device is a LOM (LAN-on-Motherboard) design (i.e., builtin to a system and not an expansion card). */
+#define REG_DEVICE_6550 ((volatile APE_DEVICE_H_uint32_t*)0xa0046550) /* The LSB in this undocumented and unknown register is set if the device is a LOM (LAN-on-Motherboard) design (i.e., builtin to a system and not an expansion card). */
 /** @brief Register definition for @ref DEVICE_t.6550. */
 typedef register_container RegDEVICE6550_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "6550"; }
@@ -6510,11 +6510,11 @@ typedef register_container RegDEVICE6550_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICE6550_t;
 
-#define REG_DEVICE_65F4 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc00065f4) /*  */
+#define REG_DEVICE_65F4 ((volatile APE_DEVICE_H_uint32_t*)0xa00465f4) /*  */
 /** @brief Register definition for @ref DEVICE_t.65f4. */
 typedef register_container RegDEVICE65f4_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "65f4"; }
@@ -6535,7 +6535,7 @@ typedef register_container RegDEVICE65f4_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICE65f4_t;
 
-#define REG_DEVICE_GRC_MODE_CONTROL ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006800) /*  */
+#define REG_DEVICE_GRC_MODE_CONTROL ((volatile APE_DEVICE_H_uint32_t*)0xa0046800) /*  */
 #define     DEVICE_GRC_MODE_CONTROL_TIME_SYNC_MODE_ENABLE_SHIFT 19u
 #define     DEVICE_GRC_MODE_CONTROL_TIME_SYNC_MODE_ENABLE_MASK  0x80000u
 #define GET_DEVICE_GRC_MODE_CONTROL_TIME_SYNC_MODE_ENABLE(__reg__)  (((__reg__) & 0x80000) >> 19u)
@@ -6560,51 +6560,51 @@ typedef register_container RegDEVICE65f4_t {
 /** @brief Register definition for @ref DEVICE_t.GrcModeControl. */
 typedef register_container RegDEVICEGrcModeControl_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_18_0, 0, 19)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_18_0, 0, 19)
         /** @brief Write 1 to this bit to enable Time Sync Mode. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, TimeSyncModeEnable, 19, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, TimeSyncModeEnable, 19, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_20_20, 20, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_20_20, 20, 1)
         /** @brief The host must set this bit before attempting to update the Flash or SEEPROM. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, NVRAMWriteEnable, 21, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, NVRAMWriteEnable, 21, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PCIeTL_DIV_DL_DIV_PLMapping1, 22, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PCIeTL_DIV_DL_DIV_PLMapping1, 22, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_28_23, 23, 6)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_28_23, 23, 6)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PCIeTL_DIV_DL_DIV_PLMapping2, 29, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PCIeTL_DIV_DL_DIV_PLMapping2, 29, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_30_30, 30, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_30_30, 30, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PCIeTL_DIV_DL_DIV_PLMapping3, 31, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PCIeTL_DIV_DL_DIV_PLMapping3, 31, 1)
 #elif defined(__BIG_ENDIAN__)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PCIeTL_DIV_DL_DIV_PLMapping3, 31, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PCIeTL_DIV_DL_DIV_PLMapping3, 31, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_30_30, 30, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_30_30, 30, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PCIeTL_DIV_DL_DIV_PLMapping2, 29, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PCIeTL_DIV_DL_DIV_PLMapping2, 29, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_28_23, 23, 6)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_28_23, 23, 6)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PCIeTL_DIV_DL_DIV_PLMapping1, 22, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, PCIeTL_DIV_DL_DIV_PLMapping1, 22, 1)
         /** @brief The host must set this bit before attempting to update the Flash or SEEPROM. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, NVRAMWriteEnable, 21, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, NVRAMWriteEnable, 21, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_20_20, 20, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_20_20, 20, 1)
         /** @brief Write 1 to this bit to enable Time Sync Mode. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, TimeSyncModeEnable, 19, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, TimeSyncModeEnable, 19, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_18_0, 0, 19)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_18_0, 0, 19)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "GrcModeControl"; }
@@ -6635,7 +6635,7 @@ typedef register_container RegDEVICEGrcModeControl_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEGrcModeControl_t;
 
-#define REG_DEVICE_MISCELLANEOUS_CONFIG ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006804) /*  */
+#define REG_DEVICE_MISCELLANEOUS_CONFIG ((volatile APE_DEVICE_H_uint32_t*)0xa0046804) /*  */
 #define     DEVICE_MISCELLANEOUS_CONFIG_ALL_SHIFT 0u
 #define     DEVICE_MISCELLANEOUS_CONFIG_ALL_MASK  0xffffffffu
 #define GET_DEVICE_MISCELLANEOUS_CONFIG_ALL(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
@@ -6644,19 +6644,19 @@ typedef register_container RegDEVICEGrcModeControl_t {
 /** @brief Register definition for @ref DEVICE_t.MiscellaneousConfig. */
 typedef register_container RegDEVICEMiscellaneousConfig_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, all, 0, 32)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, all, 0, 32)
 #elif defined(__BIG_ENDIAN__)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, all, 0, 32)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, all, 0, 32)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "MiscellaneousConfig"; }
@@ -6679,7 +6679,7 @@ typedef register_container RegDEVICEMiscellaneousConfig_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEMiscellaneousConfig_t;
 
-#define REG_DEVICE_MISCELLANEOUS_LOCAL_CONTROL ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006808) /*  */
+#define REG_DEVICE_MISCELLANEOUS_LOCAL_CONTROL ((volatile APE_DEVICE_H_uint32_t*)0xa0046808) /*  */
 #define     DEVICE_MISCELLANEOUS_LOCAL_CONTROL_GPIO_0_INPUT_SHIFT 8u
 #define     DEVICE_MISCELLANEOUS_LOCAL_CONTROL_GPIO_0_INPUT_MASK  0x100u
 #define GET_DEVICE_MISCELLANEOUS_LOCAL_CONTROL_GPIO_0_INPUT(__reg__)  (((__reg__) & 0x100) >> 8u)
@@ -6724,67 +6724,67 @@ typedef register_container RegDEVICEMiscellaneousConfig_t {
 /** @brief Register definition for @ref DEVICE_t.MiscellaneousLocalControl. */
 typedef register_container RegDEVICEMiscellaneousLocalControl_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_7_0, 0, 8)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_7_0, 0, 8)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPIO0Input, 8, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, GPIO0Input, 8, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPIO1Input, 9, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, GPIO1Input, 9, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPIO2Input, 10, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, GPIO2Input, 10, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPIO0OutputEnable, 11, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, GPIO0OutputEnable, 11, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPIO1OutputEnable, 12, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, GPIO1OutputEnable, 12, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPIO2OutputEnable, 13, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, GPIO2OutputEnable, 13, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPIO0Output, 14, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, GPIO0Output, 14, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPIO1Output, 15, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, GPIO1Output, 15, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPIO2Output, 16, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, GPIO2Output, 16, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_23_17, 17, 7)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_23_17, 17, 7)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, AutoSEEPROMAccess, 24, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, AutoSEEPROMAccess, 24, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_25, 25, 7)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_25, 25, 7)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_25, 25, 7)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_25, 25, 7)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, AutoSEEPROMAccess, 24, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, AutoSEEPROMAccess, 24, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_23_17, 17, 7)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_23_17, 17, 7)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPIO2Output, 16, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, GPIO2Output, 16, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPIO1Output, 15, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, GPIO1Output, 15, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPIO0Output, 14, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, GPIO0Output, 14, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPIO2OutputEnable, 13, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, GPIO2OutputEnable, 13, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPIO1OutputEnable, 12, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, GPIO1OutputEnable, 12, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPIO0OutputEnable, 11, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, GPIO0OutputEnable, 11, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPIO2Input, 10, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, GPIO2Input, 10, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPIO1Input, 9, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, GPIO1Input, 9, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPIO0Input, 8, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, GPIO0Input, 8, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_7_0, 0, 8)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_7_0, 0, 8)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "MiscellaneousLocalControl"; }
@@ -6825,11 +6825,11 @@ typedef register_container RegDEVICEMiscellaneousLocalControl_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEMiscellaneousLocalControl_t;
 
-#define REG_DEVICE_TIMER ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000680c) /* 32-bit free-running counter */
+#define REG_DEVICE_TIMER ((volatile APE_DEVICE_H_uint32_t*)0xa004680c) /* 32-bit free-running counter */
 /** @brief Register definition for @ref DEVICE_t.Timer. */
 typedef register_container RegDEVICETimer_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "Timer"; }
@@ -6850,7 +6850,7 @@ typedef register_container RegDEVICETimer_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICETimer_t;
 
-#define REG_DEVICE_RX_CPU_EVENT ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006810) /*  */
+#define REG_DEVICE_RX_CPU_EVENT ((volatile APE_DEVICE_H_uint32_t*)0xa0046810) /*  */
 #define     DEVICE_RX_CPU_EVENT_MAC_ATTENTION_SHIFT 25u
 #define     DEVICE_RX_CPU_EVENT_MAC_ATTENTION_MASK  0x2000000u
 #define GET_DEVICE_RX_CPU_EVENT_MAC_ATTENTION(__reg__)  (((__reg__) & 0x2000000) >> 25u)
@@ -6871,43 +6871,43 @@ typedef register_container RegDEVICETimer_t {
 /** @brief Register definition for @ref DEVICE_t.RxCpuEvent. */
 typedef register_container RegDEVICERxCpuEvent_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_24_0, 0, 25)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_24_0, 0, 25)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MACAttention, 25, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, MACAttention, 25, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, RXCPUAttention, 26, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, RXCPUAttention, 26, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_28_27, 27, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_28_27, 27, 2)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Timer, 29, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Timer, 29, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, VPDAttention, 30, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, VPDAttention, 30, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_31, 31, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_31, 31, 1)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_31, 31, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_31, 31, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, VPDAttention, 30, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, VPDAttention, 30, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Timer, 29, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Timer, 29, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_28_27, 27, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_28_27, 27, 2)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, RXCPUAttention, 26, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, RXCPUAttention, 26, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MACAttention, 25, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, MACAttention, 25, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_24_0, 0, 25)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_24_0, 0, 25)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "RxCpuEvent"; }
@@ -6936,11 +6936,11 @@ typedef register_container RegDEVICERxCpuEvent_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxCpuEvent_t;
 
-#define REG_DEVICE_6838 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006838) /* Unknown. Used by PXE agent. */
+#define REG_DEVICE_6838 ((volatile APE_DEVICE_H_uint32_t*)0xa0046838) /* Unknown. Used by PXE agent. */
 /** @brief Register definition for @ref DEVICE_t.6838. */
 typedef register_container RegDEVICE6838_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "6838"; }
@@ -6961,11 +6961,11 @@ typedef register_container RegDEVICE6838_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICE6838_t;
 
-#define REG_DEVICE_MDI_CONTROL ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006844) /* The register manual only mentions this in the changelog; it was removed from the manual in a previous revision. :| */
+#define REG_DEVICE_MDI_CONTROL ((volatile APE_DEVICE_H_uint32_t*)0xa0046844) /* The register manual only mentions this in the changelog; it was removed from the manual in a previous revision. :| */
 /** @brief Register definition for @ref DEVICE_t.MdiControl. */
 typedef register_container RegDEVICEMdiControl_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "MdiControl"; }
@@ -6986,7 +6986,7 @@ typedef register_container RegDEVICEMdiControl_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEMdiControl_t;
 
-#define REG_DEVICE_RX_CPU_EVENT_ENABLE ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000684c) /*  */
+#define REG_DEVICE_RX_CPU_EVENT_ENABLE ((volatile APE_DEVICE_H_uint32_t*)0xa004684c) /*  */
 #define     DEVICE_RX_CPU_EVENT_ENABLE_VPD_ATTENTION_SHIFT 30u
 #define     DEVICE_RX_CPU_EVENT_ENABLE_VPD_ATTENTION_MASK  0x40000000u
 #define GET_DEVICE_RX_CPU_EVENT_ENABLE_VPD_ATTENTION(__reg__)  (((__reg__) & 0x40000000) >> 30u)
@@ -6995,27 +6995,27 @@ typedef register_container RegDEVICEMdiControl_t {
 /** @brief Register definition for @ref DEVICE_t.RxCpuEventEnable. */
 typedef register_container RegDEVICERxCpuEventEnable_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_29_0, 0, 30)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_29_0, 0, 30)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, VPDAttention, 30, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, VPDAttention, 30, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_31, 31, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_31, 31, 1)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_31, 31, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_31, 31, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, VPDAttention, 30, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, VPDAttention, 30, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_29_0, 0, 30)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_29_0, 0, 30)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "RxCpuEventEnable"; }
@@ -7038,7 +7038,7 @@ typedef register_container RegDEVICERxCpuEventEnable_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxCpuEventEnable_t;
 
-#define REG_DEVICE_FAST_BOOT_PROGRAM_COUNTER ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006894) /*  */
+#define REG_DEVICE_FAST_BOOT_PROGRAM_COUNTER ((volatile APE_DEVICE_H_uint32_t*)0xa0046894) /*  */
 #define     DEVICE_FAST_BOOT_PROGRAM_COUNTER_PROGRAM_COUNTER_SHIFT 0u
 #define     DEVICE_FAST_BOOT_PROGRAM_COUNTER_PROGRAM_COUNTER_MASK  0x7fffffffu
 #define GET_DEVICE_FAST_BOOT_PROGRAM_COUNTER_PROGRAM_COUNTER(__reg__)  (((__reg__) & 0x7fffffff) >> 0u)
@@ -7051,23 +7051,23 @@ typedef register_container RegDEVICERxCpuEventEnable_t {
 /** @brief Register definition for @ref DEVICE_t.FastBootProgramCounter. */
 typedef register_container RegDEVICEFastBootProgramCounter_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief This field is used by the CPU to keep track of the location of the phase 1 boot code in RX MBUF. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ProgramCounter, 0, 31)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, ProgramCounter, 0, 31)
         /** @brief This bit is used by the CPU to keep track of whether or not there is valid phase 1 boot code stored in the RX MBUF. If the bit is set, then RXMBUF contains valid boot code. Otherwise, it is assumed that RXMBUF does not contain valid boot code. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Enable, 31, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Enable, 31, 1)
 #elif defined(__BIG_ENDIAN__)
         /** @brief This bit is used by the CPU to keep track of whether or not there is valid phase 1 boot code stored in the RX MBUF. If the bit is set, then RXMBUF contains valid boot code. Otherwise, it is assumed that RXMBUF does not contain valid boot code. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Enable, 31, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Enable, 31, 1)
         /** @brief This field is used by the CPU to keep track of the location of the phase 1 boot code in RX MBUF. */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ProgramCounter, 0, 31)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, ProgramCounter, 0, 31)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "FastBootProgramCounter"; }
@@ -7092,11 +7092,11 @@ typedef register_container RegDEVICEFastBootProgramCounter_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEFastBootProgramCounter_t;
 
-#define REG_DEVICE_EXPANSION_ROM_ADDR ((volatile BCM5719_DEVICE_H_uint32_t*)0xc00068ec) /* Expansion ROM base address, expect to be d- word aligned. */
+#define REG_DEVICE_EXPANSION_ROM_ADDR ((volatile APE_DEVICE_H_uint32_t*)0xa00468ec) /* Expansion ROM base address, expect to be d- word aligned. */
 /** @brief Register definition for @ref DEVICE_t.ExpansionRomAddr. */
 typedef register_container RegDEVICEExpansionRomAddr_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "ExpansionRomAddr"; }
@@ -7117,11 +7117,11 @@ typedef register_container RegDEVICEExpansionRomAddr_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEExpansionRomAddr_t;
 
-#define REG_DEVICE_68F0 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc00068f0) /*  */
+#define REG_DEVICE_68F0 ((volatile APE_DEVICE_H_uint32_t*)0xa00468f0) /*  */
 /** @brief Register definition for @ref DEVICE_t.68f0. */
 typedef register_container RegDEVICE68f0_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "68f0"; }
@@ -7142,7 +7142,7 @@ typedef register_container RegDEVICE68f0_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICE68f0_t;
 
-#define REG_DEVICE_EAV_REF_CLOCK_CONTROL ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006908) /*  */
+#define REG_DEVICE_EAV_REF_CLOCK_CONTROL ((volatile APE_DEVICE_H_uint32_t*)0xa0046908) /*  */
 #define     DEVICE_EAV_REF_CLOCK_CONTROL_TIMESYNC_GPIO_MAPPING_SHIFT 16u
 #define     DEVICE_EAV_REF_CLOCK_CONTROL_TIMESYNC_GPIO_MAPPING_MASK  0x30000u
 #define GET_DEVICE_EAV_REF_CLOCK_CONTROL_TIMESYNC_GPIO_MAPPING(__reg__)  (((__reg__) & 0x30000) >> 16u)
@@ -7196,43 +7196,43 @@ typedef register_container RegDEVICE68f0_t {
 /** @brief Register definition for @ref DEVICE_t.EavRefClockControl. */
 typedef register_container RegDEVICEEavRefClockControl_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 
-    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_15_0, 0, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_15_0, 0, 16)
         /** @brief The MAC/Port dedicated TimeSync_GPIO pin is mapped via this field */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, TimesyncGPIOMapping, 16, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, TimesyncGPIOMapping, 16, 2)
         /** @brief APE_GPIO[0] pin is mapped to 1588 input/ output via this field */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APEGPIO0Mapping, 18, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, APEGPIO0Mapping, 18, 3)
         /** @brief APE_GPIO[1] pin is mapped to 1588 input/ output via this field */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APEGPIO1Mapping, 21, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, APEGPIO1Mapping, 21, 3)
         /** @brief APE_GPIO[2] pin is mapped to 1588 input/ output via this field */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APEGPIO2Mapping, 24, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, APEGPIO2Mapping, 24, 3)
         /** @brief APE_GPIO[3] pin is mapped to 1588 input/ output via this field */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APEGPIO3Mapping, 27, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, APEGPIO3Mapping, 27, 3)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_30, 30, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_30, 30, 2)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_30, 30, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_30, 30, 2)
         /** @brief APE_GPIO[3] pin is mapped to 1588 input/ output via this field */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APEGPIO3Mapping, 27, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, APEGPIO3Mapping, 27, 3)
         /** @brief APE_GPIO[2] pin is mapped to 1588 input/ output via this field */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APEGPIO2Mapping, 24, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, APEGPIO2Mapping, 24, 3)
         /** @brief APE_GPIO[1] pin is mapped to 1588 input/ output via this field */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APEGPIO1Mapping, 21, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, APEGPIO1Mapping, 21, 3)
         /** @brief APE_GPIO[0] pin is mapped to 1588 input/ output via this field */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APEGPIO0Mapping, 18, 3)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, APEGPIO0Mapping, 18, 3)
         /** @brief The MAC/Port dedicated TimeSync_GPIO pin is mapped via this field */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, TimesyncGPIOMapping, 16, 2)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, TimesyncGPIOMapping, 16, 2)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_15_0, 0, 16)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_15_0, 0, 16)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "EavRefClockControl"; }
@@ -7263,11 +7263,11 @@ typedef register_container RegDEVICEEavRefClockControl_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEEavRefClockControl_t;
 
-#define REG_DEVICE_7C04 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0007c04) /* PCIe-related. tg3 driver calls this  */
+#define REG_DEVICE_7C04 ((volatile APE_DEVICE_H_uint32_t*)0xa0047c04) /* PCIe-related. tg3 driver calls this  */
 /** @brief Register definition for @ref DEVICE_t.7c04. */
 typedef register_container RegDEVICE7c04_t {
     /** @brief 32bit direct register access. */
-    BCM5719_DEVICE_H_uint32_t r32;
+    APE_DEVICE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "7c04"; }
@@ -7291,19 +7291,19 @@ typedef register_container RegDEVICE7c04_t {
 /** @brief Component definition for @ref DEVICE. */
 typedef struct DEVICE_t {
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_0[26];
+    APE_DEVICE_H_uint32_t reserved_0[26];
 
     /** @brief  */
     RegDEVICEMiscellaneousHostControl_t MiscellaneousHostControl;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_108[1];
+    APE_DEVICE_H_uint32_t reserved_108[1];
 
     /** @brief  */
     RegDEVICEPciState_t PciState;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_116[1];
+    APE_DEVICE_H_uint32_t reserved_116[1];
 
     /** @brief Local controller memory address of a register than can be written or read by writing to the register data register. */
     RegDEVICERegisterBase_t RegisterBase;
@@ -7315,7 +7315,7 @@ typedef struct DEVICE_t {
     RegDEVICERegisterData_t RegisterData;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_132[1];
+    APE_DEVICE_H_uint32_t reserved_132[1];
 
     /** @brief UNDI Receive Return Ring Consumer Index Mailbox */
     RegDEVICEUndiReceiveReturnRingConsumerIndex_t UndiReceiveReturnRingConsumerIndex;
@@ -7324,13 +7324,13 @@ typedef struct DEVICE_t {
     RegDEVICEUndiReceiveReturnRingConsumerIndexLow_t UndiReceiveReturnRingConsumerIndexLow;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_144[11];
+    APE_DEVICE_H_uint32_t reserved_144[11];
 
     /** @brief PCIe standard register. */
     RegDEVICELinkStatusControl_t LinkStatusControl;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_192[14];
+    APE_DEVICE_H_uint32_t reserved_192[14];
 
     /** @brief APE Memory address to read/write using the APE Memory Data register.. */
     RegDEVICEApeMemoryBase_t ApeMemoryBase;
@@ -7339,13 +7339,13 @@ typedef struct DEVICE_t {
     RegDEVICEApeMemoryData_t ApeMemoryData;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_256[192];
+    APE_DEVICE_H_uint32_t reserved_256[192];
 
     /** @brief  */
     RegDEVICEEmacMode_t EmacMode;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_1028[2];
+    APE_DEVICE_H_uint32_t reserved_1028[2];
 
     /** @brief  */
     RegDEVICELedControl_t LedControl;
@@ -7381,37 +7381,37 @@ typedef struct DEVICE_t {
     RegDEVICEWolPatternCfg_t WolPatternCfg;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_1080[1];
+    APE_DEVICE_H_uint32_t reserved_1080[1];
 
     /** @brief 2-byte field which is the largest size frame that will be accepted without being marked as oversize. */
     RegDEVICEMtuSize_t MtuSize;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_1088[3];
+    APE_DEVICE_H_uint32_t reserved_1088[3];
 
     /** @brief  */
     RegDEVICEMiiCommunication_t MiiCommunication;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_1104[1];
+    APE_DEVICE_H_uint32_t reserved_1104[1];
 
     /** @brief  */
     RegDEVICEMiiMode_t MiiMode;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_1112[1];
+    APE_DEVICE_H_uint32_t reserved_1112[1];
 
     /** @brief  */
     RegDEVICETransmitMacMode_t TransmitMacMode;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_1120[2];
+    APE_DEVICE_H_uint32_t reserved_1120[2];
 
     /** @brief  */
     RegDEVICEReceiveMacMode_t ReceiveMacMode;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_1132[53];
+    APE_DEVICE_H_uint32_t reserved_1132[53];
 
     /** @brief  */
     RegDEVICEPerfectMatch1High_t PerfectMatch1High;
@@ -7438,31 +7438,31 @@ typedef struct DEVICE_t {
     RegDEVICEPerfectMatch4Low_t PerfectMatch4Low;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_1376[21];
+    APE_DEVICE_H_uint32_t reserved_1376[21];
 
     /** @brief This register reflects various status of the respective SGMII port when enabled. */
     RegDEVICESgmiiStatus_t SgmiiStatus;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_1464[3090];
+    APE_DEVICE_H_uint32_t reserved_1464[3090];
 
     /** @brief  */
     RegDEVICECpmuControl_t CpmuControl;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_13828[3];
+    APE_DEVICE_H_uint32_t reserved_13828[3];
 
     /** @brief  */
     RegDEVICELinkAwarePowerModeClockPolicy_t LinkAwarePowerModeClockPolicy;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_13844[4];
+    APE_DEVICE_H_uint32_t reserved_13844[4];
 
     /** @brief  */
     RegDEVICEClockSpeedOverridePolicy_t ClockSpeedOverridePolicy;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_13864[1];
+    APE_DEVICE_H_uint32_t reserved_13864[1];
 
     /** @brief  */
     RegDEVICEStatus_t Status;
@@ -7471,13 +7471,13 @@ typedef struct DEVICE_t {
     RegDEVICEClockStatus_t ClockStatus;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_13876[1];
+    APE_DEVICE_H_uint32_t reserved_13876[1];
 
     /** @brief  */
     RegDEVICEGphyControlStatus_t GphyControlStatus;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_13884[7];
+    APE_DEVICE_H_uint32_t reserved_13884[7];
 
     /** @brief  */
     RegDEVICEChipId_t ChipId;
@@ -7492,31 +7492,31 @@ typedef struct DEVICE_t {
     RegDEVICEGphyStrap_t GphyStrap;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_13928[5];
+    APE_DEVICE_H_uint32_t reserved_13928[5];
 
     /** @brief  */
     RegDEVICETopLevelMiscellaneousControl1_t TopLevelMiscellaneousControl1;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_13952[12];
+    APE_DEVICE_H_uint32_t reserved_13952[12];
 
     /** @brief  */
     RegDEVICEEeeMode_t EeeMode;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_14004[2];
+    APE_DEVICE_H_uint32_t reserved_14004[2];
 
     /** @brief  */
     RegDEVICEEeeLinkIdleControl_t EeeLinkIdleControl;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_14016[4];
+    APE_DEVICE_H_uint32_t reserved_14016[4];
 
     /** @brief  */
     RegDEVICEEeeControl_t EeeControl;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_14036[7];
+    APE_DEVICE_H_uint32_t reserved_14036[7];
 
     /** @brief  */
     RegDEVICEGlobalMutexRequest_t GlobalMutexRequest;
@@ -7525,25 +7525,25 @@ typedef struct DEVICE_t {
     RegDEVICEGlobalMutexGrant_t GlobalMutexGrant;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_14072[578];
+    APE_DEVICE_H_uint32_t reserved_14072[578];
 
     /** @brief  */
     RegDEVICEMemoryArbiterMode_t MemoryArbiterMode;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_16388[255];
+    APE_DEVICE_H_uint32_t reserved_16388[255];
 
     /** @brief  */
     RegDEVICEBufferManagerMode_t BufferManagerMode;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_17412[323];
+    APE_DEVICE_H_uint32_t reserved_17412[323];
 
     /** @brief  */
     RegDEVICELsoNonlsoBdReadDmaCorruptionEnableControl_t LsoNonlsoBdReadDmaCorruptionEnableControl;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_18708[443];
+    APE_DEVICE_H_uint32_t reserved_18708[443];
 
     /** @brief  */
     RegDEVICERxRiscMode_t RxRiscMode;
@@ -7552,7 +7552,7 @@ typedef struct DEVICE_t {
     RegDEVICERxRiscStatus_t RxRiscStatus;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_20488[5];
+    APE_DEVICE_H_uint32_t reserved_20488[5];
 
     /** @brief The program counter register can be used to read or write the current Program Counter of the each CPU. Reads can occur at any time, however writes can only be performed when the CPU is halted. Writes will also clear any pending instruction in the decode stage of the pipeline. Bits 31-2 are implemented. 1s written to bits 1-0 are ignored. */
     RegDEVICERxRiscProgramCounter_t RxRiscProgramCounter;
@@ -7561,13 +7561,13 @@ typedef struct DEVICE_t {
     RegDEVICERxRiscCurrentInstruction_t RxRiscCurrentInstruction;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_20516[4];
+    APE_DEVICE_H_uint32_t reserved_20516[4];
 
     /** @brief This register is used to set a hardware breakpoint based on the RISC's program counter (PC). If the PC equals the value in this register, and the hardware breakpoint is enabled, the RISC is halted and the appropriate stopping condition is indicated in the RISC State Register. To enable the hardware breakpoint, simply write the byte address of the instruction to break on and clear the Disable Hardware Breakpoint bit. */
     RegDEVICERxRiscHardwareBreakpoint_t RxRiscHardwareBreakpoint;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_20536[114];
+    APE_DEVICE_H_uint32_t reserved_20536[114];
 
     /** @brief $zero (R0) */
     RegDEVICERxRiscRegister0_t RxRiscRegister0;
@@ -7666,13 +7666,13 @@ typedef struct DEVICE_t {
     RegDEVICERxRiscRegister31_t RxRiscRegister31;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_21120[1122];
+    APE_DEVICE_H_uint32_t reserved_21120[1122];
 
     /** @brief  */
     RegDEVICE6408_t _6408;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_25612[1];
+    APE_DEVICE_H_uint32_t reserved_25612[1];
 
     /** @brief This undocumented register is used to set PCIe Power Consumption information as reported in configuration space. It is loaded from NVM configuration data. */
     RegDEVICEPciPowerConsumptionInfo_t PciPowerConsumptionInfo;
@@ -7681,7 +7681,7 @@ typedef struct DEVICE_t {
     RegDEVICEPciPowerDissipatedInfo_t PciPowerDissipatedInfo;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_25624[5];
+    APE_DEVICE_H_uint32_t reserved_25624[5];
 
     /** @brief This undocumented register appears to be used to implement the PCI VPD capability. It is set to the VPD offset which was requested by the host by writing to the VPD register. */
     RegDEVICEPciVpdRequest_t PciVpdRequest;
@@ -7699,25 +7699,25 @@ typedef struct DEVICE_t {
     RegDEVICEPciClassCodeRevision_t PciClassCodeRevision;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_25664[32];
+    APE_DEVICE_H_uint32_t reserved_25664[32];
 
     /** @brief  */
     RegDEVICE64c0_t _64c0;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_25796[1];
+    APE_DEVICE_H_uint32_t reserved_25796[1];
 
     /** @brief  */
     RegDEVICE64c8_t _64c8;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_25804[4];
+    APE_DEVICE_H_uint32_t reserved_25804[4];
 
     /** @brief  */
     RegDEVICE64dc_t _64dc;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_25824[9];
+    APE_DEVICE_H_uint32_t reserved_25824[9];
 
     /** @brief This sets the low 32 bits of the 64-bit device serial number, which isexposed as a PCIe capability in configuration space. */
     RegDEVICEPciSerialNumberLow_t PciSerialNumberLow;
@@ -7726,7 +7726,7 @@ typedef struct DEVICE_t {
     RegDEVICEPciSerialNumberHigh_t PciSerialNumberHigh;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_25868[1];
+    APE_DEVICE_H_uint32_t reserved_25868[1];
 
     /** @brief Used to report power budget capability data to the host. The values are loaded from NVM, and up to eight values may be specified.  */
     RegDEVICEPciPowerBudget0_t PciPowerBudget0;
@@ -7756,19 +7756,19 @@ typedef struct DEVICE_t {
     RegDEVICE6530_t _6530;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_25908[7];
+    APE_DEVICE_H_uint32_t reserved_25908[7];
 
     /** @brief The LSB in this undocumented and unknown register is set if the device is a LOM (LAN-on-Motherboard) design (i.e., builtin to a system and not an expansion card). */
     RegDEVICE6550_t _6550;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_25940[40];
+    APE_DEVICE_H_uint32_t reserved_25940[40];
 
     /** @brief  */
     RegDEVICE65f4_t _65f4;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_26104[130];
+    APE_DEVICE_H_uint32_t reserved_26104[130];
 
     /** @brief  */
     RegDEVICEGrcModeControl_t GrcModeControl;
@@ -7786,31 +7786,31 @@ typedef struct DEVICE_t {
     RegDEVICERxCpuEvent_t RxCpuEvent;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_26644[9];
+    APE_DEVICE_H_uint32_t reserved_26644[9];
 
     /** @brief Unknown. Used by PXE agent. */
     RegDEVICE6838_t _6838;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_26684[2];
+    APE_DEVICE_H_uint32_t reserved_26684[2];
 
     /** @brief The register manual only mentions this in the changelog; it was removed from the manual in a previous revision. :| */
     RegDEVICEMdiControl_t MdiControl;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_26696[1];
+    APE_DEVICE_H_uint32_t reserved_26696[1];
 
     /** @brief  */
     RegDEVICERxCpuEventEnable_t RxCpuEventEnable;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_26704[17];
+    APE_DEVICE_H_uint32_t reserved_26704[17];
 
     /** @brief  */
     RegDEVICEFastBootProgramCounter_t FastBootProgramCounter;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_26776[21];
+    APE_DEVICE_H_uint32_t reserved_26776[21];
 
     /** @brief Expansion ROM base address, expect to be d- word aligned. */
     RegDEVICEExpansionRomAddr_t ExpansionRomAddr;
@@ -7819,13 +7819,13 @@ typedef struct DEVICE_t {
     RegDEVICE68f0_t _68f0;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_26868[5];
+    APE_DEVICE_H_uint32_t reserved_26868[5];
 
     /** @brief  */
     RegDEVICEEavRefClockControl_t EavRefClockControl;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_26892[1214];
+    APE_DEVICE_H_uint32_t reserved_26892[1214];
 
     /** @brief PCIe-related. tg3 driver calls this  */
     RegDEVICE7c04_t _7c04;
@@ -7975,7 +7975,7 @@ typedef struct DEVICE_t {
 #endif /* CXX_SIMULATOR */
 } DEVICE_t;
 
-/** @brief Device Registers */
+/** @brief Device Registers, function 0 */
 extern volatile DEVICE_t DEVICE;
 
 
@@ -7989,6 +7989,6 @@ extern volatile DEVICE_t DEVICE;
 #undef BITFIELD_MEMBER
 #undef BITFIELD_END
 
-#endif /* !BCM5719_DEVICE_H */
+#endif /* !APE_DEVICE_H */
 
 /** @} */

@@ -189,6 +189,38 @@ void init_bcm5719_DEVICE_sim(void *base)
     DEVICE.ReceiveMacMode.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     DEVICE.ReceiveMacMode.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    /** @brief Bitmap for @ref DEVICE_t.PerfectMatch1High. */
+    DEVICE.PerfectMatch1High.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    DEVICE.PerfectMatch1High.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref DEVICE_t.PerfectMatch1Low. */
+    DEVICE.PerfectMatch1Low.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    DEVICE.PerfectMatch1Low.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref DEVICE_t.PerfectMatch2High. */
+    DEVICE.PerfectMatch2High.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    DEVICE.PerfectMatch2High.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref DEVICE_t.PerfectMatch2Low. */
+    DEVICE.PerfectMatch2Low.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    DEVICE.PerfectMatch2Low.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref DEVICE_t.PerfectMatch3High. */
+    DEVICE.PerfectMatch3High.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    DEVICE.PerfectMatch3High.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref DEVICE_t.PerfectMatch3Low. */
+    DEVICE.PerfectMatch3Low.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    DEVICE.PerfectMatch3Low.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref DEVICE_t.PerfectMatch4High. */
+    DEVICE.PerfectMatch4High.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    DEVICE.PerfectMatch4High.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref DEVICE_t.PerfectMatch4Low. */
+    DEVICE.PerfectMatch4Low.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    DEVICE.PerfectMatch4Low.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
     /** @brief Bitmap for @ref DEVICE_t.SgmiiStatus. */
     DEVICE.SgmiiStatus.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     DEVICE.SgmiiStatus.r32.installWriteCallback(write_to_ram, (uint8_t *)base);

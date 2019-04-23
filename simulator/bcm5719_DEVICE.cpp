@@ -103,6 +103,22 @@ void init_bcm5719_DEVICE(void)
 
     /** @brief Bitmap for @ref DEVICE_t.ReceiveMacMode. */
 
+    /** @brief Bitmap for @ref DEVICE_t.PerfectMatch1High. */
+
+    /** @brief Bitmap for @ref DEVICE_t.PerfectMatch1Low. */
+
+    /** @brief Bitmap for @ref DEVICE_t.PerfectMatch2High. */
+
+    /** @brief Bitmap for @ref DEVICE_t.PerfectMatch2Low. */
+
+    /** @brief Bitmap for @ref DEVICE_t.PerfectMatch3High. */
+
+    /** @brief Bitmap for @ref DEVICE_t.PerfectMatch3Low. */
+
+    /** @brief Bitmap for @ref DEVICE_t.PerfectMatch4High. */
+
+    /** @brief Bitmap for @ref DEVICE_t.PerfectMatch4Low. */
+
     /** @brief Bitmap for @ref DEVICE_t.SgmiiStatus. */
 
     /** @brief Bitmap for @ref DEVICE_t.CpmuControl. */

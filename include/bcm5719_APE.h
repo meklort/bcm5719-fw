@@ -464,7 +464,7 @@ typedef register_container RegAPEEvent_t {
 #endif /* CXX_SIMULATOR */
 } RegAPEEvent_t;
 
-#define REG_APE_RXBUFOFFSET_FUNC0 ((volatile BCM5719_APE_H_uint32_t*)0xc0010014) /* This is examined on the APE Packet RX interrupt, and indicates the offset of an incoming (from-network) frame within the APE memory space, which provides access to the from-network RX buffer. */
+#define REG_APE_RXBUFOFFSET_FUNC0 ((volatile BCM5719_APE_H_uint32_t*)0xc0010014) /* This is examined on the APE Packet RX interrupt, and indicates the offset of an incoming (from-network) frame within the APE memory space, which provides access to the from-network RX buffer. The fields are block numbers (block size 128 bytes). */
 #define     APE_RXBUFOFFSET_FUNC0_TAIL_SHIFT 0u
 #define     APE_RXBUFOFFSET_FUNC0_TAIL_MASK  0xfffu
 #define GET_APE_RXBUFOFFSET_FUNC0_TAIL(__reg__)  (((__reg__) & 0xfff) >> 0u)
@@ -3303,7 +3303,7 @@ typedef struct APE_t {
     /** @brief Reserved bytes to pad out data structure. */
     BCM5719_APE_H_uint32_t reserved_16[1];
 
-    /** @brief This is examined on the APE Packet RX interrupt, and indicates the offset of an incoming (from-network) frame within the APE memory space, which provides access to the from-network RX buffer. */
+    /** @brief This is examined on the APE Packet RX interrupt, and indicates the offset of an incoming (from-network) frame within the APE memory space, which provides access to the from-network RX buffer. The fields are block numbers (block size 128 bytes). */
     RegAPERxbufoffsetFunc0_t RxbufoffsetFunc0;
 
     /** @brief This is examined on the APE Packet RX interrupt, and indicates the offset of an incoming (from-network) frame within the APE memory space, which provides access to the from-network RX buffer. */
