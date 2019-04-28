@@ -1,10 +1,10 @@
 ################################################################################
 ###
-### @file       libs/Ethernet/CMakeLists.txt
+### @file       libs/NCSI/tests/CMakeLists.txt
 ###
 ### @project    
 ###
-### @brief      Ethernet CMake file
+### @brief      NCSI Test CMake file
 ###
 ################################################################################
 ###
@@ -42,18 +42,9 @@
 ### @endcond
 ################################################################################
 
-project(NCSI)
+project(NCSI-tests)
 
+set(SOURCES valid_commands.c tests.cpp)
 
-# Host Simulation library
-simulator_add_library(${PROJECT_NAME} STATIC ncsi.c)
-target_link_libraries(${PROJECT_NAME} PRIVATE simulator)
-target_include_directories(${PROJECT_NAME} PUBLIC ../../include)
-target_include_directories(${PROJECT_NAME} PUBLIC include)
-
-# ARM Library
-arm_add_library(${PROJECT_NAME}-arm STATIC ncsi.c)
-target_include_directories(${PROJECT_NAME}-arm PUBLIC ../../include)
-target_include_directories(${PROJECT_NAME}-arm PUBLIC include)
-
-add_subdirectory(tests)
+simulator_add_executable(ncsi-tests ${SOURCES})
+target_link_libraries(ncsi-tests NCSI simulator gtest gtest_main)

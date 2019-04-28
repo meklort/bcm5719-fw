@@ -51,6 +51,8 @@ project(bcm5719-top)
 
 include(cmake/config.cmake)
 
+add_subdirectory(tests)
+
 add_subdirectory(libs)
 add_subdirectory(utils)
 
