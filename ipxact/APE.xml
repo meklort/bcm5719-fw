@@ -21,7 +21,7 @@
             <ipxact:addressUnitBits>32</ipxact:addressUnitBits>
         </ipxact:memoryMap>
 
-        <!-- APE Registers: 0xC001_0000 to  C001_8FFF-->
+        <!-- APE Registers: 0x6020_0000 to  6020_8FFF-->
         <ipxact:memoryMap>
             <ipxact:name>APE</ipxact:name>
             <ipxact:description>Device APE Registers</ipxact:description>
@@ -48,7 +48,7 @@
             </ipxact:addressBlock>
         </ipxact:memoryMap>
 
-        <!-- APE Registers: 0xC001_0000 to  C001_8FFF-->
+        <!-- APE Registers: 0x0x6024_0000 to  0x6024_8FFF-->
         <ipxact:memoryMap>
             <ipxact:name>APE_PERI</ipxact:name>
             <ipxact:description>Device APE Registers</ipxact:description>
@@ -138,11 +138,21 @@
             <ipxact:addressBlock>
                 <ipxact:name>TX_PORT</ipxact:name>
                 <ipxact:description>TX to network port, function 0</ipxact:description>
+                <ipxact:typeIdentifier>TX_PORT</ipxact:typeIdentifier>>
                 <ipxact:baseAddress>0xA0020000</ipxact:baseAddress>
                 <!-- LINK: addressBlockDefinitionGroup: see 6.9.3, Address blockdefinition group -->
                 <!-- LINK: memoryBlockData: see 6.9.4, memoryBlockData group -->
                 <ipxact:usage>register</ipxact:usage>
                 <ipxact:volatile>false</ipxact:volatile>
+                <ipxact:register>
+                    <ipxact:name>out</ipxact:name>
+                    <ipxact:description>This is the memory range into which frames are directed towards the network byte the APE firmware.</ipxact:description>
+                    <ipxact:addressOffset>0x0</ipxact:addressOffset>
+                    <ipxact:dim>0x800</ipxact:dim>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
             </ipxact:addressBlock>
         </ipxact:memoryMap>
 

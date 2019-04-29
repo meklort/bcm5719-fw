@@ -106,19 +106,19 @@
 
 .global TX_PORT
 .equ    TX_PORT, 0xa0020000
-.size   TX_PORT, 0x0
+.size   TX_PORT, 0x2000
 
 .global TX_PORT1
 .equ    TX_PORT1, 0xa0022000
-.size   TX_PORT1, 0x0
+.size   TX_PORT1, 0x2000
 
 .global TX_PORT2
 .equ    TX_PORT2, 0xa0024000
-.size   TX_PORT2, 0x0
+.size   TX_PORT2, 0x2000
 
 .global TX_PORT3
 .equ    TX_PORT3, 0xa0026000
-.size   TX_PORT3, 0x0
+.size   TX_PORT3, 0x2000
 
 .global DEVICE1
 .equ    DEVICE1, 0xa0050000
