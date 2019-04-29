@@ -137,6 +137,8 @@ void send_packet(uint8_t* packet, uint32_t len)
             EXPECT_EQ(gTXPacket[1], 0xffffffff); // Source/Dest MAC
             EXPECT_EQ(gTXPacket[2], 0xffffffff); // Dest MAC
             EXPECT_EQ(gTXPacket[3], 0x88f80001); // NCSI Type, Revision 1.
+            EXPECT_EQ(gTXPacket[4], buffer[4] | 0x8000);   // IID, Channel, Package, Command | 0x80
+
         }
         else
         {
