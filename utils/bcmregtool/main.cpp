@@ -72,6 +72,7 @@
 #include <APE_FILTERS.h>
 #include <APE_NVIC.h>
 #include <APE_APE_PERI.h>
+#include <APE_TX_PORT.h>
 
 #include <Ethernet.h>
 #include <NCSI.h>
@@ -83,6 +84,17 @@ using namespace ELFIO;
 using optparse::OptionParser;
 
 elfio gELFIOReader;
+
+uint8_t ping_packet[] = {
+    0x00, 0x0c, 0x29, 0x64, 0x66, 0xe2, 0x2c, 0x09, 0x4d, 0x00, 0x01, 0x4a, 0x08, 0x00, 0x45, 0x00,
+    0x00, 0x54, 0x12, 0xe1, 0x40, 0x00, 0x40, 0x01, 0x40, 0xbb, 0xc0, 0xa8, 0x20, 0x62, 0x04, 0x02,
+    0x02, 0x01, 0x08, 0x00, 0xa1, 0xae, 0x15, 0x5f, 0x00, 0x52, 0xdc, 0xf1, 0x63, 0xae, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00,
+};
+uint32_t ping_packet_len = sizeof(ping_packet);
 
 const char* regnames[32] = {
     "$zero", /* Zero register - always 0 */
@@ -302,6 +314,247 @@ void writeMemory(uint32_t rxAddr, uint32_t value)
     DEVICE.RxRiscMode = mode;
 }
 
+
+uint32_t allocationBlocksNeeded(uint32_t frame_size)
+{
+    static const uint32_t first_size = 20 * sizeof(uint32_t);
+    static const uint32_t remaining_size = 30 * sizeof(uint32_t);
+    uint32_t blocks = 1;
+    // Block size is 128 bytes, first one has 12 words used, so 20 words available.
+    if(frame_size > first_size)
+    {
+        frame_size -= 20 * sizeof(uint32_t);
+
+        // Remaining blocks can hold 30 words;
+        blocks += ((frame_size + remaining_size - 1) / remaining_size);
+    }
+
+    printf("%d blocks needed for packet\n", blocks);
+    return blocks;
+}
+int32_t allocateTXBlock(void)
+{
+#if 1
+    int32_t block = -1;
+
+    // Wait for allocator state machine to finish.
+    // while(APE_TX_TO_NET_BUFFER_ALLOCATOR_0_STATE_PROCESSING == APE.TxToNetBufferAllocator0.bits.State);
+
+    // Set the alloc bit.
+    RegAPETxToNetBufferAllocator0_t alloc;
+    alloc.r32 = 0;
+    alloc.bits.RequestAllocation = 1;
+    APE.TxToNetBufferAllocator0 = alloc;
+
+    // Wait for state machine to finish
+    RegAPETxToNetBufferAllocator0_t status;
+    do {
+        status = APE.TxToNetBufferAllocator0;
+    } while(APE_TX_TO_NET_BUFFER_ALLOCATOR_0_STATE_PROCESSING == status.bits.State);
+
+    if(APE_TX_TO_NET_BUFFER_ALLOCATOR_0_STATE_ALLOCATION_OK != status.bits.State)
+    {
+        block = -1;
+        printf("Error: Failed to allocate TX block.\n");
+    }
+    else
+    {
+        block = status.bits.Index;
+        printf("Allocated block %d\n", block);
+    }
+
+    return block;
+#else
+    static int block = 1;
+    int this_block = block;
+    block++;
+    printf("Allocated block %d\n", this_block);
+    return this_block;
+#endif
+}
+
+uint32_t initFirstBlock(RegTX_PORTOut_t* block, uint32_t length, int32_t blocks, int32_t next_block, uint32_t* packet)
+{
+    int copy_length;
+    int i;
+    union {
+        uint32_t r32;
+        struct {
+            uint32_t payload_length:7;
+            uint32_t next_block:23;
+            uint32_t first:1;
+            uint32_t not_last:1;
+        } bits;
+    } control;
+
+    control.r32 = 0;
+    control.bits.next_block = next_block >= 0 ? next_block : 0;
+    control.bits.first = 1;
+
+    if(length > ((TX_PORT_OUT_ALL_BLOCK_WORDS - TX_PORT_OUT_ALL_FIRST_PAYLOAD_WORD)*4))
+    {
+        copy_length = (TX_PORT_OUT_ALL_BLOCK_WORDS - TX_PORT_OUT_ALL_FIRST_PAYLOAD_WORD)*4;
+        control.bits.not_last = 1;
+    }
+    else
+    {
+        // Last.
+        copy_length = length;
+        control.bits.not_last = 0;
+    }
+
+
+    // Copy Payload Data.
+    int num_words = (copy_length + sizeof(uint32_t) - 1)/sizeof(uint32_t);
+    for(i = 0; i < num_words; i++)
+    {
+        block[TX_PORT_OUT_ALL_FIRST_PAYLOAD_WORD + i].r32 = be32toh(packet[i]);
+        printf("Block[%d]: 0x%08X\n", i+TX_PORT_OUT_ALL_FIRST_PAYLOAD_WORD, packet[i]);
+    }
+
+    // Pad if too small.
+    if(copy_length < ETHERNET_FRAME_MIN)
+    {
+        copy_length = ETHERNET_FRAME_MIN;
+        length = ETHERNET_FRAME_MIN;
+    }
+    num_words = (copy_length + sizeof(uint32_t) - 1)/sizeof(uint32_t);
+    for(; i < num_words; i++)
+    {
+        // Pad remaining with 0's
+        block[TX_PORT_OUT_ALL_FIRST_PAYLOAD_WORD + i].r32 = 0;
+        printf("Block[%d]: pad(0)\n", i+TX_PORT_OUT_ALL_FIRST_PAYLOAD_WORD);
+    }
+
+    control.bits.payload_length = copy_length;
+
+    printf("Control: %x\n", control.r32);
+    block[TX_PORT_OUT_ALL_CONTROL_WORD].r32 = control.r32;
+    // block[1] = uninitialized;
+    block[2].r32 = 0;
+    block[TX_PORT_OUT_ALL_FRAME_LEN_WORD].r32 = length;
+    block[4].r32 = 0;
+    block[5].r32 = 0;
+    block[6].r32 = 0;
+    block[7].r32 = 0;
+    block[8].r32 = 0;
+    block[TX_PORT_OUT_ALL_NUM_BLOCKS_WORD].r32 = blocks;
+    // block[10] = uninitialized;
+    // block[11] = uninitialized;
+
+    for(i = 0; i < 12; i++)
+    {
+        // printf("Block[%d]: 0x%08X\n", i, (uint32_t)block[i].r32);
+    }
+
+
+    length -= control.bits.payload_length;
+
+    return copy_length;
+}
+
+uint32_t initAdditionalBlock(RegTX_PORTOut_t* block, int32_t next_block, uint32_t length, uint32_t* packet)
+{
+    int i;
+    union {
+        uint32_t r32;
+        struct {
+            uint32_t payload_length:7;
+            uint32_t next_block:23;
+            uint32_t first:1;
+            uint32_t not_last:1;
+        } bits;
+    } control;
+
+    control.r32 = 0;
+    control.bits.first = 0;
+    control.bits.next_block = next_block;
+
+    if(length > ((TX_PORT_OUT_ALL_BLOCK_WORDS - TX_PORT_OUT_ALL_ADDITIONAL_PAYLOAD_WORD)*4))
+    {
+        control.bits.payload_length = (TX_PORT_OUT_ALL_BLOCK_WORDS - TX_PORT_OUT_ALL_ADDITIONAL_PAYLOAD_WORD)*4;
+        control.bits.not_last = 1;
+    }
+    else
+    {
+        // Last
+        control.bits.payload_length = length;
+        control.bits.not_last = 0;
+    }
+
+    printf("Control: %x\n", control.r32);
+    block[TX_PORT_OUT_ALL_CONTROL_WORD].r32 = control.r32;
+    // block[1] = uninitialized;
+
+    for(i = 0; i < 2; i++)
+    {
+        // printf("ABlock[%d]: 0x%08X\n", i, (uint32_t)block[i].r32);
+    }
+
+    // Copy payload data.
+    int num_words = (length + sizeof(uint32_t) - 1)/sizeof(uint32_t);
+    for(i = 0; i < num_words; i++)
+    {
+        block[TX_PORT_OUT_ALL_ADDITIONAL_PAYLOAD_WORD + i].r32 = be32toh(packet[i]);
+        printf("ABlock[%d]: 0x%08X\n", i+TX_PORT_OUT_ALL_ADDITIONAL_PAYLOAD_WORD, packet[i]);
+
+    }
+
+    length -= control.bits.payload_length;
+
+    return length;
+}
+
+
+void transmitPacket(uint8_t* packet, uint32_t length)
+{
+    uint32_t* packet_32 = (uint32_t*)packet;
+    uint32_t consumed = 0;
+    uint32_t blocks = allocationBlocksNeeded(length);
+    int total_blocks = blocks;;
+
+    // First block
+    int32_t first = allocateTXBlock();
+    int32_t next_block = -1;
+    if(blocks > 1)
+    {
+        next_block = allocateTXBlock();
+    }
+    RegTX_PORTOut_t* block = &TX_PORT.Out[TX_PORT_OUT_ALL_BLOCK_WORDS * first];
+
+    consumed += initFirstBlock(block, length, blocks, next_block, &packet_32[consumed/4]);
+    blocks -= 1;
+    while(blocks)
+    {
+
+        block = &TX_PORT.Out[TX_PORT_OUT_ALL_BLOCK_WORDS * next_block];
+        blocks--;
+        if(blocks)
+        {
+            next_block = allocateTXBlock();
+            consumed += initAdditionalBlock(block, next_block, length-consumed, &packet_32[consumed/4]);
+        }
+        else
+        {
+            initAdditionalBlock(block, 0, length - consumed, &packet_32[consumed/4]);
+        }
+    }
+
+    int tail = next_block;
+
+    printf("Head: %d, Tail: %d\n", first, tail);
+
+    RegAPETxToNetDoorbellFunc0_t doorbell;
+    doorbell.r32 = 0;
+    doorbell.bits.Head = first;
+    doorbell.bits.Tail = tail;
+    doorbell.bits.Length = total_blocks;
+    doorbell.print();
+
+    APE.TxToNetDoorbellFunc0 = doorbell;
+
+}
+
 void step(void)
 {
     uint32_t oldPC = DEVICE.RxRiscProgramCounter.r32;
@@ -315,7 +568,7 @@ void step(void)
     // Force a re-load of the next word.
     uint32_t newPC = DEVICE.RxRiscProgramCounter.r32;
 
-    if(oldPC +4 != newPC)
+    if(oldPC + 4 != newPC)
     {
         // branched. Re-read PC to re-read opcode
         DEVICE.RxRiscProgramCounter.r32 = DEVICE.RxRiscProgramCounter.r32;
@@ -383,9 +636,28 @@ int main(int argc, char const *argv[])
             .action("store_true")
             .help("Print ape information registers.");
 
+    parser.add_option("-rx", "--rx")
+            .dest("rx")
+            .set_default("0")
+            .action("store_true")
+            .help("Print rx information registers.");
+
+    parser.add_option("-tx", "--tx")
+            .dest("tx")
+            .set_default("0")
+            .action("store_true")
+            .help("Print tx information registers.");
+
     parser.add_option("-p", "--apeboot")
             .dest("apeboot")
             .metavar("APE_FILE")
+            .help("File to boot on the APE.");
+
+
+    parser.add_option("-apereset", "--apereset")
+            .dest("apereset")
+            .set_default("0")
+            .action("store_true")
             .help("File to boot on the APE.");
 
     parser.add_option("-m", "--mii")
@@ -574,11 +846,57 @@ int main(int argc, char const *argv[])
         // Set the payload address
         APE.GpioMessage.r32 = 0x10D800|2;
 
+        // Clear the signature.
+        SHM.SegSig.r32 = 0xBAD0C0DE;
+
         // Boot
         mode.bits.Halt = 0;
         mode.bits.FastBoot = 1;
         mode.bits.Reset = 1;
         APE.Mode = mode;
+
+        exit(0);
+    }
+
+    if(options.get("apereset"))
+    {
+
+        // Halt
+        RegAPEMode_t mode;
+        mode.r32 = 0;
+        mode.bits.Halt = 1;
+        mode.bits.FastBoot = 0;
+        APE.Mode = mode;
+
+        // Boot
+        mode.bits.Halt = 0;
+        mode.bits.FastBoot = 0;
+        mode.bits.Reset = 1;
+        APE.Mode = mode;
+
+        exit(0);
+    }
+
+    if(options.get("rx"))
+    {
+        DEVICE.ReceiveMacMode.print();
+        APE.RxPoolModeStatus0.print();
+        APE.RxbufoffsetFunc0.print();
+        exit(0);
+    }
+
+    if(options.get("tx"))
+    {
+        APE.TxState0.print();
+        APE.TxToNetPoolModeStatus0.print();
+        APE.TxToNetBufferAllocator0.print();
+        APE.TxToNetDoorbellFunc0.print();
+        exit(0);
+        // APE.RxbufoffsetFunc0.print();
+        transmitPacket(ping_packet, ping_packet_len);
+
+        APE.TxToNetPoolModeStatus0.print();
+        APE.TxState0.print();
 
         exit(0);
     }
@@ -605,6 +923,88 @@ int main(int argc, char const *argv[])
         printf("APE RCPU PCI Vendor/Device ID: 0x%08X\n", (uint32_t)SHM.RcpuPciVendorDeviceId.r32);
         printf("APE RCPU PCI Subsystem ID: 0x%08X\n", (uint32_t)SHM.RcpuPciSubsystemId.r32);
 
+        // boot_ape_loader();
+        // printf("Loader Command: 0x%08X\n", (uint32_t)SHM.LoaderCommand.r32);
+        // printf("Loader Arg0: 0x%08X\n", (uint32_t)SHM.LoaderArg0.r32);
+        // printf("Loader Arg1: 0x%08X\n", (uint32_t)SHM.LoaderArg1.r32);
+
+        // SHM.LoaderArg0.r32 = 0x00100040;
+        // SHM.LoaderCommand.bits.Command = SHM_LOADER_COMMAND_COMMAND_READ_MEM;
+
+        // // Wait for command to be handled.
+        // while(0 != SHM.LoaderCommand.bits.Command);
+        // printf("Loader Command: 0x%08X\n", (uint32_t)SHM.LoaderCommand.r32);
+        // printf("Loader Arg0: 0x%08X\n", (uint32_t)SHM.LoaderArg0.r32);
+        // printf("Loader Arg1: 0x%08X\n", (uint32_t)SHM.LoaderArg1.r32);
+
+        // // boot_ape_loader();
+        // FILTERS.ElementConfig[0].print();
+        // FILTERS.ElementConfig[15].print();
+        // FILTERS.ElementConfig[16].print();
+        // FILTERS.RuleConfiguration.print();
+        // FILTERS.RuleSet[0].print();
+        // FILTERS.RuleSet[1].print();
+        // FILTERS.RuleSet[2].print();
+
+        // NVIC.VectorTableOffset.print();
+
+        // NVIC.InterruptControlType.print();
+        // NVIC.SystickControlAndStatus.print();
+        // NVIC.SystickControlAndStatus.bits.ENABLE = 1;
+        // NVIC.SystickControlAndStatus.print();
+
+        // NVIC.SystickReloadValue.print();
+        // // NVIC.SystickReloadValue.bits.RELOAD=0xFFFFFFFF;
+        // NVIC.SystickCurrentValue.print();
+        // NVIC.SystickCurrentValue.print();
+        // NVIC.SystickCalibrationValue.print();
+        APE_PERI.RmuControl.bits.AutoDrv =1;
+        APE_PERI.RmuControl.print();
+#if 0
+        uint32_t buffer[1024];
+
+        RegAPE_PERIBmcToNcRxStatus_t stat;
+        stat.r32 = APE_PERI.BmcToNcRxStatus.r32;
+        stat.print();
+        
+        if(stat.bits.New)
+        {
+            int32_t bytes = stat.bits.PacketLength;
+            int i = 0;
+            while(bytes > 0)
+            {
+                uint32_t word = (APE_PERI.BmcToNcReadBuffer.r32);
+                buffer[i] = word;
+                printf("Word %d: 0x%08X\n", i, word);
+                i++;
+                bytes -= 4;
+            }
+
+            NetworkFrame_t *frame = ((NetworkFrame_t*)buffer);
+
+            if(stat.bits.Bad)
+            {
+                // TODO: ACK bad packet.
+                APE_PERI.BmcToNcRxControl.bits.ResetBad = 1;
+                while(APE_PERI.BmcToNcRxControl.bits.ResetBad);
+            }
+            else if(!stat.bits.Passthru)
+            {
+                handleNCSIFrame(frame);
+            }
+            else
+            {
+                // Pass through to network
+            }
+        }
+
+        // printf("REG_APE__NC_BMC_TX_STATUS__IN_FIFO")
+        // APE_PERI.BmcToNcTxStatus.print();
+        // APE_PERI.BmcToNcTxControl.print();
+        // APE_PERI.BmcToNcRxControl.print();
+        // APE_PERI.ArbControl.print();
+        printf("RegAPENcsiChannel0CtrlstatRx: 0x%08X\n", (uint32_t)SHM_CHANNEL0.NcsiChannelCtrlstatRx.r32);
+#endif
         exit(0);
     }
 
