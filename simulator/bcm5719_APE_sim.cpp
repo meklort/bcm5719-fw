@@ -109,6 +109,10 @@ void init_bcm5719_APE_sim(void *base)
     APE.TxToNetDoorbellFunc0.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     APE.TxToNetDoorbellFunc0.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    /** @brief Bitmap for @ref APE_t.TxState0. */
+    APE.TxState0.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.TxState0.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
     /** @brief Bitmap for @ref APE_t.Mode2. */
     APE.Mode2.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     APE.Mode2.r32.installWriteCallback(write_to_ram, (uint8_t *)base);

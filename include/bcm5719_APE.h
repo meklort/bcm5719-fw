@@ -724,6 +724,84 @@ typedef register_container RegAPETxToNetDoorbellFunc0_t {
 #endif /* CXX_SIMULATOR */
 } RegAPETxToNetDoorbellFunc0_t;
 
+#define REG_APE_TX_STATE0 ((volatile BCM5719_APE_H_uint32_t*)0xc0010020) /* APE TX Status. */
+#define     APE_TX_STATE0_TAIL_SHIFT 0u
+#define     APE_TX_STATE0_TAIL_MASK  0xfffu
+#define GET_APE_TX_STATE0_TAIL(__reg__)  (((__reg__) & 0xfff) >> 0u)
+#define SET_APE_TX_STATE0_TAIL(__val__)  (((__val__) << 0u) & 0xfffu)
+#define     APE_TX_STATE0_HEAD_SHIFT 12u
+#define     APE_TX_STATE0_HEAD_MASK  0xfff000u
+#define GET_APE_TX_STATE0_HEAD(__reg__)  (((__reg__) & 0xfff000) >> 12u)
+#define SET_APE_TX_STATE0_HEAD(__val__)  (((__val__) << 12u) & 0xfff000u)
+#define     APE_TX_STATE0_TXERROR_SHIFT 24u
+#define     APE_TX_STATE0_TXERROR_MASK  0x1000000u
+#define GET_APE_TX_STATE0_TXERROR(__reg__)  (((__reg__) & 0x1000000) >> 24u)
+#define SET_APE_TX_STATE0_TXERROR(__val__)  (((__val__) << 24u) & 0x1000000u)
+#define     APE_TX_STATE0_ERROR_CODE_SHIFT 25u
+#define     APE_TX_STATE0_ERROR_CODE_MASK  0xe000000u
+#define GET_APE_TX_STATE0_ERROR_CODE(__reg__)  (((__reg__) & 0xe000000) >> 25u)
+#define SET_APE_TX_STATE0_ERROR_CODE(__val__)  (((__val__) << 25u) & 0xe000000u)
+
+/** @brief Register definition for @ref APE_t.TxState0. */
+typedef register_container RegAPETxState0_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_APE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_APE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Tail, 0, 12)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Head, 12, 12)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, TXError, 24, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, ErrorCode, 25, 3)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_28, 28, 4)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_28, 28, 4)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, ErrorCode, 25, 3)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, TXError, 24, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Head, 12, 12)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Tail, 0, 12)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "TxState0"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegAPETxState0_t()
+    {
+        /** @brief constructor for @ref APE_t.TxState0. */
+        r32.setName("TxState0");
+        bits.Tail.setBaseRegister(&r32);
+        bits.Tail.setName("Tail");
+        bits.Head.setBaseRegister(&r32);
+        bits.Head.setName("Head");
+        bits.TXError.setBaseRegister(&r32);
+        bits.TXError.setName("TXError");
+        bits.ErrorCode.setBaseRegister(&r32);
+        bits.ErrorCode.setName("ErrorCode");
+    }
+    RegAPETxState0_t& operator=(const RegAPETxState0_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegAPETxState0_t;
+
 #define REG_APE_MODE_2 ((volatile BCM5719_APE_H_uint32_t*)0xc001002c) /* Expansion for MODE */
 /** @brief Register definition for @ref APE_t.Mode2. */
 typedef register_container RegAPEMode2_t {
@@ -3312,8 +3390,11 @@ typedef struct APE_t {
     /** @brief Written on APE TX to network after filling 0xA002 buffer with packet. */
     RegAPETxToNetDoorbellFunc0_t TxToNetDoorbellFunc0;
 
+    /** @brief APE TX Status. */
+    RegAPETxState0_t TxState0;
+
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_APE_H_uint32_t reserved_32[3];
+    BCM5719_APE_H_uint32_t reserved_36[2];
 
     /** @brief Expansion for MODE */
     RegAPEMode2_t Mode2;
@@ -3475,6 +3556,7 @@ typedef struct APE_t {
         RxbufoffsetFunc0.r32.setComponentOffset(0x14);
         RxbufoffsetFunc1.r32.setComponentOffset(0x18);
         TxToNetDoorbellFunc0.r32.setComponentOffset(0x1c);
+        TxState0.r32.setComponentOffset(0x20);
         Mode2.r32.setComponentOffset(0x2c);
         Status2.r32.setComponentOffset(0x30);
         LockGrantObsolete.r32.setComponentOffset(0x4c);

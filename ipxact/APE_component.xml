@@ -414,6 +414,38 @@
                     </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>
+                    <ipxact:name>TX State0</ipxact:name>
+                    <ipxact:description>APE TX Status.</ipxact:description>
+                    <ipxact:addressOffset>0x20</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>Tail</ipxact:name>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>12</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Head</ipxact:name>
+                        <ipxact:bitOffset>12</ipxact:bitOffset>
+                        <ipxact:bitWidth>12</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>TXError</ipxact:name>
+                        <ipxact:bitOffset>24</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Error Code</ipxact:name>
+                        <ipxact:bitOffset>25</ipxact:bitOffset>
+                        <ipxact:bitWidth>3</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                </ipxact:register>
+                <ipxact:register>
                     <ipxact:name>MODE_2</ipxact:name>
                     <ipxact:description>Expansion for MODE</ipxact:description>
                     <ipxact:addressOffset>0x2c</ipxact:addressOffset>
@@ -2101,6 +2133,13 @@
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>High</ipxact:name>
+                        <ipxact:description>Upper four bytes of the MAC</ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>32</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>BMC to NC Source MAC Match 7 Low</ipxact:name>
@@ -2114,13 +2153,6 @@
                         <ipxact:description>Lower two bytes of the MAC</ipxact:description>
                         <ipxact:bitOffset>16</ipxact:bitOffset>
                         <ipxact:bitWidth>16</ipxact:bitWidth>
-                        <ipxact:access>read-write</ipxact:access>
-                    </ipxact:field>
-                    <ipxact:field>
-                        <ipxact:name>High</ipxact:name>
-                        <ipxact:description>Upper four bytes of the MAC</ipxact:description>
-                        <ipxact:bitOffset>0</ipxact:bitOffset>
-                        <ipxact:bitWidth>32</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                 </ipxact:register>

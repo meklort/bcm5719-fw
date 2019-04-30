@@ -86,6 +86,11 @@ typedef uint32_t APE_TX_PORT_H_uint32_t;
 #define     TX_PORT_OUT_ALL_MASK  0xffffffffu
 #define GET_TX_PORT_OUT_ALL(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
 #define SET_TX_PORT_OUT_ALL(__val__)  (((__val__) << 0u) & 0xffffffffu)
+#define     TX_PORT_OUT_ALL_CONTROL_WORD 0x0u
+#define     TX_PORT_OUT_ALL_ADDITIONAL_PAYLOAD_WORD 0x2u
+#define     TX_PORT_OUT_ALL_FRAME_LEN_WORD 0x3u
+#define     TX_PORT_OUT_ALL_NUM_BLOCKS_WORD 0x9u
+#define     TX_PORT_OUT_ALL_FIRST_PAYLOAD_WORD 0xcu
 #define     TX_PORT_OUT_ALL_BLOCK_WORDS 0x20u
 #define     TX_PORT_OUT_ALL_BLOCK_BYTES 0x80u
 

@@ -980,10 +980,27 @@ typedef register_container RegAPE_PERIBmcToNcSourceMacMatch6Low_t {
 } RegAPE_PERIBmcToNcSourceMacMatch6Low_t;
 
 #define REG_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_7_HIGH ((volatile BCM5719_APE_PERI_H_uint32_t*)0xc0018344) /* Upper four bytes of the MAC */
+#define     APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_7_HIGH_HIGH_SHIFT 0u
+#define     APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_7_HIGH_HIGH_MASK  0xffffffffu
+#define GET_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_7_HIGH_HIGH(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
+#define SET_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_7_HIGH_HIGH(__val__)  (((__val__) << 0u) & 0xffffffffu)
+
 /** @brief Register definition for @ref APE_PERI_t.BmcToNcSourceMacMatch7High. */
 typedef register_container RegAPE_PERIBmcToNcSourceMacMatch7High_t {
     /** @brief 32bit direct register access. */
     BCM5719_APE_PERI_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_APE_PERI_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief Upper four bytes of the MAC */
+        BITFIELD_MEMBER(BCM5719_APE_PERI_H_uint32_t, High, 0, 32)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Upper four bytes of the MAC */
+        BITFIELD_MEMBER(BCM5719_APE_PERI_H_uint32_t, High, 0, 32)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_APE_PERI_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "BmcToNcSourceMacMatch7High"; }
@@ -995,6 +1012,8 @@ typedef register_container RegAPE_PERIBmcToNcSourceMacMatch7High_t {
     {
         /** @brief constructor for @ref APE_PERI_t.BmcToNcSourceMacMatch7High. */
         r32.setName("BmcToNcSourceMacMatch7High");
+        bits.High.setBaseRegister(&r32);
+        bits.High.setName("High");
     }
     RegAPE_PERIBmcToNcSourceMacMatch7High_t& operator=(const RegAPE_PERIBmcToNcSourceMacMatch7High_t& other)
     {
@@ -1009,10 +1028,6 @@ typedef register_container RegAPE_PERIBmcToNcSourceMacMatch7High_t {
 #define     APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_7_LOW_LOW_MASK  0xffff0000u
 #define GET_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_7_LOW_LOW(__reg__)  (((__reg__) & 0xffff0000) >> 16u)
 #define SET_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_7_LOW_LOW(__val__)  (((__val__) << 16u) & 0xffff0000u)
-#define     APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_7_LOW_HIGH_SHIFT 0u
-#define     APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_7_LOW_HIGH_MASK  0xffffffffu
-#define GET_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_7_LOW_HIGH(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
-#define SET_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_7_LOW_HIGH(__val__)  (((__val__) << 0u) & 0xffffffffu)
 
 /** @brief Register definition for @ref APE_PERI_t.BmcToNcSourceMacMatch7Low. */
 typedef register_container RegAPE_PERIBmcToNcSourceMacMatch7Low_t {
@@ -1025,11 +1040,7 @@ typedef register_container RegAPE_PERIBmcToNcSourceMacMatch7Low_t {
         BITFIELD_MEMBER(BCM5719_APE_PERI_H_uint32_t, reserved_15_0, 0, 16)
         /** @brief Lower two bytes of the MAC */
         BITFIELD_MEMBER(BCM5719_APE_PERI_H_uint32_t, Low, 16, 16)
-        /** @brief Upper four bytes of the MAC */
-        BITFIELD_MEMBER(BCM5719_APE_PERI_H_uint32_t, High, 0, 32)
 #elif defined(__BIG_ENDIAN__)
-        /** @brief Upper four bytes of the MAC */
-        BITFIELD_MEMBER(BCM5719_APE_PERI_H_uint32_t, High, 0, 32)
         /** @brief Lower two bytes of the MAC */
         BITFIELD_MEMBER(BCM5719_APE_PERI_H_uint32_t, Low, 16, 16)
         /** @brief Padding */
@@ -1051,8 +1062,6 @@ typedef register_container RegAPE_PERIBmcToNcSourceMacMatch7Low_t {
         r32.setName("BmcToNcSourceMacMatch7Low");
         bits.Low.setBaseRegister(&r32);
         bits.Low.setName("Low");
-        bits.High.setBaseRegister(&r32);
-        bits.High.setName("High");
     }
     RegAPE_PERIBmcToNcSourceMacMatch7Low_t& operator=(const RegAPE_PERIBmcToNcSourceMacMatch7Low_t& other)
     {

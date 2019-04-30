@@ -167,6 +167,27 @@
                                 <ipxact:name>BLOCK_BYTES</ipxact:name>
                                 <ipxact:value>128</ipxact:value>
                             </ipxact:enumeratedValue>
+
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Control Word</ipxact:name>
+                                <ipxact:value>0</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Frame Len Word</ipxact:name>
+                                <ipxact:value>3</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Num Blocks Word</ipxact:name>
+                                <ipxact:value>9</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>First Payload Word</ipxact:name>
+                                <ipxact:value>12</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Additional Payload Word</ipxact:name>
+                                <ipxact:value>2</ipxact:value>
+                            </ipxact:enumeratedValue>
                         </ipxact:enumeratedValues>
                     </ipxact:field>
                 </ipxact:register>
