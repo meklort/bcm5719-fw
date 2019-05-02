@@ -403,6 +403,19 @@ uint32_t initFirstBlock(RegTX_PORTOut_t* block, uint32_t length, int32_t blocks,
         control.bits.not_last = 0;
     }
 
+    // block[1] = uninitialized;
+    block[2].r32 = 0;
+    block[3].r32 = 0;
+    block[4].r32 = 0;
+    block[5].r32 = 0;
+    block[6].r32 = 0;
+    block[7].r32 = 0;
+    block[8].r32 = 0;
+    block[9].r32 = 0;
+    // block[10] = uninitialized;
+    // block[11] = uninitialized;
+    block[TX_PORT_OUT_ALL_FRAME_LEN_WORD].r32 = length;
+    block[TX_PORT_OUT_ALL_NUM_BLOCKS_WORD].r32 = blocks;
 
     // Copy Payload Data.
     int num_words = (copy_length + sizeof(uint32_t) - 1)/sizeof(uint32_t);
@@ -425,17 +438,7 @@ uint32_t initFirstBlock(RegTX_PORTOut_t* block, uint32_t length, int32_t blocks,
         block[TX_PORT_OUT_ALL_FIRST_PAYLOAD_WORD + i].r32 = 0;
         printf("Block[%d]: pad(0)\n", i+TX_PORT_OUT_ALL_FIRST_PAYLOAD_WORD);
     }
-    // block[1] = uninitialized;
-    block[2].r32 = 0;
-    block[TX_PORT_OUT_ALL_FRAME_LEN_WORD].r32 = length;
-    block[4].r32 = 0;
-    block[5].r32 = 0;
-    block[6].r32 = 0;
-    block[7].r32 = 0;
-    block[8].r32 = 0;
-    block[TX_PORT_OUT_ALL_NUM_BLOCKS_WORD].r32 = blocks;
-    // block[10] = uninitialized;
-    // block[11] = uninitialized;
+
 
     for(i = 0; i < 12; i++)
     {
@@ -921,7 +924,7 @@ int main(int argc, char const *argv[])
         if(APE.TxToNetDoorbellFunc0.bits.TXQueueFull)
         {
             fprintf(stderr, "TX Queue Full\n");
-            abort();
+            // abort();
         }
         transmitPacket(ping_packet, 68);
         APE.TxState0.print();
