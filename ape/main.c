@@ -45,6 +45,8 @@
 #include "ape.h"
 
 #include <APE_SHM.h>
+#include <APE_APE.h>
+#include <APE_APE_PERI.h>
 
 void __attribute__((noreturn)) loaderLoop(void)
 {
@@ -95,7 +97,19 @@ void __attribute__((noreturn)) loaderLoop(void)
 
 void __attribute__((noreturn)) __start()
 {
+    RegAPETxToNetPoolModeStatus0_t txMode;
+    txMode.r32 = 0;
+    txMode.bits.Reset = 1;
+    APE.TxToNetPoolModeStatus0 = txMode;
+
+    txMode.bits.Reset = 0;
+    txMode.bits.Enable = 1;
+    APE.TxToNetPoolModeStatus0 = txMode;
+
     initRxFromNetwork();
     initRMU();
+
+    // APE.Tick10hz.r32++;
+
     loaderLoop();
 }

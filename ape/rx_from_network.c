@@ -45,6 +45,8 @@
 #include "ape.h"
 
 #include <APE_FILTERS.h>
+#include <APE_APE.h>
+#include <APE_DEVICE.h>
 
 typedef struct {
     RegFILTERSElementConfig_t cfg;
@@ -654,4 +656,35 @@ void initRxFromNetwork(void)
     }
 
     FILTERS.RuleConfiguration.r32 = 0;
+
+
+    // REG_APE_PERFECT_MATCH1_{HIGH,LOW}. For non-broadcast/multicast traffic, the hardware uses this register to match MACs and pass traffic to the APE.
+    // The first two bytes of a MAC are put in the HIGH register, and the remaining four bytes in the LOW.
+    // Note that this is a device (PCI) register, not an APE register. Set it to the BMC MAC.
+
+
+    // REG_APE__BMC_NC_RX_SRC_MAC_MATCHN_{HIGH,LOW}.
+    // This appears to relate to the RMU, not network RX, but its exact purpose is unknown.
+    // Set it to the BMC MAC. Unlike the "perfect match" register above, it takes a different format:
+    // for an example MAC AABB.CCDD.EEFF, set HIGH=0xAABBCCDD, LOW=0xEEFF0000.
+    // *** NOTE: set to 0 in rmu.c ***
+
+
+    // Ensure REG_RECEIVE_MAC_MODE has ENABLE set.
+    // I recommend also setting APE_PROMISCUOUS_MODE and PROMISCUOUS_MODE,
+    // as these will cause you less headaches during development.
+    DEVICE.ReceiveMacMode.bits.Enable = 1;
+    // DEVICE.ReceiveMacMode.bits.PromiscuousMode = 1;
+    // DEVICE.ReceiveMacMode.bits.APEPromiscuousMode = 1;
+
+    // Ensure REG_EMAC_MODE__ENABLE_APE_{TX,RX}_PATH are set.
+    // *** NOTE: Both bits are set in rmu.c ***/
+
+
+
+    // Enable RX for funciton 0
+    RegAPERxPoolModeStatus0_t poolMode;
+    poolMode.r32 = 0;
+    poolMode.bits.Enable = 1;
+    APE.RxPoolModeStatus0 = poolMode;
 }
