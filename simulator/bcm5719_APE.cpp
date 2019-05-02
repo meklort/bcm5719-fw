@@ -83,6 +83,10 @@ void init_bcm5719_APE(void)
 
     /** @brief Bitmap for @ref APE_t.TxToNetBufferAllocator0. */
 
+    /** @brief Bitmap for @ref APE_t.TxToNetBufferReturn0. */
+
+    /** @brief Bitmap for @ref APE_t.TxToNetBufferRing0. */
+
     /** @brief Bitmap for @ref APE_t.Tick1mhz. */
 
     /** @brief Bitmap for @ref APE_t.Tick1khz. */

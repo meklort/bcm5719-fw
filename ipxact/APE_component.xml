@@ -89,6 +89,20 @@
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
+                        <ipxact:name>Channel 0 Status</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>14</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Channel 2 Status</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>15</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
                         <ipxact:name>Memory ECC</ipxact:name>
                         <ipxact:description></ipxact:description>
                         <ipxact:bitOffset>18</ipxact:bitOffset>
@@ -101,7 +115,22 @@
                         <ipxact:bitOffset>19</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
-                    </ipxact:field>                </ipxact:register>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Channel 1 Status</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>30</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Channel 3 Status</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>31</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>STATUS</ipxact:name>
                     <ipxact:description></ipxact:description>
@@ -409,7 +438,13 @@
                     <ipxact:field>
                         <ipxact:name>Length</ipxact:name>
                         <ipxact:bitOffset>24</ipxact:bitOffset>
-                        <ipxact:bitWidth>8</ipxact:bitWidth>
+                        <ipxact:bitWidth>4</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>TX Queue Full</ipxact:name>
+                        <ipxact:bitOffset>28</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                 </ipxact:register>
@@ -806,6 +841,22 @@
                     </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>
+                    <ipxact:name>TX To Net Buffer Return 0</ipxact:name>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0x94</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>TX To Net Buffer Ring 0</ipxact:name>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0x98</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
                     <ipxact:name>Tick 1MHz</ipxact:name>
                     <ipxact:description>Unknown, monotonically increasing value. Increases at a rate of 1MHz.</ipxact:description>
                     <ipxact:addressOffset>0xa8</ipxact:addressOffset>
@@ -1191,7 +1242,13 @@
                     <ipxact:field>
                         <ipxact:name>Length</ipxact:name>
                         <ipxact:bitOffset>24</ipxact:bitOffset>
-                        <ipxact:bitWidth>8</ipxact:bitWidth>
+                        <ipxact:bitWidth>4</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>TX Queue Full</ipxact:name>
+                        <ipxact:bitOffset>28</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                 </ipxact:register>
@@ -1261,7 +1318,13 @@
                     <ipxact:field>
                         <ipxact:name>Length</ipxact:name>
                         <ipxact:bitOffset>24</ipxact:bitOffset>
-                        <ipxact:bitWidth>8</ipxact:bitWidth>
+                        <ipxact:bitWidth>4</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>TX Queue Full</ipxact:name>
+                        <ipxact:bitOffset>28</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                 </ipxact:register>
@@ -1555,7 +1618,13 @@
                     <ipxact:field>
                         <ipxact:name>Length</ipxact:name>
                         <ipxact:bitOffset>24</ipxact:bitOffset>
-                        <ipxact:bitWidth>8</ipxact:bitWidth>
+                        <ipxact:bitWidth>4</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>TX Queue Full</ipxact:name>
+                        <ipxact:bitOffset>28</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                 </ipxact:register>

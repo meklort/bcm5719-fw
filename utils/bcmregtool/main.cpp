@@ -425,11 +425,6 @@ uint32_t initFirstBlock(RegTX_PORTOut_t* block, uint32_t length, int32_t blocks,
         block[TX_PORT_OUT_ALL_FIRST_PAYLOAD_WORD + i].r32 = 0;
         printf("Block[%d]: pad(0)\n", i+TX_PORT_OUT_ALL_FIRST_PAYLOAD_WORD);
     }
-
-    control.bits.payload_length = copy_length;
-
-    printf("Control: %x\n", control.r32);
-    block[TX_PORT_OUT_ALL_CONTROL_WORD].r32 = control.r32;
     // block[1] = uninitialized;
     block[2].r32 = 0;
     block[TX_PORT_OUT_ALL_FRAME_LEN_WORD].r32 = length;
@@ -447,6 +442,10 @@ uint32_t initFirstBlock(RegTX_PORTOut_t* block, uint32_t length, int32_t blocks,
         // printf("Block[%d]: 0x%08X\n", i, (uint32_t)block[i].r32);
     }
 
+    control.bits.payload_length = copy_length;
+
+    printf("Control0: %x\n", control.r32);
+    block[TX_PORT_OUT_ALL_CONTROL_WORD].r32 = control.r32;
 
     length -= control.bits.payload_length;
 
@@ -482,8 +481,6 @@ uint32_t initAdditionalBlock(RegTX_PORTOut_t* block, int32_t next_block, uint32_
         control.bits.not_last = 0;
     }
 
-    printf("Control: %x\n", control.r32);
-    block[TX_PORT_OUT_ALL_CONTROL_WORD].r32 = control.r32;
     // block[1] = uninitialized;
 
     for(i = 0; i < 2; i++)
@@ -499,6 +496,9 @@ uint32_t initAdditionalBlock(RegTX_PORTOut_t* block, int32_t next_block, uint32_
         printf("ABlock[%d]: 0x%08X\n", i+TX_PORT_OUT_ALL_ADDITIONAL_PAYLOAD_WORD, packet[i]);
 
     }
+
+    printf("Control: %x\n", control.r32);
+    block[TX_PORT_OUT_ALL_CONTROL_WORD].r32 = control.r32;
 
     length -= control.bits.payload_length;
 
@@ -541,6 +541,10 @@ void transmitPacket(uint8_t* packet, uint32_t length)
     }
 
     int tail = next_block;
+    if(next_block == -1)
+    {
+        tail = first;
+    }
 
     printf("Head: %d, Tail: %d\n", first, tail);
 
@@ -552,7 +556,8 @@ void transmitPacket(uint8_t* packet, uint32_t length)
     doorbell.print();
 
     APE.TxToNetDoorbellFunc0 = doorbell;
-
+    APE.TxToNetDoorbellFunc0.print();
+    APE.TxToNetBufferReturn0.print();
 }
 
 void step(void)
@@ -656,6 +661,12 @@ int main(int argc, char const *argv[])
 
     parser.add_option("-apereset", "--apereset")
             .dest("apereset")
+            .set_default("0")
+            .action("store_true")
+            .help("File to boot on the APE.");
+
+    parser.add_option("-reset", "--reset")
+            .dest("reset")
             .set_default("0")
             .action("store_true")
             .help("File to boot on the APE.");
@@ -877,9 +888,19 @@ int main(int argc, char const *argv[])
         exit(0);
     }
 
+    if(options.get("reset"))
+    {
+
+        DEVICE.MiscellaneousConfig.bits.GRCReset = 1;
+        exit(0);
+    }
+
+
+
     if(options.get("rx"))
     {
         DEVICE.ReceiveMacMode.print();
+        DEVICE.EmacMode.print();
         APE.RxPoolModeStatus0.print();
         APE.RxbufoffsetFunc0.print();
         exit(0);
@@ -887,18 +908,31 @@ int main(int argc, char const *argv[])
 
     if(options.get("tx"))
     {
+        // allocateTXBlock();
+        DEVICE.EmacMode.print();
+        APE.Mode.print();
+        APE.Status.print();
         APE.TxState0.print();
         APE.TxToNetPoolModeStatus0.print();
         APE.TxToNetBufferAllocator0.print();
+        APE.TxToNetBufferRing0.print();
+        APE.TxToNetBufferReturn0.print();
         APE.TxToNetDoorbellFunc0.print();
-        exit(0);
-        // APE.RxbufoffsetFunc0.print();
-        transmitPacket(ping_packet, ping_packet_len);
-
-        APE.TxToNetPoolModeStatus0.print();
+        if(APE.TxToNetDoorbellFunc0.bits.TXQueueFull)
+        {
+            fprintf(stderr, "TX Queue Full\n");
+            abort();
+        }
+        transmitPacket(ping_packet, 68);
         APE.TxState0.print();
+        APE.TxToNetPoolModeStatus0.print();
+        APE.TxToNetBufferAllocator0.print();
+        APE.TxToNetBufferRing0.print();
+        APE.TxToNetBufferReturn0.print();
+        APE.TxToNetDoorbellFunc0.print();
 
         exit(0);
+
     }
 
     if(options.get("ape"))
@@ -958,7 +992,7 @@ int main(int argc, char const *argv[])
         // NVIC.SystickCurrentValue.print();
         // NVIC.SystickCurrentValue.print();
         // NVIC.SystickCalibrationValue.print();
-        APE_PERI.RmuControl.bits.AutoDrv =1;
+        // APE_PERI.RmuControl.bits.AutoDrv =1;
         APE_PERI.RmuControl.print();
 #if 0
         uint32_t buffer[1024];
