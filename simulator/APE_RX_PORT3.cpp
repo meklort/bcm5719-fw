@@ -49,7 +49,7 @@ RX_PORT_t RX_PORT3;
 void init_APE_RX_PORT3(void)
 {
     /** @brief Component Registers for @ref RX_PORT3. */
-    /** @brief Bitmap for @ref RX_PORT3_t.Queue. */
+    /** @brief Bitmap for @ref RX_PORT3_t.In. */
 
 
 }

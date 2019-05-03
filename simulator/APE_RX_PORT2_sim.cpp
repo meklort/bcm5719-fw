@@ -88,11 +88,11 @@ void init_APE_RX_PORT2_sim(void *arg0)
     RX_PORT2.mIndexWriteCallbackArgs = base;
 
     /** @brief Component Registers for @ref RX_PORT2. */
-    /** @brief Bitmap for @ref RX_PORT2_t.Queue. */
+    /** @brief Bitmap for @ref RX_PORT2_t.In. */
     for(int i = 0; i < 4096; i++)
     {
-        RX_PORT2.Queue[i].r32.installReadCallback(loader_read_mem, (uint8_t *)base);
-        RX_PORT2.Queue[i].r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+        RX_PORT2.In[i].r32.installReadCallback(loader_read_mem, (uint8_t *)base);
+        RX_PORT2.In[i].r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
     }
 
 

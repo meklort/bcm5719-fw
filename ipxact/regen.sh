@@ -57,6 +57,4 @@ rm APE_APE*.cpp
 rm APE_SHM*.cpp
 rm APE_NVM*.cpp
 rm APE_DEVICE*.cpp
-rm APE_TX_PORT*.cpp
-rm APE_RX_PORT*.cpp
 mv *.cpp ../simulator/
