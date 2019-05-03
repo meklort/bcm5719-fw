@@ -24,7 +24,7 @@ This repository depends on a number of external tools
     - Implementation: Functional
     - Testing: Minimal, WIP
   - Stage2
-    - Implimentation: Merged with Stage1, functional
+    - Implementation: Merged with Stage1, functional
     - VPD: Not started
     - WOL: Not started
   - APE
