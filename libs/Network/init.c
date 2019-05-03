@@ -1,10 +1,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @file       rx_from_network.c
+/// @file       init.c
 ///
 /// @project
 ///
-/// @brief      Initialization code for RX from network.
+/// @brief      Initialization code for TX to network / RX from network.
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
@@ -41,8 +41,6 @@
 /// POSSIBILITY OF SUCH DAMAGE.
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
-
-#include "ape.h"
 
 #include <APE_FILTERS.h>
 #include <APE_APE.h>
@@ -641,7 +639,7 @@ static const FilterRuleInit_t gRuleInit[32] = {
     },
 };
 
-void initRxFromNetwork(void)
+void Network_InitTxRx(void)
 {
     for(int i = 0; i < 32; i++)
     {
@@ -674,17 +672,41 @@ void initRxFromNetwork(void)
     // I recommend also setting APE_PROMISCUOUS_MODE and PROMISCUOUS_MODE,
     // as these will cause you less headaches during development.
     DEVICE.ReceiveMacMode.bits.Enable = 1;
-    // DEVICE.ReceiveMacMode.bits.PromiscuousMode = 1;
-    // DEVICE.ReceiveMacMode.bits.APEPromiscuousMode = 1;
+    DEVICE.ReceiveMacMode.bits.PromiscuousMode = 1;
+    DEVICE.ReceiveMacMode.bits.APEPromiscuousMode = 1;
 
     // Ensure REG_EMAC_MODE__ENABLE_APE_{TX,RX}_PATH are set.
     // *** NOTE: Both bits are set in rmu.c ***/
 
+    // Enable APE channel 0/0
+    RegAPEMode_t mode;
+    mode = APE.Mode;
+    mode.bits.Event1 = 1;
+    mode.bits.Channel0Enable = 1;
+    mode.bits.Channel2Enable = 1;
+    APE.Mode = mode;
+
+
 
 
     // Enable RX for funciton 0
-    RegAPERxPoolModeStatus0_t poolMode;
-    poolMode.r32 = 0;
-    poolMode.bits.Enable = 1;
-    APE.RxPoolModeStatus0 = poolMode;
+    RegAPERxPoolModeStatus0_t rxMode;
+    rxMode.r32 = 0;
+    rxMode.bits.Reset = 1;
+    APE.RxPoolModeStatus0 = rxMode;
+
+    rxMode.bits.Reset = 0;
+    rxMode.bits.Enable = 1;
+    APE.RxPoolModeStatus0 = rxMode;
+
+    // Enable TX for function 0
+    RegAPETxToNetPoolModeStatus0_t txMode;
+    txMode.r32 = 0;
+    txMode.bits.Reset = 1;
+    APE.TxToNetPoolModeStatus0 = txMode;
+
+    txMode.bits.Reset = 0;
+    txMode.bits.Enable = 1;
+    APE.TxToNetPoolModeStatus0 = txMode;
+
 }

@@ -118,14 +118,14 @@ typedef uint32_t BCM5719_APE_H_uint32_t;
 #define     APE_MODE_SWAP_ARB_DWORD_MASK  0x800u
 #define GET_APE_MODE_SWAP_ARB_DWORD(__reg__)  (((__reg__) & 0x800) >> 11u)
 #define SET_APE_MODE_SWAP_ARB_DWORD(__val__)  (((__val__) << 11u) & 0x800u)
-#define     APE_MODE_CHANNEL_0_STATUS_SHIFT 14u
-#define     APE_MODE_CHANNEL_0_STATUS_MASK  0x4000u
-#define GET_APE_MODE_CHANNEL_0_STATUS(__reg__)  (((__reg__) & 0x4000) >> 14u)
-#define SET_APE_MODE_CHANNEL_0_STATUS(__val__)  (((__val__) << 14u) & 0x4000u)
-#define     APE_MODE_CHANNEL_2_STATUS_SHIFT 15u
-#define     APE_MODE_CHANNEL_2_STATUS_MASK  0x8000u
-#define GET_APE_MODE_CHANNEL_2_STATUS(__reg__)  (((__reg__) & 0x8000) >> 15u)
-#define SET_APE_MODE_CHANNEL_2_STATUS(__val__)  (((__val__) << 15u) & 0x8000u)
+#define     APE_MODE_CHANNEL_0_ENABLE_SHIFT 14u
+#define     APE_MODE_CHANNEL_0_ENABLE_MASK  0x4000u
+#define GET_APE_MODE_CHANNEL_0_ENABLE(__reg__)  (((__reg__) & 0x4000) >> 14u)
+#define SET_APE_MODE_CHANNEL_0_ENABLE(__val__)  (((__val__) << 14u) & 0x4000u)
+#define     APE_MODE_CHANNEL_2_ENABLE_SHIFT 15u
+#define     APE_MODE_CHANNEL_2_ENABLE_MASK  0x8000u
+#define GET_APE_MODE_CHANNEL_2_ENABLE(__reg__)  (((__reg__) & 0x8000) >> 15u)
+#define SET_APE_MODE_CHANNEL_2_ENABLE(__val__)  (((__val__) << 15u) & 0x8000u)
 #define     APE_MODE_MEMORY_ECC_SHIFT 18u
 #define     APE_MODE_MEMORY_ECC_MASK  0x40000u
 #define GET_APE_MODE_MEMORY_ECC(__reg__)  (((__reg__) & 0x40000) >> 18u)
@@ -134,14 +134,14 @@ typedef uint32_t BCM5719_APE_H_uint32_t;
 #define     APE_MODE_ICODE_PIP_RD_DISABLE_MASK  0x80000u
 #define GET_APE_MODE_ICODE_PIP_RD_DISABLE(__reg__)  (((__reg__) & 0x80000) >> 19u)
 #define SET_APE_MODE_ICODE_PIP_RD_DISABLE(__val__)  (((__val__) << 19u) & 0x80000u)
-#define     APE_MODE_CHANNEL_1_STATUS_SHIFT 30u
-#define     APE_MODE_CHANNEL_1_STATUS_MASK  0x40000000u
-#define GET_APE_MODE_CHANNEL_1_STATUS(__reg__)  (((__reg__) & 0x40000000) >> 30u)
-#define SET_APE_MODE_CHANNEL_1_STATUS(__val__)  (((__val__) << 30u) & 0x40000000u)
-#define     APE_MODE_CHANNEL_3_STATUS_SHIFT 31u
-#define     APE_MODE_CHANNEL_3_STATUS_MASK  0x80000000u
-#define GET_APE_MODE_CHANNEL_3_STATUS(__reg__)  (((__reg__) & 0x80000000) >> 31u)
-#define SET_APE_MODE_CHANNEL_3_STATUS(__val__)  (((__val__) << 31u) & 0x80000000u)
+#define     APE_MODE_CHANNEL_1_ENABLE_SHIFT 30u
+#define     APE_MODE_CHANNEL_1_ENABLE_MASK  0x40000000u
+#define GET_APE_MODE_CHANNEL_1_ENABLE(__reg__)  (((__reg__) & 0x40000000) >> 30u)
+#define SET_APE_MODE_CHANNEL_1_ENABLE(__val__)  (((__val__) << 30u) & 0x40000000u)
+#define     APE_MODE_CHANNEL_3_ENABLE_SHIFT 31u
+#define     APE_MODE_CHANNEL_3_ENABLE_MASK  0x80000000u
+#define GET_APE_MODE_CHANNEL_3_ENABLE(__reg__)  (((__reg__) & 0x80000000) >> 31u)
+#define SET_APE_MODE_CHANNEL_3_ENABLE(__val__)  (((__val__) << 31u) & 0x80000000u)
 
 /** @brief Register definition for @ref APE_t.Mode. */
 typedef register_container RegAPEMode_t {
@@ -177,9 +177,9 @@ typedef register_container RegAPEMode_t {
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_13_12, 12, 2)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Channel0Status, 14, 1)
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Channel0Enable, 14, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Channel2Status, 15, 1)
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Channel2Enable, 15, 1)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_17_16, 16, 2)
         /** @brief  */
@@ -189,14 +189,14 @@ typedef register_container RegAPEMode_t {
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_29_20, 20, 10)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Channel1Status, 30, 1)
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Channel1Enable, 30, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Channel3Status, 31, 1)
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Channel3Enable, 31, 1)
 #elif defined(__BIG_ENDIAN__)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Channel3Status, 31, 1)
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Channel3Enable, 31, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Channel1Status, 30, 1)
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Channel1Enable, 30, 1)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_29_20, 20, 10)
         /** @brief  */
@@ -206,9 +206,9 @@ typedef register_container RegAPEMode_t {
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_17_16, 16, 2)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Channel2Status, 15, 1)
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Channel2Enable, 15, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Channel0Status, 14, 1)
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Channel0Enable, 14, 1)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_13_12, 12, 2)
         /** @brief  */
@@ -268,18 +268,18 @@ typedef register_container RegAPEMode_t {
         bits.SwapATBdword.setName("SwapATBdword");
         bits.SwapARBdword.setBaseRegister(&r32);
         bits.SwapARBdword.setName("SwapARBdword");
-        bits.Channel0Status.setBaseRegister(&r32);
-        bits.Channel0Status.setName("Channel0Status");
-        bits.Channel2Status.setBaseRegister(&r32);
-        bits.Channel2Status.setName("Channel2Status");
+        bits.Channel0Enable.setBaseRegister(&r32);
+        bits.Channel0Enable.setName("Channel0Enable");
+        bits.Channel2Enable.setBaseRegister(&r32);
+        bits.Channel2Enable.setName("Channel2Enable");
         bits.MemoryECC.setBaseRegister(&r32);
         bits.MemoryECC.setName("MemoryECC");
         bits.ICodePIPRdDisable.setBaseRegister(&r32);
         bits.ICodePIPRdDisable.setName("ICodePIPRdDisable");
-        bits.Channel1Status.setBaseRegister(&r32);
-        bits.Channel1Status.setName("Channel1Status");
-        bits.Channel3Status.setBaseRegister(&r32);
-        bits.Channel3Status.setName("Channel3Status");
+        bits.Channel1Enable.setBaseRegister(&r32);
+        bits.Channel1Enable.setName("Channel1Enable");
+        bits.Channel3Enable.setBaseRegister(&r32);
+        bits.Channel3Enable.setName("Channel3Enable");
     }
     RegAPEMode_t& operator=(const RegAPEMode_t& other)
     {

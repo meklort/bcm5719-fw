@@ -1,16 +1,16 @@
-/////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 ///
-/// @file       stage1.h
+/// @file       Network.h
 ///
 /// @project
 ///
-/// @brief      Functions provided by stage1.
+/// @brief      Network TX/RX Support Routines
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2018, Evan Lojewski
+/// @copyright Copyright (c) 2019, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -42,10 +42,20 @@
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef APE_H
-#define APE_H
+#ifndef NETWORK_H
+#define NETWORK_H
 
-void initRMU(void);
+#include <stdint.h>
+
+void Network_InitTxRx(void);
+
+uint32_t Network_TX_numBlocksNeeded(uint32_t frame_size);
+int32_t Network_TX_allocateBlock(void);
+
+void Network_TX_transmitBePacket(uint8_t* packet, uint32_t length);
 
 
-#endif /* APE_H */
+
+
+
+#endif /* NETWORK_H */

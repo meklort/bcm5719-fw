@@ -148,6 +148,13 @@ protected:
 
     void doRelatedWritesBase(CXXRegisterBase* source)
     {
+        if(source->mMask != this->mMask)
+        {
+            // read latest value as we are only modifying some bits.
+            doReadCallbacks();
+            setRawValue(getTempValue());
+        }
+
         // Update base temp value with latest write.
         unsigned int base = getRawValue();
         base &= ~(source->mMask);

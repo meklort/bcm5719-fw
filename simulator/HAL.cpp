@@ -12,6 +12,7 @@
 #include <bcm5719_GEN.h>
 #include <APE_NVIC.h>
 #include <APE_FILTERS.h>
+#include <APE_TX_PORT.h>
 
 #include <dirent.h>
 #include <endian.h>
@@ -283,6 +284,9 @@ bool initHAL(const char *pci_path, int wanted_function)
 
     init_APE_NVIC();
     init_APE_NVIC_sim(NULL);
+
+    init_APE_TX_PORT();
+    init_APE_TX_PORT_sim(NULL);
 
     return true;
 }
