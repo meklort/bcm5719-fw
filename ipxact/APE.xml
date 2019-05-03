@@ -66,11 +66,51 @@
             <ipxact:addressBlock>
                 <ipxact:name>RX_PORT</ipxact:name>
                 <ipxact:description>RX from network port, function 0</ipxact:description>
+                <ipxact:typeIdentifier>RX_PORT</ipxact:typeIdentifier>
                 <ipxact:baseAddress>0xA0000000</ipxact:baseAddress>
                 <!-- LINK: addressBlockDefinitionGroup: see 6.9.3, Address blockdefinition group -->
                 <!-- LINK: memoryBlockData: see 6.9.4, memoryBlockData group -->
                 <ipxact:usage>register</ipxact:usage>
                 <ipxact:volatile>false</ipxact:volatile>
+                <ipxact:register>
+                    <ipxact:name>in</ipxact:name>
+                    <ipxact:description>This is the memory range into which frames are directed towards the APE by the hardware.</ipxact:description>
+                    <ipxact:addressOffset>0x0</ipxact:addressOffset>
+                    <ipxact:dim>0x1000</ipxact:dim>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>all</ipxact:name>
+                        <ipxact:description>All bits</ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>32</ipxact:bitWidth>
+                        <ipxact:enumeratedValues>
+                            <!-- LINK: enumeratedValue: see 6.11.10, Enumeration values -->
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>BLOCK_WORDS</ipxact:name>
+                                <ipxact:value>32</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>BLOCK_BYTES</ipxact:name>
+                                <ipxact:value>128</ipxact:value>
+                            </ipxact:enumeratedValue>
+
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Control Word</ipxact:name>
+                                <ipxact:value>0</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>First Payload Word</ipxact:name>
+                                <ipxact:value>12</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Additional Payload Word</ipxact:name>
+                                <ipxact:value>2</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
+                    </ipxact:field>
+                </ipxact:register>
             </ipxact:addressBlock>
         </ipxact:memoryMap>
 
@@ -87,15 +127,6 @@
                 <!-- LINK: memoryBlockData: see 6.9.4, memoryBlockData group -->
                 <ipxact:usage>register</ipxact:usage>
                 <ipxact:volatile>false</ipxact:volatile>
-                <ipxact:register>
-                    <ipxact:name>queue</ipxact:name>
-                    <ipxact:description>This is the memory range into which frames received and directed towards the APE are placed by the hardware. The hardware will tell you where in this region the frame has been placed.</ipxact:description>
-                    <ipxact:addressOffset>0x0</ipxact:addressOffset>
-                    <ipxact:dim>0x1000</ipxact:dim>
-                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
-                    <ipxact:size>32</ipxact:size>
-                    <ipxact:volatile>true</ipxact:volatile>
-                </ipxact:register>
             </ipxact:addressBlock>
         </ipxact:memoryMap>
 
@@ -146,7 +177,7 @@
                 <ipxact:volatile>false</ipxact:volatile>
                 <ipxact:register>
                     <ipxact:name>out</ipxact:name>
-                    <ipxact:description>This is the memory range into which frames are directed towards the network byte the APE firmware.</ipxact:description>
+                    <ipxact:description>This is the memory range into which frames are directed towards the network by the APE firmware.</ipxact:description>
                     <ipxact:addressOffset>0x0</ipxact:addressOffset>
                     <ipxact:dim>0x800</ipxact:dim>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->

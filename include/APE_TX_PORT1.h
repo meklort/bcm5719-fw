@@ -82,7 +82,7 @@ typedef uint32_t APE_TX_PORT1_H_uint32_t;
 #define REG_TX_PORT1_BASE ((volatile void*)0xa0022000) /* TX to network port, function 1 */
 #define REG_TX_PORT1_SIZE (sizeof(TX_PORT_t))
 
-#define REG_TX_PORT1_OUT ((volatile APE_TX_PORT1_H_uint32_t*)0xa0022000) /* This is the memory range into which frames are directed towards the network byte the APE firmware. */
+#define REG_TX_PORT1_OUT ((volatile APE_TX_PORT1_H_uint32_t*)0xa0022000) /* This is the memory range into which frames are directed towards the network by the APE firmware. */
 #define     TX_PORT1_OUT_ALL_SHIFT 0u
 #define     TX_PORT1_OUT_ALL_MASK  0xffffffffu
 #define GET_TX_PORT1_OUT_ALL(__reg__)  (((__reg__) & 0xffffffff) >> 0u)

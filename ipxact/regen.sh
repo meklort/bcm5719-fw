@@ -46,6 +46,7 @@ mv APE_SHM*.h ../include
 mv APE_FILTERS*.h ../include
 mv APE_DEVICE*.h ../include
 mv APE_TX_PORT*.h ../include
+mv APE_RX_PORT*.h ../include
 
 # ${IPXACT} -p ${PROJECT} NVIC.xml APE_full.xml APE.s
 ${IPXACT} -p ${PROJECT} APE_full.xml -t asym APE_sym.s
@@ -57,4 +58,5 @@ rm APE_SHM*.cpp
 rm APE_NVM*.cpp
 rm APE_DEVICE*.cpp
 rm APE_TX_PORT*.cpp
+rm APE_RX_PORT*.cpp
 mv *.cpp ../simulator/
