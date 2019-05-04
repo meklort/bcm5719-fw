@@ -47,6 +47,7 @@
 #include <Ethernet.h>
 #include <APE_APE.h>
 #include <APE_TX_PORT.h>
+#include <types.h>
 
 #include <stdbool.h>
 
@@ -187,24 +188,25 @@ static uint32_t inline Network_TX_initFirstBlock(RegTX_PORTOut_t* block, uint32_
         }
     }
 
+    length -= control.bits.payload_length;
+
     // Pad if too small.
     if(copy_length < ETHERNET_FRAME_MIN)
     {
         copy_length = ETHERNET_FRAME_MIN;
         length = ETHERNET_FRAME_MIN;
+
+        num_words = DIVIDE_RND_UP(copy_length, sizeof(uint32_t));
+        for(; i < num_words; i++)
+        {
+            // Pad remaining with 0's
+            block[TX_PORT_OUT_ALL_FIRST_PAYLOAD_WORD + i].r32 = 0;
+        }
     }
+
     control.bits.payload_length = copy_length;
 
-    num_words = (copy_length + sizeof(uint32_t) - 1)/sizeof(uint32_t);
-    for(; i < num_words; i++)
-    {
-        // Pad remaining with 0's
-        block[TX_PORT_OUT_ALL_FIRST_PAYLOAD_WORD + i].r32 = 0;
-    }
-
     block[TX_PORT_OUT_ALL_CONTROL_WORD].r32 = control.r32;
-
-    length -= control.bits.payload_length;
 
     return copy_length;
 }
@@ -231,6 +233,7 @@ static uint32_t inline Network_TX_initAdditionalBlock(RegTX_PORTOut_t* block, in
 
     if(length > ADDITIONAL_FRAME_MAX)
     {
+        length = ADDITIONAL_FRAME_MAX;
         control.bits.payload_length = ADDITIONAL_FRAME_MAX;
         control.bits.not_last = 1;
     }
@@ -244,7 +247,7 @@ static uint32_t inline Network_TX_initAdditionalBlock(RegTX_PORTOut_t* block, in
     // block[1] = uninitialized;
 
     // Copy payload data.
-    int num_words = (length + sizeof(uint32_t) - 1)/sizeof(uint32_t);
+    int num_words = DIVIDE_RND_UP(length, sizeof(uint32_t));
     for(i = 0; i < num_words; i++)
     {
         if(big_endian)
@@ -262,7 +265,7 @@ static uint32_t inline Network_TX_initAdditionalBlock(RegTX_PORTOut_t* block, in
 
     length -= control.bits.payload_length;
 
-    return length;
+    return control.bits.payload_length;
 }
 
 uint32_t __attribute__((noinline)) Network_TX_initAdditionalBlockBe(RegTX_PORTOut_t* block, int32_t next_block, uint32_t length, uint32_t* packet)
