@@ -50,12 +50,11 @@ set(LINKER_SCRIPT "${CMAKE_CURRENT_SOURCE_DIR}/ape.ld")
 arm_add_executable(${PROJECT_NAME}
             main.c
             vectors.c
-            rx_from_network.c
             rmu.c
             )
 arm_linker_script(${PROJECT_NAME} ${LINKER_SCRIPT})
 
-target_link_libraries(${PROJECT_NAME} NVRam-arm MII-arm APE-arm	)
+target_link_libraries(${PROJECT_NAME} NVRam-arm MII-arm APE-arm Network-arm)
 target_link_libraries(${PROJECT_NAME} bcm5719-arm)
 target_compile_options(${PROJECT_NAME} PRIVATE -nodefaultlibs)
 

@@ -46,15 +46,18 @@ project(Network)
 
 
 # Host Simulation library
-simulator_add_library(${PROJECT_NAME} STATIC tx.c)
+simulator_add_library(${PROJECT_NAME} STATIC tx.c generic.c)
 target_link_libraries(${PROJECT_NAME} PRIVATE simulator NCSI)
 target_include_directories(${PROJECT_NAME} PUBLIC ../../include)
 target_include_directories(${PROJECT_NAME} PUBLIC include)
 
 # ARM Library
-arm_add_library(${PROJECT_NAME}-arm STATIC init.c tx.c)
+arm_add_library(${PROJECT_NAME}-arm STATIC init.c tx.c generic.c)
 target_link_libraries(${PROJECT_NAME}-arm PRIVATE NCSI-arm)
 target_include_directories(${PROJECT_NAME}-arm PUBLIC ../../include)
 target_include_directories(${PROJECT_NAME}-arm PUBLIC include)
+
+ # SET_SOURCE_FILES_PROPERTIES( tx.c PROPERTIES COMPILE_FLAGS -O3 )
+
 
 # add_subdirectory(tests)

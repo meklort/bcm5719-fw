@@ -46,6 +46,8 @@
 #include <APE_APE.h>
 #include <APE_DEVICE.h>
 
+#include <Network.h>
+
 typedef struct {
     RegFILTERSElementConfig_t cfg;
     RegFILTERSElementPattern_t pat;
@@ -672,8 +674,8 @@ void Network_InitTxRx(void)
     // I recommend also setting APE_PROMISCUOUS_MODE and PROMISCUOUS_MODE,
     // as these will cause you less headaches during development.
     DEVICE.ReceiveMacMode.bits.Enable = 1;
-    DEVICE.ReceiveMacMode.bits.PromiscuousMode = 1;
-    DEVICE.ReceiveMacMode.bits.APEPromiscuousMode = 1;
+    DEVICE.ReceiveMacMode.bits.PromiscuousMode = 0;
+    DEVICE.ReceiveMacMode.bits.APEPromiscuousMode = 0;
 
     // Ensure REG_EMAC_MODE__ENABLE_APE_{TX,RX}_PATH are set.
     // *** NOTE: Both bits are set in rmu.c ***/

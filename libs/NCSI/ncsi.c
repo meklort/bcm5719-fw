@@ -51,6 +51,9 @@
 #include <APE_SHM_CHANNEL3.h>
 #include <stdbool.h>
 
+#include <Network.h>
+#include <types.h>
+
 #define MAX_CHANNELS        4
 
 #define PACKAGE_ID_SHIFT    5
@@ -78,7 +81,7 @@ NetworkFrame_t gResponseFrame =
 {
     .responsePacket = {
         .DestinationAddress = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF},
-        .SourceAddress =      {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF},
+        .SourceAddress =      {0xFF, 0xFF, 0xAA, 0xFF, 0xAA, 0xFF},
 
         .HeaderRevision = 1,
         .ManagmentControllerID = 0,
@@ -115,10 +118,10 @@ NetworkFrame_t gLinkStatusResponseFrame =
         .PayloadLength = 16,
         .reserved_1 = 0,
 
-        .ResponseCode = 0,
+        .ResponseCode = NCSI_RESPONSE_CODE_COMMAND_COMPLETE,
         .reserved_4 = 0,
         .LinkStatus_High = 0,
-        .ReasonCode = 0,
+        .ReasonCode = NCSI_REASON_CODE_NONE,
         .OtherIndications_High = 0,
         .LinkStatus_Low = 0,
         .OEMLinkStatus_High = 0,
@@ -424,8 +427,18 @@ static void setMACAddressHandler(NetworkFrame_t* frame)
 #if CXX_SIMULATOR
     int ch = frame->controlPacket.ChannelID & CHANNEL_ID_MASK;
     printf("Set MAC: channel %x\n", ch);
+    printf("MAC54: 0x%04X\n", frame->setMACAddr.MAC54);
+    printf("MAC32: 0x%04X\n", frame->setMACAddr.MAC32);
+    printf("MAC10: 0x%04X\n", frame->setMACAddr.MAC10);
+    printf("Enable: 0x%04X\n", frame->setMACAddr.Enable);
+    printf("AT: 0x%04X\n", frame->setMACAddr.AT);
+    printf("MACNumber: 0x%04X\n", frame->setMACAddr.MACNumber);
 #endif
     // gPackageState.channel[ch].shm->NcsiChannelInfo.bits.Enabled = false;
+
+    uint32_t low = (frame->setMACAddr.MAC32 << 16) | frame->setMACAddr.MAC10;
+    Network_SetMACAddr(frame->setMACAddr.MAC54, low, frame->setMACAddr.MACNumber, frame->setMACAddr.Enable);
+
 
     sendNCSIResponse(
         frame->controlPacket.InstanceID,
@@ -593,15 +606,36 @@ void resetChannel(int ch)
     channel->shm->NcsiChannelCtrlstatRx.r32 = 0;
 }
 
-void sendNCSILinkStatusResponse(uint8_t InstanceID, uint8_t channelID, uint32_t LinkStatus, uint32_t OEMLinkStatus, uint32_t OtherIndications)
+void NCSI_TxPacket(uint32_t* packet, uint32_t packet_len)
 {
-    uint32_t packetSize = ETHERNET_FRAME_MIN - 4;
-    uint32_t packetWords = ((packetSize + 3) / 4);
-    uint32_t lastBytes = packetSize % 4;
+    uint32_t packetWords = DIVIDE_RND_UP(packet_len, sizeof(uint32_t));
 
     RegAPE_PERIBmcToNcTxControl_t txControl;
     txControl.r32 = 0;
-    txControl.bits.LastByteCount = lastBytes;
+    txControl.bits.LastByteCount = packet_len % sizeof(uint32_t);
+
+    // Wait for enough free space.
+    while(APE_PERI.BmcToNcTxStatus.bits.InFifo < packetWords);
+
+    // Transmit.
+    for(int i = 0; i < packetWords-1; i++)
+    {
+#if CXX_SIMULATOR
+        printf("Transmitting word %d: 0x%08x\n", i, packet[i]);
+#endif
+        APE_PERI.BmcToNcTxBuffer.r32 = packet[i];
+    }
+
+    APE_PERI.BmcToNcTxControl = txControl;
+
+#if CXX_SIMULATOR
+    printf("Transmitting last word %d: 0x%08x\n", packetWords - 1, packet[packetWords - 1]);
+#endif
+    APE_PERI.BmcToNcTxBufferLast.r32 = packet[packetWords - 1];
+}
+void sendNCSILinkStatusResponse(uint8_t InstanceID, uint8_t channelID, uint32_t LinkStatus, uint32_t OEMLinkStatus, uint32_t OtherIndications)
+{
+    uint32_t packetSize = ETHERNET_FRAME_MIN - 4;
 
     gLinkStatusResponseFrame.linkStatusResponse.ChannelID = channelID;
     gLinkStatusResponseFrame.linkStatusResponse.InstanceID = InstanceID;
@@ -615,64 +649,23 @@ void sendNCSILinkStatusResponse(uint8_t InstanceID, uint8_t channelID, uint32_t 
     gLinkStatusResponseFrame.linkStatusResponse.OtherIndications_High   = OtherIndications >> 16;
     gLinkStatusResponseFrame.linkStatusResponse.OtherIndications_Low    = OtherIndications & 0xffff;
 
-    // Wait for enough free space.
-    while(APE_PERI.BmcToNcTxStatus.bits.InFifo < packetWords);
 
-    // Transmit.
-    for(int i = 0; i < packetWords-1; i++)
-    {
-#if CXX_SIMULATOR
-    printf("Transmitting word %d: 0x%08x\n", i, gLinkStatusResponseFrame.words[i]);
-#endif
-        APE_PERI.BmcToNcTxBuffer.r32 = gLinkStatusResponseFrame.words[i];
-    }
-
-    APE_PERI.BmcToNcTxControl = txControl;
-
-#if CXX_SIMULATOR
-    printf("Transmitting last word %d: 0x%08x\n", packetWords - 1, gLinkStatusResponseFrame.words[packetWords - 1]);
-#endif
-
-    APE_PERI.BmcToNcTxBufferLast.r32 = gLinkStatusResponseFrame.words[packetWords - 1];
+    NCSI_TxPacket(gLinkStatusResponseFrame.words, packetSize);
 }
 
 void sendNCSIResponse(uint8_t InstanceID, uint8_t channelID, uint16_t controlID, uint16_t response_code, uint16_t reasons_code)
 {
     uint32_t packetSize = ETHERNET_FRAME_MIN - 4;
-    uint32_t packetWords = ((packetSize + 3) / 4);
-    uint32_t lastBytes = packetSize % 4;
-
-    RegAPE_PERIBmcToNcTxControl_t txControl;
-    txControl.r32 = 0;
-    txControl.bits.LastByteCount = lastBytes;
 
     gResponseFrame.responsePacket.ChannelID = channelID;
     gResponseFrame.responsePacket.ControlPacketType = controlID | CONTROL_PACKET_TYPE_RESPONSE;
     gResponseFrame.responsePacket.InstanceID = InstanceID;
-    // Payload data - 4 bytes
+
     gResponseFrame.responsePacket.ResponseCode = response_code;
     gResponseFrame.responsePacket.ReasonCode = reasons_code;
-    // NetworkFrame_t frame;
-    // frame.
 
-    // Wait for enough free space.
-    while(APE_PERI.BmcToNcTxStatus.bits.InFifo < packetWords);
-
-    // Transmit.
-    for(int i = 0; i < packetWords-1; i++)
-    {
-#if CXX_SIMULATOR
-    printf("Transmitting word %d: 0x%08x\n", i, gResponseFrame.words[i]);
-#endif
-        APE_PERI.BmcToNcTxBuffer.r32 = gResponseFrame.words[i];
-    }
-
-    APE_PERI.BmcToNcTxControl = txControl;
-
-#if CXX_SIMULATOR
-    printf("Transmitting last word %d: 0x%08x\n", packetWords - 1, gResponseFrame.words[packetWords - 1]);
-#endif
-
-    APE_PERI.BmcToNcTxBufferLast.r32 = gResponseFrame.words[packetWords - 1];
+    NCSI_TxPacket(gResponseFrame.words, packetSize);
 }
+
+
 

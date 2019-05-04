@@ -1,16 +1,16 @@
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @file       Network.h
+/// @file       init.c
 ///
 /// @project
 ///
-/// @brief      Network TX/RX Support Routines
+/// @brief      Initialization code for TX to network / RX from network.
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2019, Evan Lojewski
+/// @copyright Copyright (c) 2018, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -42,26 +42,32 @@
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef NETWORK_H
-#define NETWORK_H
+#include <Network.h>
 
-#include <stdint.h>
-#include <stdbool.h>
-#include <APE_APE_PERI.h>
+#include <APE_DEVICE.h>
 
-void Network_InitTxRx(void);
+void Network_SetMACAddr(uint16_t high, uint32_t low, uint32_t index, bool enabled)
+{
+	uint32_t match_high = (high << 16) | (low >> 16);
+	uint16_t match_low = (low << 16);
+    APE_PERI.BmcToNcSourceMacMatch0High.r32 = match_high;
+    APE_PERI.BmcToNcSourceMacMatch0Low.r32  = match_low;
+    APE_PERI.BmcToNcSourceMacMatch1High.r32 = match_high;
+    APE_PERI.BmcToNcSourceMacMatch1Low.r32  = match_low;
+    APE_PERI.BmcToNcSourceMacMatch2High.r32 = match_high;
+    APE_PERI.BmcToNcSourceMacMatch2Low.r32  = match_low;
+    APE_PERI.BmcToNcSourceMacMatch3High.r32 = match_high;
+    APE_PERI.BmcToNcSourceMacMatch3Low.r32  = match_low;
+    APE_PERI.BmcToNcSourceMacMatch4High.r32 = match_high;
+    APE_PERI.BmcToNcSourceMacMatch4Low.r32  = match_low;
+    APE_PERI.BmcToNcSourceMacMatch5High.r32 = match_high;
+    APE_PERI.BmcToNcSourceMacMatch5Low.r32  = match_low;
+    APE_PERI.BmcToNcSourceMacMatch6High.r32 = match_high;
+    APE_PERI.BmcToNcSourceMacMatch6Low.r32  = match_low;
+    APE_PERI.BmcToNcSourceMacMatch7High.r32 = match_high;
+    APE_PERI.BmcToNcSourceMacMatch7Low.r32  = match_low;
 
-uint32_t Network_TX_numBlocksNeeded(uint32_t frame_size);
-int32_t Network_TX_allocateBlock(void);
+    DEVICE.PerfectMatch1High.r32 = high;
+    DEVICE.PerfectMatch1Low.r32  = low;
 
-void Network_TX_transmitBePacket(uint8_t* packet, uint32_t length);
-void Network_TX_transmitLePacket(uint8_t* packet, uint32_t length);
-
-// void Network_TX_transmitPassthroughPacket(RegAPE_PERIBmcToNcRxStatus_t rx_status);
-
-void Network_SetMACAddr(uint16_t high, uint32_t low, uint32_t index, bool enabled);
-
-
-
-
-#endif /* NETWORK_H */
+}

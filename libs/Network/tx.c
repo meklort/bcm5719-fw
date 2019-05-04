@@ -92,7 +92,7 @@ uint32_t Network_TX_numBlocksNeeded(uint32_t frame_size)
     }
 
 #ifdef CXX_SIMULATOR
-    printf("%d blocks needed for packet\n", blocks);
+    printf("%d blocks needed for packet with frame size %d\n", blocks, frame_size);
 #endif
     return blocks;
 }
@@ -173,10 +173,16 @@ static uint32_t inline Network_TX_initFirstBlock(RegTX_PORTOut_t* block, uint32_
     {
         if(big_endian)
         {
+#if CXX_SIMULATOR
+            printf("1st[%d] = 0x%08X\n", i, be32toh(packet[i]));
+#endif
             block[TX_PORT_OUT_ALL_FIRST_PAYLOAD_WORD + i].r32 = be32toh(packet[i]);
         }
         else
         {
+#if CXX_SIMULATOR
+            printf("1LE[%d] = 0x%08X\n", i, (packet[i]));
+#endif
             block[TX_PORT_OUT_ALL_FIRST_PAYLOAD_WORD + i].r32 = (packet[i]);
         }
     }
@@ -241,7 +247,14 @@ static uint32_t inline Network_TX_initAdditionalBlock(RegTX_PORTOut_t* block, in
     int num_words = (length + sizeof(uint32_t) - 1)/sizeof(uint32_t);
     for(i = 0; i < num_words; i++)
     {
-        block[TX_PORT_OUT_ALL_ADDITIONAL_PAYLOAD_WORD + i].r32 = be32toh(packet[i]);
+        if(big_endian)
+        {
+            block[TX_PORT_OUT_ALL_ADDITIONAL_PAYLOAD_WORD + i].r32 = be32toh(packet[i]);            
+        }
+        else
+        {
+            block[TX_PORT_OUT_ALL_ADDITIONAL_PAYLOAD_WORD + i].r32 = (packet[i]);            
+        }
 
     }
 
@@ -340,5 +353,5 @@ void Network_TX_transmitBePacket(uint8_t* packet, uint32_t length)
 
 void Network_TX_transmitLePacket(uint8_t* packet, uint32_t length)
 {
-    Network_TX_transmitPacket(packet, length, true);
+    Network_TX_transmitPacket(packet, length, false);
 }

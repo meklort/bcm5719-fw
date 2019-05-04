@@ -47,12 +47,13 @@ project(NCSI)
 
 # Host Simulation library
 simulator_add_library(${PROJECT_NAME} STATIC ncsi.c)
-target_link_libraries(${PROJECT_NAME} PRIVATE simulator)
+target_link_libraries(${PROJECT_NAME} PRIVATE simulator Network)
 target_include_directories(${PROJECT_NAME} PUBLIC ../../include)
 target_include_directories(${PROJECT_NAME} PUBLIC include)
 
 # ARM Library
 arm_add_library(${PROJECT_NAME}-arm STATIC ncsi.c)
+target_link_libraries(${PROJECT_NAME}-arm PRIVATE Network-arm)
 target_include_directories(${PROJECT_NAME}-arm PUBLIC ../../include)
 target_include_directories(${PROJECT_NAME}-arm PUBLIC include)
 
