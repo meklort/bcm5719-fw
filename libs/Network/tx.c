@@ -55,12 +55,12 @@
 /* ARM */
 static inline uint32_t be32toh(uint32_t be32)
 {
-	uint32_t le32 = (be32 & 0xFF000000 >> 24) |
-					(be32 & 0x00FF0000 >> 8) |
-					(be32 & 0x0000FF00 << 8) |
-					(be32 & 0x000000FF << 24);
+    uint32_t le32 = ((be32 & 0xFF000000) >> 24) |
+                    ((be32 & 0x00FF0000) >> 8) |
+                    ((be32 & 0x0000FF00) << 8) |
+                    ((be32 & 0x000000FF) << 24);
 
-	return le32;
+    return le32;
 }
 #endif
 
@@ -288,9 +288,6 @@ void Network_TX_transmitBePacket(uint8_t* packet, uint32_t length)
     doorbell.bits.Head = first;
     doorbell.bits.Tail = tail;
     doorbell.bits.Length = total_blocks;
-    // doorbell.print();
 
     APE.TxToNetDoorbellFunc0 = doorbell;
-    // APE.TxToNetDoorbellFunc0.print();
-    // APE.TxToNetBufferReturn0.print();
 }
