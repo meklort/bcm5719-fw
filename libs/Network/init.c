@@ -673,9 +673,12 @@ void Network_InitTxRx(void)
     // Ensure REG_RECEIVE_MAC_MODE has ENABLE set.
     // I recommend also setting APE_PROMISCUOUS_MODE and PROMISCUOUS_MODE,
     // as these will cause you less headaches during development.
-    DEVICE.ReceiveMacMode.bits.Enable = 1;
-    DEVICE.ReceiveMacMode.bits.PromiscuousMode = 0;
-    DEVICE.ReceiveMacMode.bits.APEPromiscuousMode = 0;
+    RegDEVICEReceiveMacMode_t macMode;
+    macMode = DEVICE.ReceiveMacMode;
+    macMode.bits.Enable = 1;
+    macMode.bits.APEPromiscuousMode = 0;
+    DEVICE.ReceiveMacMode = macMode;
+
 
     // Ensure REG_EMAC_MODE__ENABLE_APE_{TX,RX}_PATH are set.
     // *** NOTE: Both bits are set in rmu.c ***/
