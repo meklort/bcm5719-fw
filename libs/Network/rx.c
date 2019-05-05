@@ -62,6 +62,7 @@ bool Network_RxLePatcket(uint32_t* buffer, uint32_t* bytes)
     rxbuf = APE.RxbufoffsetFunc0;
     if((int)rxbuf.bits.Valid)
     {
+        uint32_t rx_bytes = 0;
         union {
             uint32_t r32;
             struct {
@@ -87,7 +88,8 @@ bool Network_RxLePatcket(uint32_t* buffer, uint32_t* bytes)
             // printf(" Next Block %d\n", control.bits.next_block);
             // printf(" First %d\n", control.bits.first);
             // printf(" Not Last %d\n", control.bits.not_last);
-            int32_t words = (control.bits.payload_length + 3)/4;
+            int32_t words = DIVIDE_RND_UP(control.bits.payload_length, sizeof(uint32_t));
+            rx_bytes += control.bits.payload_length;
             int32_t offset;
             if(control.bits.first)
             {
@@ -125,7 +127,7 @@ bool Network_RxLePatcket(uint32_t* buffer, uint32_t* bytes)
         rxbuf.r32 |= (1 << 31);
         // rxbuf.print();
         APE.RxbufoffsetFunc0 = rxbuf;
-        *bytes = 4 * buffer_pos;
+        *bytes = rx_bytes;
 
         return true;
     }
@@ -164,7 +166,7 @@ bool Network_PassthroughRxPatcket(void)
             // printf(" Next Block %d\n", control.bits.next_block);
             // printf(" First %d\n", control.bits.first);
             // printf(" Not Last %d\n", control.bits.not_last);
-            int32_t words = (control.bits.payload_length + 3)/4;
+            int32_t words = DIVIDE_RND_UP(control.bits.payload_length, sizeof(uint32_t));
             int32_t offset;
             if(control.bits.first)
             {
@@ -195,7 +197,7 @@ bool Network_PassthroughRxPatcket(void)
             {
                 uint32_t data = block[i + offset].r32;
                 // Last word to send.
-                APE_PERI.BmcToNcTxControl.r32 = 0; // full word.
+                APE_PERI.BmcToNcTxControl.r32 = control.bits.payload_length % 4;
                 APE_PERI.BmcToNcTxBufferLast.r32 = data;
             }
 
