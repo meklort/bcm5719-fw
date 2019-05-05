@@ -46,6 +46,9 @@
 
 #include <APE_APE.h>
 #include <APE_APE_PERI.h>
+#include <APE_DEVICE.h>
+
+#include <Network.h>
 
 void initRMU(void)
 {
@@ -87,22 +90,8 @@ void initRMU(void)
     APE_PERI.BmcToNcTxControl = txControl;
 
     // Set all eight REG_APE__BMC_NC_RX_SRC_MAC_MATCHN_{HIGH,LOW} to zero.
-    APE_PERI.BmcToNcSourceMacMatch0High.r32 = 0;
-    APE_PERI.BmcToNcSourceMacMatch0Low.r32  = 0;
-    APE_PERI.BmcToNcSourceMacMatch1High.r32 = 0;
-    APE_PERI.BmcToNcSourceMacMatch1Low.r32  = 0;
-    APE_PERI.BmcToNcSourceMacMatch2High.r32 = 0;
-    APE_PERI.BmcToNcSourceMacMatch2Low.r32  = 0;
-    APE_PERI.BmcToNcSourceMacMatch3High.r32 = 0;
-    APE_PERI.BmcToNcSourceMacMatch3Low.r32  = 0;
-    APE_PERI.BmcToNcSourceMacMatch4High.r32 = 0;
-    APE_PERI.BmcToNcSourceMacMatch4Low.r32  = 0;
-    APE_PERI.BmcToNcSourceMacMatch5High.r32 = 0;
-    APE_PERI.BmcToNcSourceMacMatch5Low.r32  = 0;
-    APE_PERI.BmcToNcSourceMacMatch6High.r32 = 0;
-    APE_PERI.BmcToNcSourceMacMatch6Low.r32  = 0;
-    APE_PERI.BmcToNcSourceMacMatch7High.r32 = 0;
-    APE_PERI.BmcToNcSourceMacMatch7Low.r32  = 0;
+    Network_SetMACAddr(0, 0, 1, true);
+
 
     // Set REG_APE__ARB_CONTROL as desired. Suggest PACKAGE_ID=0, TKNREL=0x14, START, and setting unknown bit 26 to 1.
     RegAPE_PERIArbControl_t arbControl;
