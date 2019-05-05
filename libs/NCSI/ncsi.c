@@ -667,5 +667,13 @@ void sendNCSIResponse(uint8_t InstanceID, uint8_t channelID, uint16_t controlID,
     NCSI_TxPacket(gResponseFrame.words, packetSize);
 }
 
+void NCSI_init(void)
+{
+    for(int i = 0; i < ARRAY_ELEMENTS(gPackageState.channel); i++)
+    {
+        gPackageState.channel[i].shm->NcsiChannelInfo.bits.Ready = false;
+    }
+}
+
 
 

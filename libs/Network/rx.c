@@ -154,9 +154,8 @@ bool Network_PassthroughRxPatcket(void)
         // int tailid = rxbuf.bits.Tail;
         int blockid = rxbuf.bits.Head;
 
-        do
+        while(count--)
         {
-            count--;
             // printf("Block at %x\n", blockid);
             RegRX_PORTIn_t* block = (RegRX_PORTIn_t*)&RX_PORT.In[RX_PORT_IN_ALL_BLOCK_WORDS * blockid];
             // printf("Control %x\n", (uint32_t)block[0].r32);
@@ -210,7 +209,7 @@ bool Network_PassthroughRxPatcket(void)
 
 
             blockid = control.bits.next_block;
-        } while(count);
+        }
 
         // Mark the register as read.
         rxbuf.r32 |= (1 << 31);

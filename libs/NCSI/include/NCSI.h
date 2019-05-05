@@ -66,4 +66,6 @@ void handleNCSIFrame(NetworkFrame_t* frame);
 
 void NCSI_TxPacket(uint32_t* packet, uint32_t packet_len);
 
+void NCSI_init(void);
+
 #endif /* NCSI_H */
