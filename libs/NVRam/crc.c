@@ -47,8 +47,8 @@
 #define CRC32_POLYNOMIAL 0xEDB88320
 
 uint32_t NVRam_crc(const uint8_t *pcDatabuf, // Pointer to data buffer
-                   uint32_t ulDatalen, // Length of data buffer in bytes
-                   uint32_t crc)       // Initial value
+                   uint32_t ulDatalen,       // Length of data buffer in bytes
+                   uint32_t crc)             // Initial value
 {
     uint8_t data;
     uint32_t idx, bit;

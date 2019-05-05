@@ -44,26 +44,27 @@
 
 #include "ape.h"
 
-#include <Network.h>
-#include <Ethernet.h>
-#include <NCSI.h>
-#include <types.h>
-
-#include <APE_SHM.h>
 #include <APE_APE.h>
 #include <APE_APE_PERI.h>
-
 #include <APE_RX_PORT.h>
+#include <APE_SHM.h>
+#include <Ethernet.h>
+#include <NCSI.h>
+#include <Network.h>
+#include <types.h>
 
 void handleCommand(void)
 {
     uint32_t command = SHM.LoaderCommand.bits.Command;
-    if(!command) return;
+    if (!command)
+    {
+        return;
+    }
 
     uint32_t arg0 = SHM.LoaderArg0.r32;
     uint32_t arg1 = SHM.LoaderArg1.r32;
 
-    switch(command)
+    switch (command)
     {
         default:
             break;
@@ -71,21 +72,21 @@ void handleCommand(void)
         case SHM_LOADER_COMMAND_COMMAND_READ_MEM:
         {
             // Read word address specified in arg0
-            uint32_t* addr = ((void*)arg0);
+            uint32_t *addr = ((void *)arg0);
             SHM.LoaderArg0.r32 = *addr;
             break;
         }
         case SHM_LOADER_COMMAND_COMMAND_WRITE_MEM:
         {
             // Write word address specified in arg0 with arg1
-            uint32_t* addr = ((void*)arg0);
+            uint32_t *addr = ((void *)arg0);
             *addr = arg1;
             break;
         }
         case SHM_LOADER_COMMAND_COMMAND_CALL:
         {
             // call address specified in arg0.
-            void (*function)(uint32_t) = ((void*)arg0);
+            void (*function)(uint32_t) = ((void *)arg0);
             function(arg1);
             break;
         }
@@ -102,30 +103,33 @@ void handleBMCPacket(void)
     RegAPE_PERIBmcToNcRxStatus_t stat;
     stat.r32 = APE_PERI.BmcToNcRxStatus.r32;
 
-    if(stat.bits.New)
+    if (stat.bits.New)
     {
-        if(stat.bits.Bad)
+        if (stat.bits.Bad)
         {
             // TODO: ACK bad packet.
             APE_PERI.BmcToNcRxControl.bits.ResetBad = 1;
-            while(APE_PERI.BmcToNcRxControl.bits.ResetBad);
+            while (APE_PERI.BmcToNcRxControl.bits.ResetBad)
+            {
+                // Wait
+            }
         }
         else
         {
             int32_t bytes = stat.bits.PacketLength;
-            if(!stat.bits.Passthru)
+            if (!stat.bits.Passthru)
             {
                 // stat.print();
                 int32_t words = DIVIDE_RND_UP(bytes, sizeof(uint32_t));
                 int i = 0;
-                while(words--)
+                while (words--)
                 {
                     uint32_t word = (APE_PERI.BmcToNcReadBuffer.r32);
                     buffer[i] = word;
                     i++;
                 }
 
-                NetworkFrame_t *frame = ((NetworkFrame_t*)buffer);
+                NetworkFrame_t *frame = ((NetworkFrame_t *)buffer);
 
                 handleNCSIFrame(frame);
             }
@@ -144,7 +148,7 @@ void __attribute__((noreturn)) loaderLoop(void)
     SHM.SegSig.bits.Sig = SHM_SEG_SIG_SIG_LOADER;
     SHM.FwStatus.bits.Ready = 1;
 
-    for(;;)
+    for (;;)
     {
         handleBMCPacket();
         Network_PassthroughRxPatcket();

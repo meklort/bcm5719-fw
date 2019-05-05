@@ -108,7 +108,6 @@ void NVRam_disableWrites(void)
     NVM.Access.bits.WriteEnable = 0;
 }
 
-
 static inline void NVRam_waitDone(void)
 {
     while (!NVM.Command.bits.Done)
@@ -223,7 +222,7 @@ void NVRam_read(uint32_t address, uint32_t *buffer, size_t words)
 
 void NVRam_writeWord(uint32_t address, uint32_t data)
 {
-    if(data != NVRam_readWord(address))
+    if (data != NVRam_readWord(address))
     {
         // Only write if different.
 

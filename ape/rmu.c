@@ -47,7 +47,6 @@
 #include <APE_APE.h>
 #include <APE_APE_PERI.h>
 #include <APE_DEVICE.h>
-
 #include <Network.h>
 
 void initRMU(void)
@@ -60,14 +59,17 @@ void initRMU(void)
     mode.bits.ICodePIPRdDisable = 1;
     APE.Mode = mode;
 
-    // Optionally, set REG_APE__RMU_CONTROL to RST_RX|RST_TX. This can help unwedge the state machines if you wedged them previously due to a bug in your code.
+    // Optionally, set REG_APE__RMU_CONTROL to RST_RX|RST_TX. This can help
+    // unwedge the state machines if you wedged them previously due to a bug in
+    // your code.
     RegAPE_PERIRmuControl_t rmuControl;
     rmuControl.r32 = 0;
     rmuControl.bits.ResetTX = 1;
     rmuControl.bits.ResetRX = 1;
     APE_PERI.RmuControl = rmuControl;
 
-    // Now set REG_APE__RMU_CONTROL to AUTO_DRV|RX|TX. Also set bits 19 and 20 (meaning unknown).
+    // Now set REG_APE__RMU_CONTROL to AUTO_DRV|RX|TX. Also set bits 19 and 20
+    // (meaning unknown).
     rmuControl.r32 = 0;
     rmuControl.bits.AutoDrv = 1;
     rmuControl.bits.RX = 1;
@@ -75,13 +77,16 @@ void initRMU(void)
     rmuControl.r32 |= (1 << 19) | (1 << 20);
     APE_PERI.RmuControl = rmuControl;
 
-    // Set REG_APE__BMC_NC_RX_CONTROL to FLOW_CONTROL=0 or 1, HWM=0x240, XON_THRESHOLD=0x201F.
-    // Note: FLOW_CONTROL=1 enables the hardware to automatically send PAUSE frames to the BMC. tcpdump can detect these, so keeping flow control on gives you a way to detect when the RX state machine has gotten wedged.
+    // Set REG_APE__BMC_NC_RX_CONTROL to FLOW_CONTROL=0 or 1, HWM=0x240,
+    // XON_THRESHOLD=0x201F. Note: FLOW_CONTROL=1 enables the hardware to
+    // automatically send PAUSE frames to the BMC. tcpdump can detect these, so
+    // keeping flow control on gives you a way to detect when the RX state
+    // machine has gotten wedged.
     RegAPE_PERIBmcToNcRxControl_t rxControl;
     rxControl.r32 = 0;
     rxControl.bits.FlowControl = 1;
     rxControl.bits.HWM = 0x240;
-    rxControl.r32 |= (0x201F << 11) ; /* XON_THRESHOLD */
+    rxControl.r32 |= (0x201F << 11); /* XON_THRESHOLD */
     APE_PERI.BmcToNcRxControl = rxControl;
 
     // Set REG_APE__NC_BMC_TX_CONTROL to 0.
@@ -92,11 +97,12 @@ void initRMU(void)
     // Set all eight REG_APE__BMC_NC_RX_SRC_MAC_MATCHN_{HIGH,LOW} to zero.
     Network_SetMACAddr(0, 0, 1, true);
 
-
-    // Set REG_APE__ARB_CONTROL as desired. Suggest PACKAGE_ID=0, TKNREL=0x14, START, and setting unknown bit 26 to 1.
+    // Set REG_APE__ARB_CONTROL as desired. Suggest PACKAGE_ID=0, TKNREL=0x14,
+    // START, and setting unknown bit 26 to 1.
     RegAPE_PERIArbControl_t arbControl;
     arbControl.r32 = (1 << 26);
-    arbControl.bits.PackageID = 0; /* TODO: allow to be configured as per NC-SI spec. */
+    arbControl.bits.PackageID =
+        0; /* TODO: allow to be configured as per NC-SI spec. */
     arbControl.bits.Start = 1;
     arbControl.bits.TKNREL = 0x14;
     APE_PERI.ArbControl = arbControl;
