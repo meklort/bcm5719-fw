@@ -57,6 +57,8 @@ int32_t Network_TX_allocateBlock(void);
 void Network_TX_transmitBePacket(uint8_t* packet, uint32_t length);
 void Network_TX_transmitLePacket(uint8_t* packet, uint32_t length);
 
+void Network_TX_transmitPassthroughPacket(uint32_t length);
+
 // void Network_TX_transmitPassthroughPacket(RegAPE_PERIBmcToNcRxStatus_t rx_status);
 
 bool Network_RxLePatcket(uint32_t* buffer, uint32_t* length);
