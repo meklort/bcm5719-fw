@@ -120,13 +120,11 @@ bool Network_RxLePatcket(uint32_t* buffer, uint32_t* bytes)
         retire.bits.Head = rxbuf.bits.Head;
         retire.bits.Tail = rxbuf.bits.Tail;
         retire.bits.Count = rxbuf.bits.Count;
-        // retire.print();
-
-
         APE.RxPoolRetire0 = retire;
-        rxbuf.r32 |= (1 << 31);
-        // rxbuf.print();
+
+        rxbuf.bits.Finished = 1;
         APE.RxbufoffsetFunc0 = rxbuf;
+
         *bytes = rx_bytes;
 
         return true;
@@ -143,6 +141,9 @@ bool Network_PassthroughRxPatcket(void)
     rxbuf = APE.RxbufoffsetFunc0;
     if((int)rxbuf.bits.Valid)
     {
+#if CXX_SIMULATOR
+        rxbuf.print();
+#endif
         union {
             uint32_t r32;
             struct {
@@ -166,6 +167,9 @@ bool Network_PassthroughRxPatcket(void)
             // printf(" Next Block %d\n", control.bits.next_block);
             // printf(" First %d\n", control.bits.first);
             // printf(" Not Last %d\n", control.bits.not_last);
+#if CXX_SIMULATOR
+            printf("%d bytes in block.\n", control.bits.payload_length);
+#endif
             int32_t words = DIVIDE_RND_UP(control.bits.payload_length, sizeof(uint32_t));
             int32_t offset;
             if(control.bits.first)
@@ -182,23 +186,34 @@ bool Network_PassthroughRxPatcket(void)
 
 
             int i;
+            uint32_t data;
+            if(!control.bits.not_last)
+            {
+                // Ignore last word - drop the FCS
+                words--;
+            }
+
             for(i = 0; i < words-1; i++)
             {
-                uint32_t data = block[i + offset].r32;
+                data = block[i + offset].r32;
                 APE_PERI.BmcToNcTxBuffer.r32 = data;
             }
 
-            if(count) // could use !control.bits.not_last
+            data = block[i + offset].r32;
+            if(control.bits.not_last)
             {
-                uint32_t data = block[i + offset].r32;
                 APE_PERI.BmcToNcTxBuffer.r32 = data;
             }
             else
             {
-                uint32_t data = block[i + offset].r32;
+                // data = block[i + offset].r32;
                 // Last word to send.
-                APE_PERI.BmcToNcTxControl.r32 = control.bits.payload_length % 4;
+                APE_PERI.BmcToNcTxControl.r32 = control.bits.payload_length % sizeof(uint32_t);
                 APE_PERI.BmcToNcTxBufferLast.r32 = data;
+
+                // Ignore last word - drop the FCS.
+                // data = block[i + offset + 1].r32;
+                // (void)data;
             }
 
             // Retire this block.
@@ -213,8 +228,8 @@ bool Network_PassthroughRxPatcket(void)
             blockid = control.bits.next_block;
         }
 
-        // Mark the register as read.
-        rxbuf.r32 |= (1 << 31);
+        // Mark the frame as read.
+        rxbuf.bits.Finished = 1;
         APE.RxbufoffsetFunc0 = rxbuf;
 
         return true;
