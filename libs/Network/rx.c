@@ -116,10 +116,11 @@ bool Network_RxLePatcket(uint32_t* buffer, uint32_t* bytes)
         // enableNCSIHandling();
 
         RegAPERxPoolRetire0_t retire;
-        retire.r32 = (1 << 24);
+        retire.r32 = 0;
         retire.bits.Head = rxbuf.bits.Head;
         retire.bits.Tail = rxbuf.bits.Tail;
         retire.bits.Count = rxbuf.bits.Count;
+        retire.bits.Retire = 1;
         APE.RxPoolRetire0 = retire;
 
         rxbuf.bits.Finished = 1;

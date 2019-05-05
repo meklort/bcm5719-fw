@@ -1182,6 +1182,10 @@ typedef register_container RegAPERxPoolModeStatus1_t {
 #define     APE_RX_POOL_RETIRE_0_HEAD_MASK  0xfff000u
 #define GET_APE_RX_POOL_RETIRE_0_HEAD(__reg__)  (((__reg__) & 0xfff000) >> 12u)
 #define SET_APE_RX_POOL_RETIRE_0_HEAD(__val__)  (((__val__) << 12u) & 0xfff000u)
+#define     APE_RX_POOL_RETIRE_0_RETIRE_SHIFT 24u
+#define     APE_RX_POOL_RETIRE_0_RETIRE_MASK  0x1000000u
+#define GET_APE_RX_POOL_RETIRE_0_RETIRE(__reg__)  (((__reg__) & 0x1000000) >> 24u)
+#define SET_APE_RX_POOL_RETIRE_0_RETIRE(__val__)  (((__val__) << 24u) & 0x1000000u)
 #define     APE_RX_POOL_RETIRE_0_STATE_SHIFT 25u
 #define     APE_RX_POOL_RETIRE_0_STATE_MASK  0x6000000u
 #define GET_APE_RX_POOL_RETIRE_0_STATE(__reg__)  (((__reg__) & 0x6000000) >> 25u)
@@ -1207,8 +1211,8 @@ typedef register_container RegAPERxPoolRetire0_t {
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Tail, 0, 12)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Head, 12, 12)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_24_24, 24, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Retire, 24, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, State, 25, 2)
         /** @brief  */
@@ -1222,8 +1226,8 @@ typedef register_container RegAPERxPoolRetire0_t {
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Count, 27, 4)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, State, 25, 2)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_24_24, 24, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Retire, 24, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Head, 12, 12)
         /** @brief  */
@@ -1247,6 +1251,8 @@ typedef register_container RegAPERxPoolRetire0_t {
         bits.Tail.setName("Tail");
         bits.Head.setBaseRegister(&r32);
         bits.Head.setName("Head");
+        bits.Retire.setBaseRegister(&r32);
+        bits.Retire.setName("Retire");
         bits.State.setBaseRegister(&r32);
         bits.State.setName("State");
         bits.Count.setBaseRegister(&r32);
@@ -1269,6 +1275,10 @@ typedef register_container RegAPERxPoolRetire0_t {
 #define     APE_RX_POOL_RETIRE_1_HEAD_MASK  0xfff000u
 #define GET_APE_RX_POOL_RETIRE_1_HEAD(__reg__)  (((__reg__) & 0xfff000) >> 12u)
 #define SET_APE_RX_POOL_RETIRE_1_HEAD(__val__)  (((__val__) << 12u) & 0xfff000u)
+#define     APE_RX_POOL_RETIRE_1_RETIRE_SHIFT 24u
+#define     APE_RX_POOL_RETIRE_1_RETIRE_MASK  0x1000000u
+#define GET_APE_RX_POOL_RETIRE_1_RETIRE(__reg__)  (((__reg__) & 0x1000000) >> 24u)
+#define SET_APE_RX_POOL_RETIRE_1_RETIRE(__val__)  (((__val__) << 24u) & 0x1000000u)
 #define     APE_RX_POOL_RETIRE_1_STATE_SHIFT 25u
 #define     APE_RX_POOL_RETIRE_1_STATE_MASK  0x6000000u
 #define GET_APE_RX_POOL_RETIRE_1_STATE(__reg__)  (((__reg__) & 0x6000000) >> 25u)
@@ -1294,8 +1304,8 @@ typedef register_container RegAPERxPoolRetire1_t {
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Tail, 0, 12)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Head, 12, 12)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_24_24, 24, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Retire, 24, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, State, 25, 2)
         /** @brief  */
@@ -1309,8 +1319,8 @@ typedef register_container RegAPERxPoolRetire1_t {
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Count, 27, 4)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, State, 25, 2)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_24_24, 24, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Retire, 24, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Head, 12, 12)
         /** @brief  */
@@ -1334,6 +1344,8 @@ typedef register_container RegAPERxPoolRetire1_t {
         bits.Tail.setName("Tail");
         bits.Head.setBaseRegister(&r32);
         bits.Head.setName("Head");
+        bits.Retire.setBaseRegister(&r32);
+        bits.Retire.setName("Retire");
         bits.State.setBaseRegister(&r32);
         bits.State.setName("State");
         bits.Count.setBaseRegister(&r32);
@@ -2681,6 +2693,10 @@ typedef register_container RegAPERxPoolModeStatus2_t {
 #define     APE_RX_POOL_RETIRE_2_HEAD_MASK  0xfff000u
 #define GET_APE_RX_POOL_RETIRE_2_HEAD(__reg__)  (((__reg__) & 0xfff000) >> 12u)
 #define SET_APE_RX_POOL_RETIRE_2_HEAD(__val__)  (((__val__) << 12u) & 0xfff000u)
+#define     APE_RX_POOL_RETIRE_2_RETIRE_SHIFT 24u
+#define     APE_RX_POOL_RETIRE_2_RETIRE_MASK  0x1000000u
+#define GET_APE_RX_POOL_RETIRE_2_RETIRE(__reg__)  (((__reg__) & 0x1000000) >> 24u)
+#define SET_APE_RX_POOL_RETIRE_2_RETIRE(__val__)  (((__val__) << 24u) & 0x1000000u)
 #define     APE_RX_POOL_RETIRE_2_STATE_SHIFT 25u
 #define     APE_RX_POOL_RETIRE_2_STATE_MASK  0x6000000u
 #define GET_APE_RX_POOL_RETIRE_2_STATE(__reg__)  (((__reg__) & 0x6000000) >> 25u)
@@ -2706,8 +2722,8 @@ typedef register_container RegAPERxPoolRetire2_t {
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Tail, 0, 12)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Head, 12, 12)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_24_24, 24, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Retire, 24, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, State, 25, 2)
         /** @brief  */
@@ -2721,8 +2737,8 @@ typedef register_container RegAPERxPoolRetire2_t {
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Count, 27, 4)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, State, 25, 2)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_24_24, 24, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Retire, 24, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Head, 12, 12)
         /** @brief  */
@@ -2746,6 +2762,8 @@ typedef register_container RegAPERxPoolRetire2_t {
         bits.Tail.setName("Tail");
         bits.Head.setBaseRegister(&r32);
         bits.Head.setName("Head");
+        bits.Retire.setBaseRegister(&r32);
+        bits.Retire.setName("Retire");
         bits.State.setBaseRegister(&r32);
         bits.State.setName("State");
         bits.Count.setBaseRegister(&r32);
@@ -3251,6 +3269,10 @@ typedef register_container RegAPERxPoolModeStatus3_t {
 #define     APE_RX_POOL_RETIRE_3_HEAD_MASK  0xfff000u
 #define GET_APE_RX_POOL_RETIRE_3_HEAD(__reg__)  (((__reg__) & 0xfff000) >> 12u)
 #define SET_APE_RX_POOL_RETIRE_3_HEAD(__val__)  (((__val__) << 12u) & 0xfff000u)
+#define     APE_RX_POOL_RETIRE_3_RETIRE_SHIFT 24u
+#define     APE_RX_POOL_RETIRE_3_RETIRE_MASK  0x1000000u
+#define GET_APE_RX_POOL_RETIRE_3_RETIRE(__reg__)  (((__reg__) & 0x1000000) >> 24u)
+#define SET_APE_RX_POOL_RETIRE_3_RETIRE(__val__)  (((__val__) << 24u) & 0x1000000u)
 #define     APE_RX_POOL_RETIRE_3_STATE_SHIFT 25u
 #define     APE_RX_POOL_RETIRE_3_STATE_MASK  0x6000000u
 #define GET_APE_RX_POOL_RETIRE_3_STATE(__reg__)  (((__reg__) & 0x6000000) >> 25u)
@@ -3276,8 +3298,8 @@ typedef register_container RegAPERxPoolRetire3_t {
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Tail, 0, 12)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Head, 12, 12)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_24_24, 24, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Retire, 24, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, State, 25, 2)
         /** @brief  */
@@ -3291,8 +3313,8 @@ typedef register_container RegAPERxPoolRetire3_t {
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Count, 27, 4)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, State, 25, 2)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_24_24, 24, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Retire, 24, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Head, 12, 12)
         /** @brief  */
@@ -3316,6 +3338,8 @@ typedef register_container RegAPERxPoolRetire3_t {
         bits.Tail.setName("Tail");
         bits.Head.setBaseRegister(&r32);
         bits.Head.setName("Head");
+        bits.Retire.setBaseRegister(&r32);
+        bits.Retire.setName("Retire");
         bits.State.setBaseRegister(&r32);
         bits.State.setName("State");
         bits.Count.setBaseRegister(&r32);
