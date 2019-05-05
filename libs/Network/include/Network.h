@@ -59,6 +59,11 @@ void Network_TX_transmitLePacket(uint8_t* packet, uint32_t length);
 
 // void Network_TX_transmitPassthroughPacket(RegAPE_PERIBmcToNcRxStatus_t rx_status);
 
+bool Network_RxLePatcket(uint32_t* buffer, uint32_t* length);
+bool Network_PassthroughRxPatcket(void);
+
+
+
 void Network_SetMACAddr(uint16_t high, uint32_t low, uint32_t index, bool enabled);
 
 

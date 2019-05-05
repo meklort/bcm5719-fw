@@ -54,10 +54,9 @@ arm_add_executable(${PROJECT_NAME}
             )
 arm_linker_script(${PROJECT_NAME} ${LINKER_SCRIPT})
 
-target_link_libraries(${PROJECT_NAME} NVRam-arm MII-arm APE-arm Network-arm)
+target_link_libraries(${PROJECT_NAME} NVRam-arm MII-arm APE-arm Network-arm NCSI-arm)
 target_link_libraries(${PROJECT_NAME} bcm5719-arm)
 target_compile_options(${PROJECT_NAME} PRIVATE -nodefaultlibs)
-
 
 # Simulator add_executable
 # simulator_add_executable(sim-${PROJECT_NAME}
