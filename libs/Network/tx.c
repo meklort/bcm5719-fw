@@ -260,6 +260,11 @@ static uint32_t inline Network_TX_initAdditionalBlock(RegTX_PORTOut_t* block, in
 
 static inline void Network_TX_transmitPacket_internal(uint8_t* packet, uint32_t length, bool big_endian)
 {
+    if(!length)
+    {
+        return;
+    }
+
     uint32_t* packet_32 = (uint32_t*)packet;
     uint32_t consumed = 0;
     uint32_t blocks = Network_TX_numBlocksNeeded(length);
@@ -422,12 +427,17 @@ static uint32_t inline Network_TX_initAdditionalPassthroughBlock(RegTX_PORTOut_t
 
 void Network_TX_transmitPassthroughPacket(uint32_t length)
 {
+    if(!length)
+    {
+        return;
+    }
+
     int32_t tail;
     int32_t first = tail = Network_TX_allocateBlock();
+    int32_t next_block = -1;
     uint32_t blocks = Network_TX_numBlocksNeeded(length);
     int total_blocks = blocks;;
 
-    int32_t next_block = -1;
     if(blocks > 1)
     {
         next_block = Network_TX_allocateBlock();
