@@ -533,6 +533,10 @@ typedef register_container RegAPEEvent_t {
 #define     APE_RXBUFOFFSET_FUNC0_VALID_MASK  0x40000000u
 #define GET_APE_RXBUFOFFSET_FUNC0_VALID(__reg__)  (((__reg__) & 0x40000000) >> 30u)
 #define SET_APE_RXBUFOFFSET_FUNC0_VALID(__val__)  (((__val__) << 30u) & 0x40000000u)
+#define     APE_RXBUFOFFSET_FUNC0_FINISHED_SHIFT 31u
+#define     APE_RXBUFOFFSET_FUNC0_FINISHED_MASK  0x80000000u
+#define GET_APE_RXBUFOFFSET_FUNC0_FINISHED(__reg__)  (((__reg__) & 0x80000000) >> 31u)
+#define SET_APE_RXBUFOFFSET_FUNC0_FINISHED(__val__)  (((__val__) << 31u) & 0x80000000u)
 
 /** @brief Register definition for @ref APE_t.RxbufoffsetFunc0. */
 typedef register_container RegAPERxbufoffsetFunc0_t {
@@ -553,11 +557,11 @@ typedef register_container RegAPERxbufoffsetFunc0_t {
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Count, 26, 4)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Valid, 30, 1)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_31, 31, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Finished, 31, 1)
 #elif defined(__BIG_ENDIAN__)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_31, 31, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Finished, 31, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Valid, 30, 1)
         /** @brief  */
@@ -597,6 +601,8 @@ typedef register_container RegAPERxbufoffsetFunc0_t {
         bits.Count.setName("Count");
         bits.Valid.setBaseRegister(&r32);
         bits.Valid.setName("Valid");
+        bits.Finished.setBaseRegister(&r32);
+        bits.Finished.setName("Finished");
     }
     RegAPERxbufoffsetFunc0_t& operator=(const RegAPERxbufoffsetFunc0_t& other)
     {

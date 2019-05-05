@@ -56,5 +56,4 @@ ${IPXACT} -p ${PROJECT} APE_full.xml -t ape_cpp APE.cpp
 rm APE_APE*.cpp
 rm APE_SHM*.cpp
 rm APE_NVM*.cpp
-rm APE_DEVICE*.cpp
 mv *.cpp ../simulator/
