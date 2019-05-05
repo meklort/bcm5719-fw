@@ -44,9 +44,99 @@
 
 #include "ape.h"
 
+#include <Network.h>
+#include <Ethernet.h>
+#include <NCSI.h>
+#include <types.h>
+
 #include <APE_SHM.h>
 #include <APE_APE.h>
 #include <APE_APE_PERI.h>
+
+#include <APE_RX_PORT.h>
+
+void handleCommand(void)
+{
+    uint32_t command = SHM.LoaderCommand.bits.Command;
+    if(!command) return;
+
+    uint32_t arg0 = SHM.LoaderArg0.r32;
+    uint32_t arg1 = SHM.LoaderArg1.r32;
+
+    switch(command)
+    {
+        default:
+            break;
+
+        case SHM_LOADER_COMMAND_COMMAND_READ_MEM:
+        {
+            // Read word address specified in arg0
+            uint32_t* addr = ((void*)arg0);
+            SHM.LoaderArg0.r32 = *addr;
+            break;
+        }
+        case SHM_LOADER_COMMAND_COMMAND_WRITE_MEM:
+        {
+            // Write word address specified in arg0 with arg1
+            uint32_t* addr = ((void*)arg0);
+            *addr = arg1;
+            break;
+        }
+        case SHM_LOADER_COMMAND_COMMAND_CALL:
+        {
+            // call address specified in arg0.
+            void (*function)(uint32_t) = ((void*)arg0);
+            function(arg1);
+            break;
+        }
+    }
+
+    // Mark command as handled.
+    SHM.LoaderCommand.bits.Command = 0;
+}
+
+void handleBMCPacket(void)
+{
+    uint32_t buffer[1024];
+
+    RegAPE_PERIBmcToNcRxStatus_t stat;
+    stat.r32 = APE_PERI.BmcToNcRxStatus.r32;
+
+    if(stat.bits.New)
+    {
+        if(stat.bits.Bad)
+        {
+            // TODO: ACK bad packet.
+            APE_PERI.BmcToNcRxControl.bits.ResetBad = 1;
+            while(APE_PERI.BmcToNcRxControl.bits.ResetBad);
+        }
+        else
+        {
+            int32_t bytes = stat.bits.PacketLength;
+            if(!stat.bits.Passthru)
+            {
+                // stat.print();
+                int32_t words = DIVIDE_RND_UP(bytes, sizeof(uint32_t));
+                int i = 0;
+                while(words--)
+                {
+                    uint32_t word = (APE_PERI.BmcToNcReadBuffer.r32);
+                    buffer[i] = word;
+                    i++;
+                }
+
+                NetworkFrame_t *frame = ((NetworkFrame_t*)buffer);
+
+                handleNCSIFrame(frame);
+            }
+            else
+            {
+                // Pass through to network
+                Network_TX_transmitPassthroughPacket(bytes);
+            }
+        }
+    }
+}
 
 void __attribute__((noreturn)) loaderLoop(void)
 {
@@ -56,60 +146,17 @@ void __attribute__((noreturn)) loaderLoop(void)
 
     for(;;)
     {
-        uint32_t command = SHM.LoaderCommand.bits.Command;
-        if(!command) continue;
-
-        uint32_t arg0 = SHM.LoaderArg0.r32;
-        uint32_t arg1 = SHM.LoaderArg1.r32;
-
-        switch(command)
-        {
-            default:
-                break;
-
-            case SHM_LOADER_COMMAND_COMMAND_READ_MEM:
-            {
-                // Read word address specified in arg0
-                uint32_t* addr = ((void*)arg0);
-                SHM.LoaderArg0.r32 = *addr;
-                break;
-            }
-            case SHM_LOADER_COMMAND_COMMAND_WRITE_MEM:
-            {
-                // Write word address specified in arg0 with arg1
-                uint32_t* addr = ((void*)arg0);
-                *addr = arg1;
-                break;
-            }
-            case SHM_LOADER_COMMAND_COMMAND_CALL:
-            {
-                // call address specified in arg0.
-                void (*function)(uint32_t) = ((void*)arg0);
-                function(arg1);
-                break;
-            }
-        }
-
-        // Mark command as handled.
-        SHM.LoaderCommand.bits.Command = 0;
+        handleBMCPacket();
+        Network_PassthroughRxPatcket();
+        handleCommand();
     }
 }
 
 void __attribute__((noreturn)) __start()
 {
-    RegAPETxToNetPoolModeStatus0_t txMode;
-    txMode.r32 = 0;
-    txMode.bits.Reset = 1;
-    APE.TxToNetPoolModeStatus0 = txMode;
-
-    txMode.bits.Reset = 0;
-    txMode.bits.Enable = 1;
-    APE.TxToNetPoolModeStatus0 = txMode;
-
-    initRxFromNetwork();
+    NCSI_init();
+    Network_InitTxRx();
     initRMU();
-
-    // APE.Tick10hz.r32++;
 
     loaderLoop();
 }
