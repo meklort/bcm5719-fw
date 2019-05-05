@@ -24,6 +24,10 @@ mv bcm5719_BOOTCODE.h ../include
 
 
 ${IPXACT} -p ${PROJECT} bcm5719_full.xml bcm5719.cpp
+rm bcm5719_BOOTCODE*.cpp
+rm bcm5719_RXMBUF*.cpp
+rm bcm5719_TXMBUF*.cpp
+rm bcm5719_SDBCACHE*.cpp
 mv *.cpp ../simulator/
 
 # ${IPXACT} -p ${PROJECT} bcm5719_full.xml bcm5719.s
