@@ -33,15 +33,43 @@ ninja install
   - Libraries:
     - MII Library: Done
     - NVRAM Library: Done   
-  - Stage1
+  - Stage1/Stage2
     - Implementation: Functional
     - Testing: Minimal, WIP
-  - Stage2
-    - Implementation: Merged with Stage1, functional
-    - VPD: Not started
+    - VPD: Started, not functional
     - WOL: Not started
   - APE
-    - Implementation in progress
+    - NCSI Handler: In Progress (functional for TX/RX passthrough)
+      - Clear Initial State: Done
+      - Select Package: Partial
+      - Deselect Package: Partial
+      - Enable Channel: Partial
+      - Disable Channel: Partial
+      - Reset Channel: Partial
+      - Enable Channel TX: Partial
+      - Disable Channel TX: Partial
+      - AEN Enable: Partial
+      - Set Link: Partial
+      - Get Link Status: Stubbed
+      - Set VLAN Filter: Not Implemented
+      - Enable VLAN: Not Implemented
+      - Disable VLAN: Stubbed
+      - Set MAC Address: Initial implementation
+      - Enable Broadcast Filter: Stubbed
+      - Disable Bradcast Filter: Not Implemented
+      - Enable Global Multicast Filtering: Not Implemented
+      - Disable Global Multicast Filtering: Not Implemented
+      - Set NCSI Flow Control: Not Implemented
+      - Get Version ID: Not Implemented
+      - Get Capabilities: Not Implemented
+      - Get Parameters: Not Implemented
+      - Get Controller Packet Stats: Not Implemented
+      - Get NCSI Stats: Not Implemented
+      - Get NCSI Passthrough Stats: Not Implemented
+      - OEM Command: Not Implemented
+    - BMC <-> Network Communication: Functional
+      - TX Passthrough: Working
+      - RX Passthrough: Working
   - Utilities
     - Firmware tool: Functional
     - Register tool: Functional
@@ -57,7 +85,7 @@ cmake --build .
 ```
 
 ## Usage
-Before proceeding, the linux driver must be unloaded. On the Talos II, this can be done as root with the following:
+Before proceeding, the Linux driver must be unloaded. On the Talos II, this can be done as root with the following:
 ```bash
 echo 0004:01:00.0 > /sys/bus/pci/devices/0004:01:00.0/driver/unbind
 echo 0004:01:00.1 > /sys/bus/pci/devices/0004:01:00.1/driver/unbind
