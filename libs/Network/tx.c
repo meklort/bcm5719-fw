@@ -42,18 +42,16 @@
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
 
-
-#include <Network.h>
-#include <Ethernet.h>
 #include <APE_APE.h>
 #include <APE_TX_PORT.h>
+#include <Ethernet.h>
+#include <Network.h>
+#include <stdbool.h>
 #include <types.h>
 
-#include <stdbool.h>
-
 #ifdef CXX_SIMULATOR
-#include <stdio.h>
 #include <endian.h>
+#include <stdio.h>
 #else
 /* ARM */
 static inline uint32_t be32toh(uint32_t be32)
@@ -72,7 +70,8 @@ static inline uint32_t be32toh(uint32_t be32)
 
 typedef union {
     uint32_t r32;
-    struct {
+    struct
+    {
         uint32_t payload_length:7;
         uint32_t next_block:23;
         uint32_t first:1;
@@ -80,25 +79,23 @@ typedef union {
     } bits;
 } control_t;
 
-
 uint32_t Network_TX_numBlocksNeeded(uint32_t frame_size)
 {
     uint32_t blocks = 1;
 
-    if(frame_size > FIRST_FRAME_MAX)
+    if (frame_size > FIRST_FRAME_MAX)
     {
         frame_size -= FIRST_FRAME_MAX;
 
-        blocks +=  DIVIDE_RND_UP(frame_size, ADDITIONAL_FRAME_MAX);
+        blocks += DIVIDE_RND_UP(frame_size, ADDITIONAL_FRAME_MAX);
     }
 
 #ifdef CXX_SIMULATOR
-    printf("%d blocks needed for packet with frame size %d\n", blocks, frame_size);
+    printf("%d blocks needed for packet with frame size %d\n", blocks,
+           frame_size);
 #endif
     return blocks;
 }
-
-
 
 int32_t __attribute__((noinline)) Network_TX_allocateBlock(void)
 {
@@ -112,11 +109,12 @@ int32_t __attribute__((noinline)) Network_TX_allocateBlock(void)
 
     // Wait for state machine to finish
     RegAPETxToNetBufferAllocator0_t status;
-    do {
+    do
+    {
         status = APE.TxToNetBufferAllocator0;
-    } while(APE_TX_TO_NET_BUFFER_ALLOCATOR_0_STATE_PROCESSING == status.bits.State);
+    } while (APE_TX_TO_NET_BUFFER_ALLOCATOR_0_STATE_PROCESSING == status.bits.State);
 
-    if(APE_TX_TO_NET_BUFFER_ALLOCATOR_0_STATE_ALLOCATION_OK != status.bits.State)
+    if (APE_TX_TO_NET_BUFFER_ALLOCATOR_0_STATE_ALLOCATION_OK != status.bits.State)
     {
         block = -1;
 #if CXX_SIMULATOR
@@ -134,7 +132,12 @@ int32_t __attribute__((noinline)) Network_TX_allocateBlock(void)
     return block;
 }
 
-static uint32_t inline Network_TX_initFirstBlock(RegTX_PORTOut_t* block, uint32_t length, int32_t blocks, int32_t next_block, uint32_t* packet, bool big_endian)
+static uint32_t inline Network_TX_initFirstBlock(RegTX_PORTOut_t *block,
+                                                 uint32_t length,
+                                                 int32_t blocks,
+                                                 int32_t next_block,
+                                                 uint32_t *packet,
+                                                 bool big_endian)
 {
     control_t control;
     int copy_length;
@@ -144,7 +147,7 @@ static uint32_t inline Network_TX_initFirstBlock(RegTX_PORTOut_t* block, uint32_
     control.bits.next_block = next_block >= 0 ? next_block : 0;
     control.bits.first = 1;
 
-    if(length > FIRST_FRAME_MAX)
+    if (length > FIRST_FRAME_MAX)
     {
         copy_length = FIRST_FRAME_MAX;
         control.bits.not_last = 1;
@@ -169,10 +172,10 @@ static uint32_t inline Network_TX_initFirstBlock(RegTX_PORTOut_t* block, uint32_
     // block[11] = uninitialized;
 
     // Copy Payload Data.
-    int num_words = (copy_length + sizeof(uint32_t) - 1)/sizeof(uint32_t);
-    for(i = 0; i < num_words; i++)
+    int num_words = (copy_length + sizeof(uint32_t) - 1) / sizeof(uint32_t);
+    for (i = 0; i < num_words; i++)
     {
-        if(big_endian)
+        if (big_endian)
         {
 #if CXX_SIMULATOR
             printf("1st[%d] = 0x%08X\n", i, be32toh(packet[i]));
@@ -191,13 +194,13 @@ static uint32_t inline Network_TX_initFirstBlock(RegTX_PORTOut_t* block, uint32_
     length -= control.bits.payload_length;
 
     // Pad if too small.
-    if(copy_length < ETHERNET_FRAME_MIN)
+    if (copy_length < ETHERNET_FRAME_MIN)
     {
         copy_length = ETHERNET_FRAME_MIN;
         length = ETHERNET_FRAME_MIN;
 
         num_words = DIVIDE_RND_UP(copy_length, sizeof(uint32_t));
-        for(; i < num_words; i++)
+        for (; i < num_words; i++)
         {
             // Pad remaining with 0's
             block[TX_PORT_OUT_ALL_FIRST_PAYLOAD_WORD + i].r32 = 0;
@@ -211,8 +214,11 @@ static uint32_t inline Network_TX_initFirstBlock(RegTX_PORTOut_t* block, uint32_
     return copy_length;
 }
 
-
-static uint32_t inline Network_TX_initAdditionalBlock(RegTX_PORTOut_t* block, int32_t next_block, uint32_t length, uint32_t* packet, bool big_endian)
+static uint32_t inline Network_TX_initAdditionalBlock(RegTX_PORTOut_t *block,
+                                                      int32_t next_block,
+                                                      uint32_t length,
+                                                      uint32_t *packet,
+                                                      bool big_endian)
 {
     int i;
     control_t control;
@@ -221,7 +227,7 @@ static uint32_t inline Network_TX_initAdditionalBlock(RegTX_PORTOut_t* block, in
     control.bits.first = 0;
     control.bits.next_block = next_block;
 
-    if(length > ADDITIONAL_FRAME_MAX)
+    if (length > ADDITIONAL_FRAME_MAX)
     {
         length = ADDITIONAL_FRAME_MAX;
         control.bits.payload_length = ADDITIONAL_FRAME_MAX;
@@ -238,9 +244,9 @@ static uint32_t inline Network_TX_initAdditionalBlock(RegTX_PORTOut_t* block, in
 
     // Copy payload data.
     int num_words = DIVIDE_RND_UP(length, sizeof(uint32_t));
-    for(i = 0; i < num_words; i++)
+    for (i = 0; i < num_words; i++)
     {
-        if(big_endian)
+        if (big_endian)
         {
             block[TX_PORT_OUT_ALL_ADDITIONAL_PAYLOAD_WORD + i].r32 = be32toh(packet[i]);
         }
@@ -248,7 +254,6 @@ static uint32_t inline Network_TX_initAdditionalBlock(RegTX_PORTOut_t* block, in
         {
             block[TX_PORT_OUT_ALL_ADDITIONAL_PAYLOAD_WORD + i].r32 = (packet[i]);
         }
-
     }
 
     block[TX_PORT_OUT_ALL_CONTROL_WORD].r32 = control.r32;
@@ -258,47 +263,56 @@ static uint32_t inline Network_TX_initAdditionalBlock(RegTX_PORTOut_t* block, in
     return control.bits.payload_length;
 }
 
-static inline void Network_TX_transmitPacket_internal(uint8_t* packet, uint32_t length, bool big_endian)
+static inline void Network_TX_transmitPacket_internal(uint8_t *packet,
+                                                      uint32_t length,
+                                                      bool big_endian)
 {
-    if(!length)
+    if (!length)
     {
         return;
     }
 
-    uint32_t* packet_32 = (uint32_t*)packet;
+    uint32_t *packet_32 = (uint32_t *)packet;
     uint32_t consumed = 0;
     uint32_t blocks = Network_TX_numBlocksNeeded(length);
-    int total_blocks = blocks;;
+    int total_blocks = blocks;
+    ;
 
     // First block
     int32_t tail;
     int32_t first = tail = Network_TX_allocateBlock();
-    if(first <= 0)
+    if (first <= 0)
     {
         // Error
         return;
     }
     int32_t next_block = -1;
-    if(blocks > 1)
+    if (blocks > 1)
     {
         next_block = Network_TX_allocateBlock();
     }
-    RegTX_PORTOut_t* block = (RegTX_PORTOut_t*)&TX_PORT.Out[TX_PORT_OUT_ALL_BLOCK_WORDS * first];
+    RegTX_PORTOut_t *block = (RegTX_PORTOut_t *)&TX_PORT.Out[TX_PORT_OUT_ALL_BLOCK_WORDS * first];
 
-    consumed += Network_TX_initFirstBlock(block, length, blocks, next_block, &packet_32[consumed/4], big_endian);
+    consumed += Network_TX_initFirstBlock(block, length, blocks, next_block,
+                                          &packet_32[consumed / 4], big_endian);
     blocks -= 1;
-    while(blocks--)
+    while (blocks--)
     {
 
-        block = (RegTX_PORTOut_t*)&TX_PORT.Out[TX_PORT_OUT_ALL_BLOCK_WORDS * next_block];
-        if(blocks)
+        block = (RegTX_PORTOut_t *)&TX_PORT
+                    .Out[TX_PORT_OUT_ALL_BLOCK_WORDS * next_block];
+        if (blocks)
         {
             next_block = Network_TX_allocateBlock();
-            consumed += Network_TX_initAdditionalBlock(block, next_block, length-consumed, &packet_32[consumed/4], big_endian);
+            consumed += Network_TX_initAdditionalBlock(
+                block, next_block, length - consumed, &packet_32[consumed / 4],
+                big_endian);
         }
         else
         {
-            Network_TX_initAdditionalBlock(block, 0, length - consumed, &packet_32[consumed/4], big_endian);
+            Network_TX_initAdditionalBlock(block, 0, length - consumed,
+                                           &packet_32[consumed / 4],
+                                           big_endian);
         }
 
         tail = next_block;
@@ -313,17 +327,18 @@ static inline void Network_TX_transmitPacket_internal(uint8_t* packet, uint32_t 
     APE.TxToNetDoorbellFunc0 = doorbell;
 }
 
-void Network_TX_transmitBePacket(uint8_t* packet, uint32_t length)
+void Network_TX_transmitBePacket(uint8_t *packet, uint32_t length)
 {
     Network_TX_transmitPacket_internal(packet, length, true);
 }
 
-void Network_TX_transmitLePacket(uint8_t* packet, uint32_t length)
+void Network_TX_transmitLePacket(uint8_t *packet, uint32_t length)
 {
     Network_TX_transmitPacket_internal(packet, length, false);
 }
 
-static uint32_t inline Network_TX_initFirstPassthroughBlock(RegTX_PORTOut_t* block, uint32_t length, int32_t blocks, int32_t next_block)
+static uint32_t inline Network_TX_initFirstPassthroughBlock(
+    RegTX_PORTOut_t *block, uint32_t length, int32_t blocks, int32_t next_block)
 {
     control_t control;
     int copy_length;
@@ -333,7 +348,7 @@ static uint32_t inline Network_TX_initFirstPassthroughBlock(RegTX_PORTOut_t* blo
     control.bits.next_block = next_block >= 0 ? next_block : 0;
     control.bits.first = 1;
 
-    if(length > FIRST_FRAME_MAX)
+    if (length > FIRST_FRAME_MAX)
     {
         copy_length = FIRST_FRAME_MAX;
         control.bits.not_last = 1;
@@ -358,8 +373,8 @@ static uint32_t inline Network_TX_initFirstPassthroughBlock(RegTX_PORTOut_t* blo
     // block[11] = uninitialized;
 
     // Copy Payload Data.
-    int num_words =  DIVIDE_RND_UP(copy_length, sizeof(uint32_t));
-    for(i = 0; i < num_words; i++)
+    int num_words = DIVIDE_RND_UP(copy_length, sizeof(uint32_t));
+    for (i = 0; i < num_words; i++)
     {
         block[TX_PORT_OUT_ALL_FIRST_PAYLOAD_WORD + i].r32 = APE_PERI.BmcToNcReadBuffer.r32;
     }
@@ -367,13 +382,13 @@ static uint32_t inline Network_TX_initFirstPassthroughBlock(RegTX_PORTOut_t* blo
     length -= control.bits.payload_length;
 
     // Pad if too small.
-    if(copy_length < ETHERNET_FRAME_MIN)
+    if (copy_length < ETHERNET_FRAME_MIN)
     {
         copy_length = ETHERNET_FRAME_MIN;
         length = ETHERNET_FRAME_MIN;
 
         num_words = DIVIDE_RND_UP(copy_length, sizeof(uint32_t));
-        for(; i < num_words; i++)
+        for (; i < num_words; i++)
         {
             // Pad remaining with 0's
             block[TX_PORT_OUT_ALL_FIRST_PAYLOAD_WORD + i].r32 = 0;
@@ -387,7 +402,8 @@ static uint32_t inline Network_TX_initFirstPassthroughBlock(RegTX_PORTOut_t* blo
     return copy_length;
 }
 
-static uint32_t inline Network_TX_initAdditionalPassthroughBlock(RegTX_PORTOut_t* block, int32_t next_block, uint32_t length)
+static uint32_t inline Network_TX_initAdditionalPassthroughBlock(
+    RegTX_PORTOut_t *block, int32_t next_block, uint32_t length)
 {
     int i;
     control_t control;
@@ -396,7 +412,7 @@ static uint32_t inline Network_TX_initAdditionalPassthroughBlock(RegTX_PORTOut_t
     control.bits.first = 0;
     control.bits.next_block = next_block;
 
-    if(length > ADDITIONAL_FRAME_MAX)
+    if (length > ADDITIONAL_FRAME_MAX)
     {
         length = ADDITIONAL_FRAME_MAX;
         control.bits.payload_length = ADDITIONAL_FRAME_MAX;
@@ -413,7 +429,7 @@ static uint32_t inline Network_TX_initAdditionalPassthroughBlock(RegTX_PORTOut_t
 
     // Copy payload data.
     int num_words = DIVIDE_RND_UP(length, sizeof(uint32_t));
-    for(i = 0; i < num_words; i++)
+    for (i = 0; i < num_words; i++)
     {
         block[TX_PORT_OUT_ALL_ADDITIONAL_PAYLOAD_WORD + i].r32 = APE_PERI.BmcToNcReadBuffer.r32;
     }
@@ -427,7 +443,7 @@ static uint32_t inline Network_TX_initAdditionalPassthroughBlock(RegTX_PORTOut_t
 
 void Network_TX_transmitPassthroughPacket(uint32_t length)
 {
-    if(!length)
+    if (!length)
     {
         return;
     }
@@ -439,24 +455,26 @@ void Network_TX_transmitPassthroughPacket(uint32_t length)
     int32_t first = tail = Network_TX_allocateBlock();
     int32_t next_block = -1;
     uint32_t blocks = Network_TX_numBlocksNeeded(length);
-    int total_blocks = blocks;;
+    int total_blocks = blocks;
+    ;
 
-    if(blocks > 1)
+    if (blocks > 1)
     {
         next_block = Network_TX_allocateBlock();
     }
-    RegTX_PORTOut_t* block = (RegTX_PORTOut_t*)&TX_PORT.Out[TX_PORT_OUT_ALL_BLOCK_WORDS * first];
+    RegTX_PORTOut_t *block = (RegTX_PORTOut_t *)&TX_PORT.Out[TX_PORT_OUT_ALL_BLOCK_WORDS * first];
 
     length -= Network_TX_initFirstPassthroughBlock(block, length, blocks, next_block);
     blocks -= 1;
-    while(blocks--)
+    while (blocks--)
     {
 
-        block = (RegTX_PORTOut_t*)&TX_PORT.Out[TX_PORT_OUT_ALL_BLOCK_WORDS * next_block];
-        if(blocks)
+        block = (RegTX_PORTOut_t *)&TX_PORT.Out[TX_PORT_OUT_ALL_BLOCK_WORDS * next_block];
+        if (blocks)
         {
             next_block = Network_TX_allocateBlock();
-            length -= Network_TX_initAdditionalPassthroughBlock(block, next_block, length);
+            length -= Network_TX_initAdditionalPassthroughBlock(
+                block, next_block, length);
         }
         else
         {
