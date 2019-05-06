@@ -42,9 +42,10 @@
 ### @endcond
 ################################################################################
 
-SET(CMAKE_C_COMPILER   /usr/local/bin/clang)
-SET(CMAKE_CXX_COMPILER /usr/local/bin/clang++)
-SET(CMAKE_ASM_COMPILER /usr/local/bin/clang)
+
+SET(CMAKE_C_COMPILER   $ENV{HOME}/llvm-bcm5719/bin/clang)
+SET(CMAKE_CXX_COMPILER $ENV{HOME}/llvm-bcm5719/bin/clang++)
+SET(CMAKE_ASM_COMPILER $ENV{HOME}/llvm-bcm5719/bin/clang)
 
 cmake_minimum_required(VERSION 3.5.1)
 project(bcm5719-top)

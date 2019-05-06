@@ -16,6 +16,19 @@ This repository depends on a number of external tools
 - Flexelint/PCLint+ (optional)
 - IPXact generator (optional)
 
+### Required Compiler
+Due to limitations in the MIPS CPU, this firmware requires a custom compiler to function properly.
+The custom compuler can be built using the following steps:
+```bash
+git clone https://github.com/meklort/llvm-project.git -b meklort-7.0.1
+cd llvm-project
+mkdir build
+cd build
+cmake ../llvm -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/llvm-bcm5719
+ninja
+ninja install
+```
+
 ## Status
   - Libraries:
     - MII Library: Done
