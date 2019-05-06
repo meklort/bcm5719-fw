@@ -45,8 +45,8 @@
 #ifndef STAGE1_H
 #define STAGE1_H
 
-#include <bcm5719_eeprom.h>
 #include <bcm5719_GEN.h>
+#include <bcm5719_eeprom.h>
 
 void early_init_hw(void);
 void load_nvm_config(NVRAMContents_t *nvram);
@@ -61,6 +61,5 @@ static inline void reportStatus(uint32_t code, uint8_t step)
 {
     GEN.GenDataSig.r32 = (code | step);
 }
-
 
 #endif /* STAGE1_H */

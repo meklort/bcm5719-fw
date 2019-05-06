@@ -45,30 +45,27 @@
 #ifndef NETWORK_H
 #define NETWORK_H
 
-#include <stdint.h>
-#include <stdbool.h>
 #include <APE_APE_PERI.h>
+#include <stdbool.h>
+#include <stdint.h>
 
 void Network_InitTxRx(void);
 
 uint32_t Network_TX_numBlocksNeeded(uint32_t frame_size);
 int32_t Network_TX_allocateBlock(void);
 
-void Network_TX_transmitBePacket(uint8_t* packet, uint32_t length);
-void Network_TX_transmitLePacket(uint8_t* packet, uint32_t length);
+void Network_TX_transmitBePacket(uint8_t *packet, uint32_t length);
+void Network_TX_transmitLePacket(uint8_t *packet, uint32_t length);
 
 void Network_TX_transmitPassthroughPacket(uint32_t length);
 
-// void Network_TX_transmitPassthroughPacket(RegAPE_PERIBmcToNcRxStatus_t rx_status);
+// void Network_TX_transmitPassthroughPacket(RegAPE_PERIBmcToNcRxStatus_t
+// rx_status);
 
-bool Network_RxLePatcket(uint32_t* buffer, uint32_t* length);
+bool Network_RxLePatcket(uint32_t *buffer, uint32_t *length);
 bool Network_PassthroughRxPatcket(void);
 
-
-
-void Network_SetMACAddr(uint16_t high, uint32_t low, uint32_t index, bool enabled);
-
-
-
+void Network_SetMACAddr(uint16_t high, uint32_t low, uint32_t index,
+                        bool enabled);
 
 #endif /* NETWORK_H */

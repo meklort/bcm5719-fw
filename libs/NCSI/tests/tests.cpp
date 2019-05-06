@@ -3,14 +3,12 @@
 #include <APE_APE_PERI.h>
 #include <Ethernet.h>
 #include <NCSI.h>
-
-
 #include <endian.h>
 
 uint32_t *gPacket;
 uint32_t gPacketLen;
 
-uint32_t gTXPacket[0x300/4];
+uint32_t gTXPacket[0x300 / 4];
 uint32_t gTXPacketPos;
 
 extern uint8_t select_package1[];
@@ -47,15 +45,14 @@ extern uint32_t disable_network_tx_len;
 extern uint32_t disable_channel_len;
 extern uint32_t deselect_package_len;
 
-
 static uint32_t read_packet(uint32_t val, uint32_t offset, void *args)
 {
     uint32_t data = 0;
-    if(gPacketLen > 0)
+    if (gPacketLen > 0)
     {
         data = *gPacket;
         gPacket++;
-        if(gPacketLen > 4)
+        if (gPacketLen > 4)
         {
             gPacketLen -= 4;
         }
@@ -63,7 +60,7 @@ static uint32_t read_packet(uint32_t val, uint32_t offset, void *args)
         {
             gPacketLen = 0;
         }
-    }        
+    }
     return htobe32(data);
 }
 
@@ -89,17 +86,15 @@ static uint32_t read_tx_status(uint32_t val, uint32_t offset, void *args)
 {
     RegAPE_PERIBmcToNcTxStatus_t stat;
     stat.r32 = 0;
-    stat.bits.InFifo = sizeof(gTXPacket) - (gTXPacketPos*4);
+    stat.bits.InFifo = sizeof(gTXPacket) - (gTXPacketPos * 4);
 
     return stat.r32;
 }
 
-
-
-void send_packet(uint8_t* packet, uint32_t len)
+void send_packet(uint8_t *packet, uint32_t len)
 {
     gTXPacketPos = 0; // reset response position.
-    gPacket = (uint32_t*)packet;
+    gPacket = (uint32_t *)packet;
     gPacketLen = len;
 
     uint32_t buffer[1024];
@@ -108,11 +103,11 @@ void send_packet(uint8_t* packet, uint32_t len)
     stat.r32 = APE_PERI.BmcToNcRxStatus.r32;
     // stat.print();
 
-    if(stat.bits.New)
+    if (stat.bits.New)
     {
         int32_t bytes = stat.bits.PacketLength;
         int i = 0;
-        while(bytes > 0)
+        while (bytes > 0)
         {
             uint32_t word = (APE_PERI.BmcToNcReadBuffer.r32);
             buffer[i] = word;
@@ -121,15 +116,16 @@ void send_packet(uint8_t* packet, uint32_t len)
             bytes -= 4;
         }
 
-        NetworkFrame_t *frame = ((NetworkFrame_t*)buffer);
+        NetworkFrame_t *frame = ((NetworkFrame_t *)buffer);
 
-        if(stat.bits.Bad)
+        if (stat.bits.Bad)
         {
             // TODO: ACK bad packet.
             APE_PERI.BmcToNcRxControl.bits.ResetBad = 1;
-            while(APE_PERI.BmcToNcRxControl.bits.ResetBad);
+            while (APE_PERI.BmcToNcRxControl.bits.ResetBad)
+                ;
         }
-        else if(!stat.bits.Passthru)
+        else if (!stat.bits.Passthru)
         {
             handleNCSIFrame(frame);
 
@@ -137,8 +133,9 @@ void send_packet(uint8_t* packet, uint32_t len)
             EXPECT_EQ(gTXPacket[1], 0xffffffff); // Source/Dest MAC
             EXPECT_EQ(gTXPacket[2], 0xffffffff); // Dest MAC
             EXPECT_EQ(gTXPacket[3], 0x88f80001); // NCSI Type, Revision 1.
-            EXPECT_EQ(gTXPacket[4], buffer[4] | 0x8000);   // IID, Channel, Package, Command | 0x80
-
+            EXPECT_EQ(gTXPacket[4],
+                      buffer[4] |
+                          0x8000); // IID, Channel, Package, Command | 0x80
         }
         else
         {
@@ -147,10 +144,11 @@ void send_packet(uint8_t* packet, uint32_t len)
     }
 }
 
+namespace
+{
 
-namespace {
-
-TEST(Packet, SelectPackage) {
+TEST(Packet, SelectPackage)
+{
     APE_PERI.BmcToNcRxStatus.r32.installReadCallback(read_rx_status, NULL);
     APE_PERI.BmcToNcReadBuffer.r32.installReadCallback(read_packet, NULL);
     APE_PERI.BmcToNcTxStatus.r32.installReadCallback(read_tx_status, NULL);
@@ -158,8 +156,7 @@ TEST(Packet, SelectPackage) {
     APE_PERI.BmcToNcTxBuffer.r32.installWriteCallback(write_packet, NULL);
     APE_PERI.BmcToNcTxBufferLast.r32.installWriteCallback(write_packet, NULL);
 
-
     send_packet(select_package1, select_package1_len);
 }
 
-}  // namespace
+} // namespace

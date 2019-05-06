@@ -47,5 +47,4 @@
 
 void initRMU(void);
 
-
 #endif /* APE_H */
