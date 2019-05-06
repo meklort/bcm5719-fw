@@ -42,13 +42,10 @@
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
 
-
-
-#include <bcm5719_eeprom.h>
-#include <NVRam.h>
 #include <Compress.h>
-
+#include <NVRam.h>
 #include <OptionParser.h>
+#include <bcm5719_eeprom.h>
 #include <elfio/elfio.hpp>
 
 using namespace ELFIO;
@@ -56,43 +53,43 @@ using namespace ELFIO;
 using namespace std;
 using optparse::OptionParser;
 
-
-
-uint64_t get_symbol_value(const char* search, elfio &reader)
+uint64_t get_symbol_value(const char *search, elfio &reader)
 {
-    const symbol_section_accessor* psyms = NULL;
+    const symbol_section_accessor *psyms = NULL;
     Elf_Half sec_num = reader.sections.size();
 
-    for ( int 
-        i = 0; i < sec_num; ++i ) {
-        section* psec = reader.sections[i];
+    for (int i = 0; i < sec_num; ++i)
+    {
+        section *psec = reader.sections[i];
         // Check section type
-        if ( psec->get_type() == SHT_SYMTAB ) {
-            psyms = new symbol_section_accessor( reader, psec );
+        if (psec->get_type() == SHT_SYMTAB)
+        {
+            psyms = new symbol_section_accessor(reader, psec);
             break;
         }
     }
 
-    if(psyms)
+    if (psyms)
     {
-        for ( unsigned int j = 0; j < psyms->get_symbols_num(); ++j ) {
-            std::string   name;
-            Elf64_Addr    value;
-            Elf_Xword     size;
+        for (unsigned int j = 0; j < psyms->get_symbols_num(); ++j)
+        {
+            std::string name;
+            Elf64_Addr value;
+            Elf_Xword size;
             unsigned char bind;
             unsigned char type;
-            Elf_Half      section_index;
+            Elf_Half section_index;
             unsigned char other;
-            
+
             // Read symbol properties
-            psyms->get_symbol( j, name, value, size, bind,
-                                   type, section_index, other );
+            psyms->get_symbol(j, name, value, size, bind, type, section_index,
+                              other);
             // std::cout << j << " " << name << " " << value << std::endl;
 
-            if(name == search)
+            if (name == search)
             {
                 return value;
-            }        
+            }
         }
 
         delete psyms;
@@ -101,11 +98,11 @@ uint64_t get_symbol_value(const char* search, elfio &reader)
     return 0;
 }
 
-bool save_to_file(const char* filename, void* buffer, size_t size)
+bool save_to_file(const char *filename, void *buffer, size_t size)
 {
     cout << "Writing to " << filename << "." << endl;
-    FILE* out = fopen(filename, "w+");
-    if(out)
+    FILE *out = fopen(filename, "w+");
+    if (out)
     {
         fwrite(buffer, size, 1, out);
         fclose(out);
@@ -118,144 +115,132 @@ bool save_to_file(const char* filename, void* buffer, size_t size)
     }
 }
 
-#define MAX_SIZE      (1024u * 256u) /* 256KB - max NVRAM */
+#define MAX_SIZE (1024u * 256u) /* 256KB - max NVRAM */
 int main(int argc, char const *argv[])
 {
     uint32_t byteOffset = 0;
     int numSections = 0;
     union {
-        uint8_t     bytes[MAX_SIZE];
-        uint32_t    words[MAX_SIZE/4];
+        uint8_t bytes[MAX_SIZE];
+        uint32_t words[MAX_SIZE / 4];
         APEHeader_t header;
     } ape;
 
     OptionParser parser = OptionParser().description("BCM elf 2 APE Utility");
 
     parser.add_option("-i", "--input")
-            .dest("input")
-            .help("Input elf file to convert")
-            .metavar("FILE");
-
+        .dest("input")
+        .help("Input elf file to convert")
+        .metavar("FILE");
 
     parser.add_option("-o", "--output")
-            .dest("output")
-            .help("Output ape binary")
-            .metavar("FILE");
+        .dest("output")
+        .help("Output ape binary")
+        .metavar("FILE");
 
     optparse::Values options = parser.parse_args(argc, argv);
     vector<string> args = parser.args();
 
-    if(!options.is_set("input"))
+    if (!options.is_set("input"))
     {
         cerr << "Please specify an input elf file to use." << endl;
         parser.print_help();
         exit(-1);
     }
 
-    if(!options.is_set("output"))
+    if (!options.is_set("output"))
     {
         cerr << "Please specify an output binary to write." << endl;
         parser.print_help();
         exit(-1);
     }
 
-
     elfio reader;
-    
-    if(!reader.load(options["input"]))
+
+    if (!reader.load(options["input"]))
     {
-        printf( "File %s is not found or it is not a valid ELF file\n", argv[1] );
+        printf("File %s is not found or it is not a valid ELF file\n", argv[1]);
         return 1;
     }
 
-        // writer.set_os_abi( ELFOSABI_LINUX );
+    // writer.set_os_abi( ELFOSABI_LINUX );
     // writer.set_type( ET_EXEC );
     // writer.set_machine( EM_ARM );
 
-
     // Ensure that this is the correct elf type.
-    if( reader.get_class() != ELFCLASS32 ||
+    if (reader.get_class() != ELFCLASS32 ||
         reader.get_encoding() != ELFDATA2LSB ||
-        reader.get_machine() != EM_ARM ||
-        reader.get_type() != ET_EXEC
-        )
+        reader.get_machine() != EM_ARM || reader.get_type() != ET_EXEC)
     {
-        printf( "Only 32-bit little-endian arm binaries are supported\n");
+        printf("Only 32-bit little-endian arm binaries are supported\n");
         return 1;
     }
 
     // Determine number of output sections.
     Elf_Half seg_num = reader.segments.size();
-    for ( int i = 0; i < seg_num; ++i )
+    for (int i = 0; i < seg_num; ++i)
     {
-        const segment* pseg = reader.segments[i];
-        for(int j = 0; j < pseg->get_sections_num(); j++)
+        const segment *pseg = reader.segments[i];
+        for (int j = 0; j < pseg->get_sections_num(); j++)
         {
             Elf_Half idx = pseg->get_section_index_at(j);
-            section* psec = reader.sections[idx];
-            if(psec->get_flags() & SHF_ALLOC)
+            section *psec = reader.sections[idx];
+            if (psec->get_flags() & SHF_ALLOC)
             {
                 numSections++;
             }
         }
     }
 
-
     byteOffset = (sizeof(ape.header) + sizeof(APESection_t) * numSections);
     // Print ELF file segments info
     std::cout << "Number of segments: " << seg_num << std::endl;
     numSections = 0;
-    for ( int i = 0; i < seg_num; ++i )
+    for (int i = 0; i < seg_num; ++i)
     {
-        const segment* pseg = reader.segments[i];
-        std::cout << "  [" << i << "] 0x" << std::hex
-                  << pseg->get_flags()
-                  << "\tVirt: 0x"
-                  << pseg->get_virtual_address()
-                  << "\tFileSize: 0x"
-                  << pseg->get_file_size()
-                  << "\tSize: 0x"
-                  << pseg->get_memory_size()
-                  << "\tFlags: 0x"
-                  << pseg->get_flags()
-                  << std::endl;
+        const segment *pseg = reader.segments[i];
+        std::cout << "  [" << i << "] 0x" << std::hex << pseg->get_flags()
+                  << "\tVirt: 0x" << pseg->get_virtual_address()
+                  << "\tFileSize: 0x" << pseg->get_file_size() << "\tSize: 0x"
+                  << pseg->get_memory_size() << "\tFlags: 0x"
+                  << pseg->get_flags() << std::endl;
 
-        for(int j = 0; j < pseg->get_sections_num(); j++)
+        for (int j = 0; j < pseg->get_sections_num(); j++)
         {
             Elf_Half idx = pseg->get_section_index_at(j);
-            section* psec = reader.sections[idx];
-            if(psec->get_flags() & SHF_ALLOC)
+            section *psec = reader.sections[idx];
+            if (psec->get_flags() & SHF_ALLOC)
             {
-                std::cout << "    [" << j << "] "
-                          << psec->get_name()
-                          << "\t"
-                          << psec->get_size()
-                          << "\tType: 0x"
-                          << psec->get_type()
-                          << "\tFlags: 0x"
-                          << psec->get_flags()
-                          << "\tAddr: 0x"
-                          << psec->get_address()
-                          << std::endl;
+                std::cout << "    [" << j << "] " << psec->get_name() << "\t"
+                          << psec->get_size() << "\tType: 0x"
+                          << psec->get_type() << "\tFlags: 0x"
+                          << psec->get_flags() << "\tAddr: 0x"
+                          << psec->get_address() << std::endl;
 
                 APESection_t *section = &ape.header.section[numSections++];
                 section->flags = 0;
                 section->offset = byteOffset;
 
-                const char* data = psec->get_data();
-                if(data)
+                const char *data = psec->get_data();
+                if (data)
                 {
-                    uint32_t compressedSize = compress((uint8_t*)&ape.bytes[byteOffset], psec->get_size() * 2, // Output, compressed
-                                                                              (const uint8_t*)data, psec->get_size());    // input, uncompressed
+                    uint32_t compressedSize =
+                        compress((uint8_t *)&ape.bytes[byteOffset],
+                                 psec->get_size() * 2, // Output, compressed
+                                 (const uint8_t *)data,
+                                 psec->get_size()); // input, uncompressed
                     // ROund up to nearest word.
                     compressedSize = ((compressedSize + 3) / 4) * 4;
 
                     section->compressedSize = compressedSize;
                     byteOffset += section->compressedSize;
-                    // memcpy(&ape.bytes[byteOffset], compressed, section->compressedSize);
-                    // byteOffset += section->compressedSize;
-                    section->crc = NVRam_crc((const uint8_t*)data, psec->get_size(), 0);
-                    section->flags |= APE_SECTION_FLAG_CHECKSUM_IS_CRC32 | APE_SECTION_FLAG_COMPRESSED;
+                    // memcpy(&ape.bytes[byteOffset], compressed,
+                    // section->compressedSize); byteOffset +=
+                    // section->compressedSize;
+                    section->crc =
+                        NVRam_crc((const uint8_t *)data, psec->get_size(), 0);
+                    section->flags |= APE_SECTION_FLAG_CHECKSUM_IS_CRC32 |
+                                      APE_SECTION_FLAG_COMPRESSED;
                 }
                 else
                 {
@@ -266,12 +251,11 @@ int main(int argc, char const *argv[])
                 section->decompressedSize = psec->get_size();
                 section->loadAddr = psec->get_address();
 
-                if(psec->get_flags() & SHF_EXECINSTR)
+                if (psec->get_flags() & SHF_EXECINSTR)
                 {
                     section->flags |= APE_SECTION_FLAG_CODE;
                 }
             }
-
         }
     }
 
@@ -281,17 +265,18 @@ int main(int argc, char const *argv[])
     ape.header.version = get_symbol_value("VERSION", reader);
     ape.header.entrypoint = get_symbol_value("__start", reader);
     ape.header.unk1 = APE_HEADER_UNK1;
-    ape.header.words = (sizeof(ape.header) + sizeof(APESection_t) * numSections) / 4;
+    ape.header.words =
+        (sizeof(ape.header) + sizeof(APESection_t) * numSections) / 4;
     ape.header.unk2 = APE_HEADER_UNK2;
     ape.header.sections = numSections;
     ape.header.crc = 0;
     ///
 
-        printf("Magic:              0x%08X\n", ape.header.magic);
+    printf("Magic:              0x%08X\n", ape.header.magic);
     printf("UNK0:               0x%08X\n", ape.header.unk0);
 
     char name[sizeof(ape.header.name) + 1] = {0};
-    strncpy(name, (char*)ape.header.name, sizeof(ape.header.name));
+    strncpy(name, (char *)ape.header.name, sizeof(ape.header.name));
     printf("Name:               %s\n", name);
     printf("Version:            0x%08X\n", ape.header.version);
     printf("Start:              0x%08X\n", ape.header.entrypoint);
@@ -305,12 +290,9 @@ int main(int argc, char const *argv[])
 
     // ...
 
-
-
     calculated_crc = NVRam_crc(ape.bytes, (4 * ape.header.words), 0);
     ape.header.crc = calculated_crc;
     printf("Calculated CRC:     0x%08X\n", calculated_crc);
-
 
     save_to_file(options["output"].c_str(), ape.bytes, byteOffset);
 
@@ -330,13 +312,12 @@ int main(int argc, char const *argv[])
     // }
     // else
     // {
-    //     cerr << " Unable to open file '" << options["filename"] << "'" << endl;
-    //     exit(-1);
+    //     cerr << " Unable to open file '" << options["filename"] << "'" <<
+    //     endl; exit(-1);
     // }
 
-
     // elfio writer;
-    
+
     // // You can't proceed without this function call!
     // writer.create( ELFCLASS32, ELFDATA2LSB );
     // writer.set_os_abi( ELFOSABI_LINUX );
@@ -380,8 +361,8 @@ int main(int argc, char const *argv[])
     // printf("CRC:                0x%08X\n", ape.header.crc);
 
     // ape.header.crc = 0;
-    // uint32_t calculated_crc = NVRam_crc(ape.bytes, (4 * ape.header.words), 0);
-    // printf("Calculated CRC:     0x%08X\n", calculated_crc);
+    // uint32_t calculated_crc = NVRam_crc(ape.bytes, (4 * ape.header.words),
+    // 0); printf("Calculated CRC:     0x%08X\n", calculated_crc);
 
     // for(int i = 0; i < ape.header.sections; i++)
     // {
@@ -406,8 +387,8 @@ int main(int argc, char const *argv[])
     //     {
     //         printf("    crc32\n");
     //     }
-    //     printf("    %s\n", section->flags & APE_SECTION_FLAG_CODE ? "code" : "data");
-    //     if(section->flags & APE_SECTION_FLAG_UNK0)
+    //     printf("    %s\n", section->flags & APE_SECTION_FLAG_CODE ? "code" :
+    //     "data"); if(section->flags & APE_SECTION_FLAG_UNK0)
     //     {
     //         printf("    unknown\n");
     //     }
@@ -423,18 +404,20 @@ int main(int argc, char const *argv[])
     //     inBufferSize = section->compressedSize;
     //     outBufferPtr = (uint8_t *)malloc(section->decompressedSize);
     //     outBufferSize = section->decompressedSize;
-    //     out_length = decompress(outBufferPtr, outBufferSize, inBufferPtr, inBufferSize);
-    //     calculated_crc = NVRam_crc(outBufferPtr, outBufferSize, 0);
-    //     printf("out_length:                0x%08zX\n", out_length);
-    //     printf("out CRC:                 0x%08X\n", calculated_crc);
+    //     out_length = decompress(outBufferPtr, outBufferSize, inBufferPtr,
+    //     inBufferSize); calculated_crc = NVRam_crc(outBufferPtr,
+    //     outBufferSize, 0); printf("out_length:                0x%08zX\n",
+    //     out_length); printf("out CRC:                 0x%08X\n",
+    //     calculated_crc);
 
     //     uint8_t* compOut = (uint8_t*)malloc(out_length * 2);
     //     int32_t compOutSize = out_length*2;
-    //     int32_t recomp = compress(compOut, compOutSize, outBufferPtr, out_length);
-    //     printf("recompressed length:                0x%08X\n", recomp);
+    //     int32_t recomp = compress(compOut, compOutSize, outBufferPtr,
+    //     out_length); printf("recompressed length:                0x%08X\n",
+    //     recomp);
 
-    //     out_length = decompress(outBufferPtr, outBufferSize, compOut, recomp);
-    //     calculated_crc = NVRam_crc(outBufferPtr, outBufferSize, 0);
+    //     out_length = decompress(outBufferPtr, outBufferSize, compOut,
+    //     recomp); calculated_crc = NVRam_crc(outBufferPtr, outBufferSize, 0);
 
     //     printf("out_length:                0x%08zX\n", out_length);
     //     printf("try CRC:                 0x%08X\n", calculated_crc);
@@ -454,7 +437,8 @@ int main(int argc, char const *argv[])
     //         bss_seg->set_align( 0x4 );
 
     //         // Add data section into data segment
-    //         bss_seg->add_section_index( bss_sec->get_index(), bss_sec->get_addr_align() );
+    //         bss_seg->add_section_index( bss_sec->get_index(),
+    //         bss_sec->get_addr_align() );
     //     }
     //     else if(!(section->flags & APE_SECTION_FLAG_CODE))
     //     {
@@ -466,7 +450,8 @@ int main(int argc, char const *argv[])
     //         data_seg->set_align( 0x4 );
 
     //         // Add data section into data segment
-    //         data_seg->add_section_index( data_sec->get_index(), data_sec->get_addr_align() );
+    //         data_seg->add_section_index( data_sec->get_index(),
+    //         data_sec->get_addr_align() );
     //     }
     //     else
     //     {
@@ -478,7 +463,8 @@ int main(int argc, char const *argv[])
     //         text_seg->set_align( 0x4 );
 
     //         // Add code section into program segment
-    //         text_seg->add_section_index( text_sec->get_index(), text_sec->get_addr_align() );
+    //         text_seg->add_section_index( text_sec->get_index(),
+    //         text_sec->get_addr_align() );
 
     //     }
     // }
