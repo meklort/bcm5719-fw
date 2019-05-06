@@ -56,3 +56,24 @@ cmake .. -G Ninja
 cmake --build .
 ```
 
+## Usage
+Before proceeding, the linux driver must be unloaded. On the Talos II, this can be done as root with the following:
+```bash
+echo 0004:01:00.0 > /sys/bus/pci/devices/0004:01:00.0/driver/unbind
+echo 0004:01:00.1 > /sys/bus/pci/devices/0004:01:00.1/driver/unbind
+```
+
+### Backup Firmware
+Before proceeding, the original firmware should be backed up.
+```bash
+cd build
+sudo ./utils/bcmflash/bcmflash -t hardware -b binary
+```
+This will result in a firmware image, firmware.fw, bing stored in the current directory.
+
+### Stage 1 - MIPS Firmware
+After compilation, the MIPS firmware is ready to be uploaded to the NIC.
+```bash
+cd build
+sudo ./utils/bcmflash/bcmflash -t hardware -1 stage1/stage1.bin
+```
