@@ -105,3 +105,10 @@ After compilation, the MIPS firmware is ready to be uploaded to the NIC.
 cd build
 sudo ./utils/bcmflash/bcmflash -t hardware -1 stage1/stage1.bin
 ```
+
+### APE Firmware (BMC/NCSI communication)
+The APE firmware can be tested by loading it into ram using the following sequence:
+```base
+cd build
+sudo ./utils/bcmregtool/bcmregtool --apeboot=ape/ape.bin
+```
