@@ -2,7 +2,7 @@
 ///
 /// @file       CXXRegister.h
 ///
-/// @project    
+/// @project
 ///
 /// @brief      C++ REgister wrapper code
 ///
@@ -44,11 +44,11 @@
 #ifndef CXX_REGISTER_H
 #define CXX_REGISTER_H
 
-#include <vector>
-#include <utility>
-#include <stdio.h>
+#include <iomanip> // std::setw
 #include <iostream>
-#include <iomanip>      // std::setw
+#include <stdio.h>
+#include <utility>
+#include <vector>
 
 class CXXRegisterBase
 {
@@ -60,27 +60,26 @@ public:
         mBaseRegister = NULL;
         mBitWidth = width;
         mBitPosition = offset;
-        for(unsigned int i = offset; i < offset + width; i++)
+        for (unsigned int i = offset; i < offset + width; i++)
         {
             mMask |= 1u << i;
         }
     }
 
-    virtual void setBaseRegister(CXXRegisterBase* base)
+    virtual void setBaseRegister(CXXRegisterBase *base)
     {
         // assert(base != NULL, "Base must not be null");
 
         mBaseRegister = base;
         base->addRelatedRegister(this);
-
     }
 
-    void setName(const char* name)
+    void setName(const char *name)
     {
         mName = name;
     }
 
-    const char* getName(void)
+    const char *getName(void)
     {
         return mName;
     }
@@ -98,40 +97,42 @@ public:
     void print(unsigned int value, int indent = false)
     {
         unsigned int masked = value & mMask;
-        if(indent)
+        if (indent)
         {
-            std::cout << std::right << std::setw(35) << mName << ": 0x" << std::hex << (masked >> mBitPosition) << std::endl;
+            std::cout << std::right << std::setw(35) << mName << ": 0x"
+                      << std::hex << (masked >> mBitPosition) << std::endl;
         }
         else
         {
-            std::cout << std::endl << std::left << std::setw(36) << mName <<  " 0x" << std::hex << (masked >> mBitPosition) << std::endl;
+            std::cout << std::endl
+                      << std::left << std::setw(36) << mName << " 0x"
+                      << std::hex << (masked >> mBitPosition) << std::endl;
         }
     }
 
     void printAll(unsigned int value)
     {
-        std::vector<CXXRegisterBase*>::iterator it;
-        for(it = mRelatedRegisters.begin(); it != mRelatedRegisters.end(); it++)
+        std::vector<CXXRegisterBase *>::iterator it;
+        for (it = mRelatedRegisters.begin(); it != mRelatedRegisters.end();
+             it++)
         {
             (*it)->print(value, true);
         }
     }
-
 
 protected:
     unsigned int mComponentOffset;
     unsigned int mBitPosition;
     unsigned int mBitWidth;
     unsigned int mMask;
-    const char*  mName;
+    const char *mName;
 
-    std::vector<CXXRegisterBase*> mRelatedRegisters;
+    std::vector<CXXRegisterBase *> mRelatedRegisters;
 
     // This is the main controller register
-    CXXRegisterBase* mBaseRegister;
+    CXXRegisterBase *mBaseRegister;
 
-
-    virtual void addRelatedRegister(CXXRegisterBase* related)
+    virtual void addRelatedRegister(CXXRegisterBase *related)
     {
         mRelatedRegisters.push_back(related);
     }
@@ -145,18 +146,25 @@ protected:
     virtual void setRawValue(unsigned int) = 0;
     virtual void setTempValue(unsigned int) = 0;
 
-
-    void doRelatedWritesBase(CXXRegisterBase* source)
+    void doRelatedWritesBase(CXXRegisterBase *source)
     {
+        if (source->mMask != this->mMask)
+        {
+            // read latest value as we are only modifying some bits.
+            doReadCallbacks();
+            setRawValue(getTempValue());
+        }
+
         // Update base temp value with latest write.
         unsigned int base = getRawValue();
         base &= ~(source->mMask);
         unsigned int tempValue = base | source->getRawValue();
-        // printf("Updating base from %x & %x to %x (new write: %x)\n", getRawValue(), ~source->mMask, tempValue, source->getRawValue());
+        // printf("Updating base from %x & %x to %x (new write: %x)\n",
+        // getRawValue(), ~source->mMask, tempValue, source->getRawValue());
         setTempValue(tempValue);
 
         // Call the write callbacks. This may update the raw value as needed.
-        if(this != source)
+        if (this != source)
         {
             doWriteCallbacks();
         }
@@ -166,9 +174,9 @@ protected:
     {
         // printf("doRelatedWrites on %p\n", this);
         // Call doRelatedWrites on the base register.
-        if(mBaseRegister)
+        if (mBaseRegister)
         {
-            mBaseRegister->doRelatedWritesBase(this);            
+            mBaseRegister->doRelatedWritesBase(this);
         }
         else
         {
@@ -177,15 +185,16 @@ protected:
         }
     }
 
-    void doRelatedReadsBase(CXXRegisterBase* source)
+    void doRelatedReadsBase(CXXRegisterBase *source)
     {
         // Read the latest from the base register.
         doReadCallbacks();
         unsigned int readValue = getTempValue();
 
         // Update chained registers.
-        std::vector<CXXRegisterBase*>::iterator it;
-        for(it = mRelatedRegisters.begin(); it != mRelatedRegisters.end(); it++)
+        std::vector<CXXRegisterBase *>::iterator it;
+        for (it = mRelatedRegisters.begin(); it != mRelatedRegisters.end();
+             it++)
         {
             // Update chained registers with latest data from base register.
             (*it)->setRawValue(readValue);
@@ -201,7 +210,7 @@ protected:
     void doRelatedReads()
     {
         // Call doRelatedReads on the base register.
-        if(mBaseRegister)
+        if (mBaseRegister)
         {
             mBaseRegister->doRelatedReadsBase(this);
         }
@@ -213,12 +222,13 @@ protected:
     }
 };
 
-template<typename T, unsigned int OFFSET, unsigned int WIDTH> class CXXRegister : public CXXRegisterBase
+template<typename T, unsigned int OFFSET, unsigned int WIDTH>
+class CXXRegister : public CXXRegisterBase
 {
 private:
-    typedef T (*callback_t)(T val, unsigned int, void*);
-    std::vector< std::pair<callback_t, void*> > mReadCallback;
-    std::vector< std::pair<callback_t, void*> > mWriteCallback;
+    typedef T (*callback_t)(T val, unsigned int, void *);
+    std::vector<std::pair<callback_t, void *>> mReadCallback;
+    std::vector<std::pair<callback_t, void *>> mWriteCallback;
 
     T mValue;
     T mTempValue;
@@ -227,29 +237,29 @@ private:
     {
         T val = mTempValue;
         // call callbacks
-        typename std::vector<std::pair<callback_t, void*>>::iterator it;
-        for(it = mWriteCallback.begin(); it != mWriteCallback.end(); it++)
+        typename std::vector<std::pair<callback_t, void *>>::iterator it;
+        for (it = mWriteCallback.begin(); it != mWriteCallback.end(); it++)
         {
             callback_t callback;
             callback = (*it).first;
-            if(callback)
+            if (callback)
             {
                 val = callback(val, mComponentOffset, (*it).second);
             }
         }
-        mValue = val; 
+        mValue = val;
     }
 
     virtual void doReadCallbacks(void)
     {
         // call callbacks
         T val = mValue;
-        typename std::vector<std::pair<callback_t, void*>>::iterator it;
-        for(it = mReadCallback.begin(); it != mReadCallback.end(); it++)
+        typename std::vector<std::pair<callback_t, void *>>::iterator it;
+        for (it = mReadCallback.begin(); it != mReadCallback.end(); it++)
         {
             callback_t callback;
             callback = (*it).first;
-            if(callback)
+            if (callback)
             {
                 val = callback(val, mComponentOffset, (*it).second);
             }
@@ -294,7 +304,8 @@ private:
 
     virtual void setTempValue(unsigned int newVal)
     {
-        // printf("Setting temp: 0x%x (%x)\n", (newVal & mMask) >> mBitPosition, newVal);
+        // printf("Setting temp: 0x%x (%x)\n", (newVal & mMask) >> mBitPosition,
+        // newVal);
         mTempValue = (newVal & mMask) >> mBitPosition;
     }
 
@@ -310,19 +321,18 @@ public:
         mValue = val;
     }
 
-    void installReadCallback(callback_t callback, void* args)
+    void installReadCallback(callback_t callback, void *args)
     {
-        mReadCallback.push_back( std::make_pair(callback, args) );
+        mReadCallback.push_back(std::make_pair(callback, args));
     }
 
-    void installWriteCallback(callback_t callback, void* args)
+    void installWriteCallback(callback_t callback, void *args)
     {
-        mWriteCallback.push_back( std::make_pair(callback, args) );
+        mWriteCallback.push_back(std::make_pair(callback, args));
     }
 
     virtual ~CXXRegister()
     {
-
     }
 
     void print(void)
@@ -349,7 +359,7 @@ public:
         return mValue;
     }
 
-    T operator=(CXXRegister<T,OFFSET,WIDTH> val)
+    T operator=(CXXRegister<T, OFFSET, WIDTH> val)
     {
         //  Write
         doWrite((T)val);
@@ -427,8 +437,8 @@ public:
         // Read - xor - Write
         return this->operator=(operator T() ^ val);
     }
+
 protected:
 };
-
 
 #endif /* CXX_REGISTER_H */

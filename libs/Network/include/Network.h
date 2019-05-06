@@ -1,16 +1,16 @@
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @file       stage1.h
+/// @file       Network.h
 ///
 /// @project
 ///
-/// @brief      Functions provided by stage1.
+/// @brief      Network TX/RX Support Routines
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2018, Evan Lojewski
+/// @copyright Copyright (c) 2019, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -42,25 +42,30 @@
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef APE_H
-#define APE_H
+#ifndef NETWORK_H
+#define NETWORK_H
 
-// #include <bcm5719_eeprom.h>
-// #include <bcm5719_GEN.h>
+#include <APE_APE_PERI.h>
+#include <stdbool.h>
+#include <stdint.h>
 
-// void early_init_hw(void);
-// void load_nvm_config(NVRAMContents_t *nvram);
-// void init_hw(NVRAMContents_t *nvram);
+void Network_InitTxRx(void);
 
-#define STATUS_MAIN         (0x8234700u)
-#define STATUS_EARLY_INIT   (0x8234800u)
-#define STATUS_NVM_CONFIG   (0x8234900u)
-#define STATUS_INIT_HW      (0x8234A00u)
+uint32_t Network_TX_numBlocksNeeded(uint32_t frame_size);
+int32_t Network_TX_allocateBlock(void);
 
-// static inline void reportStatus(uint32_t code, uint8_t step)
-// {
-//     GEN.GenDataSig.r32 = (code | step);
-// }
+void Network_TX_transmitBePacket(uint8_t *packet, uint32_t length);
+void Network_TX_transmitLePacket(uint8_t *packet, uint32_t length);
 
+void Network_TX_transmitPassthroughPacket(uint32_t length);
 
-#endif /* APE_H */
+// void Network_TX_transmitPassthroughPacket(RegAPE_PERIBmcToNcRxStatus_t
+// rx_status);
+
+bool Network_RxLePatcket(uint32_t *buffer, uint32_t *length);
+bool Network_PassthroughRxPatcket(void);
+
+void Network_SetMACAddr(uint16_t high, uint32_t low, uint32_t index,
+                        bool enabled);
+
+#endif /* NETWORK_H */

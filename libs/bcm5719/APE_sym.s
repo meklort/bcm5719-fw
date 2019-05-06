@@ -90,7 +90,7 @@
 
 .global RX_PORT
 .equ    RX_PORT, 0xa0000000
-.size   RX_PORT, 0x0
+.size   RX_PORT, 0x4000
 
 .global RX_PORT1
 .equ    RX_PORT1, 0xa0004000

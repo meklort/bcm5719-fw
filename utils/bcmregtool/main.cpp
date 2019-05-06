@@ -69,12 +69,8 @@
 #include <bcm5719_SHM_CHANNEL0.h>
 #include <elfio/elfio.hpp>
 
-#include <APE_FILTERS.h>
-#include <APE_NVIC.h>
+#include <types.h>
 #include <APE_APE_PERI.h>
-
-#include <Ethernet.h>
-#include <NCSI.h>
 
 #include "../NVRam/bcm5719_NVM.h"
 
@@ -315,7 +311,7 @@ void step(void)
     // Force a re-load of the next word.
     uint32_t newPC = DEVICE.RxRiscProgramCounter.r32;
 
-    if(oldPC +4 != newPC)
+    if(oldPC + 4 != newPC)
     {
         // branched. Re-read PC to re-read opcode
         DEVICE.RxRiscProgramCounter.r32 = DEVICE.RxRiscProgramCounter.r32;
@@ -383,9 +379,34 @@ int main(int argc, char const *argv[])
             .action("store_true")
             .help("Print ape information registers.");
 
+    parser.add_option("-rx", "--rx")
+            .dest("rx")
+            .set_default("0")
+            .action("store_true")
+            .help("Print rx information registers.");
+
+    parser.add_option("-tx", "--tx")
+            .dest("tx")
+            .set_default("0")
+            .action("store_true")
+            .help("Print tx information registers.");
+
     parser.add_option("-p", "--apeboot")
             .dest("apeboot")
             .metavar("APE_FILE")
+            .help("File to boot on the APE.");
+
+
+    parser.add_option("-apereset", "--apereset")
+            .dest("apereset")
+            .set_default("0")
+            .action("store_true")
+            .help("File to boot on the APE.");
+
+    parser.add_option("-reset", "--reset")
+            .dest("reset")
+            .set_default("0")
+            .action("store_true")
             .help("File to boot on the APE.");
 
     parser.add_option("-m", "--mii")
@@ -574,11 +595,72 @@ int main(int argc, char const *argv[])
         // Set the payload address
         APE.GpioMessage.r32 = 0x10D800|2;
 
+        // Clear the signature.
+        SHM.SegSig.r32 = 0xBAD0C0DE;
+
         // Boot
         mode.bits.Halt = 0;
         mode.bits.FastBoot = 1;
         mode.bits.Reset = 1;
         APE.Mode = mode;
+
+        exit(0);
+    }
+
+    if(options.get("apereset"))
+    {
+
+        // Halt
+        RegAPEMode_t mode;
+        mode.r32 = 0;
+        mode.bits.Halt = 1;
+        mode.bits.FastBoot = 0;
+        APE.Mode = mode;
+
+        // Boot
+        mode.bits.Halt = 0;
+        mode.bits.FastBoot = 0;
+        mode.bits.Reset = 1;
+        APE.Mode = mode;
+
+        exit(0);
+    }
+
+    if(options.get("reset"))
+    {
+
+        DEVICE.MiscellaneousConfig.bits.GRCReset = 1;
+        exit(0);
+    }
+
+
+
+    if(options.get("rx"))
+    {
+        DEVICE.ReceiveMacMode.print();
+        DEVICE.EmacMode.print();
+        APE.RxbufoffsetFunc0.print();
+        APE.RxPoolModeStatus0.print();
+
+        exit(0);
+    }
+
+    if(options.get("tx"))
+    {
+        DEVICE.GrcModeControl.print();
+        DEVICE.EmacMode.print();
+        APE.Mode.print();
+        APE.Status.print();
+        APE.TxState0.print();
+        APE.TxToNetPoolModeStatus0.print();
+        APE.TxToNetBufferAllocator0.print();
+        APE.TxToNetBufferRing0.print();
+        APE.TxToNetBufferReturn0.print();
+        APE.TxToNetDoorbellFunc0.print();
+        if(APE.TxToNetDoorbellFunc0.bits.TXQueueFull)
+        {
+            fprintf(stderr, "TX Queue Full\n");
+        }
 
         exit(0);
     }
@@ -604,6 +686,15 @@ int main(int argc, char const *argv[])
         printf("APE RCPU CfgFeature: 0x%08X\n", (uint32_t)SHM.RcpuCfgFeature.r32);
         printf("APE RCPU PCI Vendor/Device ID: 0x%08X\n", (uint32_t)SHM.RcpuPciVendorDeviceId.r32);
         printf("APE RCPU PCI Subsystem ID: 0x%08X\n", (uint32_t)SHM.RcpuPciSubsystemId.r32);
+
+        APE_PERI.RmuControl.print();
+
+        DEVICE.PerfectMatch1High.print();
+        DEVICE.PerfectMatch1Low.print();
+
+
+        APE.TxToNetPoolModeStatus0.print();
+        APE.RxPoolModeStatus0.print();
 
         exit(0);
     }

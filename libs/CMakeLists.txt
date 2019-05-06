@@ -49,6 +49,7 @@ add_subdirectory(MII)
 add_subdirectory(VPD)
 
 add_subdirectory(NCSI)
+add_subdirectory(Network)
 
 add_subdirectory(OptParse)
 

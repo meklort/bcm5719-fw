@@ -45,8 +45,6 @@
 #ifndef APE_H
 #define APE_H
 
-void initRxFromNetwork(void);
 void initRMU(void);
-
 
 #endif /* APE_H */

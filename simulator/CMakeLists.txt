@@ -31,6 +31,13 @@ simulator_add_library(${PROJECT_NAME} STATIC
             APE_FILTERS_sim.cpp
             APE_NVIC.cpp
             APE_NVIC_sim.cpp
+
+            APE_TX_PORT.cpp
+            APE_TX_PORT_sim.cpp
+
+            APE_RX_PORT.cpp
+            APE_RX_PORT_sim.cpp
+
             )
 
 include_directories(../libs/NVRam)

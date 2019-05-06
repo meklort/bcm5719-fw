@@ -6636,10 +6636,14 @@ typedef register_container RegDEVICEGrcModeControl_t {
 } RegDEVICEGrcModeControl_t;
 
 #define REG_DEVICE_MISCELLANEOUS_CONFIG ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006804) /*  */
-#define     DEVICE_MISCELLANEOUS_CONFIG_ALL_SHIFT 0u
-#define     DEVICE_MISCELLANEOUS_CONFIG_ALL_MASK  0xffffffffu
-#define GET_DEVICE_MISCELLANEOUS_CONFIG_ALL(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
-#define SET_DEVICE_MISCELLANEOUS_CONFIG_ALL(__val__)  (((__val__) << 0u) & 0xffffffffu)
+#define     DEVICE_MISCELLANEOUS_CONFIG_GRC_RESET_SHIFT 1u
+#define     DEVICE_MISCELLANEOUS_CONFIG_GRC_RESET_MASK  0x2u
+#define GET_DEVICE_MISCELLANEOUS_CONFIG_GRC_RESET(__reg__)  (((__reg__) & 0x2) >> 1u)
+#define SET_DEVICE_MISCELLANEOUS_CONFIG_GRC_RESET(__val__)  (((__val__) << 1u) & 0x2u)
+#define     DEVICE_MISCELLANEOUS_CONFIG_ALL_SHIFT 1u
+#define     DEVICE_MISCELLANEOUS_CONFIG_ALL_MASK  0xfffffffeu
+#define GET_DEVICE_MISCELLANEOUS_CONFIG_ALL(__reg__)  (((__reg__) & 0xfffffffe) >> 1u)
+#define SET_DEVICE_MISCELLANEOUS_CONFIG_ALL(__val__)  (((__val__) << 1u) & 0xfffffffeu)
 
 /** @brief Register definition for @ref DEVICE_t.MiscellaneousConfig. */
 typedef register_container RegDEVICEMiscellaneousConfig_t {
@@ -6648,11 +6652,19 @@ typedef register_container RegDEVICEMiscellaneousConfig_t {
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_0_0, 0, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, all, 0, 32)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GRCReset, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, all, 1, 31)
 #elif defined(__BIG_ENDIAN__)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, all, 0, 32)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, all, 1, 31)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GRCReset, 1, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_0_0, 0, 1)
 #else
 #error Unknown Endian
 #endif
@@ -6668,6 +6680,8 @@ typedef register_container RegDEVICEMiscellaneousConfig_t {
     {
         /** @brief constructor for @ref DEVICE_t.MiscellaneousConfig. */
         r32.setName("MiscellaneousConfig");
+        bits.GRCReset.setBaseRegister(&r32);
+        bits.GRCReset.setName("GRCReset");
         bits.all.setBaseRegister(&r32);
         bits.all.setName("all");
     }

@@ -27,7 +27,7 @@ SECTIONS
     .stack . (NOLOAD) : ALIGN(4) SUBALIGN(4)
     {
         _fstack = .;
-        _estack = 00118000;
+        _estack = 0x00118000;
     }
 
 

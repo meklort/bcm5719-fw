@@ -118,6 +118,14 @@ typedef uint32_t BCM5719_APE_H_uint32_t;
 #define     APE_MODE_SWAP_ARB_DWORD_MASK  0x800u
 #define GET_APE_MODE_SWAP_ARB_DWORD(__reg__)  (((__reg__) & 0x800) >> 11u)
 #define SET_APE_MODE_SWAP_ARB_DWORD(__val__)  (((__val__) << 11u) & 0x800u)
+#define     APE_MODE_CHANNEL_0_ENABLE_SHIFT 14u
+#define     APE_MODE_CHANNEL_0_ENABLE_MASK  0x4000u
+#define GET_APE_MODE_CHANNEL_0_ENABLE(__reg__)  (((__reg__) & 0x4000) >> 14u)
+#define SET_APE_MODE_CHANNEL_0_ENABLE(__val__)  (((__val__) << 14u) & 0x4000u)
+#define     APE_MODE_CHANNEL_2_ENABLE_SHIFT 15u
+#define     APE_MODE_CHANNEL_2_ENABLE_MASK  0x8000u
+#define GET_APE_MODE_CHANNEL_2_ENABLE(__reg__)  (((__reg__) & 0x8000) >> 15u)
+#define SET_APE_MODE_CHANNEL_2_ENABLE(__val__)  (((__val__) << 15u) & 0x8000u)
 #define     APE_MODE_MEMORY_ECC_SHIFT 18u
 #define     APE_MODE_MEMORY_ECC_MASK  0x40000u
 #define GET_APE_MODE_MEMORY_ECC(__reg__)  (((__reg__) & 0x40000) >> 18u)
@@ -126,6 +134,14 @@ typedef uint32_t BCM5719_APE_H_uint32_t;
 #define     APE_MODE_ICODE_PIP_RD_DISABLE_MASK  0x80000u
 #define GET_APE_MODE_ICODE_PIP_RD_DISABLE(__reg__)  (((__reg__) & 0x80000) >> 19u)
 #define SET_APE_MODE_ICODE_PIP_RD_DISABLE(__val__)  (((__val__) << 19u) & 0x80000u)
+#define     APE_MODE_CHANNEL_1_ENABLE_SHIFT 30u
+#define     APE_MODE_CHANNEL_1_ENABLE_MASK  0x40000000u
+#define GET_APE_MODE_CHANNEL_1_ENABLE(__reg__)  (((__reg__) & 0x40000000) >> 30u)
+#define SET_APE_MODE_CHANNEL_1_ENABLE(__val__)  (((__val__) << 30u) & 0x40000000u)
+#define     APE_MODE_CHANNEL_3_ENABLE_SHIFT 31u
+#define     APE_MODE_CHANNEL_3_ENABLE_MASK  0x80000000u
+#define GET_APE_MODE_CHANNEL_3_ENABLE(__reg__)  (((__reg__) & 0x80000000) >> 31u)
+#define SET_APE_MODE_CHANNEL_3_ENABLE(__val__)  (((__val__) << 31u) & 0x80000000u)
 
 /** @brief Register definition for @ref APE_t.Mode. */
 typedef register_container RegAPEMode_t {
@@ -159,22 +175,42 @@ typedef register_container RegAPEMode_t {
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, SwapARBdword, 11, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_17_12, 12, 6)
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_13_12, 12, 2)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Channel0Enable, 14, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Channel2Enable, 15, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_17_16, 16, 2)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, MemoryECC, 18, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, ICodePIPRdDisable, 19, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_20, 20, 12)
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_29_20, 20, 10)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Channel1Enable, 30, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Channel3Enable, 31, 1)
 #elif defined(__BIG_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Channel3Enable, 31, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Channel1Enable, 30, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_20, 20, 12)
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_29_20, 20, 10)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, ICodePIPRdDisable, 19, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, MemoryECC, 18, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_17_12, 12, 6)
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_17_16, 16, 2)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Channel2Enable, 15, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Channel0Enable, 14, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_13_12, 12, 2)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, SwapARBdword, 11, 1)
         /** @brief Padding */
@@ -232,10 +268,18 @@ typedef register_container RegAPEMode_t {
         bits.SwapATBdword.setName("SwapATBdword");
         bits.SwapARBdword.setBaseRegister(&r32);
         bits.SwapARBdword.setName("SwapARBdword");
+        bits.Channel0Enable.setBaseRegister(&r32);
+        bits.Channel0Enable.setName("Channel0Enable");
+        bits.Channel2Enable.setBaseRegister(&r32);
+        bits.Channel2Enable.setName("Channel2Enable");
         bits.MemoryECC.setBaseRegister(&r32);
         bits.MemoryECC.setName("MemoryECC");
         bits.ICodePIPRdDisable.setBaseRegister(&r32);
         bits.ICodePIPRdDisable.setName("ICodePIPRdDisable");
+        bits.Channel1Enable.setBaseRegister(&r32);
+        bits.Channel1Enable.setName("Channel1Enable");
+        bits.Channel3Enable.setBaseRegister(&r32);
+        bits.Channel3Enable.setName("Channel3Enable");
     }
     RegAPEMode_t& operator=(const RegAPEMode_t& other)
     {
@@ -489,6 +533,10 @@ typedef register_container RegAPEEvent_t {
 #define     APE_RXBUFOFFSET_FUNC0_VALID_MASK  0x40000000u
 #define GET_APE_RXBUFOFFSET_FUNC0_VALID(__reg__)  (((__reg__) & 0x40000000) >> 30u)
 #define SET_APE_RXBUFOFFSET_FUNC0_VALID(__val__)  (((__val__) << 30u) & 0x40000000u)
+#define     APE_RXBUFOFFSET_FUNC0_FINISHED_SHIFT 31u
+#define     APE_RXBUFOFFSET_FUNC0_FINISHED_MASK  0x80000000u
+#define GET_APE_RXBUFOFFSET_FUNC0_FINISHED(__reg__)  (((__reg__) & 0x80000000) >> 31u)
+#define SET_APE_RXBUFOFFSET_FUNC0_FINISHED(__val__)  (((__val__) << 31u) & 0x80000000u)
 
 /** @brief Register definition for @ref APE_t.RxbufoffsetFunc0. */
 typedef register_container RegAPERxbufoffsetFunc0_t {
@@ -509,11 +557,11 @@ typedef register_container RegAPERxbufoffsetFunc0_t {
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Count, 26, 4)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Valid, 30, 1)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_31, 31, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Finished, 31, 1)
 #elif defined(__BIG_ENDIAN__)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_31, 31, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Finished, 31, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Valid, 30, 1)
         /** @brief  */
@@ -553,6 +601,8 @@ typedef register_container RegAPERxbufoffsetFunc0_t {
         bits.Count.setName("Count");
         bits.Valid.setBaseRegister(&r32);
         bits.Valid.setName("Valid");
+        bits.Finished.setBaseRegister(&r32);
+        bits.Finished.setName("Finished");
     }
     RegAPERxbufoffsetFunc0_t& operator=(const RegAPERxbufoffsetFunc0_t& other)
     {
@@ -670,9 +720,13 @@ typedef register_container RegAPERxbufoffsetFunc1_t {
 #define GET_APE_TX_TO_NET_DOORBELL_FUNC0_HEAD(__reg__)  (((__reg__) & 0xfff000) >> 12u)
 #define SET_APE_TX_TO_NET_DOORBELL_FUNC0_HEAD(__val__)  (((__val__) << 12u) & 0xfff000u)
 #define     APE_TX_TO_NET_DOORBELL_FUNC0_LENGTH_SHIFT 24u
-#define     APE_TX_TO_NET_DOORBELL_FUNC0_LENGTH_MASK  0xff000000u
-#define GET_APE_TX_TO_NET_DOORBELL_FUNC0_LENGTH(__reg__)  (((__reg__) & 0xff000000) >> 24u)
-#define SET_APE_TX_TO_NET_DOORBELL_FUNC0_LENGTH(__val__)  (((__val__) << 24u) & 0xff000000u)
+#define     APE_TX_TO_NET_DOORBELL_FUNC0_LENGTH_MASK  0xf000000u
+#define GET_APE_TX_TO_NET_DOORBELL_FUNC0_LENGTH(__reg__)  (((__reg__) & 0xf000000) >> 24u)
+#define SET_APE_TX_TO_NET_DOORBELL_FUNC0_LENGTH(__val__)  (((__val__) << 24u) & 0xf000000u)
+#define     APE_TX_TO_NET_DOORBELL_FUNC0_TX_QUEUE_FULL_SHIFT 28u
+#define     APE_TX_TO_NET_DOORBELL_FUNC0_TX_QUEUE_FULL_MASK  0x10000000u
+#define GET_APE_TX_TO_NET_DOORBELL_FUNC0_TX_QUEUE_FULL(__reg__)  (((__reg__) & 0x10000000) >> 28u)
+#define SET_APE_TX_TO_NET_DOORBELL_FUNC0_TX_QUEUE_FULL(__val__)  (((__val__) << 28u) & 0x10000000u)
 
 /** @brief Register definition for @ref APE_t.TxToNetDoorbellFunc0. */
 typedef register_container RegAPETxToNetDoorbellFunc0_t {
@@ -686,10 +740,18 @@ typedef register_container RegAPETxToNetDoorbellFunc0_t {
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Head, 12, 12)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Length, 24, 8)
-#elif defined(__BIG_ENDIAN__)
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Length, 24, 4)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Length, 24, 8)
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, TXQueueFull, 28, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_29, 29, 3)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_29, 29, 3)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, TXQueueFull, 28, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Length, 24, 4)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Head, 12, 12)
         /** @brief  */
@@ -715,6 +777,8 @@ typedef register_container RegAPETxToNetDoorbellFunc0_t {
         bits.Head.setName("Head");
         bits.Length.setBaseRegister(&r32);
         bits.Length.setName("Length");
+        bits.TXQueueFull.setBaseRegister(&r32);
+        bits.TXQueueFull.setName("TXQueueFull");
     }
     RegAPETxToNetDoorbellFunc0_t& operator=(const RegAPETxToNetDoorbellFunc0_t& other)
     {
@@ -723,6 +787,84 @@ typedef register_container RegAPETxToNetDoorbellFunc0_t {
     }
 #endif /* CXX_SIMULATOR */
 } RegAPETxToNetDoorbellFunc0_t;
+
+#define REG_APE_TX_STATE0 ((volatile BCM5719_APE_H_uint32_t*)0xc0010020) /* APE TX Status. */
+#define     APE_TX_STATE0_TAIL_SHIFT 0u
+#define     APE_TX_STATE0_TAIL_MASK  0xfffu
+#define GET_APE_TX_STATE0_TAIL(__reg__)  (((__reg__) & 0xfff) >> 0u)
+#define SET_APE_TX_STATE0_TAIL(__val__)  (((__val__) << 0u) & 0xfffu)
+#define     APE_TX_STATE0_HEAD_SHIFT 12u
+#define     APE_TX_STATE0_HEAD_MASK  0xfff000u
+#define GET_APE_TX_STATE0_HEAD(__reg__)  (((__reg__) & 0xfff000) >> 12u)
+#define SET_APE_TX_STATE0_HEAD(__val__)  (((__val__) << 12u) & 0xfff000u)
+#define     APE_TX_STATE0_TXERROR_SHIFT 24u
+#define     APE_TX_STATE0_TXERROR_MASK  0x1000000u
+#define GET_APE_TX_STATE0_TXERROR(__reg__)  (((__reg__) & 0x1000000) >> 24u)
+#define SET_APE_TX_STATE0_TXERROR(__val__)  (((__val__) << 24u) & 0x1000000u)
+#define     APE_TX_STATE0_ERROR_CODE_SHIFT 25u
+#define     APE_TX_STATE0_ERROR_CODE_MASK  0xe000000u
+#define GET_APE_TX_STATE0_ERROR_CODE(__reg__)  (((__reg__) & 0xe000000) >> 25u)
+#define SET_APE_TX_STATE0_ERROR_CODE(__val__)  (((__val__) << 25u) & 0xe000000u)
+
+/** @brief Register definition for @ref APE_t.TxState0. */
+typedef register_container RegAPETxState0_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_APE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_APE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Tail, 0, 12)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Head, 12, 12)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, TXError, 24, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, ErrorCode, 25, 3)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_28, 28, 4)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_28, 28, 4)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, ErrorCode, 25, 3)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, TXError, 24, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Head, 12, 12)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Tail, 0, 12)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "TxState0"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegAPETxState0_t()
+    {
+        /** @brief constructor for @ref APE_t.TxState0. */
+        r32.setName("TxState0");
+        bits.Tail.setBaseRegister(&r32);
+        bits.Tail.setName("Tail");
+        bits.Head.setBaseRegister(&r32);
+        bits.Head.setName("Head");
+        bits.TXError.setBaseRegister(&r32);
+        bits.TXError.setName("TXError");
+        bits.ErrorCode.setBaseRegister(&r32);
+        bits.ErrorCode.setName("ErrorCode");
+    }
+    RegAPETxState0_t& operator=(const RegAPETxState0_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegAPETxState0_t;
 
 #define REG_APE_MODE_2 ((volatile BCM5719_APE_H_uint32_t*)0xc001002c) /* Expansion for MODE */
 /** @brief Register definition for @ref APE_t.Mode2. */
@@ -1040,6 +1182,10 @@ typedef register_container RegAPERxPoolModeStatus1_t {
 #define     APE_RX_POOL_RETIRE_0_HEAD_MASK  0xfff000u
 #define GET_APE_RX_POOL_RETIRE_0_HEAD(__reg__)  (((__reg__) & 0xfff000) >> 12u)
 #define SET_APE_RX_POOL_RETIRE_0_HEAD(__val__)  (((__val__) << 12u) & 0xfff000u)
+#define     APE_RX_POOL_RETIRE_0_RETIRE_SHIFT 24u
+#define     APE_RX_POOL_RETIRE_0_RETIRE_MASK  0x1000000u
+#define GET_APE_RX_POOL_RETIRE_0_RETIRE(__reg__)  (((__reg__) & 0x1000000) >> 24u)
+#define SET_APE_RX_POOL_RETIRE_0_RETIRE(__val__)  (((__val__) << 24u) & 0x1000000u)
 #define     APE_RX_POOL_RETIRE_0_STATE_SHIFT 25u
 #define     APE_RX_POOL_RETIRE_0_STATE_MASK  0x6000000u
 #define GET_APE_RX_POOL_RETIRE_0_STATE(__reg__)  (((__reg__) & 0x6000000) >> 25u)
@@ -1065,8 +1211,8 @@ typedef register_container RegAPERxPoolRetire0_t {
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Tail, 0, 12)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Head, 12, 12)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_24_24, 24, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Retire, 24, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, State, 25, 2)
         /** @brief  */
@@ -1080,8 +1226,8 @@ typedef register_container RegAPERxPoolRetire0_t {
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Count, 27, 4)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, State, 25, 2)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_24_24, 24, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Retire, 24, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Head, 12, 12)
         /** @brief  */
@@ -1105,6 +1251,8 @@ typedef register_container RegAPERxPoolRetire0_t {
         bits.Tail.setName("Tail");
         bits.Head.setBaseRegister(&r32);
         bits.Head.setName("Head");
+        bits.Retire.setBaseRegister(&r32);
+        bits.Retire.setName("Retire");
         bits.State.setBaseRegister(&r32);
         bits.State.setName("State");
         bits.Count.setBaseRegister(&r32);
@@ -1127,6 +1275,10 @@ typedef register_container RegAPERxPoolRetire0_t {
 #define     APE_RX_POOL_RETIRE_1_HEAD_MASK  0xfff000u
 #define GET_APE_RX_POOL_RETIRE_1_HEAD(__reg__)  (((__reg__) & 0xfff000) >> 12u)
 #define SET_APE_RX_POOL_RETIRE_1_HEAD(__val__)  (((__val__) << 12u) & 0xfff000u)
+#define     APE_RX_POOL_RETIRE_1_RETIRE_SHIFT 24u
+#define     APE_RX_POOL_RETIRE_1_RETIRE_MASK  0x1000000u
+#define GET_APE_RX_POOL_RETIRE_1_RETIRE(__reg__)  (((__reg__) & 0x1000000) >> 24u)
+#define SET_APE_RX_POOL_RETIRE_1_RETIRE(__val__)  (((__val__) << 24u) & 0x1000000u)
 #define     APE_RX_POOL_RETIRE_1_STATE_SHIFT 25u
 #define     APE_RX_POOL_RETIRE_1_STATE_MASK  0x6000000u
 #define GET_APE_RX_POOL_RETIRE_1_STATE(__reg__)  (((__reg__) & 0x6000000) >> 25u)
@@ -1152,8 +1304,8 @@ typedef register_container RegAPERxPoolRetire1_t {
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Tail, 0, 12)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Head, 12, 12)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_24_24, 24, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Retire, 24, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, State, 25, 2)
         /** @brief  */
@@ -1167,8 +1319,8 @@ typedef register_container RegAPERxPoolRetire1_t {
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Count, 27, 4)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, State, 25, 2)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_24_24, 24, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Retire, 24, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Head, 12, 12)
         /** @brief  */
@@ -1192,6 +1344,8 @@ typedef register_container RegAPERxPoolRetire1_t {
         bits.Tail.setName("Tail");
         bits.Head.setBaseRegister(&r32);
         bits.Head.setName("Head");
+        bits.Retire.setBaseRegister(&r32);
+        bits.Retire.setName("Retire");
         bits.State.setBaseRegister(&r32);
         bits.State.setName("State");
         bits.Count.setBaseRegister(&r32);
@@ -1395,6 +1549,56 @@ typedef register_container RegAPETxToNetBufferAllocator0_t {
     }
 #endif /* CXX_SIMULATOR */
 } RegAPETxToNetBufferAllocator0_t;
+
+#define REG_APE_TX_TO_NET_BUFFER_RETURN_0 ((volatile BCM5719_APE_H_uint32_t*)0xc0010094) /*  */
+/** @brief Register definition for @ref APE_t.TxToNetBufferReturn0. */
+typedef register_container RegAPETxToNetBufferReturn0_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_APE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "TxToNetBufferReturn0"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegAPETxToNetBufferReturn0_t()
+    {
+        /** @brief constructor for @ref APE_t.TxToNetBufferReturn0. */
+        r32.setName("TxToNetBufferReturn0");
+    }
+    RegAPETxToNetBufferReturn0_t& operator=(const RegAPETxToNetBufferReturn0_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegAPETxToNetBufferReturn0_t;
+
+#define REG_APE_TX_TO_NET_BUFFER_RING_0 ((volatile BCM5719_APE_H_uint32_t*)0xc0010098) /*  */
+/** @brief Register definition for @ref APE_t.TxToNetBufferRing0. */
+typedef register_container RegAPETxToNetBufferRing0_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_APE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "TxToNetBufferRing0"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegAPETxToNetBufferRing0_t()
+    {
+        /** @brief constructor for @ref APE_t.TxToNetBufferRing0. */
+        r32.setName("TxToNetBufferRing0");
+    }
+    RegAPETxToNetBufferRing0_t& operator=(const RegAPETxToNetBufferRing0_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegAPETxToNetBufferRing0_t;
 
 #define REG_APE_TICK_1MHZ ((volatile BCM5719_APE_H_uint32_t*)0xc00100a8) /* Unknown, monotonically increasing value. Increases at a rate of 1MHz. */
 /** @brief Register definition for @ref APE_t.Tick1mhz. */
@@ -2120,9 +2324,13 @@ typedef register_container RegAPETxToNetBufferAllocator1_t {
 #define GET_APE_TX_TO_NET_DOORBELL_FUNC1_HEAD(__reg__)  (((__reg__) & 0xfff000) >> 12u)
 #define SET_APE_TX_TO_NET_DOORBELL_FUNC1_HEAD(__val__)  (((__val__) << 12u) & 0xfff000u)
 #define     APE_TX_TO_NET_DOORBELL_FUNC1_LENGTH_SHIFT 24u
-#define     APE_TX_TO_NET_DOORBELL_FUNC1_LENGTH_MASK  0xff000000u
-#define GET_APE_TX_TO_NET_DOORBELL_FUNC1_LENGTH(__reg__)  (((__reg__) & 0xff000000) >> 24u)
-#define SET_APE_TX_TO_NET_DOORBELL_FUNC1_LENGTH(__val__)  (((__val__) << 24u) & 0xff000000u)
+#define     APE_TX_TO_NET_DOORBELL_FUNC1_LENGTH_MASK  0xf000000u
+#define GET_APE_TX_TO_NET_DOORBELL_FUNC1_LENGTH(__reg__)  (((__reg__) & 0xf000000) >> 24u)
+#define SET_APE_TX_TO_NET_DOORBELL_FUNC1_LENGTH(__val__)  (((__val__) << 24u) & 0xf000000u)
+#define     APE_TX_TO_NET_DOORBELL_FUNC1_TX_QUEUE_FULL_SHIFT 28u
+#define     APE_TX_TO_NET_DOORBELL_FUNC1_TX_QUEUE_FULL_MASK  0x10000000u
+#define GET_APE_TX_TO_NET_DOORBELL_FUNC1_TX_QUEUE_FULL(__reg__)  (((__reg__) & 0x10000000) >> 28u)
+#define SET_APE_TX_TO_NET_DOORBELL_FUNC1_TX_QUEUE_FULL(__val__)  (((__val__) << 28u) & 0x10000000u)
 
 /** @brief Register definition for @ref APE_t.TxToNetDoorbellFunc1. */
 typedef register_container RegAPETxToNetDoorbellFunc1_t {
@@ -2136,10 +2344,18 @@ typedef register_container RegAPETxToNetDoorbellFunc1_t {
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Head, 12, 12)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Length, 24, 8)
-#elif defined(__BIG_ENDIAN__)
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Length, 24, 4)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Length, 24, 8)
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, TXQueueFull, 28, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_29, 29, 3)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_29, 29, 3)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, TXQueueFull, 28, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Length, 24, 4)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Head, 12, 12)
         /** @brief  */
@@ -2165,6 +2381,8 @@ typedef register_container RegAPETxToNetDoorbellFunc1_t {
         bits.Head.setName("Head");
         bits.Length.setBaseRegister(&r32);
         bits.Length.setName("Length");
+        bits.TXQueueFull.setBaseRegister(&r32);
+        bits.TXQueueFull.setName("TXQueueFull");
     }
     RegAPETxToNetDoorbellFunc1_t& operator=(const RegAPETxToNetDoorbellFunc1_t& other)
     {
@@ -2282,9 +2500,13 @@ typedef register_container RegAPERxbufoffsetFunc2_t {
 #define GET_APE_TX_TO_NET_DOORBELL_FUNC2_HEAD(__reg__)  (((__reg__) & 0xfff000) >> 12u)
 #define SET_APE_TX_TO_NET_DOORBELL_FUNC2_HEAD(__val__)  (((__val__) << 12u) & 0xfff000u)
 #define     APE_TX_TO_NET_DOORBELL_FUNC2_LENGTH_SHIFT 24u
-#define     APE_TX_TO_NET_DOORBELL_FUNC2_LENGTH_MASK  0xff000000u
-#define GET_APE_TX_TO_NET_DOORBELL_FUNC2_LENGTH(__reg__)  (((__reg__) & 0xff000000) >> 24u)
-#define SET_APE_TX_TO_NET_DOORBELL_FUNC2_LENGTH(__val__)  (((__val__) << 24u) & 0xff000000u)
+#define     APE_TX_TO_NET_DOORBELL_FUNC2_LENGTH_MASK  0xf000000u
+#define GET_APE_TX_TO_NET_DOORBELL_FUNC2_LENGTH(__reg__)  (((__reg__) & 0xf000000) >> 24u)
+#define SET_APE_TX_TO_NET_DOORBELL_FUNC2_LENGTH(__val__)  (((__val__) << 24u) & 0xf000000u)
+#define     APE_TX_TO_NET_DOORBELL_FUNC2_TX_QUEUE_FULL_SHIFT 28u
+#define     APE_TX_TO_NET_DOORBELL_FUNC2_TX_QUEUE_FULL_MASK  0x10000000u
+#define GET_APE_TX_TO_NET_DOORBELL_FUNC2_TX_QUEUE_FULL(__reg__)  (((__reg__) & 0x10000000) >> 28u)
+#define SET_APE_TX_TO_NET_DOORBELL_FUNC2_TX_QUEUE_FULL(__val__)  (((__val__) << 28u) & 0x10000000u)
 
 /** @brief Register definition for @ref APE_t.TxToNetDoorbellFunc2. */
 typedef register_container RegAPETxToNetDoorbellFunc2_t {
@@ -2298,10 +2520,18 @@ typedef register_container RegAPETxToNetDoorbellFunc2_t {
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Head, 12, 12)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Length, 24, 8)
-#elif defined(__BIG_ENDIAN__)
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Length, 24, 4)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Length, 24, 8)
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, TXQueueFull, 28, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_29, 29, 3)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_29, 29, 3)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, TXQueueFull, 28, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Length, 24, 4)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Head, 12, 12)
         /** @brief  */
@@ -2327,6 +2557,8 @@ typedef register_container RegAPETxToNetDoorbellFunc2_t {
         bits.Head.setName("Head");
         bits.Length.setBaseRegister(&r32);
         bits.Length.setName("Length");
+        bits.TXQueueFull.setBaseRegister(&r32);
+        bits.TXQueueFull.setName("TXQueueFull");
     }
     RegAPETxToNetDoorbellFunc2_t& operator=(const RegAPETxToNetDoorbellFunc2_t& other)
     {
@@ -2461,6 +2693,10 @@ typedef register_container RegAPERxPoolModeStatus2_t {
 #define     APE_RX_POOL_RETIRE_2_HEAD_MASK  0xfff000u
 #define GET_APE_RX_POOL_RETIRE_2_HEAD(__reg__)  (((__reg__) & 0xfff000) >> 12u)
 #define SET_APE_RX_POOL_RETIRE_2_HEAD(__val__)  (((__val__) << 12u) & 0xfff000u)
+#define     APE_RX_POOL_RETIRE_2_RETIRE_SHIFT 24u
+#define     APE_RX_POOL_RETIRE_2_RETIRE_MASK  0x1000000u
+#define GET_APE_RX_POOL_RETIRE_2_RETIRE(__reg__)  (((__reg__) & 0x1000000) >> 24u)
+#define SET_APE_RX_POOL_RETIRE_2_RETIRE(__val__)  (((__val__) << 24u) & 0x1000000u)
 #define     APE_RX_POOL_RETIRE_2_STATE_SHIFT 25u
 #define     APE_RX_POOL_RETIRE_2_STATE_MASK  0x6000000u
 #define GET_APE_RX_POOL_RETIRE_2_STATE(__reg__)  (((__reg__) & 0x6000000) >> 25u)
@@ -2486,8 +2722,8 @@ typedef register_container RegAPERxPoolRetire2_t {
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Tail, 0, 12)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Head, 12, 12)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_24_24, 24, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Retire, 24, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, State, 25, 2)
         /** @brief  */
@@ -2501,8 +2737,8 @@ typedef register_container RegAPERxPoolRetire2_t {
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Count, 27, 4)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, State, 25, 2)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_24_24, 24, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Retire, 24, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Head, 12, 12)
         /** @brief  */
@@ -2526,6 +2762,8 @@ typedef register_container RegAPERxPoolRetire2_t {
         bits.Tail.setName("Tail");
         bits.Head.setBaseRegister(&r32);
         bits.Head.setName("Head");
+        bits.Retire.setBaseRegister(&r32);
+        bits.Retire.setName("Retire");
         bits.State.setBaseRegister(&r32);
         bits.State.setName("State");
         bits.Count.setBaseRegister(&r32);
@@ -2838,9 +3076,13 @@ typedef register_container RegAPERxbufoffsetFunc3_t {
 #define GET_APE_TX_TO_NET_DOORBELL_FUNC3_HEAD(__reg__)  (((__reg__) & 0xfff000) >> 12u)
 #define SET_APE_TX_TO_NET_DOORBELL_FUNC3_HEAD(__val__)  (((__val__) << 12u) & 0xfff000u)
 #define     APE_TX_TO_NET_DOORBELL_FUNC3_LENGTH_SHIFT 24u
-#define     APE_TX_TO_NET_DOORBELL_FUNC3_LENGTH_MASK  0xff000000u
-#define GET_APE_TX_TO_NET_DOORBELL_FUNC3_LENGTH(__reg__)  (((__reg__) & 0xff000000) >> 24u)
-#define SET_APE_TX_TO_NET_DOORBELL_FUNC3_LENGTH(__val__)  (((__val__) << 24u) & 0xff000000u)
+#define     APE_TX_TO_NET_DOORBELL_FUNC3_LENGTH_MASK  0xf000000u
+#define GET_APE_TX_TO_NET_DOORBELL_FUNC3_LENGTH(__reg__)  (((__reg__) & 0xf000000) >> 24u)
+#define SET_APE_TX_TO_NET_DOORBELL_FUNC3_LENGTH(__val__)  (((__val__) << 24u) & 0xf000000u)
+#define     APE_TX_TO_NET_DOORBELL_FUNC3_TX_QUEUE_FULL_SHIFT 28u
+#define     APE_TX_TO_NET_DOORBELL_FUNC3_TX_QUEUE_FULL_MASK  0x10000000u
+#define GET_APE_TX_TO_NET_DOORBELL_FUNC3_TX_QUEUE_FULL(__reg__)  (((__reg__) & 0x10000000) >> 28u)
+#define SET_APE_TX_TO_NET_DOORBELL_FUNC3_TX_QUEUE_FULL(__val__)  (((__val__) << 28u) & 0x10000000u)
 
 /** @brief Register definition for @ref APE_t.TxToNetDoorbellFunc3. */
 typedef register_container RegAPETxToNetDoorbellFunc3_t {
@@ -2854,10 +3096,18 @@ typedef register_container RegAPETxToNetDoorbellFunc3_t {
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Head, 12, 12)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Length, 24, 8)
-#elif defined(__BIG_ENDIAN__)
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Length, 24, 4)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Length, 24, 8)
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, TXQueueFull, 28, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_29, 29, 3)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_29, 29, 3)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, TXQueueFull, 28, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Length, 24, 4)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Head, 12, 12)
         /** @brief  */
@@ -2883,6 +3133,8 @@ typedef register_container RegAPETxToNetDoorbellFunc3_t {
         bits.Head.setName("Head");
         bits.Length.setBaseRegister(&r32);
         bits.Length.setName("Length");
+        bits.TXQueueFull.setBaseRegister(&r32);
+        bits.TXQueueFull.setName("TXQueueFull");
     }
     RegAPETxToNetDoorbellFunc3_t& operator=(const RegAPETxToNetDoorbellFunc3_t& other)
     {
@@ -3017,6 +3269,10 @@ typedef register_container RegAPERxPoolModeStatus3_t {
 #define     APE_RX_POOL_RETIRE_3_HEAD_MASK  0xfff000u
 #define GET_APE_RX_POOL_RETIRE_3_HEAD(__reg__)  (((__reg__) & 0xfff000) >> 12u)
 #define SET_APE_RX_POOL_RETIRE_3_HEAD(__val__)  (((__val__) << 12u) & 0xfff000u)
+#define     APE_RX_POOL_RETIRE_3_RETIRE_SHIFT 24u
+#define     APE_RX_POOL_RETIRE_3_RETIRE_MASK  0x1000000u
+#define GET_APE_RX_POOL_RETIRE_3_RETIRE(__reg__)  (((__reg__) & 0x1000000) >> 24u)
+#define SET_APE_RX_POOL_RETIRE_3_RETIRE(__val__)  (((__val__) << 24u) & 0x1000000u)
 #define     APE_RX_POOL_RETIRE_3_STATE_SHIFT 25u
 #define     APE_RX_POOL_RETIRE_3_STATE_MASK  0x6000000u
 #define GET_APE_RX_POOL_RETIRE_3_STATE(__reg__)  (((__reg__) & 0x6000000) >> 25u)
@@ -3042,8 +3298,8 @@ typedef register_container RegAPERxPoolRetire3_t {
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Tail, 0, 12)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Head, 12, 12)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_24_24, 24, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Retire, 24, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, State, 25, 2)
         /** @brief  */
@@ -3057,8 +3313,8 @@ typedef register_container RegAPERxPoolRetire3_t {
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Count, 27, 4)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, State, 25, 2)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_24_24, 24, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Retire, 24, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Head, 12, 12)
         /** @brief  */
@@ -3082,6 +3338,8 @@ typedef register_container RegAPERxPoolRetire3_t {
         bits.Tail.setName("Tail");
         bits.Head.setBaseRegister(&r32);
         bits.Head.setName("Head");
+        bits.Retire.setBaseRegister(&r32);
+        bits.Retire.setName("Retire");
         bits.State.setBaseRegister(&r32);
         bits.State.setName("State");
         bits.Count.setBaseRegister(&r32);
@@ -3312,8 +3570,11 @@ typedef struct APE_t {
     /** @brief Written on APE TX to network after filling 0xA002 buffer with packet. */
     RegAPETxToNetDoorbellFunc0_t TxToNetDoorbellFunc0;
 
+    /** @brief APE TX Status. */
+    RegAPETxState0_t TxState0;
+
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_APE_H_uint32_t reserved_32[3];
+    BCM5719_APE_H_uint32_t reserved_36[2];
 
     /** @brief Expansion for MODE */
     RegAPEMode2_t Mode2;
@@ -3351,8 +3612,14 @@ typedef struct APE_t {
     /** @brief  */
     RegAPETxToNetBufferAllocator0_t TxToNetBufferAllocator0;
 
+    /** @brief  */
+    RegAPETxToNetBufferReturn0_t TxToNetBufferReturn0;
+
+    /** @brief  */
+    RegAPETxToNetBufferRing0_t TxToNetBufferRing0;
+
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_APE_H_uint32_t reserved_148[5];
+    BCM5719_APE_H_uint32_t reserved_156[3];
 
     /** @brief Unknown, monotonically increasing value. Increases at a rate of 1MHz. */
     RegAPETick1mhz_t Tick1mhz;
@@ -3475,6 +3742,7 @@ typedef struct APE_t {
         RxbufoffsetFunc0.r32.setComponentOffset(0x14);
         RxbufoffsetFunc1.r32.setComponentOffset(0x18);
         TxToNetDoorbellFunc0.r32.setComponentOffset(0x1c);
+        TxState0.r32.setComponentOffset(0x20);
         Mode2.r32.setComponentOffset(0x2c);
         Status2.r32.setComponentOffset(0x30);
         LockGrantObsolete.r32.setComponentOffset(0x4c);
@@ -3484,6 +3752,8 @@ typedef struct APE_t {
         RxPoolRetire1.r32.setComponentOffset(0x88);
         TxToNetPoolModeStatus0.r32.setComponentOffset(0x8c);
         TxToNetBufferAllocator0.r32.setComponentOffset(0x90);
+        TxToNetBufferReturn0.r32.setComponentOffset(0x94);
+        TxToNetBufferRing0.r32.setComponentOffset(0x98);
         Tick1mhz.r32.setComponentOffset(0xa8);
         Tick1khz.r32.setComponentOffset(0xac);
         Tick10hz.r32.setComponentOffset(0xb0);

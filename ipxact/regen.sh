@@ -24,6 +24,10 @@ mv bcm5719_BOOTCODE.h ../include
 
 
 ${IPXACT} -p ${PROJECT} bcm5719_full.xml bcm5719.cpp
+rm bcm5719_BOOTCODE*.cpp
+rm bcm5719_RXMBUF*.cpp
+rm bcm5719_TXMBUF*.cpp
+rm bcm5719_SDBCACHE*.cpp
 mv *.cpp ../simulator/
 
 # ${IPXACT} -p ${PROJECT} bcm5719_full.xml bcm5719.s
@@ -46,6 +50,7 @@ mv APE_SHM*.h ../include
 mv APE_FILTERS*.h ../include
 mv APE_DEVICE*.h ../include
 mv APE_TX_PORT*.h ../include
+mv APE_RX_PORT*.h ../include
 
 # ${IPXACT} -p ${PROJECT} NVIC.xml APE_full.xml APE.s
 ${IPXACT} -p ${PROJECT} APE_full.xml -t asym APE_sym.s
@@ -55,6 +60,4 @@ ${IPXACT} -p ${PROJECT} APE_full.xml -t ape_cpp APE.cpp
 rm APE_APE*.cpp
 rm APE_SHM*.cpp
 rm APE_NVM*.cpp
-rm APE_DEVICE*.cpp
-rm APE_TX_PORT*.cpp
 mv *.cpp ../simulator/

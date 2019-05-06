@@ -1,10 +1,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @file       rx_from_network.c
+/// @file       init.c
 ///
 /// @project
 ///
-/// @brief      Initialization code for RX from network.
+/// @brief      Initialization code for TX to network / RX from network.
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
@@ -42,9 +42,11 @@
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
 
-#include "ape.h"
-
 #include <APE_FILTERS.h>
+#include <APE_APE.h>
+#include <APE_DEVICE.h>
+
+#include <Network.h>
 
 typedef struct {
     RegFILTERSElementConfig_t cfg;
@@ -639,7 +641,7 @@ static const FilterRuleInit_t gRuleInit[32] = {
     },
 };
 
-void initRxFromNetwork(void)
+void Network_InitTxRx(void)
 {
     for(int i = 0; i < 32; i++)
     {
@@ -654,4 +656,62 @@ void initRxFromNetwork(void)
     }
 
     FILTERS.RuleConfiguration.r32 = 0;
+
+
+    // REG_APE_PERFECT_MATCH1_{HIGH,LOW}. For non-broadcast/multicast traffic, the hardware uses this register to match MACs and pass traffic to the APE.
+    // The first two bytes of a MAC are put in the HIGH register, and the remaining four bytes in the LOW.
+    // Note that this is a device (PCI) register, not an APE register. Set it to the BMC MAC.
+
+
+    // REG_APE__BMC_NC_RX_SRC_MAC_MATCHN_{HIGH,LOW}.
+    // This appears to relate to the RMU, not network RX, but its exact purpose is unknown.
+    // Set it to the BMC MAC. Unlike the "perfect match" register above, it takes a different format:
+    // for an example MAC AABB.CCDD.EEFF, set HIGH=0xAABBCCDD, LOW=0xEEFF0000.
+    // *** NOTE: set to 0 in rmu.c ***
+
+
+    // Ensure REG_RECEIVE_MAC_MODE has ENABLE set.
+    // I recommend also setting APE_PROMISCUOUS_MODE and PROMISCUOUS_MODE,
+    // as these will cause you less headaches during development.
+    RegDEVICEReceiveMacMode_t macMode;
+    macMode = DEVICE.ReceiveMacMode;
+    macMode.bits.Enable = 1;
+    macMode.bits.APEPromiscuousMode = 0;
+    DEVICE.ReceiveMacMode = macMode;
+
+
+    // Ensure REG_EMAC_MODE__ENABLE_APE_{TX,RX}_PATH are set.
+    // *** NOTE: Both bits are set in rmu.c ***/
+
+    // Enable APE channel 0/0
+    RegAPEMode_t mode;
+    mode = APE.Mode;
+    mode.bits.Event1 = 1;
+    mode.bits.Channel0Enable = 1;
+    mode.bits.Channel2Enable = 1;
+    APE.Mode = mode;
+
+
+
+
+    // Enable RX for funciton 0
+    RegAPERxPoolModeStatus0_t rxMode;
+    rxMode.r32 = 0;
+    rxMode.bits.Reset = 1;
+    APE.RxPoolModeStatus0 = rxMode;
+
+    rxMode.bits.Reset = 0;
+    rxMode.bits.Enable = 1;
+    APE.RxPoolModeStatus0 = rxMode;
+
+    // Enable TX for function 0
+    RegAPETxToNetPoolModeStatus0_t txMode;
+    txMode.r32 = 0;
+    txMode.bits.Reset = 1;
+    APE.TxToNetPoolModeStatus0 = txMode;
+
+    txMode.bits.Reset = 0;
+    txMode.bits.Enable = 1;
+    APE.TxToNetPoolModeStatus0 = txMode;
+
 }

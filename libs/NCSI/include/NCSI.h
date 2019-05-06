@@ -64,4 +64,8 @@ void handleNCSIFrame(NetworkFrame_t* frame);
 #define NCSI_REASON_CODE_INVALID_PAYLOAD_LENGTH     (5) /* The payload length in the command is incorrect for the given command */
 #define NCSI_REASON_CODE_UNKNOWN_UNSUPPORTED        (0x7FFF) /* Returned when the command type is unknown or unsupported */
 
+void NCSI_TxPacket(uint32_t* packet, uint32_t packet_len);
+
+void NCSI_init(void);
+
 #endif /* NCSI_H */

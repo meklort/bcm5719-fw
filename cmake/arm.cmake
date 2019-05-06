@@ -42,7 +42,7 @@
 ### @endcond
 ################################################################################
 
-SET(ARM_COMPILE_OPTIONS -nostdlib -nodefaultlibs -fomit-frame-pointer -target thumbv7-none-eabi -mcpu=cortex-m3 -mfloat-abi=soft )
+SET(ARM_COMPILE_OPTIONS -nostdlib -nodefaultlibs -fomit-frame-pointer -target thumbv7-none-eabi -mcpu=cortex-m3 -mfloat-abi=soft -fno-builtin)
 SET(ARM_LINK_OPTIONS --gc-sections)
 # SET(CMAKE_EXE_LINKER_FLAGS -static)
 

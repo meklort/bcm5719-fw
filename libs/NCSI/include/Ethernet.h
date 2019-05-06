@@ -190,6 +190,25 @@ typedef struct {
     uint32_t OEMLinkSettings_Low:16;
 } SetLink_t;
 
+typedef struct {
+    // Bytes 0 - 27
+    ControlPacketHeader_t   header;
+
+    // Byte 28 - 31
+    uint32_t MAC54:16;
+    uint32_t headerPadding:16;
+
+    // Bytes 32 - 35
+    uint32_t MAC10:16;
+    uint32_t MAC32:16;
+
+    // Bytes 36 - 39
+    uint32_t pad:16;
+    uint32_t Enable:1;
+    uint32_t Rsvd:4;
+    uint32_t AT:3;
+    uint32_t MACNumber:8;
+} SetMACAddr_t;
 
 
 typedef struct
@@ -296,6 +315,8 @@ typedef union {
     AENEnable_t AENEnable;
 
     SetLink_t setLink;
+
+    SetMACAddr_t setMACAddr;
 
     /* Response Packets */
     ResponsePacketHeader_t  responsePacket;

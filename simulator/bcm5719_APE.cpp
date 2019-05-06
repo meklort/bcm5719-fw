@@ -63,6 +63,8 @@ void init_bcm5719_APE(void)
 
     /** @brief Bitmap for @ref APE_t.TxToNetDoorbellFunc0. */
 
+    /** @brief Bitmap for @ref APE_t.TxState0. */
+
     /** @brief Bitmap for @ref APE_t.Mode2. */
 
     /** @brief Bitmap for @ref APE_t.Status2. */
@@ -80,6 +82,10 @@ void init_bcm5719_APE(void)
     /** @brief Bitmap for @ref APE_t.TxToNetPoolModeStatus0. */
 
     /** @brief Bitmap for @ref APE_t.TxToNetBufferAllocator0. */
+
+    /** @brief Bitmap for @ref APE_t.TxToNetBufferReturn0. */
+
+    /** @brief Bitmap for @ref APE_t.TxToNetBufferRing0. */
 
     /** @brief Bitmap for @ref APE_t.Tick1mhz. */
 

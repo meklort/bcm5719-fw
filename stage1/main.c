@@ -47,22 +47,20 @@
 #if CXX_SIMULATOR
 #include <HAL.hpp>
 #include <endian.h>
-#define crc_swap(__x__) (__x__) /* No swapping needed on the host */    
+#define crc_swap(__x__) (__x__) /* No swapping needed on the host */
 #else
 #define be32toh(__x__) (__x__)
-#define crc_swap(__x__)  ((((__x__) & 0x000000FF) << 24) | \
-                         (((__x__) & 0x0000FF00) << 8 ) |  \
-                         (((__x__) & 0x00FF0000) >> 8 ) |  \
-                         (((__x__) & 0xFF000000) >> 24))
+#define crc_swap(__x__)                                                        \
+    ((((__x__)&0x000000FF) << 24) | (((__x__)&0x0000FF00) << 8) |              \
+     (((__x__)&0x00FF0000) >> 8) | (((__x__)&0xFF000000) >> 24))
 #endif
-#include <NVRam.h>
-#include <bcm5719_BOOTCODE.h>
-#include <bcm5719_GEN.h>
-#include <bcm5719_DEVICE.h>
-#include <bcm5719_APE.h>
-#include <bcm5719_SHM.h>
 #include <APE.h>
-
+#include <NVRam.h>
+#include <bcm5719_APE.h>
+#include <bcm5719_BOOTCODE.h>
+#include <bcm5719_DEVICE.h>
+#include <bcm5719_GEN.h>
+#include <bcm5719_SHM.h>
 #include <string.h>
 
 NVRAMContents_t gNVMContents;
@@ -70,12 +68,12 @@ NVRAMContents_t gNVMContents;
 int main()
 {
     reportStatus(STATUS_MAIN, 0);
-    uint32_t* bootcode_dest;
+    uint32_t *bootcode_dest;
 #if CXX_SIMULATOR
     initHAL(NULL);
-    bootcode_dest = (uint32_t*)malloc(REG_BOOTCODE_SIZE);
+    bootcode_dest = (uint32_t *)malloc(REG_BOOTCODE_SIZE);
 #else
-    bootcode_dest = (uint32_t*)&BOOTCODE;
+    bootcode_dest = (uint32_t *)&BOOTCODE;
 #endif
 
 #if !CXX_SIMULATOR
@@ -110,7 +108,7 @@ int main()
     SHM.RcpuCpmuStatus.bits.Status = (DEVICE.Status.r32 & 0xFFFF0000) >> 16;
     SHM.RcpuCpmuStatus.bits.Address = SHM_RCPU_CPMU_STATUS_ADDRESS_ADDRESS;
 
-    if(SHM_RCPU_SEG_SIG_SIG_RCPU_MAGIC != SHM.RcpuSegSig.bits.Sig)
+    if (SHM_RCPU_SEG_SIG_SIG_RCPU_MAGIC != SHM.RcpuSegSig.bits.Sig)
     {
         SHM.RcpuInitCount.r32 = 1;
     }
@@ -125,8 +123,7 @@ int main()
 
     // Mark it as valid.
     SHM.RcpuSegLength.r32 = 0x34;
-    SHM.RcpuSegSig.bits.Sig  = SHM_RCPU_SEG_SIG_SIG_RCPU_MAGIC;
-
+    SHM.RcpuSegSig.bits.Sig = SHM_RCPU_SEG_SIG_SIG_RCPU_MAGIC;
 
     // Set GEN_FIRMWARE_MBOX to BOOTCODE_READY_MAGIC.
     reportStatus(GEN_GEN_DATA_SIG_SIG_DRIVER_READY, 0);
@@ -138,7 +135,7 @@ int main()
     APE_releaseAllLocks();
 
     DEVICE.RxCpuEventEnable.bits.VPDAttention = 1;
-    for(;;)
+    for (;;)
     {
         // APE heartbeat.
         // APE.RcpuApeResetCount.r32 = APE.RcpuApeResetCount.r32 + 1;
@@ -146,21 +143,19 @@ int main()
         // APE.RcpuLastApeFwStatus.r32 = APE.FwStatus.r32;
 
         // Spin
-        if(DEVICE.RxCpuEvent.bits.VPDAttention)
+        if (DEVICE.RxCpuEvent.bits.VPDAttention)
         {
             uint32_t vpd_offset = DEVICE.PciVpdRequest.bits.RequestedVPDOffset;
 
-            union
-            {
+            union {
                 uint8_t r8[4];
                 uint32_t r32;
             } vpd_data;
             vpd_data.r8[0] = gNVMContents.vpd.bytes[vpd_offset];
-            vpd_data.r8[1] = gNVMContents.vpd.bytes[vpd_offset+1];
-            vpd_data.r8[2] = gNVMContents.vpd.bytes[vpd_offset+2];
-            vpd_data.r8[3] = gNVMContents.vpd.bytes[vpd_offset+3];
+            vpd_data.r8[1] = gNVMContents.vpd.bytes[vpd_offset + 1];
+            vpd_data.r8[2] = gNVMContents.vpd.bytes[vpd_offset + 2];
+            vpd_data.r8[3] = gNVMContents.vpd.bytes[vpd_offset + 3];
             DEVICE.PciVpdResponse.r32 = vpd_data.r32;
         }
     }
-
 }

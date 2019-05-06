@@ -43,24 +43,24 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include <Compress.h>
-
 #include <assert.h>
 
-// Original implementation from https://github.com/hlandau/ortega/blob/master/apestamp.c
-
+// Original implementation from
+// https://github.com/hlandau/ortega/blob/master/apestamp.c
 
 #define N 2048
 #define F 34
 #define THRESHOLD 2
 #define NIL N
 
-typedef struct {
-    uint8_t dict[N+F-1];
+typedef struct
+{
+    uint8_t dict[N + F - 1];
 
     // Describes longest match. Set by _InsertNode.
     int matchPos, matchLen;
     // Left and right children and parents. Makes up a binary search tree.
-    int lson[N+1], rson[N+257], parent[N+1];
+    int lson[N + 1], rson[N + 257], parent[N + 1];
 } compressor_state;
 
 // Inserts a string of length F, text_buf[r..r+F-1] into one of the trees
@@ -79,7 +79,7 @@ static void _InsertNode(compressor_state *st, int r)
 
     cmp = 1;
     key = &dict[r];
-    p = N+1+key[0];
+    p = N + 1 + key[0];
     rson[r] = lson[r] = NIL;
     st->matchLen = 0;
     for (;;)
@@ -113,9 +113,9 @@ static void _InsertNode(compressor_state *st, int r)
 
         // Compare.
         int i;
-        for (i=1; i<F; ++i)
+        for (i = 1; i < F; ++i)
         {
-            cmp = key[i] - dict[p+i];
+            cmp = key[i] - dict[p + i];
             if (cmp)
             {
                 break;
@@ -135,7 +135,7 @@ static void _InsertNode(compressor_state *st, int r)
         }
     }
 
-    parent[r]  = parent[p];
+    parent[r] = parent[p];
     lson[r] = lson[p];
     rson[r] = rson[p];
     parent[lson[p]] = r;
@@ -152,7 +152,8 @@ static void _InsertNode(compressor_state *st, int r)
 }
 
 // Deletes node p from the tree.
-static void _DeleteNode(compressor_state *st, int p) {
+static void _DeleteNode(compressor_state *st, int p)
+{
     int q;
 
     int *lson = st->lson, *rson = st->rson, *parent = st->parent;
@@ -171,10 +172,11 @@ static void _DeleteNode(compressor_state *st, int p) {
     {
         q = rson[p];
     }
-    else {
+    else
     {
-        q = lson[p];
-    }
+        {
+            q = lson[p];
+        }
         if (rson[q] != NIL)
         {
             do
@@ -207,11 +209,11 @@ static void _DeleteNode(compressor_state *st, int p) {
 // int32_t decompress(uint8_t* outBuffer, int32_t outBytes,
 //                    uint8_t* inBuffer,  int32_t inBytes)
 
-
 // Compression routine adapted from original 1989 LZSS.C by Haruhiko Okumura.
 // "Use, distribute, and modify this program freely."
-int32_t compress(uint8_t *outBuffer, int32_t outBytes,
-                 const uint8_t *inBuffer, int32_t inBytes) {
+int32_t compress(uint8_t *outBuffer, int32_t outBytes, const uint8_t *inBuffer,
+                 int32_t inBytes)
+{
     const uint8_t *inEnd = inBuffer + inBytes;
     size_t bytesWritten_ = 0;
 
@@ -223,40 +225,41 @@ int32_t compress(uint8_t *outBuffer, int32_t outBytes,
     }
 
     // Initialize tree.
-    for (int i=N+1; i <= N+256; ++i)
+    for (int i = N + 1; i <= N + 256; ++i)
     {
         st.rson[i] = NIL;
     }
-    for (int i=0; i<N; ++i)
+    for (int i = 0; i < N; ++i)
     {
         st.parent[i] = NIL;
     }
 
-    int i, c, len, r = N-F, s = 0, lastMatchLen, codeBufPtr = 1;
+    int i, c, len, r = N - F, s = 0, lastMatchLen, codeBufPtr = 1;
     uint8_t codeBuf[17], mask = 1;
     codeBuf[0] = 0;
 
     // Clear the buffer.
-    for (i=0; i<r; ++i)
+    for (i = 0; i < r; ++i)
     {
         st.dict[i] = 0x20;
     }
 
     // Read F bytes into the last F bytes of the buffer.
-    for (len=0; len < F && inBuffer < inEnd; ++len)
+    for (len = 0; len < F && inBuffer < inEnd; ++len)
     {
-        st.dict[r+len] = c = *inBuffer++;
+        st.dict[r + len] = c = *inBuffer++;
     }
 
     // Insert the F strings, each of which begins with one or more 'space'
     // characters. Note the order in which these strings are inserted. This way,
     // degenerate trees will be less likely to occur.
-    for (i=1; i<=F; ++i)
+    for (i = 1; i <= F; ++i)
     {
-        _InsertNode(&st, r-i);
+        _InsertNode(&st, r - i);
     }
 
-    // Finally, insert the whole string just read. matchLength and matchPosition are set.
+    // Finally, insert the whole string just read. matchLength and matchPosition
+    // are set.
     _InsertNode(&st, r);
 
     do
@@ -271,28 +274,29 @@ int32_t compress(uint8_t *outBuffer, int32_t outBytes,
         {
             // Not long enough match. Send one byte.
             st.matchLen = 1;
-            codeBuf[0] |= mask; // "Send one byte" flag.
+            codeBuf[0] |= mask;                 // "Send one byte" flag.
             codeBuf[codeBufPtr++] = st.dict[r]; // Send uncoded.
-            //printf("  LIT 0x%02x\n", st.dict[r]);
+            // printf("  LIT 0x%02x\n", st.dict[r]);
         }
         else
         {
             // Send position and length pair. Note that matchLen > THRESHOLD.
-            //printf("  REF off=%4u  len=%4u\n", st.matchPos, st.matchLen);
-            //printf("    ");
-            //for (size_t j=0; j<st.matchLen; ++j)
+            // printf("  REF off=%4u  len=%4u\n", st.matchPos, st.matchLen);
+            // printf("    ");
+            // for (size_t j=0; j<st.matchLen; ++j)
             //  printf("%02x ", st.dict[st.matchPos+j]);
-            //printf("\n");
+            // printf("\n");
             codeBuf[codeBufPtr++] = (uint8_t)st.matchPos;
-            assert(st.matchLen - (THRESHOLD+1) < 0x20);
-            codeBuf[codeBufPtr++] = (uint8_t)(((st.matchPos >> 3) & 0xE0) | (st.matchLen - (THRESHOLD+1)));
+            assert(st.matchLen - (THRESHOLD + 1) < 0x20);
+            codeBuf[codeBufPtr++] = (uint8_t)(((st.matchPos >> 3) & 0xE0) |
+                                              (st.matchLen - (THRESHOLD + 1)));
         }
 
         mask <<= 1;
         if (!mask)
         {
             // Send at most eight units of code together.
-            for (i=0; i<codeBufPtr; ++i)
+            for (i = 0; i < codeBufPtr; ++i)
             {
                 *outBuffer++ = codeBuf[i];
                 outBytes--;
@@ -303,31 +307,32 @@ int32_t compress(uint8_t *outBuffer, int32_t outBytes,
         }
 
         lastMatchLen = st.matchLen;
-        for (i=0; i<lastMatchLen && inBuffer < inEnd; ++i)
+        for (i = 0; i < lastMatchLen && inBuffer < inEnd; ++i)
         {
             // Delete old strings and read new bytes.
             c = *inBuffer++;
             _DeleteNode(&st, s);
             st.dict[s] = c;
-            // If the position is near the end of the buffer, extend the buffer to
-            // make string comparison easier.
-            if (s < F-1)
+            // If the position is near the end of the buffer, extend the buffer
+            // to make string comparison easier.
+            if (s < F - 1)
             {
-                st.dict[s+N] = c;
+                st.dict[s + N] = c;
             }
             // Since this is a ring buffer, increment the position modulo N.
-            s = (s+1) % N;
-            r = (r+1) % N;
+            s = (s + 1) % N;
+            r = (r + 1) % N;
             // Register the string in dict[r..r+F-1].
             _InsertNode(&st, r);
         }
 
         while (i++ < lastMatchLen)
         {
-            // After the end of text, no need to read, but buffer may not be empty.
+            // After the end of text, no need to read, but buffer may not be
+            // empty.
             _DeleteNode(&st, s);
-            s = (s+1) % N;
-            r = (r+1) % N;
+            s = (s + 1) % N;
+            r = (r + 1) % N;
             if (--len)
             {
                 _InsertNode(&st, r);
@@ -338,7 +343,7 @@ int32_t compress(uint8_t *outBuffer, int32_t outBytes,
     // Send remaining code.
     if (codeBufPtr > 1)
     {
-        for (i=0; i<codeBufPtr; ++i)
+        for (i = 0; i < codeBufPtr; ++i)
         {
             *outBuffer++ = codeBuf[i];
             outBytes--;
