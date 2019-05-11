@@ -1,10 +1,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @file       APE_RX_PORT.h
+/// @file       APE_TX_PORT0.h
 ///
 /// @project    ape
 ///
-/// @brief      APE_RX_PORT
+/// @brief      APE_TX_PORT0
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
@@ -42,26 +42,26 @@
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
 
-/** @defgroup APE_RX_PORT_H    APE_RX_PORT */
-/** @addtogroup APE_RX_PORT_H
+/** @defgroup APE_TX_PORT0_H    APE_TX_PORT0 */
+/** @addtogroup APE_TX_PORT0_H
  * @{
  */
-#ifndef APE_RX_PORT_H
-#define APE_RX_PORT_H
+#ifndef APE_TX_PORT0_H
+#define APE_TX_PORT0_H
 
 #include <stdint.h>
 
 #ifdef CXX_SIMULATOR /* Compiling c++ simulator code - uses register wrappers */
-void init_APE_RX_PORT_sim(void* base);
-void init_APE_RX_PORT(void);
+void init_APE_TX_PORT0_sim(void* base);
+void init_APE_TX_PORT0(void);
 
 #include <CXXRegister.h>
-typedef CXXRegister<uint8_t,  0,  8> APE_RX_PORT_H_uint8_t;
-typedef CXXRegister<uint16_t, 0, 16> APE_RX_PORT_H_uint16_t;
-typedef CXXRegister<uint32_t, 0, 32> APE_RX_PORT_H_uint32_t;
-#define APE_RX_PORT_H_uint8_t_bitfield(__pos__, __width__)  CXXRegister<uint8_t,  __pos__, __width__>
-#define APE_RX_PORT_H_uint16_t_bitfield(__pos__, __width__) CXXRegister<uint16_t, __pos__, __width__>
-#define APE_RX_PORT_H_uint32_t_bitfield(__pos__, __width__) CXXRegister<uint32_t, __pos__, __width__>
+typedef CXXRegister<uint8_t,  0,  8> APE_TX_PORT0_H_uint8_t;
+typedef CXXRegister<uint16_t, 0, 16> APE_TX_PORT0_H_uint16_t;
+typedef CXXRegister<uint32_t, 0, 32> APE_TX_PORT0_H_uint32_t;
+#define APE_TX_PORT0_H_uint8_t_bitfield(__pos__, __width__)  CXXRegister<uint8_t,  __pos__, __width__>
+#define APE_TX_PORT0_H_uint16_t_bitfield(__pos__, __width__) CXXRegister<uint16_t, __pos__, __width__>
+#define APE_TX_PORT0_H_uint32_t_bitfield(__pos__, __width__) CXXRegister<uint32_t, __pos__, __width__>
 #define register_container struct
 #define volatile
 #define BITFIELD_BEGIN(__type__, __name__) struct {
@@ -69,79 +69,81 @@ typedef CXXRegister<uint32_t, 0, 32> APE_RX_PORT_H_uint32_t;
 #define BITFIELD_END(__type__, __name__) } __name__;
 
 #else /* Firmware Data types */
-typedef uint8_t  APE_RX_PORT_H_uint8_t;
-typedef uint16_t APE_RX_PORT_H_uint16_t;
-typedef uint32_t APE_RX_PORT_H_uint32_t;
+typedef uint8_t  APE_TX_PORT0_H_uint8_t;
+typedef uint16_t APE_TX_PORT0_H_uint16_t;
+typedef uint32_t APE_TX_PORT0_H_uint32_t;
 #define register_container union
 #define BITFIELD_BEGIN(__type__, __name__) struct {
 #define BITFIELD_MEMBER(__type__, __name__, __offset__, __bits__) __type__ __name__:__bits__;
 #define BITFIELD_END(__type__, __name__) } __name__;
 #endif /* !CXX_SIMULATOR */
 
-#define REG_RX_PORT_BASE ((volatile void*)0xa0000000) /* RX from network port, function 0 */
-#define REG_RX_PORT_SIZE (sizeof(RX_PORT_t))
+#define REG_TX_PORT0_BASE ((volatile void*)0xa0020000) /* TX to network port, function 0 */
+#define REG_TX_PORT0_SIZE (sizeof(TX_PORT_t))
 
-#define REG_RX_PORT_IN ((volatile APE_RX_PORT_H_uint32_t*)0xa0000000) /* This is the memory range into which frames are directed towards the APE by the hardware. */
-#define     RX_PORT_IN_ALL_SHIFT 0u
-#define     RX_PORT_IN_ALL_MASK  0xffffffffu
-#define GET_RX_PORT_IN_ALL(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
-#define SET_RX_PORT_IN_ALL(__val__)  (((__val__) << 0u) & 0xffffffffu)
-#define     RX_PORT_IN_ALL_CONTROL_WORD 0x0u
-#define     RX_PORT_IN_ALL_ADDITIONAL_PAYLOAD_WORD 0x2u
-#define     RX_PORT_IN_ALL_FIRST_PAYLOAD_WORD 0xcu
-#define     RX_PORT_IN_ALL_BLOCK_WORDS 0x20u
-#define     RX_PORT_IN_ALL_BLOCK_BYTES 0x80u
+#define REG_TX_PORT0_OUT ((volatile APE_TX_PORT0_H_uint32_t*)0xa0020000) /* This is the memory range into which frames are directed towards the network by the APE firmware. */
+#define     TX_PORT0_OUT_ALL_SHIFT 0u
+#define     TX_PORT0_OUT_ALL_MASK  0xffffffffu
+#define GET_TX_PORT0_OUT_ALL(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
+#define SET_TX_PORT0_OUT_ALL(__val__)  (((__val__) << 0u) & 0xffffffffu)
+#define     TX_PORT_OUT_ALL_CONTROL_WORD 0x0u
+#define     TX_PORT_OUT_ALL_ADDITIONAL_PAYLOAD_WORD 0x2u
+#define     TX_PORT_OUT_ALL_FRAME_LEN_WORD 0x3u
+#define     TX_PORT_OUT_ALL_NUM_BLOCKS_WORD 0x9u
+#define     TX_PORT_OUT_ALL_FIRST_PAYLOAD_WORD 0xcu
+#define     TX_PORT_OUT_ALL_BLOCK_WORDS 0x20u
+#define     TX_PORT_OUT_ALL_BLOCK_BYTES 0x80u
 
 
-/** @brief Register definition for @ref RX_PORT_t.In. */
-typedef register_container RegRX_PORTIn_t {
+/** @brief Register definition for @ref TX_PORT_t.Out. */
+typedef register_container RegTX_PORTOut_t {
     /** @brief 32bit direct register access. */
-    APE_RX_PORT_H_uint32_t r32;
+    APE_TX_PORT0_H_uint32_t r32;
 
-    BITFIELD_BEGIN(APE_RX_PORT_H_uint32_t, bits)
+    BITFIELD_BEGIN(APE_TX_PORT0_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief All bits */
-        BITFIELD_MEMBER(APE_RX_PORT_H_uint32_t, all, 0, 32)
+        BITFIELD_MEMBER(APE_TX_PORT0_H_uint32_t, all, 0, 32)
 #elif defined(__BIG_ENDIAN__)
         /** @brief All bits */
-        BITFIELD_MEMBER(APE_RX_PORT_H_uint32_t, all, 0, 32)
+        BITFIELD_MEMBER(APE_TX_PORT0_H_uint32_t, all, 0, 32)
 #else
 #error Unknown Endian
 #endif
-    BITFIELD_END(APE_RX_PORT_H_uint32_t, bits)
+    BITFIELD_END(APE_TX_PORT0_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
-    const char* getName(void) { return "In"; }
+    const char* getName(void) { return "Out"; }
 
     /** @brief Print register value. */
     void print(void) { r32.print(); }
 
-    RegRX_PORTIn_t()
+    RegTX_PORTOut_t()
     {
-        /** @brief constructor for @ref RX_PORT_t.In. */
-        r32.setName("In");
+        /** @brief constructor for @ref TX_PORT_t.Out. */
+        r32.setName("Out");
         bits.all.setBaseRegister(&r32);
         bits.all.setName("all");
     }
-    RegRX_PORTIn_t& operator=(const RegRX_PORTIn_t& other)
+    RegTX_PORTOut_t& operator=(const RegTX_PORTOut_t& other)
     {
         r32 = other.r32;
         return *this;
     }
 #endif /* CXX_SIMULATOR */
-} RegRX_PORTIn_t;
+} RegTX_PORTOut_t;
 
-/** @brief Component definition for @ref RX_PORT. */
-typedef struct RX_PORT_t {
-    /** @brief This is the memory range into which frames are directed towards the APE by the hardware. */
-    RegRX_PORTIn_t In[4096];
+/** @brief Component definition for @ref TX_PORT0. */
+typedef struct TX_PORT_t {
+    /** @brief This is the memory range into which frames are directed towards the network by the APE firmware. */
+    RegTX_PORTOut_t Out[2048];
 
 #ifdef CXX_SIMULATOR
-    RX_PORT_t()
+    TX_PORT_t()
     {
-        for(int i = 0; i < 4096; i++)
+        for(int i = 0; i < 2048; i++)
         {
-            In[i].r32.setComponentOffset(0x0 + (i * 4));
+            Out[i].r32.setComponentOffset(0x0 + (i * 4));
         }
     }
     typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);
@@ -154,10 +156,10 @@ typedef struct RX_PORT_t {
     uint32_t read(int offset) { return mIndexReadCallback(0, offset, mIndexReadCallbackArgs); }
     void write(int offset, uint32_t value) { (void)mIndexWriteCallback(value, offset, mIndexWriteCallbackArgs); }
 #endif /* CXX_SIMULATOR */
-} RX_PORT_t;
+} TX_PORT_t;
 
-/** @brief RX from network port, function 0 */
-extern volatile RX_PORT_t RX_PORT;
+/** @brief TX to network port, function 0 */
+extern volatile TX_PORT_t TX_PORT0;
 
 
 
@@ -170,6 +172,6 @@ extern volatile RX_PORT_t RX_PORT;
 #undef BITFIELD_MEMBER
 #undef BITFIELD_END
 
-#endif /* !APE_RX_PORT_H */
+#endif /* !APE_TX_PORT0_H */
 
 /** @} */

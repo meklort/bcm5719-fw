@@ -88,9 +88,9 @@
 .equ    NVM, 0x60240000
 .size   NVM, 0x3c
 
-.global RX_PORT
-.equ    RX_PORT, 0xa0000000
-.size   RX_PORT, 0x4000
+.global RX_PORT0
+.equ    RX_PORT0, 0xa0000000
+.size   RX_PORT0, 0x4000
 
 .global RX_PORT1
 .equ    RX_PORT1, 0xa0004000
@@ -104,9 +104,9 @@
 .equ    RX_PORT3, 0xa000c000
 .size   RX_PORT3, 0x4000
 
-.global TX_PORT
-.equ    TX_PORT, 0xa0020000
-.size   TX_PORT, 0x2000
+.global TX_PORT0
+.equ    TX_PORT0, 0xa0020000
+.size   TX_PORT0, 0x2000
 
 .global TX_PORT1
 .equ    TX_PORT1, 0xa0022000

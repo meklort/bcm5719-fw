@@ -61,10 +61,10 @@
         </ipxact:memoryMap>
         <!-- RX port 0xA000_0000 to 0xA000_3FFF (APE, function 0) -->
         <ipxact:memoryMap>
-            <ipxact:name>RX_PORT</ipxact:name>
+            <ipxact:name>RX_PORT0</ipxact:name>
             <ipxact:description>RX from network port, function 0</ipxact:description>
             <ipxact:addressBlock>
-                <ipxact:name>RX_PORT</ipxact:name>
+                <ipxact:name>RX_PORT0</ipxact:name>
                 <ipxact:description>RX from network port, function 0</ipxact:description>
                 <ipxact:typeIdentifier>RX_PORT</ipxact:typeIdentifier>
                 <ipxact:baseAddress>0xA0000000</ipxact:baseAddress>
@@ -164,10 +164,10 @@
 
         <!-- TX port 0xA002_0000 to 0xA002_1FFF (APE, function 0) -->
         <ipxact:memoryMap>
-            <ipxact:name>TX_PORT</ipxact:name>
+            <ipxact:name>TX_PORT0</ipxact:name>
             <ipxact:description>TX to network port, function 0</ipxact:description>
             <ipxact:addressBlock>
-                <ipxact:name>TX_PORT</ipxact:name>
+                <ipxact:name>TX_PORT0</ipxact:name>
                 <ipxact:description>TX to network port, function 0</ipxact:description>
                 <ipxact:typeIdentifier>TX_PORT</ipxact:typeIdentifier>>
                 <ipxact:baseAddress>0xA0020000</ipxact:baseAddress>

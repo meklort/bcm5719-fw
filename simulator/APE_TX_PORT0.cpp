@@ -1,10 +1,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @file       APE_TX_PORT.cpp
+/// @file       APE_TX_PORT0.cpp
 ///
 /// @project    ape
 ///
-/// @brief      APE_TX_PORT
+/// @brief      APE_TX_PORT0
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
@@ -42,14 +42,14 @@
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
 
-#include <APE_TX_PORT.h>
+#include <APE_TX_PORT0.h>
 
-TX_PORT_t TX_PORT;
+TX_PORT_t TX_PORT0;
 
-void init_APE_TX_PORT(void)
+void init_APE_TX_PORT0(void)
 {
-    /** @brief Component Registers for @ref TX_PORT. */
-    /** @brief Bitmap for @ref TX_PORT_t.Out. */
+    /** @brief Component Registers for @ref TX_PORT0. */
+    /** @brief Bitmap for @ref TX_PORT0_t.Out. */
 
 
 }

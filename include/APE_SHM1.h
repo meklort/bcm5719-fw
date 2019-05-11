@@ -83,74 +83,19 @@ typedef uint32_t APE_SHM1_H_uint32_t;
 #define REG_SHM1_SIZE (sizeof(SHM_t))
 
 #define REG_SHM1_SEG_SIG ((volatile APE_SHM1_H_uint32_t*)0x60221000) /* APE_APE_MAGIC ('APE!') when all is well. */
-#define     SHM1_SEG_SIG_SIG_SHIFT 0u
-#define     SHM1_SEG_SIG_SIG_MASK  0xffffffffu
-#define GET_SHM1_SEG_SIG_SIG(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
-#define SET_SHM1_SEG_SIG_SIG(__val__)  (((__val__) << 0u) & 0xffffffffu)
-#define     SHM1_SEG_SIG_SIG_LOADER 0x10ad10adu
-
-
 #define REG_SHM1_APE_SEG_LENGTH ((volatile APE_SHM1_H_uint32_t*)0x60221004) /* Set to 0x34. */
 #define REG_SHM1_FW_STATUS ((volatile APE_SHM1_H_uint32_t*)0x6022100c) /*  */
-#define     SHM1_FW_STATUS_READY_SHIFT 8u
-#define     SHM1_FW_STATUS_READY_MASK  0x100u
-#define GET_SHM1_FW_STATUS_READY(__reg__)  (((__reg__) & 0x100) >> 8u)
-#define SET_SHM1_FW_STATUS_READY(__val__)  (((__val__) << 8u) & 0x100u)
-#define     SHM1_FW_STATUS_UNKNOWN_31_28_SHIFT 28u
-#define     SHM1_FW_STATUS_UNKNOWN_31_28_MASK  0xf0000000u
-#define GET_SHM1_FW_STATUS_UNKNOWN_31_28(__reg__)  (((__reg__) & 0xf0000000) >> 28u)
-#define SET_SHM1_FW_STATUS_UNKNOWN_31_28(__val__)  (((__val__) << 28u) & 0xf0000000u)
-
 #define REG_SHM1_FW_FEATURES ((volatile APE_SHM1_H_uint32_t*)0x60221010) /*  */
-#define     SHM1_FW_FEATURES_NCSI_SHIFT 1u
-#define     SHM1_FW_FEATURES_NCSI_MASK  0x2u
-#define GET_SHM1_FW_FEATURES_NCSI(__reg__)  (((__reg__) & 0x2) >> 1u)
-#define SET_SHM1_FW_FEATURES_NCSI(__val__)  (((__val__) << 1u) & 0x2u)
-
 #define REG_SHM1_4014 ((volatile APE_SHM1_H_uint32_t*)0x60221014) /* Unknown. */
 #define REG_SHM1_FW_VERSION ((volatile APE_SHM1_H_uint32_t*)0x60221018) /*  */
-#define     SHM1_FW_VERSION_BUILD_SHIFT 0u
-#define     SHM1_FW_VERSION_BUILD_MASK  0xffu
-#define GET_SHM1_FW_VERSION_BUILD(__reg__)  (((__reg__) & 0xff) >> 0u)
-#define SET_SHM1_FW_VERSION_BUILD(__val__)  (((__val__) << 0u) & 0xffu)
-#define     SHM1_FW_VERSION_REVISION_SHIFT 8u
-#define     SHM1_FW_VERSION_REVISION_MASK  0xff00u
-#define GET_SHM1_FW_VERSION_REVISION(__reg__)  (((__reg__) & 0xff00) >> 8u)
-#define SET_SHM1_FW_VERSION_REVISION(__val__)  (((__val__) << 8u) & 0xff00u)
-#define     SHM1_FW_VERSION_MINOR_SHIFT 16u
-#define     SHM1_FW_VERSION_MINOR_MASK  0xff0000u
-#define GET_SHM1_FW_VERSION_MINOR(__reg__)  (((__reg__) & 0xff0000) >> 16u)
-#define SET_SHM1_FW_VERSION_MINOR(__val__)  (((__val__) << 16u) & 0xff0000u)
-#define     SHM1_FW_VERSION_MAJOR_SHIFT 24u
-#define     SHM1_FW_VERSION_MAJOR_MASK  0xff000000u
-#define GET_SHM1_FW_VERSION_MAJOR(__reg__)  (((__reg__) & 0xff000000) >> 24u)
-#define SET_SHM1_FW_VERSION_MAJOR(__val__)  (((__val__) << 24u) & 0xff000000u)
-
 #define REG_SHM1_SEG_MESSAGE_BUFFER_OFFSET ((volatile APE_SHM1_H_uint32_t*)0x6022101c) /* Specifies the offset of a scratchpad area, relative to the  start of the APE SHM area (i.e., relative to APE_REG(0x4000)). */
 #define REG_SHM1_SEG_MESSAGE_BUFFER_LENGTH ((volatile APE_SHM1_H_uint32_t*)0x60221020) /* Specifies the size of the scratchpad area in bytes. */
 #define REG_SHM1_4024 ((volatile APE_SHM1_H_uint32_t*)0x60221024) /* Unknown. Bootcode related. */
 #define REG_SHM1_4028 ((volatile APE_SHM1_H_uint32_t*)0x60221028) /* Unknown. Bootcode related. */
 #define REG_SHM1_LOADER_COMMAND ((volatile APE_SHM1_H_uint32_t*)0x60221038) /* Command sent when using the the APE loader. Zero once handled. */
-#define     SHM1_LOADER_COMMAND_COMMAND_SHIFT 0u
-#define     SHM1_LOADER_COMMAND_COMMAND_MASK  0xffffffffu
-#define GET_SHM1_LOADER_COMMAND_COMMAND(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
-#define SET_SHM1_LOADER_COMMAND_COMMAND(__val__)  (((__val__) << 0u) & 0xffffffffu)
-#define     SHM1_LOADER_COMMAND_COMMAND_NOP 0x0u
-#define     SHM1_LOADER_COMMAND_COMMAND_READ_MEM 0x1u
-#define     SHM1_LOADER_COMMAND_COMMAND_WRITE_MEM 0x2u
-#define     SHM1_LOADER_COMMAND_COMMAND_CALL 0x3u
-
-
 #define REG_SHM1_LOADER_ARG0 ((volatile APE_SHM1_H_uint32_t*)0x6022103c) /* Argument 0 for the APE loader. */
 #define REG_SHM1_LOADER_ARG1 ((volatile APE_SHM1_H_uint32_t*)0x60221040) /* Argument 1 for the APE loader. */
 #define REG_SHM1_RCPU_SEG_SIG ((volatile APE_SHM1_H_uint32_t*)0x60221100) /* Set to APE_RCPU_MAGIC ('RCPU') by RX CPU. */
-#define     SHM1_RCPU_SEG_SIG_SIG_SHIFT 0u
-#define     SHM1_RCPU_SEG_SIG_SIG_MASK  0xffffffffu
-#define GET_SHM1_RCPU_SEG_SIG_SIG(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
-#define SET_SHM1_RCPU_SEG_SIG_SIG(__val__)  (((__val__) << 0u) & 0xffffffffu)
-#define     SHM1_RCPU_SEG_SIG_SIG_RCPU_MAGIC 0x52435055u
-
-
 #define REG_SHM1_RCPU_SEG_LENGTH ((volatile APE_SHM1_H_uint32_t*)0x60221104) /* Set to 0x34. */
 #define REG_SHM1_RCPU_INIT_COUNT ((volatile APE_SHM1_H_uint32_t*)0x60221108) /* Incremented by RX CPU every boot. */
 #define REG_SHM1_RCPU_FW_VERSION ((volatile APE_SHM1_H_uint32_t*)0x6022110c) /* Set to the bootcode version. e.g. 0x0127 -> v1.39. */
@@ -163,58 +108,16 @@ typedef uint32_t APE_SHM1_H_uint32_t;
 #define REG_SHM1_RCPU_CFG_HW ((volatile APE_SHM1_H_uint32_t*)0x60221128) /* Set from  */
 #define REG_SHM1_RCPU_CFG_HW_2 ((volatile APE_SHM1_H_uint32_t*)0x6022112c) /* Set from  */
 #define REG_SHM1_RCPU_CPMU_STATUS ((volatile APE_SHM1_H_uint32_t*)0x60221130) /* Set from  */
-#define     SHM1_RCPU_CPMU_STATUS_ADDRESS_SHIFT 0u
-#define     SHM1_RCPU_CPMU_STATUS_ADDRESS_MASK  0xffffu
-#define GET_SHM1_RCPU_CPMU_STATUS_ADDRESS(__reg__)  (((__reg__) & 0xffff) >> 0u)
-#define SET_SHM1_RCPU_CPMU_STATUS_ADDRESS(__val__)  (((__val__) << 0u) & 0xffffu)
-#define     SHM1_RCPU_CPMU_STATUS_ADDRESS_ADDRESS 0x362cu
-
-#define     SHM1_RCPU_CPMU_STATUS_STATUS_SHIFT 16u
-#define     SHM1_RCPU_CPMU_STATUS_STATUS_MASK  0xffff0000u
-#define GET_SHM1_RCPU_CPMU_STATUS_STATUS(__reg__)  (((__reg__) & 0xffff0000) >> 16u)
-#define SET_SHM1_RCPU_CPMU_STATUS_STATUS(__val__)  (((__val__) << 16u) & 0xffff0000u)
-
 #define REG_SHM1_HOST_SEG_SIG ((volatile APE_SHM1_H_uint32_t*)0x60221200) /* Set to APE_HOST_MAGIC ('HOST') to indicate the section is valid. */
 #define REG_SHM1_HOST_SEG_LEN ((volatile APE_SHM1_H_uint32_t*)0x60221204) /* Set to 0x20. */
 #define REG_SHM1_HOST_INIT_COUNT ((volatile APE_SHM1_H_uint32_t*)0x60221208) /* Incremented by host on every initialization. */
 #define REG_SHM1_HOST_DRIVER_ID ((volatile APE_SHM1_H_uint32_t*)0x6022120c) /* Linux sets this to 0xF0MM_mm00, where M is the major version  of Linux and m is the minor version. */
 #define REG_SHM1_HOST_BEHAVIOR ((volatile APE_SHM1_H_uint32_t*)0x60221210) /*  */
-#define     SHM1_HOST_BEHAVIOR_NO_PHYLOCK_SHIFT 0u
-#define     SHM1_HOST_BEHAVIOR_NO_PHYLOCK_MASK  0x1u
-#define GET_SHM1_HOST_BEHAVIOR_NO_PHYLOCK(__reg__)  (((__reg__) & 0x1) >> 0u)
-#define SET_SHM1_HOST_BEHAVIOR_NO_PHYLOCK(__val__)  (((__val__) << 0u) & 0x1u)
-
 #define REG_SHM1_HEARTBEAT_INTERVAL ((volatile APE_SHM1_H_uint32_t*)0x60221214) /* In milliseconds. Set to 0 to disable heartbeating. */
 #define REG_SHM1_HEARTBEAT_COUNT ((volatile APE_SHM1_H_uint32_t*)0x60221218) /*  */
 #define REG_SHM1_HOST_DRIVER_STATE ((volatile APE_SHM1_H_uint32_t*)0x6022121c) /*  */
 #define REG_SHM1_WOL_SPEED ((volatile APE_SHM1_H_uint32_t*)0x60221224) /*  */
 #define REG_SHM1_EVENT_STATUS ((volatile APE_SHM1_H_uint32_t*)0x60221300) /*  */
-#define     SHM1_EVENT_STATUS_DRIVER_EVENT_SHIFT 4u
-#define     SHM1_EVENT_STATUS_DRIVER_EVENT_MASK  0x10u
-#define GET_SHM1_EVENT_STATUS_DRIVER_EVENT(__reg__)  (((__reg__) & 0x10) >> 4u)
-#define SET_SHM1_EVENT_STATUS_DRIVER_EVENT(__val__)  (((__val__) << 4u) & 0x10u)
-#define     SHM1_EVENT_STATUS_COMMAND_SHIFT 8u
-#define     SHM1_EVENT_STATUS_COMMAND_MASK  0xff00u
-#define GET_SHM1_EVENT_STATUS_COMMAND(__reg__)  (((__reg__) & 0xff00) >> 8u)
-#define SET_SHM1_EVENT_STATUS_COMMAND(__val__)  (((__val__) << 8u) & 0xff00u)
-#define     SHM1_EVENT_STATUS_COMMAND_STATE_CHANGE 0x5u
-#define     SHM1_EVENT_STATUS_COMMAND_SCRATCHPAD_READ 0x16u
-#define     SHM1_EVENT_STATUS_COMMAND_SCRATCHPAD_WRITE 0x17u
-
-#define     SHM1_EVENT_STATUS_STATE_SHIFT 16u
-#define     SHM1_EVENT_STATUS_STATE_MASK  0x70000u
-#define GET_SHM1_EVENT_STATUS_STATE(__reg__)  (((__reg__) & 0x70000) >> 16u)
-#define SET_SHM1_EVENT_STATUS_STATE(__val__)  (((__val__) << 16u) & 0x70000u)
-#define     SHM1_EVENT_STATUS_STATE_START 0x1u
-#define     SHM1_EVENT_STATUS_STATE_UNLOAD 0x2u
-#define     SHM1_EVENT_STATUS_STATE_WOL 0x3u
-#define     SHM1_EVENT_STATUS_STATE_SUSPEND 0x4u
-
-#define     SHM1_EVENT_STATUS_PENDING_SHIFT 31u
-#define     SHM1_EVENT_STATUS_PENDING_MASK  0x80000000u
-#define GET_SHM1_EVENT_STATUS_PENDING(__reg__)  (((__reg__) & 0x80000000) >> 31u)
-#define SET_SHM1_EVENT_STATUS_PENDING(__val__)  (((__val__) << 31u) & 0x80000000u)
-
 #define REG_SHM1_PROT_MAGIC ((volatile APE_SHM1_H_uint32_t*)0x60221308) /* This is set to APE_PROT_MAGIC ('PROT') on all functions.  If it is 'PROT', the following fields (MAC0_HIGH/LOW) are valid */
 #define REG_SHM1_PROT_MAC0_HIGH ((volatile APE_SHM1_H_uint32_t*)0x60221314) /* High 16 bits of MAC address 0. Only valid if  */
 #define REG_SHM1_PROT_MAC0_LOW ((volatile APE_SHM1_H_uint32_t*)0x60221318) /* Low 16 bits of MAC address 0. */

@@ -1,10 +1,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @file       APE_RX_PORT_sim.cpp
+/// @file       APE_RX_PORT0.cpp
 ///
 /// @project    ape
 ///
-/// @brief      APE_RX_PORT_sim
+/// @brief      APE_RX_PORT0
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
@@ -42,58 +42,14 @@
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
 
-#include <stdint.h>
-#include <utility>
-#include <bcm5719_SHM.h>
-#include <APE_RX_PORT.h>
+#include <APE_RX_PORT0.h>
 
-static uint32_t loader_read_mem(uint32_t val, uint32_t offset, void *args)
+RX_PORT_t RX_PORT0;
+
+void init_APE_RX_PORT0(void)
 {
-    uint32_t addr = (uint32_t)((uint64_t)args);
-    addr += offset;
-
-    SHM.LoaderArg0.r32 = addr;
-    SHM.LoaderCommand.bits.Command = SHM_LOADER_COMMAND_COMMAND_READ_MEM;
-
-    // Wait for command to be handled.
-    while(0 != SHM.LoaderCommand.bits.Command);
-
-    return (uint32_t)SHM.LoaderArg0.r32;
-}
-
-static uint32_t loader_write_mem(uint32_t val, uint32_t offset, void *args)
-{
-    uint32_t addr = (uint32_t)((uint64_t)args);
-    addr += offset;
-
-    SHM.LoaderArg0.r32 = addr;
-    SHM.LoaderArg1.r32 = val;
-    SHM.LoaderCommand.bits.Command = SHM_LOADER_COMMAND_COMMAND_WRITE_MEM;
-
-    // Wait for command to be handled.
-    while(0 != SHM.LoaderCommand.bits.Command);
-
-    return val;
-}
-
-void init_APE_RX_PORT_sim(void *arg0)
-{
-    (void)arg0; // unused
-    void* base = (void*)0xa0000000;
-
-    RX_PORT.mIndexReadCallback = loader_read_mem;
-    RX_PORT.mIndexReadCallbackArgs = base;
-
-    RX_PORT.mIndexWriteCallback = loader_write_mem;
-    RX_PORT.mIndexWriteCallbackArgs = base;
-
-    /** @brief Component Registers for @ref RX_PORT. */
-    /** @brief Bitmap for @ref RX_PORT_t.In. */
-    for(int i = 0; i < 4096; i++)
-    {
-        RX_PORT.In[i].r32.installReadCallback(loader_read_mem, (uint8_t *)base);
-        RX_PORT.In[i].r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
-    }
+    /** @brief Component Registers for @ref RX_PORT0. */
+    /** @brief Bitmap for @ref RX_PORT0_t.In. */
 
 
 }

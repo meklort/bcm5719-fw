@@ -539,7 +539,7 @@ typedef register_container RegAPEEvent_t {
 #define SET_APE_RXBUFOFFSET_FUNC0_FINISHED(__val__)  (((__val__) << 31u) & 0x80000000u)
 
 /** @brief Register definition for @ref APE_t.RxbufoffsetFunc0. */
-typedef register_container RegAPERxbufoffsetFunc0_t {
+typedef register_container RegAPERxbufoffset_t {
     /** @brief 32bit direct register access. */
     APE_APE_H_uint32_t r32;
 
@@ -585,7 +585,7 @@ typedef register_container RegAPERxbufoffsetFunc0_t {
     /** @brief Print register value. */
     void print(void) { r32.print(); }
 
-    RegAPERxbufoffsetFunc0_t()
+    RegAPERxbufoffset_t()
     {
         /** @brief constructor for @ref APE_t.RxbufoffsetFunc0. */
         r32.setName("RxbufoffsetFunc0");
@@ -604,112 +604,15 @@ typedef register_container RegAPERxbufoffsetFunc0_t {
         bits.Finished.setBaseRegister(&r32);
         bits.Finished.setName("Finished");
     }
-    RegAPERxbufoffsetFunc0_t& operator=(const RegAPERxbufoffsetFunc0_t& other)
+    RegAPERxbufoffset_t& operator=(const RegAPERxbufoffset_t& other)
     {
         r32 = other.r32;
         return *this;
     }
 #endif /* CXX_SIMULATOR */
-} RegAPERxbufoffsetFunc0_t;
+} RegAPERxbufoffset_t;
 
 #define REG_APE_RXBUFOFFSET_FUNC1 ((volatile APE_APE_H_uint32_t*)0x60200018) /* This is examined on the APE Packet RX interrupt, and indicates the offset of an incoming (from-network) frame within the APE memory space, which provides access to the from-network RX buffer. */
-#define     APE_RXBUFOFFSET_FUNC1_TAIL_SHIFT 0u
-#define     APE_RXBUFOFFSET_FUNC1_TAIL_MASK  0xfffu
-#define GET_APE_RXBUFOFFSET_FUNC1_TAIL(__reg__)  (((__reg__) & 0xfff) >> 0u)
-#define SET_APE_RXBUFOFFSET_FUNC1_TAIL(__val__)  (((__val__) << 0u) & 0xfffu)
-#define     APE_RXBUFOFFSET_FUNC1_HEAD_SHIFT 12u
-#define     APE_RXBUFOFFSET_FUNC1_HEAD_MASK  0xfff000u
-#define GET_APE_RXBUFOFFSET_FUNC1_HEAD(__reg__)  (((__reg__) & 0xfff000) >> 12u)
-#define SET_APE_RXBUFOFFSET_FUNC1_HEAD(__val__)  (((__val__) << 12u) & 0xfff000u)
-#define     APE_RXBUFOFFSET_FUNC1_TO_HOST_SHIFT 24u
-#define     APE_RXBUFOFFSET_FUNC1_TO_HOST_MASK  0x1000000u
-#define GET_APE_RXBUFOFFSET_FUNC1_TO_HOST(__reg__)  (((__reg__) & 0x1000000) >> 24u)
-#define SET_APE_RXBUFOFFSET_FUNC1_TO_HOST(__val__)  (((__val__) << 24u) & 0x1000000u)
-#define     APE_RXBUFOFFSET_FUNC1_IP_FRAG_SHIFT 25u
-#define     APE_RXBUFOFFSET_FUNC1_IP_FRAG_MASK  0x2000000u
-#define GET_APE_RXBUFOFFSET_FUNC1_IP_FRAG(__reg__)  (((__reg__) & 0x2000000) >> 25u)
-#define SET_APE_RXBUFOFFSET_FUNC1_IP_FRAG(__val__)  (((__val__) << 25u) & 0x2000000u)
-#define     APE_RXBUFOFFSET_FUNC1_COUNT_SHIFT 26u
-#define     APE_RXBUFOFFSET_FUNC1_COUNT_MASK  0x3c000000u
-#define GET_APE_RXBUFOFFSET_FUNC1_COUNT(__reg__)  (((__reg__) & 0x3c000000) >> 26u)
-#define SET_APE_RXBUFOFFSET_FUNC1_COUNT(__val__)  (((__val__) << 26u) & 0x3c000000u)
-#define     APE_RXBUFOFFSET_FUNC1_VALID_SHIFT 30u
-#define     APE_RXBUFOFFSET_FUNC1_VALID_MASK  0x40000000u
-#define GET_APE_RXBUFOFFSET_FUNC1_VALID(__reg__)  (((__reg__) & 0x40000000) >> 30u)
-#define SET_APE_RXBUFOFFSET_FUNC1_VALID(__val__)  (((__val__) << 30u) & 0x40000000u)
-
-/** @brief Register definition for @ref APE_t.RxbufoffsetFunc1. */
-typedef register_container RegAPERxbufoffsetFunc1_t {
-    /** @brief 32bit direct register access. */
-    APE_APE_H_uint32_t r32;
-
-    BITFIELD_BEGIN(APE_APE_H_uint32_t, bits)
-#if defined(__LITTLE_ENDIAN__)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Tail, 0, 12)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Head, 12, 12)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, ToHost, 24, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, IPFrag, 25, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Count, 26, 4)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Valid, 30, 1)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_31_31, 31, 1)
-#elif defined(__BIG_ENDIAN__)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_31_31, 31, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Valid, 30, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Count, 26, 4)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, IPFrag, 25, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, ToHost, 24, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Head, 12, 12)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Tail, 0, 12)
-#else
-#error Unknown Endian
-#endif
-    BITFIELD_END(APE_APE_H_uint32_t, bits)
-#ifdef CXX_SIMULATOR
-    /** @brief Register name for use with the simulator. */
-    const char* getName(void) { return "RxbufoffsetFunc1"; }
-
-    /** @brief Print register value. */
-    void print(void) { r32.print(); }
-
-    RegAPERxbufoffsetFunc1_t()
-    {
-        /** @brief constructor for @ref APE_t.RxbufoffsetFunc1. */
-        r32.setName("RxbufoffsetFunc1");
-        bits.Tail.setBaseRegister(&r32);
-        bits.Tail.setName("Tail");
-        bits.Head.setBaseRegister(&r32);
-        bits.Head.setName("Head");
-        bits.ToHost.setBaseRegister(&r32);
-        bits.ToHost.setName("ToHost");
-        bits.IPFrag.setBaseRegister(&r32);
-        bits.IPFrag.setName("IPFrag");
-        bits.Count.setBaseRegister(&r32);
-        bits.Count.setName("Count");
-        bits.Valid.setBaseRegister(&r32);
-        bits.Valid.setName("Valid");
-    }
-    RegAPERxbufoffsetFunc1_t& operator=(const RegAPERxbufoffsetFunc1_t& other)
-    {
-        r32 = other.r32;
-        return *this;
-    }
-#endif /* CXX_SIMULATOR */
-} RegAPERxbufoffsetFunc1_t;
-
 #define REG_APE_TX_TO_NET_DOORBELL_FUNC0 ((volatile APE_APE_H_uint32_t*)0x6020001c) /* Written on APE TX to network after filling 0xA002 buffer with packet. */
 #define     APE_TX_TO_NET_DOORBELL_FUNC0_TAIL_SHIFT 0u
 #define     APE_TX_TO_NET_DOORBELL_FUNC0_TAIL_MASK  0xfffu
@@ -729,7 +632,7 @@ typedef register_container RegAPERxbufoffsetFunc1_t {
 #define SET_APE_TX_TO_NET_DOORBELL_FUNC0_TX_QUEUE_FULL(__val__)  (((__val__) << 28u) & 0x10000000u)
 
 /** @brief Register definition for @ref APE_t.TxToNetDoorbellFunc0. */
-typedef register_container RegAPETxToNetDoorbellFunc0_t {
+typedef register_container RegAPETxToNetDoorbell_t {
     /** @brief 32bit direct register access. */
     APE_APE_H_uint32_t r32;
 
@@ -767,7 +670,7 @@ typedef register_container RegAPETxToNetDoorbellFunc0_t {
     /** @brief Print register value. */
     void print(void) { r32.print(); }
 
-    RegAPETxToNetDoorbellFunc0_t()
+    RegAPETxToNetDoorbell_t()
     {
         /** @brief constructor for @ref APE_t.TxToNetDoorbellFunc0. */
         r32.setName("TxToNetDoorbellFunc0");
@@ -780,13 +683,13 @@ typedef register_container RegAPETxToNetDoorbellFunc0_t {
         bits.TXQueueFull.setBaseRegister(&r32);
         bits.TXQueueFull.setName("TXQueueFull");
     }
-    RegAPETxToNetDoorbellFunc0_t& operator=(const RegAPETxToNetDoorbellFunc0_t& other)
+    RegAPETxToNetDoorbell_t& operator=(const RegAPETxToNetDoorbell_t& other)
     {
         r32 = other.r32;
         return *this;
     }
 #endif /* CXX_SIMULATOR */
-} RegAPETxToNetDoorbellFunc0_t;
+} RegAPETxToNetDoorbell_t;
 
 #define REG_APE_TX_STATE0 ((volatile APE_APE_H_uint32_t*)0x60200020) /* APE TX Status. */
 #define     APE_TX_STATE0_TAIL_SHIFT 0u
@@ -972,7 +875,7 @@ typedef register_container RegAPELockGrantObsolete_t {
 #define SET_APE_RX_POOL_MODE_STATUS_0_FULL_COUNT(__val__)  (((__val__) << 8u) & 0xffff00u)
 
 /** @brief Register definition for @ref APE_t.RxPoolModeStatus0. */
-typedef register_container RegAPERxPoolModeStatus0_t {
+typedef register_container RegAPERxPoolModeStatus_t {
     /** @brief 32bit direct register access. */
     APE_APE_H_uint32_t r32;
 
@@ -1030,7 +933,7 @@ typedef register_container RegAPERxPoolModeStatus0_t {
     /** @brief Print register value. */
     void print(void) { r32.print(); }
 
-    RegAPERxPoolModeStatus0_t()
+    RegAPERxPoolModeStatus_t()
     {
         /** @brief constructor for @ref APE_t.RxPoolModeStatus0. */
         r32.setName("RxPoolModeStatus0");
@@ -1049,130 +952,15 @@ typedef register_container RegAPERxPoolModeStatus0_t {
         bits.FullCount.setBaseRegister(&r32);
         bits.FullCount.setName("FullCount");
     }
-    RegAPERxPoolModeStatus0_t& operator=(const RegAPERxPoolModeStatus0_t& other)
+    RegAPERxPoolModeStatus_t& operator=(const RegAPERxPoolModeStatus_t& other)
     {
         r32 = other.r32;
         return *this;
     }
 #endif /* CXX_SIMULATOR */
-} RegAPERxPoolModeStatus0_t;
+} RegAPERxPoolModeStatus_t;
 
 #define REG_APE_RX_POOL_MODE_STATUS_1 ((volatile APE_APE_H_uint32_t*)0x6020007c) /*  */
-#define     APE_RX_POOL_MODE_STATUS_1_HALT_SHIFT 0u
-#define     APE_RX_POOL_MODE_STATUS_1_HALT_MASK  0x1u
-#define GET_APE_RX_POOL_MODE_STATUS_1_HALT(__reg__)  (((__reg__) & 0x1) >> 0u)
-#define SET_APE_RX_POOL_MODE_STATUS_1_HALT(__val__)  (((__val__) << 0u) & 0x1u)
-#define     APE_RX_POOL_MODE_STATUS_1_HALT_DONE_SHIFT 1u
-#define     APE_RX_POOL_MODE_STATUS_1_HALT_DONE_MASK  0x2u
-#define GET_APE_RX_POOL_MODE_STATUS_1_HALT_DONE(__reg__)  (((__reg__) & 0x2) >> 1u)
-#define SET_APE_RX_POOL_MODE_STATUS_1_HALT_DONE(__val__)  (((__val__) << 1u) & 0x2u)
-#define     APE_RX_POOL_MODE_STATUS_1_ENABLE_SHIFT 2u
-#define     APE_RX_POOL_MODE_STATUS_1_ENABLE_MASK  0x4u
-#define GET_APE_RX_POOL_MODE_STATUS_1_ENABLE(__reg__)  (((__reg__) & 0x4) >> 2u)
-#define SET_APE_RX_POOL_MODE_STATUS_1_ENABLE(__val__)  (((__val__) << 2u) & 0x4u)
-#define     APE_RX_POOL_MODE_STATUS_1_EMPTY_SHIFT 4u
-#define     APE_RX_POOL_MODE_STATUS_1_EMPTY_MASK  0x10u
-#define GET_APE_RX_POOL_MODE_STATUS_1_EMPTY(__reg__)  (((__reg__) & 0x10) >> 4u)
-#define SET_APE_RX_POOL_MODE_STATUS_1_EMPTY(__val__)  (((__val__) << 4u) & 0x10u)
-#define     APE_RX_POOL_MODE_STATUS_1_ERROR_SHIFT 5u
-#define     APE_RX_POOL_MODE_STATUS_1_ERROR_MASK  0x20u
-#define GET_APE_RX_POOL_MODE_STATUS_1_ERROR(__reg__)  (((__reg__) & 0x20) >> 5u)
-#define SET_APE_RX_POOL_MODE_STATUS_1_ERROR(__val__)  (((__val__) << 5u) & 0x20u)
-#define     APE_RX_POOL_MODE_STATUS_1_RESET_SHIFT 6u
-#define     APE_RX_POOL_MODE_STATUS_1_RESET_MASK  0x40u
-#define GET_APE_RX_POOL_MODE_STATUS_1_RESET(__reg__)  (((__reg__) & 0x40) >> 6u)
-#define SET_APE_RX_POOL_MODE_STATUS_1_RESET(__val__)  (((__val__) << 6u) & 0x40u)
-#define     APE_RX_POOL_MODE_STATUS_1_FULL_COUNT_SHIFT 8u
-#define     APE_RX_POOL_MODE_STATUS_1_FULL_COUNT_MASK  0xffff00u
-#define GET_APE_RX_POOL_MODE_STATUS_1_FULL_COUNT(__reg__)  (((__reg__) & 0xffff00) >> 8u)
-#define SET_APE_RX_POOL_MODE_STATUS_1_FULL_COUNT(__val__)  (((__val__) << 8u) & 0xffff00u)
-
-/** @brief Register definition for @ref APE_t.RxPoolModeStatus1. */
-typedef register_container RegAPERxPoolModeStatus1_t {
-    /** @brief 32bit direct register access. */
-    APE_APE_H_uint32_t r32;
-
-    BITFIELD_BEGIN(APE_APE_H_uint32_t, bits)
-#if defined(__LITTLE_ENDIAN__)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Halt, 0, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, HaltDone, 1, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Enable, 2, 1)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_3_3, 3, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Empty, 4, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Error, 5, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Reset, 6, 1)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_7_7, 7, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, FullCount, 8, 16)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_31_24, 24, 8)
-#elif defined(__BIG_ENDIAN__)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_31_24, 24, 8)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, FullCount, 8, 16)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_7_7, 7, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Reset, 6, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Error, 5, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Empty, 4, 1)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_3_3, 3, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Enable, 2, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, HaltDone, 1, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Halt, 0, 1)
-#else
-#error Unknown Endian
-#endif
-    BITFIELD_END(APE_APE_H_uint32_t, bits)
-#ifdef CXX_SIMULATOR
-    /** @brief Register name for use with the simulator. */
-    const char* getName(void) { return "RxPoolModeStatus1"; }
-
-    /** @brief Print register value. */
-    void print(void) { r32.print(); }
-
-    RegAPERxPoolModeStatus1_t()
-    {
-        /** @brief constructor for @ref APE_t.RxPoolModeStatus1. */
-        r32.setName("RxPoolModeStatus1");
-        bits.Halt.setBaseRegister(&r32);
-        bits.Halt.setName("Halt");
-        bits.HaltDone.setBaseRegister(&r32);
-        bits.HaltDone.setName("HaltDone");
-        bits.Enable.setBaseRegister(&r32);
-        bits.Enable.setName("Enable");
-        bits.Empty.setBaseRegister(&r32);
-        bits.Empty.setName("Empty");
-        bits.Error.setBaseRegister(&r32);
-        bits.Error.setName("Error");
-        bits.Reset.setBaseRegister(&r32);
-        bits.Reset.setName("Reset");
-        bits.FullCount.setBaseRegister(&r32);
-        bits.FullCount.setName("FullCount");
-    }
-    RegAPERxPoolModeStatus1_t& operator=(const RegAPERxPoolModeStatus1_t& other)
-    {
-        r32 = other.r32;
-        return *this;
-    }
-#endif /* CXX_SIMULATOR */
-} RegAPERxPoolModeStatus1_t;
-
 #define REG_APE_RX_POOL_RETIRE_0 ((volatile APE_APE_H_uint32_t*)0x60200080) /* Used to indicate when the APE is done with a region of the 0xA000_0000 RX pool buffer so that it can be used to receive another frame. */
 #define     APE_RX_POOL_RETIRE_0_TAIL_SHIFT 0u
 #define     APE_RX_POOL_RETIRE_0_TAIL_MASK  0xfffu
@@ -1190,10 +978,10 @@ typedef register_container RegAPERxPoolModeStatus1_t {
 #define     APE_RX_POOL_RETIRE_0_STATE_MASK  0x6000000u
 #define GET_APE_RX_POOL_RETIRE_0_STATE(__reg__)  (((__reg__) & 0x6000000) >> 25u)
 #define SET_APE_RX_POOL_RETIRE_0_STATE(__val__)  (((__val__) << 25u) & 0x6000000u)
-#define     APE_RX_POOL_RETIRE_0_STATE_PROCESSING 0x0u
-#define     APE_RX_POOL_RETIRE_0_STATE_RETIRED_OK 0x1u
-#define     APE_RX_POOL_RETIRE_0_STATE_ERROR__FULL 0x2u
-#define     APE_RX_POOL_RETIRE_0_STATE_ERROR__IN_HALT 0x3u
+#define     APE_RX_POOL_RETIRE_STATE_PROCESSING 0x0u
+#define     APE_RX_POOL_RETIRE_STATE_RETIRED_OK 0x1u
+#define     APE_RX_POOL_RETIRE_STATE_ERROR__FULL 0x2u
+#define     APE_RX_POOL_RETIRE_STATE_ERROR__IN_HALT 0x3u
 
 #define     APE_RX_POOL_RETIRE_0_COUNT_SHIFT 27u
 #define     APE_RX_POOL_RETIRE_0_COUNT_MASK  0x78000000u
@@ -1201,7 +989,7 @@ typedef register_container RegAPERxPoolModeStatus1_t {
 #define SET_APE_RX_POOL_RETIRE_0_COUNT(__val__)  (((__val__) << 27u) & 0x78000000u)
 
 /** @brief Register definition for @ref APE_t.RxPoolRetire0. */
-typedef register_container RegAPERxPoolRetire0_t {
+typedef register_container RegAPERxPoolRetire_t {
     /** @brief 32bit direct register access. */
     APE_APE_H_uint32_t r32;
 
@@ -1243,7 +1031,7 @@ typedef register_container RegAPERxPoolRetire0_t {
     /** @brief Print register value. */
     void print(void) { r32.print(); }
 
-    RegAPERxPoolRetire0_t()
+    RegAPERxPoolRetire_t()
     {
         /** @brief constructor for @ref APE_t.RxPoolRetire0. */
         r32.setName("RxPoolRetire0");
@@ -1258,107 +1046,15 @@ typedef register_container RegAPERxPoolRetire0_t {
         bits.Count.setBaseRegister(&r32);
         bits.Count.setName("Count");
     }
-    RegAPERxPoolRetire0_t& operator=(const RegAPERxPoolRetire0_t& other)
+    RegAPERxPoolRetire_t& operator=(const RegAPERxPoolRetire_t& other)
     {
         r32 = other.r32;
         return *this;
     }
 #endif /* CXX_SIMULATOR */
-} RegAPERxPoolRetire0_t;
+} RegAPERxPoolRetire_t;
 
 #define REG_APE_RX_POOL_RETIRE_1 ((volatile APE_APE_H_uint32_t*)0x60200088) /* Used to indicate when the APE is done with a region of the 0xA000_0000 RX pool buffer so that it can be used to receive another frame. */
-#define     APE_RX_POOL_RETIRE_1_TAIL_SHIFT 0u
-#define     APE_RX_POOL_RETIRE_1_TAIL_MASK  0xfffu
-#define GET_APE_RX_POOL_RETIRE_1_TAIL(__reg__)  (((__reg__) & 0xfff) >> 0u)
-#define SET_APE_RX_POOL_RETIRE_1_TAIL(__val__)  (((__val__) << 0u) & 0xfffu)
-#define     APE_RX_POOL_RETIRE_1_HEAD_SHIFT 12u
-#define     APE_RX_POOL_RETIRE_1_HEAD_MASK  0xfff000u
-#define GET_APE_RX_POOL_RETIRE_1_HEAD(__reg__)  (((__reg__) & 0xfff000) >> 12u)
-#define SET_APE_RX_POOL_RETIRE_1_HEAD(__val__)  (((__val__) << 12u) & 0xfff000u)
-#define     APE_RX_POOL_RETIRE_1_RETIRE_SHIFT 24u
-#define     APE_RX_POOL_RETIRE_1_RETIRE_MASK  0x1000000u
-#define GET_APE_RX_POOL_RETIRE_1_RETIRE(__reg__)  (((__reg__) & 0x1000000) >> 24u)
-#define SET_APE_RX_POOL_RETIRE_1_RETIRE(__val__)  (((__val__) << 24u) & 0x1000000u)
-#define     APE_RX_POOL_RETIRE_1_STATE_SHIFT 25u
-#define     APE_RX_POOL_RETIRE_1_STATE_MASK  0x6000000u
-#define GET_APE_RX_POOL_RETIRE_1_STATE(__reg__)  (((__reg__) & 0x6000000) >> 25u)
-#define SET_APE_RX_POOL_RETIRE_1_STATE(__val__)  (((__val__) << 25u) & 0x6000000u)
-#define     APE_RX_POOL_RETIRE_1_STATE_PROCESSING 0x0u
-#define     APE_RX_POOL_RETIRE_1_STATE_RETIRED_OK 0x1u
-#define     APE_RX_POOL_RETIRE_1_STATE_ERROR__FULL 0x2u
-#define     APE_RX_POOL_RETIRE_1_STATE_ERROR__IN_HALT 0x3u
-
-#define     APE_RX_POOL_RETIRE_1_COUNT_SHIFT 27u
-#define     APE_RX_POOL_RETIRE_1_COUNT_MASK  0x78000000u
-#define GET_APE_RX_POOL_RETIRE_1_COUNT(__reg__)  (((__reg__) & 0x78000000) >> 27u)
-#define SET_APE_RX_POOL_RETIRE_1_COUNT(__val__)  (((__val__) << 27u) & 0x78000000u)
-
-/** @brief Register definition for @ref APE_t.RxPoolRetire1. */
-typedef register_container RegAPERxPoolRetire1_t {
-    /** @brief 32bit direct register access. */
-    APE_APE_H_uint32_t r32;
-
-    BITFIELD_BEGIN(APE_APE_H_uint32_t, bits)
-#if defined(__LITTLE_ENDIAN__)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Tail, 0, 12)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Head, 12, 12)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Retire, 24, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, State, 25, 2)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Count, 27, 4)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_31_31, 31, 1)
-#elif defined(__BIG_ENDIAN__)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_31_31, 31, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Count, 27, 4)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, State, 25, 2)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Retire, 24, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Head, 12, 12)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Tail, 0, 12)
-#else
-#error Unknown Endian
-#endif
-    BITFIELD_END(APE_APE_H_uint32_t, bits)
-#ifdef CXX_SIMULATOR
-    /** @brief Register name for use with the simulator. */
-    const char* getName(void) { return "RxPoolRetire1"; }
-
-    /** @brief Print register value. */
-    void print(void) { r32.print(); }
-
-    RegAPERxPoolRetire1_t()
-    {
-        /** @brief constructor for @ref APE_t.RxPoolRetire1. */
-        r32.setName("RxPoolRetire1");
-        bits.Tail.setBaseRegister(&r32);
-        bits.Tail.setName("Tail");
-        bits.Head.setBaseRegister(&r32);
-        bits.Head.setName("Head");
-        bits.Retire.setBaseRegister(&r32);
-        bits.Retire.setName("Retire");
-        bits.State.setBaseRegister(&r32);
-        bits.State.setName("State");
-        bits.Count.setBaseRegister(&r32);
-        bits.Count.setName("Count");
-    }
-    RegAPERxPoolRetire1_t& operator=(const RegAPERxPoolRetire1_t& other)
-    {
-        r32 = other.r32;
-        return *this;
-    }
-#endif /* CXX_SIMULATOR */
-} RegAPERxPoolRetire1_t;
-
 #define REG_APE_TX_TO_NET_POOL_MODE_STATUS_0 ((volatile APE_APE_H_uint32_t*)0x6020008c) /*  */
 #define     APE_TX_TO_NET_POOL_MODE_STATUS_0_HALT_SHIFT 0u
 #define     APE_TX_TO_NET_POOL_MODE_STATUS_0_HALT_MASK  0x1u
@@ -1390,7 +1086,7 @@ typedef register_container RegAPERxPoolRetire1_t {
 #define SET_APE_TX_TO_NET_POOL_MODE_STATUS_0_FULL_COUNT(__val__)  (((__val__) << 8u) & 0xffff00u)
 
 /** @brief Register definition for @ref APE_t.TxToNetPoolModeStatus0. */
-typedef register_container RegAPETxToNetPoolModeStatus0_t {
+typedef register_container RegAPETxToNetPoolModeStatus_t {
     /** @brief 32bit direct register access. */
     APE_APE_H_uint32_t r32;
 
@@ -1448,7 +1144,7 @@ typedef register_container RegAPETxToNetPoolModeStatus0_t {
     /** @brief Print register value. */
     void print(void) { r32.print(); }
 
-    RegAPETxToNetPoolModeStatus0_t()
+    RegAPETxToNetPoolModeStatus_t()
     {
         /** @brief constructor for @ref APE_t.TxToNetPoolModeStatus0. */
         r32.setName("TxToNetPoolModeStatus0");
@@ -1467,20 +1163,20 @@ typedef register_container RegAPETxToNetPoolModeStatus0_t {
         bits.FullCount.setBaseRegister(&r32);
         bits.FullCount.setName("FullCount");
     }
-    RegAPETxToNetPoolModeStatus0_t& operator=(const RegAPETxToNetPoolModeStatus0_t& other)
+    RegAPETxToNetPoolModeStatus_t& operator=(const RegAPETxToNetPoolModeStatus_t& other)
     {
         r32 = other.r32;
         return *this;
     }
 #endif /* CXX_SIMULATOR */
-} RegAPETxToNetPoolModeStatus0_t;
+} RegAPETxToNetPoolModeStatus_t;
 
 #define REG_APE_TX_TO_NET_BUFFER_ALLOCATOR_0 ((volatile APE_APE_H_uint32_t*)0x60200090) /*  */
 #define     APE_TX_TO_NET_BUFFER_ALLOCATOR_0_INDEX_SHIFT 0u
 #define     APE_TX_TO_NET_BUFFER_ALLOCATOR_0_INDEX_MASK  0xfffu
 #define GET_APE_TX_TO_NET_BUFFER_ALLOCATOR_0_INDEX(__reg__)  (((__reg__) & 0xfff) >> 0u)
 #define SET_APE_TX_TO_NET_BUFFER_ALLOCATOR_0_INDEX(__val__)  (((__val__) << 0u) & 0xfffu)
-#define     APE_TX_TO_NET_BUFFER_ALLOCATOR_0_INDEX_BLOCK_SIZE 0x80u
+#define     APE_TX_TO_NET_BUFFER_ALLOCATOR_INDEX_BLOCK_SIZE 0x80u
 
 #define     APE_TX_TO_NET_BUFFER_ALLOCATOR_0_REQUEST_ALLOCATION_SHIFT 12u
 #define     APE_TX_TO_NET_BUFFER_ALLOCATOR_0_REQUEST_ALLOCATION_MASK  0x1000u
@@ -1490,14 +1186,14 @@ typedef register_container RegAPETxToNetPoolModeStatus0_t {
 #define     APE_TX_TO_NET_BUFFER_ALLOCATOR_0_STATE_MASK  0x6000u
 #define GET_APE_TX_TO_NET_BUFFER_ALLOCATOR_0_STATE(__reg__)  (((__reg__) & 0x6000) >> 13u)
 #define SET_APE_TX_TO_NET_BUFFER_ALLOCATOR_0_STATE(__val__)  (((__val__) << 13u) & 0x6000u)
-#define     APE_TX_TO_NET_BUFFER_ALLOCATOR_0_STATE_PROCESSING 0x0u
-#define     APE_TX_TO_NET_BUFFER_ALLOCATOR_0_STATE_ALLOCATION_OK 0x1u
-#define     APE_TX_TO_NET_BUFFER_ALLOCATOR_0_STATE_ERROR__EMPTY 0x2u
-#define     APE_TX_TO_NET_BUFFER_ALLOCATOR_0_STATE_ERROR__IN_HALT 0x3u
+#define     APE_TX_TO_NET_BUFFER_ALLOCATOR_STATE_PROCESSING 0x0u
+#define     APE_TX_TO_NET_BUFFER_ALLOCATOR_STATE_ALLOCATION_OK 0x1u
+#define     APE_TX_TO_NET_BUFFER_ALLOCATOR_STATE_ERROR__EMPTY 0x2u
+#define     APE_TX_TO_NET_BUFFER_ALLOCATOR_STATE_ERROR__IN_HALT 0x3u
 
 
 /** @brief Register definition for @ref APE_t.TxToNetBufferAllocator0. */
-typedef register_container RegAPETxToNetBufferAllocator0_t {
+typedef register_container RegAPETxToNetBufferAllocator_t {
     /** @brief 32bit direct register access. */
     APE_APE_H_uint32_t r32;
 
@@ -1531,7 +1227,7 @@ typedef register_container RegAPETxToNetBufferAllocator0_t {
     /** @brief Print register value. */
     void print(void) { r32.print(); }
 
-    RegAPETxToNetBufferAllocator0_t()
+    RegAPETxToNetBufferAllocator_t()
     {
         /** @brief constructor for @ref APE_t.TxToNetBufferAllocator0. */
         r32.setName("TxToNetBufferAllocator0");
@@ -1542,13 +1238,13 @@ typedef register_container RegAPETxToNetBufferAllocator0_t {
         bits.State.setBaseRegister(&r32);
         bits.State.setName("State");
     }
-    RegAPETxToNetBufferAllocator0_t& operator=(const RegAPETxToNetBufferAllocator0_t& other)
+    RegAPETxToNetBufferAllocator_t& operator=(const RegAPETxToNetBufferAllocator_t& other)
     {
         r32 = other.r32;
         return *this;
     }
 #endif /* CXX_SIMULATOR */
-} RegAPETxToNetBufferAllocator0_t;
+} RegAPETxToNetBufferAllocator_t;
 
 #define REG_APE_TX_TO_NET_BUFFER_RETURN_0 ((volatile APE_APE_H_uint32_t*)0x60200094) /*  */
 /** @brief Register definition for @ref APE_t.TxToNetBufferReturn0. */
@@ -2124,1426 +1820,20 @@ typedef register_container RegAPECpuStatus_t {
 } RegAPECpuStatus_t;
 
 #define REG_APE_TX_TO_NET_POOL_MODE_STATUS_1 ((volatile APE_APE_H_uint32_t*)0x60200110) /*  */
-#define     APE_TX_TO_NET_POOL_MODE_STATUS_1_HALT_SHIFT 0u
-#define     APE_TX_TO_NET_POOL_MODE_STATUS_1_HALT_MASK  0x1u
-#define GET_APE_TX_TO_NET_POOL_MODE_STATUS_1_HALT(__reg__)  (((__reg__) & 0x1) >> 0u)
-#define SET_APE_TX_TO_NET_POOL_MODE_STATUS_1_HALT(__val__)  (((__val__) << 0u) & 0x1u)
-#define     APE_TX_TO_NET_POOL_MODE_STATUS_1_HALT_DONE_SHIFT 1u
-#define     APE_TX_TO_NET_POOL_MODE_STATUS_1_HALT_DONE_MASK  0x2u
-#define GET_APE_TX_TO_NET_POOL_MODE_STATUS_1_HALT_DONE(__reg__)  (((__reg__) & 0x2) >> 1u)
-#define SET_APE_TX_TO_NET_POOL_MODE_STATUS_1_HALT_DONE(__val__)  (((__val__) << 1u) & 0x2u)
-#define     APE_TX_TO_NET_POOL_MODE_STATUS_1_ENABLE_SHIFT 2u
-#define     APE_TX_TO_NET_POOL_MODE_STATUS_1_ENABLE_MASK  0x4u
-#define GET_APE_TX_TO_NET_POOL_MODE_STATUS_1_ENABLE(__reg__)  (((__reg__) & 0x4) >> 2u)
-#define SET_APE_TX_TO_NET_POOL_MODE_STATUS_1_ENABLE(__val__)  (((__val__) << 2u) & 0x4u)
-#define     APE_TX_TO_NET_POOL_MODE_STATUS_1_EMPTY_SHIFT 4u
-#define     APE_TX_TO_NET_POOL_MODE_STATUS_1_EMPTY_MASK  0x10u
-#define GET_APE_TX_TO_NET_POOL_MODE_STATUS_1_EMPTY(__reg__)  (((__reg__) & 0x10) >> 4u)
-#define SET_APE_TX_TO_NET_POOL_MODE_STATUS_1_EMPTY(__val__)  (((__val__) << 4u) & 0x10u)
-#define     APE_TX_TO_NET_POOL_MODE_STATUS_1_ERROR_SHIFT 5u
-#define     APE_TX_TO_NET_POOL_MODE_STATUS_1_ERROR_MASK  0x20u
-#define GET_APE_TX_TO_NET_POOL_MODE_STATUS_1_ERROR(__reg__)  (((__reg__) & 0x20) >> 5u)
-#define SET_APE_TX_TO_NET_POOL_MODE_STATUS_1_ERROR(__val__)  (((__val__) << 5u) & 0x20u)
-#define     APE_TX_TO_NET_POOL_MODE_STATUS_1_RESET_SHIFT 6u
-#define     APE_TX_TO_NET_POOL_MODE_STATUS_1_RESET_MASK  0x40u
-#define GET_APE_TX_TO_NET_POOL_MODE_STATUS_1_RESET(__reg__)  (((__reg__) & 0x40) >> 6u)
-#define SET_APE_TX_TO_NET_POOL_MODE_STATUS_1_RESET(__val__)  (((__val__) << 6u) & 0x40u)
-#define     APE_TX_TO_NET_POOL_MODE_STATUS_1_FULL_COUNT_SHIFT 8u
-#define     APE_TX_TO_NET_POOL_MODE_STATUS_1_FULL_COUNT_MASK  0xffff00u
-#define GET_APE_TX_TO_NET_POOL_MODE_STATUS_1_FULL_COUNT(__reg__)  (((__reg__) & 0xffff00) >> 8u)
-#define SET_APE_TX_TO_NET_POOL_MODE_STATUS_1_FULL_COUNT(__val__)  (((__val__) << 8u) & 0xffff00u)
-
-/** @brief Register definition for @ref APE_t.TxToNetPoolModeStatus1. */
-typedef register_container RegAPETxToNetPoolModeStatus1_t {
-    /** @brief 32bit direct register access. */
-    APE_APE_H_uint32_t r32;
-
-    BITFIELD_BEGIN(APE_APE_H_uint32_t, bits)
-#if defined(__LITTLE_ENDIAN__)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Halt, 0, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, HaltDone, 1, 1)
-        /** @brief Must set Enable before the APE TX To Net Buffer Allocator will work. */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Enable, 2, 1)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_3_3, 3, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Empty, 4, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Error, 5, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Reset, 6, 1)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_7_7, 7, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, FullCount, 8, 16)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_31_24, 24, 8)
-#elif defined(__BIG_ENDIAN__)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_31_24, 24, 8)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, FullCount, 8, 16)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_7_7, 7, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Reset, 6, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Error, 5, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Empty, 4, 1)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_3_3, 3, 1)
-        /** @brief Must set Enable before the APE TX To Net Buffer Allocator will work. */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Enable, 2, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, HaltDone, 1, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Halt, 0, 1)
-#else
-#error Unknown Endian
-#endif
-    BITFIELD_END(APE_APE_H_uint32_t, bits)
-#ifdef CXX_SIMULATOR
-    /** @brief Register name for use with the simulator. */
-    const char* getName(void) { return "TxToNetPoolModeStatus1"; }
-
-    /** @brief Print register value. */
-    void print(void) { r32.print(); }
-
-    RegAPETxToNetPoolModeStatus1_t()
-    {
-        /** @brief constructor for @ref APE_t.TxToNetPoolModeStatus1. */
-        r32.setName("TxToNetPoolModeStatus1");
-        bits.Halt.setBaseRegister(&r32);
-        bits.Halt.setName("Halt");
-        bits.HaltDone.setBaseRegister(&r32);
-        bits.HaltDone.setName("HaltDone");
-        bits.Enable.setBaseRegister(&r32);
-        bits.Enable.setName("Enable");
-        bits.Empty.setBaseRegister(&r32);
-        bits.Empty.setName("Empty");
-        bits.Error.setBaseRegister(&r32);
-        bits.Error.setName("Error");
-        bits.Reset.setBaseRegister(&r32);
-        bits.Reset.setName("Reset");
-        bits.FullCount.setBaseRegister(&r32);
-        bits.FullCount.setName("FullCount");
-    }
-    RegAPETxToNetPoolModeStatus1_t& operator=(const RegAPETxToNetPoolModeStatus1_t& other)
-    {
-        r32 = other.r32;
-        return *this;
-    }
-#endif /* CXX_SIMULATOR */
-} RegAPETxToNetPoolModeStatus1_t;
-
 #define REG_APE_TX_TO_NET_BUFFER_ALLOCATOR_1 ((volatile APE_APE_H_uint32_t*)0x60200114) /*  */
-#define     APE_TX_TO_NET_BUFFER_ALLOCATOR_1_INDEX_SHIFT 0u
-#define     APE_TX_TO_NET_BUFFER_ALLOCATOR_1_INDEX_MASK  0xfffu
-#define GET_APE_TX_TO_NET_BUFFER_ALLOCATOR_1_INDEX(__reg__)  (((__reg__) & 0xfff) >> 0u)
-#define SET_APE_TX_TO_NET_BUFFER_ALLOCATOR_1_INDEX(__val__)  (((__val__) << 0u) & 0xfffu)
-#define     APE_TX_TO_NET_BUFFER_ALLOCATOR_1_INDEX_BLOCK_SIZE 0x80u
-
-#define     APE_TX_TO_NET_BUFFER_ALLOCATOR_1_REQUEST_ALLOCATION_SHIFT 12u
-#define     APE_TX_TO_NET_BUFFER_ALLOCATOR_1_REQUEST_ALLOCATION_MASK  0x1000u
-#define GET_APE_TX_TO_NET_BUFFER_ALLOCATOR_1_REQUEST_ALLOCATION(__reg__)  (((__reg__) & 0x1000) >> 12u)
-#define SET_APE_TX_TO_NET_BUFFER_ALLOCATOR_1_REQUEST_ALLOCATION(__val__)  (((__val__) << 12u) & 0x1000u)
-#define     APE_TX_TO_NET_BUFFER_ALLOCATOR_1_STATE_SHIFT 13u
-#define     APE_TX_TO_NET_BUFFER_ALLOCATOR_1_STATE_MASK  0x6000u
-#define GET_APE_TX_TO_NET_BUFFER_ALLOCATOR_1_STATE(__reg__)  (((__reg__) & 0x6000) >> 13u)
-#define SET_APE_TX_TO_NET_BUFFER_ALLOCATOR_1_STATE(__val__)  (((__val__) << 13u) & 0x6000u)
-#define     APE_TX_TO_NET_BUFFER_ALLOCATOR_1_STATE_PROCESSING 0x0u
-#define     APE_TX_TO_NET_BUFFER_ALLOCATOR_1_STATE_ALLOCATION_OK 0x1u
-#define     APE_TX_TO_NET_BUFFER_ALLOCATOR_1_STATE_ERROR__EMPTY 0x2u
-#define     APE_TX_TO_NET_BUFFER_ALLOCATOR_1_STATE_ERROR__IN_HALT 0x3u
-
-
-/** @brief Register definition for @ref APE_t.TxToNetBufferAllocator1. */
-typedef register_container RegAPETxToNetBufferAllocator1_t {
-    /** @brief 32bit direct register access. */
-    APE_APE_H_uint32_t r32;
-
-    BITFIELD_BEGIN(APE_APE_H_uint32_t, bits)
-#if defined(__LITTLE_ENDIAN__)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Index, 0, 12)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, RequestAllocation, 12, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, State, 13, 2)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_31_15, 15, 17)
-#elif defined(__BIG_ENDIAN__)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_31_15, 15, 17)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, State, 13, 2)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, RequestAllocation, 12, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Index, 0, 12)
-#else
-#error Unknown Endian
-#endif
-    BITFIELD_END(APE_APE_H_uint32_t, bits)
-#ifdef CXX_SIMULATOR
-    /** @brief Register name for use with the simulator. */
-    const char* getName(void) { return "TxToNetBufferAllocator1"; }
-
-    /** @brief Print register value. */
-    void print(void) { r32.print(); }
-
-    RegAPETxToNetBufferAllocator1_t()
-    {
-        /** @brief constructor for @ref APE_t.TxToNetBufferAllocator1. */
-        r32.setName("TxToNetBufferAllocator1");
-        bits.Index.setBaseRegister(&r32);
-        bits.Index.setName("Index");
-        bits.RequestAllocation.setBaseRegister(&r32);
-        bits.RequestAllocation.setName("RequestAllocation");
-        bits.State.setBaseRegister(&r32);
-        bits.State.setName("State");
-    }
-    RegAPETxToNetBufferAllocator1_t& operator=(const RegAPETxToNetBufferAllocator1_t& other)
-    {
-        r32 = other.r32;
-        return *this;
-    }
-#endif /* CXX_SIMULATOR */
-} RegAPETxToNetBufferAllocator1_t;
-
 #define REG_APE_TX_TO_NET_DOORBELL_FUNC1 ((volatile APE_APE_H_uint32_t*)0x60200120) /* Written on APE TX to network after filling 0xA002 buffer with packet. */
-#define     APE_TX_TO_NET_DOORBELL_FUNC1_TAIL_SHIFT 0u
-#define     APE_TX_TO_NET_DOORBELL_FUNC1_TAIL_MASK  0xfffu
-#define GET_APE_TX_TO_NET_DOORBELL_FUNC1_TAIL(__reg__)  (((__reg__) & 0xfff) >> 0u)
-#define SET_APE_TX_TO_NET_DOORBELL_FUNC1_TAIL(__val__)  (((__val__) << 0u) & 0xfffu)
-#define     APE_TX_TO_NET_DOORBELL_FUNC1_HEAD_SHIFT 12u
-#define     APE_TX_TO_NET_DOORBELL_FUNC1_HEAD_MASK  0xfff000u
-#define GET_APE_TX_TO_NET_DOORBELL_FUNC1_HEAD(__reg__)  (((__reg__) & 0xfff000) >> 12u)
-#define SET_APE_TX_TO_NET_DOORBELL_FUNC1_HEAD(__val__)  (((__val__) << 12u) & 0xfff000u)
-#define     APE_TX_TO_NET_DOORBELL_FUNC1_LENGTH_SHIFT 24u
-#define     APE_TX_TO_NET_DOORBELL_FUNC1_LENGTH_MASK  0xf000000u
-#define GET_APE_TX_TO_NET_DOORBELL_FUNC1_LENGTH(__reg__)  (((__reg__) & 0xf000000) >> 24u)
-#define SET_APE_TX_TO_NET_DOORBELL_FUNC1_LENGTH(__val__)  (((__val__) << 24u) & 0xf000000u)
-#define     APE_TX_TO_NET_DOORBELL_FUNC1_TX_QUEUE_FULL_SHIFT 28u
-#define     APE_TX_TO_NET_DOORBELL_FUNC1_TX_QUEUE_FULL_MASK  0x10000000u
-#define GET_APE_TX_TO_NET_DOORBELL_FUNC1_TX_QUEUE_FULL(__reg__)  (((__reg__) & 0x10000000) >> 28u)
-#define SET_APE_TX_TO_NET_DOORBELL_FUNC1_TX_QUEUE_FULL(__val__)  (((__val__) << 28u) & 0x10000000u)
-
-/** @brief Register definition for @ref APE_t.TxToNetDoorbellFunc1. */
-typedef register_container RegAPETxToNetDoorbellFunc1_t {
-    /** @brief 32bit direct register access. */
-    APE_APE_H_uint32_t r32;
-
-    BITFIELD_BEGIN(APE_APE_H_uint32_t, bits)
-#if defined(__LITTLE_ENDIAN__)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Tail, 0, 12)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Head, 12, 12)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Length, 24, 4)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, TXQueueFull, 28, 1)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_31_29, 29, 3)
-#elif defined(__BIG_ENDIAN__)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_31_29, 29, 3)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, TXQueueFull, 28, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Length, 24, 4)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Head, 12, 12)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Tail, 0, 12)
-#else
-#error Unknown Endian
-#endif
-    BITFIELD_END(APE_APE_H_uint32_t, bits)
-#ifdef CXX_SIMULATOR
-    /** @brief Register name for use with the simulator. */
-    const char* getName(void) { return "TxToNetDoorbellFunc1"; }
-
-    /** @brief Print register value. */
-    void print(void) { r32.print(); }
-
-    RegAPETxToNetDoorbellFunc1_t()
-    {
-        /** @brief constructor for @ref APE_t.TxToNetDoorbellFunc1. */
-        r32.setName("TxToNetDoorbellFunc1");
-        bits.Tail.setBaseRegister(&r32);
-        bits.Tail.setName("Tail");
-        bits.Head.setBaseRegister(&r32);
-        bits.Head.setName("Head");
-        bits.Length.setBaseRegister(&r32);
-        bits.Length.setName("Length");
-        bits.TXQueueFull.setBaseRegister(&r32);
-        bits.TXQueueFull.setName("TXQueueFull");
-    }
-    RegAPETxToNetDoorbellFunc1_t& operator=(const RegAPETxToNetDoorbellFunc1_t& other)
-    {
-        r32 = other.r32;
-        return *this;
-    }
-#endif /* CXX_SIMULATOR */
-} RegAPETxToNetDoorbellFunc1_t;
-
 #define REG_APE_RXBUFOFFSET_FUNC2 ((volatile APE_APE_H_uint32_t*)0x60200200) /* This is examined on the APE Packet RX interrupt, and indicates the offset of an incoming (from-network) frame within the APE memory space, which provides access to the from-network RX buffer. */
-#define     APE_RXBUFOFFSET_FUNC2_TAIL_SHIFT 0u
-#define     APE_RXBUFOFFSET_FUNC2_TAIL_MASK  0xfffu
-#define GET_APE_RXBUFOFFSET_FUNC2_TAIL(__reg__)  (((__reg__) & 0xfff) >> 0u)
-#define SET_APE_RXBUFOFFSET_FUNC2_TAIL(__val__)  (((__val__) << 0u) & 0xfffu)
-#define     APE_RXBUFOFFSET_FUNC2_HEAD_SHIFT 12u
-#define     APE_RXBUFOFFSET_FUNC2_HEAD_MASK  0xfff000u
-#define GET_APE_RXBUFOFFSET_FUNC2_HEAD(__reg__)  (((__reg__) & 0xfff000) >> 12u)
-#define SET_APE_RXBUFOFFSET_FUNC2_HEAD(__val__)  (((__val__) << 12u) & 0xfff000u)
-#define     APE_RXBUFOFFSET_FUNC2_TO_HOST_SHIFT 24u
-#define     APE_RXBUFOFFSET_FUNC2_TO_HOST_MASK  0x1000000u
-#define GET_APE_RXBUFOFFSET_FUNC2_TO_HOST(__reg__)  (((__reg__) & 0x1000000) >> 24u)
-#define SET_APE_RXBUFOFFSET_FUNC2_TO_HOST(__val__)  (((__val__) << 24u) & 0x1000000u)
-#define     APE_RXBUFOFFSET_FUNC2_IP_FRAG_SHIFT 25u
-#define     APE_RXBUFOFFSET_FUNC2_IP_FRAG_MASK  0x2000000u
-#define GET_APE_RXBUFOFFSET_FUNC2_IP_FRAG(__reg__)  (((__reg__) & 0x2000000) >> 25u)
-#define SET_APE_RXBUFOFFSET_FUNC2_IP_FRAG(__val__)  (((__val__) << 25u) & 0x2000000u)
-#define     APE_RXBUFOFFSET_FUNC2_COUNT_SHIFT 26u
-#define     APE_RXBUFOFFSET_FUNC2_COUNT_MASK  0x3c000000u
-#define GET_APE_RXBUFOFFSET_FUNC2_COUNT(__reg__)  (((__reg__) & 0x3c000000) >> 26u)
-#define SET_APE_RXBUFOFFSET_FUNC2_COUNT(__val__)  (((__val__) << 26u) & 0x3c000000u)
-#define     APE_RXBUFOFFSET_FUNC2_VALID_SHIFT 30u
-#define     APE_RXBUFOFFSET_FUNC2_VALID_MASK  0x40000000u
-#define GET_APE_RXBUFOFFSET_FUNC2_VALID(__reg__)  (((__reg__) & 0x40000000) >> 30u)
-#define SET_APE_RXBUFOFFSET_FUNC2_VALID(__val__)  (((__val__) << 30u) & 0x40000000u)
-
-/** @brief Register definition for @ref APE_t.RxbufoffsetFunc2. */
-typedef register_container RegAPERxbufoffsetFunc2_t {
-    /** @brief 32bit direct register access. */
-    APE_APE_H_uint32_t r32;
-
-    BITFIELD_BEGIN(APE_APE_H_uint32_t, bits)
-#if defined(__LITTLE_ENDIAN__)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Tail, 0, 12)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Head, 12, 12)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, ToHost, 24, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, IPFrag, 25, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Count, 26, 4)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Valid, 30, 1)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_31_31, 31, 1)
-#elif defined(__BIG_ENDIAN__)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_31_31, 31, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Valid, 30, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Count, 26, 4)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, IPFrag, 25, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, ToHost, 24, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Head, 12, 12)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Tail, 0, 12)
-#else
-#error Unknown Endian
-#endif
-    BITFIELD_END(APE_APE_H_uint32_t, bits)
-#ifdef CXX_SIMULATOR
-    /** @brief Register name for use with the simulator. */
-    const char* getName(void) { return "RxbufoffsetFunc2"; }
-
-    /** @brief Print register value. */
-    void print(void) { r32.print(); }
-
-    RegAPERxbufoffsetFunc2_t()
-    {
-        /** @brief constructor for @ref APE_t.RxbufoffsetFunc2. */
-        r32.setName("RxbufoffsetFunc2");
-        bits.Tail.setBaseRegister(&r32);
-        bits.Tail.setName("Tail");
-        bits.Head.setBaseRegister(&r32);
-        bits.Head.setName("Head");
-        bits.ToHost.setBaseRegister(&r32);
-        bits.ToHost.setName("ToHost");
-        bits.IPFrag.setBaseRegister(&r32);
-        bits.IPFrag.setName("IPFrag");
-        bits.Count.setBaseRegister(&r32);
-        bits.Count.setName("Count");
-        bits.Valid.setBaseRegister(&r32);
-        bits.Valid.setName("Valid");
-    }
-    RegAPERxbufoffsetFunc2_t& operator=(const RegAPERxbufoffsetFunc2_t& other)
-    {
-        r32 = other.r32;
-        return *this;
-    }
-#endif /* CXX_SIMULATOR */
-} RegAPERxbufoffsetFunc2_t;
-
 #define REG_APE_TX_TO_NET_DOORBELL_FUNC2 ((volatile APE_APE_H_uint32_t*)0x60200204) /* Written on APE TX to network after filling 0xA002 buffer with packet. */
-#define     APE_TX_TO_NET_DOORBELL_FUNC2_TAIL_SHIFT 0u
-#define     APE_TX_TO_NET_DOORBELL_FUNC2_TAIL_MASK  0xfffu
-#define GET_APE_TX_TO_NET_DOORBELL_FUNC2_TAIL(__reg__)  (((__reg__) & 0xfff) >> 0u)
-#define SET_APE_TX_TO_NET_DOORBELL_FUNC2_TAIL(__val__)  (((__val__) << 0u) & 0xfffu)
-#define     APE_TX_TO_NET_DOORBELL_FUNC2_HEAD_SHIFT 12u
-#define     APE_TX_TO_NET_DOORBELL_FUNC2_HEAD_MASK  0xfff000u
-#define GET_APE_TX_TO_NET_DOORBELL_FUNC2_HEAD(__reg__)  (((__reg__) & 0xfff000) >> 12u)
-#define SET_APE_TX_TO_NET_DOORBELL_FUNC2_HEAD(__val__)  (((__val__) << 12u) & 0xfff000u)
-#define     APE_TX_TO_NET_DOORBELL_FUNC2_LENGTH_SHIFT 24u
-#define     APE_TX_TO_NET_DOORBELL_FUNC2_LENGTH_MASK  0xf000000u
-#define GET_APE_TX_TO_NET_DOORBELL_FUNC2_LENGTH(__reg__)  (((__reg__) & 0xf000000) >> 24u)
-#define SET_APE_TX_TO_NET_DOORBELL_FUNC2_LENGTH(__val__)  (((__val__) << 24u) & 0xf000000u)
-#define     APE_TX_TO_NET_DOORBELL_FUNC2_TX_QUEUE_FULL_SHIFT 28u
-#define     APE_TX_TO_NET_DOORBELL_FUNC2_TX_QUEUE_FULL_MASK  0x10000000u
-#define GET_APE_TX_TO_NET_DOORBELL_FUNC2_TX_QUEUE_FULL(__reg__)  (((__reg__) & 0x10000000) >> 28u)
-#define SET_APE_TX_TO_NET_DOORBELL_FUNC2_TX_QUEUE_FULL(__val__)  (((__val__) << 28u) & 0x10000000u)
-
-/** @brief Register definition for @ref APE_t.TxToNetDoorbellFunc2. */
-typedef register_container RegAPETxToNetDoorbellFunc2_t {
-    /** @brief 32bit direct register access. */
-    APE_APE_H_uint32_t r32;
-
-    BITFIELD_BEGIN(APE_APE_H_uint32_t, bits)
-#if defined(__LITTLE_ENDIAN__)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Tail, 0, 12)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Head, 12, 12)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Length, 24, 4)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, TXQueueFull, 28, 1)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_31_29, 29, 3)
-#elif defined(__BIG_ENDIAN__)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_31_29, 29, 3)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, TXQueueFull, 28, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Length, 24, 4)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Head, 12, 12)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Tail, 0, 12)
-#else
-#error Unknown Endian
-#endif
-    BITFIELD_END(APE_APE_H_uint32_t, bits)
-#ifdef CXX_SIMULATOR
-    /** @brief Register name for use with the simulator. */
-    const char* getName(void) { return "TxToNetDoorbellFunc2"; }
-
-    /** @brief Print register value. */
-    void print(void) { r32.print(); }
-
-    RegAPETxToNetDoorbellFunc2_t()
-    {
-        /** @brief constructor for @ref APE_t.TxToNetDoorbellFunc2. */
-        r32.setName("TxToNetDoorbellFunc2");
-        bits.Tail.setBaseRegister(&r32);
-        bits.Tail.setName("Tail");
-        bits.Head.setBaseRegister(&r32);
-        bits.Head.setName("Head");
-        bits.Length.setBaseRegister(&r32);
-        bits.Length.setName("Length");
-        bits.TXQueueFull.setBaseRegister(&r32);
-        bits.TXQueueFull.setName("TXQueueFull");
-    }
-    RegAPETxToNetDoorbellFunc2_t& operator=(const RegAPETxToNetDoorbellFunc2_t& other)
-    {
-        r32 = other.r32;
-        return *this;
-    }
-#endif /* CXX_SIMULATOR */
-} RegAPETxToNetDoorbellFunc2_t;
-
 #define REG_APE_RX_POOL_MODE_STATUS_2 ((volatile APE_APE_H_uint32_t*)0x60200214) /*  */
-#define     APE_RX_POOL_MODE_STATUS_2_HALT_SHIFT 0u
-#define     APE_RX_POOL_MODE_STATUS_2_HALT_MASK  0x1u
-#define GET_APE_RX_POOL_MODE_STATUS_2_HALT(__reg__)  (((__reg__) & 0x1) >> 0u)
-#define SET_APE_RX_POOL_MODE_STATUS_2_HALT(__val__)  (((__val__) << 0u) & 0x1u)
-#define     APE_RX_POOL_MODE_STATUS_2_HALT_DONE_SHIFT 1u
-#define     APE_RX_POOL_MODE_STATUS_2_HALT_DONE_MASK  0x2u
-#define GET_APE_RX_POOL_MODE_STATUS_2_HALT_DONE(__reg__)  (((__reg__) & 0x2) >> 1u)
-#define SET_APE_RX_POOL_MODE_STATUS_2_HALT_DONE(__val__)  (((__val__) << 1u) & 0x2u)
-#define     APE_RX_POOL_MODE_STATUS_2_ENABLE_SHIFT 2u
-#define     APE_RX_POOL_MODE_STATUS_2_ENABLE_MASK  0x4u
-#define GET_APE_RX_POOL_MODE_STATUS_2_ENABLE(__reg__)  (((__reg__) & 0x4) >> 2u)
-#define SET_APE_RX_POOL_MODE_STATUS_2_ENABLE(__val__)  (((__val__) << 2u) & 0x4u)
-#define     APE_RX_POOL_MODE_STATUS_2_EMPTY_SHIFT 4u
-#define     APE_RX_POOL_MODE_STATUS_2_EMPTY_MASK  0x10u
-#define GET_APE_RX_POOL_MODE_STATUS_2_EMPTY(__reg__)  (((__reg__) & 0x10) >> 4u)
-#define SET_APE_RX_POOL_MODE_STATUS_2_EMPTY(__val__)  (((__val__) << 4u) & 0x10u)
-#define     APE_RX_POOL_MODE_STATUS_2_ERROR_SHIFT 5u
-#define     APE_RX_POOL_MODE_STATUS_2_ERROR_MASK  0x20u
-#define GET_APE_RX_POOL_MODE_STATUS_2_ERROR(__reg__)  (((__reg__) & 0x20) >> 5u)
-#define SET_APE_RX_POOL_MODE_STATUS_2_ERROR(__val__)  (((__val__) << 5u) & 0x20u)
-#define     APE_RX_POOL_MODE_STATUS_2_RESET_SHIFT 6u
-#define     APE_RX_POOL_MODE_STATUS_2_RESET_MASK  0x40u
-#define GET_APE_RX_POOL_MODE_STATUS_2_RESET(__reg__)  (((__reg__) & 0x40) >> 6u)
-#define SET_APE_RX_POOL_MODE_STATUS_2_RESET(__val__)  (((__val__) << 6u) & 0x40u)
-#define     APE_RX_POOL_MODE_STATUS_2_FULL_COUNT_SHIFT 8u
-#define     APE_RX_POOL_MODE_STATUS_2_FULL_COUNT_MASK  0xffff00u
-#define GET_APE_RX_POOL_MODE_STATUS_2_FULL_COUNT(__reg__)  (((__reg__) & 0xffff00) >> 8u)
-#define SET_APE_RX_POOL_MODE_STATUS_2_FULL_COUNT(__val__)  (((__val__) << 8u) & 0xffff00u)
-
-/** @brief Register definition for @ref APE_t.RxPoolModeStatus2. */
-typedef register_container RegAPERxPoolModeStatus2_t {
-    /** @brief 32bit direct register access. */
-    APE_APE_H_uint32_t r32;
-
-    BITFIELD_BEGIN(APE_APE_H_uint32_t, bits)
-#if defined(__LITTLE_ENDIAN__)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Halt, 0, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, HaltDone, 1, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Enable, 2, 1)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_3_3, 3, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Empty, 4, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Error, 5, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Reset, 6, 1)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_7_7, 7, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, FullCount, 8, 16)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_31_24, 24, 8)
-#elif defined(__BIG_ENDIAN__)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_31_24, 24, 8)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, FullCount, 8, 16)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_7_7, 7, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Reset, 6, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Error, 5, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Empty, 4, 1)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_3_3, 3, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Enable, 2, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, HaltDone, 1, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Halt, 0, 1)
-#else
-#error Unknown Endian
-#endif
-    BITFIELD_END(APE_APE_H_uint32_t, bits)
-#ifdef CXX_SIMULATOR
-    /** @brief Register name for use with the simulator. */
-    const char* getName(void) { return "RxPoolModeStatus2"; }
-
-    /** @brief Print register value. */
-    void print(void) { r32.print(); }
-
-    RegAPERxPoolModeStatus2_t()
-    {
-        /** @brief constructor for @ref APE_t.RxPoolModeStatus2. */
-        r32.setName("RxPoolModeStatus2");
-        bits.Halt.setBaseRegister(&r32);
-        bits.Halt.setName("Halt");
-        bits.HaltDone.setBaseRegister(&r32);
-        bits.HaltDone.setName("HaltDone");
-        bits.Enable.setBaseRegister(&r32);
-        bits.Enable.setName("Enable");
-        bits.Empty.setBaseRegister(&r32);
-        bits.Empty.setName("Empty");
-        bits.Error.setBaseRegister(&r32);
-        bits.Error.setName("Error");
-        bits.Reset.setBaseRegister(&r32);
-        bits.Reset.setName("Reset");
-        bits.FullCount.setBaseRegister(&r32);
-        bits.FullCount.setName("FullCount");
-    }
-    RegAPERxPoolModeStatus2_t& operator=(const RegAPERxPoolModeStatus2_t& other)
-    {
-        r32 = other.r32;
-        return *this;
-    }
-#endif /* CXX_SIMULATOR */
-} RegAPERxPoolModeStatus2_t;
-
 #define REG_APE_RX_POOL_RETIRE_2 ((volatile APE_APE_H_uint32_t*)0x60200218) /* Used to indicate when the APE is done with a region of the 0xA000_0000 RX pool buffer so that it can be used to receive another frame. */
-#define     APE_RX_POOL_RETIRE_2_TAIL_SHIFT 0u
-#define     APE_RX_POOL_RETIRE_2_TAIL_MASK  0xfffu
-#define GET_APE_RX_POOL_RETIRE_2_TAIL(__reg__)  (((__reg__) & 0xfff) >> 0u)
-#define SET_APE_RX_POOL_RETIRE_2_TAIL(__val__)  (((__val__) << 0u) & 0xfffu)
-#define     APE_RX_POOL_RETIRE_2_HEAD_SHIFT 12u
-#define     APE_RX_POOL_RETIRE_2_HEAD_MASK  0xfff000u
-#define GET_APE_RX_POOL_RETIRE_2_HEAD(__reg__)  (((__reg__) & 0xfff000) >> 12u)
-#define SET_APE_RX_POOL_RETIRE_2_HEAD(__val__)  (((__val__) << 12u) & 0xfff000u)
-#define     APE_RX_POOL_RETIRE_2_RETIRE_SHIFT 24u
-#define     APE_RX_POOL_RETIRE_2_RETIRE_MASK  0x1000000u
-#define GET_APE_RX_POOL_RETIRE_2_RETIRE(__reg__)  (((__reg__) & 0x1000000) >> 24u)
-#define SET_APE_RX_POOL_RETIRE_2_RETIRE(__val__)  (((__val__) << 24u) & 0x1000000u)
-#define     APE_RX_POOL_RETIRE_2_STATE_SHIFT 25u
-#define     APE_RX_POOL_RETIRE_2_STATE_MASK  0x6000000u
-#define GET_APE_RX_POOL_RETIRE_2_STATE(__reg__)  (((__reg__) & 0x6000000) >> 25u)
-#define SET_APE_RX_POOL_RETIRE_2_STATE(__val__)  (((__val__) << 25u) & 0x6000000u)
-#define     APE_RX_POOL_RETIRE_2_STATE_PROCESSING 0x0u
-#define     APE_RX_POOL_RETIRE_2_STATE_RETIRED_OK 0x1u
-#define     APE_RX_POOL_RETIRE_2_STATE_ERROR__FULL 0x2u
-#define     APE_RX_POOL_RETIRE_2_STATE_ERROR__IN_HALT 0x3u
-
-#define     APE_RX_POOL_RETIRE_2_COUNT_SHIFT 27u
-#define     APE_RX_POOL_RETIRE_2_COUNT_MASK  0x78000000u
-#define GET_APE_RX_POOL_RETIRE_2_COUNT(__reg__)  (((__reg__) & 0x78000000) >> 27u)
-#define SET_APE_RX_POOL_RETIRE_2_COUNT(__val__)  (((__val__) << 27u) & 0x78000000u)
-
-/** @brief Register definition for @ref APE_t.RxPoolRetire2. */
-typedef register_container RegAPERxPoolRetire2_t {
-    /** @brief 32bit direct register access. */
-    APE_APE_H_uint32_t r32;
-
-    BITFIELD_BEGIN(APE_APE_H_uint32_t, bits)
-#if defined(__LITTLE_ENDIAN__)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Tail, 0, 12)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Head, 12, 12)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Retire, 24, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, State, 25, 2)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Count, 27, 4)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_31_31, 31, 1)
-#elif defined(__BIG_ENDIAN__)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_31_31, 31, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Count, 27, 4)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, State, 25, 2)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Retire, 24, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Head, 12, 12)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Tail, 0, 12)
-#else
-#error Unknown Endian
-#endif
-    BITFIELD_END(APE_APE_H_uint32_t, bits)
-#ifdef CXX_SIMULATOR
-    /** @brief Register name for use with the simulator. */
-    const char* getName(void) { return "RxPoolRetire2"; }
-
-    /** @brief Print register value. */
-    void print(void) { r32.print(); }
-
-    RegAPERxPoolRetire2_t()
-    {
-        /** @brief constructor for @ref APE_t.RxPoolRetire2. */
-        r32.setName("RxPoolRetire2");
-        bits.Tail.setBaseRegister(&r32);
-        bits.Tail.setName("Tail");
-        bits.Head.setBaseRegister(&r32);
-        bits.Head.setName("Head");
-        bits.Retire.setBaseRegister(&r32);
-        bits.Retire.setName("Retire");
-        bits.State.setBaseRegister(&r32);
-        bits.State.setName("State");
-        bits.Count.setBaseRegister(&r32);
-        bits.Count.setName("Count");
-    }
-    RegAPERxPoolRetire2_t& operator=(const RegAPERxPoolRetire2_t& other)
-    {
-        r32 = other.r32;
-        return *this;
-    }
-#endif /* CXX_SIMULATOR */
-} RegAPERxPoolRetire2_t;
-
 #define REG_APE_TX_TO_NET_POOL_MODE_STATUS_2 ((volatile APE_APE_H_uint32_t*)0x60200220) /*  */
-#define     APE_TX_TO_NET_POOL_MODE_STATUS_2_HALT_SHIFT 0u
-#define     APE_TX_TO_NET_POOL_MODE_STATUS_2_HALT_MASK  0x1u
-#define GET_APE_TX_TO_NET_POOL_MODE_STATUS_2_HALT(__reg__)  (((__reg__) & 0x1) >> 0u)
-#define SET_APE_TX_TO_NET_POOL_MODE_STATUS_2_HALT(__val__)  (((__val__) << 0u) & 0x1u)
-#define     APE_TX_TO_NET_POOL_MODE_STATUS_2_HALT_DONE_SHIFT 1u
-#define     APE_TX_TO_NET_POOL_MODE_STATUS_2_HALT_DONE_MASK  0x2u
-#define GET_APE_TX_TO_NET_POOL_MODE_STATUS_2_HALT_DONE(__reg__)  (((__reg__) & 0x2) >> 1u)
-#define SET_APE_TX_TO_NET_POOL_MODE_STATUS_2_HALT_DONE(__val__)  (((__val__) << 1u) & 0x2u)
-#define     APE_TX_TO_NET_POOL_MODE_STATUS_2_ENABLE_SHIFT 2u
-#define     APE_TX_TO_NET_POOL_MODE_STATUS_2_ENABLE_MASK  0x4u
-#define GET_APE_TX_TO_NET_POOL_MODE_STATUS_2_ENABLE(__reg__)  (((__reg__) & 0x4) >> 2u)
-#define SET_APE_TX_TO_NET_POOL_MODE_STATUS_2_ENABLE(__val__)  (((__val__) << 2u) & 0x4u)
-#define     APE_TX_TO_NET_POOL_MODE_STATUS_2_EMPTY_SHIFT 4u
-#define     APE_TX_TO_NET_POOL_MODE_STATUS_2_EMPTY_MASK  0x10u
-#define GET_APE_TX_TO_NET_POOL_MODE_STATUS_2_EMPTY(__reg__)  (((__reg__) & 0x10) >> 4u)
-#define SET_APE_TX_TO_NET_POOL_MODE_STATUS_2_EMPTY(__val__)  (((__val__) << 4u) & 0x10u)
-#define     APE_TX_TO_NET_POOL_MODE_STATUS_2_ERROR_SHIFT 5u
-#define     APE_TX_TO_NET_POOL_MODE_STATUS_2_ERROR_MASK  0x20u
-#define GET_APE_TX_TO_NET_POOL_MODE_STATUS_2_ERROR(__reg__)  (((__reg__) & 0x20) >> 5u)
-#define SET_APE_TX_TO_NET_POOL_MODE_STATUS_2_ERROR(__val__)  (((__val__) << 5u) & 0x20u)
-#define     APE_TX_TO_NET_POOL_MODE_STATUS_2_RESET_SHIFT 6u
-#define     APE_TX_TO_NET_POOL_MODE_STATUS_2_RESET_MASK  0x40u
-#define GET_APE_TX_TO_NET_POOL_MODE_STATUS_2_RESET(__reg__)  (((__reg__) & 0x40) >> 6u)
-#define SET_APE_TX_TO_NET_POOL_MODE_STATUS_2_RESET(__val__)  (((__val__) << 6u) & 0x40u)
-#define     APE_TX_TO_NET_POOL_MODE_STATUS_2_FULL_COUNT_SHIFT 8u
-#define     APE_TX_TO_NET_POOL_MODE_STATUS_2_FULL_COUNT_MASK  0xffff00u
-#define GET_APE_TX_TO_NET_POOL_MODE_STATUS_2_FULL_COUNT(__reg__)  (((__reg__) & 0xffff00) >> 8u)
-#define SET_APE_TX_TO_NET_POOL_MODE_STATUS_2_FULL_COUNT(__val__)  (((__val__) << 8u) & 0xffff00u)
-
-/** @brief Register definition for @ref APE_t.TxToNetPoolModeStatus2. */
-typedef register_container RegAPETxToNetPoolModeStatus2_t {
-    /** @brief 32bit direct register access. */
-    APE_APE_H_uint32_t r32;
-
-    BITFIELD_BEGIN(APE_APE_H_uint32_t, bits)
-#if defined(__LITTLE_ENDIAN__)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Halt, 0, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, HaltDone, 1, 1)
-        /** @brief Must set Enable before the APE TX To Net Buffer Allocator will work. */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Enable, 2, 1)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_3_3, 3, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Empty, 4, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Error, 5, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Reset, 6, 1)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_7_7, 7, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, FullCount, 8, 16)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_31_24, 24, 8)
-#elif defined(__BIG_ENDIAN__)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_31_24, 24, 8)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, FullCount, 8, 16)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_7_7, 7, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Reset, 6, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Error, 5, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Empty, 4, 1)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_3_3, 3, 1)
-        /** @brief Must set Enable before the APE TX To Net Buffer Allocator will work. */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Enable, 2, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, HaltDone, 1, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Halt, 0, 1)
-#else
-#error Unknown Endian
-#endif
-    BITFIELD_END(APE_APE_H_uint32_t, bits)
-#ifdef CXX_SIMULATOR
-    /** @brief Register name for use with the simulator. */
-    const char* getName(void) { return "TxToNetPoolModeStatus2"; }
-
-    /** @brief Print register value. */
-    void print(void) { r32.print(); }
-
-    RegAPETxToNetPoolModeStatus2_t()
-    {
-        /** @brief constructor for @ref APE_t.TxToNetPoolModeStatus2. */
-        r32.setName("TxToNetPoolModeStatus2");
-        bits.Halt.setBaseRegister(&r32);
-        bits.Halt.setName("Halt");
-        bits.HaltDone.setBaseRegister(&r32);
-        bits.HaltDone.setName("HaltDone");
-        bits.Enable.setBaseRegister(&r32);
-        bits.Enable.setName("Enable");
-        bits.Empty.setBaseRegister(&r32);
-        bits.Empty.setName("Empty");
-        bits.Error.setBaseRegister(&r32);
-        bits.Error.setName("Error");
-        bits.Reset.setBaseRegister(&r32);
-        bits.Reset.setName("Reset");
-        bits.FullCount.setBaseRegister(&r32);
-        bits.FullCount.setName("FullCount");
-    }
-    RegAPETxToNetPoolModeStatus2_t& operator=(const RegAPETxToNetPoolModeStatus2_t& other)
-    {
-        r32 = other.r32;
-        return *this;
-    }
-#endif /* CXX_SIMULATOR */
-} RegAPETxToNetPoolModeStatus2_t;
-
 #define REG_APE_TX_TO_NET_BUFFER_ALLOCATOR_2 ((volatile APE_APE_H_uint32_t*)0x60200224) /*  */
-#define     APE_TX_TO_NET_BUFFER_ALLOCATOR_2_INDEX_SHIFT 0u
-#define     APE_TX_TO_NET_BUFFER_ALLOCATOR_2_INDEX_MASK  0xfffu
-#define GET_APE_TX_TO_NET_BUFFER_ALLOCATOR_2_INDEX(__reg__)  (((__reg__) & 0xfff) >> 0u)
-#define SET_APE_TX_TO_NET_BUFFER_ALLOCATOR_2_INDEX(__val__)  (((__val__) << 0u) & 0xfffu)
-#define     APE_TX_TO_NET_BUFFER_ALLOCATOR_2_INDEX_BLOCK_SIZE 0x80u
-
-#define     APE_TX_TO_NET_BUFFER_ALLOCATOR_2_REQUEST_ALLOCATION_SHIFT 12u
-#define     APE_TX_TO_NET_BUFFER_ALLOCATOR_2_REQUEST_ALLOCATION_MASK  0x1000u
-#define GET_APE_TX_TO_NET_BUFFER_ALLOCATOR_2_REQUEST_ALLOCATION(__reg__)  (((__reg__) & 0x1000) >> 12u)
-#define SET_APE_TX_TO_NET_BUFFER_ALLOCATOR_2_REQUEST_ALLOCATION(__val__)  (((__val__) << 12u) & 0x1000u)
-#define     APE_TX_TO_NET_BUFFER_ALLOCATOR_2_STATE_SHIFT 13u
-#define     APE_TX_TO_NET_BUFFER_ALLOCATOR_2_STATE_MASK  0x6000u
-#define GET_APE_TX_TO_NET_BUFFER_ALLOCATOR_2_STATE(__reg__)  (((__reg__) & 0x6000) >> 13u)
-#define SET_APE_TX_TO_NET_BUFFER_ALLOCATOR_2_STATE(__val__)  (((__val__) << 13u) & 0x6000u)
-#define     APE_TX_TO_NET_BUFFER_ALLOCATOR_2_STATE_PROCESSING 0x0u
-#define     APE_TX_TO_NET_BUFFER_ALLOCATOR_2_STATE_ALLOCATION_OK 0x1u
-#define     APE_TX_TO_NET_BUFFER_ALLOCATOR_2_STATE_ERROR__EMPTY 0x2u
-#define     APE_TX_TO_NET_BUFFER_ALLOCATOR_2_STATE_ERROR__IN_HALT 0x3u
-
-
-/** @brief Register definition for @ref APE_t.TxToNetBufferAllocator2. */
-typedef register_container RegAPETxToNetBufferAllocator2_t {
-    /** @brief 32bit direct register access. */
-    APE_APE_H_uint32_t r32;
-
-    BITFIELD_BEGIN(APE_APE_H_uint32_t, bits)
-#if defined(__LITTLE_ENDIAN__)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Index, 0, 12)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, RequestAllocation, 12, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, State, 13, 2)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_31_15, 15, 17)
-#elif defined(__BIG_ENDIAN__)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_31_15, 15, 17)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, State, 13, 2)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, RequestAllocation, 12, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Index, 0, 12)
-#else
-#error Unknown Endian
-#endif
-    BITFIELD_END(APE_APE_H_uint32_t, bits)
-#ifdef CXX_SIMULATOR
-    /** @brief Register name for use with the simulator. */
-    const char* getName(void) { return "TxToNetBufferAllocator2"; }
-
-    /** @brief Print register value. */
-    void print(void) { r32.print(); }
-
-    RegAPETxToNetBufferAllocator2_t()
-    {
-        /** @brief constructor for @ref APE_t.TxToNetBufferAllocator2. */
-        r32.setName("TxToNetBufferAllocator2");
-        bits.Index.setBaseRegister(&r32);
-        bits.Index.setName("Index");
-        bits.RequestAllocation.setBaseRegister(&r32);
-        bits.RequestAllocation.setName("RequestAllocation");
-        bits.State.setBaseRegister(&r32);
-        bits.State.setName("State");
-    }
-    RegAPETxToNetBufferAllocator2_t& operator=(const RegAPETxToNetBufferAllocator2_t& other)
-    {
-        r32 = other.r32;
-        return *this;
-    }
-#endif /* CXX_SIMULATOR */
-} RegAPETxToNetBufferAllocator2_t;
-
 #define REG_APE_RXBUFOFFSET_FUNC3 ((volatile APE_APE_H_uint32_t*)0x60200300) /* This is examined on the APE Packet RX interrupt, and indicates the offset of an incoming (from-network) frame within the APE memory space, which provides access to the from-network RX buffer. */
-#define     APE_RXBUFOFFSET_FUNC3_TAIL_SHIFT 0u
-#define     APE_RXBUFOFFSET_FUNC3_TAIL_MASK  0xfffu
-#define GET_APE_RXBUFOFFSET_FUNC3_TAIL(__reg__)  (((__reg__) & 0xfff) >> 0u)
-#define SET_APE_RXBUFOFFSET_FUNC3_TAIL(__val__)  (((__val__) << 0u) & 0xfffu)
-#define     APE_RXBUFOFFSET_FUNC3_HEAD_SHIFT 12u
-#define     APE_RXBUFOFFSET_FUNC3_HEAD_MASK  0xfff000u
-#define GET_APE_RXBUFOFFSET_FUNC3_HEAD(__reg__)  (((__reg__) & 0xfff000) >> 12u)
-#define SET_APE_RXBUFOFFSET_FUNC3_HEAD(__val__)  (((__val__) << 12u) & 0xfff000u)
-#define     APE_RXBUFOFFSET_FUNC3_TO_HOST_SHIFT 24u
-#define     APE_RXBUFOFFSET_FUNC3_TO_HOST_MASK  0x1000000u
-#define GET_APE_RXBUFOFFSET_FUNC3_TO_HOST(__reg__)  (((__reg__) & 0x1000000) >> 24u)
-#define SET_APE_RXBUFOFFSET_FUNC3_TO_HOST(__val__)  (((__val__) << 24u) & 0x1000000u)
-#define     APE_RXBUFOFFSET_FUNC3_IP_FRAG_SHIFT 25u
-#define     APE_RXBUFOFFSET_FUNC3_IP_FRAG_MASK  0x2000000u
-#define GET_APE_RXBUFOFFSET_FUNC3_IP_FRAG(__reg__)  (((__reg__) & 0x2000000) >> 25u)
-#define SET_APE_RXBUFOFFSET_FUNC3_IP_FRAG(__val__)  (((__val__) << 25u) & 0x2000000u)
-#define     APE_RXBUFOFFSET_FUNC3_COUNT_SHIFT 26u
-#define     APE_RXBUFOFFSET_FUNC3_COUNT_MASK  0x3c000000u
-#define GET_APE_RXBUFOFFSET_FUNC3_COUNT(__reg__)  (((__reg__) & 0x3c000000) >> 26u)
-#define SET_APE_RXBUFOFFSET_FUNC3_COUNT(__val__)  (((__val__) << 26u) & 0x3c000000u)
-#define     APE_RXBUFOFFSET_FUNC3_VALID_SHIFT 30u
-#define     APE_RXBUFOFFSET_FUNC3_VALID_MASK  0x40000000u
-#define GET_APE_RXBUFOFFSET_FUNC3_VALID(__reg__)  (((__reg__) & 0x40000000) >> 30u)
-#define SET_APE_RXBUFOFFSET_FUNC3_VALID(__val__)  (((__val__) << 30u) & 0x40000000u)
-
-/** @brief Register definition for @ref APE_t.RxbufoffsetFunc3. */
-typedef register_container RegAPERxbufoffsetFunc3_t {
-    /** @brief 32bit direct register access. */
-    APE_APE_H_uint32_t r32;
-
-    BITFIELD_BEGIN(APE_APE_H_uint32_t, bits)
-#if defined(__LITTLE_ENDIAN__)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Tail, 0, 12)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Head, 12, 12)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, ToHost, 24, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, IPFrag, 25, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Count, 26, 4)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Valid, 30, 1)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_31_31, 31, 1)
-#elif defined(__BIG_ENDIAN__)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_31_31, 31, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Valid, 30, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Count, 26, 4)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, IPFrag, 25, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, ToHost, 24, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Head, 12, 12)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Tail, 0, 12)
-#else
-#error Unknown Endian
-#endif
-    BITFIELD_END(APE_APE_H_uint32_t, bits)
-#ifdef CXX_SIMULATOR
-    /** @brief Register name for use with the simulator. */
-    const char* getName(void) { return "RxbufoffsetFunc3"; }
-
-    /** @brief Print register value. */
-    void print(void) { r32.print(); }
-
-    RegAPERxbufoffsetFunc3_t()
-    {
-        /** @brief constructor for @ref APE_t.RxbufoffsetFunc3. */
-        r32.setName("RxbufoffsetFunc3");
-        bits.Tail.setBaseRegister(&r32);
-        bits.Tail.setName("Tail");
-        bits.Head.setBaseRegister(&r32);
-        bits.Head.setName("Head");
-        bits.ToHost.setBaseRegister(&r32);
-        bits.ToHost.setName("ToHost");
-        bits.IPFrag.setBaseRegister(&r32);
-        bits.IPFrag.setName("IPFrag");
-        bits.Count.setBaseRegister(&r32);
-        bits.Count.setName("Count");
-        bits.Valid.setBaseRegister(&r32);
-        bits.Valid.setName("Valid");
-    }
-    RegAPERxbufoffsetFunc3_t& operator=(const RegAPERxbufoffsetFunc3_t& other)
-    {
-        r32 = other.r32;
-        return *this;
-    }
-#endif /* CXX_SIMULATOR */
-} RegAPERxbufoffsetFunc3_t;
-
 #define REG_APE_TX_TO_NET_DOORBELL_FUNC3 ((volatile APE_APE_H_uint32_t*)0x60200304) /* Written on APE TX to network after filling 0xA002 buffer with packet. */
-#define     APE_TX_TO_NET_DOORBELL_FUNC3_TAIL_SHIFT 0u
-#define     APE_TX_TO_NET_DOORBELL_FUNC3_TAIL_MASK  0xfffu
-#define GET_APE_TX_TO_NET_DOORBELL_FUNC3_TAIL(__reg__)  (((__reg__) & 0xfff) >> 0u)
-#define SET_APE_TX_TO_NET_DOORBELL_FUNC3_TAIL(__val__)  (((__val__) << 0u) & 0xfffu)
-#define     APE_TX_TO_NET_DOORBELL_FUNC3_HEAD_SHIFT 12u
-#define     APE_TX_TO_NET_DOORBELL_FUNC3_HEAD_MASK  0xfff000u
-#define GET_APE_TX_TO_NET_DOORBELL_FUNC3_HEAD(__reg__)  (((__reg__) & 0xfff000) >> 12u)
-#define SET_APE_TX_TO_NET_DOORBELL_FUNC3_HEAD(__val__)  (((__val__) << 12u) & 0xfff000u)
-#define     APE_TX_TO_NET_DOORBELL_FUNC3_LENGTH_SHIFT 24u
-#define     APE_TX_TO_NET_DOORBELL_FUNC3_LENGTH_MASK  0xf000000u
-#define GET_APE_TX_TO_NET_DOORBELL_FUNC3_LENGTH(__reg__)  (((__reg__) & 0xf000000) >> 24u)
-#define SET_APE_TX_TO_NET_DOORBELL_FUNC3_LENGTH(__val__)  (((__val__) << 24u) & 0xf000000u)
-#define     APE_TX_TO_NET_DOORBELL_FUNC3_TX_QUEUE_FULL_SHIFT 28u
-#define     APE_TX_TO_NET_DOORBELL_FUNC3_TX_QUEUE_FULL_MASK  0x10000000u
-#define GET_APE_TX_TO_NET_DOORBELL_FUNC3_TX_QUEUE_FULL(__reg__)  (((__reg__) & 0x10000000) >> 28u)
-#define SET_APE_TX_TO_NET_DOORBELL_FUNC3_TX_QUEUE_FULL(__val__)  (((__val__) << 28u) & 0x10000000u)
-
-/** @brief Register definition for @ref APE_t.TxToNetDoorbellFunc3. */
-typedef register_container RegAPETxToNetDoorbellFunc3_t {
-    /** @brief 32bit direct register access. */
-    APE_APE_H_uint32_t r32;
-
-    BITFIELD_BEGIN(APE_APE_H_uint32_t, bits)
-#if defined(__LITTLE_ENDIAN__)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Tail, 0, 12)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Head, 12, 12)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Length, 24, 4)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, TXQueueFull, 28, 1)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_31_29, 29, 3)
-#elif defined(__BIG_ENDIAN__)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_31_29, 29, 3)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, TXQueueFull, 28, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Length, 24, 4)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Head, 12, 12)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Tail, 0, 12)
-#else
-#error Unknown Endian
-#endif
-    BITFIELD_END(APE_APE_H_uint32_t, bits)
-#ifdef CXX_SIMULATOR
-    /** @brief Register name for use with the simulator. */
-    const char* getName(void) { return "TxToNetDoorbellFunc3"; }
-
-    /** @brief Print register value. */
-    void print(void) { r32.print(); }
-
-    RegAPETxToNetDoorbellFunc3_t()
-    {
-        /** @brief constructor for @ref APE_t.TxToNetDoorbellFunc3. */
-        r32.setName("TxToNetDoorbellFunc3");
-        bits.Tail.setBaseRegister(&r32);
-        bits.Tail.setName("Tail");
-        bits.Head.setBaseRegister(&r32);
-        bits.Head.setName("Head");
-        bits.Length.setBaseRegister(&r32);
-        bits.Length.setName("Length");
-        bits.TXQueueFull.setBaseRegister(&r32);
-        bits.TXQueueFull.setName("TXQueueFull");
-    }
-    RegAPETxToNetDoorbellFunc3_t& operator=(const RegAPETxToNetDoorbellFunc3_t& other)
-    {
-        r32 = other.r32;
-        return *this;
-    }
-#endif /* CXX_SIMULATOR */
-} RegAPETxToNetDoorbellFunc3_t;
-
 #define REG_APE_RX_POOL_MODE_STATUS_3 ((volatile APE_APE_H_uint32_t*)0x60200314) /*  */
-#define     APE_RX_POOL_MODE_STATUS_3_HALT_SHIFT 0u
-#define     APE_RX_POOL_MODE_STATUS_3_HALT_MASK  0x1u
-#define GET_APE_RX_POOL_MODE_STATUS_3_HALT(__reg__)  (((__reg__) & 0x1) >> 0u)
-#define SET_APE_RX_POOL_MODE_STATUS_3_HALT(__val__)  (((__val__) << 0u) & 0x1u)
-#define     APE_RX_POOL_MODE_STATUS_3_HALT_DONE_SHIFT 1u
-#define     APE_RX_POOL_MODE_STATUS_3_HALT_DONE_MASK  0x2u
-#define GET_APE_RX_POOL_MODE_STATUS_3_HALT_DONE(__reg__)  (((__reg__) & 0x2) >> 1u)
-#define SET_APE_RX_POOL_MODE_STATUS_3_HALT_DONE(__val__)  (((__val__) << 1u) & 0x2u)
-#define     APE_RX_POOL_MODE_STATUS_3_ENABLE_SHIFT 2u
-#define     APE_RX_POOL_MODE_STATUS_3_ENABLE_MASK  0x4u
-#define GET_APE_RX_POOL_MODE_STATUS_3_ENABLE(__reg__)  (((__reg__) & 0x4) >> 2u)
-#define SET_APE_RX_POOL_MODE_STATUS_3_ENABLE(__val__)  (((__val__) << 2u) & 0x4u)
-#define     APE_RX_POOL_MODE_STATUS_3_EMPTY_SHIFT 4u
-#define     APE_RX_POOL_MODE_STATUS_3_EMPTY_MASK  0x10u
-#define GET_APE_RX_POOL_MODE_STATUS_3_EMPTY(__reg__)  (((__reg__) & 0x10) >> 4u)
-#define SET_APE_RX_POOL_MODE_STATUS_3_EMPTY(__val__)  (((__val__) << 4u) & 0x10u)
-#define     APE_RX_POOL_MODE_STATUS_3_ERROR_SHIFT 5u
-#define     APE_RX_POOL_MODE_STATUS_3_ERROR_MASK  0x20u
-#define GET_APE_RX_POOL_MODE_STATUS_3_ERROR(__reg__)  (((__reg__) & 0x20) >> 5u)
-#define SET_APE_RX_POOL_MODE_STATUS_3_ERROR(__val__)  (((__val__) << 5u) & 0x20u)
-#define     APE_RX_POOL_MODE_STATUS_3_RESET_SHIFT 6u
-#define     APE_RX_POOL_MODE_STATUS_3_RESET_MASK  0x40u
-#define GET_APE_RX_POOL_MODE_STATUS_3_RESET(__reg__)  (((__reg__) & 0x40) >> 6u)
-#define SET_APE_RX_POOL_MODE_STATUS_3_RESET(__val__)  (((__val__) << 6u) & 0x40u)
-#define     APE_RX_POOL_MODE_STATUS_3_FULL_COUNT_SHIFT 8u
-#define     APE_RX_POOL_MODE_STATUS_3_FULL_COUNT_MASK  0xffff00u
-#define GET_APE_RX_POOL_MODE_STATUS_3_FULL_COUNT(__reg__)  (((__reg__) & 0xffff00) >> 8u)
-#define SET_APE_RX_POOL_MODE_STATUS_3_FULL_COUNT(__val__)  (((__val__) << 8u) & 0xffff00u)
-
-/** @brief Register definition for @ref APE_t.RxPoolModeStatus3. */
-typedef register_container RegAPERxPoolModeStatus3_t {
-    /** @brief 32bit direct register access. */
-    APE_APE_H_uint32_t r32;
-
-    BITFIELD_BEGIN(APE_APE_H_uint32_t, bits)
-#if defined(__LITTLE_ENDIAN__)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Halt, 0, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, HaltDone, 1, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Enable, 2, 1)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_3_3, 3, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Empty, 4, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Error, 5, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Reset, 6, 1)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_7_7, 7, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, FullCount, 8, 16)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_31_24, 24, 8)
-#elif defined(__BIG_ENDIAN__)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_31_24, 24, 8)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, FullCount, 8, 16)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_7_7, 7, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Reset, 6, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Error, 5, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Empty, 4, 1)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_3_3, 3, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Enable, 2, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, HaltDone, 1, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Halt, 0, 1)
-#else
-#error Unknown Endian
-#endif
-    BITFIELD_END(APE_APE_H_uint32_t, bits)
-#ifdef CXX_SIMULATOR
-    /** @brief Register name for use with the simulator. */
-    const char* getName(void) { return "RxPoolModeStatus3"; }
-
-    /** @brief Print register value. */
-    void print(void) { r32.print(); }
-
-    RegAPERxPoolModeStatus3_t()
-    {
-        /** @brief constructor for @ref APE_t.RxPoolModeStatus3. */
-        r32.setName("RxPoolModeStatus3");
-        bits.Halt.setBaseRegister(&r32);
-        bits.Halt.setName("Halt");
-        bits.HaltDone.setBaseRegister(&r32);
-        bits.HaltDone.setName("HaltDone");
-        bits.Enable.setBaseRegister(&r32);
-        bits.Enable.setName("Enable");
-        bits.Empty.setBaseRegister(&r32);
-        bits.Empty.setName("Empty");
-        bits.Error.setBaseRegister(&r32);
-        bits.Error.setName("Error");
-        bits.Reset.setBaseRegister(&r32);
-        bits.Reset.setName("Reset");
-        bits.FullCount.setBaseRegister(&r32);
-        bits.FullCount.setName("FullCount");
-    }
-    RegAPERxPoolModeStatus3_t& operator=(const RegAPERxPoolModeStatus3_t& other)
-    {
-        r32 = other.r32;
-        return *this;
-    }
-#endif /* CXX_SIMULATOR */
-} RegAPERxPoolModeStatus3_t;
-
 #define REG_APE_RX_POOL_RETIRE_3 ((volatile APE_APE_H_uint32_t*)0x60200318) /* Used to indicate when the APE is done with a region of the 0xA000_0000 RX pool buffer so that it can be used to receive another frame. */
-#define     APE_RX_POOL_RETIRE_3_TAIL_SHIFT 0u
-#define     APE_RX_POOL_RETIRE_3_TAIL_MASK  0xfffu
-#define GET_APE_RX_POOL_RETIRE_3_TAIL(__reg__)  (((__reg__) & 0xfff) >> 0u)
-#define SET_APE_RX_POOL_RETIRE_3_TAIL(__val__)  (((__val__) << 0u) & 0xfffu)
-#define     APE_RX_POOL_RETIRE_3_HEAD_SHIFT 12u
-#define     APE_RX_POOL_RETIRE_3_HEAD_MASK  0xfff000u
-#define GET_APE_RX_POOL_RETIRE_3_HEAD(__reg__)  (((__reg__) & 0xfff000) >> 12u)
-#define SET_APE_RX_POOL_RETIRE_3_HEAD(__val__)  (((__val__) << 12u) & 0xfff000u)
-#define     APE_RX_POOL_RETIRE_3_RETIRE_SHIFT 24u
-#define     APE_RX_POOL_RETIRE_3_RETIRE_MASK  0x1000000u
-#define GET_APE_RX_POOL_RETIRE_3_RETIRE(__reg__)  (((__reg__) & 0x1000000) >> 24u)
-#define SET_APE_RX_POOL_RETIRE_3_RETIRE(__val__)  (((__val__) << 24u) & 0x1000000u)
-#define     APE_RX_POOL_RETIRE_3_STATE_SHIFT 25u
-#define     APE_RX_POOL_RETIRE_3_STATE_MASK  0x6000000u
-#define GET_APE_RX_POOL_RETIRE_3_STATE(__reg__)  (((__reg__) & 0x6000000) >> 25u)
-#define SET_APE_RX_POOL_RETIRE_3_STATE(__val__)  (((__val__) << 25u) & 0x6000000u)
-#define     APE_RX_POOL_RETIRE_3_STATE_PROCESSING 0x0u
-#define     APE_RX_POOL_RETIRE_3_STATE_RETIRED_OK 0x1u
-#define     APE_RX_POOL_RETIRE_3_STATE_ERROR__FULL 0x2u
-#define     APE_RX_POOL_RETIRE_3_STATE_ERROR__IN_HALT 0x3u
-
-#define     APE_RX_POOL_RETIRE_3_COUNT_SHIFT 27u
-#define     APE_RX_POOL_RETIRE_3_COUNT_MASK  0x78000000u
-#define GET_APE_RX_POOL_RETIRE_3_COUNT(__reg__)  (((__reg__) & 0x78000000) >> 27u)
-#define SET_APE_RX_POOL_RETIRE_3_COUNT(__val__)  (((__val__) << 27u) & 0x78000000u)
-
-/** @brief Register definition for @ref APE_t.RxPoolRetire3. */
-typedef register_container RegAPERxPoolRetire3_t {
-    /** @brief 32bit direct register access. */
-    APE_APE_H_uint32_t r32;
-
-    BITFIELD_BEGIN(APE_APE_H_uint32_t, bits)
-#if defined(__LITTLE_ENDIAN__)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Tail, 0, 12)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Head, 12, 12)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Retire, 24, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, State, 25, 2)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Count, 27, 4)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_31_31, 31, 1)
-#elif defined(__BIG_ENDIAN__)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_31_31, 31, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Count, 27, 4)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, State, 25, 2)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Retire, 24, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Head, 12, 12)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Tail, 0, 12)
-#else
-#error Unknown Endian
-#endif
-    BITFIELD_END(APE_APE_H_uint32_t, bits)
-#ifdef CXX_SIMULATOR
-    /** @brief Register name for use with the simulator. */
-    const char* getName(void) { return "RxPoolRetire3"; }
-
-    /** @brief Print register value. */
-    void print(void) { r32.print(); }
-
-    RegAPERxPoolRetire3_t()
-    {
-        /** @brief constructor for @ref APE_t.RxPoolRetire3. */
-        r32.setName("RxPoolRetire3");
-        bits.Tail.setBaseRegister(&r32);
-        bits.Tail.setName("Tail");
-        bits.Head.setBaseRegister(&r32);
-        bits.Head.setName("Head");
-        bits.Retire.setBaseRegister(&r32);
-        bits.Retire.setName("Retire");
-        bits.State.setBaseRegister(&r32);
-        bits.State.setName("State");
-        bits.Count.setBaseRegister(&r32);
-        bits.Count.setName("Count");
-    }
-    RegAPERxPoolRetire3_t& operator=(const RegAPERxPoolRetire3_t& other)
-    {
-        r32 = other.r32;
-        return *this;
-    }
-#endif /* CXX_SIMULATOR */
-} RegAPERxPoolRetire3_t;
-
 #define REG_APE_TX_TO_NET_POOL_MODE_STATUS_3 ((volatile APE_APE_H_uint32_t*)0x60200320) /*  */
-#define     APE_TX_TO_NET_POOL_MODE_STATUS_3_HALT_SHIFT 0u
-#define     APE_TX_TO_NET_POOL_MODE_STATUS_3_HALT_MASK  0x1u
-#define GET_APE_TX_TO_NET_POOL_MODE_STATUS_3_HALT(__reg__)  (((__reg__) & 0x1) >> 0u)
-#define SET_APE_TX_TO_NET_POOL_MODE_STATUS_3_HALT(__val__)  (((__val__) << 0u) & 0x1u)
-#define     APE_TX_TO_NET_POOL_MODE_STATUS_3_HALT_DONE_SHIFT 1u
-#define     APE_TX_TO_NET_POOL_MODE_STATUS_3_HALT_DONE_MASK  0x2u
-#define GET_APE_TX_TO_NET_POOL_MODE_STATUS_3_HALT_DONE(__reg__)  (((__reg__) & 0x2) >> 1u)
-#define SET_APE_TX_TO_NET_POOL_MODE_STATUS_3_HALT_DONE(__val__)  (((__val__) << 1u) & 0x2u)
-#define     APE_TX_TO_NET_POOL_MODE_STATUS_3_ENABLE_SHIFT 2u
-#define     APE_TX_TO_NET_POOL_MODE_STATUS_3_ENABLE_MASK  0x4u
-#define GET_APE_TX_TO_NET_POOL_MODE_STATUS_3_ENABLE(__reg__)  (((__reg__) & 0x4) >> 2u)
-#define SET_APE_TX_TO_NET_POOL_MODE_STATUS_3_ENABLE(__val__)  (((__val__) << 2u) & 0x4u)
-#define     APE_TX_TO_NET_POOL_MODE_STATUS_3_EMPTY_SHIFT 4u
-#define     APE_TX_TO_NET_POOL_MODE_STATUS_3_EMPTY_MASK  0x10u
-#define GET_APE_TX_TO_NET_POOL_MODE_STATUS_3_EMPTY(__reg__)  (((__reg__) & 0x10) >> 4u)
-#define SET_APE_TX_TO_NET_POOL_MODE_STATUS_3_EMPTY(__val__)  (((__val__) << 4u) & 0x10u)
-#define     APE_TX_TO_NET_POOL_MODE_STATUS_3_ERROR_SHIFT 5u
-#define     APE_TX_TO_NET_POOL_MODE_STATUS_3_ERROR_MASK  0x20u
-#define GET_APE_TX_TO_NET_POOL_MODE_STATUS_3_ERROR(__reg__)  (((__reg__) & 0x20) >> 5u)
-#define SET_APE_TX_TO_NET_POOL_MODE_STATUS_3_ERROR(__val__)  (((__val__) << 5u) & 0x20u)
-#define     APE_TX_TO_NET_POOL_MODE_STATUS_3_RESET_SHIFT 6u
-#define     APE_TX_TO_NET_POOL_MODE_STATUS_3_RESET_MASK  0x40u
-#define GET_APE_TX_TO_NET_POOL_MODE_STATUS_3_RESET(__reg__)  (((__reg__) & 0x40) >> 6u)
-#define SET_APE_TX_TO_NET_POOL_MODE_STATUS_3_RESET(__val__)  (((__val__) << 6u) & 0x40u)
-#define     APE_TX_TO_NET_POOL_MODE_STATUS_3_FULL_COUNT_SHIFT 8u
-#define     APE_TX_TO_NET_POOL_MODE_STATUS_3_FULL_COUNT_MASK  0xffff00u
-#define GET_APE_TX_TO_NET_POOL_MODE_STATUS_3_FULL_COUNT(__reg__)  (((__reg__) & 0xffff00) >> 8u)
-#define SET_APE_TX_TO_NET_POOL_MODE_STATUS_3_FULL_COUNT(__val__)  (((__val__) << 8u) & 0xffff00u)
-
-/** @brief Register definition for @ref APE_t.TxToNetPoolModeStatus3. */
-typedef register_container RegAPETxToNetPoolModeStatus3_t {
-    /** @brief 32bit direct register access. */
-    APE_APE_H_uint32_t r32;
-
-    BITFIELD_BEGIN(APE_APE_H_uint32_t, bits)
-#if defined(__LITTLE_ENDIAN__)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Halt, 0, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, HaltDone, 1, 1)
-        /** @brief Must set Enable before the APE TX To Net Buffer Allocator will work. */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Enable, 2, 1)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_3_3, 3, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Empty, 4, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Error, 5, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Reset, 6, 1)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_7_7, 7, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, FullCount, 8, 16)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_31_24, 24, 8)
-#elif defined(__BIG_ENDIAN__)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_31_24, 24, 8)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, FullCount, 8, 16)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_7_7, 7, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Reset, 6, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Error, 5, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Empty, 4, 1)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_3_3, 3, 1)
-        /** @brief Must set Enable before the APE TX To Net Buffer Allocator will work. */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Enable, 2, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, HaltDone, 1, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Halt, 0, 1)
-#else
-#error Unknown Endian
-#endif
-    BITFIELD_END(APE_APE_H_uint32_t, bits)
-#ifdef CXX_SIMULATOR
-    /** @brief Register name for use with the simulator. */
-    const char* getName(void) { return "TxToNetPoolModeStatus3"; }
-
-    /** @brief Print register value. */
-    void print(void) { r32.print(); }
-
-    RegAPETxToNetPoolModeStatus3_t()
-    {
-        /** @brief constructor for @ref APE_t.TxToNetPoolModeStatus3. */
-        r32.setName("TxToNetPoolModeStatus3");
-        bits.Halt.setBaseRegister(&r32);
-        bits.Halt.setName("Halt");
-        bits.HaltDone.setBaseRegister(&r32);
-        bits.HaltDone.setName("HaltDone");
-        bits.Enable.setBaseRegister(&r32);
-        bits.Enable.setName("Enable");
-        bits.Empty.setBaseRegister(&r32);
-        bits.Empty.setName("Empty");
-        bits.Error.setBaseRegister(&r32);
-        bits.Error.setName("Error");
-        bits.Reset.setBaseRegister(&r32);
-        bits.Reset.setName("Reset");
-        bits.FullCount.setBaseRegister(&r32);
-        bits.FullCount.setName("FullCount");
-    }
-    RegAPETxToNetPoolModeStatus3_t& operator=(const RegAPETxToNetPoolModeStatus3_t& other)
-    {
-        r32 = other.r32;
-        return *this;
-    }
-#endif /* CXX_SIMULATOR */
-} RegAPETxToNetPoolModeStatus3_t;
-
 #define REG_APE_TX_TO_NET_BUFFER_ALLOCATOR_3 ((volatile APE_APE_H_uint32_t*)0x60200324) /*  */
-#define     APE_TX_TO_NET_BUFFER_ALLOCATOR_3_INDEX_SHIFT 0u
-#define     APE_TX_TO_NET_BUFFER_ALLOCATOR_3_INDEX_MASK  0xfffu
-#define GET_APE_TX_TO_NET_BUFFER_ALLOCATOR_3_INDEX(__reg__)  (((__reg__) & 0xfff) >> 0u)
-#define SET_APE_TX_TO_NET_BUFFER_ALLOCATOR_3_INDEX(__val__)  (((__val__) << 0u) & 0xfffu)
-#define     APE_TX_TO_NET_BUFFER_ALLOCATOR_3_INDEX_BLOCK_SIZE 0x80u
-
-#define     APE_TX_TO_NET_BUFFER_ALLOCATOR_3_REQUEST_ALLOCATION_SHIFT 12u
-#define     APE_TX_TO_NET_BUFFER_ALLOCATOR_3_REQUEST_ALLOCATION_MASK  0x1000u
-#define GET_APE_TX_TO_NET_BUFFER_ALLOCATOR_3_REQUEST_ALLOCATION(__reg__)  (((__reg__) & 0x1000) >> 12u)
-#define SET_APE_TX_TO_NET_BUFFER_ALLOCATOR_3_REQUEST_ALLOCATION(__val__)  (((__val__) << 12u) & 0x1000u)
-#define     APE_TX_TO_NET_BUFFER_ALLOCATOR_3_STATE_SHIFT 13u
-#define     APE_TX_TO_NET_BUFFER_ALLOCATOR_3_STATE_MASK  0x6000u
-#define GET_APE_TX_TO_NET_BUFFER_ALLOCATOR_3_STATE(__reg__)  (((__reg__) & 0x6000) >> 13u)
-#define SET_APE_TX_TO_NET_BUFFER_ALLOCATOR_3_STATE(__val__)  (((__val__) << 13u) & 0x6000u)
-#define     APE_TX_TO_NET_BUFFER_ALLOCATOR_3_STATE_PROCESSING 0x0u
-#define     APE_TX_TO_NET_BUFFER_ALLOCATOR_3_STATE_ALLOCATION_OK 0x1u
-#define     APE_TX_TO_NET_BUFFER_ALLOCATOR_3_STATE_ERROR__EMPTY 0x2u
-#define     APE_TX_TO_NET_BUFFER_ALLOCATOR_3_STATE_ERROR__IN_HALT 0x3u
-
-
-/** @brief Register definition for @ref APE_t.TxToNetBufferAllocator3. */
-typedef register_container RegAPETxToNetBufferAllocator3_t {
-    /** @brief 32bit direct register access. */
-    APE_APE_H_uint32_t r32;
-
-    BITFIELD_BEGIN(APE_APE_H_uint32_t, bits)
-#if defined(__LITTLE_ENDIAN__)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Index, 0, 12)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, RequestAllocation, 12, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, State, 13, 2)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_31_15, 15, 17)
-#elif defined(__BIG_ENDIAN__)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_31_15, 15, 17)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, State, 13, 2)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, RequestAllocation, 12, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, Index, 0, 12)
-#else
-#error Unknown Endian
-#endif
-    BITFIELD_END(APE_APE_H_uint32_t, bits)
-#ifdef CXX_SIMULATOR
-    /** @brief Register name for use with the simulator. */
-    const char* getName(void) { return "TxToNetBufferAllocator3"; }
-
-    /** @brief Print register value. */
-    void print(void) { r32.print(); }
-
-    RegAPETxToNetBufferAllocator3_t()
-    {
-        /** @brief constructor for @ref APE_t.TxToNetBufferAllocator3. */
-        r32.setName("TxToNetBufferAllocator3");
-        bits.Index.setBaseRegister(&r32);
-        bits.Index.setName("Index");
-        bits.RequestAllocation.setBaseRegister(&r32);
-        bits.RequestAllocation.setName("RequestAllocation");
-        bits.State.setBaseRegister(&r32);
-        bits.State.setName("State");
-    }
-    RegAPETxToNetBufferAllocator3_t& operator=(const RegAPETxToNetBufferAllocator3_t& other)
-    {
-        r32 = other.r32;
-        return *this;
-    }
-#endif /* CXX_SIMULATOR */
-} RegAPETxToNetBufferAllocator3_t;
-
 /** @brief Component definition for @ref APE. */
 typedef struct APE_t {
     /** @brief More of these bits can be found in diagnostic utilities, but they don't seem too interesting. */
@@ -3562,13 +1852,13 @@ typedef struct APE_t {
     APE_APE_H_uint32_t reserved_16[1];
 
     /** @brief This is examined on the APE Packet RX interrupt, and indicates the offset of an incoming (from-network) frame within the APE memory space, which provides access to the from-network RX buffer. The fields are block numbers (block size 128 bytes). */
-    RegAPERxbufoffsetFunc0_t RxbufoffsetFunc0;
+    RegAPERxbufoffset_t RxbufoffsetFunc0;
 
     /** @brief This is examined on the APE Packet RX interrupt, and indicates the offset of an incoming (from-network) frame within the APE memory space, which provides access to the from-network RX buffer. */
-    RegAPERxbufoffsetFunc1_t RxbufoffsetFunc1;
+    RegAPERxbufoffset_t RxbufoffsetFunc1;
 
     /** @brief Written on APE TX to network after filling 0xA002 buffer with packet. */
-    RegAPETxToNetDoorbellFunc0_t TxToNetDoorbellFunc0;
+    RegAPETxToNetDoorbell_t TxToNetDoorbellFunc0;
 
     /** @brief APE TX Status. */
     RegAPETxState0_t TxState0;
@@ -3592,25 +1882,25 @@ typedef struct APE_t {
     APE_APE_H_uint32_t reserved_80[10];
 
     /** @brief  */
-    RegAPERxPoolModeStatus0_t RxPoolModeStatus0;
+    RegAPERxPoolModeStatus_t RxPoolModeStatus0;
 
     /** @brief  */
-    RegAPERxPoolModeStatus1_t RxPoolModeStatus1;
+    RegAPERxPoolModeStatus_t RxPoolModeStatus1;
 
     /** @brief Used to indicate when the APE is done with a region of the 0xA000_0000 RX pool buffer so that it can be used to receive another frame. */
-    RegAPERxPoolRetire0_t RxPoolRetire0;
+    RegAPERxPoolRetire_t RxPoolRetire0;
 
     /** @brief Reserved bytes to pad out data structure. */
     APE_APE_H_uint32_t reserved_132[1];
 
     /** @brief Used to indicate when the APE is done with a region of the 0xA000_0000 RX pool buffer so that it can be used to receive another frame. */
-    RegAPERxPoolRetire1_t RxPoolRetire1;
+    RegAPERxPoolRetire_t RxPoolRetire1;
 
     /** @brief  */
-    RegAPETxToNetPoolModeStatus0_t TxToNetPoolModeStatus0;
+    RegAPETxToNetPoolModeStatus_t TxToNetPoolModeStatus0;
 
     /** @brief  */
-    RegAPETxToNetBufferAllocator0_t TxToNetBufferAllocator0;
+    RegAPETxToNetBufferAllocator_t TxToNetBufferAllocator0;
 
     /** @brief  */
     RegAPETxToNetBufferReturn0_t TxToNetBufferReturn0;
@@ -3667,70 +1957,70 @@ typedef struct APE_t {
     APE_APE_H_uint32_t reserved_268[1];
 
     /** @brief  */
-    RegAPETxToNetPoolModeStatus1_t TxToNetPoolModeStatus1;
+    RegAPETxToNetPoolModeStatus_t TxToNetPoolModeStatus1;
 
     /** @brief  */
-    RegAPETxToNetBufferAllocator1_t TxToNetBufferAllocator1;
+    RegAPETxToNetBufferAllocator_t TxToNetBufferAllocator1;
 
     /** @brief Reserved bytes to pad out data structure. */
     APE_APE_H_uint32_t reserved_280[2];
 
     /** @brief Written on APE TX to network after filling 0xA002 buffer with packet. */
-    RegAPETxToNetDoorbellFunc1_t TxToNetDoorbellFunc1;
+    RegAPETxToNetDoorbell_t TxToNetDoorbellFunc1;
 
     /** @brief Reserved bytes to pad out data structure. */
     APE_APE_H_uint32_t reserved_292[55];
 
     /** @brief This is examined on the APE Packet RX interrupt, and indicates the offset of an incoming (from-network) frame within the APE memory space, which provides access to the from-network RX buffer. */
-    RegAPERxbufoffsetFunc2_t RxbufoffsetFunc2;
+    RegAPERxbufoffset_t RxbufoffsetFunc2;
 
     /** @brief Written on APE TX to network after filling 0xA002 buffer with packet. */
-    RegAPETxToNetDoorbellFunc2_t TxToNetDoorbellFunc2;
+    RegAPETxToNetDoorbell_t TxToNetDoorbellFunc2;
 
     /** @brief Reserved bytes to pad out data structure. */
     APE_APE_H_uint32_t reserved_520[3];
 
     /** @brief  */
-    RegAPERxPoolModeStatus2_t RxPoolModeStatus2;
+    RegAPERxPoolModeStatus_t RxPoolModeStatus2;
 
     /** @brief Used to indicate when the APE is done with a region of the 0xA000_0000 RX pool buffer so that it can be used to receive another frame. */
-    RegAPERxPoolRetire2_t RxPoolRetire2;
+    RegAPERxPoolRetire_t RxPoolRetire2;
 
     /** @brief Reserved bytes to pad out data structure. */
     APE_APE_H_uint32_t reserved_540[1];
 
     /** @brief  */
-    RegAPETxToNetPoolModeStatus2_t TxToNetPoolModeStatus2;
+    RegAPETxToNetPoolModeStatus_t TxToNetPoolModeStatus2;
 
     /** @brief  */
-    RegAPETxToNetBufferAllocator2_t TxToNetBufferAllocator2;
+    RegAPETxToNetBufferAllocator_t TxToNetBufferAllocator2;
 
     /** @brief Reserved bytes to pad out data structure. */
     APE_APE_H_uint32_t reserved_552[54];
 
     /** @brief This is examined on the APE Packet RX interrupt, and indicates the offset of an incoming (from-network) frame within the APE memory space, which provides access to the from-network RX buffer. */
-    RegAPERxbufoffsetFunc3_t RxbufoffsetFunc3;
+    RegAPERxbufoffset_t RxbufoffsetFunc3;
 
     /** @brief Written on APE TX to network after filling 0xA002 buffer with packet. */
-    RegAPETxToNetDoorbellFunc3_t TxToNetDoorbellFunc3;
+    RegAPETxToNetDoorbell_t TxToNetDoorbellFunc3;
 
     /** @brief Reserved bytes to pad out data structure. */
     APE_APE_H_uint32_t reserved_776[3];
 
     /** @brief  */
-    RegAPERxPoolModeStatus3_t RxPoolModeStatus3;
+    RegAPERxPoolModeStatus_t RxPoolModeStatus3;
 
     /** @brief Used to indicate when the APE is done with a region of the 0xA000_0000 RX pool buffer so that it can be used to receive another frame. */
-    RegAPERxPoolRetire3_t RxPoolRetire3;
+    RegAPERxPoolRetire_t RxPoolRetire3;
 
     /** @brief Reserved bytes to pad out data structure. */
     APE_APE_H_uint32_t reserved_796[1];
 
     /** @brief  */
-    RegAPETxToNetPoolModeStatus3_t TxToNetPoolModeStatus3;
+    RegAPETxToNetPoolModeStatus_t TxToNetPoolModeStatus3;
 
     /** @brief  */
-    RegAPETxToNetBufferAllocator3_t TxToNetBufferAllocator3;
+    RegAPETxToNetBufferAllocator_t TxToNetBufferAllocator3;
 
 #ifdef CXX_SIMULATOR
     APE_t()

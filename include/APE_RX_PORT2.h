@@ -50,7 +50,7 @@
 #define APE_RX_PORT2_H
 
 #include <stdint.h>
-#include "APE_RX_PORT.h"
+#include "APE_RX_PORT0.h"
 
 #ifdef CXX_SIMULATOR /* Compiling c++ simulator code - uses register wrappers */
 void init_APE_RX_PORT2_sim(void* base);
@@ -83,17 +83,6 @@ typedef uint32_t APE_RX_PORT2_H_uint32_t;
 #define REG_RX_PORT2_SIZE (sizeof(RX_PORT_t))
 
 #define REG_RX_PORT2_IN ((volatile APE_RX_PORT2_H_uint32_t*)0xa0008000) /* This is the memory range into which frames are directed towards the APE by the hardware. */
-#define     RX_PORT2_IN_ALL_SHIFT 0u
-#define     RX_PORT2_IN_ALL_MASK  0xffffffffu
-#define GET_RX_PORT2_IN_ALL(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
-#define SET_RX_PORT2_IN_ALL(__val__)  (((__val__) << 0u) & 0xffffffffu)
-#define     RX_PORT2_IN_ALL_CONTROL_WORD 0x0u
-#define     RX_PORT2_IN_ALL_ADDITIONAL_PAYLOAD_WORD 0x2u
-#define     RX_PORT2_IN_ALL_FIRST_PAYLOAD_WORD 0xcu
-#define     RX_PORT2_IN_ALL_BLOCK_WORDS 0x20u
-#define     RX_PORT2_IN_ALL_BLOCK_BYTES 0x80u
-
-
 /** @brief RX from network port, function 2 */
 extern volatile RX_PORT_t RX_PORT2;
 

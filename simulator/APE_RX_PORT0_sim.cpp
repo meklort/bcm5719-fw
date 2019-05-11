@@ -1,10 +1,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @file       APE_TX_PORT_sim.cpp
+/// @file       APE_RX_PORT0_sim.cpp
 ///
 /// @project    ape
 ///
-/// @brief      APE_TX_PORT_sim
+/// @brief      APE_RX_PORT0_sim
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
@@ -45,7 +45,7 @@
 #include <stdint.h>
 #include <utility>
 #include <bcm5719_SHM.h>
-#include <APE_TX_PORT.h>
+#include <APE_RX_PORT0.h>
 
 static uint32_t loader_read_mem(uint32_t val, uint32_t offset, void *args)
 {
@@ -76,23 +76,23 @@ static uint32_t loader_write_mem(uint32_t val, uint32_t offset, void *args)
     return val;
 }
 
-void init_APE_TX_PORT_sim(void *arg0)
+void init_APE_RX_PORT0_sim(void *arg0)
 {
     (void)arg0; // unused
-    void* base = (void*)0xa0020000;
+    void* base = (void*)0xa0000000;
 
-    TX_PORT.mIndexReadCallback = loader_read_mem;
-    TX_PORT.mIndexReadCallbackArgs = base;
+    RX_PORT0.mIndexReadCallback = loader_read_mem;
+    RX_PORT0.mIndexReadCallbackArgs = base;
 
-    TX_PORT.mIndexWriteCallback = loader_write_mem;
-    TX_PORT.mIndexWriteCallbackArgs = base;
+    RX_PORT0.mIndexWriteCallback = loader_write_mem;
+    RX_PORT0.mIndexWriteCallbackArgs = base;
 
-    /** @brief Component Registers for @ref TX_PORT. */
-    /** @brief Bitmap for @ref TX_PORT_t.Out. */
-    for(int i = 0; i < 2048; i++)
+    /** @brief Component Registers for @ref RX_PORT0. */
+    /** @brief Bitmap for @ref RX_PORT0_t.In. */
+    for(int i = 0; i < 4096; i++)
     {
-        TX_PORT.Out[i].r32.installReadCallback(loader_read_mem, (uint8_t *)base);
-        TX_PORT.Out[i].r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+        RX_PORT0.In[i].r32.installReadCallback(loader_read_mem, (uint8_t *)base);
+        RX_PORT0.In[i].r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
     }
 
 

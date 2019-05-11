@@ -1,10 +1,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @file       APE_RX_PORT.cpp
+/// @file       APE_TX_PORT0_sim.cpp
 ///
 /// @project    ape
 ///
-/// @brief      APE_RX_PORT
+/// @brief      APE_TX_PORT0_sim
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
@@ -42,14 +42,58 @@
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
 
-#include <APE_RX_PORT.h>
+#include <stdint.h>
+#include <utility>
+#include <bcm5719_SHM.h>
+#include <APE_TX_PORT0.h>
 
-RX_PORT_t RX_PORT;
-
-void init_APE_RX_PORT(void)
+static uint32_t loader_read_mem(uint32_t val, uint32_t offset, void *args)
 {
-    /** @brief Component Registers for @ref RX_PORT. */
-    /** @brief Bitmap for @ref RX_PORT_t.In. */
+    uint32_t addr = (uint32_t)((uint64_t)args);
+    addr += offset;
+
+    SHM.LoaderArg0.r32 = addr;
+    SHM.LoaderCommand.bits.Command = SHM_LOADER_COMMAND_COMMAND_READ_MEM;
+
+    // Wait for command to be handled.
+    while(0 != SHM.LoaderCommand.bits.Command);
+
+    return (uint32_t)SHM.LoaderArg0.r32;
+}
+
+static uint32_t loader_write_mem(uint32_t val, uint32_t offset, void *args)
+{
+    uint32_t addr = (uint32_t)((uint64_t)args);
+    addr += offset;
+
+    SHM.LoaderArg0.r32 = addr;
+    SHM.LoaderArg1.r32 = val;
+    SHM.LoaderCommand.bits.Command = SHM_LOADER_COMMAND_COMMAND_WRITE_MEM;
+
+    // Wait for command to be handled.
+    while(0 != SHM.LoaderCommand.bits.Command);
+
+    return val;
+}
+
+void init_APE_TX_PORT0_sim(void *arg0)
+{
+    (void)arg0; // unused
+    void* base = (void*)0xa0020000;
+
+    TX_PORT0.mIndexReadCallback = loader_read_mem;
+    TX_PORT0.mIndexReadCallbackArgs = base;
+
+    TX_PORT0.mIndexWriteCallback = loader_write_mem;
+    TX_PORT0.mIndexWriteCallbackArgs = base;
+
+    /** @brief Component Registers for @ref TX_PORT0. */
+    /** @brief Bitmap for @ref TX_PORT0_t.Out. */
+    for(int i = 0; i < 2048; i++)
+    {
+        TX_PORT0.Out[i].r32.installReadCallback(loader_read_mem, (uint8_t *)base);
+        TX_PORT0.Out[i].r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+    }
 
 
 }
