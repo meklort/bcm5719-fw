@@ -43,7 +43,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include <stdbool.h>
+#ifdef CXX_SIMULATOR
 #include <stdio.h>
+#endif /* CXX_SIMULATOR */
 #include <stdlib.h>
 #include <string.h>
 #include <vpd.h>
@@ -80,7 +82,9 @@ const char *vpd_get_field_name(uint16_t field)
         }
     }
 
+#ifdef CXX_SIMULATOR
     printf("Unknown %c%c\n", field, field >> 8);
+#endif
     return NULL;
 }
 
