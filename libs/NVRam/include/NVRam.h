@@ -45,17 +45,16 @@
 #define NVRAM_H
 
 #include <stdbool.h>
-#include <stddef.h>
 #include <stdint.h>
 
 bool NVRam_acquireLock(void);
 bool NVRam_releaseLock(void);
 
 uint32_t NVRam_readWord(uint32_t address);
-void NVRam_read(uint32_t address, uint32_t *buffer, size_t words);
+void NVRam_read(uint32_t address, uint32_t *buffer, uint32_t words);
 
 void NVRam_writeWord(uint32_t address, uint32_t data);
-void NVRam_write(uint32_t address, uint32_t *buffer, size_t words);
+void NVRam_write(uint32_t address, uint32_t *buffer, uint32_t words);
 
 void NVRam_enable(void);
 void NVRam_enableWrites(void);

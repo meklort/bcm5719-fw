@@ -188,7 +188,7 @@ uint32_t NVRam_readWord(uint32_t address)
     return NVRam_readWordInternal(address, cmd);
 }
 
-void NVRam_read(uint32_t address, uint32_t *buffer, size_t words)
+void NVRam_read(uint32_t address, uint32_t *buffer, uint32_t words)
 {
     if (!words)
     {
@@ -237,7 +237,7 @@ void NVRam_writeWord(uint32_t address, uint32_t data)
     }
 }
 
-void NVRam_write(uint32_t address, uint32_t *buffer, size_t words)
+void NVRam_write(uint32_t address, uint32_t *buffer, uint32_t words)
 {
 #if 0
     if (!words)
