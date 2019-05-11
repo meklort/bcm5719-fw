@@ -22,12 +22,9 @@ The custom compuler can be built using the following steps:
 ```bash
 git clone https://github.com/meklort/llvm-project.git -b meklort-7.0.1
 cd llvm-project
-cd llvm/tools
-ln -s ../../clang clang
-cd ../../
 mkdir build
 cd build
-cmake ../llvm -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/llvm-bcm5719
+cmake ../llvm -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/llvm-bcm5719 -DLLVM_ENABLE_PROJECTS="lld;clang"
 ninja
 ninja install
 ```
