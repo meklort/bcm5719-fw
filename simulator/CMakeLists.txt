@@ -32,11 +32,23 @@ simulator_add_library(${PROJECT_NAME} STATIC
             APE_NVIC.cpp
             APE_NVIC_sim.cpp
 
-            APE_TX_PORT.cpp
-            APE_TX_PORT_sim.cpp
+            APE_TX_PORT0.cpp
+            APE_TX_PORT0_sim.cpp
+            APE_TX_PORT1.cpp
+            APE_TX_PORT1_sim.cpp
+            APE_TX_PORT2.cpp
+            APE_TX_PORT2_sim.cpp
+            APE_TX_PORT3.cpp
+            APE_TX_PORT3_sim.cpp
 
-            APE_RX_PORT.cpp
-            APE_RX_PORT_sim.cpp
+            APE_RX_PORT0.cpp
+            APE_RX_PORT0_sim.cpp
+            APE_RX_PORT1.cpp
+            APE_RX_PORT1_sim.cpp
+            APE_RX_PORT2.cpp
+            APE_RX_PORT2_sim.cpp
+            APE_RX_PORT3.cpp
+            APE_RX_PORT3_sim.cpp
 
             )
 

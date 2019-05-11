@@ -45,25 +45,54 @@
 #ifndef NETWORK_H
 #define NETWORK_H
 
+#include <APE_APE.h>
 #include <APE_APE_PERI.h>
+#include <APE_TX_PORT0.h>
+#include <APE_RX_PORT0.h>
+#include <APE_TX_PORT1.h>
+#include <APE_RX_PORT1.h>
+#include <APE_TX_PORT2.h>
+#include <APE_RX_PORT2.h>
+#include <APE_TX_PORT3.h>
+#include <APE_RX_PORT3.h>
 #include <stdbool.h>
 #include <stdint.h>
+
+typedef struct {
+    /* TX Registers */
+    volatile RegAPETxToNetPoolModeStatus_t *tx_mode;
+    volatile TX_PORT_t * tx_port;
+    volatile RegAPETxToNetBufferAllocator_t *tx_allocator;
+    volatile RegAPETxToNetDoorbell_t *tx_doorbell;
+
+    /* RX Registers */
+    volatile RegAPERxPoolModeStatus_t *rx_mode;
+    volatile RX_PORT_t *rx_port;
+    volatile RegAPERxbufoffset_t *rx_offset;
+    volatile RegAPERxPoolRetire_t *rx_retire;
+} NetworkPort_t;
+
+
+extern NetworkPort_t gPort0;
+extern NetworkPort_t gPort1;
+extern NetworkPort_t gPort2;
+extern NetworkPort_t gPort3;
 
 void Network_InitTxRx(void);
 
 uint32_t Network_TX_numBlocksNeeded(uint32_t frame_size);
-int32_t Network_TX_allocateBlock(void);
+int32_t Network_TX_allocateBlock(NetworkPort_t *port);
 
-void Network_TX_transmitBePacket(uint8_t *packet, uint32_t length);
-void Network_TX_transmitLePacket(uint8_t *packet, uint32_t length);
+void Network_TX_transmitBePacket(uint8_t *packet, uint32_t length, NetworkPort_t *port);
+void Network_TX_transmitLePacket(uint8_t *packet, uint32_t length, NetworkPort_t *port);
 
-void Network_TX_transmitPassthroughPacket(uint32_t length);
+void Network_TX_transmitPassthroughPacket(uint32_t length, NetworkPort_t* port);
 
 // void Network_TX_transmitPassthroughPacket(RegAPE_PERIBmcToNcRxStatus_t
 // rx_status);
 
-bool Network_RxLePatcket(uint32_t *buffer, uint32_t *length);
-bool Network_PassthroughRxPatcket(void);
+bool Network_RxLePatcket(uint32_t *buffer, uint32_t *length, NetworkPort_t *port);
+bool Network_PassthroughRxPatcket(NetworkPort_t *port);
 
 void Network_SetMACAddr(uint16_t high, uint32_t low, uint32_t index,
                         bool enabled);

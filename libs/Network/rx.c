@@ -44,7 +44,7 @@
 
 #include <APE_APE.h>
 #include <APE_APE_PERI.h>
-#include <APE_RX_PORT.h>
+#include <APE_RX_PORT0.h>
 #include <Ethernet.h>
 #include <Network.h>
 #include <stdbool.h>
@@ -54,10 +54,10 @@
 #include <stdio.h>
 #endif
 
-bool Network_RxLePatcket(uint32_t *buffer, uint32_t *bytes)
+bool Network_RxLePatcket(uint32_t *buffer, uint32_t *bytes, NetworkPort_t *port)
 {
-    RegAPERxbufoffsetFunc0_t rxbuf;
-    rxbuf = APE.RxbufoffsetFunc0;
+    RegAPERxbufoffset_t rxbuf;
+    rxbuf = *((RegAPERxbufoffset_t*)port->rx_offset);
     if ((int)rxbuf.bits.Valid)
     {
         uint32_t rx_bytes = 0;
@@ -80,7 +80,7 @@ bool Network_RxLePatcket(uint32_t *buffer, uint32_t *bytes)
         do
         {
             // printf("Block at %x\n", blockid);
-            RegRX_PORTIn_t *block = (RegRX_PORTIn_t *)&RX_PORT.In[RX_PORT_IN_ALL_BLOCK_WORDS * blockid];
+            RegRX_PORTIn_t *block = (RegRX_PORTIn_t *)&port->rx_port->In[RX_PORT_IN_ALL_BLOCK_WORDS * blockid];
             // printf("Control %x\n", (uint32_t)block[0].r32);
             control.r32 = block[0].r32;
             // printf(" Payload Len %d\n", control.bits.payload_length);
@@ -114,16 +114,16 @@ bool Network_RxLePatcket(uint32_t *buffer, uint32_t *bytes)
         // disableNCSIHandling();
         // enableNCSIHandling();
 
-        RegAPERxPoolRetire0_t retire;
+        RegAPERxPoolRetire_t retire;
         retire.r32 = 0;
         retire.bits.Head = rxbuf.bits.Head;
         retire.bits.Tail = rxbuf.bits.Tail;
         retire.bits.Count = rxbuf.bits.Count;
         retire.bits.Retire = 1;
-        APE.RxPoolRetire0 = retire;
+        *((RegAPERxPoolRetire_t*)port->rx_retire) = retire;
 
         rxbuf.bits.Finished = 1;
-        APE.RxbufoffsetFunc0 = rxbuf;
+        *((RegAPERxbufoffset_t*)port->rx_offset) = rxbuf;
 
         *bytes = rx_bytes;
 
@@ -135,10 +135,10 @@ bool Network_RxLePatcket(uint32_t *buffer, uint32_t *bytes)
     }
 }
 
-bool Network_PassthroughRxPatcket(void)
+bool Network_PassthroughRxPatcket(NetworkPort_t *port)
 {
-    RegAPERxbufoffsetFunc0_t rxbuf;
-    rxbuf = APE.RxbufoffsetFunc0;
+    RegAPERxbufoffset_t rxbuf;
+    rxbuf = *((RegAPERxbufoffset_t*)port->rx_offset);
     if ((int)rxbuf.bits.Valid)
     {
 #if CXX_SIMULATOR
@@ -161,7 +161,7 @@ bool Network_PassthroughRxPatcket(void)
         while (count--)
         {
             // printf("Block at %x\n", blockid);
-            RegRX_PORTIn_t *block = (RegRX_PORTIn_t *)&RX_PORT.In[RX_PORT_IN_ALL_BLOCK_WORDS * blockid];
+            RegRX_PORTIn_t *block = (RegRX_PORTIn_t *)&port->rx_port->In[RX_PORT_IN_ALL_BLOCK_WORDS * blockid];
             // printf("Control %x\n", (uint32_t)block[0].r32);
             control.r32 = block[0].r32;
             // printf(" Payload Len %d\n", control.bits.payload_length);
@@ -218,19 +218,19 @@ bool Network_PassthroughRxPatcket(void)
             }
 
             // Retire this block.
-            RegAPERxPoolRetire0_t retire;
+            RegAPERxPoolRetire_t retire;
             retire.r32 = (1 << 24);
             retire.bits.Head = blockid;
             retire.bits.Tail = blockid;
             retire.bits.Count = 1;
-            APE.RxPoolRetire0 = retire;
+            *((RegAPERxPoolRetire_t*)port->rx_retire) = retire;
 
             blockid = control.bits.next_block;
         }
 
         // Mark the frame as read.
         rxbuf.bits.Finished = 1;
-        APE.RxbufoffsetFunc0 = rxbuf;
+        *((RegAPERxbufoffset_t*)port->rx_offset) = rxbuf;
 
         return true;
     }

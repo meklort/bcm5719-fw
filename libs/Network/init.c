@@ -641,6 +641,71 @@ static const FilterRuleInit_t gRuleInit[32] = {
     },
 };
 
+NetworkPort_t gPort0 = {
+    .tx_port = &TX_PORT0,
+    .tx_allocator = &APE.TxToNetBufferAllocator0,
+    .tx_doorbell = &APE.TxToNetDoorbellFunc0,
+
+    .rx_port = &RX_PORT0,
+    .rx_offset = &APE.RxbufoffsetFunc0,
+    .rx_retire = &APE.RxPoolRetire0,
+};
+
+NetworkPort_t gPort1  = {
+    .tx_port = &TX_PORT1,
+    .tx_allocator = &APE.TxToNetBufferAllocator1,
+    .tx_doorbell = &APE.TxToNetDoorbellFunc1,
+
+    .rx_port = &RX_PORT1,
+    .rx_offset = &APE.RxbufoffsetFunc1,
+    .rx_retire = &APE.RxPoolRetire1,
+};
+
+NetworkPort_t gPort2 = {
+    .tx_port = &TX_PORT2,
+    .tx_allocator = &APE.TxToNetBufferAllocator2,
+    .tx_doorbell = &APE.TxToNetDoorbellFunc2,
+
+    .rx_port = &RX_PORT2,
+    .rx_offset = &APE.RxbufoffsetFunc2,
+    .rx_retire = &APE.RxPoolRetire2,
+};
+
+NetworkPort_t gPort3 = {
+    .tx_port = &TX_PORT3,
+    .tx_allocator = &APE.TxToNetBufferAllocator3,
+    .tx_doorbell = &APE.TxToNetDoorbellFunc3,
+
+    .rx_port = &RX_PORT3,
+    .rx_offset = &APE.RxbufoffsetFunc3,
+    .rx_retire = &APE.RxPoolRetire3,
+};
+
+
+void Network_InitPort(NetworkPort_t *port)
+{
+    // Enable RX
+    RegAPERxPoolModeStatus_t rxMode;
+    rxMode.r32 = 0;
+    rxMode.bits.Reset = 1;
+    *(port->rx_mode) = rxMode;
+
+    rxMode.bits.Reset = 0;
+    rxMode.bits.Enable = 1;
+    *(port->rx_mode) = rxMode;
+
+    // Enable TX
+    RegAPETxToNetPoolModeStatus_t txMode;
+    txMode.r32 = 0;
+    txMode.bits.Reset = 1;
+    *(port->tx_mode) = txMode;
+
+    txMode.bits.Reset = 0;
+    txMode.bits.Enable = 1;
+    *(port->tx_mode) = txMode;
+
+}
+
 void Network_InitTxRx(void)
 {
     for(int i = 0; i < 32; i++)
@@ -683,35 +748,18 @@ void Network_InitTxRx(void)
     // Ensure REG_EMAC_MODE__ENABLE_APE_{TX,RX}_PATH are set.
     // *** NOTE: Both bits are set in rmu.c ***/
 
-    // Enable APE channel 0/0
+    // Enable APE channel 0, 1, 2, 3
     RegAPEMode_t mode;
     mode = APE.Mode;
     mode.bits.Event1 = 1;
     mode.bits.Channel0Enable = 1;
+    mode.bits.Channel1Enable = 1;
     mode.bits.Channel2Enable = 1;
+    mode.bits.Channel3Enable = 1;
     APE.Mode = mode;
 
-
-
-
-    // Enable RX for funciton 0
-    RegAPERxPoolModeStatus0_t rxMode;
-    rxMode.r32 = 0;
-    rxMode.bits.Reset = 1;
-    APE.RxPoolModeStatus0 = rxMode;
-
-    rxMode.bits.Reset = 0;
-    rxMode.bits.Enable = 1;
-    APE.RxPoolModeStatus0 = rxMode;
-
-    // Enable TX for function 0
-    RegAPETxToNetPoolModeStatus0_t txMode;
-    txMode.r32 = 0;
-    txMode.bits.Reset = 1;
-    APE.TxToNetPoolModeStatus0 = txMode;
-
-    txMode.bits.Reset = 0;
-    txMode.bits.Enable = 1;
-    APE.TxToNetPoolModeStatus0 = txMode;
-
+    Network_InitPort(&gPort0);
+    Network_InitPort(&gPort1);
+    Network_InitPort(&gPort2);
+    Network_InitPort(&gPort3);
 }

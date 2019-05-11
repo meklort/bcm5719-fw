@@ -12,8 +12,14 @@
 #include <bcm5719_GEN.h>
 #include <APE_NVIC.h>
 #include <APE_FILTERS.h>
-#include <APE_TX_PORT.h>
-#include <APE_RX_PORT.h>
+#include <APE_TX_PORT0.h>
+#include <APE_RX_PORT0.h>
+#include <APE_TX_PORT1.h>
+#include <APE_RX_PORT1.h>
+#include <APE_TX_PORT2.h>
+#include <APE_RX_PORT2.h>
+#include <APE_TX_PORT3.h>
+#include <APE_RX_PORT3.h>
 
 #include <dirent.h>
 #include <endian.h>
@@ -286,11 +292,29 @@ bool initHAL(const char *pci_path, int wanted_function)
     init_APE_NVIC();
     init_APE_NVIC_sim(NULL);
 
-    init_APE_TX_PORT();
-    init_APE_TX_PORT_sim(NULL);
+    init_APE_TX_PORT0();
+    init_APE_TX_PORT0_sim(NULL);
 
-    init_APE_RX_PORT();
-    init_APE_RX_PORT_sim(NULL);
+    init_APE_RX_PORT0();
+    init_APE_RX_PORT0_sim(NULL);
+
+    init_APE_TX_PORT1();
+    init_APE_TX_PORT1_sim(NULL);
+
+    init_APE_RX_PORT1();
+    init_APE_RX_PORT1_sim(NULL);
+
+    init_APE_TX_PORT2();
+    init_APE_TX_PORT2_sim(NULL);
+
+    init_APE_RX_PORT2();
+    init_APE_RX_PORT2_sim(NULL);
+
+    init_APE_TX_PORT3();
+    init_APE_TX_PORT3_sim(NULL);
+
+    init_APE_RX_PORT3();
+    init_APE_RX_PORT3_sim(NULL);
 
     return true;
 }

@@ -43,7 +43,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include <APE_APE.h>
-#include <APE_TX_PORT.h>
+#include <APE_TX_PORT0.h>
 #include <Ethernet.h>
 #include <Network.h>
 #include <stdbool.h>
@@ -97,24 +97,24 @@ uint32_t Network_TX_numBlocksNeeded(uint32_t frame_size)
     return blocks;
 }
 
-int32_t __attribute__((noinline)) Network_TX_allocateBlock(void)
+int32_t __attribute__((noinline)) Network_TX_allocateBlock(NetworkPort_t* port)
 {
     int32_t block;
 
     // Set the alloc bit.
-    RegAPETxToNetBufferAllocator0_t alloc;
+    RegAPETxToNetBufferAllocator_t alloc;
     alloc.r32 = 0;
     alloc.bits.RequestAllocation = 1;
-    APE.TxToNetBufferAllocator0 = alloc;
+    *((RegAPETxToNetBufferAllocator_t*)port->tx_allocator) = alloc;
 
     // Wait for state machine to finish
-    RegAPETxToNetBufferAllocator0_t status;
+    RegAPETxToNetBufferAllocator_t status;
     do
     {
-        status = APE.TxToNetBufferAllocator0;
-    } while (APE_TX_TO_NET_BUFFER_ALLOCATOR_0_STATE_PROCESSING == status.bits.State);
+        status = *((RegAPETxToNetBufferAllocator_t*)port->tx_allocator);
+    } while (APE_TX_TO_NET_BUFFER_ALLOCATOR_STATE_PROCESSING == status.bits.State);
 
-    if (APE_TX_TO_NET_BUFFER_ALLOCATOR_0_STATE_ALLOCATION_OK != status.bits.State)
+    if (APE_TX_TO_NET_BUFFER_ALLOCATOR_STATE_ALLOCATION_OK != status.bits.State)
     {
         block = -1;
 #if CXX_SIMULATOR
@@ -265,7 +265,8 @@ static uint32_t inline Network_TX_initAdditionalBlock(RegTX_PORTOut_t *block,
 
 static inline void Network_TX_transmitPacket_internal(uint8_t *packet,
                                                       uint32_t length,
-                                                      bool big_endian)
+                                                      bool big_endian,
+                                                      NetworkPort_t *port)
 {
     if (!length)
     {
@@ -280,7 +281,7 @@ static inline void Network_TX_transmitPacket_internal(uint8_t *packet,
 
     // First block
     int32_t tail;
-    int32_t first = tail = Network_TX_allocateBlock();
+    int32_t first = tail = Network_TX_allocateBlock(port);
     if (first <= 0)
     {
         // Error
@@ -289,9 +290,9 @@ static inline void Network_TX_transmitPacket_internal(uint8_t *packet,
     int32_t next_block = -1;
     if (blocks > 1)
     {
-        next_block = Network_TX_allocateBlock();
+        next_block = Network_TX_allocateBlock(port);
     }
-    RegTX_PORTOut_t *block = (RegTX_PORTOut_t *)&TX_PORT.Out[TX_PORT_OUT_ALL_BLOCK_WORDS * first];
+    RegTX_PORTOut_t *block = (RegTX_PORTOut_t *)&port->tx_port->Out[TX_PORT_OUT_ALL_BLOCK_WORDS * first];
 
     consumed += Network_TX_initFirstBlock(block, length, blocks, next_block,
                                           &packet_32[consumed / 4], big_endian);
@@ -299,11 +300,10 @@ static inline void Network_TX_transmitPacket_internal(uint8_t *packet,
     while (blocks--)
     {
 
-        block = (RegTX_PORTOut_t *)&TX_PORT
-                    .Out[TX_PORT_OUT_ALL_BLOCK_WORDS * next_block];
+        block = (RegTX_PORTOut_t *)&port->tx_port->Out[TX_PORT_OUT_ALL_BLOCK_WORDS * next_block];
         if (blocks)
         {
-            next_block = Network_TX_allocateBlock();
+            next_block = Network_TX_allocateBlock(port);
             consumed += Network_TX_initAdditionalBlock(
                 block, next_block, length - consumed, &packet_32[consumed / 4],
                 big_endian);
@@ -318,23 +318,23 @@ static inline void Network_TX_transmitPacket_internal(uint8_t *packet,
         tail = next_block;
     }
 
-    RegAPETxToNetDoorbellFunc0_t doorbell;
+    RegAPETxToNetDoorbell_t doorbell;
     doorbell.r32 = 0;
     doorbell.bits.Head = first;
     doorbell.bits.Tail = tail;
     doorbell.bits.Length = total_blocks;
 
-    APE.TxToNetDoorbellFunc0 = doorbell;
+    *((RegAPETxToNetDoorbell_t*)port->tx_doorbell) = doorbell;
 }
 
-void Network_TX_transmitBePacket(uint8_t *packet, uint32_t length)
+void Network_TX_transmitBePacket(uint8_t *packet, uint32_t length, NetworkPort_t* port)
 {
-    Network_TX_transmitPacket_internal(packet, length, true);
+    Network_TX_transmitPacket_internal(packet, length, true, port);
 }
 
-void Network_TX_transmitLePacket(uint8_t *packet, uint32_t length)
+void Network_TX_transmitLePacket(uint8_t *packet, uint32_t length, NetworkPort_t* port)
 {
-    Network_TX_transmitPacket_internal(packet, length, false);
+    Network_TX_transmitPacket_internal(packet, length, false, port);
 }
 
 static uint32_t inline Network_TX_initFirstPassthroughBlock(
@@ -441,7 +441,7 @@ static uint32_t inline Network_TX_initAdditionalPassthroughBlock(
     return control.bits.payload_length;
 }
 
-void Network_TX_transmitPassthroughPacket(uint32_t length)
+void Network_TX_transmitPassthroughPacket(uint32_t length, NetworkPort_t *port)
 {
     if (!length)
     {
@@ -452,7 +452,7 @@ void Network_TX_transmitPassthroughPacket(uint32_t length)
     length -= 4;
 
     int32_t tail;
-    int32_t first = tail = Network_TX_allocateBlock();
+    int32_t first = tail = Network_TX_allocateBlock(port);
     int32_t next_block = -1;
     uint32_t blocks = Network_TX_numBlocksNeeded(length);
     int total_blocks = blocks;
@@ -460,19 +460,19 @@ void Network_TX_transmitPassthroughPacket(uint32_t length)
 
     if (blocks > 1)
     {
-        next_block = Network_TX_allocateBlock();
+        next_block = Network_TX_allocateBlock(port);
     }
-    RegTX_PORTOut_t *block = (RegTX_PORTOut_t *)&TX_PORT.Out[TX_PORT_OUT_ALL_BLOCK_WORDS * first];
+    RegTX_PORTOut_t *block = (RegTX_PORTOut_t *)&port->tx_port->Out[TX_PORT_OUT_ALL_BLOCK_WORDS * first];
 
     length -= Network_TX_initFirstPassthroughBlock(block, length, blocks, next_block);
     blocks -= 1;
     while (blocks--)
     {
 
-        block = (RegTX_PORTOut_t *)&TX_PORT.Out[TX_PORT_OUT_ALL_BLOCK_WORDS * next_block];
+        block = (RegTX_PORTOut_t *)&port->tx_port->Out[TX_PORT_OUT_ALL_BLOCK_WORDS * next_block];
         if (blocks)
         {
-            next_block = Network_TX_allocateBlock();
+            next_block = Network_TX_allocateBlock(port);
             length -= Network_TX_initAdditionalPassthroughBlock(
                 block, next_block, length);
         }
@@ -484,13 +484,13 @@ void Network_TX_transmitPassthroughPacket(uint32_t length)
         tail = next_block;
     }
 
-    RegAPETxToNetDoorbellFunc0_t doorbell;
+    RegAPETxToNetDoorbell_t doorbell;
     doorbell.r32 = 0;
     doorbell.bits.Head = first;
     doorbell.bits.Tail = tail;
     doorbell.bits.Length = total_blocks;
 
-    APE.TxToNetDoorbellFunc0 = doorbell;
+    *((RegAPETxToNetDoorbell_t*)port->tx_doorbell) = doorbell;
 
     // Read last RX word (FCS) to clear the buffer
     uint32_t data = APE_PERI.BmcToNcReadBuffer.r32;

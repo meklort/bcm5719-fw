@@ -46,7 +46,6 @@
 
 #include <APE_APE.h>
 #include <APE_APE_PERI.h>
-#include <APE_RX_PORT.h>
 #include <APE_SHM.h>
 #include <Ethernet.h>
 #include <NCSI.h>
@@ -136,7 +135,7 @@ void handleBMCPacket(void)
             else
             {
                 // Pass through to network
-                Network_TX_transmitPassthroughPacket(bytes);
+                Network_TX_transmitPassthroughPacket(bytes, &gPort0);
             }
         }
     }
@@ -151,7 +150,7 @@ void __attribute__((noreturn)) loaderLoop(void)
     for (;;)
     {
         handleBMCPacket();
-        Network_PassthroughRxPatcket();
+        Network_PassthroughRxPatcket(&gPort0);
         handleCommand();
     }
 }
