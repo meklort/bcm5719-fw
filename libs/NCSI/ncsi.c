@@ -49,7 +49,6 @@
 #include <APE_SHM_CHANNEL1.h>
 #include <APE_SHM_CHANNEL2.h>
 #include <APE_SHM_CHANNEL3.h>
-#include <stdbool.h>
 
 #include <Network.h>
 #include <types.h>

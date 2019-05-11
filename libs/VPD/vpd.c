@@ -42,7 +42,6 @@
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
 
-#include <stdbool.h>
 #ifdef CXX_SIMULATOR
 #include <stdio.h>
 #endif /* CXX_SIMULATOR */

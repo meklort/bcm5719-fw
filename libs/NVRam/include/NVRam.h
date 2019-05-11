@@ -44,8 +44,7 @@
 #ifndef NVRAM_H
 #define NVRAM_H
 
-#include <stdbool.h>
-#include <stdint.h>
+#include <types.h>
 
 bool NVRam_acquireLock(void);
 bool NVRam_releaseLock(void);

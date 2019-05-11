@@ -55,8 +55,7 @@
 #include <APE_RX_PORT2.h>
 #include <APE_TX_PORT3.h>
 #include <APE_RX_PORT3.h>
-#include <stdbool.h>
-#include <stdint.h>
+#include <types.h>
 
 typedef struct {
     /* TX Registers */

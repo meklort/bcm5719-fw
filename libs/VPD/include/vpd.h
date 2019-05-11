@@ -42,9 +42,7 @@
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
 
-#include <stdbool.h>
-#include <stddef.h>
-#include <stdint.h>
+#include <types.h>
 
 #define VPD_DATA_TYPE_SMALL (0x00)
 #define VPD_DATA_TYPE_LARGE (0x01)
