@@ -215,7 +215,7 @@ int32_t compress(uint8_t *outBuffer, int32_t outBytes, const uint8_t *inBuffer,
                  int32_t inBytes)
 {
     const uint8_t *inEnd = inBuffer + inBytes;
-    size_t bytesWritten_ = 0;
+    uint32_t bytesWritten_ = 0;
 
     compressor_state st;
 
@@ -283,7 +283,7 @@ int32_t compress(uint8_t *outBuffer, int32_t outBytes, const uint8_t *inBuffer,
             // Send position and length pair. Note that matchLen > THRESHOLD.
             // printf("  REF off=%4u  len=%4u\n", st.matchPos, st.matchLen);
             // printf("    ");
-            // for (size_t j=0; j<st.matchLen; ++j)
+            // for (uint32_t j=0; j<st.matchLen; ++j)
             //  printf("%02x ", st.dict[st.matchPos+j]);
             // printf("\n");
             codeBuf[codeBufPtr++] = (uint8_t)st.matchPos;

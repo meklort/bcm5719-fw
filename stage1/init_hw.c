@@ -51,8 +51,7 @@
 #include <bcm5719_RXMBUF.h>
 #include <bcm5719_TXMBUF.h>
 #include <bcm5719_SDBCACHE.h>
-#include <stdbool.h>
-#include <stdint.h>
+#include <types.h>
 
 void *memset(void *s, int c, size_t n)
 {

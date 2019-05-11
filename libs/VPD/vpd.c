@@ -87,7 +87,7 @@ const char *vpd_get_field_name(uint16_t field)
     return NULL;
 }
 
-static uint8_t *get_next_tag(uint8_t *buffer, size_t *len)
+static uint8_t *get_next_tag(uint8_t *buffer, uint32_t *len)
 {
     if (!len)
     {
@@ -112,7 +112,7 @@ static uint8_t *get_next_tag(uint8_t *buffer, size_t *len)
     return &buffer[tag_len];
 }
 
-static uint8_t *get_tag_data(uint8_t *buffer, size_t *len)
+static uint8_t *get_tag_data(uint8_t *buffer, uint32_t *len)
 {
     if (!len)
     {
@@ -132,16 +132,16 @@ static uint8_t *get_tag_data(uint8_t *buffer, size_t *len)
     }
 }
 
-uint8_t *vpd_get_resource_by_name(uint8_t *buffer, size_t *len, uint16_t type)
+uint8_t *vpd_get_resource_by_name(uint8_t *buffer, uint32_t *len, uint16_t type)
 {
     return NULL;
 }
 
-uint8_t *vpd_get_resource_by_index(uint8_t *buffer, size_t *len, uint16_t *name,
-                                   size_t index)
+uint8_t *vpd_get_resource_by_index(uint8_t *buffer, uint32_t *len, uint16_t *name,
+                                   uint32_t index)
 {
     index++;
-    size_t new_len = *len;
+    uint32_t new_len = *len;
     uint8_t *new_buf = get_next_tag(buffer, &new_len);
     new_buf = get_tag_data(new_buf, &new_len);
 
@@ -169,12 +169,12 @@ uint8_t *vpd_get_resource_by_index(uint8_t *buffer, size_t *len, uint16_t *name,
     *len = field->length;
     return &field->data;
 }
-bool vpd_set_resource(uint8_t *buffer, size_t len, uint16_t resource,
-                      uint8_t *add_data, size_t add_len)
+bool vpd_set_resource(uint8_t *buffer, uint32_t len, uint16_t resource,
+                      uint8_t *add_data, uint32_t add_len)
 {
     return false;
 }
-bool vpd_is_valid(uint8_t *buffer, size_t len)
+bool vpd_is_valid(uint8_t *buffer, uint32_t len)
 {
     if (!len)
     {
@@ -190,7 +190,7 @@ bool vpd_is_valid(uint8_t *buffer, size_t len)
     return len != 0;
 }
 
-uint8_t *vpd_get_identifier(uint8_t *buffer, size_t *len)
+uint8_t *vpd_get_identifier(uint8_t *buffer, uint32_t *len)
 {
     if (!len)
         return NULL;

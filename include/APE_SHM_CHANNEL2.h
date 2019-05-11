@@ -49,7 +49,7 @@
 #ifndef APE_SHM_CHANNEL2_H
 #define APE_SHM_CHANNEL2_H
 
-#include <stdint.h>
+#include <types.h>
 #include "APE_SHM_CHANNEL0.h"
 
 #ifdef CXX_SIMULATOR /* Compiling c++ simulator code - uses register wrappers */

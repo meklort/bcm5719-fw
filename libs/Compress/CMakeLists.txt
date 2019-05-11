@@ -46,5 +46,6 @@ project(Compress)
 
 
 # Host library
-add_library(${PROJECT_NAME} STATIC decompress.c compress.c)
+simulator_add_library(${PROJECT_NAME} STATIC decompress.c compress.c)
 target_include_directories(${PROJECT_NAME} PUBLIC include)
+target_include_directories(${PROJECT_NAME} PUBLIC ../../include)

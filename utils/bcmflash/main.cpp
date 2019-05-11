@@ -544,7 +544,7 @@ int main(int argc, char const *argv[])
     printf("\n=== VPD ===\n");
     if (vpd_is_valid(nvram.contents.vpd.bytes, sizeof(nvram.contents.vpd)))
     {
-        size_t vpd_len = sizeof(nvram.contents.vpd);
+        uint32_t vpd_len = sizeof(nvram.contents.vpd);
         printf("Identifier: %s\n",
                vpd_get_identifier(nvram.contents.vpd.bytes, &vpd_len));
 

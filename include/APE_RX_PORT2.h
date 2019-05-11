@@ -49,7 +49,7 @@
 #ifndef APE_RX_PORT2_H
 #define APE_RX_PORT2_H
 
-#include <stdint.h>
+#include <types.h>
 #include "APE_RX_PORT0.h"
 
 #ifdef CXX_SIMULATOR /* Compiling c++ simulator code - uses register wrappers */

@@ -49,7 +49,7 @@
 #ifndef APE_FILTERS_H
 #define APE_FILTERS_H
 
-#include <stdint.h>
+#include <types.h>
 
 #ifdef CXX_SIMULATOR /* Compiling c++ simulator code - uses register wrappers */
 void init_APE_FILTERS_sim(void* base);

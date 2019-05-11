@@ -49,7 +49,7 @@
 #ifndef BCM5719_DEVICE_H
 #define BCM5719_DEVICE_H
 
-#include <stdint.h>
+#include <types.h>
 
 #ifdef CXX_SIMULATOR /* Compiling c++ simulator code - uses register wrappers */
 void init_bcm5719_DEVICE_sim(void* base);

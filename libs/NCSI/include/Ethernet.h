@@ -45,7 +45,7 @@
 #ifndef ETHERNET_H
 #define ETHERNET_H
 
-#include <stdint.h>
+#include <types.h>
 
 #define ETHERNET_FRAME_MIN      64
 

@@ -49,7 +49,7 @@
 #ifndef BCM5719_SHM_CHANNEL3_H
 #define BCM5719_SHM_CHANNEL3_H
 
-#include <stdint.h>
+#include <types.h>
 #include "bcm5719_SHM_CHANNEL0.h"
 
 #ifdef CXX_SIMULATOR /* Compiling c++ simulator code - uses register wrappers */

@@ -49,7 +49,7 @@
 #ifndef APE_FILTERS2_H
 #define APE_FILTERS2_H
 
-#include <stdint.h>
+#include <types.h>
 #include "APE_FILTERS.h"
 
 #ifdef CXX_SIMULATOR /* Compiling c++ simulator code - uses register wrappers */

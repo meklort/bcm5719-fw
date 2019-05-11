@@ -49,7 +49,7 @@
 #ifndef APE_NVIC_H
 #define APE_NVIC_H
 
-#include <stdint.h>
+#include <types.h>
 
 #ifdef CXX_SIMULATOR /* Compiling c++ simulator code - uses register wrappers */
 void init_APE_NVIC_sim(void* base);

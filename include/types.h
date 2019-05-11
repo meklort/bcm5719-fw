@@ -19,6 +19,8 @@ typedef long long signed int int64_t;
 
 typedef _Bool    bool;
 
+typedef uint32_t size_t;
+
 #define true (1)
 #define false (0)
 #else

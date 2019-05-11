@@ -50,8 +50,6 @@ using namespace std;
 #define DEVICE_CONFIG   "config"
 #define BAR_STR         "resource"
 
-#define ARRAY_ELEMENTS(__x__) (sizeof(__x__) / sizeof(__x__[0]))
-
 typedef struct
 {
     uint16_t vendor_id;

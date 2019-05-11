@@ -1,12 +1,17 @@
 #ifndef BCMNVRAM
 #define BCMNVRAM
 
-#include <stdint.h>
+#ifdef CXX_SIMULATOR
 #include <stddef.h>     /* offsetof */
+#define ELEMENT_OFFSET(__struct__, __elememnt__)        offsetof(__struct__, __elememnt__)
+#else
+#define _Static_assert(...)
+#define ELEMENT_OFFSET(__struct__, __elememnt__)        
+#endif
+
 #include <types.h>
 #include <vpd.h>
 
-#define ELEMENT_OFFSET(__struct__, __elememnt__)        offsetof(__struct__, __elememnt__)
 #define BCM_NVRAM_MAGIC	(0x669955AAu)
 
 #define BCM_CODE_DIRECTORY_TYPE_BC2             (0x00u)  /*< Second-phase bootcode */

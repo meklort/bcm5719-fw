@@ -49,7 +49,7 @@
 #ifndef APE_SHM2_H
 #define APE_SHM2_H
 
-#include <stdint.h>
+#include <types.h>
 #include "APE_SHM.h"
 
 #ifdef CXX_SIMULATOR /* Compiling c++ simulator code - uses register wrappers */

@@ -45,7 +45,7 @@
 #define MII_H
 
 #include <bcm5719_MII.h>
-#include <stdint.h>
+#include <types.h>
 
 #ifdef CXX_SIMULATOR
 typedef uint64_t    mii_reg_t;

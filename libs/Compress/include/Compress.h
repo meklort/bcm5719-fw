@@ -45,8 +45,7 @@
 #ifndef COMPRESS_H
 #define COMPRESS_H
 
-#include <stdint.h>
-#include <stddef.h>
+#include <types.h>
 
 #ifdef __cplusplus
 extern "C" {

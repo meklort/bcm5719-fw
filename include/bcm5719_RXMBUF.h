@@ -49,7 +49,7 @@
 #ifndef BCM5719_RXMBUF_H
 #define BCM5719_RXMBUF_H
 
-#include <stdint.h>
+#include <types.h>
 
 #ifdef CXX_SIMULATOR /* Compiling c++ simulator code - uses register wrappers */
 void init_bcm5719_RXMBUF_sim(void* base);

@@ -49,7 +49,7 @@
 #ifndef APE_APE_H
 #define APE_APE_H
 
-#include <stdint.h>
+#include <types.h>
 
 #ifdef CXX_SIMULATOR /* Compiling c++ simulator code - uses register wrappers */
 void init_APE_APE_sim(void* base);

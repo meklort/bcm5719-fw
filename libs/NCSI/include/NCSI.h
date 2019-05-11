@@ -45,7 +45,7 @@
 #ifndef NCSI_H
 #define NCSI_H
 
-#include <stdint.h>
+#include <types.h>
 #include <Ethernet.h>
 
 void handleNCSIFrame(NetworkFrame_t* frame);

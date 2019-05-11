@@ -85,10 +85,10 @@ typedef union {
 
 const char *vpd_get_field_name(uint16_t field);
 
-uint8_t *vpd_get_identifier(uint8_t *buffer, size_t *len);
-uint8_t *vpd_get_resource_by_name(uint8_t *buffer, size_t *len, uint16_t name);
-uint8_t *vpd_get_resource_by_index(uint8_t *buffer, size_t *len, uint16_t *name,
-                                   size_t index);
-bool vpd_set_resource(uint8_t *buffer, size_t len, uint16_t resource,
-                      uint8_t *add_data, size_t add_len);
-bool vpd_is_valid(uint8_t *buffer, size_t len);
+uint8_t *vpd_get_identifier(uint8_t *buffer, uint32_t *len);
+uint8_t *vpd_get_resource_by_name(uint8_t *buffer, uint32_t *len, uint16_t name);
+uint8_t *vpd_get_resource_by_index(uint8_t *buffer, uint32_t *len, uint16_t *name,
+                                   uint32_t index);
+bool vpd_set_resource(uint8_t *buffer, uint32_t len, uint16_t resource,
+                      uint8_t *add_data, uint32_t add_len);
+bool vpd_is_valid(uint8_t *buffer, uint32_t len);

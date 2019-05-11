@@ -42,7 +42,7 @@
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
 
-#include <stdint.h>
+#include <types.h>
 
 // Function pointer for vectors
 typedef void (*vector_t)(void) __attribute__((interrupt));
