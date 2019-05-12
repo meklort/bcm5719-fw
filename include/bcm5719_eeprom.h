@@ -34,6 +34,9 @@
 #define BCM_CODE_DIRECTORY_CPU_RXP              (0x05)
 #define BCM_CODE_DIRECTORY_CPU_CP               (0x06)
 #define BCM_CODE_DIRECTORY_CPU_MCP              (0x07)
+#define BCM_CODE_DIRECTORY_CPU_APE              (0x0D)
+
+#define BCM_CODE_DIRECTORY_ADDR_APE             (0x07)
 
 #define BCM_CODE_DIRECTORY_GET_LENGTH(__x__)   ((__x__) & (0x00FFFFFFu))
 #define BCM_CODE_DIRECTORY_GET_CPU(__x__)      (((__x__) & (0x0F000000u)) >> 24) /* FIXME: spec shows bit 27 as reserved. */
