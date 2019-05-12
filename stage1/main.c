@@ -61,7 +61,6 @@
 #include <bcm5719_DEVICE.h>
 #include <bcm5719_GEN.h>
 #include <bcm5719_SHM.h>
-#include <string.h>
 
 NVRAMContents_t gNVMContents;
 
