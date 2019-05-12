@@ -67,17 +67,6 @@ static inline uint32_t be32toh(uint32_t be32)
 #define FIRST_FRAME_MAX         ((TX_PORT_OUT_ALL_BLOCK_WORDS - TX_PORT_OUT_ALL_FIRST_PAYLOAD_WORD) * sizeof(uint32_t))
 #define ADDITIONAL_FRAME_MAX    ((TX_PORT_OUT_ALL_BLOCK_WORDS - TX_PORT_OUT_ALL_ADDITIONAL_PAYLOAD_WORD) * sizeof(uint32_t))
 
-typedef union {
-    uint32_t r32;
-    struct
-    {
-        uint32_t payload_length:7;
-        uint32_t next_block:23;
-        uint32_t first:1;
-        uint32_t not_last:1;
-    } bits;
-} control_t;
-
 uint32_t Network_TX_numBlocksNeeded(uint32_t frame_size)
 {
     uint32_t blocks = 1;
@@ -96,7 +85,7 @@ uint32_t Network_TX_numBlocksNeeded(uint32_t frame_size)
     return blocks;
 }
 
-int32_t __attribute__((noinline)) Network_TX_allocateBlock(NetworkPort_t* port)
+int32_t __attribute__((noinline)) Network_TX_allocateBlock(NetworkPort_t *port)
 {
     int32_t block;
 
@@ -104,13 +93,13 @@ int32_t __attribute__((noinline)) Network_TX_allocateBlock(NetworkPort_t* port)
     RegAPETxToNetBufferAllocator_t alloc;
     alloc.r32 = 0;
     alloc.bits.RequestAllocation = 1;
-    *((RegAPETxToNetBufferAllocator_t*)port->tx_allocator) = alloc;
+    *((RegAPETxToNetBufferAllocator_t *)port->tx_allocator) = alloc;
 
     // Wait for state machine to finish
     RegAPETxToNetBufferAllocator_t status;
     do
     {
-        status = *((RegAPETxToNetBufferAllocator_t*)port->tx_allocator);
+        status = *((RegAPETxToNetBufferAllocator_t *)port->tx_allocator);
     } while (APE_TX_TO_NET_BUFFER_ALLOCATOR_STATE_PROCESSING == status.bits.State);
 
     if (APE_TX_TO_NET_BUFFER_ALLOCATOR_STATE_ALLOCATION_OK != status.bits.State)
@@ -138,7 +127,7 @@ static uint32_t inline Network_TX_initFirstBlock(RegTX_PORTOut_t *block,
                                                  uint32_t *packet,
                                                  bool big_endian)
 {
-    control_t control;
+    network_control_t control;
     int copy_length;
     int i;
 
@@ -220,7 +209,7 @@ static uint32_t inline Network_TX_initAdditionalBlock(RegTX_PORTOut_t *block,
                                                       bool big_endian)
 {
     int i;
-    control_t control;
+    network_control_t control;
 
     control.r32 = 0;
     control.bits.first = 0;
@@ -323,15 +312,15 @@ static inline void Network_TX_transmitPacket_internal(uint8_t *packet,
     doorbell.bits.Tail = tail;
     doorbell.bits.Length = total_blocks;
 
-    *((RegAPETxToNetDoorbell_t*)port->tx_doorbell) = doorbell;
+    *((RegAPETxToNetDoorbell_t *)port->tx_doorbell) = doorbell;
 }
 
-void Network_TX_transmitBePacket(uint8_t *packet, uint32_t length, NetworkPort_t* port)
+void Network_TX_transmitBePacket(uint8_t *packet, uint32_t length, NetworkPort_t *port)
 {
     Network_TX_transmitPacket_internal(packet, length, true, port);
 }
 
-void Network_TX_transmitLePacket(uint8_t *packet, uint32_t length, NetworkPort_t* port)
+void Network_TX_transmitLePacket(uint8_t *packet, uint32_t length, NetworkPort_t *port)
 {
     Network_TX_transmitPacket_internal(packet, length, false, port);
 }
@@ -339,7 +328,7 @@ void Network_TX_transmitLePacket(uint8_t *packet, uint32_t length, NetworkPort_t
 static uint32_t inline Network_TX_initFirstPassthroughBlock(
     RegTX_PORTOut_t *block, uint32_t length, int32_t blocks, int32_t next_block)
 {
-    control_t control;
+    network_control_t control;
     int copy_length;
     int i;
 
@@ -405,7 +394,7 @@ static uint32_t inline Network_TX_initAdditionalPassthroughBlock(
     RegTX_PORTOut_t *block, int32_t next_block, uint32_t length)
 {
     int i;
-    control_t control;
+    network_control_t control;
 
     control.r32 = 0;
     control.bits.first = 0;
@@ -489,7 +478,7 @@ void Network_TX_transmitPassthroughPacket(uint32_t length, NetworkPort_t *port)
     doorbell.bits.Tail = tail;
     doorbell.bits.Length = total_blocks;
 
-    *((RegAPETxToNetDoorbell_t*)port->tx_doorbell) = doorbell;
+    *((RegAPETxToNetDoorbell_t *)port->tx_doorbell) = doorbell;
 
     // Read last RX word (FCS) to clear the buffer
     uint32_t data = APE_PERI.BmcToNcReadBuffer.r32;

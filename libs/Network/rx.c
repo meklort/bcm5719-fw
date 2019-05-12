@@ -56,20 +56,11 @@
 bool Network_RxLePatcket(uint32_t *buffer, uint32_t *bytes, NetworkPort_t *port)
 {
     RegAPERxbufoffset_t rxbuf;
-    rxbuf = *((RegAPERxbufoffset_t*)port->rx_offset);
+    rxbuf = *((RegAPERxbufoffset_t *)port->rx_offset);
     if ((int)rxbuf.bits.Valid)
     {
         uint32_t rx_bytes = 0;
-        union {
-            uint32_t r32;
-            struct
-            {
-                uint32_t payload_length:7;
-                uint32_t next_block:23;
-                uint32_t first:1;
-                uint32_t not_last:1;
-            } bits;
-        } control;
+        network_control_t control;
         int count = rxbuf.bits.Count;
         // int tailid = rxbuf.bits.Tail;
         int blockid = rxbuf.bits.Head;
@@ -119,10 +110,10 @@ bool Network_RxLePatcket(uint32_t *buffer, uint32_t *bytes, NetworkPort_t *port)
         retire.bits.Tail = rxbuf.bits.Tail;
         retire.bits.Count = rxbuf.bits.Count;
         retire.bits.Retire = 1;
-        *((RegAPERxPoolRetire_t*)port->rx_retire) = retire;
+        *((RegAPERxPoolRetire_t *)port->rx_retire) = retire;
 
         rxbuf.bits.Finished = 1;
-        *((RegAPERxbufoffset_t*)port->rx_offset) = rxbuf;
+        *((RegAPERxbufoffset_t *)port->rx_offset) = rxbuf;
 
         *bytes = rx_bytes;
 
@@ -137,22 +128,13 @@ bool Network_RxLePatcket(uint32_t *buffer, uint32_t *bytes, NetworkPort_t *port)
 bool Network_PassthroughRxPatcket(NetworkPort_t *port)
 {
     RegAPERxbufoffset_t rxbuf;
-    rxbuf = *((RegAPERxbufoffset_t*)port->rx_offset);
+    rxbuf = *((RegAPERxbufoffset_t *)port->rx_offset);
     if ((int)rxbuf.bits.Valid)
     {
 #if CXX_SIMULATOR
         rxbuf.print();
 #endif
-        union {
-            uint32_t r32;
-            struct
-            {
-                uint32_t payload_length:7;
-                uint32_t next_block:23;
-                uint32_t first:1;
-                uint32_t not_last:1;
-            } bits;
-        } control;
+        network_control_t control;
         int count = rxbuf.bits.Count;
         // int tailid = rxbuf.bits.Tail;
         int blockid = rxbuf.bits.Head;
@@ -208,7 +190,8 @@ bool Network_PassthroughRxPatcket(NetworkPort_t *port)
             {
                 // data = block[i + offset].r32;
                 // Last word to send.
-                APE_PERI.BmcToNcTxControl.r32 = control.bits.payload_length % sizeof(uint32_t);
+                APE_PERI.BmcToNcTxControl.r32 =
+                    control.bits.payload_length % sizeof(uint32_t);
                 APE_PERI.BmcToNcTxBufferLast.r32 = data;
 
                 // Ignore last word - drop the FCS.
@@ -222,14 +205,14 @@ bool Network_PassthroughRxPatcket(NetworkPort_t *port)
             retire.bits.Head = blockid;
             retire.bits.Tail = blockid;
             retire.bits.Count = 1;
-            *((RegAPERxPoolRetire_t*)port->rx_retire) = retire;
+            *((RegAPERxPoolRetire_t *)port->rx_retire) = retire;
 
             blockid = control.bits.next_block;
         }
 
         // Mark the frame as read.
         rxbuf.bits.Finished = 1;
-        *((RegAPERxbufoffset_t*)port->rx_offset) = rxbuf;
+        *((RegAPERxbufoffset_t *)port->rx_offset) = rxbuf;
 
         return true;
     }
