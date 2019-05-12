@@ -62,7 +62,7 @@ function(mips_add_executable target)
 
     add_custom_command(
         TARGET ${target} POST_BUILD
-        COMMAND llvm-objcopy -O binary ${target} ${target}.bin
+        COMMAND $ENV{HOME}/llvm-bcm5719/bin/llvm-objcopy -O binary ${target} ${target}.bin
         BYPRODUCTS ${target}.bin)
 endfunction(mips_add_executable)
 
