@@ -136,7 +136,7 @@ int main(int argc, char const *argv[])
             .help("Update the target with the specified stage1 image, if possible.")
             .metavar("STAGE1");
 
-    parser.add_option("-ape", "--ape")
+    parser.add_option("-a", "--ape")
             .dest("ape")
             .help("Update the target with the specified ape image, if possible.")
             .metavar("APE");
@@ -375,7 +375,7 @@ int main(int argc, char const *argv[])
         }
         else
         {
-            cerr << " Unable to open file '" << options["filename"] << "'" << endl;
+            cerr << " Unable to open file '" << options["stage1"] << "'" << endl;
             exit(-1);
         }
         exit(0);
@@ -527,7 +527,7 @@ int main(int argc, char const *argv[])
         }
         else
         {
-            cerr << " Unable to open file '" << options["filename"] << "'" << endl;
+            cerr << " Unable to open file '" << options["ape"] << "'" << endl;
             exit(-1);
         }
         exit(0);
