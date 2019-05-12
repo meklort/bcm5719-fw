@@ -97,6 +97,13 @@ int main(int argc, char const *argv[])
         NVRAMContents_t contents;
     } nvram;
 
+    uint32_t ape_length = 0;
+    uint8_t* ape = NULL;
+    uint32_t* ape_wd = NULL;
+
+    uint8_t* stage1 = NULL;
+    uint32_t* stage1_wd = NULL;
+
     OptionParser parser = OptionParser().description("BCM Flash Utility");
 
     parser.add_option("-t", "--target")
@@ -129,17 +136,17 @@ int main(int argc, char const *argv[])
             .help("Update the target with the specified stage1 image, if possible.")
             .metavar("STAGE1");
 
-    parser.add_option("-2", "--stage2")
-            .dest("stage2")
-            .help("Update the target with the specified stage2 image, if possible.")
-            .metavar("STAGE2");
+    parser.add_option("-ape", "--ape")
+            .dest("ape")
+            .help("Update the target with the specified ape image, if possible.")
+            .metavar("APE");
 
     parser.add_option("-u", "--unlock")
             .dest("unlock")
             .action("store_true")
             .set_default("0")
             .help("Clear all NVM locks.")
-            .metavar("STAGE1");
+            .metavar("UNLOCK");
 
     parser.add_option("-q", "--quiet")
             .action("store_false")
@@ -265,8 +272,8 @@ int main(int argc, char const *argv[])
         }
     }
 
-    uint8_t* stage1 = &nvram.bytes[be32toh(nvram.contents.header.bootstrapOffset)];
-    uint32_t* stage1_wd = &nvram.words[be32toh(nvram.contents.header.bootstrapOffset)/4];
+    stage1 = &nvram.bytes[be32toh(nvram.contents.header.bootstrapOffset)];
+    stage1_wd = &nvram.words[be32toh(nvram.contents.header.bootstrapOffset)/4];
     size_t stage1_length = (be32toh(nvram.contents.header.bootstrapWords) * 4) - 4; // last word is CRC
 
     uint32_t crc_word = stage1_length / 4;
@@ -371,10 +378,8 @@ int main(int argc, char const *argv[])
             cerr << " Unable to open file '" << options["filename"] << "'" << endl;
             exit(-1);
         }
-        exit(1);
+        exit(0);
     }
-
-
 
     uint32_t* stage2_wd =  &stage1_wd[(crc_word + 1)]; // immediately after stage1 crc
     NVRAMStage2_t *stage2 = (NVRAMStage2_t*)stage2_wd;
@@ -410,24 +415,31 @@ int main(int argc, char const *argv[])
         }
     }
 
-#if 1
     for (int i = 0; i < ARRAY_ELEMENTS(nvram.contents.directory); i++)
     {
         uint32_t info = be32toh(nvram.contents.directory[i].codeInfo);
         if (info)
         {
             printf("\n=== Directory %d (0x%08X)===\n", i, info);
+            uint32_t addr = be32toh(nvram.contents.directory[i].codeAddress);
             uint32_t length = BCM_CODE_DIRECTORY_GET_LENGTH(info);
             uint32_t cpu = BCM_CODE_DIRECTORY_GET_CPU(info);
             uint32_t type = BCM_CODE_DIRECTORY_GET_TYPE(info);
-            printf("Code Address:   0x%08X\n",
-                   be32toh(nvram.contents.directory[i].codeAddress));
+            printf("Code Address:   0x%08X\n", addr);
             printf("Code Words:     0x%08X (%ld bytes)\n", length, length * sizeof(uint32_t));
             printf("Code Offset:    0x%08X\n",
                    be32toh(nvram.contents.directory[i].directoryOffset));
             printf("Code CPU:       0x%02X\n", cpu);
             printf("Code Type:      0x%02X\n", type);
             printf("\n");
+
+            if(BCM_CODE_DIRECTORY_ADDR_APE == addr &&
+                BCM_CODE_DIRECTORY_CPU_APE == cpu) /* APE */
+            {
+                ape = &nvram.bytes[be32toh(nvram.contents.directory[i].directoryOffset)];
+                ape_wd = &nvram.words[be32toh(nvram.contents.directory[i].directoryOffset)/4];
+                ape_length = length * sizeof(uint32_t);
+            }
 
             if(extract)
             {
@@ -442,6 +454,85 @@ int main(int argc, char const *argv[])
             }
         }
     }
+
+    if(options.is_set("ape"))
+    {
+        if(NULL == ape)
+        {
+            fprintf(stderr, "Original APE entry was not found in firmware header.");
+            exit(-1);
+        }
+        const char* ape_file = options["ape"].c_str();
+        printf("Updating ape with contents of file %s\n", ape_file);
+
+        fstream infile;
+        infile.open(ape_file, fstream::in | fstream::binary | fstream::ate);
+
+        if(infile.is_open())
+        {
+            uint32_t new_ape_length = infile.tellg();
+            infile.seekg(0);
+
+            if(new_ape_length > ape_length)
+            {
+                cerr << "Length is longer than original, currently unable to update." << endl;
+                exit(-1);
+            }
+            else
+            {
+                // Overwrite position
+                infile.read((char*)ape, new_ape_length);
+                infile.close();
+
+                while(new_ape_length < ape_length)
+                {
+                    // erase remaining bytes.
+                    ape[new_ape_length] = 0xFF;
+                    new_ape_length++;
+                }
+            }
+
+            // CD is updat
+            uint32_t new_crc = be32toh(~NVRam_crc(ape, new_ape_length, 0xffffffff));
+            printf("New CRC:             0x%08X\n", new_crc);
+            printf("New Length (bytes):  0x%08X\n", new_ape_length);
+
+            // Update the CRC in the file copy.
+            // ape_wd[crc_word] = htobe32(new_crc);
+
+            // TODO: update length (if changed);
+
+            if("file" == options["target"])
+            {
+                // write update file.
+                if(!save_to_file(options["filename"].c_str(), (char*)nvram.bytes, NVRAM_SIZE))
+                {
+                    exit(-1);
+                }
+            }
+
+            if("hardware" == options["target"])
+            {
+                NVRam_acquireLock();
+
+                NVRam_enable();
+                NVRam_enableWrites();
+
+                NVRam_write(0, nvram.words, NVRAM_SIZE / 4);
+
+                NVRam_disableWrites();
+
+                NVRam_releaseLock();
+            }
+        }
+        else
+        {
+            cerr << " Unable to open file '" << options["filename"] << "'" << endl;
+            exit(-1);
+        }
+        exit(0);
+    }
+
 
     printf("\n=== Info ===\n");
     printf("Firmware Revision: 0x%04X\n",
@@ -573,6 +664,5 @@ int main(int argc, char const *argv[])
         printf("VPD is invalid.\n");
     }
 
-#endif
     return 0;
 }
