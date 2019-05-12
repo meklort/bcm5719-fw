@@ -53,9 +53,10 @@ mips_add_executable(${PROJECT_NAME}
             crt.s)
 mips_linker_script(${PROJECT_NAME} ${LINKER_SCRIPT})
 
-target_link_libraries(${PROJECT_NAME} NVRam-mips MII-mips VPD-mips APE-mips)
+target_link_libraries(${PROJECT_NAME} NVRam-mips MII-mips APE-mips)
 target_link_libraries(${PROJECT_NAME} bcm5719)
 target_compile_options(${PROJECT_NAME} PRIVATE -nodefaultlibs)
+target_include_directories(${PROJECT_NAME} PUBLIC ../libs/VPD/include)
 
 
 # Simulator add_executable

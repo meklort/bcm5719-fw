@@ -51,6 +51,6 @@ target_include_directories(${PROJECT_NAME} PUBLIC ../../include)
 target_include_directories(${PROJECT_NAME} PUBLIC include)
 
 # MIPS Library
-mips_add_library(${PROJECT_NAME}-mips STATIC vpd.c)
-target_include_directories(${PROJECT_NAME}-mips PUBLIC ../../include)
-target_include_directories(${PROJECT_NAME}-mips PUBLIC include)
+# mips_add_library(${PROJECT_NAME}-mips STATIC vpd.c)
+# target_include_directories(${PROJECT_NAME}-mips PUBLIC ../../include)
+# target_include_directories(${PROJECT_NAME}-mips PUBLIC include)
