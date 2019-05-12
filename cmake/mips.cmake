@@ -50,7 +50,7 @@ SET(MIPS_LINK_OPTIONS --gc-sections)
 SET(CMAKE_INCLUDE_FLAG_ASM "-I")
 SET(CMAKE_ASM_COMPILE_OBJECT "<CMAKE_ASM_COMPILER> <DEFINES> <INCLUDES> <FLAGS> -o <OBJECT> -c <SOURCE>")
 
-SET(CMAKE_mips_LINK_EXECUTABLE "$ENV{HOME}/llvm-bcm5719/bin/ld.lld  <OBJECTS> <LINK_LIBRARIES> <CMAKE_C_LINK_FLAGS> <LINK_FLAGS> -Bstatic -o <TARGET>")
+SET(CMAKE_mips_LINK_EXECUTABLE "${COMPILER_BASE}/bin/ld.lld  <OBJECTS> <LINK_LIBRARIES> <CMAKE_C_LINK_FLAGS> <LINK_FLAGS> -Bstatic -o <TARGET>")
 
 # MIPS-specific executables
 function(mips_add_executable target)
@@ -62,7 +62,7 @@ function(mips_add_executable target)
 
     add_custom_command(
         TARGET ${target} POST_BUILD
-        COMMAND $ENV{HOME}/llvm-bcm5719/bin/llvm-objcopy -O binary ${target} ${target}.bin
+        COMMAND ${COMPILER_BASE}/bin/llvm-objcopy -O binary ${target} ${target}.bin
         BYPRODUCTS ${target}.bin)
 endfunction(mips_add_executable)
 
