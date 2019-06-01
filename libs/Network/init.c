@@ -45,6 +45,9 @@
 #include <APE_FILTERS.h>
 #include <APE_APE.h>
 #include <APE_DEVICE.h>
+#include <APE_DEVICE1.h>
+#include <APE_DEVICE2.h>
+#include <APE_DEVICE3.h>
 
 #include <Network.h>
 
@@ -641,79 +644,6 @@ static const FilterRuleInit_t gRuleInit[32] = {
     },
 };
 
-NetworkPort_t gPort0 = {
-    .tx_port = &TX_PORT0,
-    .tx_allocator = &APE.TxToNetBufferAllocator0,
-    .tx_doorbell = &APE.TxToNetDoorbellFunc0,
-    .tx_mode = &APE.TxToNetPoolModeStatus0,
-
-    .rx_port = &RX_PORT0,
-    .rx_offset = &APE.RxbufoffsetFunc0,
-    .rx_retire = &APE.RxPoolRetire0,
-    .rx_mode = &APE.RxPoolModeStatus0,
-};
-
-NetworkPort_t gPort1  = {
-    .tx_port = &TX_PORT1,
-    .tx_allocator = &APE.TxToNetBufferAllocator1,
-    .tx_doorbell = &APE.TxToNetDoorbellFunc1,
-    .tx_mode = &APE.TxToNetPoolModeStatus1,
-
-    .rx_port = &RX_PORT1,
-    .rx_offset = &APE.RxbufoffsetFunc1,
-    .rx_retire = &APE.RxPoolRetire1,
-    .rx_mode = &APE.RxPoolModeStatus1,
-};
-
-NetworkPort_t gPort2 = {
-    .tx_port = &TX_PORT2,
-    .tx_allocator = &APE.TxToNetBufferAllocator2,
-    .tx_doorbell = &APE.TxToNetDoorbellFunc2,
-    .tx_mode = &APE.TxToNetPoolModeStatus2,
-
-    .rx_port = &RX_PORT2,
-    .rx_offset = &APE.RxbufoffsetFunc2,
-    .rx_retire = &APE.RxPoolRetire2,
-    .rx_mode = &APE.RxPoolModeStatus2,
-};
-
-NetworkPort_t gPort3 = {
-    .tx_port = &TX_PORT3,
-    .tx_allocator = &APE.TxToNetBufferAllocator3,
-    .tx_doorbell = &APE.TxToNetDoorbellFunc3,
-    .tx_mode = &APE.TxToNetPoolModeStatus3,
-
-    .rx_port = &RX_PORT3,
-    .rx_offset = &APE.RxbufoffsetFunc3,
-    .rx_retire = &APE.RxPoolRetire3,
-    .rx_mode = &APE.RxPoolModeStatus3,
-};
-
-
-void Network_InitPort(NetworkPort_t *port)
-{
-    // Enable RX
-    RegAPERxPoolModeStatus_t rxMode;
-    rxMode.r32 = 0;
-    rxMode.bits.Reset = 1;
-    *(port->rx_mode) = rxMode;
-
-    rxMode.bits.Reset = 0;
-    rxMode.bits.Enable = 1;
-    *(port->rx_mode) = rxMode;
-
-    // Enable TX
-    RegAPETxToNetPoolModeStatus_t txMode;
-    txMode.r32 = 0;
-    txMode.bits.Reset = 1;
-    *(port->tx_mode) = txMode;
-
-    txMode.bits.Reset = 0;
-    txMode.bits.Enable = 1;
-    *(port->tx_mode) = txMode;
-
-}
-
 void Network_InitTxRx(void)
 {
     for(int i = 0; i < 32; i++)
@@ -741,17 +671,6 @@ void Network_InitTxRx(void)
     // Set it to the BMC MAC. Unlike the "perfect match" register above, it takes a different format:
     // for an example MAC AABB.CCDD.EEFF, set HIGH=0xAABBCCDD, LOW=0xEEFF0000.
     // *** NOTE: set to 0 in rmu.c ***
-
-
-    // Ensure REG_RECEIVE_MAC_MODE has ENABLE set.
-    // I recommend also setting APE_PROMISCUOUS_MODE and PROMISCUOUS_MODE,
-    // as these will cause you less headaches during development.
-    RegDEVICEReceiveMacMode_t macMode;
-    macMode = DEVICE.ReceiveMacMode;
-    macMode.bits.Enable = 1;
-    macMode.bits.APEPromiscuousMode = 0;
-    DEVICE.ReceiveMacMode = macMode;
-
 
     // Ensure REG_EMAC_MODE__ENABLE_APE_{TX,RX}_PATH are set.
     // *** NOTE: Both bits are set in rmu.c ***/

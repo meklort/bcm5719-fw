@@ -55,21 +55,31 @@
 #include <APE_TX_PORT1.h>
 #include <APE_TX_PORT2.h>
 #include <APE_TX_PORT3.h>
+#include <APE_DEVICE.h>
 #include <types.h>
+
+#ifdef CXX_SIMULATOR
+#define VOLATILE
+#else
+#define VOLATILE volatile
+#endif
 
 typedef struct
 {
     /* TX Registers */
-    volatile RegAPETxToNetPoolModeStatus_t *tx_mode;
-    volatile TX_PORT_t *tx_port;
-    volatile RegAPETxToNetBufferAllocator_t *tx_allocator;
-    volatile RegAPETxToNetDoorbell_t *tx_doorbell;
+    VOLATILE RegAPETxToNetPoolModeStatus_t *tx_mode;
+    VOLATILE TX_PORT_t *tx_port;
+    VOLATILE RegAPETxToNetBufferAllocator_t *tx_allocator;
+    VOLATILE RegAPETxToNetDoorbell_t *tx_doorbell;
 
     /* RX Registers */
-    volatile RegAPERxPoolModeStatus_t *rx_mode;
-    volatile RX_PORT_t *rx_port;
-    volatile RegAPERxbufoffset_t *rx_offset;
-    volatile RegAPERxPoolRetire_t *rx_retire;
+    VOLATILE RegAPERxPoolModeStatus_t *rx_mode;
+    VOLATILE RX_PORT_t *rx_port;
+    VOLATILE RegAPERxbufoffset_t *rx_offset;
+    VOLATILE RegAPERxPoolRetire_t *rx_retire;
+
+    /* Port Registers */
+    VOLATILE DEVICE_t *device;
 } NetworkPort_t;
 
 typedef union {
@@ -89,6 +99,7 @@ extern NetworkPort_t gPort1;
 extern NetworkPort_t gPort2;
 extern NetworkPort_t gPort3;
 
+void Network_InitPort(NetworkPort_t *port);
 void Network_InitTxRx(void);
 
 uint32_t Network_TX_numBlocksNeeded(uint32_t frame_size);
@@ -108,7 +119,7 @@ bool Network_RxLePatcket(uint32_t *buffer, uint32_t *length,
                          NetworkPort_t *port);
 bool Network_PassthroughRxPatcket(NetworkPort_t *port);
 
-void Network_SetMACAddr(uint16_t high, uint32_t low, uint32_t index,
-                        bool enabled);
+void Network_SetMACAddr(NetworkPort_t *port, uint16_t high, uint32_t low,
+                        uint32_t index, bool enabled);
 
 #endif /* NETWORK_H */

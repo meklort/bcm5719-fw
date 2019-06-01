@@ -45,7 +45,7 @@
 #include <APE_DEVICE.h>
 #include <Network.h>
 
-void Network_SetMACAddr(uint16_t high, uint32_t low, uint32_t index,
+void Network_SetMACAddr(NetworkPort_t *port, uint16_t high, uint32_t low, uint32_t index,
                         bool enabled)
 {
     uint32_t match_high = (high << 16) | (low >> 16);
@@ -68,6 +68,9 @@ void Network_SetMACAddr(uint16_t high, uint32_t low, uint32_t index,
     APE_PERI.BmcToNcSourceMacMatch7High.r32 = match_high;
     APE_PERI.BmcToNcSourceMacMatch7Low.r32  = match_low;
 
-    DEVICE.PerfectMatch1High.r32 = high;
-    DEVICE.PerfectMatch1Low.r32 = low;
+    if(port)
+    {
+        port->device->PerfectMatch1High.r32 = high;
+        port->device->PerfectMatch1Low.r32 = low;
+    }
 }

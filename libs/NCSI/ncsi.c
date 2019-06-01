@@ -43,6 +43,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include <NCSI.h>
+#include <APE.h>
 #include <APE_APE_PERI.h>
 #include <APE_SHM.h>
 #include <APE_SHM_CHANNEL0.h>
@@ -50,6 +51,9 @@
 #include <APE_SHM_CHANNEL2.h>
 #include <APE_SHM_CHANNEL3.h>
 
+#include <APE_DEVICE.h>
+
+#include <MII.h>
 #include <Network.h>
 #include <types.h>
 
@@ -73,6 +77,7 @@ typedef struct {
 #else
     volatile SHM_CHANNEL_t* shm;
 #endif
+    NetworkPort_t *port;
 } channel_state_t;
 
 // Response frame - global and usable by one thread at a time only.
@@ -145,21 +150,25 @@ package_state_t gPackageState = {
             .AENEnables = false,
             .AsyncronousTrafficEn = false,
             .shm = &SHM_CHANNEL0,
+            .port = &gPort0,
         },
         [1] = {
             .AENEnables = false,
             .AsyncronousTrafficEn = false,
             .shm = &SHM_CHANNEL1,
+            .port = &gPort1,
         },
         [2] = {
             .AENEnables = false,
             .AsyncronousTrafficEn = false,
             .shm = &SHM_CHANNEL2,
+            .port = &gPort2,
         },
         [3] = {
             .AENEnables = false,
             .AsyncronousTrafficEn = false,
             .shm = &SHM_CHANNEL3,
+            .port = &gPort3,
         },
     },
 };
@@ -381,15 +390,35 @@ static void setLinkHandler(NetworkFrame_t* frame)
 
 static void getLinkStatusHandler(NetworkFrame_t* frame)
 {
+    // If not
+    RegMIIStatus_t stat;
+    RegMIIIeeeExtendedStatus_t ext_stat;
+    ext_stat.r16 = 0;
+
+    uint8_t phy = DEVICE_MII_COMMUNICATION_PHY_ADDRESS_PHY_0; //MII_getPhy();
+    APE_aquireLock();
+    uint16_t status_value = MII_readRegister(phy, (mii_reg_t)REG_MII_STATUS);
+    stat.r16 = status_value;
+    if(stat.bits.ExtendedStatusSupported)
+    {
+        uint16_t ext_status_value = MII_readRegister(phy, (mii_reg_t)REG_MII_IEEE_EXTENDED_STATUS);
+        ext_stat.r16 = ext_status_value;
+    }
+
+    APE_releaseLock();
+
     RegSHM_CHANNELNcsiChannelStatus_t linkStatus;
     linkStatus.r32 = 0;
     linkStatus.bits.Linkup = 1;
     linkStatus.bits.LinkStatus = 7;
     linkStatus.bits.SERDES = 1;
-    linkStatus.bits.AutonegotiationComplete = 1;
-    linkStatus.bits.LinkSpeed1000MFullDuplexCapable = 1;
-    linkStatus.bits.LinkSpeed1000MHalsDuplexCapable = 1;
+    linkStatus.bits.AutonegotiationComplete = stat.bits.AutoNegotiationComplete;
+    linkStatus.bits.LinkSpeed1000MFullDuplexCapable = ext_stat.bits._1000BASE_THalfDuplexCapable;
+    linkStatus.bits.LinkSpeed1000MHalsDuplexCapable = ext_stat.bits._1000BASE_TFullDuplexCapable;
 
+    int ch = frame->controlPacket.ChannelID & CHANNEL_ID_MASK;
+    channel_state_t* channel = &(gPackageState.channel[ch]);
+    channel->shm->NcsiChannelStatus = linkStatus;
 
     uint32_t LinkStatus       = linkStatus.r32;
     uint32_t OEMLinkStatus    = 0;
@@ -407,11 +436,13 @@ static void getLinkStatusHandler(NetworkFrame_t* frame)
 static void disableVLANHandler(NetworkFrame_t* frame)
 {
     // TODO
-#if CXX_SIMULATOR
     int ch = frame->controlPacket.ChannelID & CHANNEL_ID_MASK;
+    channel_state_t* channel = &(gPackageState.channel[ch]);
+    channel->shm->NcsiChannelInfo.bits.VLAN = false;
+
+#if CXX_SIMULATOR
     printf("Disable VLAN: channel %x\n", ch);
 #endif
-    // gPackageState.channel[ch].shm->NcsiChannelInfo.bits.Enabled = false;
 
     sendNCSIResponse(
         frame->controlPacket.InstanceID,
@@ -422,9 +453,11 @@ static void disableVLANHandler(NetworkFrame_t* frame)
 
 static void setMACAddressHandler(NetworkFrame_t* frame)
 {
-    // TODO
-#if CXX_SIMULATOR
     int ch = frame->controlPacket.ChannelID & CHANNEL_ID_MASK;
+    channel_state_t* channel = &(gPackageState.channel[ch]);
+    // channel->shm->NcsiChannelInfo.bits.Enabled = false;
+
+#if CXX_SIMULATOR
     printf("Set MAC: channel %x\n", ch);
     printf("MAC54: 0x%04X\n", frame->setMACAddr.MAC54);
     printf("MAC32: 0x%04X\n", frame->setMACAddr.MAC32);
@@ -433,10 +466,11 @@ static void setMACAddressHandler(NetworkFrame_t* frame)
     printf("AT: 0x%04X\n", frame->setMACAddr.AT);
     printf("MACNumber: 0x%04X\n", frame->setMACAddr.MACNumber);
 #endif
-    // gPackageState.channel[ch].shm->NcsiChannelInfo.bits.Enabled = false;
+
+    // TODO: Handle AT.
 
     uint32_t low = (frame->setMACAddr.MAC32 << 16) | frame->setMACAddr.MAC10;
-    Network_SetMACAddr(frame->setMACAddr.MAC54, low, frame->setMACAddr.MACNumber, frame->setMACAddr.Enable);
+    Network_SetMACAddr(channel->port, frame->setMACAddr.MAC54, low, frame->setMACAddr.MACNumber, frame->setMACAddr.Enable);
 
 
     sendNCSIResponse(
@@ -449,11 +483,13 @@ static void setMACAddressHandler(NetworkFrame_t* frame)
 static void enableBroadcastFilteringHandler(NetworkFrame_t* frame)
 {
     // TODO
+    // channel_state_t* channel = &(gPackageState.channel[ch]);
+    // channel->shm->NcsiChannelInfo.bits.Enabled = false;
+
 #if CXX_SIMULATOR
     int ch = frame->controlPacket.ChannelID & CHANNEL_ID_MASK;
     printf("Enable Broadcast Filtering: channel %x\n", ch);
 #endif
-    // gPackageState.channel[ch].shm->NcsiChannelInfo.bits.Enabled = false;
 
     sendNCSIResponse(
         frame->controlPacket.InstanceID,

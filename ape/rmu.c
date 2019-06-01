@@ -95,7 +95,7 @@ void initRMU(void)
     APE_PERI.BmcToNcTxControl = txControl;
 
     // Set all eight REG_APE__BMC_NC_RX_SRC_MAC_MATCHN_{HIGH,LOW} to zero.
-    Network_SetMACAddr(0, 0, 1, true);
+    Network_SetMACAddr(0, 0, 0, 1, true);
 
     // Set REG_APE__ARB_CONTROL as desired. Suggest PACKAGE_ID=0, TKNREL=0x14,
     // START, and setting unknown bit 26 to 1.

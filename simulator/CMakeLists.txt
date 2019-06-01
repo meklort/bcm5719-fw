@@ -50,6 +50,13 @@ simulator_add_library(${PROJECT_NAME} STATIC
             APE_RX_PORT3.cpp
             APE_RX_PORT3_sim.cpp
 
+            APE_DEVICE1.cpp
+            APE_DEVICE1_sim.cpp
+            APE_DEVICE2.cpp
+            APE_DEVICE2_sim.cpp
+            APE_DEVICE3.cpp
+            APE_DEVICE3_sim.cpp
+
             )
 
 include_directories(../libs/NVRam)
