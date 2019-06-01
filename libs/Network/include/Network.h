@@ -48,14 +48,9 @@
 #include <APE_APE.h>
 #include <APE_APE_PERI.h>
 #include <APE_RX_PORT0.h>
-#include <APE_RX_PORT1.h>
-#include <APE_RX_PORT2.h>
-#include <APE_RX_PORT3.h>
 #include <APE_TX_PORT0.h>
-#include <APE_TX_PORT1.h>
-#include <APE_TX_PORT2.h>
-#include <APE_TX_PORT3.h>
 #include <APE_DEVICE.h>
+#include <APE_FILTERS.h>
 #include <types.h>
 
 #ifdef CXX_SIMULATOR
@@ -80,6 +75,7 @@ typedef struct
 
     /* Port Registers */
     VOLATILE DEVICE_t *device;
+    VOLATILE FILTERS_t *filters;
 } NetworkPort_t;
 
 typedef union {

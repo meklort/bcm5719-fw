@@ -57,6 +57,12 @@ simulator_add_library(${PROJECT_NAME} STATIC
             APE_DEVICE3.cpp
             APE_DEVICE3_sim.cpp
 
+            APE_FILTERS1.cpp
+            APE_FILTERS1_sim.cpp
+            APE_FILTERS2.cpp
+            APE_FILTERS2_sim.cpp
+            APE_FILTERS3.cpp
+            APE_FILTERS3_sim.cpp
             )
 
 include_directories(../libs/NVRam)
