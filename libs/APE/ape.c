@@ -48,7 +48,11 @@ void APE_aquireLock(void)
 {
     RegAPE_PERIPerLockRequestPhy0_t lock_req;
     lock_req.r32 = 0;
+#ifdef __arm__ /* APE */
+    lock_req.bits.APE = 1;
+#else
     lock_req.bits.Bootcode = 1;
+#endif
 
     uint8_t function = DEVICE.Status.bits.FunctionNumber;
     switch (function)
