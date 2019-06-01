@@ -41,39 +41,47 @@
 /// POSSIBILITY OF SUCH DAMAGE.
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
-node('master')
+
+def build(nodeName)
 {
-    stage('checkout')
+    node(nodeName)
     {
-        checkout(
-            [$class: 'GitSCM', branches: [[name: '**']],
-                            browser: [$class: 'GithubWeb',
-                            repoUrl: 'https://github.com/'],
-                            doGenerateSubmoduleConfigurations: false,
-                            extensions: [
-                                [$class: 'SubmoduleOption', 
-                                        disableSubmodules: false,
-                                        parentCredentials: false,
-                                        recursiveSubmodules: true,
-                                        reference: '',
-                                        trackingSubmodules: false]],
-                            submoduleCfg: [],
-                            userRemoteConfigs: [[url: 'https://github.com/meklort/bcm5719-fw.git']]])
-    }
-    
-    stage('build')
-    {
-        withEnv(['PATH+WHATEVER=/usr/local/bin']) {
-            sh '''#!/bin/bash
-                rm -rf build
-                mkdir build
-                cd build
-                cmake .. -G Ninja
-                ninja
-            '''
+        stage('checkout')
+        {
+            checkout(
+                [$class: 'GitSCM', branches: [[name: '**']],
+                                browser: [$class: 'GithubWeb',
+                                repoUrl: 'https://github.com/'],
+                                doGenerateSubmoduleConfigurations: false,
+                                extensions: [
+                                    [$class: 'SubmoduleOption',
+                                            disableSubmodules: false,
+                                            parentCredentials: false,
+                                            recursiveSubmodules: true,
+                                            reference: '',
+                                            trackingSubmodules: false]],
+                                submoduleCfg: [],
+                                userRemoteConfigs: [[url: 'https://github.com/meklort/bcm5719-fw.git']]])
         }
-        // archiveArtifacts 'release'
+
+        stage('build')
+        {
+            withEnv(['PATH+WHATEVER=/usr/local/bin']) {
+                sh '''#!/bin/bash
+                    rm -rf build
+                    mkdir build
+                    cd build
+                    cmake .. -G Ninja
+                    ninja
+                '''
+            }
+            // archiveArtifacts 'release'
+        }
+
+        cleanWs()
     }
-    
-    cleanWs()
 }
+
+
+build('master')
+build('debian')
