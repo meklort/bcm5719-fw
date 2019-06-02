@@ -120,17 +120,30 @@ void handleBMCPacket(void)
             {
                 // stat.print();
                 int32_t words = DIVIDE_RND_UP(bytes, sizeof(uint32_t));
-                int i = 0;
-                while (words--)
+                if(words > ARRAY_ELEMENTS(buffer))
                 {
-                    uint32_t word = (APE_PERI.BmcToNcReadBuffer.r32);
-                    buffer[i] = word;
-                    i++;
+                    // This should never happen...
+                    while(words--)
+                    {
+                        // Read out the packet, but drop it.
+                        uint32_t word = APE_PERI.BmcToNcReadBuffer.r32;
+                        (void)word;
+                    }
                 }
+                else
+                {
+                    int i = 0;
+                    while (words--)
+                    {
+                        uint32_t word = (APE_PERI.BmcToNcReadBuffer.r32);
+                        buffer[i] = word;
+                        i++;
+                    }
 
-                NetworkFrame_t *frame = ((NetworkFrame_t *)buffer);
+                    NetworkFrame_t *frame = ((NetworkFrame_t *)buffer);
 
-                handleNCSIFrame(frame);
+                    handleNCSIFrame(frame);
+                }
             }
             else
             {
