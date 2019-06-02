@@ -150,7 +150,7 @@ void __attribute__((noreturn)) loaderLoop(void)
     for (;;)
     {
         handleBMCPacket();
-        Network_PassthroughRxPatcket(&gPort0);
+        NCSI_handlePassthrough();
         handleCommand();
     }
 }

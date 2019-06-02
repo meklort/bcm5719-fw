@@ -710,5 +710,10 @@ void NCSI_init(void)
     }
 }
 
-
-
+void NCSI_handlePassthrough(void)
+{
+    for(int i = 0; i < ARRAY_ELEMENTS(gPackageState.channel); i++)
+    {
+        Network_PassthroughRxPatcket(gPackageState.channel[i].port);
+    }
+}
