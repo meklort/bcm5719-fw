@@ -67,11 +67,6 @@
 uint8_t gPackageID = ((0 << PACKAGE_ID_SHIFT) | CHANNEL_ID_PACKAGE);
 
 typedef struct {
-    bool initialized;
-
-    uint32_t AENEnables; /* Corresponds to an enable bit for each AEN packet */
-    bool AsyncronousTrafficEn; /* When set, AEN and passthrough traffic can be sent from the NC to the MC */
-    bool PassthroughTXTrafficEn; /* When set, the NC is allowed to transmit passthrough traffic from the MC to the NC. */
 #ifdef CXX_SIMULATOR
     SHM_CHANNEL_t* shm;
 #else
@@ -147,26 +142,18 @@ package_state_t gPackageState = {
     .selected = false,
     .channel = {
         [0] = {
-            .AENEnables = false,
-            .AsyncronousTrafficEn = false,
             .shm = &SHM_CHANNEL0,
             .port = &gPort0,
         },
         [1] = {
-            .AENEnables = false,
-            .AsyncronousTrafficEn = false,
             .shm = &SHM_CHANNEL1,
             .port = &gPort1,
         },
         [2] = {
-            .AENEnables = false,
-            .AsyncronousTrafficEn = false,
             .shm = &SHM_CHANNEL2,
             .port = &gPort2,
         },
         [3] = {
-            .AENEnables = false,
-            .AsyncronousTrafficEn = false,
             .shm = &SHM_CHANNEL3,
             .port = &gPort3,
         },
@@ -577,7 +564,7 @@ void handleNCSIFrame(NetworkFrame_t* frame)
 #if CXX_SIMULATOR
             printf("[%x] Channel not initialized: %d\n", command, ch);
             printf("     Ignore Init: %d\n", handler->ignoreInit);
-            printf("     Initialized: %d\n", gPackageState.channel[ch].initialized);
+            printf("     Initialized: %d\n", (uint32_t)gPackageState.channel[ch].shm->NcsiChannelInfo.bits.Ready);
 #endif
             // Initialization required for the channel
             sendNCSIResponse(
@@ -632,10 +619,6 @@ void resetChannel(int ch)
 #endif
 
     channel_state_t* channel = &(gPackageState.channel[ch]);
-    channel->initialized = false;
-    channel->AENEnables = false;
-    channel->AsyncronousTrafficEn = false;
-    channel->PassthroughTXTrafficEn = false;
 
     channel->shm->NcsiChannelInfo.r32 = 0;
     channel->shm->NcsiChannelCtrlstatRx.r32 = 0;
@@ -712,8 +695,12 @@ void NCSI_init(void)
 
 void NCSI_handlePassthrough(void)
 {
-    for(int i = 0; i < ARRAY_ELEMENTS(gPackageState.channel); i++)
+    for(int ch = 0; ch < ARRAY_ELEMENTS(gPackageState.channel); ch++)
     {
-        Network_PassthroughRxPatcket(gPackageState.channel[i].port);
+        channel_state_t* channel = &(gPackageState.channel[ch]);
+        if(channel->shm->NcsiChannelInfo.bits.Ready)
+        {
+            Network_PassthroughRxPatcket(channel->port);
+        }
     }
 }
