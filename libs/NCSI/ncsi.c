@@ -397,11 +397,11 @@ static void getLinkStatusHandler(NetworkFrame_t* frame)
     RegSHM_CHANNELNcsiChannelStatus_t linkStatus;
     linkStatus.r32 = 0;
     linkStatus.bits.Linkup = 1;
-    linkStatus.bits.LinkStatus = 7;
-    linkStatus.bits.SERDES = 1;
+    linkStatus.bits.LinkStatus = SHM_CHANNEL_NCSI_CHANNEL_STATUS_LINK_STATUS_1000BASE_T_FULL_DUPLEX;
+    linkStatus.bits.AutonegotiationEnabled = 1;
     linkStatus.bits.AutonegotiationComplete = stat.bits.AutoNegotiationComplete;
-    linkStatus.bits.LinkSpeed1000MFullDuplexCapable = ext_stat.bits._1000BASE_THalfDuplexCapable;
-    linkStatus.bits.LinkSpeed1000MHalsDuplexCapable = ext_stat.bits._1000BASE_TFullDuplexCapable;
+    linkStatus.bits.LinkSpeed1000MFullDuplexCapable = ext_stat.bits._1000BASE_TFullDuplexCapable;
+    linkStatus.bits.LinkSpeed1000MHalfDuplexCapable = ext_stat.bits._1000BASE_THalfDuplexCapable;
 
     int ch = frame->controlPacket.ChannelID & CHANNEL_ID_MASK;
     channel_state_t* channel = &(gPackageState.channel[ch]);

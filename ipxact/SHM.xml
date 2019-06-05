@@ -1074,10 +1074,49 @@
                         <ipxact:bitOffset>1</ipxact:bitOffset>
                         <ipxact:bitWidth>4</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <!-- LINK: enumeratedValue: see 6.11.10, Enumeration values -->
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>No Link</ipxact:name>
+                                <ipxact:value>0</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>10BASE-T half-duplex</ipxact:name>
+                                <ipxact:value>1</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>10BASE-T full-duplex</ipxact:name>
+                                <ipxact:value>2</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>100BASE-TX half-duplex</ipxact:name>
+                                <ipxact:value>3</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>100BASE-T4</ipxact:name>
+                                <ipxact:value>4</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>100BASE-TX full-duplex</ipxact:name>
+                                <ipxact:value>5</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>1000BASE-T half-duplex</ipxact:name>
+                                <ipxact:value>6</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>1000BASE-T full-duplex</ipxact:name>
+                                <ipxact:value>7</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>10G-BASE-T</ipxact:name>
+                                <ipxact:value>8</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
                     </ipxact:field>
                     <ipxact:field>
-                        <ipxact:name>SERDES</ipxact:name>
-                        <ipxact:description>Set from MII_REG_CONTROL__AUTO_NEGOTIATION_ENABLE. Set unconditionally in SERDES case.</ipxact:description>
+                        <ipxact:name>Autonegotiation Enabled</ipxact:name>
+                        <ipxact:description>Auto-negotiation is enabled. This field always returns 0 if auto-negotiation is not supported.</ipxact:description>
                         <ipxact:bitOffset>5</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
@@ -1090,16 +1129,112 @@
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
+                        <ipxact:name>Parallel Detection</ipxact:name>
+                        <ipxact:description>Link partner did not support auto-negotiation and parallel detection was used to get link.</ipxact:description>
+                        <ipxact:bitOffset>7</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
                         <ipxact:name>Link Speed 1000M Full Duplex Capable</ipxact:name>
-                        <ipxact:description>Link partner 1000BASE-T full duplex capable</ipxact:description>
+                        <ipxact:description>Link partner is 1000BASE-T full-duplex capable</ipxact:description>
                         <ipxact:bitOffset>9</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
-                        <ipxact:name>Link Speed 1000M Hals Duplex Capable</ipxact:name>
-                        <ipxact:description>Link partner 1000BASE-T half duplex capable</ipxact:description>
+                        <ipxact:name>Link Speed 1000M Half Duplex Capable</ipxact:name>
+                        <ipxact:description>Link partner is 1000BASE-T half-duplex capable</ipxact:description>
                         <ipxact:bitOffset>10</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Link Speed 100M-T4 Capable</ipxact:name>
+                        <ipxact:description>Link partner is 100BASE-T4 capable</ipxact:description>
+                        <ipxact:bitOffset>11</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Link Speed 100M-TX Full Duplex Capable</ipxact:name>
+                        <ipxact:description>Link partner 100BASE-TX full-duplex capable</ipxact:description>
+                        <ipxact:bitOffset>12</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Link Speed 100M-TX Half Duplex Capable</ipxact:name>
+                        <ipxact:description>Link partner 100BASE-TX half-duplex capable</ipxact:description>
+                        <ipxact:bitOffset>13</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Link Speed 10M-T Full Duplex Capable</ipxact:name>
+                        <ipxact:description>Link partner 10BASE-T full-duplex capable</ipxact:description>
+                        <ipxact:bitOffset>14</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Link Speed 10M-T Half Duplex Capable</ipxact:name>
+                        <ipxact:description>Link partner 10BASE-T half-duplex capable</ipxact:description>
+                        <ipxact:bitOffset>15</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>TX Flow Control Flag</ipxact:name>
+                        <ipxact:description>Pause Flow Control enabled for TX on the external network interface.</ipxact:description>
+                        <ipxact:bitOffset>16</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>RX Flow Control Flag</ipxact:name>
+                        <ipxact:description>Pause Flow Control enabled for RX on the external network interface.</ipxact:description>
+                        <ipxact:bitOffset>17</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Link Partner Advertised Flow Control</ipxact:name>
+                        <ipxact:description>Flow control supported by partner.</ipxact:description>
+                        <ipxact:bitOffset>18</ipxact:bitOffset>
+                        <ipxact:bitWidth>2</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <!-- LINK: enumeratedValue: see 6.11.10, Enumeration values -->
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Not Capable</ipxact:name>
+                                <ipxact:value>0</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Symmetric Pause</ipxact:name>
+                                <ipxact:value>1</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Asymmetric Pause</ipxact:name>
+                                <ipxact:value>2</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Symmetric and Asymmetric Pause</ipxact:name>
+                                <ipxact:value>3</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>SerDes Link</ipxact:name>
+                        <ipxact:description>SerDes status.</ipxact:description>
+                        <ipxact:bitOffset>20</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>OEM Link Status Valid</ipxact:name>
+                        <ipxact:description>If set, OEM Link Status was populated and is valid.</ipxact:description>
+                        <ipxact:bitOffset>21</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>

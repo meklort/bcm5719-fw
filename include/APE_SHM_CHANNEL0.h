@@ -1176,22 +1176,81 @@ typedef register_container RegSHM_CHANNELNcsiChannelMac1Vlan_t {
 #define     SHM_CHANNEL0_NCSI_CHANNEL_STATUS_LINK_STATUS_MASK  0x1eu
 #define GET_SHM_CHANNEL0_NCSI_CHANNEL_STATUS_LINK_STATUS(__reg__)  (((__reg__) & 0x1e) >> 1u)
 #define SET_SHM_CHANNEL0_NCSI_CHANNEL_STATUS_LINK_STATUS(__val__)  (((__val__) << 1u) & 0x1eu)
-#define     SHM_CHANNEL0_NCSI_CHANNEL_STATUS_SERDES_SHIFT 5u
-#define     SHM_CHANNEL0_NCSI_CHANNEL_STATUS_SERDES_MASK  0x20u
-#define GET_SHM_CHANNEL0_NCSI_CHANNEL_STATUS_SERDES(__reg__)  (((__reg__) & 0x20) >> 5u)
-#define SET_SHM_CHANNEL0_NCSI_CHANNEL_STATUS_SERDES(__val__)  (((__val__) << 5u) & 0x20u)
+#define     SHM_CHANNEL_NCSI_CHANNEL_STATUS_LINK_STATUS_NO_LINK 0x0u
+#define     SHM_CHANNEL_NCSI_CHANNEL_STATUS_LINK_STATUS_10BASE_T_HALF_DUPLEX 0x1u
+#define     SHM_CHANNEL_NCSI_CHANNEL_STATUS_LINK_STATUS_10BASE_T_FULL_DUPLEX 0x2u
+#define     SHM_CHANNEL_NCSI_CHANNEL_STATUS_LINK_STATUS_100BASE_TX_HALF_DUPLEX 0x3u
+#define     SHM_CHANNEL_NCSI_CHANNEL_STATUS_LINK_STATUS_100BASE_T4 0x4u
+#define     SHM_CHANNEL_NCSI_CHANNEL_STATUS_LINK_STATUS_100BASE_TX_FULL_DUPLEX 0x5u
+#define     SHM_CHANNEL_NCSI_CHANNEL_STATUS_LINK_STATUS_1000BASE_T_HALF_DUPLEX 0x6u
+#define     SHM_CHANNEL_NCSI_CHANNEL_STATUS_LINK_STATUS_1000BASE_T_FULL_DUPLEX 0x7u
+#define     SHM_CHANNEL_NCSI_CHANNEL_STATUS_LINK_STATUS_10G_BASE_T 0x8u
+
+#define     SHM_CHANNEL0_NCSI_CHANNEL_STATUS_AUTONEGOTIATION_ENABLED_SHIFT 5u
+#define     SHM_CHANNEL0_NCSI_CHANNEL_STATUS_AUTONEGOTIATION_ENABLED_MASK  0x20u
+#define GET_SHM_CHANNEL0_NCSI_CHANNEL_STATUS_AUTONEGOTIATION_ENABLED(__reg__)  (((__reg__) & 0x20) >> 5u)
+#define SET_SHM_CHANNEL0_NCSI_CHANNEL_STATUS_AUTONEGOTIATION_ENABLED(__val__)  (((__val__) << 5u) & 0x20u)
 #define     SHM_CHANNEL0_NCSI_CHANNEL_STATUS_AUTONEGOTIATION_COMPLETE_SHIFT 6u
 #define     SHM_CHANNEL0_NCSI_CHANNEL_STATUS_AUTONEGOTIATION_COMPLETE_MASK  0x40u
 #define GET_SHM_CHANNEL0_NCSI_CHANNEL_STATUS_AUTONEGOTIATION_COMPLETE(__reg__)  (((__reg__) & 0x40) >> 6u)
 #define SET_SHM_CHANNEL0_NCSI_CHANNEL_STATUS_AUTONEGOTIATION_COMPLETE(__val__)  (((__val__) << 6u) & 0x40u)
+#define     SHM_CHANNEL0_NCSI_CHANNEL_STATUS_PARALLEL_DETECTION_SHIFT 7u
+#define     SHM_CHANNEL0_NCSI_CHANNEL_STATUS_PARALLEL_DETECTION_MASK  0x80u
+#define GET_SHM_CHANNEL0_NCSI_CHANNEL_STATUS_PARALLEL_DETECTION(__reg__)  (((__reg__) & 0x80) >> 7u)
+#define SET_SHM_CHANNEL0_NCSI_CHANNEL_STATUS_PARALLEL_DETECTION(__val__)  (((__val__) << 7u) & 0x80u)
 #define     SHM_CHANNEL0_NCSI_CHANNEL_STATUS_LINK_SPEED_1000M_FULL_DUPLEX_CAPABLE_SHIFT 9u
 #define     SHM_CHANNEL0_NCSI_CHANNEL_STATUS_LINK_SPEED_1000M_FULL_DUPLEX_CAPABLE_MASK  0x200u
 #define GET_SHM_CHANNEL0_NCSI_CHANNEL_STATUS_LINK_SPEED_1000M_FULL_DUPLEX_CAPABLE(__reg__)  (((__reg__) & 0x200) >> 9u)
 #define SET_SHM_CHANNEL0_NCSI_CHANNEL_STATUS_LINK_SPEED_1000M_FULL_DUPLEX_CAPABLE(__val__)  (((__val__) << 9u) & 0x200u)
-#define     SHM_CHANNEL0_NCSI_CHANNEL_STATUS_LINK_SPEED_1000M_HALS_DUPLEX_CAPABLE_SHIFT 10u
-#define     SHM_CHANNEL0_NCSI_CHANNEL_STATUS_LINK_SPEED_1000M_HALS_DUPLEX_CAPABLE_MASK  0x400u
-#define GET_SHM_CHANNEL0_NCSI_CHANNEL_STATUS_LINK_SPEED_1000M_HALS_DUPLEX_CAPABLE(__reg__)  (((__reg__) & 0x400) >> 10u)
-#define SET_SHM_CHANNEL0_NCSI_CHANNEL_STATUS_LINK_SPEED_1000M_HALS_DUPLEX_CAPABLE(__val__)  (((__val__) << 10u) & 0x400u)
+#define     SHM_CHANNEL0_NCSI_CHANNEL_STATUS_LINK_SPEED_1000M_HALF_DUPLEX_CAPABLE_SHIFT 10u
+#define     SHM_CHANNEL0_NCSI_CHANNEL_STATUS_LINK_SPEED_1000M_HALF_DUPLEX_CAPABLE_MASK  0x400u
+#define GET_SHM_CHANNEL0_NCSI_CHANNEL_STATUS_LINK_SPEED_1000M_HALF_DUPLEX_CAPABLE(__reg__)  (((__reg__) & 0x400) >> 10u)
+#define SET_SHM_CHANNEL0_NCSI_CHANNEL_STATUS_LINK_SPEED_1000M_HALF_DUPLEX_CAPABLE(__val__)  (((__val__) << 10u) & 0x400u)
+#define     SHM_CHANNEL0_NCSI_CHANNEL_STATUS_LINK_SPEED_100M_T4_CAPABLE_SHIFT 11u
+#define     SHM_CHANNEL0_NCSI_CHANNEL_STATUS_LINK_SPEED_100M_T4_CAPABLE_MASK  0x800u
+#define GET_SHM_CHANNEL0_NCSI_CHANNEL_STATUS_LINK_SPEED_100M_T4_CAPABLE(__reg__)  (((__reg__) & 0x800) >> 11u)
+#define SET_SHM_CHANNEL0_NCSI_CHANNEL_STATUS_LINK_SPEED_100M_T4_CAPABLE(__val__)  (((__val__) << 11u) & 0x800u)
+#define     SHM_CHANNEL0_NCSI_CHANNEL_STATUS_LINK_SPEED_100M_TX_FULL_DUPLEX_CAPABLE_SHIFT 12u
+#define     SHM_CHANNEL0_NCSI_CHANNEL_STATUS_LINK_SPEED_100M_TX_FULL_DUPLEX_CAPABLE_MASK  0x1000u
+#define GET_SHM_CHANNEL0_NCSI_CHANNEL_STATUS_LINK_SPEED_100M_TX_FULL_DUPLEX_CAPABLE(__reg__)  (((__reg__) & 0x1000) >> 12u)
+#define SET_SHM_CHANNEL0_NCSI_CHANNEL_STATUS_LINK_SPEED_100M_TX_FULL_DUPLEX_CAPABLE(__val__)  (((__val__) << 12u) & 0x1000u)
+#define     SHM_CHANNEL0_NCSI_CHANNEL_STATUS_LINK_SPEED_100M_TX_HALF_DUPLEX_CAPABLE_SHIFT 13u
+#define     SHM_CHANNEL0_NCSI_CHANNEL_STATUS_LINK_SPEED_100M_TX_HALF_DUPLEX_CAPABLE_MASK  0x2000u
+#define GET_SHM_CHANNEL0_NCSI_CHANNEL_STATUS_LINK_SPEED_100M_TX_HALF_DUPLEX_CAPABLE(__reg__)  (((__reg__) & 0x2000) >> 13u)
+#define SET_SHM_CHANNEL0_NCSI_CHANNEL_STATUS_LINK_SPEED_100M_TX_HALF_DUPLEX_CAPABLE(__val__)  (((__val__) << 13u) & 0x2000u)
+#define     SHM_CHANNEL0_NCSI_CHANNEL_STATUS_LINK_SPEED_10M_T_FULL_DUPLEX_CAPABLE_SHIFT 14u
+#define     SHM_CHANNEL0_NCSI_CHANNEL_STATUS_LINK_SPEED_10M_T_FULL_DUPLEX_CAPABLE_MASK  0x4000u
+#define GET_SHM_CHANNEL0_NCSI_CHANNEL_STATUS_LINK_SPEED_10M_T_FULL_DUPLEX_CAPABLE(__reg__)  (((__reg__) & 0x4000) >> 14u)
+#define SET_SHM_CHANNEL0_NCSI_CHANNEL_STATUS_LINK_SPEED_10M_T_FULL_DUPLEX_CAPABLE(__val__)  (((__val__) << 14u) & 0x4000u)
+#define     SHM_CHANNEL0_NCSI_CHANNEL_STATUS_LINK_SPEED_10M_T_HALF_DUPLEX_CAPABLE_SHIFT 15u
+#define     SHM_CHANNEL0_NCSI_CHANNEL_STATUS_LINK_SPEED_10M_T_HALF_DUPLEX_CAPABLE_MASK  0x8000u
+#define GET_SHM_CHANNEL0_NCSI_CHANNEL_STATUS_LINK_SPEED_10M_T_HALF_DUPLEX_CAPABLE(__reg__)  (((__reg__) & 0x8000) >> 15u)
+#define SET_SHM_CHANNEL0_NCSI_CHANNEL_STATUS_LINK_SPEED_10M_T_HALF_DUPLEX_CAPABLE(__val__)  (((__val__) << 15u) & 0x8000u)
+#define     SHM_CHANNEL0_NCSI_CHANNEL_STATUS_TX_FLOW_CONTROL_FLAG_SHIFT 16u
+#define     SHM_CHANNEL0_NCSI_CHANNEL_STATUS_TX_FLOW_CONTROL_FLAG_MASK  0x10000u
+#define GET_SHM_CHANNEL0_NCSI_CHANNEL_STATUS_TX_FLOW_CONTROL_FLAG(__reg__)  (((__reg__) & 0x10000) >> 16u)
+#define SET_SHM_CHANNEL0_NCSI_CHANNEL_STATUS_TX_FLOW_CONTROL_FLAG(__val__)  (((__val__) << 16u) & 0x10000u)
+#define     SHM_CHANNEL0_NCSI_CHANNEL_STATUS_RX_FLOW_CONTROL_FLAG_SHIFT 17u
+#define     SHM_CHANNEL0_NCSI_CHANNEL_STATUS_RX_FLOW_CONTROL_FLAG_MASK  0x20000u
+#define GET_SHM_CHANNEL0_NCSI_CHANNEL_STATUS_RX_FLOW_CONTROL_FLAG(__reg__)  (((__reg__) & 0x20000) >> 17u)
+#define SET_SHM_CHANNEL0_NCSI_CHANNEL_STATUS_RX_FLOW_CONTROL_FLAG(__val__)  (((__val__) << 17u) & 0x20000u)
+#define     SHM_CHANNEL0_NCSI_CHANNEL_STATUS_LINK_PARTNER_ADVERTISED_FLOW_CONTROL_SHIFT 18u
+#define     SHM_CHANNEL0_NCSI_CHANNEL_STATUS_LINK_PARTNER_ADVERTISED_FLOW_CONTROL_MASK  0xc0000u
+#define GET_SHM_CHANNEL0_NCSI_CHANNEL_STATUS_LINK_PARTNER_ADVERTISED_FLOW_CONTROL(__reg__)  (((__reg__) & 0xc0000) >> 18u)
+#define SET_SHM_CHANNEL0_NCSI_CHANNEL_STATUS_LINK_PARTNER_ADVERTISED_FLOW_CONTROL(__val__)  (((__val__) << 18u) & 0xc0000u)
+#define     SHM_CHANNEL_NCSI_CHANNEL_STATUS_LINK_PARTNER_ADVERTISED_FLOW_CONTROL_NOT_CAPABLE 0x0u
+#define     SHM_CHANNEL_NCSI_CHANNEL_STATUS_LINK_PARTNER_ADVERTISED_FLOW_CONTROL_SYMMETRIC_PAUSE 0x1u
+#define     SHM_CHANNEL_NCSI_CHANNEL_STATUS_LINK_PARTNER_ADVERTISED_FLOW_CONTROL_ASYMMETRIC_PAUSE 0x2u
+#define     SHM_CHANNEL_NCSI_CHANNEL_STATUS_LINK_PARTNER_ADVERTISED_FLOW_CONTROL_SYMMETRIC_AND_ASYMMETRIC_PAUSE 0x3u
+
+#define     SHM_CHANNEL0_NCSI_CHANNEL_STATUS_SERDES_LINK_SHIFT 20u
+#define     SHM_CHANNEL0_NCSI_CHANNEL_STATUS_SERDES_LINK_MASK  0x100000u
+#define GET_SHM_CHANNEL0_NCSI_CHANNEL_STATUS_SERDES_LINK(__reg__)  (((__reg__) & 0x100000) >> 20u)
+#define SET_SHM_CHANNEL0_NCSI_CHANNEL_STATUS_SERDES_LINK(__val__)  (((__val__) << 20u) & 0x100000u)
+#define     SHM_CHANNEL0_NCSI_CHANNEL_STATUS_OEM_LINK_STATUS_VALID_SHIFT 21u
+#define     SHM_CHANNEL0_NCSI_CHANNEL_STATUS_OEM_LINK_STATUS_VALID_MASK  0x200000u
+#define GET_SHM_CHANNEL0_NCSI_CHANNEL_STATUS_OEM_LINK_STATUS_VALID(__reg__)  (((__reg__) & 0x200000) >> 21u)
+#define SET_SHM_CHANNEL0_NCSI_CHANNEL_STATUS_OEM_LINK_STATUS_VALID(__val__)  (((__val__) << 21u) & 0x200000u)
 
 /** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelStatus. */
 typedef register_container RegSHM_CHANNELNcsiChannelStatus_t {
@@ -1204,31 +1263,75 @@ typedef register_container RegSHM_CHANNELNcsiChannelStatus_t {
         BITFIELD_MEMBER(APE_SHM_CHANNEL0_H_uint32_t, Linkup, 0, 1)
         /** @brief  */
         BITFIELD_MEMBER(APE_SHM_CHANNEL0_H_uint32_t, LinkStatus, 1, 4)
-        /** @brief Set from MII_REG_CONTROL__AUTO_NEGOTIATION_ENABLE. Set unconditionally in SERDES case. */
-        BITFIELD_MEMBER(APE_SHM_CHANNEL0_H_uint32_t, SERDES, 5, 1)
+        /** @brief Auto-negotiation is enabled. This field always returns 0 if auto-negotiation is not supported. */
+        BITFIELD_MEMBER(APE_SHM_CHANNEL0_H_uint32_t, AutonegotiationEnabled, 5, 1)
         /** @brief Set if autonegotiation is complete. */
         BITFIELD_MEMBER(APE_SHM_CHANNEL0_H_uint32_t, AutonegotiationComplete, 6, 1)
+        /** @brief Link partner did not support auto-negotiation and parallel detection was used to get link. */
+        BITFIELD_MEMBER(APE_SHM_CHANNEL0_H_uint32_t, ParallelDetection, 7, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(APE_SHM_CHANNEL0_H_uint32_t, reserved_8_7, 7, 2)
-        /** @brief Link partner 1000BASE-T full duplex capable */
+        BITFIELD_MEMBER(APE_SHM_CHANNEL0_H_uint32_t, reserved_8_8, 8, 1)
+        /** @brief Link partner is 1000BASE-T full-duplex capable */
         BITFIELD_MEMBER(APE_SHM_CHANNEL0_H_uint32_t, LinkSpeed1000MFullDuplexCapable, 9, 1)
-        /** @brief Link partner 1000BASE-T half duplex capable */
-        BITFIELD_MEMBER(APE_SHM_CHANNEL0_H_uint32_t, LinkSpeed1000MHalsDuplexCapable, 10, 1)
+        /** @brief Link partner is 1000BASE-T half-duplex capable */
+        BITFIELD_MEMBER(APE_SHM_CHANNEL0_H_uint32_t, LinkSpeed1000MHalfDuplexCapable, 10, 1)
+        /** @brief Link partner is 100BASE-T4 capable */
+        BITFIELD_MEMBER(APE_SHM_CHANNEL0_H_uint32_t, LinkSpeed100M_T4Capable, 11, 1)
+        /** @brief Link partner 100BASE-TX full-duplex capable */
+        BITFIELD_MEMBER(APE_SHM_CHANNEL0_H_uint32_t, LinkSpeed100M_TXFullDuplexCapable, 12, 1)
+        /** @brief Link partner 100BASE-TX half-duplex capable */
+        BITFIELD_MEMBER(APE_SHM_CHANNEL0_H_uint32_t, LinkSpeed100M_TXHalfDuplexCapable, 13, 1)
+        /** @brief Link partner 10BASE-T full-duplex capable */
+        BITFIELD_MEMBER(APE_SHM_CHANNEL0_H_uint32_t, LinkSpeed10M_TFullDuplexCapable, 14, 1)
+        /** @brief Link partner 10BASE-T half-duplex capable */
+        BITFIELD_MEMBER(APE_SHM_CHANNEL0_H_uint32_t, LinkSpeed10M_THalfDuplexCapable, 15, 1)
+        /** @brief Pause Flow Control enabled for TX on the external network interface. */
+        BITFIELD_MEMBER(APE_SHM_CHANNEL0_H_uint32_t, TXFlowControlFlag, 16, 1)
+        /** @brief Pause Flow Control enabled for RX on the external network interface. */
+        BITFIELD_MEMBER(APE_SHM_CHANNEL0_H_uint32_t, RXFlowControlFlag, 17, 1)
+        /** @brief Flow control supported by partner. */
+        BITFIELD_MEMBER(APE_SHM_CHANNEL0_H_uint32_t, LinkPartnerAdvertisedFlowControl, 18, 2)
+        /** @brief SerDes status. */
+        BITFIELD_MEMBER(APE_SHM_CHANNEL0_H_uint32_t, SerDesLink, 20, 1)
+        /** @brief If set, OEM Link Status was populated and is valid. */
+        BITFIELD_MEMBER(APE_SHM_CHANNEL0_H_uint32_t, OEMLinkStatusValid, 21, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(APE_SHM_CHANNEL0_H_uint32_t, reserved_31_11, 11, 21)
+        BITFIELD_MEMBER(APE_SHM_CHANNEL0_H_uint32_t, reserved_31_22, 22, 10)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(APE_SHM_CHANNEL0_H_uint32_t, reserved_31_11, 11, 21)
-        /** @brief Link partner 1000BASE-T half duplex capable */
-        BITFIELD_MEMBER(APE_SHM_CHANNEL0_H_uint32_t, LinkSpeed1000MHalsDuplexCapable, 10, 1)
-        /** @brief Link partner 1000BASE-T full duplex capable */
+        BITFIELD_MEMBER(APE_SHM_CHANNEL0_H_uint32_t, reserved_31_22, 22, 10)
+        /** @brief If set, OEM Link Status was populated and is valid. */
+        BITFIELD_MEMBER(APE_SHM_CHANNEL0_H_uint32_t, OEMLinkStatusValid, 21, 1)
+        /** @brief SerDes status. */
+        BITFIELD_MEMBER(APE_SHM_CHANNEL0_H_uint32_t, SerDesLink, 20, 1)
+        /** @brief Flow control supported by partner. */
+        BITFIELD_MEMBER(APE_SHM_CHANNEL0_H_uint32_t, LinkPartnerAdvertisedFlowControl, 18, 2)
+        /** @brief Pause Flow Control enabled for RX on the external network interface. */
+        BITFIELD_MEMBER(APE_SHM_CHANNEL0_H_uint32_t, RXFlowControlFlag, 17, 1)
+        /** @brief Pause Flow Control enabled for TX on the external network interface. */
+        BITFIELD_MEMBER(APE_SHM_CHANNEL0_H_uint32_t, TXFlowControlFlag, 16, 1)
+        /** @brief Link partner 10BASE-T half-duplex capable */
+        BITFIELD_MEMBER(APE_SHM_CHANNEL0_H_uint32_t, LinkSpeed10M_THalfDuplexCapable, 15, 1)
+        /** @brief Link partner 10BASE-T full-duplex capable */
+        BITFIELD_MEMBER(APE_SHM_CHANNEL0_H_uint32_t, LinkSpeed10M_TFullDuplexCapable, 14, 1)
+        /** @brief Link partner 100BASE-TX half-duplex capable */
+        BITFIELD_MEMBER(APE_SHM_CHANNEL0_H_uint32_t, LinkSpeed100M_TXHalfDuplexCapable, 13, 1)
+        /** @brief Link partner 100BASE-TX full-duplex capable */
+        BITFIELD_MEMBER(APE_SHM_CHANNEL0_H_uint32_t, LinkSpeed100M_TXFullDuplexCapable, 12, 1)
+        /** @brief Link partner is 100BASE-T4 capable */
+        BITFIELD_MEMBER(APE_SHM_CHANNEL0_H_uint32_t, LinkSpeed100M_T4Capable, 11, 1)
+        /** @brief Link partner is 1000BASE-T half-duplex capable */
+        BITFIELD_MEMBER(APE_SHM_CHANNEL0_H_uint32_t, LinkSpeed1000MHalfDuplexCapable, 10, 1)
+        /** @brief Link partner is 1000BASE-T full-duplex capable */
         BITFIELD_MEMBER(APE_SHM_CHANNEL0_H_uint32_t, LinkSpeed1000MFullDuplexCapable, 9, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(APE_SHM_CHANNEL0_H_uint32_t, reserved_8_7, 7, 2)
+        BITFIELD_MEMBER(APE_SHM_CHANNEL0_H_uint32_t, reserved_8_8, 8, 1)
+        /** @brief Link partner did not support auto-negotiation and parallel detection was used to get link. */
+        BITFIELD_MEMBER(APE_SHM_CHANNEL0_H_uint32_t, ParallelDetection, 7, 1)
         /** @brief Set if autonegotiation is complete. */
         BITFIELD_MEMBER(APE_SHM_CHANNEL0_H_uint32_t, AutonegotiationComplete, 6, 1)
-        /** @brief Set from MII_REG_CONTROL__AUTO_NEGOTIATION_ENABLE. Set unconditionally in SERDES case. */
-        BITFIELD_MEMBER(APE_SHM_CHANNEL0_H_uint32_t, SERDES, 5, 1)
+        /** @brief Auto-negotiation is enabled. This field always returns 0 if auto-negotiation is not supported. */
+        BITFIELD_MEMBER(APE_SHM_CHANNEL0_H_uint32_t, AutonegotiationEnabled, 5, 1)
         /** @brief  */
         BITFIELD_MEMBER(APE_SHM_CHANNEL0_H_uint32_t, LinkStatus, 1, 4)
         /** @brief  */
@@ -1252,14 +1355,36 @@ typedef register_container RegSHM_CHANNELNcsiChannelStatus_t {
         bits.Linkup.setName("Linkup");
         bits.LinkStatus.setBaseRegister(&r32);
         bits.LinkStatus.setName("LinkStatus");
-        bits.SERDES.setBaseRegister(&r32);
-        bits.SERDES.setName("SERDES");
+        bits.AutonegotiationEnabled.setBaseRegister(&r32);
+        bits.AutonegotiationEnabled.setName("AutonegotiationEnabled");
         bits.AutonegotiationComplete.setBaseRegister(&r32);
         bits.AutonegotiationComplete.setName("AutonegotiationComplete");
+        bits.ParallelDetection.setBaseRegister(&r32);
+        bits.ParallelDetection.setName("ParallelDetection");
         bits.LinkSpeed1000MFullDuplexCapable.setBaseRegister(&r32);
         bits.LinkSpeed1000MFullDuplexCapable.setName("LinkSpeed1000MFullDuplexCapable");
-        bits.LinkSpeed1000MHalsDuplexCapable.setBaseRegister(&r32);
-        bits.LinkSpeed1000MHalsDuplexCapable.setName("LinkSpeed1000MHalsDuplexCapable");
+        bits.LinkSpeed1000MHalfDuplexCapable.setBaseRegister(&r32);
+        bits.LinkSpeed1000MHalfDuplexCapable.setName("LinkSpeed1000MHalfDuplexCapable");
+        bits.LinkSpeed100M_T4Capable.setBaseRegister(&r32);
+        bits.LinkSpeed100M_T4Capable.setName("LinkSpeed100M_T4Capable");
+        bits.LinkSpeed100M_TXFullDuplexCapable.setBaseRegister(&r32);
+        bits.LinkSpeed100M_TXFullDuplexCapable.setName("LinkSpeed100M_TXFullDuplexCapable");
+        bits.LinkSpeed100M_TXHalfDuplexCapable.setBaseRegister(&r32);
+        bits.LinkSpeed100M_TXHalfDuplexCapable.setName("LinkSpeed100M_TXHalfDuplexCapable");
+        bits.LinkSpeed10M_TFullDuplexCapable.setBaseRegister(&r32);
+        bits.LinkSpeed10M_TFullDuplexCapable.setName("LinkSpeed10M_TFullDuplexCapable");
+        bits.LinkSpeed10M_THalfDuplexCapable.setBaseRegister(&r32);
+        bits.LinkSpeed10M_THalfDuplexCapable.setName("LinkSpeed10M_THalfDuplexCapable");
+        bits.TXFlowControlFlag.setBaseRegister(&r32);
+        bits.TXFlowControlFlag.setName("TXFlowControlFlag");
+        bits.RXFlowControlFlag.setBaseRegister(&r32);
+        bits.RXFlowControlFlag.setName("RXFlowControlFlag");
+        bits.LinkPartnerAdvertisedFlowControl.setBaseRegister(&r32);
+        bits.LinkPartnerAdvertisedFlowControl.setName("LinkPartnerAdvertisedFlowControl");
+        bits.SerDesLink.setBaseRegister(&r32);
+        bits.SerDesLink.setName("SerDesLink");
+        bits.OEMLinkStatusValid.setBaseRegister(&r32);
+        bits.OEMLinkStatusValid.setName("OEMLinkStatusValid");
     }
     RegSHM_CHANNELNcsiChannelStatus_t& operator=(const RegSHM_CHANNELNcsiChannelStatus_t& other)
     {
