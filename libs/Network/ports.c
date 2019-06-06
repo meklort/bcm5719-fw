@@ -60,7 +60,7 @@
 
 NetworkPort_t gPort0 = {
     .device = &DEVICE,
-    .filters = &FILTERS,
+    .filters = &FILTERS0,
 
     .tx_port = &TX_PORT0,
     .tx_allocator = &APE.TxToNetBufferAllocator0,

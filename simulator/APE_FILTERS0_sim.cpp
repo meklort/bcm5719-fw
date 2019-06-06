@@ -1,10 +1,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @file       APE_FILTERS_sim.cpp
+/// @file       APE_FILTERS0_sim.cpp
 ///
 /// @project    ape
 ///
-/// @brief      APE_FILTERS_sim
+/// @brief      APE_FILTERS0_sim
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
@@ -45,7 +45,7 @@
 #include <stdint.h>
 #include <utility>
 #include <bcm5719_SHM.h>
-#include <APE_FILTERS.h>
+#include <APE_FILTERS0.h>
 
 static uint32_t loader_read_mem(uint32_t val, uint32_t offset, void *args)
 {
@@ -76,48 +76,48 @@ static uint32_t loader_write_mem(uint32_t val, uint32_t offset, void *args)
     return val;
 }
 
-void init_APE_FILTERS_sim(void *arg0)
+void init_APE_FILTERS0_sim(void *arg0)
 {
     (void)arg0; // unused
     void* base = (void*)0xa0048000;
 
-    FILTERS.mIndexReadCallback = loader_read_mem;
-    FILTERS.mIndexReadCallbackArgs = base;
+    FILTERS0.mIndexReadCallback = loader_read_mem;
+    FILTERS0.mIndexReadCallbackArgs = base;
 
-    FILTERS.mIndexWriteCallback = loader_write_mem;
-    FILTERS.mIndexWriteCallbackArgs = base;
+    FILTERS0.mIndexWriteCallback = loader_write_mem;
+    FILTERS0.mIndexWriteCallbackArgs = base;
 
-    /** @brief Component Registers for @ref FILTERS. */
-    /** @brief Bitmap for @ref FILTERS_t.ElementConfig. */
+    /** @brief Component Registers for @ref FILTERS0. */
+    /** @brief Bitmap for @ref FILTERS0_t.ElementConfig. */
     for(int i = 0; i < 32; i++)
     {
-        FILTERS.ElementConfig[i].r32.installReadCallback(loader_read_mem, (uint8_t *)base);
-        FILTERS.ElementConfig[i].r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+        FILTERS0.ElementConfig[i].r32.installReadCallback(loader_read_mem, (uint8_t *)base);
+        FILTERS0.ElementConfig[i].r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
     }
 
-    /** @brief Bitmap for @ref FILTERS_t.ElementPattern. */
+    /** @brief Bitmap for @ref FILTERS0_t.ElementPattern. */
     for(int i = 0; i < 32; i++)
     {
-        FILTERS.ElementPattern[i].r32.installReadCallback(loader_read_mem, (uint8_t *)base);
-        FILTERS.ElementPattern[i].r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+        FILTERS0.ElementPattern[i].r32.installReadCallback(loader_read_mem, (uint8_t *)base);
+        FILTERS0.ElementPattern[i].r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
     }
 
-    /** @brief Bitmap for @ref FILTERS_t.RuleConfiguration. */
-    FILTERS.RuleConfiguration.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
-    FILTERS.RuleConfiguration.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+    /** @brief Bitmap for @ref FILTERS0_t.RuleConfiguration. */
+    FILTERS0.RuleConfiguration.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
+    FILTERS0.RuleConfiguration.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
 
-    /** @brief Bitmap for @ref FILTERS_t.RuleSet. */
+    /** @brief Bitmap for @ref FILTERS0_t.RuleSet. */
     for(int i = 0; i < 31; i++)
     {
-        FILTERS.RuleSet[i].r32.installReadCallback(loader_read_mem, (uint8_t *)base);
-        FILTERS.RuleSet[i].r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+        FILTERS0.RuleSet[i].r32.installReadCallback(loader_read_mem, (uint8_t *)base);
+        FILTERS0.RuleSet[i].r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
     }
 
-    /** @brief Bitmap for @ref FILTERS_t.RuleMask. */
+    /** @brief Bitmap for @ref FILTERS0_t.RuleMask. */
     for(int i = 0; i < 31; i++)
     {
-        FILTERS.RuleMask[i].r32.installReadCallback(loader_read_mem, (uint8_t *)base);
-        FILTERS.RuleMask[i].r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+        FILTERS0.RuleMask[i].r32.installReadCallback(loader_read_mem, (uint8_t *)base);
+        FILTERS0.RuleMask[i].r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
     }
 
 

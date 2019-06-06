@@ -50,7 +50,7 @@
 #include <APE_RX_PORT0.h>
 #include <APE_TX_PORT0.h>
 #include <APE_DEVICE.h>
-#include <APE_FILTERS.h>
+#include <APE_FILTERS0.h>
 #include <types.h>
 
 #ifdef CXX_SIMULATOR

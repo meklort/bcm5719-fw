@@ -6,10 +6,10 @@
     <ipxact:version>1.0</ipxact:version>
     <ipxact:memoryMaps>
         <ipxact:memoryMap>
-            <ipxact:name>FILTERS</ipxact:name>
+            <ipxact:name>FILTERS0</ipxact:name>
             <ipxact:description>Management Filter Registers</ipxact:description>
             <ipxact:addressBlock>
-                <ipxact:name>FILTERS</ipxact:name>
+                <ipxact:name>FILTERS0</ipxact:name>
                 <ipxact:typeIdentifier>FILTERS</ipxact:typeIdentifier>>
                 <ipxact:description>Management Filter Registers</ipxact:description>
                 <ipxact:baseAddress>0xA0048000</ipxact:baseAddress>

@@ -11,7 +11,7 @@
 #include <bcm5719_SHM_CHANNEL3.h>
 #include <bcm5719_GEN.h>
 #include <APE_NVIC.h>
-#include <APE_FILTERS.h>
+#include <APE_FILTERS0.h>
 #include <APE_TX_PORT0.h>
 #include <APE_RX_PORT0.h>
 #include <APE_TX_PORT1.h>
@@ -20,6 +20,9 @@
 #include <APE_RX_PORT2.h>
 #include <APE_TX_PORT3.h>
 #include <APE_RX_PORT3.h>
+// #include <APE_DEVICE1.h>
+// #include <APE_DEVICE2.h>
+// #include <APE_DEVICE3.h>
 
 #include <dirent.h>
 #include <endian.h>
@@ -284,8 +287,8 @@ bool initHAL(const char *pci_path, int wanted_function)
     init_bcm5719_SHM_CHANNEL3();
     init_bcm5719_SHM_CHANNEL3_sim(&APEBase[0x4c00]);
 
-    init_APE_FILTERS();
-    init_APE_FILTERS_sim(NULL);
+    init_APE_FILTERS0();
+    init_APE_FILTERS0_sim(NULL);
 
     init_APE_NVIC();
     init_APE_NVIC_sim(NULL);
@@ -314,5 +317,11 @@ bool initHAL(const char *pci_path, int wanted_function)
     init_APE_RX_PORT3();
     init_APE_RX_PORT3_sim(NULL);
 
+    // init_APE_DEVICE1();
+    // init_APE_DEVICE1_sim(NULL);
+    // init_APE_DEVICE2();
+    // init_APE_DEVICE2_sim(NULL);
+    // init_APE_DEVICE3();
+    // init_APE_DEVICE3_sim(NULL);
     return true;
 }

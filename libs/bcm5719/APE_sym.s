@@ -52,9 +52,9 @@
 .equ    APE_PERI, 0x60240000
 .size   APE_PERI, 0x440
 
-.global FILTERS
-.equ    FILTERS, 0xa0048000
-.size   FILTERS, 0x200
+.global FILTERS0
+.equ    FILTERS0, 0xa0048000
+.size   FILTERS0, 0x200
 
 .global SHM
 .equ    SHM, 0x60220000

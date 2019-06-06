@@ -289,10 +289,10 @@
         </ipxact:memoryMap>
 
         <ipxact:memoryMap>
-            <ipxact:name>FILTERS</ipxact:name>
+            <ipxact:name>FILTERS0</ipxact:name>
             <ipxact:description>Management Filter Registers, function 0</ipxact:description>
             <ipxact:addressBlock>
-                <ipxact:name>FILTERS</ipxact:name>
+                <ipxact:name>FILTERS0</ipxact:name>
                 <ipxact:description>Management Filter Registers, function 0</ipxact:description>
                 <ipxact:baseAddress>0xA0048000</ipxact:baseAddress>
                 <!-- LINK: addressBlockDefinitionGroup: see 6.9.3, Address blockdefinition group -->

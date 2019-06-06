@@ -27,8 +27,8 @@ simulator_add_library(${PROJECT_NAME} STATIC
             bcm5719_SHM_CHANNEL3_sim.cpp
 
             # APE indirect registers
-            APE_FILTERS.cpp
-            APE_FILTERS_sim.cpp
+            APE_FILTERS0.cpp
+            APE_FILTERS0_sim.cpp
             APE_NVIC.cpp
             APE_NVIC_sim.cpp
 

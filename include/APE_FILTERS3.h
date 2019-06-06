@@ -50,7 +50,7 @@
 #define APE_FILTERS3_H
 
 #include <types.h>
-#include "APE_FILTERS.h"
+#include "APE_FILTERS0.h"
 
 #ifdef CXX_SIMULATOR /* Compiling c++ simulator code - uses register wrappers */
 void init_APE_FILTERS3_sim(void* base);

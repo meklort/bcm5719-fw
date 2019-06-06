@@ -1,10 +1,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @file       APE_FILTERS.cpp
+/// @file       APE_FILTERS0.cpp
 ///
 /// @project    ape
 ///
-/// @brief      APE_FILTERS
+/// @brief      APE_FILTERS0
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
@@ -42,22 +42,22 @@
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
 
-#include <APE_FILTERS.h>
+#include <APE_FILTERS0.h>
 
-FILTERS_t FILTERS;
+FILTERS_t FILTERS0;
 
-void init_APE_FILTERS(void)
+void init_APE_FILTERS0(void)
 {
-    /** @brief Component Registers for @ref FILTERS. */
-    /** @brief Bitmap for @ref FILTERS_t.ElementConfig. */
+    /** @brief Component Registers for @ref FILTERS0. */
+    /** @brief Bitmap for @ref FILTERS0_t.ElementConfig. */
 
-    /** @brief Bitmap for @ref FILTERS_t.ElementPattern. */
+    /** @brief Bitmap for @ref FILTERS0_t.ElementPattern. */
 
-    /** @brief Bitmap for @ref FILTERS_t.RuleConfiguration. */
+    /** @brief Bitmap for @ref FILTERS0_t.RuleConfiguration. */
 
-    /** @brief Bitmap for @ref FILTERS_t.RuleSet. */
+    /** @brief Bitmap for @ref FILTERS0_t.RuleSet. */
 
-    /** @brief Bitmap for @ref FILTERS_t.RuleMask. */
+    /** @brief Bitmap for @ref FILTERS0_t.RuleMask. */
 
 
 }
