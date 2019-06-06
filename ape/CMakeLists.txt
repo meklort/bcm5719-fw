@@ -58,6 +58,8 @@ target_link_libraries(${PROJECT_NAME} NVRam-arm MII-arm APE-arm Network-arm NCSI
 target_link_libraries(${PROJECT_NAME} bcm5719-arm)
 target_compile_options(${PROJECT_NAME} PRIVATE -nodefaultlibs)
 
+format_target_sources(${PROJECT_NAME})
+
 # Simulator add_executable
 # simulator_add_executable(sim-${PROJECT_NAME}
             # init_hw.c

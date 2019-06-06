@@ -48,10 +48,11 @@
 typedef void (*vector_t)(void) __attribute__((interrupt));
 
 // Vector table
-typedef struct {
-    uint32_t* sp;
-    vector_t* __start;
-    vector_t* vectors[46];
+typedef struct
+{
+    uint32_t *sp;
+    vector_t *__start;
+    vector_t *vectors[46];
 } vector_table_t;
 
 extern uint32_t _estack;

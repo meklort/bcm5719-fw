@@ -1,10 +1,10 @@
 ################################################################################
 ###
-### @file       libs/APE/CMakeLists.txt
+### @file       clang-format.cmake
 ###
 ### @project    
 ###
-### @brief      APE CMake file
+### @brief      clang-format cmake support
 ###
 ################################################################################
 ###
@@ -42,23 +42,38 @@
 ### @endcond
 ################################################################################
 
-project(APE)
+if(CMAKE_SCRIPT_MODE_FILE)
+	SET(ARGUMENTS )
+	SET(CLANG_FORMAT ${CMAKE_ARGV3})
+	SET(FILES ${CMAKE_ARGV4})
 
+	FOREACH(FILE ${FILES})
+		MESSAGE("Formatting ${FILE}")
+		EXECUTE_PROCESS(COMMAND ${CLANG_FORMAT} -style=file -i "${FILE}")
+		LIST(APPEND ARGUMENTS ${FILE})
+	ENDFOREACH() 
+else()
 
-# Host Simulation library
-simulator_add_library(${PROJECT_NAME} STATIC ape.c)
-target_link_libraries(${PROJECT_NAME} PRIVATE simulator)
-target_include_directories(${PROJECT_NAME} PUBLIC ../../include)
-target_include_directories(${PROJECT_NAME} PUBLIC include)
+	SET(CLANG_FORMAT ${COMPILER_BASE}/bin/clang-format)
+	add_custom_target(clang-format cmake -P ${CMAKE_CURRENT_LIST_FILE}
+						${CLANG_FORMAT} $<TARGET_PROPERTY:clang-format,FORMAT_SOURCES>
+						WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+						VERBATIM)
 
-# MIPS Library
-mips_add_library(${PROJECT_NAME}-mips STATIC ape.c)
-target_include_directories(${PROJECT_NAME}-mips PUBLIC ../../include)
-target_include_directories(${PROJECT_NAME}-mips PUBLIC include)
+	function(format_sources)
+		MESSAGE("Formatting sources ${ARGN}")
 
-# ARM Library
-arm_add_library(${PROJECT_NAME}-arm STATIC ape.c)
-target_include_directories(${PROJECT_NAME}-arm PUBLIC ../../include)
-target_include_directories(${PROJECT_NAME}-arm PUBLIC include)
+		set_property(TARGET clang-format APPEND PROPERTY FORMAT_SOURCES ${ARGN})
+	endfunction(format_sources)
 
-format_target_sources(${PROJECT_NAME})
+	function(format_target_sources target)
+		set(paths )
+		get_target_property(sources ${target} SOURCES)
+		foreach(source ${sources})
+			get_source_file_property(path ${source} LOCATION)
+			LIST(APPEND paths ${path})
+		endforeach()
+
+		format_sources(${paths})
+	endfunction(format_target_sources)
+endif()

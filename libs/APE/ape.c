@@ -122,12 +122,12 @@ void APE_releaseAllLocks(void)
     lock_release.r32 = 0;
     lock_release.bits.Bootcode = 1;
 
-    APE_PERI.PerLockGrantPhy0.r32   = lock_release.r32;
-    APE_PERI.PerLockGrantGrc.r32    = lock_release.r32;
-    APE_PERI.PerLockGrantPhy1.r32   = lock_release.r32;
-    APE_PERI.PerLockGrantPhy2.r32   = lock_release.r32;
-    APE_PERI.PerLockGrantMem.r32    = lock_release.r32;
-    APE_PERI.PerLockGrantPhy3.r32   = lock_release.r32;
-    APE_PERI.PerLockGrantPort6.r32  = lock_release.r32;
-    APE_PERI.PerLockGrantGpio.r32   = lock_release.r32;
+    APE_PERI.PerLockGrantPhy0.r32  = lock_release.r32;
+    APE_PERI.PerLockGrantGrc.r32   = lock_release.r32;
+    APE_PERI.PerLockGrantPhy1.r32  = lock_release.r32;
+    APE_PERI.PerLockGrantPhy2.r32  = lock_release.r32;
+    APE_PERI.PerLockGrantMem.r32   = lock_release.r32;
+    APE_PERI.PerLockGrantPhy3.r32  = lock_release.r32;
+    APE_PERI.PerLockGrantPort6.r32 = lock_release.r32;
+    APE_PERI.PerLockGrantGpio.r32  = lock_release.r32;
 }

@@ -101,8 +101,7 @@ void initRMU(void)
     // START, and setting unknown bit 26 to 1.
     RegAPE_PERIArbControl_t arbControl;
     arbControl.r32 = (1 << 26);
-    arbControl.bits.PackageID =
-        0; /* TODO: allow to be configured as per NC-SI spec. */
+    arbControl.bits.PackageID = 0; /* TODO: allow to be configured as per NC-SI spec. */
     arbControl.bits.Start = 1;
     arbControl.bits.TKNREL = 0x14;
     APE_PERI.ArbControl = arbControl;

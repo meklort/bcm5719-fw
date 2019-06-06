@@ -120,10 +120,10 @@ void handleBMCPacket(void)
             {
                 // stat.print();
                 int32_t words = DIVIDE_RND_UP(bytes, sizeof(uint32_t));
-                if(words > ARRAY_ELEMENTS(buffer))
+                if (words > ARRAY_ELEMENTS(buffer))
                 {
                     // This should never happen...
-                    while(words--)
+                    while (words--)
                     {
                         // Read out the packet, but drop it.
                         uint32_t word = APE_PERI.BmcToNcReadBuffer.r32;

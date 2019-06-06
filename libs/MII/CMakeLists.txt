@@ -59,3 +59,5 @@ target_include_directories(${PROJECT_NAME}-mips PUBLIC include)
 arm_add_library(${PROJECT_NAME}-arm STATIC mii.c)
 target_include_directories(${PROJECT_NAME}-arm PUBLIC ../../include)
 target_include_directories(${PROJECT_NAME}-arm PUBLIC include)
+
+format_target_sources(${PROJECT_NAME})

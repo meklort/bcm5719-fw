@@ -58,14 +58,12 @@ uint8_t MII_getPhy(void)
     if (DEVICE.SgmiiStatus.bits.MediaSelectionMode)
     {
         // SERDES platform
-        return DEVICE.Status.bits.FunctionNumber +
-               DEVICE_MII_COMMUNICATION_PHY_ADDRESS_SGMII_0;
+        return DEVICE.Status.bits.FunctionNumber + DEVICE_MII_COMMUNICATION_PHY_ADDRESS_SGMII_0;
     }
     else
     {
         // GPHY platform
-        return DEVICE.Status.bits.FunctionNumber +
-               DEVICE_MII_COMMUNICATION_PHY_ADDRESS_PHY_0;
+        return DEVICE.Status.bits.FunctionNumber + DEVICE_MII_COMMUNICATION_PHY_ADDRESS_PHY_0;
     }
 }
 
@@ -197,14 +195,12 @@ static void MII_writeShadowRegister18(uint8_t phy, mii_reg_t reg, uint16_t data)
     shadow_select.r16 = 0;
     shadow_select.bits.ShadowRegisterReadSelector = shadow_reg;
     shadow_select.bits.ShadowRegisterSelector = 7;
-    MII_writeRegisterInternal(phy, (mii_reg_t)REG_MII_AUXILIARY_CONTROL,
-                              shadow_select.r16);
+    MII_writeRegisterInternal(phy, (mii_reg_t)REG_MII_AUXILIARY_CONTROL, shadow_select.r16);
 
     RegMIIMiscellaneousControl_t write_data;
     write_data.r16 = data;
     write_data.bits.ShadowRegisterSelector = shadow_reg;
-    MII_writeRegisterInternal(phy, (mii_reg_t)REG_MII_AUXILIARY_CONTROL,
-                              write_data.r16);
+    MII_writeRegisterInternal(phy, (mii_reg_t)REG_MII_AUXILIARY_CONTROL, write_data.r16);
 }
 
 static void MII_writeShadowRegister1C(uint8_t phy, mii_reg_t reg, uint16_t data)
@@ -220,16 +216,14 @@ static void MII_writeShadowRegister1C(uint8_t phy, mii_reg_t reg, uint16_t data)
     RegMIICabletronLed_t shadow_select;
     shadow_select.r16 = 0;
     shadow_select.bits.ShadowRegisterSelector = shadow_reg;
-    MII_writeRegisterInternal(phy, (mii_reg_t)REG_MII_CABLETRON_LED,
-                              shadow_select.r16);
+    MII_writeRegisterInternal(phy, (mii_reg_t)REG_MII_CABLETRON_LED, shadow_select.r16);
 
     RegMIICabletronLed_t write_data;
     write_data.r16 = data;
     write_data.bits.ShadowRegisterSelector = shadow_reg;
     write_data.bits.WriteEnable = 1;
 
-    MII_writeRegisterInternal(phy, (mii_reg_t)REG_MII_CABLETRON_LED,
-                              write_data.r16);
+    MII_writeRegisterInternal(phy, (mii_reg_t)REG_MII_CABLETRON_LED, write_data.r16);
 }
 
 void MII_writeRegister(uint8_t phy, mii_reg_t reg, uint16_t data)
@@ -268,6 +262,5 @@ void MII_reset(uint8_t phy)
     do
     {
         // Spin
-    } while ((MII_readRegister(phy, (mii_reg_t)REG_MII_CONTROL) &
-              MII_CONTROL_RESET_MASK) == MII_CONTROL_RESET_MASK);
+    } while ((MII_readRegister(phy, (mii_reg_t)REG_MII_CONTROL) & MII_CONTROL_RESET_MASK) == MII_CONTROL_RESET_MASK);
 }

@@ -159,8 +159,7 @@ static uint32_t NVRam_readWordInternal(uint32_t address, RegNVMCommand_t cmd)
 
     return ntohl(NVM.Read.r32);
 }
-static void NVRam_writeWordInternal(uint32_t address, uint32_t data,
-                                    RegNVMCommand_t cmd)
+static void NVRam_writeWordInternal(uint32_t address, uint32_t data, RegNVMCommand_t cmd)
 {
     address = NVRam_translate(address);
 
