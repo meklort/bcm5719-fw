@@ -94,5 +94,5 @@ vector_table_t gVectors __attribute__((section(".init"))) = {
 
         [12] = &Vector_PendSV,
         [13] = &Vector_Systick,
-    }
+    },
 };

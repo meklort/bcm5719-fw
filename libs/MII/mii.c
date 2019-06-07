@@ -69,7 +69,8 @@ uint8_t MII_getPhy(void)
 
 static uint16_t MII_readRegisterInternal(uint8_t phy, mii_reg_t reg)
 {
-    union {
+    union
+    {
         uint8_t addr;
         mii_reg_t reg;
     } caster;
