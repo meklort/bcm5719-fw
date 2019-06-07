@@ -50,6 +50,7 @@ SET(CMAKE_ASM_COMPILER  ${COMPILER_BASE}/bin/clang)
 cmake_minimum_required(VERSION 3.5.1)
 project(bcm5719-top)
 
+include(cmake/clang-format.cmake)
 include(cmake/config.cmake)
 
 add_subdirectory(tests)
