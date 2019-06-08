@@ -44,17 +44,24 @@
 
 project(NCSI)
 
+SET(SOURCES
+    ncsi.c
+#     include/NCSI.h
+#     include/Ethernet.h
+)
 
 # Host Simulation library
-simulator_add_library(${PROJECT_NAME} STATIC ncsi.c)
+simulator_add_library(${PROJECT_NAME} STATIC ${SOURCES})
 target_link_libraries(${PROJECT_NAME} PRIVATE simulator Network MII APE)
 target_include_directories(${PROJECT_NAME} PUBLIC ../../include)
 target_include_directories(${PROJECT_NAME} PUBLIC include)
 
 # ARM Library
-arm_add_library(${PROJECT_NAME}-arm STATIC ncsi.c)
+arm_add_library(${PROJECT_NAME}-arm STATIC ${SOURCES})
 target_link_libraries(${PROJECT_NAME}-arm PRIVATE Network-arm MII-arm APE-arm)
 target_include_directories(${PROJECT_NAME}-arm PUBLIC ../../include)
 target_include_directories(${PROJECT_NAME}-arm PUBLIC include)
+
+format_target_sources(${PROJECT_NAME})
 
 add_subdirectory(tests)
