@@ -42,21 +42,19 @@
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
 
-#include <Network.h>
-
 #include <APE_DEVICE1.h>
 #include <APE_DEVICE2.h>
 #include <APE_DEVICE3.h>
+#include <APE_FILTERS1.h>
+#include <APE_FILTERS2.h>
+#include <APE_FILTERS3.h>
 #include <APE_RX_PORT1.h>
 #include <APE_RX_PORT2.h>
 #include <APE_RX_PORT3.h>
 #include <APE_TX_PORT1.h>
 #include <APE_TX_PORT2.h>
 #include <APE_TX_PORT3.h>
-#include <APE_FILTERS1.h>
-#include <APE_FILTERS2.h>
-#include <APE_FILTERS3.h>
-
+#include <Network.h>
 
 NetworkPort_t gPort0 = {
     .device = &DEVICE,
@@ -73,7 +71,7 @@ NetworkPort_t gPort0 = {
     .rx_mode = &APE.RxPoolModeStatus0,
 };
 
-NetworkPort_t gPort1  = {
+NetworkPort_t gPort1 = {
     .device = &DEVICE1,
     .filters = &FILTERS1,
 
@@ -119,7 +117,8 @@ NetworkPort_t gPort3 = {
 };
 
 #ifndef CXX_SIMULATOR
-typedef struct {
+typedef struct
+{
     RegFILTERSElementConfig_t cfg;
     RegFILTERSElementPattern_t pat;
 } FilterElementInit_t;
@@ -408,9 +407,10 @@ static const FilterElementInit_t gElementInit[32] = {
 
 };
 
-typedef struct {
-    RegFILTERSRuleSet_t     set;
-    RegFILTERSRuleMask_t    mask;
+typedef struct
+{
+    RegFILTERSRuleSet_t set;
+    RegFILTERSRuleMask_t mask;
 } FilterRuleInit_t;
 static const FilterRuleInit_t gRuleInit[32] = {
     // S-0. Unused.
@@ -718,22 +718,21 @@ void Network_InitFilters(NetworkPort_t *port)
 #ifdef CXX_SIMULATOR
     (void)port;
 #else
-    for(int i = 0; i < 32; i++)
+    for (int i = 0; i < 32; i++)
     {
         port->filters->ElementConfig[i] = gElementInit[i].cfg;
         port->filters->ElementPattern[i] = gElementInit[i].pat;
     }
 
-    for(int i = 1; i < 32; i++)
+    for (int i = 1; i < 32; i++)
     {
-        port->filters->RuleSet[i-1] = gRuleInit[i].set;
-        port->filters->RuleMask[i-1] = gRuleInit[i].mask;
+        port->filters->RuleSet[i - 1] = gRuleInit[i].set;
+        port->filters->RuleMask[i - 1] = gRuleInit[i].mask;
     }
 
     port->filters->RuleConfiguration.r32 = 0;
 #endif
 }
-
 
 void Network_InitPort(NetworkPort_t *port)
 {

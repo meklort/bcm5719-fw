@@ -44,7 +44,14 @@
 
 project(Network)
 
-SET(SOURCES init.c ports.c tx.c rx.c generic.c)
+SET(SOURCES
+    init.c
+    ports.c
+    tx.c
+    rx.c
+    generic.c
+#     include/Network.h
+)
 
 # Host Simulation library
 simulator_add_library(${PROJECT_NAME} STATIC ${SOURCES})
@@ -57,5 +64,7 @@ arm_add_library(${PROJECT_NAME}-arm STATIC ${SOURCES})
 target_link_libraries(${PROJECT_NAME}-arm PRIVATE NCSI-arm)
 target_include_directories(${PROJECT_NAME}-arm PUBLIC ../../include)
 target_include_directories(${PROJECT_NAME}-arm PUBLIC include)
+
+format_target_sources(${PROJECT_NAME})
 
 # add_subdirectory(tests)

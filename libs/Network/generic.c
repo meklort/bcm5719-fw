@@ -45,30 +45,29 @@
 #include <APE_DEVICE.h>
 #include <Network.h>
 
-void Network_SetMACAddr(NetworkPort_t *port, uint16_t high, uint32_t low, uint32_t index,
-                        bool enabled)
+void Network_SetMACAddr(NetworkPort_t *port, uint16_t high, uint32_t low, uint32_t index, bool enabled)
 {
     uint32_t match_high = (high << 16) | (low >> 16);
     uint16_t match_low = (low << 16);
 
     APE_PERI.BmcToNcSourceMacMatch0High.r32 = match_high;
-    APE_PERI.BmcToNcSourceMacMatch0Low.r32  = match_low;
     APE_PERI.BmcToNcSourceMacMatch1High.r32 = match_high;
-    APE_PERI.BmcToNcSourceMacMatch1Low.r32  = match_low;
     APE_PERI.BmcToNcSourceMacMatch2High.r32 = match_high;
-    APE_PERI.BmcToNcSourceMacMatch2Low.r32  = match_low;
     APE_PERI.BmcToNcSourceMacMatch3High.r32 = match_high;
-    APE_PERI.BmcToNcSourceMacMatch3Low.r32  = match_low;
     APE_PERI.BmcToNcSourceMacMatch4High.r32 = match_high;
-    APE_PERI.BmcToNcSourceMacMatch4Low.r32  = match_low;
     APE_PERI.BmcToNcSourceMacMatch5High.r32 = match_high;
-    APE_PERI.BmcToNcSourceMacMatch5Low.r32  = match_low;
     APE_PERI.BmcToNcSourceMacMatch6High.r32 = match_high;
-    APE_PERI.BmcToNcSourceMacMatch6Low.r32  = match_low;
     APE_PERI.BmcToNcSourceMacMatch7High.r32 = match_high;
-    APE_PERI.BmcToNcSourceMacMatch7Low.r32  = match_low;
+    APE_PERI.BmcToNcSourceMacMatch0Low.r32 = match_low;
+    APE_PERI.BmcToNcSourceMacMatch1Low.r32 = match_low;
+    APE_PERI.BmcToNcSourceMacMatch2Low.r32 = match_low;
+    APE_PERI.BmcToNcSourceMacMatch3Low.r32 = match_low;
+    APE_PERI.BmcToNcSourceMacMatch4Low.r32 = match_low;
+    APE_PERI.BmcToNcSourceMacMatch5Low.r32 = match_low;
+    APE_PERI.BmcToNcSourceMacMatch6Low.r32 = match_low;
+    APE_PERI.BmcToNcSourceMacMatch7Low.r32 = match_low;
 
-    if(port)
+    if (port)
     {
         port->device->PerfectMatch1High.r32 = high;
         port->device->PerfectMatch1Low.r32 = low;

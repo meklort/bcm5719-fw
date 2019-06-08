@@ -47,10 +47,10 @@
 
 #include <APE_APE.h>
 #include <APE_APE_PERI.h>
-#include <APE_RX_PORT0.h>
-#include <APE_TX_PORT0.h>
 #include <APE_DEVICE.h>
 #include <APE_FILTERS0.h>
+#include <APE_RX_PORT0.h>
+#include <APE_TX_PORT0.h>
 #include <types.h>
 
 #ifdef CXX_SIMULATOR
@@ -78,7 +78,8 @@ typedef struct
     VOLATILE FILTERS_t *filters;
 } NetworkPort_t;
 
-typedef union {
+typedef union
+{
     uint32_t r32;
     struct
     {
@@ -88,7 +89,6 @@ typedef union {
         uint32_t not_last:1;
     } bits;
 } network_control_t;
-
 
 extern NetworkPort_t gPort0;
 extern NetworkPort_t gPort1;
@@ -101,21 +101,17 @@ void Network_InitTxRx(void);
 uint32_t Network_TX_numBlocksNeeded(uint32_t frame_size);
 int32_t Network_TX_allocateBlock(NetworkPort_t *port);
 
-void Network_TX_transmitBePacket(uint8_t *packet, uint32_t length,
-                                 NetworkPort_t *port);
-void Network_TX_transmitLePacket(uint8_t *packet, uint32_t length,
-                                 NetworkPort_t *port);
+void Network_TX_transmitBePacket(uint8_t *packet, uint32_t length, NetworkPort_t *port);
+void Network_TX_transmitLePacket(uint8_t *packet, uint32_t length, NetworkPort_t *port);
 
 void Network_TX_transmitPassthroughPacket(uint32_t length, NetworkPort_t *port);
 
 // void Network_TX_transmitPassthroughPacket(RegAPE_PERIBmcToNcRxStatus_t
 // rx_status);
 
-bool Network_RxLePatcket(uint32_t *buffer, uint32_t *length,
-                         NetworkPort_t *port);
+bool Network_RxLePatcket(uint32_t *buffer, uint32_t *length, NetworkPort_t *port);
 bool Network_PassthroughRxPatcket(NetworkPort_t *port);
 
-void Network_SetMACAddr(NetworkPort_t *port, uint16_t high, uint32_t low,
-                        uint32_t index, bool enabled);
+void Network_SetMACAddr(NetworkPort_t *port, uint16_t high, uint32_t low, uint32_t index, bool enabled);
 
 #endif /* NETWORK_H */

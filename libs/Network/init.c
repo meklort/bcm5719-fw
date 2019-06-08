@@ -43,7 +43,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include <APE_APE.h>
-
 #include <Network.h>
 
 void Network_InitTxRx(void)
@@ -51,7 +50,6 @@ void Network_InitTxRx(void)
     // REG_APE_PERFECT_MATCH1_{HIGH,LOW}. For non-broadcast/multicast traffic, the hardware uses this register to match MACs and pass traffic to the APE.
     // The first two bytes of a MAC are put in the HIGH register, and the remaining four bytes in the LOW.
     // Note that this is a device (PCI) register, not an APE register. Set it to the BMC MAC.
-
 
     // REG_APE__BMC_NC_RX_SRC_MAC_MATCHN_{HIGH,LOW}.
     // This appears to relate to the RMU, not network RX, but its exact purpose is unknown.

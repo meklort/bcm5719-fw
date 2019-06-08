@@ -190,8 +190,7 @@ bool Network_PassthroughRxPatcket(NetworkPort_t *port)
             {
                 // data = block[i + offset].r32;
                 // Last word to send.
-                APE_PERI.BmcToNcTxControl.r32 =
-                    control.bits.payload_length % sizeof(uint32_t);
+                APE_PERI.BmcToNcTxControl.r32 = control.bits.payload_length % sizeof(uint32_t);
                 APE_PERI.BmcToNcTxBufferLast.r32 = data;
 
                 // Ignore last word - drop the FCS.
