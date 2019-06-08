@@ -44,20 +44,25 @@
 
 project(NVRam)
 
+SET(SOURCES
+    nvm.c
+    crc.c
+    include/NVRam.h
+)
 
 # Host Simulation library
-simulator_add_library(${PROJECT_NAME} STATIC nvm.c crc.c)
+simulator_add_library(${PROJECT_NAME} STATIC ${SOURCES})
 target_link_libraries(${PROJECT_NAME} PRIVATE simulator)
 target_include_directories(${PROJECT_NAME} PUBLIC ../../include)
 target_include_directories(${PROJECT_NAME} PUBLIC include)
 
 # MIPS Library
-mips_add_library(${PROJECT_NAME}-mips STATIC nvm.c crc.c)
+mips_add_library(${PROJECT_NAME}-mips STATIC ${SOURCES})
 target_include_directories(${PROJECT_NAME}-mips PUBLIC ../../include)
 target_include_directories(${PROJECT_NAME}-mips PUBLIC include)
 
 # ARM Library
-arm_add_library(${PROJECT_NAME}-arm STATIC nvm.c crc.c)
+arm_add_library(${PROJECT_NAME}-arm STATIC ${SOURCES})
 target_include_directories(${PROJECT_NAME}-arm PUBLIC ../../include)
 target_include_directories(${PROJECT_NAME}-arm PUBLIC include)
 
