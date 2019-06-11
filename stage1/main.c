@@ -67,12 +67,8 @@ NVRAMContents_t gNVMContents;
 int main()
 {
     reportStatus(STATUS_MAIN, 0);
-    uint32_t *bootcode_dest;
 #if CXX_SIMULATOR
     initHAL(NULL);
-    bootcode_dest = (uint32_t *)malloc(REG_BOOTCODE_SIZE);
-#else
-    bootcode_dest = (uint32_t *)&BOOTCODE;
 #endif
 
 #if !CXX_SIMULATOR

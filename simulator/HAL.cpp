@@ -222,6 +222,10 @@ bool initHAL(const char *pci_path, int wanted_function)
                 {
                     printf("Error opening %s file. \n", pBARPath);
                     close(memfd);
+                    if(located_pci_path)
+                    {
+                        free(located_pci_path);
+                    }
                     return false;
                 }
                 else
@@ -232,6 +236,10 @@ bool initHAL(const char *pci_path, int wanted_function)
                 if (fstat(memfd, &st) < 0)
                 {
                     fprintf(stderr, "error: couldn't stat file\n");
+                    if(located_pci_path)
+                    {
+                        free(located_pci_path);
+                    }
                     return false;
                 }
 
@@ -241,6 +249,10 @@ bool initHAL(const char *pci_path, int wanted_function)
                 {
                     printf("Unable to mmap %s: %s\n", pBARPath,
                            strerror(errno));
+                    if(located_pci_path)
+                    {
+                        free(located_pci_path);
+                    }
                     return false;
                 }
 

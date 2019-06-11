@@ -82,13 +82,14 @@ uint64_t get_symbol_value(const char *search, elfio &reader)
             unsigned char other;
 
             // Read symbol properties
-            psyms->get_symbol(j, name, value, size, bind, type, section_index,
-                              other);
-            // std::cout << j << " " << name << " " << value << std::endl;
-
-            if (name == search)
+            if(psyms->get_symbol(j, name, value, size, bind, type, section_index,
+                              other))
             {
-                return value;
+                if (name == search)
+                {
+                    delete psyms;
+                    return value;
+                }
             }
         }
 
@@ -286,11 +287,11 @@ int main(int argc, char const *argv[])
     printf("UNK2:               0x%02X\n", ape.header.unk2);
     printf("Sections:           %d\n", ape.header.sections);
 
-    uint32_t calculated_crc = NVRam_crc(ape.bytes, (4 * ape.header.words), 0);
+    // uint32_t calculated_crc = NVRam_crc(ape.bytes, (4 * ape.header.words), 0);
 
     // ...
 
-    calculated_crc = NVRam_crc(ape.bytes, (4 * ape.header.words), 0);
+    uint32_t calculated_crc = NVRam_crc(ape.bytes, (4 * ape.header.words), 0);
     ape.header.crc = calculated_crc;
     printf("Calculated CRC:     0x%08X\n", calculated_crc);
 

@@ -170,13 +170,10 @@ static uint32_t inline Network_TX_initFirstBlock(RegTX_PORTOut_t *block, uint32_
         }
     }
 
-    length -= control.bits.payload_length;
-
     // Pad if too small.
     if (copy_length < ETHERNET_FRAME_MIN)
     {
         copy_length = ETHERNET_FRAME_MIN;
-        length = ETHERNET_FRAME_MIN;
 
         num_words = DIVIDE_RND_UP(copy_length, sizeof(uint32_t));
         for (; i < num_words; i++)
@@ -232,8 +229,6 @@ static uint32_t inline Network_TX_initAdditionalBlock(RegTX_PORTOut_t *block, in
     }
 
     block[TX_PORT_OUT_ALL_CONTROL_WORD].r32 = control.r32;
-
-    length -= control.bits.payload_length;
 
     return control.bits.payload_length;
 }
@@ -345,13 +340,10 @@ static uint32_t inline Network_TX_initFirstPassthroughBlock(RegTX_PORTOut_t *blo
         block[TX_PORT_OUT_ALL_FIRST_PAYLOAD_WORD + i].r32 = APE_PERI.BmcToNcReadBuffer.r32;
     }
 
-    length -= control.bits.payload_length;
-
     // Pad if too small.
     if (copy_length < ETHERNET_FRAME_MIN)
     {
         copy_length = ETHERNET_FRAME_MIN;
-        length = ETHERNET_FRAME_MIN;
 
         num_words = DIVIDE_RND_UP(copy_length, sizeof(uint32_t));
         for (; i < num_words; i++)
@@ -360,8 +352,6 @@ static uint32_t inline Network_TX_initFirstPassthroughBlock(RegTX_PORTOut_t *blo
             block[TX_PORT_OUT_ALL_FIRST_PAYLOAD_WORD + i].r32 = 0;
         }
     }
-
-    control.bits.payload_length = copy_length;
 
     block[TX_PORT_OUT_ALL_CONTROL_WORD].r32 = control.r32;
 
@@ -400,8 +390,6 @@ static uint32_t inline Network_TX_initAdditionalPassthroughBlock(RegTX_PORTOut_t
     }
 
     block[TX_PORT_OUT_ALL_CONTROL_WORD].r32 = control.r32;
-
-    length -= control.bits.payload_length;
 
     return control.bits.payload_length;
 }
