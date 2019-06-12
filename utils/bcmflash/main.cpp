@@ -492,13 +492,7 @@ int main(int argc, char const *argv[])
                 }
             }
 
-            // CD is updat
-            uint32_t new_crc = be32toh(~NVRam_crc(ape, new_ape_length, 0xffffffff));
-            printf("New CRC:             0x%08X\n", new_crc);
             printf("New Length (bytes):  0x%08X\n", new_ape_length);
-
-            // Update the CRC in the file copy.
-            // ape_wd[crc_word] = htobe32(new_crc);
 
             // TODO: update length (if changed);
 
@@ -513,6 +507,12 @@ int main(int argc, char const *argv[])
 
             if("hardware" == options["target"])
             {
+                // Ensure everything is in the correct endianness.
+                for(int i = 0; i < new_ape_length/4; i++)
+                {
+                    ape_wd[i] = be32toh(ape_wd[i]);
+                }
+
                 NVRam_acquireLock();
 
                 NVRam_enable();
