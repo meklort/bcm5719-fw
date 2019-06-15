@@ -1632,23 +1632,63 @@ typedef struct GEN_t {
         GenDataSig.print();
         GenCfg.print();
         GenVersion.print();
+        for(int i = 0; i < 5; i++)
+        {
+            reserved_16[i].print();
+        }
         GenPhyId.print();
+        for(int i = 0; i < 34; i++)
+        {
+            reserved_40[i].print();
+        }
         GenAsfStatusMbox.print();
         GenFwDriverStateMbox.print();
         GenFwResetTypeMbox.print();
         GenBc.print();
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_192[i].print();
+        }
         GenMacAddrHighMbox.print();
         GenMacAddrLowMbox.print();
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_204[i].print();
+        }
         GenD8.print();
+        for(int i = 0; i < 64; i++)
+        {
+            reserved_220[i].print();
+        }
         Gen1dc.print();
         GenWolMbox.print();
         GenCfgFeature.print();
         GenCfgHw.print();
         GenCfgShared.print();
+        for(int i = 0; i < 9; i++)
+        {
+            reserved_496[i].print();
+        }
         GenFwVersion.print();
+        for(int i = 0; i < 36; i++)
+        {
+            reserved_536[i].print();
+        }
         GenCfgHw2.print();
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_684[i].print();
+        }
         GenCpmuStatus.print();
+        for(int i = 0; i < 2; i++)
+        {
+            reserved_692[i].print();
+        }
         GenCfg5.print();
+        for(int i = 0; i < 40; i++)
+        {
+            reserved_704[i].print();
+        }
         GenDbgControlStatus.print();
         GenDbgData.print();
     }

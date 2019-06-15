@@ -2135,48 +2135,116 @@ typedef struct APE_t {
         Status.print();
         GpioMessage.print();
         Event.print();
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_16[i].print();
+        }
         RxbufoffsetFunc0.print();
         RxbufoffsetFunc1.print();
         TxToNetDoorbellFunc0.print();
         TxState0.print();
+        for(int i = 0; i < 2; i++)
+        {
+            reserved_36[i].print();
+        }
         Mode2.print();
         Status2.print();
+        for(int i = 0; i < 6; i++)
+        {
+            reserved_52[i].print();
+        }
         LockGrantObsolete.print();
+        for(int i = 0; i < 10; i++)
+        {
+            reserved_80[i].print();
+        }
         RxPoolModeStatus0.print();
         RxPoolModeStatus1.print();
         RxPoolRetire0.print();
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_132[i].print();
+        }
         RxPoolRetire1.print();
         TxToNetPoolModeStatus0.print();
         TxToNetBufferAllocator0.print();
         TxToNetBufferReturn0.print();
         TxToNetBufferRing0.print();
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_156[i].print();
+        }
         Tick1mhz.print();
         Tick1khz.print();
         Tick10hz.print();
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_180[i].print();
+        }
         Gpio.print();
         Gint.print();
+        for(int i = 0; i < 10; i++)
+        {
+            reserved_192[i].print();
+        }
         OtpControl.print();
         OtpStatus.print();
         OtpAddr.print();
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_244[i].print();
+        }
         OtpReadData.print();
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_252[i].print();
+        }
         CpuStatus.print();
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_268[i].print();
+        }
         TxToNetPoolModeStatus1.print();
         TxToNetBufferAllocator1.print();
         TxToNetBufferReturn1.print();
         TxToNetBufferRing1.print();
         TxToNetDoorbellFunc1.print();
+        for(int i = 0; i < 55; i++)
+        {
+            reserved_292[i].print();
+        }
         RxbufoffsetFunc2.print();
         TxToNetDoorbellFunc2.print();
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_520[i].print();
+        }
         RxPoolModeStatus2.print();
         RxPoolRetire2.print();
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_540[i].print();
+        }
         TxToNetPoolModeStatus2.print();
         TxToNetBufferAllocator2.print();
         TxToNetBufferReturn2.print();
         TxToNetBufferRing2.print();
+        for(int i = 0; i < 52; i++)
+        {
+            reserved_560[i].print();
+        }
         RxbufoffsetFunc3.print();
         TxToNetDoorbellFunc3.print();
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_776[i].print();
+        }
         RxPoolModeStatus3.print();
         RxPoolRetire3.print();
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_796[i].print();
+        }
         TxToNetPoolModeStatus3.print();
         TxToNetBufferAllocator3.print();
         TxToNetBufferReturn3.print();

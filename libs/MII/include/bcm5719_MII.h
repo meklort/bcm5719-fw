@@ -4310,6 +4310,10 @@ typedef struct MII_t {
         AutonegotiationLinkPartnerAbilityNextPage.print();
         _1000baseTControl.print();
         _1000baseTStatus.print();
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_11[i].print();
+        }
         BroadreachLreAccess.print();
         IeeeExtendedStatus.print();
         PhyExtendedControl.print();
@@ -4317,22 +4321,70 @@ typedef struct MII_t {
         ReceiveErrorCounter.print();
         FalseCarrierSenseCounter.print();
         LocalRemoteReceiverNotOkCounter.print();
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_21[i].print();
+        }
         AuxiliaryControl.print();
         AuxiliaryStatusSummary.print();
         InterruptStatus.print();
         InterruptMask.print();
         CabletronLed.print();
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_29[i].print();
+        }
         Test1.print();
         BlockSelect.print();
+        for(int i = 0; i < 62; i++)
+        {
+            reserved_32[i].print();
+        }
         _10baseT.print();
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_281[i].print();
+        }
         DllSelection.print();
+        for(int i = 0; i < 251; i++)
+        {
+            reserved_285[i].print();
+        }
         PowerAndMiiControl.print();
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_537[i].print();
+        }
         SpareControl1.print();
+        for(int i = 0; i < 255; i++)
+        {
+            reserved_541[i].print();
+        }
         ClockAlignmentControl.print();
+        for(int i = 0; i < 251; i++)
+        {
+            reserved_797[i].print();
+        }
         MiscTest1.print();
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_1049[i].print();
+        }
         SpareControl2.print();
+        for(int i = 0; i < 251; i++)
+        {
+            reserved_1053[i].print();
+        }
         MiscTest2.print();
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_1305[i].print();
+        }
         SpareControl3.print();
+        for(int i = 0; i < 507; i++)
+        {
+            reserved_1309[i].print();
+        }
         MiscellaneousControl.print();
     }
     typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);

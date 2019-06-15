@@ -7979,17 +7979,49 @@ typedef struct DEVICE_t {
     }
     void print()
     {
+        for(int i = 0; i < 26; i++)
+        {
+            reserved_0[i].print();
+        }
         MiscellaneousHostControl.print();
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_108[i].print();
+        }
         PciState.print();
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_116[i].print();
+        }
         RegisterBase.print();
         MemoryBase.print();
         RegisterData.print();
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_132[i].print();
+        }
         UndiReceiveReturnRingConsumerIndex.print();
         UndiReceiveReturnRingConsumerIndexLow.print();
+        for(int i = 0; i < 11; i++)
+        {
+            reserved_144[i].print();
+        }
         LinkStatusControl.print();
+        for(int i = 0; i < 14; i++)
+        {
+            reserved_192[i].print();
+        }
         ApeMemoryBase.print();
         ApeMemoryData.print();
+        for(int i = 0; i < 192; i++)
+        {
+            reserved_256[i].print();
+        }
         EmacMode.print();
+        for(int i = 0; i < 2; i++)
+        {
+            reserved_1028[i].print();
+        }
         LedControl.print();
         EmacMacAddresses0High.print();
         EmacMacAddresses0Low.print();
@@ -8001,11 +8033,35 @@ typedef struct DEVICE_t {
         EmacMacAddresses3Low.print();
         WolPatternPointer.print();
         WolPatternCfg.print();
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_1080[i].print();
+        }
         MtuSize.print();
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_1088[i].print();
+        }
         MiiCommunication.print();
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_1104[i].print();
+        }
         MiiMode.print();
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_1112[i].print();
+        }
         TransmitMacMode.print();
+        for(int i = 0; i < 2; i++)
+        {
+            reserved_1120[i].print();
+        }
         ReceiveMacMode.print();
+        for(int i = 0; i < 53; i++)
+        {
+            reserved_1132[i].print();
+        }
         PerfectMatch1High.print();
         PerfectMatch1Low.print();
         PerfectMatch2High.print();
@@ -8014,31 +8070,107 @@ typedef struct DEVICE_t {
         PerfectMatch3Low.print();
         PerfectMatch4High.print();
         PerfectMatch4Low.print();
+        for(int i = 0; i < 21; i++)
+        {
+            reserved_1376[i].print();
+        }
         SgmiiStatus.print();
+        for(int i = 0; i < 3090; i++)
+        {
+            reserved_1464[i].print();
+        }
         CpmuControl.print();
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_13828[i].print();
+        }
         LinkAwarePowerModeClockPolicy.print();
+        for(int i = 0; i < 4; i++)
+        {
+            reserved_13844[i].print();
+        }
         ClockSpeedOverridePolicy.print();
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_13864[i].print();
+        }
         Status.print();
         ClockStatus.print();
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_13876[i].print();
+        }
         GphyControlStatus.print();
+        for(int i = 0; i < 7; i++)
+        {
+            reserved_13884[i].print();
+        }
         ChipId.print();
         MutexRequest.print();
         MutexGrant.print();
         GphyStrap.print();
+        for(int i = 0; i < 5; i++)
+        {
+            reserved_13928[i].print();
+        }
         TopLevelMiscellaneousControl1.print();
+        for(int i = 0; i < 12; i++)
+        {
+            reserved_13952[i].print();
+        }
         EeeMode.print();
+        for(int i = 0; i < 2; i++)
+        {
+            reserved_14004[i].print();
+        }
         EeeLinkIdleControl.print();
+        for(int i = 0; i < 4; i++)
+        {
+            reserved_14016[i].print();
+        }
         EeeControl.print();
+        for(int i = 0; i < 7; i++)
+        {
+            reserved_14036[i].print();
+        }
         GlobalMutexRequest.print();
         GlobalMutexGrant.print();
+        for(int i = 0; i < 578; i++)
+        {
+            reserved_14072[i].print();
+        }
         MemoryArbiterMode.print();
+        for(int i = 0; i < 255; i++)
+        {
+            reserved_16388[i].print();
+        }
         BufferManagerMode.print();
+        for(int i = 0; i < 323; i++)
+        {
+            reserved_17412[i].print();
+        }
         LsoNonlsoBdReadDmaCorruptionEnableControl.print();
+        for(int i = 0; i < 443; i++)
+        {
+            reserved_18708[i].print();
+        }
         RxRiscMode.print();
         RxRiscStatus.print();
+        for(int i = 0; i < 5; i++)
+        {
+            reserved_20488[i].print();
+        }
         RxRiscProgramCounter.print();
         RxRiscCurrentInstruction.print();
+        for(int i = 0; i < 4; i++)
+        {
+            reserved_20516[i].print();
+        }
         RxRiscHardwareBreakpoint.print();
+        for(int i = 0; i < 114; i++)
+        {
+            reserved_20536[i].print();
+        }
         RxRiscRegister0.print();
         RxRiscRegister1.print();
         RxRiscRegister2.print();
@@ -8071,19 +8203,51 @@ typedef struct DEVICE_t {
         RxRiscRegister29.print();
         RxRiscRegister30.print();
         RxRiscRegister31.print();
+        for(int i = 0; i < 1122; i++)
+        {
+            reserved_21120[i].print();
+        }
         _6408.print();
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_25612[i].print();
+        }
         PciPowerConsumptionInfo.print();
         PciPowerDissipatedInfo.print();
+        for(int i = 0; i < 5; i++)
+        {
+            reserved_25624[i].print();
+        }
         PciVpdRequest.print();
         PciVpdResponse.print();
         PciVendorDeviceId.print();
         PciSubsystemId.print();
         PciClassCodeRevision.print();
+        for(int i = 0; i < 32; i++)
+        {
+            reserved_25664[i].print();
+        }
         _64c0.print();
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_25796[i].print();
+        }
         _64c8.print();
+        for(int i = 0; i < 4; i++)
+        {
+            reserved_25804[i].print();
+        }
         _64dc.print();
+        for(int i = 0; i < 9; i++)
+        {
+            reserved_25824[i].print();
+        }
         PciSerialNumberLow.print();
         PciSerialNumberHigh.print();
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_25868[i].print();
+        }
         PciPowerBudget0.print();
         PciPowerBudget1.print();
         PciPowerBudget2.print();
@@ -8093,20 +8257,60 @@ typedef struct DEVICE_t {
         PciPowerBudget6.print();
         PciPowerBudget7.print();
         _6530.print();
+        for(int i = 0; i < 7; i++)
+        {
+            reserved_25908[i].print();
+        }
         _6550.print();
+        for(int i = 0; i < 40; i++)
+        {
+            reserved_25940[i].print();
+        }
         _65f4.print();
+        for(int i = 0; i < 130; i++)
+        {
+            reserved_26104[i].print();
+        }
         GrcModeControl.print();
         MiscellaneousConfig.print();
         MiscellaneousLocalControl.print();
         Timer.print();
         RxCpuEvent.print();
+        for(int i = 0; i < 9; i++)
+        {
+            reserved_26644[i].print();
+        }
         _6838.print();
+        for(int i = 0; i < 2; i++)
+        {
+            reserved_26684[i].print();
+        }
         MdiControl.print();
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_26696[i].print();
+        }
         RxCpuEventEnable.print();
+        for(int i = 0; i < 17; i++)
+        {
+            reserved_26704[i].print();
+        }
         FastBootProgramCounter.print();
+        for(int i = 0; i < 21; i++)
+        {
+            reserved_26776[i].print();
+        }
         ExpansionRomAddr.print();
         _68f0.print();
+        for(int i = 0; i < 5; i++)
+        {
+            reserved_26868[i].print();
+        }
         EavRefClockControl.print();
+        for(int i = 0; i < 1214; i++)
+        {
+            reserved_26892[i].print();
+        }
         _7c04.print();
     }
     typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);

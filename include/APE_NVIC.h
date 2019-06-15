@@ -2360,34 +2360,150 @@ typedef struct NVIC_t {
     }
     void print()
     {
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_0[i].print();
+        }
         InterruptControlType.print();
+        for(int i = 0; i < 11; i++)
+        {
+            reserved_5[i].print();
+        }
         SystickControlAndStatus.print();
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_17[i].print();
+        }
         SystickReloadValue.print();
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_21[i].print();
+        }
         SystickCurrentValue.print();
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_25[i].print();
+        }
         SystickCalibrationValue.print();
+        for(int i = 0; i < 227; i++)
+        {
+            reserved_29[i].print();
+        }
         InterruptSetEnable.print();
+        for(int i = 0; i < 127; i++)
+        {
+            reserved_257[i].print();
+        }
         InterruptClearEnable.print();
+        for(int i = 0; i < 127; i++)
+        {
+            reserved_385[i].print();
+        }
         InterruptSetPending.print();
+        for(int i = 0; i < 127; i++)
+        {
+            reserved_513[i].print();
+        }
         InterruptClearPending.print();
+        for(int i = 0; i < 127; i++)
+        {
+            reserved_641[i].print();
+        }
         ActiveBit.print();
+        for(int i = 0; i < 255; i++)
+        {
+            reserved_769[i].print();
+        }
         InterruptPriority0.print();
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_1025[i].print();
+        }
         InterruptPriority1.print();
+        for(int i = 0; i < 2299; i++)
+        {
+            reserved_1029[i].print();
+        }
         CpuId.print();
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_3329[i].print();
+        }
         InterruptControlState.print();
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_3333[i].print();
+        }
         VectorTableOffset.print();
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_3337[i].print();
+        }
         ApplicationInterruptAndResetControl.print();
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_3341[i].print();
+        }
         SystemControl.print();
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_3345[i].print();
+        }
         ConfigurationControl.print();
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_3349[i].print();
+        }
         SystemHandlerPriority4.print();
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_3353[i].print();
+        }
         SystemHandlerPriority8.print();
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_3357[i].print();
+        }
         SystemHandlerPriority12.print();
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_3361[i].print();
+        }
         SystemHandlerControlAndState.print();
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_3365[i].print();
+        }
         FaultStatus.print();
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_3369[i].print();
+        }
         HardFaultStatus.print();
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_3373[i].print();
+        }
         DebugFaultStatus.print();
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_3377[i].print();
+        }
         MemoryManageFaultAddress.print();
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_3381[i].print();
+        }
         BusFaultAddress.print();
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_3385[i].print();
+        }
         AuxiliaryFaultAddress.print();
+        for(int i = 0; i < 451; i++)
+        {
+            reserved_3389[i].print();
+        }
         SoftwareTriggerInterrupt.print();
     }
     typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);

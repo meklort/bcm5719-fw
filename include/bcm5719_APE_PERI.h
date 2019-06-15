@@ -3568,6 +3568,10 @@ typedef struct APE_PERI_t {
     }
     void print()
     {
+        for(int i = 0; i < 192; i++)
+        {
+            reserved_0[i].print();
+        }
         BmcToNcRxStatus.print();
         BmcToNcSourceMacHigh.print();
         BmcToNcSourceMacLow.print();
@@ -3590,12 +3594,24 @@ typedef struct APE_PERI_t {
         BmcToNcRxVlan.print();
         BmcToNcReadBuffer.print();
         BmcToNcRxControl.print();
+        for(int i = 0; i < 6; i++)
+        {
+            reserved_856[i].print();
+        }
         BmcToNcTxStatus.print();
         BmcToNcTxControl.print();
         BmcToNcTxBuffer.print();
         BmcToNcTxBufferLast.print();
+        for(int i = 0; i < 8; i++)
+        {
+            reserved_896[i].print();
+        }
         RmuControl.print();
         ArbControl.print();
+        for(int i = 0; i < 22; i++)
+        {
+            reserved_936[i].print();
+        }
         PerLockRequestPhy0.print();
         PerLockRequestGrc.print();
         PerLockRequestPhy1.print();

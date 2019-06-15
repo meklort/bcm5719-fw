@@ -1891,18 +1891,38 @@ typedef struct SHM_CHANNEL_t {
         NcsiChannelSetting1.print();
         NcsiChannelSetting2.print();
         NcsiChannelVlan.print();
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_32[i].print();
+        }
         NcsiChannelAltHostMacHigh.print();
         NcsiChannelAltHostMacMid.print();
         NcsiChannelAltHostMacLow.print();
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_48[i].print();
+        }
         NcsiChannelMac0High.print();
         NcsiChannelMac0Mid.print();
         NcsiChannelMac0Low.print();
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_64[i].print();
+        }
         NcsiChannelMac1High.print();
         NcsiChannelMac1Mid.print();
         NcsiChannelMac1Low.print();
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_80[i].print();
+        }
         NcsiChannelMac2High.print();
         NcsiChannelMac2Mid.print();
         NcsiChannelMac2Low.print();
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_96[i].print();
+        }
         NcsiChannelMac3High.print();
         NcsiChannelMac3Mid.print();
         NcsiChannelMac3Low.print();
@@ -1915,7 +1935,15 @@ typedef struct SHM_CHANNEL_t {
         NcsiChannelPxe.print();
         NcsiChannelDropfil.print();
         NcsiChannelSlink.print();
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_148[i].print();
+        }
         NcsiChannelDbg.print();
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_164[i].print();
+        }
         NcsiChannelCtrlstatRx.print();
         NcsiChannelCtrlstatDropped.print();
         NcsiChannelCtrlstatTypeErr.print();

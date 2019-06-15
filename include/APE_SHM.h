@@ -1790,6 +1790,10 @@ typedef struct SHM_t {
     {
         SegSig.print();
         ApeSegLength.print();
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_8[i].print();
+        }
         FwStatus.print();
         FwFeatures.print();
         _4014.print();
@@ -1798,9 +1802,17 @@ typedef struct SHM_t {
         SegMessageBufferLength.print();
         _4024.print();
         _4028.print();
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_44[i].print();
+        }
         LoaderCommand.print();
         LoaderArg0.print();
         LoaderArg1.print();
+        for(int i = 0; i < 47; i++)
+        {
+            reserved_68[i].print();
+        }
         RcpuSegSig.print();
         RcpuSegLength.print();
         RcpuInitCount.print();
@@ -1814,6 +1826,10 @@ typedef struct SHM_t {
         RcpuCfgHw.print();
         RcpuCfgHw2.print();
         RcpuCpmuStatus.print();
+        for(int i = 0; i < 51; i++)
+        {
+            reserved_308[i].print();
+        }
         HostSegSig.print();
         HostSegLen.print();
         HostInitCount.print();
@@ -1822,18 +1838,46 @@ typedef struct SHM_t {
         HeartbeatInterval.print();
         HeartbeatCount.print();
         HostDriverState.print();
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_544[i].print();
+        }
         WolSpeed.print();
+        for(int i = 0; i < 54; i++)
+        {
+            reserved_552[i].print();
+        }
         EventStatus.print();
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_772[i].print();
+        }
         ProtMagic.print();
+        for(int i = 0; i < 2; i++)
+        {
+            reserved_780[i].print();
+        }
         ProtMac0High.print();
         ProtMac0Low.print();
+        for(int i = 0; i < 313; i++)
+        {
+            reserved_796[i].print();
+        }
         NcsiSig.print();
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_2052[i].print();
+        }
         NcsiBuildTime.print();
         NcsiBuildTime2.print();
         NcsiBuildTime3.print();
         NcsiBuildDate.print();
         NcsiBuildDate2.print();
         NcsiBuildDate3.print();
+        for(int i = 0; i < 26; i++)
+        {
+            reserved_2088[i].print();
+        }
         ChipId.print();
     }
     typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);

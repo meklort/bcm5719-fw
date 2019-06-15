@@ -1014,6 +1014,10 @@ typedef struct NVM_t {
     void print()
     {
         Command.print();
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_4[i].print();
+        }
         Write.print();
         Addr.print();
         Read.print();
@@ -1024,6 +1028,10 @@ typedef struct NVM_t {
         Access.print();
         NvmWrite1.print();
         ArbitrationWatchdog.print();
+        for(int i = 0; i < 2; i++)
+        {
+            reserved_48[i].print();
+        }
         AutoSenseStatus.print();
     }
     typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);
