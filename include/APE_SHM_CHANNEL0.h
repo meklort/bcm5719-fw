@@ -1881,6 +1881,49 @@ typedef struct SHM_CHANNEL_t {
         NcsiChannelCtrlstatAllTx.r32.setComponentOffset(0xc4);
         NcsiChannelCtrlstatAllAen.r32.setComponentOffset(0xc8);
     }
+    void print()
+    {
+        NcsiChannelInfo.print();
+        NcsiChannelMcid.print();
+        NcsiChannelAen.print();
+        NcsiChannelBfilt.print();
+        NcsiChannelMfilt.print();
+        NcsiChannelSetting1.print();
+        NcsiChannelSetting2.print();
+        NcsiChannelVlan.print();
+        NcsiChannelAltHostMacHigh.print();
+        NcsiChannelAltHostMacMid.print();
+        NcsiChannelAltHostMacLow.print();
+        NcsiChannelMac0High.print();
+        NcsiChannelMac0Mid.print();
+        NcsiChannelMac0Low.print();
+        NcsiChannelMac1High.print();
+        NcsiChannelMac1Mid.print();
+        NcsiChannelMac1Low.print();
+        NcsiChannelMac2High.print();
+        NcsiChannelMac2Mid.print();
+        NcsiChannelMac2Low.print();
+        NcsiChannelMac3High.print();
+        NcsiChannelMac3Mid.print();
+        NcsiChannelMac3Low.print();
+        NcsiChannelMac0VlanValid.print();
+        NcsiChannelMac0Vlan.print();
+        NcsiChannelMac1VlanValid.print();
+        NcsiChannelMac1Vlan.print();
+        NcsiChannelStatus.print();
+        NcsiChannelResetCount.print();
+        NcsiChannelPxe.print();
+        NcsiChannelDropfil.print();
+        NcsiChannelSlink.print();
+        NcsiChannelDbg.print();
+        NcsiChannelCtrlstatRx.print();
+        NcsiChannelCtrlstatDropped.print();
+        NcsiChannelCtrlstatTypeErr.print();
+        NcsiChannelCtrlstatBadCsum.print();
+        NcsiChannelCtrlstatAllRx.print();
+        NcsiChannelCtrlstatAllTx.print();
+        NcsiChannelCtrlstatAllAen.print();
+    }
     typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);
     callback_t mIndexReadCallback;
     void* mIndexReadCallbackArgs;

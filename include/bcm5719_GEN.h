@@ -1626,6 +1626,32 @@ typedef struct GEN_t {
         GenDbgControlStatus.r32.setComponentOffset(0x360);
         GenDbgData.r32.setComponentOffset(0x364);
     }
+    void print()
+    {
+        GenFwMbox.print();
+        GenDataSig.print();
+        GenCfg.print();
+        GenVersion.print();
+        GenPhyId.print();
+        GenAsfStatusMbox.print();
+        GenFwDriverStateMbox.print();
+        GenFwResetTypeMbox.print();
+        GenBc.print();
+        GenMacAddrHighMbox.print();
+        GenMacAddrLowMbox.print();
+        GenD8.print();
+        Gen1dc.print();
+        GenWolMbox.print();
+        GenCfgFeature.print();
+        GenCfgHw.print();
+        GenCfgShared.print();
+        GenFwVersion.print();
+        GenCfgHw2.print();
+        GenCpmuStatus.print();
+        GenCfg5.print();
+        GenDbgControlStatus.print();
+        GenDbgData.print();
+    }
     typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);
     callback_t mIndexReadCallback;
     void* mIndexReadCallbackArgs;

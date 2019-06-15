@@ -1786,6 +1786,56 @@ typedef struct SHM_t {
         NcsiBuildDate3.r32.setComponentOffset(0x824);
         ChipId.r32.setComponentOffset(0x890);
     }
+    void print()
+    {
+        SegSig.print();
+        ApeSegLength.print();
+        FwStatus.print();
+        FwFeatures.print();
+        _4014.print();
+        FwVersion.print();
+        SegMessageBufferOffset.print();
+        SegMessageBufferLength.print();
+        _4024.print();
+        _4028.print();
+        LoaderCommand.print();
+        LoaderArg0.print();
+        LoaderArg1.print();
+        RcpuSegSig.print();
+        RcpuSegLength.print();
+        RcpuInitCount.print();
+        RcpuFwVersion.print();
+        RcpuCfgFeature.print();
+        RcpuPciVendorDeviceId.print();
+        RcpuPciSubsystemId.print();
+        RcpuApeResetCount.print();
+        RcpuLastApeStatus.print();
+        RcpuLastApeFwStatus.print();
+        RcpuCfgHw.print();
+        RcpuCfgHw2.print();
+        RcpuCpmuStatus.print();
+        HostSegSig.print();
+        HostSegLen.print();
+        HostInitCount.print();
+        HostDriverId.print();
+        HostBehavior.print();
+        HeartbeatInterval.print();
+        HeartbeatCount.print();
+        HostDriverState.print();
+        WolSpeed.print();
+        EventStatus.print();
+        ProtMagic.print();
+        ProtMac0High.print();
+        ProtMac0Low.print();
+        NcsiSig.print();
+        NcsiBuildTime.print();
+        NcsiBuildTime2.print();
+        NcsiBuildTime3.print();
+        NcsiBuildDate.print();
+        NcsiBuildDate2.print();
+        NcsiBuildDate3.print();
+        ChipId.print();
+    }
     typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);
     callback_t mIndexReadCallback;
     void* mIndexReadCallbackArgs;

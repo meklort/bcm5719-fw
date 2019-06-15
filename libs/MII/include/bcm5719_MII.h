@@ -4297,6 +4297,44 @@ typedef struct MII_t {
         SpareControl3.r16.setComponentOffset(0x51c);
         MiscellaneousControl.r16.setComponentOffset(0x718);
     }
+    void print()
+    {
+        Control.print();
+        Status.print();
+        PhyIdHigh.print();
+        PhyIdLow.print();
+        AutonegotiationAdvertisement.print();
+        AutonegotiationLinkPartnerAbilityBasePage.print();
+        AutonegotiationExpansion.print();
+        AutonegotiationNextPageTransmit.print();
+        AutonegotiationLinkPartnerAbilityNextPage.print();
+        _1000baseTControl.print();
+        _1000baseTStatus.print();
+        BroadreachLreAccess.print();
+        IeeeExtendedStatus.print();
+        PhyExtendedControl.print();
+        PhyExtendedStatus.print();
+        ReceiveErrorCounter.print();
+        FalseCarrierSenseCounter.print();
+        LocalRemoteReceiverNotOkCounter.print();
+        AuxiliaryControl.print();
+        AuxiliaryStatusSummary.print();
+        InterruptStatus.print();
+        InterruptMask.print();
+        CabletronLed.print();
+        Test1.print();
+        BlockSelect.print();
+        _10baseT.print();
+        DllSelection.print();
+        PowerAndMiiControl.print();
+        SpareControl1.print();
+        ClockAlignmentControl.print();
+        MiscTest1.print();
+        SpareControl2.print();
+        MiscTest2.print();
+        SpareControl3.print();
+        MiscellaneousControl.print();
+    }
     typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);
     callback_t mIndexReadCallback;
     void* mIndexReadCallbackArgs;

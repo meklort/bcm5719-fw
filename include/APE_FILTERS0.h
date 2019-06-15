@@ -478,6 +478,26 @@ typedef struct FILTERS_t {
             RuleMask[i].r32.setComponentOffset(0x184 + (i * 4));
         }
     }
+    void print()
+    {
+        for(int i = 0; i < 32; i++)
+        {
+            ElementConfig[i].print();
+        }
+        for(int i = 0; i < 32; i++)
+        {
+            ElementPattern[i].print();
+        }
+        RuleConfiguration.print();
+        for(int i = 0; i < 31; i++)
+        {
+            RuleSet[i].print();
+        }
+        for(int i = 0; i < 31; i++)
+        {
+            RuleMask[i].print();
+        }
+    }
     typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);
     callback_t mIndexReadCallback;
     void* mIndexReadCallbackArgs;

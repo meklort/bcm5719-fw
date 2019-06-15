@@ -2358,6 +2358,38 @@ typedef struct NVIC_t {
         AuxiliaryFaultAddress.r32.setComponentOffset(0xd3c);
         SoftwareTriggerInterrupt.r32.setComponentOffset(0xf00);
     }
+    void print()
+    {
+        InterruptControlType.print();
+        SystickControlAndStatus.print();
+        SystickReloadValue.print();
+        SystickCurrentValue.print();
+        SystickCalibrationValue.print();
+        InterruptSetEnable.print();
+        InterruptClearEnable.print();
+        InterruptSetPending.print();
+        InterruptClearPending.print();
+        ActiveBit.print();
+        InterruptPriority0.print();
+        InterruptPriority1.print();
+        CpuId.print();
+        InterruptControlState.print();
+        VectorTableOffset.print();
+        ApplicationInterruptAndResetControl.print();
+        SystemControl.print();
+        ConfigurationControl.print();
+        SystemHandlerPriority4.print();
+        SystemHandlerPriority8.print();
+        SystemHandlerPriority12.print();
+        SystemHandlerControlAndState.print();
+        FaultStatus.print();
+        HardFaultStatus.print();
+        DebugFaultStatus.print();
+        MemoryManageFaultAddress.print();
+        BusFaultAddress.print();
+        AuxiliaryFaultAddress.print();
+        SoftwareTriggerInterrupt.print();
+    }
     typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);
     callback_t mIndexReadCallback;
     void* mIndexReadCallbackArgs;

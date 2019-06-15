@@ -1011,6 +1011,21 @@ typedef struct NVM_t {
         ArbitrationWatchdog.r32.setComponentOffset(0x2c);
         AutoSenseStatus.r32.setComponentOffset(0x38);
     }
+    void print()
+    {
+        Command.print();
+        Write.print();
+        Addr.print();
+        Read.print();
+        NvmCfg1.print();
+        NvmCfg2.print();
+        NvmCfg3.print();
+        SoftwareArbitration.print();
+        Access.print();
+        NvmWrite1.print();
+        ArbitrationWatchdog.print();
+        AutoSenseStatus.print();
+    }
     typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);
     callback_t mIndexReadCallback;
     void* mIndexReadCallbackArgs;

@@ -87,6 +87,9 @@ typedef struct BOOTCODE_t {
     BOOTCODE_t()
     {
     }
+    void print()
+    {
+    }
     typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);
     callback_t mIndexReadCallback;
     void* mIndexReadCallbackArgs;

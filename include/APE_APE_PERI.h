@@ -3566,6 +3566,53 @@ typedef struct APE_PERI_t {
         PerLockGrantPort6.r32.setComponentOffset(0x438);
         PerLockGrantGpio.r32.setComponentOffset(0x43c);
     }
+    void print()
+    {
+        BmcToNcRxStatus.print();
+        BmcToNcSourceMacHigh.print();
+        BmcToNcSourceMacLow.print();
+        BmcToNcSourceMacMatch0High.print();
+        BmcToNcSourceMacMatch0Low.print();
+        BmcToNcSourceMacMatch1High.print();
+        BmcToNcSourceMacMatch1Low.print();
+        BmcToNcSourceMacMatch2High.print();
+        BmcToNcSourceMacMatch2Low.print();
+        BmcToNcSourceMacMatch3High.print();
+        BmcToNcSourceMacMatch3Low.print();
+        BmcToNcSourceMacMatch4High.print();
+        BmcToNcSourceMacMatch4Low.print();
+        BmcToNcSourceMacMatch5High.print();
+        BmcToNcSourceMacMatch5Low.print();
+        BmcToNcSourceMacMatch6High.print();
+        BmcToNcSourceMacMatch6Low.print();
+        BmcToNcSourceMacMatch7High.print();
+        BmcToNcSourceMacMatch7Low.print();
+        BmcToNcRxVlan.print();
+        BmcToNcReadBuffer.print();
+        BmcToNcRxControl.print();
+        BmcToNcTxStatus.print();
+        BmcToNcTxControl.print();
+        BmcToNcTxBuffer.print();
+        BmcToNcTxBufferLast.print();
+        RmuControl.print();
+        ArbControl.print();
+        PerLockRequestPhy0.print();
+        PerLockRequestGrc.print();
+        PerLockRequestPhy1.print();
+        PerLockRequestPhy2.print();
+        PerLockRequestMem.print();
+        PerLockRequestPhy3.print();
+        PerLockRequestPort6.print();
+        PerLockRequestGpio.print();
+        PerLockGrantPhy0.print();
+        PerLockGrantGrc.print();
+        PerLockGrantPhy1.print();
+        PerLockGrantPhy2.print();
+        PerLockGrantMem.print();
+        PerLockGrantPhy3.print();
+        PerLockGrantPort6.print();
+        PerLockGrantGpio.print();
+    }
     typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);
     callback_t mIndexReadCallback;
     void* mIndexReadCallbackArgs;

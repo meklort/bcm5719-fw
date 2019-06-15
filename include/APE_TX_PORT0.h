@@ -146,6 +146,13 @@ typedef struct TX_PORT_t {
             Out[i].r32.setComponentOffset(0x0 + (i * 4));
         }
     }
+    void print()
+    {
+        for(int i = 0; i < 2048; i++)
+        {
+            Out[i].print();
+        }
+    }
     typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);
     callback_t mIndexReadCallback;
     void* mIndexReadCallbackArgs;
