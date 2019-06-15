@@ -1248,7 +1248,7 @@ typedef register_container RegAPETxToNetBufferAllocator_t {
 
 #define REG_APE_TX_TO_NET_BUFFER_RETURN_0 ((volatile BCM5719_APE_H_uint32_t*)0xc0010094) /*  */
 /** @brief Register definition for @ref APE_t.TxToNetBufferReturn0. */
-typedef register_container RegAPETxToNetBufferReturn0_t {
+typedef register_container RegAPETxToNetBufferReturn_t {
     /** @brief 32bit direct register access. */
     BCM5719_APE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
@@ -1258,22 +1258,22 @@ typedef register_container RegAPETxToNetBufferReturn0_t {
     /** @brief Print register value. */
     void print(void) { r32.print(); }
 
-    RegAPETxToNetBufferReturn0_t()
+    RegAPETxToNetBufferReturn_t()
     {
         /** @brief constructor for @ref APE_t.TxToNetBufferReturn0. */
         r32.setName("TxToNetBufferReturn0");
     }
-    RegAPETxToNetBufferReturn0_t& operator=(const RegAPETxToNetBufferReturn0_t& other)
+    RegAPETxToNetBufferReturn_t& operator=(const RegAPETxToNetBufferReturn_t& other)
     {
         r32 = other.r32;
         return *this;
     }
 #endif /* CXX_SIMULATOR */
-} RegAPETxToNetBufferReturn0_t;
+} RegAPETxToNetBufferReturn_t;
 
 #define REG_APE_TX_TO_NET_BUFFER_RING_0 ((volatile BCM5719_APE_H_uint32_t*)0xc0010098) /*  */
 /** @brief Register definition for @ref APE_t.TxToNetBufferRing0. */
-typedef register_container RegAPETxToNetBufferRing0_t {
+typedef register_container RegAPETxToNetBufferRing_t {
     /** @brief 32bit direct register access. */
     BCM5719_APE_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
@@ -1283,18 +1283,18 @@ typedef register_container RegAPETxToNetBufferRing0_t {
     /** @brief Print register value. */
     void print(void) { r32.print(); }
 
-    RegAPETxToNetBufferRing0_t()
+    RegAPETxToNetBufferRing_t()
     {
         /** @brief constructor for @ref APE_t.TxToNetBufferRing0. */
         r32.setName("TxToNetBufferRing0");
     }
-    RegAPETxToNetBufferRing0_t& operator=(const RegAPETxToNetBufferRing0_t& other)
+    RegAPETxToNetBufferRing_t& operator=(const RegAPETxToNetBufferRing_t& other)
     {
         r32 = other.r32;
         return *this;
     }
 #endif /* CXX_SIMULATOR */
-} RegAPETxToNetBufferRing0_t;
+} RegAPETxToNetBufferRing_t;
 
 #define REG_APE_TICK_1MHZ ((volatile BCM5719_APE_H_uint32_t*)0xc00100a8) /* Unknown, monotonically increasing value. Increases at a rate of 1MHz. */
 /** @brief Register definition for @ref APE_t.Tick1mhz. */
@@ -1821,6 +1821,8 @@ typedef register_container RegAPECpuStatus_t {
 
 #define REG_APE_TX_TO_NET_POOL_MODE_STATUS_1 ((volatile BCM5719_APE_H_uint32_t*)0xc0010110) /*  */
 #define REG_APE_TX_TO_NET_BUFFER_ALLOCATOR_1 ((volatile BCM5719_APE_H_uint32_t*)0xc0010114) /*  */
+#define REG_APE_TX_TO_NET_BUFFER_RETURN_1 ((volatile BCM5719_APE_H_uint32_t*)0xc0010118) /*  */
+#define REG_APE_TX_TO_NET_BUFFER_RING_1 ((volatile BCM5719_APE_H_uint32_t*)0xc001011c) /*  */
 #define REG_APE_TX_TO_NET_DOORBELL_FUNC1 ((volatile BCM5719_APE_H_uint32_t*)0xc0010120) /* Written on APE TX to network after filling 0xA002 buffer with packet. */
 #define REG_APE_RXBUFOFFSET_FUNC2 ((volatile BCM5719_APE_H_uint32_t*)0xc0010200) /* This is examined on the APE Packet RX interrupt, and indicates the offset of an incoming (from-network) frame within the APE memory space, which provides access to the from-network RX buffer. */
 #define REG_APE_TX_TO_NET_DOORBELL_FUNC2 ((volatile BCM5719_APE_H_uint32_t*)0xc0010204) /* Written on APE TX to network after filling 0xA002 buffer with packet. */
@@ -1828,12 +1830,16 @@ typedef register_container RegAPECpuStatus_t {
 #define REG_APE_RX_POOL_RETIRE_2 ((volatile BCM5719_APE_H_uint32_t*)0xc0010218) /* Used to indicate when the APE is done with a region of the 0xA000_0000 RX pool buffer so that it can be used to receive another frame. */
 #define REG_APE_TX_TO_NET_POOL_MODE_STATUS_2 ((volatile BCM5719_APE_H_uint32_t*)0xc0010220) /*  */
 #define REG_APE_TX_TO_NET_BUFFER_ALLOCATOR_2 ((volatile BCM5719_APE_H_uint32_t*)0xc0010224) /*  */
+#define REG_APE_TX_TO_NET_BUFFER_RETURN_2 ((volatile BCM5719_APE_H_uint32_t*)0xc0010228) /*  */
+#define REG_APE_TX_TO_NET_BUFFER_RING_2 ((volatile BCM5719_APE_H_uint32_t*)0xc001022c) /*  */
 #define REG_APE_RXBUFOFFSET_FUNC3 ((volatile BCM5719_APE_H_uint32_t*)0xc0010300) /* This is examined on the APE Packet RX interrupt, and indicates the offset of an incoming (from-network) frame within the APE memory space, which provides access to the from-network RX buffer. */
 #define REG_APE_TX_TO_NET_DOORBELL_FUNC3 ((volatile BCM5719_APE_H_uint32_t*)0xc0010304) /* Written on APE TX to network after filling 0xA002 buffer with packet. */
 #define REG_APE_RX_POOL_MODE_STATUS_3 ((volatile BCM5719_APE_H_uint32_t*)0xc0010314) /*  */
 #define REG_APE_RX_POOL_RETIRE_3 ((volatile BCM5719_APE_H_uint32_t*)0xc0010318) /* Used to indicate when the APE is done with a region of the 0xA000_0000 RX pool buffer so that it can be used to receive another frame. */
 #define REG_APE_TX_TO_NET_POOL_MODE_STATUS_3 ((volatile BCM5719_APE_H_uint32_t*)0xc0010320) /*  */
 #define REG_APE_TX_TO_NET_BUFFER_ALLOCATOR_3 ((volatile BCM5719_APE_H_uint32_t*)0xc0010324) /*  */
+#define REG_APE_TX_TO_NET_BUFFER_RETURN_3 ((volatile BCM5719_APE_H_uint32_t*)0xc0010328) /*  */
+#define REG_APE_TX_TO_NET_BUFFER_RING_3 ((volatile BCM5719_APE_H_uint32_t*)0xc001032c) /*  */
 /** @brief Component definition for @ref APE. */
 typedef struct APE_t {
     /** @brief More of these bits can be found in diagnostic utilities, but they don't seem too interesting. */
@@ -1903,10 +1909,10 @@ typedef struct APE_t {
     RegAPETxToNetBufferAllocator_t TxToNetBufferAllocator0;
 
     /** @brief  */
-    RegAPETxToNetBufferReturn0_t TxToNetBufferReturn0;
+    RegAPETxToNetBufferReturn_t TxToNetBufferReturn0;
 
     /** @brief  */
-    RegAPETxToNetBufferRing0_t TxToNetBufferRing0;
+    RegAPETxToNetBufferRing_t TxToNetBufferRing0;
 
     /** @brief Reserved bytes to pad out data structure. */
     BCM5719_APE_H_uint32_t reserved_156[3];
@@ -1962,8 +1968,11 @@ typedef struct APE_t {
     /** @brief  */
     RegAPETxToNetBufferAllocator_t TxToNetBufferAllocator1;
 
-    /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_APE_H_uint32_t reserved_280[2];
+    /** @brief  */
+    RegAPETxToNetBufferReturn_t TxToNetBufferReturn1;
+
+    /** @brief  */
+    RegAPETxToNetBufferRing_t TxToNetBufferRing1;
 
     /** @brief Written on APE TX to network after filling 0xA002 buffer with packet. */
     RegAPETxToNetDoorbell_t TxToNetDoorbellFunc1;
@@ -1995,8 +2004,14 @@ typedef struct APE_t {
     /** @brief  */
     RegAPETxToNetBufferAllocator_t TxToNetBufferAllocator2;
 
+    /** @brief  */
+    RegAPETxToNetBufferReturn_t TxToNetBufferReturn2;
+
+    /** @brief  */
+    RegAPETxToNetBufferRing_t TxToNetBufferRing2;
+
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_APE_H_uint32_t reserved_552[54];
+    BCM5719_APE_H_uint32_t reserved_560[52];
 
     /** @brief This is examined on the APE Packet RX interrupt, and indicates the offset of an incoming (from-network) frame within the APE memory space, which provides access to the from-network RX buffer. */
     RegAPERxbufoffset_t RxbufoffsetFunc3;
@@ -2021,6 +2036,12 @@ typedef struct APE_t {
 
     /** @brief  */
     RegAPETxToNetBufferAllocator_t TxToNetBufferAllocator3;
+
+    /** @brief  */
+    RegAPETxToNetBufferReturn_t TxToNetBufferReturn3;
+
+    /** @brief  */
+    RegAPETxToNetBufferRing_t TxToNetBufferRing3;
 
 #ifdef CXX_SIMULATOR
     APE_t()
@@ -2051,7 +2072,9 @@ typedef struct APE_t {
         TxToNetPoolModeStatus0.r32.setComponentOffset(0x8c);
         TxToNetBufferAllocator0.r32.setName("TxToNetBufferAllocator0");
         TxToNetBufferAllocator0.r32.setComponentOffset(0x90);
+        TxToNetBufferReturn0.r32.setName("TxToNetBufferReturn0");
         TxToNetBufferReturn0.r32.setComponentOffset(0x94);
+        TxToNetBufferRing0.r32.setName("TxToNetBufferRing0");
         TxToNetBufferRing0.r32.setComponentOffset(0x98);
         Tick1mhz.r32.setComponentOffset(0xa8);
         Tick1khz.r32.setComponentOffset(0xac);
@@ -2067,6 +2090,10 @@ typedef struct APE_t {
         TxToNetPoolModeStatus1.r32.setComponentOffset(0x110);
         TxToNetBufferAllocator1.r32.setName("TxToNetBufferAllocator1");
         TxToNetBufferAllocator1.r32.setComponentOffset(0x114);
+        TxToNetBufferReturn1.r32.setName("TxToNetBufferReturn1");
+        TxToNetBufferReturn1.r32.setComponentOffset(0x118);
+        TxToNetBufferRing1.r32.setName("TxToNetBufferRing1");
+        TxToNetBufferRing1.r32.setComponentOffset(0x11c);
         TxToNetDoorbellFunc1.r32.setName("TxToNetDoorbellFunc1");
         TxToNetDoorbellFunc1.r32.setComponentOffset(0x120);
         RxbufoffsetFunc2.r32.setName("RxbufoffsetFunc2");
@@ -2081,6 +2108,10 @@ typedef struct APE_t {
         TxToNetPoolModeStatus2.r32.setComponentOffset(0x220);
         TxToNetBufferAllocator2.r32.setName("TxToNetBufferAllocator2");
         TxToNetBufferAllocator2.r32.setComponentOffset(0x224);
+        TxToNetBufferReturn2.r32.setName("TxToNetBufferReturn2");
+        TxToNetBufferReturn2.r32.setComponentOffset(0x228);
+        TxToNetBufferRing2.r32.setName("TxToNetBufferRing2");
+        TxToNetBufferRing2.r32.setComponentOffset(0x22c);
         RxbufoffsetFunc3.r32.setName("RxbufoffsetFunc3");
         RxbufoffsetFunc3.r32.setComponentOffset(0x300);
         TxToNetDoorbellFunc3.r32.setName("TxToNetDoorbellFunc3");
@@ -2093,6 +2124,10 @@ typedef struct APE_t {
         TxToNetPoolModeStatus3.r32.setComponentOffset(0x320);
         TxToNetBufferAllocator3.r32.setName("TxToNetBufferAllocator3");
         TxToNetBufferAllocator3.r32.setComponentOffset(0x324);
+        TxToNetBufferReturn3.r32.setName("TxToNetBufferReturn3");
+        TxToNetBufferReturn3.r32.setComponentOffset(0x328);
+        TxToNetBufferRing3.r32.setName("TxToNetBufferRing3");
+        TxToNetBufferRing3.r32.setComponentOffset(0x32c);
     }
     void print()
     {
@@ -2127,6 +2162,8 @@ typedef struct APE_t {
         CpuStatus.print();
         TxToNetPoolModeStatus1.print();
         TxToNetBufferAllocator1.print();
+        TxToNetBufferReturn1.print();
+        TxToNetBufferRing1.print();
         TxToNetDoorbellFunc1.print();
         RxbufoffsetFunc2.print();
         TxToNetDoorbellFunc2.print();
@@ -2134,12 +2171,16 @@ typedef struct APE_t {
         RxPoolRetire2.print();
         TxToNetPoolModeStatus2.print();
         TxToNetBufferAllocator2.print();
+        TxToNetBufferReturn2.print();
+        TxToNetBufferRing2.print();
         RxbufoffsetFunc3.print();
         TxToNetDoorbellFunc3.print();
         RxPoolModeStatus3.print();
         RxPoolRetire3.print();
         TxToNetPoolModeStatus3.print();
         TxToNetBufferAllocator3.print();
+        TxToNetBufferReturn3.print();
+        TxToNetBufferRing3.print();
     }
     typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);
     callback_t mIndexReadCallback;

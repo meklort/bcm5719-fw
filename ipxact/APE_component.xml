@@ -723,6 +723,7 @@
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>TX To Net Buffer Return 0</ipxact:name>
+                    <ipxact:typeIdentifier>TX To Net Buffer Return</ipxact:typeIdentifier>
                     <ipxact:description></ipxact:description>
                     <ipxact:addressOffset>0x94</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
@@ -731,6 +732,7 @@
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>TX To Net Buffer Ring 0</ipxact:name>
+                    <ipxact:typeIdentifier>TX To Net Buffer Ring</ipxact:typeIdentifier>
                     <ipxact:description></ipxact:description>
                     <ipxact:addressOffset>0x98</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
@@ -1002,6 +1004,18 @@
                     <ipxact:addressOffset>0x114</ipxact:addressOffset>
                 </ipxact:register>
                 <ipxact:register>
+                    <ipxact:name>TX To Net Buffer Return 1</ipxact:name>
+                    <ipxact:typeIdentifier>TX To Net Buffer Return</ipxact:typeIdentifier>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0x118</ipxact:addressOffset>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>TX To Net Buffer Ring 1</ipxact:name>
+                    <ipxact:typeIdentifier>TX To Net Buffer Ring</ipxact:typeIdentifier>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0x11c</ipxact:addressOffset>
+                </ipxact:register>
+                <ipxact:register>
                     <ipxact:name>TX To Net Doorbell Func1</ipxact:name>
                     <ipxact:typeIdentifier>TX To Net Doorbell</ipxact:typeIdentifier>
                     <ipxact:description>Written on APE TX to network after filling 0xA002 buffer with packet.</ipxact:description>
@@ -1044,6 +1058,18 @@
                     <ipxact:addressOffset>0x224</ipxact:addressOffset>
                 </ipxact:register>
                 <ipxact:register>
+                    <ipxact:name>TX To Net Buffer Return 2</ipxact:name>
+                    <ipxact:typeIdentifier>TX To Net Buffer Return</ipxact:typeIdentifier>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0x228</ipxact:addressOffset>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>TX To Net Buffer Ring 2</ipxact:name>
+                    <ipxact:typeIdentifier>TX To Net Buffer Ring</ipxact:typeIdentifier>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0x22c</ipxact:addressOffset>
+                </ipxact:register>
+                <ipxact:register>
                     <ipxact:name>RXBufOffset Func3</ipxact:name>
                     <ipxact:typeIdentifier>RXBufOffset</ipxact:typeIdentifier>
                     <ipxact:description>This is examined on the APE Packet RX interrupt, and indicates the offset of an incoming (from-network) frame within the APE memory space, which provides access to the from-network RX buffer.</ipxact:description>
@@ -1078,6 +1104,18 @@
                     <ipxact:typeIdentifier>TX To Net Buffer Allocator</ipxact:typeIdentifier>
                     <ipxact:description></ipxact:description>
                     <ipxact:addressOffset>0x324</ipxact:addressOffset>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>TX To Net Buffer Return 3</ipxact:name>
+                    <ipxact:typeIdentifier>TX To Net Buffer Return</ipxact:typeIdentifier>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0x328</ipxact:addressOffset>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>TX To Net Buffer Ring 3</ipxact:name>
+                    <ipxact:typeIdentifier>TX To Net Buffer Ring</ipxact:typeIdentifier>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0x32c</ipxact:addressOffset>
                 </ipxact:register>
             </ipxact:addressBlock>
             <ipxact:addressUnitBits>8</ipxact:addressUnitBits>

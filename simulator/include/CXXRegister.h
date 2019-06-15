@@ -55,6 +55,7 @@ class CXXRegisterBase
 public:
     CXXRegisterBase(unsigned int offset, unsigned int width)
     {
+        mName = "(undefined)";
         mComponentOffset = 0;
         mMask = 0;
         mBaseRegister = NULL;
@@ -76,7 +77,10 @@ public:
 
     void setName(const char *name)
     {
-        mName = name;
+        if(name)
+        {
+            mName = name;
+        }
     }
 
     const char *getName(void)
