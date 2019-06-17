@@ -205,6 +205,14 @@ void init_bcm5719_APE_sim(void *base)
     APE.TxToNetBufferAllocator1.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     APE.TxToNetBufferAllocator1.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    /** @brief Bitmap for @ref APE_t.TxToNetBufferReturn1. */
+    APE.TxToNetBufferReturn1.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.TxToNetBufferReturn1.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.TxToNetBufferRing1. */
+    APE.TxToNetBufferRing1.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.TxToNetBufferRing1.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
     /** @brief Bitmap for @ref APE_t.TxToNetDoorbellFunc1. */
     APE.TxToNetDoorbellFunc1.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     APE.TxToNetDoorbellFunc1.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
@@ -233,6 +241,14 @@ void init_bcm5719_APE_sim(void *base)
     APE.TxToNetBufferAllocator2.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     APE.TxToNetBufferAllocator2.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    /** @brief Bitmap for @ref APE_t.TxToNetBufferReturn2. */
+    APE.TxToNetBufferReturn2.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.TxToNetBufferReturn2.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.TxToNetBufferRing2. */
+    APE.TxToNetBufferRing2.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.TxToNetBufferRing2.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
     /** @brief Bitmap for @ref APE_t.RxbufoffsetFunc3. */
     APE.RxbufoffsetFunc3.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     APE.RxbufoffsetFunc3.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
@@ -256,6 +272,14 @@ void init_bcm5719_APE_sim(void *base)
     /** @brief Bitmap for @ref APE_t.TxToNetBufferAllocator3. */
     APE.TxToNetBufferAllocator3.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     APE.TxToNetBufferAllocator3.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.TxToNetBufferReturn3. */
+    APE.TxToNetBufferReturn3.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.TxToNetBufferReturn3.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_t.TxToNetBufferRing3. */
+    APE.TxToNetBufferRing3.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.TxToNetBufferRing3.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
 
 }

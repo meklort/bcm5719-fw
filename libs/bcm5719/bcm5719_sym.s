@@ -44,7 +44,7 @@
 
 .global APE
 .equ    APE, 0xc0010000
-.size   APE, 0x328
+.size   APE, 0x330
 
 .global APE_PERI
 .equ    APE_PERI, 0xc0018000

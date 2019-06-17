@@ -111,6 +111,10 @@ void init_bcm5719_APE(void)
 
     /** @brief Bitmap for @ref APE_t.TxToNetBufferAllocator1. */
 
+    /** @brief Bitmap for @ref APE_t.TxToNetBufferReturn1. */
+
+    /** @brief Bitmap for @ref APE_t.TxToNetBufferRing1. */
+
     /** @brief Bitmap for @ref APE_t.TxToNetDoorbellFunc1. */
 
     /** @brief Bitmap for @ref APE_t.RxbufoffsetFunc2. */
@@ -125,6 +129,10 @@ void init_bcm5719_APE(void)
 
     /** @brief Bitmap for @ref APE_t.TxToNetBufferAllocator2. */
 
+    /** @brief Bitmap for @ref APE_t.TxToNetBufferReturn2. */
+
+    /** @brief Bitmap for @ref APE_t.TxToNetBufferRing2. */
+
     /** @brief Bitmap for @ref APE_t.RxbufoffsetFunc3. */
 
     /** @brief Bitmap for @ref APE_t.TxToNetDoorbellFunc3. */
@@ -136,6 +144,10 @@ void init_bcm5719_APE(void)
     /** @brief Bitmap for @ref APE_t.TxToNetPoolModeStatus3. */
 
     /** @brief Bitmap for @ref APE_t.TxToNetBufferAllocator3. */
+
+    /** @brief Bitmap for @ref APE_t.TxToNetBufferReturn3. */
+
+    /** @brief Bitmap for @ref APE_t.TxToNetBufferRing3. */
 
 
 }
