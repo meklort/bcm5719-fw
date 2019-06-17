@@ -247,7 +247,7 @@ typedef struct
 #else
 #error Not tested
 #endif
-} ResponsePacketHeader_t;
+} __attribute__((packed)) ResponsePacketHeader_t;
 
 typedef struct
 {
@@ -292,12 +292,175 @@ typedef struct
     uint16_t OtherIndications_Low;
 
     // Bytes 44 - 47
-    uint16_t pad;
+    uint16_t Checksum_High;
     uint16_t OEMLinkStatus_Low;
+
+    uint16_t pad;
+    uint16_t Checksum_Low;
 #else
 #error Not tested
 #endif
-} LinkStatusResponsePacketHeader_t;
+} __attribute__((packed)) LinkStatusResponsePacketHeader_t;
+
+
+typedef struct
+{
+    // Bytes 0 - 11
+    uint8_t  DestinationAddress[6];
+    uint8_t  SourceAddress[6];
+
+#ifdef __LITTLE_ENDIAN__
+    // Bytes 12 - 15
+    uint32_t HeaderRevision:8;         /* Should be 1 */
+    uint32_t ManagmentControllerID:8;  /* Should be 0 */
+    uint32_t EtherType:16; // part of Ethernet header.
+
+    // Bytes 16 - 19
+    uint32_t ChannelID:8;
+    uint32_t ControlPacketType:8;
+    uint32_t InstanceID:8;
+    uint32_t reserved_0:8;
+
+    // Bytes 20 - 23
+
+    uint32_t reserved_2:16;
+    uint32_t PayloadLength:12;
+    uint32_t reserved_1:4;
+
+    // Bytes 24 - 27
+    uint32_t reserved_3;
+
+    // Bytes 28 - 31
+    uint16_t ResponseCode;
+    uint16_t reserved_4;
+
+    // Bytes 32 - 35
+    uint16_t Capabilities_High;
+    uint16_t ReasonCode;
+
+    // Bytes 36 - 39
+    uint16_t BroadcastCapabilities_High;
+    uint16_t Capabilities_Low;
+
+    // Bytes 40 - 43
+    uint16_t MilticastCapabilities_High;
+    uint16_t BroadcastCapabilities_Low;
+
+    // Bytes 44 - 47
+    uint16_t BufferingCapabilities_High;
+    uint16_t MilticastCapabilities_Low;
+
+    // Bytes 48 - 51
+    uint16_t AENControlSupport_High;
+    uint16_t BufferingCapabilities_Low;
+
+    // Bytes 52 - 45
+    uint8_t  MixedFilterCount;
+    uint8_t  VLANFilterCount;
+    uint16_t AENControlSupport_Low;
+
+    // Bytes 56 - 59
+    uint16_t reserved_5;
+    uint8_t  UnicastFilterCount;
+    uint8_t  MulticastFilterCount;
+
+    uint16_t Checksum_High;
+    uint8_t  ChannelCount;
+    uint8_t  VLANModeSupport;
+
+    uint16_t pad;
+    uint16_t Checksum_Low;
+#else
+#error Not tested
+#endif
+} __attribute__((packed)) CapabilitiesResponsePacket_t;
+
+typedef struct
+{
+    // Bytes 0 - 11
+    uint8_t  DestinationAddress[6];
+    uint8_t  SourceAddress[6];
+
+#ifdef __LITTLE_ENDIAN__
+    // Bytes 12 - 15
+    uint32_t HeaderRevision:8;         /* Should be 1 */
+    uint32_t ManagmentControllerID:8;  /* Should be 0 */
+    uint32_t EtherType:16; // part of Ethernet header.
+
+    // Bytes 16 - 19
+    uint32_t ChannelID:8;
+    uint32_t ControlPacketType:8;
+    uint32_t InstanceID:8;
+    uint32_t reserved_0:8;
+
+    // Bytes 20 - 23
+
+    uint32_t reserved_2:16;
+    uint32_t PayloadLength:12;
+    uint32_t reserved_1:4;
+
+    // Bytes 24 - 27
+    uint32_t reserved_3;
+
+    // Bytes 28 - 31
+    uint16_t ResponseCode;
+    uint16_t reserved_4;
+
+    // Bytes 32 - 35
+    uint8_t  NCSIMinor;
+    uint8_t  NCSIMajor;
+    uint16_t ReasonCode;
+
+    // Bytes 36 - 39
+    uint16_t reserved_5;
+    uint8_t  NCSIAlpha1;
+    uint8_t  NCSIUpdate;
+
+    // Bytes 40 - 43
+    uint8_t name_10;
+    uint8_t name_11;
+
+    uint8_t NCSIAlpha2;
+    uint8_t reserved_6;
+
+    uint8_t name_6;
+    uint8_t name_7;
+    uint8_t name_8;
+    uint8_t name_9;
+
+    uint8_t name_2;
+    uint8_t name_3;
+    uint8_t name_4;
+    uint8_t name_5;
+
+    uint16_t FWVersion_High;
+    uint8_t name_0;
+    uint8_t name_1;
+
+    uint16_t PCIVendor;
+    uint16_t FWVersion_Low;
+
+    uint16_t PCISubsystemVendor;
+    uint16_t PCIDevice;
+
+    uint16_t ManufacturerID_High;
+    uint16_t PCISubsystemDevice;
+
+    uint16_t Checksum_High;
+    uint16_t ManufacturerID_Low;
+
+    uint16_t pad;
+    uint16_t Checksum_Low;
+#else
+#error Not tested
+#endif
+} __attribute__((packed)) VersionResponsePacket_t;
+
+#define CAPABILITIES_HARDWARE_ABSTRACTION   (1 << 0)
+#define CAPABILITIES_OS_PRESENCE            (1 << 1)
+#define CAPABILITIES_FLOW_CONTROL_RX        (1 << 2)
+#define CAPABILITIES_FLOW_CONTROL_TX        (1 << 3)
+#define CAPABILITIES_MULTICAST              (1 << 4)
 
 typedef union {
     // Ethernet frame must be at least 64 bytes.
@@ -322,7 +485,11 @@ typedef union {
     ResponsePacketHeader_t  responsePacket;
 
     LinkStatusResponsePacketHeader_t    linkStatusResponse;
-} NetworkFrame_t;
+
+    CapabilitiesResponsePacket_t capabilities;
+
+    VersionResponsePacket_t version;
+} __attribute__((packed)) NetworkFrame_t;
 
 
 
