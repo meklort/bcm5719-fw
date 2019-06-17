@@ -34,6 +34,9 @@ typedef uint32_t size_t;
 #define DIVIDE_RND_UP(__value__, __round__)     (((__value__) + (__round__)-1) / (__round__))
 #define DIVIDE_RND_DOWN(__value__, __round__)   ((__value__) / (__round__))
 
+#define MIN(__x__, __y__)       ((__x__) < (__y__)) ? (__x__) : (__y__)
+#define MAX(__x__, __y__)       ((__x__) > (__y__)) ? (__x__) : (__y__)
+
 typedef union {
     uint64_t u64;
 
