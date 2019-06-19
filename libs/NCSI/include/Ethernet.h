@@ -242,8 +242,11 @@ typedef struct
     uint16_t reserved_4;
 
     // Bytes 32 - 35
-    uint16_t reserved_5;
+    uint16_t Checksum_High;
     uint16_t ReasonCode;
+
+    uint16_t reserved_5;
+    uint16_t Checksum_Low;
 #else
 #error Not tested
 #endif
