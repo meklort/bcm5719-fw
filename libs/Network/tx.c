@@ -353,6 +353,8 @@ static uint32_t inline Network_TX_initFirstPassthroughBlock(RegTX_PORTOut_t *blo
         }
     }
 
+    control.bits.payload_length = copy_length;
+
     block[TX_PORT_OUT_ALL_CONTROL_WORD].r32 = control.r32;
 
     return copy_length;
