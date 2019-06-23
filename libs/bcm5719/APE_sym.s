@@ -142,9 +142,9 @@
 .equ    FILTERS3, 0xa0078000
 .size   FILTERS3, 0x200
 
-.global SHM1
-.equ    SHM1, 0x60221000
-.size   SHM1, 0x894
+.global DEBUG
+.equ    DEBUG, 0x60221000
+.size   DEBUG, 0x1000
 
 .global SHM2
 .equ    SHM2, 0x60222000

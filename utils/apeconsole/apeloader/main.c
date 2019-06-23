@@ -1,10 +1,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @file       HAL.h
+/// @file       main.c
 ///
-/// @project    
+/// @project
 ///
-/// @brief      C++ REgister wrapper code
+/// @brief      Main stage1 code
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
@@ -42,16 +42,54 @@
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef HAL_H
-#define HAL_H
+#include <APE_SHM.h>
 
-#include <bcm5719_DEVICE.h>
-#include <bcm5719_APE.h>
+int __start()
+{
+    // Update SHM.Sig to signal ready.
+    SHM.SegSig.bits.Sig = SHM_SEG_SIG_SIG_LOADER;
+    SHM.FwStatus.bits.Ready = 1;
 
-bool is_supported(uint16_t vendor_id, uint16_t device_id);
-bool initHAL(const char* pci_path, int wanted_function = 0);
+    for (;;)
+    {
+        uint32_t command = SHM.LoaderCommand.bits.Command;
+        if (!command)
+        {
+            continue;
+        }
 
-extern uint8_t *gDEVICEBase;
-extern uint8_t *gAPEBase;
+        uint32_t arg0 = SHM.LoaderArg0.r32;
+        uint32_t arg1 = SHM.LoaderArg1.r32;
 
-#endif /* HAL_H */
+        switch (command)
+        {
+            default:
+                break;
+
+            case SHM_LOADER_COMMAND_COMMAND_READ_MEM:
+            {
+                // Read word address specified in arg0
+                uint32_t *addr = ((void *)arg0);
+                SHM.LoaderArg0.r32 = *addr;
+                break;
+            }
+            case SHM_LOADER_COMMAND_COMMAND_WRITE_MEM:
+            {
+                // Write word address specified in arg0 with arg1
+                uint32_t *addr = ((void *)arg0);
+                *addr = arg1;
+                break;
+            }
+            case SHM_LOADER_COMMAND_COMMAND_CALL:
+            {
+                // call address specified in arg0.
+                void (*function)(uint32_t) = ((void *)arg0);
+                function(arg1);
+                break;
+            }
+        }
+
+        // Mark command as handled.
+        SHM.LoaderCommand.bits.Command = 0;
+    }
+}

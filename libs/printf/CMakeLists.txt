@@ -1,16 +1,16 @@
 ################################################################################
 ###
-### @file       utils/CMakeLists.txt
+### @file       libs/Ethernet/CMakeLists.txt
 ###
 ### @project    
 ###
-### @brief      Utilities CMake file
+### @brief      Ethernet CMake file
 ###
 ################################################################################
 ###
 ################################################################################
 ###
-### @copyright Copyright (c) 2018, Evan Lojewski
+### @copyright Copyright (c) 2019, Evan Lojewski
 ### @cond
 ###
 ### All rights reserved.
@@ -42,10 +42,28 @@
 ### @endcond
 ################################################################################
 
-add_subdirectory(bcmregtool)
-add_subdirectory(bcmflash)
+project(printf)
 
-add_subdirectory(apeconsole)
+SET(SOURCES
+    printf.c
+#     include/NCSI.h
+#     include/Ethernet.h
+)
 
-add_subdirectory(ape2elf)
-add_subdirectory(elf2ape)
+add_definitions(-DPRINTF_DISABLE_SUPPORT_FLOAT -DPRINTF_DISABLE_SUPPORT_LONG_LONG)
+
+# Host Simulation library
+simulator_add_library(${PROJECT_NAME} STATIC ${SOURCES})
+target_link_libraries(${PROJECT_NAME} PRIVATE simulator Network MII APE)
+target_include_directories(${PROJECT_NAME} PUBLIC ../../include)
+target_include_directories(${PROJECT_NAME} PUBLIC .)
+
+# ARM Library
+arm_add_library(${PROJECT_NAME}-arm STATIC ${SOURCES} ape_putchar.c)
+target_link_libraries(${PROJECT_NAME}-arm PRIVATE Network-arm MII-arm APE-arm)
+target_include_directories(${PROJECT_NAME}-arm PUBLIC ../../include)
+target_include_directories(${PROJECT_NAME}-arm PUBLIC .)
+
+format_target_sources(${PROJECT_NAME})
+
+# add_subdirectory(tests)

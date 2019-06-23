@@ -1,10 +1,10 @@
 ################################################################################
 ###
-### @file       utils/CMakeLists.txt
+### @file       CMakeLists.txt
 ###
-### @project    
+### @project    bcm5719
 ###
-### @brief      Utilities CMake file
+### @brief      First binary stage for the bcm5719
 ###
 ################################################################################
 ###
@@ -42,10 +42,25 @@
 ### @endcond
 ################################################################################
 
-add_subdirectory(bcmregtool)
-add_subdirectory(bcmflash)
 
-add_subdirectory(apeconsole)
+project(apeloader)
 
-add_subdirectory(ape2elf)
-add_subdirectory(elf2ape)
+# Firmware
+set(LINKER_SCRIPT "${CMAKE_CURRENT_SOURCE_DIR}/ape.ld")
+arm_add_executable(${PROJECT_NAME}
+            main.c
+            )
+arm_linker_script(${PROJECT_NAME} ${LINKER_SCRIPT})
+
+target_link_libraries(${PROJECT_NAME} APE-arm)
+target_link_libraries(${PROJECT_NAME} bcm5719-arm)
+target_compile_options(${PROJECT_NAME} PRIVATE -nodefaultlibs)
+
+
+# Simulator add_executable
+# simulator_add_executable(sim-${PROJECT_NAME}
+            # init_hw.c
+            # main.c)
+
+# target_link_libraries(sim-${PROJECT_NAME} simulator)
+# target_link_libraries(sim-${PROJECT_NAME} NVRam MII VPD APE)

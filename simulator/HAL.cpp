@@ -53,6 +53,9 @@ using namespace std;
 #define DEVICE_CONFIG   "config"
 #define BAR_STR         "resource"
 
+uint8_t *gDEVICEBase;
+uint8_t *gAPEBase;
+
 typedef struct
 {
     uint16_t vendor_id;
@@ -269,8 +272,8 @@ bool initHAL(const char *pci_path, int wanted_function)
         free(located_pci_path);
     }
 
-    uint8_t *DEVICEBase = (uint8_t *)bar[0];
-    uint8_t *APEBase = (uint8_t *)bar[2];
+    uint8_t *DEVICEBase = gDEVICEBase = (uint8_t *)bar[0];
+    uint8_t *APEBase = gAPEBase = (uint8_t *)bar[2];
 
     init_bcm5719_DEVICE();
     init_bcm5719_DEVICE_sim(DEVICEBase);

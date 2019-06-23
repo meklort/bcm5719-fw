@@ -1,16 +1,16 @@
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @file       HAL.h
+/// @file       ape_purchar.c
 ///
-/// @project    
+/// @project
 ///
-/// @brief      C++ REgister wrapper code
-///
-////////////////////////////////////////////////////////////////////////////////
+/// @brief      APE printf support Routines
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2018, Evan Lojewski
+////////////////////////////////////////////////////////////////////////////////
+///
+/// @copyright Copyright (c) 2019, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -42,16 +42,30 @@
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef HAL_H
-#define HAL_H
+#include <printf.h>
+#include <APE_DEBUG.h>
+#include <APE_SHM.h>
 
-#include <bcm5719_DEVICE.h>
-#include <bcm5719_APE.h>
+void _putchar(char character)
+{
+    SHM.ApeSegLength.r32 = 0xaaaaaaaa;
+    uint32_t write_pointer = DEBUG.WritePointer.r32;
+    // while(write_pointer + 1 == DEBUG.ReadPointer.r32)
+    {
+        // Wait for host to read memory.
+    }
 
-bool is_supported(uint16_t vendor_id, uint16_t device_id);
-bool initHAL(const char* pci_path, int wanted_function = 0);
+    // volatile uint32_t *write_buffer = &DEBUG.Buffer[0].r32;
+    // volatile uint32_t *write_bytes = write_buffer;
+    DEBUG.Buffer[write_pointer].r32 = character;
+    // write_bytes[write_pointer] = '1';//character;
+    write_pointer++;
+    if(write_pointer >= sizeof(DEBUG.Buffer)/4)
+    {
+        write_pointer = 0;
+    }
 
-extern uint8_t *gDEVICEBase;
-extern uint8_t *gAPEBase;
+    DEBUG.WritePointer.r32 = write_pointer;
+    SHM.ApeSegLength.r32 = 0xbbbbbbbb;
 
-#endif /* HAL_H */
+}
