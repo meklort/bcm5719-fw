@@ -71,6 +71,10 @@ void init_APE_DEVICE3(void)
 
     /** @brief Bitmap for @ref DEVICE3_t.EmacMode. */
 
+    /** @brief Bitmap for @ref DEVICE3_t.EmacStatus. */
+
+    /** @brief Bitmap for @ref DEVICE3_t.EmacEvent. */
+
     /** @brief Bitmap for @ref DEVICE3_t.LedControl. */
 
     /** @brief Bitmap for @ref DEVICE3_t.EmacMacAddresses0High. */

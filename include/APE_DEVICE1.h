@@ -93,6 +93,8 @@ typedef uint32_t APE_DEVICE1_H_uint32_t;
 #define REG_DEVICE1_APE_MEMORY_BASE ((volatile APE_DEVICE1_H_uint32_t*)0xa00500f8) /* APE Memory address to read/write using the APE Memory Data register.. */
 #define REG_DEVICE1_APE_MEMORY_DATA ((volatile APE_DEVICE1_H_uint32_t*)0xa00500fc) /* APE Memory value at the location pointed by the Memory Base Register. */
 #define REG_DEVICE1_EMAC_MODE ((volatile APE_DEVICE1_H_uint32_t*)0xa0050400) /*  */
+#define REG_DEVICE1_EMAC_STATUS ((volatile APE_DEVICE1_H_uint32_t*)0xa0050404) /*  */
+#define REG_DEVICE1_EMAC_EVENT ((volatile APE_DEVICE1_H_uint32_t*)0xa0050408) /*  */
 #define REG_DEVICE1_LED_CONTROL ((volatile APE_DEVICE1_H_uint32_t*)0xa005040c) /*  */
 #define REG_DEVICE1_EMAC_MAC_ADDRESSES_0_HIGH ((volatile APE_DEVICE1_H_uint32_t*)0xa0050410) /* Upper 2-bytes of this node's MAC address. */
 #define REG_DEVICE1_EMAC_MAC_ADDRESSES_0_LOW ((volatile APE_DEVICE1_H_uint32_t*)0xa0050414) /* Lower 4-byte of this node's MAC address. */

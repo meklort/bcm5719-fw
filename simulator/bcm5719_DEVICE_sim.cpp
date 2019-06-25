@@ -125,6 +125,14 @@ void init_bcm5719_DEVICE_sim(void *base)
     DEVICE.EmacMode.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     DEVICE.EmacMode.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    /** @brief Bitmap for @ref DEVICE_t.EmacStatus. */
+    DEVICE.EmacStatus.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    DEVICE.EmacStatus.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref DEVICE_t.EmacEvent. */
+    DEVICE.EmacEvent.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    DEVICE.EmacEvent.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
     /** @brief Bitmap for @ref DEVICE_t.LedControl. */
     DEVICE.LedControl.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     DEVICE.LedControl.r32.installWriteCallback(write_to_ram, (uint8_t *)base);

@@ -132,6 +132,14 @@ void init_APE_DEVICE_sim(void *arg0)
     DEVICE.EmacMode.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
     DEVICE.EmacMode.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
 
+    /** @brief Bitmap for @ref DEVICE_t.EmacStatus. */
+    DEVICE.EmacStatus.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
+    DEVICE.EmacStatus.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref DEVICE_t.EmacEvent. */
+    DEVICE.EmacEvent.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
+    DEVICE.EmacEvent.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+
     /** @brief Bitmap for @ref DEVICE_t.LedControl. */
     DEVICE.LedControl.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
     DEVICE.LedControl.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);

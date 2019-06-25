@@ -578,6 +578,169 @@
                     </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>
+                    <ipxact:name>EMAC_STATUS</ipxact:name>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0x404</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>PCS Synced</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Signal Detect</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>1</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Received Configuration</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>2</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Configuration Changed</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>3</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Sync Changed</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>4</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Port Detect Error</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>10</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Link State Changed</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>12</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>MI Completion</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>22</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>MI Interrupt</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>23</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>AP Error</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>24</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>ODI Error</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>25</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>RX Stat Overrun</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>26</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>TX Stat Overrun</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>27</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>EMAC_EVENT</ipxact:name>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0x408</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>Port Detect Error</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>10</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Link State Changed</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>12</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>MI Completion</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>22</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>MI Interrupt</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>23</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>AP Error</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>24</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>ODI Error</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>25</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>RX Stat Overrun</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>26</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>TX Stat Overrun</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>27</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                </ipxact:register>
+                <ipxact:register>
                     <ipxact:name>LED_CONTROL</ipxact:name>
                     <ipxact:description></ipxact:description>
                     <ipxact:addressOffset>0x40c</ipxact:addressOffset>

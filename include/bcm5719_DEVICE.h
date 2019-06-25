@@ -1006,6 +1006,316 @@ typedef register_container RegDEVICEEmacMode_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEEmacMode_t;
 
+#define REG_DEVICE_EMAC_STATUS ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0000404) /*  */
+#define     DEVICE_EMAC_STATUS_PCS_SYNCED_SHIFT 0u
+#define     DEVICE_EMAC_STATUS_PCS_SYNCED_MASK  0x1u
+#define GET_DEVICE_EMAC_STATUS_PCS_SYNCED(__reg__)  (((__reg__) & 0x1) >> 0u)
+#define SET_DEVICE_EMAC_STATUS_PCS_SYNCED(__val__)  (((__val__) << 0u) & 0x1u)
+#define     DEVICE_EMAC_STATUS_SIGNAL_DETECT_SHIFT 1u
+#define     DEVICE_EMAC_STATUS_SIGNAL_DETECT_MASK  0x2u
+#define GET_DEVICE_EMAC_STATUS_SIGNAL_DETECT(__reg__)  (((__reg__) & 0x2) >> 1u)
+#define SET_DEVICE_EMAC_STATUS_SIGNAL_DETECT(__val__)  (((__val__) << 1u) & 0x2u)
+#define     DEVICE_EMAC_STATUS_RECEIVED_CONFIGURATION_SHIFT 2u
+#define     DEVICE_EMAC_STATUS_RECEIVED_CONFIGURATION_MASK  0x4u
+#define GET_DEVICE_EMAC_STATUS_RECEIVED_CONFIGURATION(__reg__)  (((__reg__) & 0x4) >> 2u)
+#define SET_DEVICE_EMAC_STATUS_RECEIVED_CONFIGURATION(__val__)  (((__val__) << 2u) & 0x4u)
+#define     DEVICE_EMAC_STATUS_CONFIGURATION_CHANGED_SHIFT 3u
+#define     DEVICE_EMAC_STATUS_CONFIGURATION_CHANGED_MASK  0x8u
+#define GET_DEVICE_EMAC_STATUS_CONFIGURATION_CHANGED(__reg__)  (((__reg__) & 0x8) >> 3u)
+#define SET_DEVICE_EMAC_STATUS_CONFIGURATION_CHANGED(__val__)  (((__val__) << 3u) & 0x8u)
+#define     DEVICE_EMAC_STATUS_SYNC_CHANGED_SHIFT 4u
+#define     DEVICE_EMAC_STATUS_SYNC_CHANGED_MASK  0x10u
+#define GET_DEVICE_EMAC_STATUS_SYNC_CHANGED(__reg__)  (((__reg__) & 0x10) >> 4u)
+#define SET_DEVICE_EMAC_STATUS_SYNC_CHANGED(__val__)  (((__val__) << 4u) & 0x10u)
+#define     DEVICE_EMAC_STATUS_PORT_DETECT_ERROR_SHIFT 10u
+#define     DEVICE_EMAC_STATUS_PORT_DETECT_ERROR_MASK  0x400u
+#define GET_DEVICE_EMAC_STATUS_PORT_DETECT_ERROR(__reg__)  (((__reg__) & 0x400) >> 10u)
+#define SET_DEVICE_EMAC_STATUS_PORT_DETECT_ERROR(__val__)  (((__val__) << 10u) & 0x400u)
+#define     DEVICE_EMAC_STATUS_LINK_STATE_CHANGED_SHIFT 12u
+#define     DEVICE_EMAC_STATUS_LINK_STATE_CHANGED_MASK  0x1000u
+#define GET_DEVICE_EMAC_STATUS_LINK_STATE_CHANGED(__reg__)  (((__reg__) & 0x1000) >> 12u)
+#define SET_DEVICE_EMAC_STATUS_LINK_STATE_CHANGED(__val__)  (((__val__) << 12u) & 0x1000u)
+#define     DEVICE_EMAC_STATUS_MI_COMPLETION_SHIFT 22u
+#define     DEVICE_EMAC_STATUS_MI_COMPLETION_MASK  0x400000u
+#define GET_DEVICE_EMAC_STATUS_MI_COMPLETION(__reg__)  (((__reg__) & 0x400000) >> 22u)
+#define SET_DEVICE_EMAC_STATUS_MI_COMPLETION(__val__)  (((__val__) << 22u) & 0x400000u)
+#define     DEVICE_EMAC_STATUS_MI_INTERRUPT_SHIFT 23u
+#define     DEVICE_EMAC_STATUS_MI_INTERRUPT_MASK  0x800000u
+#define GET_DEVICE_EMAC_STATUS_MI_INTERRUPT(__reg__)  (((__reg__) & 0x800000) >> 23u)
+#define SET_DEVICE_EMAC_STATUS_MI_INTERRUPT(__val__)  (((__val__) << 23u) & 0x800000u)
+#define     DEVICE_EMAC_STATUS_AP_ERROR_SHIFT 24u
+#define     DEVICE_EMAC_STATUS_AP_ERROR_MASK  0x1000000u
+#define GET_DEVICE_EMAC_STATUS_AP_ERROR(__reg__)  (((__reg__) & 0x1000000) >> 24u)
+#define SET_DEVICE_EMAC_STATUS_AP_ERROR(__val__)  (((__val__) << 24u) & 0x1000000u)
+#define     DEVICE_EMAC_STATUS_ODI_ERROR_SHIFT 25u
+#define     DEVICE_EMAC_STATUS_ODI_ERROR_MASK  0x2000000u
+#define GET_DEVICE_EMAC_STATUS_ODI_ERROR(__reg__)  (((__reg__) & 0x2000000) >> 25u)
+#define SET_DEVICE_EMAC_STATUS_ODI_ERROR(__val__)  (((__val__) << 25u) & 0x2000000u)
+#define     DEVICE_EMAC_STATUS_RX_STAT_OVERRUN_SHIFT 26u
+#define     DEVICE_EMAC_STATUS_RX_STAT_OVERRUN_MASK  0x4000000u
+#define GET_DEVICE_EMAC_STATUS_RX_STAT_OVERRUN(__reg__)  (((__reg__) & 0x4000000) >> 26u)
+#define SET_DEVICE_EMAC_STATUS_RX_STAT_OVERRUN(__val__)  (((__val__) << 26u) & 0x4000000u)
+#define     DEVICE_EMAC_STATUS_TX_STAT_OVERRUN_SHIFT 27u
+#define     DEVICE_EMAC_STATUS_TX_STAT_OVERRUN_MASK  0x8000000u
+#define GET_DEVICE_EMAC_STATUS_TX_STAT_OVERRUN(__reg__)  (((__reg__) & 0x8000000) >> 27u)
+#define SET_DEVICE_EMAC_STATUS_TX_STAT_OVERRUN(__val__)  (((__val__) << 27u) & 0x8000000u)
+
+/** @brief Register definition for @ref DEVICE_t.EmacStatus. */
+typedef register_container RegDEVICEEmacStatus_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_DEVICE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PCSSynced, 0, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SignalDetect, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ReceivedConfiguration, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ConfigurationChanged, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SyncChanged, 4, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_9_5, 5, 5)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PortDetectError, 10, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_11_11, 11, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LinkStateChanged, 12, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_21_13, 13, 9)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MICompletion, 22, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MIInterrupt, 23, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APError, 24, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ODIError, 25, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, RXStatOverrun, 26, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, TXStatOverrun, 27, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_28, 28, 4)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_28, 28, 4)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, TXStatOverrun, 27, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, RXStatOverrun, 26, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ODIError, 25, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APError, 24, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MIInterrupt, 23, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MICompletion, 22, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_21_13, 13, 9)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LinkStateChanged, 12, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_11_11, 11, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PortDetectError, 10, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_9_5, 5, 5)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SyncChanged, 4, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ConfigurationChanged, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ReceivedConfiguration, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SignalDetect, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PCSSynced, 0, 1)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "EmacStatus"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICEEmacStatus_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.EmacStatus. */
+        r32.setName("EmacStatus");
+        bits.PCSSynced.setBaseRegister(&r32);
+        bits.PCSSynced.setName("PCSSynced");
+        bits.SignalDetect.setBaseRegister(&r32);
+        bits.SignalDetect.setName("SignalDetect");
+        bits.ReceivedConfiguration.setBaseRegister(&r32);
+        bits.ReceivedConfiguration.setName("ReceivedConfiguration");
+        bits.ConfigurationChanged.setBaseRegister(&r32);
+        bits.ConfigurationChanged.setName("ConfigurationChanged");
+        bits.SyncChanged.setBaseRegister(&r32);
+        bits.SyncChanged.setName("SyncChanged");
+        bits.PortDetectError.setBaseRegister(&r32);
+        bits.PortDetectError.setName("PortDetectError");
+        bits.LinkStateChanged.setBaseRegister(&r32);
+        bits.LinkStateChanged.setName("LinkStateChanged");
+        bits.MICompletion.setBaseRegister(&r32);
+        bits.MICompletion.setName("MICompletion");
+        bits.MIInterrupt.setBaseRegister(&r32);
+        bits.MIInterrupt.setName("MIInterrupt");
+        bits.APError.setBaseRegister(&r32);
+        bits.APError.setName("APError");
+        bits.ODIError.setBaseRegister(&r32);
+        bits.ODIError.setName("ODIError");
+        bits.RXStatOverrun.setBaseRegister(&r32);
+        bits.RXStatOverrun.setName("RXStatOverrun");
+        bits.TXStatOverrun.setBaseRegister(&r32);
+        bits.TXStatOverrun.setName("TXStatOverrun");
+    }
+    RegDEVICEEmacStatus_t& operator=(const RegDEVICEEmacStatus_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegDEVICEEmacStatus_t;
+
+#define REG_DEVICE_EMAC_EVENT ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0000408) /*  */
+#define     DEVICE_EMAC_EVENT_PORT_DETECT_ERROR_SHIFT 10u
+#define     DEVICE_EMAC_EVENT_PORT_DETECT_ERROR_MASK  0x400u
+#define GET_DEVICE_EMAC_EVENT_PORT_DETECT_ERROR(__reg__)  (((__reg__) & 0x400) >> 10u)
+#define SET_DEVICE_EMAC_EVENT_PORT_DETECT_ERROR(__val__)  (((__val__) << 10u) & 0x400u)
+#define     DEVICE_EMAC_EVENT_LINK_STATE_CHANGED_SHIFT 12u
+#define     DEVICE_EMAC_EVENT_LINK_STATE_CHANGED_MASK  0x1000u
+#define GET_DEVICE_EMAC_EVENT_LINK_STATE_CHANGED(__reg__)  (((__reg__) & 0x1000) >> 12u)
+#define SET_DEVICE_EMAC_EVENT_LINK_STATE_CHANGED(__val__)  (((__val__) << 12u) & 0x1000u)
+#define     DEVICE_EMAC_EVENT_MI_COMPLETION_SHIFT 22u
+#define     DEVICE_EMAC_EVENT_MI_COMPLETION_MASK  0x400000u
+#define GET_DEVICE_EMAC_EVENT_MI_COMPLETION(__reg__)  (((__reg__) & 0x400000) >> 22u)
+#define SET_DEVICE_EMAC_EVENT_MI_COMPLETION(__val__)  (((__val__) << 22u) & 0x400000u)
+#define     DEVICE_EMAC_EVENT_MI_INTERRUPT_SHIFT 23u
+#define     DEVICE_EMAC_EVENT_MI_INTERRUPT_MASK  0x800000u
+#define GET_DEVICE_EMAC_EVENT_MI_INTERRUPT(__reg__)  (((__reg__) & 0x800000) >> 23u)
+#define SET_DEVICE_EMAC_EVENT_MI_INTERRUPT(__val__)  (((__val__) << 23u) & 0x800000u)
+#define     DEVICE_EMAC_EVENT_AP_ERROR_SHIFT 24u
+#define     DEVICE_EMAC_EVENT_AP_ERROR_MASK  0x1000000u
+#define GET_DEVICE_EMAC_EVENT_AP_ERROR(__reg__)  (((__reg__) & 0x1000000) >> 24u)
+#define SET_DEVICE_EMAC_EVENT_AP_ERROR(__val__)  (((__val__) << 24u) & 0x1000000u)
+#define     DEVICE_EMAC_EVENT_ODI_ERROR_SHIFT 25u
+#define     DEVICE_EMAC_EVENT_ODI_ERROR_MASK  0x2000000u
+#define GET_DEVICE_EMAC_EVENT_ODI_ERROR(__reg__)  (((__reg__) & 0x2000000) >> 25u)
+#define SET_DEVICE_EMAC_EVENT_ODI_ERROR(__val__)  (((__val__) << 25u) & 0x2000000u)
+#define     DEVICE_EMAC_EVENT_RX_STAT_OVERRUN_SHIFT 26u
+#define     DEVICE_EMAC_EVENT_RX_STAT_OVERRUN_MASK  0x4000000u
+#define GET_DEVICE_EMAC_EVENT_RX_STAT_OVERRUN(__reg__)  (((__reg__) & 0x4000000) >> 26u)
+#define SET_DEVICE_EMAC_EVENT_RX_STAT_OVERRUN(__val__)  (((__val__) << 26u) & 0x4000000u)
+#define     DEVICE_EMAC_EVENT_TX_STAT_OVERRUN_SHIFT 27u
+#define     DEVICE_EMAC_EVENT_TX_STAT_OVERRUN_MASK  0x8000000u
+#define GET_DEVICE_EMAC_EVENT_TX_STAT_OVERRUN(__reg__)  (((__reg__) & 0x8000000) >> 27u)
+#define SET_DEVICE_EMAC_EVENT_TX_STAT_OVERRUN(__val__)  (((__val__) << 27u) & 0x8000000u)
+
+/** @brief Register definition for @ref DEVICE_t.EmacEvent. */
+typedef register_container RegDEVICEEmacEvent_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_DEVICE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_9_0, 0, 10)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PortDetectError, 10, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_11_11, 11, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LinkStateChanged, 12, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_21_13, 13, 9)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MICompletion, 22, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MIInterrupt, 23, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APError, 24, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ODIError, 25, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, RXStatOverrun, 26, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, TXStatOverrun, 27, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_28, 28, 4)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_28, 28, 4)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, TXStatOverrun, 27, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, RXStatOverrun, 26, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ODIError, 25, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APError, 24, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MIInterrupt, 23, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MICompletion, 22, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_21_13, 13, 9)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LinkStateChanged, 12, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_11_11, 11, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PortDetectError, 10, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_9_0, 0, 10)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "EmacEvent"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICEEmacEvent_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.EmacEvent. */
+        r32.setName("EmacEvent");
+        bits.PortDetectError.setBaseRegister(&r32);
+        bits.PortDetectError.setName("PortDetectError");
+        bits.LinkStateChanged.setBaseRegister(&r32);
+        bits.LinkStateChanged.setName("LinkStateChanged");
+        bits.MICompletion.setBaseRegister(&r32);
+        bits.MICompletion.setName("MICompletion");
+        bits.MIInterrupt.setBaseRegister(&r32);
+        bits.MIInterrupt.setName("MIInterrupt");
+        bits.APError.setBaseRegister(&r32);
+        bits.APError.setName("APError");
+        bits.ODIError.setBaseRegister(&r32);
+        bits.ODIError.setName("ODIError");
+        bits.RXStatOverrun.setBaseRegister(&r32);
+        bits.RXStatOverrun.setName("RXStatOverrun");
+        bits.TXStatOverrun.setBaseRegister(&r32);
+        bits.TXStatOverrun.setName("TXStatOverrun");
+    }
+    RegDEVICEEmacEvent_t& operator=(const RegDEVICEEmacEvent_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegDEVICEEmacEvent_t;
+
 #define REG_DEVICE_LED_CONTROL ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000040c) /*  */
 #define     DEVICE_LED_CONTROL_OVERRIDE_LINK_SHIFT 0u
 #define     DEVICE_LED_CONTROL_OVERRIDE_LINK_MASK  0x1u
@@ -7358,8 +7668,11 @@ typedef struct DEVICE_t {
     /** @brief  */
     RegDEVICEEmacMode_t EmacMode;
 
-    /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_1028[2];
+    /** @brief  */
+    RegDEVICEEmacStatus_t EmacStatus;
+
+    /** @brief  */
+    RegDEVICEEmacEvent_t EmacEvent;
 
     /** @brief  */
     RegDEVICELedControl_t LedControl;
@@ -7858,6 +8171,8 @@ typedef struct DEVICE_t {
         ApeMemoryBase.r32.setComponentOffset(0xf8);
         ApeMemoryData.r32.setComponentOffset(0xfc);
         EmacMode.r32.setComponentOffset(0x400);
+        EmacStatus.r32.setComponentOffset(0x404);
+        EmacEvent.r32.setComponentOffset(0x408);
         LedControl.r32.setComponentOffset(0x40c);
         EmacMacAddresses0High.r32.setComponentOffset(0x410);
         EmacMacAddresses0Low.r32.setComponentOffset(0x414);
@@ -8018,10 +8333,8 @@ typedef struct DEVICE_t {
             reserved_256[i].print();
         }
         EmacMode.print();
-        for(int i = 0; i < 2; i++)
-        {
-            reserved_1028[i].print();
-        }
+        EmacStatus.print();
+        EmacEvent.print();
         LedControl.print();
         EmacMacAddresses0High.print();
         EmacMacAddresses0Low.print();
