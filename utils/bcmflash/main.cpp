@@ -64,6 +64,8 @@
 #include <string>
 #include <fstream>
 
+#include <bcm5719_DEVICE.h>
+
 #include "../NVRam/bcm5719_NVM.h"
 
 using namespace std;
@@ -484,12 +486,15 @@ int main(int argc, char const *argv[])
                 infile.read((char*)ape, new_ape_length);
                 infile.close();
 
+#if 0
+                // Erase the previous APE image
                 while(new_ape_length < ape_length)
                 {
                     // erase remaining bytes.
                     ape[new_ape_length] = 0xFF;
                     new_ape_length++;
                 }
+#endif
             }
 
             printf("New Length (bytes):  0x%08X\n", new_ape_length);

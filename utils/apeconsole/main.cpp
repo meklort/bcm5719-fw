@@ -64,6 +64,7 @@
 #include <elfio/elfio.hpp>
 
 #include <types.h>
+#include <bcm5719_DEVICE.h>
 #include <APE_APE_PERI.h>
 #include <APE_NVIC.h>
 
