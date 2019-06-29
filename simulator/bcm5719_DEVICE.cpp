@@ -105,7 +105,11 @@ void init_bcm5719_DEVICE(void)
 
     /** @brief Bitmap for @ref DEVICE_t.TransmitMacMode. */
 
+    /** @brief Bitmap for @ref DEVICE_t.TransmitMacStatus. */
+
     /** @brief Bitmap for @ref DEVICE_t.ReceiveMacMode. */
+
+    /** @brief Bitmap for @ref DEVICE_t.ReceiveMacStatus. */
 
     /** @brief Bitmap for @ref DEVICE_t.PerfectMatch1High. */
 

@@ -105,7 +105,11 @@ void init_APE_DEVICE2(void)
 
     /** @brief Bitmap for @ref DEVICE2_t.TransmitMacMode. */
 
+    /** @brief Bitmap for @ref DEVICE2_t.TransmitMacStatus. */
+
     /** @brief Bitmap for @ref DEVICE2_t.ReceiveMacMode. */
+
+    /** @brief Bitmap for @ref DEVICE2_t.ReceiveMacStatus. */
 
     /** @brief Bitmap for @ref DEVICE2_t.PerfectMatch1High. */
 

@@ -2008,10 +2008,10 @@ typedef register_container RegDEVICEMiiMode_t {
 #define     DEVICE_TRANSMIT_MAC_MODE_RESET_MASK  0x1u
 #define GET_DEVICE_TRANSMIT_MAC_MODE_RESET(__reg__)  (((__reg__) & 0x1) >> 0u)
 #define SET_DEVICE_TRANSMIT_MAC_MODE_RESET(__val__)  (((__val__) << 0u) & 0x1u)
-#define     DEVICE_TRANSMIT_MAC_MODE_ENABLE_TCE_SHIFT 1u
-#define     DEVICE_TRANSMIT_MAC_MODE_ENABLE_TCE_MASK  0x2u
-#define GET_DEVICE_TRANSMIT_MAC_MODE_ENABLE_TCE(__reg__)  (((__reg__) & 0x2) >> 1u)
-#define SET_DEVICE_TRANSMIT_MAC_MODE_ENABLE_TCE(__val__)  (((__val__) << 1u) & 0x2u)
+#define     DEVICE_TRANSMIT_MAC_MODE_ENABLE_TDE_SHIFT 1u
+#define     DEVICE_TRANSMIT_MAC_MODE_ENABLE_TDE_MASK  0x2u
+#define GET_DEVICE_TRANSMIT_MAC_MODE_ENABLE_TDE(__reg__)  (((__reg__) & 0x2) >> 1u)
+#define SET_DEVICE_TRANSMIT_MAC_MODE_ENABLE_TDE(__val__)  (((__val__) << 1u) & 0x2u)
 #define     DEVICE_TRANSMIT_MAC_MODE_ENABLE_FLOW_CONTROL_SHIFT 4u
 #define     DEVICE_TRANSMIT_MAC_MODE_ENABLE_FLOW_CONTROL_MASK  0x10u
 #define GET_DEVICE_TRANSMIT_MAC_MODE_ENABLE_FLOW_CONTROL(__reg__)  (((__reg__) & 0x10) >> 4u)
@@ -2051,7 +2051,7 @@ typedef register_container RegDEVICETransmitMacMode_t {
         /** @brief When this bit is set to 1, the Transmit MAC state machine will be reset. This is a self-clearing bit. */
         BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Reset, 0, 1)
         /** @brief Used to be enable TDE in legacy-same purpose. */
-        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableTCE, 1, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableTDE, 1, 1)
         /** @brief Padding */
         BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_3_2, 2, 2)
         /** @brief MAC will send 802.3x flow control frames. */
@@ -2090,7 +2090,7 @@ typedef register_container RegDEVICETransmitMacMode_t {
         /** @brief Padding */
         BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_3_2, 2, 2)
         /** @brief Used to be enable TDE in legacy-same purpose. */
-        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableTCE, 1, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, EnableTDE, 1, 1)
         /** @brief When this bit is set to 1, the Transmit MAC state machine will be reset. This is a self-clearing bit. */
         BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Reset, 0, 1)
 #else
@@ -2110,8 +2110,8 @@ typedef register_container RegDEVICETransmitMacMode_t {
         r32.setName("TransmitMacMode");
         bits.Reset.setBaseRegister(&r32);
         bits.Reset.setName("Reset");
-        bits.EnableTCE.setBaseRegister(&r32);
-        bits.EnableTCE.setName("EnableTCE");
+        bits.EnableTDE.setBaseRegister(&r32);
+        bits.EnableTDE.setName("EnableTDE");
         bits.EnableFlowControl.setBaseRegister(&r32);
         bits.EnableFlowControl.setName("EnableFlowControl");
         bits.EnableBigBackoff.setBaseRegister(&r32);
@@ -2134,6 +2134,104 @@ typedef register_container RegDEVICETransmitMacMode_t {
     }
 #endif /* CXX_SIMULATOR */
 } RegDEVICETransmitMacMode_t;
+
+#define REG_DEVICE_TRANSMIT_MAC_STATUS ((volatile APE_DEVICE_H_uint32_t*)0xa0040460) /*  */
+#define     DEVICE_TRANSMIT_MAC_STATUS_XOFFED_SHIFT 0u
+#define     DEVICE_TRANSMIT_MAC_STATUS_XOFFED_MASK  0x1u
+#define GET_DEVICE_TRANSMIT_MAC_STATUS_XOFFED(__reg__)  (((__reg__) & 0x1) >> 0u)
+#define SET_DEVICE_TRANSMIT_MAC_STATUS_XOFFED(__val__)  (((__val__) << 0u) & 0x1u)
+#define     DEVICE_TRANSMIT_MAC_STATUS_SENT_XOFF_SHIFT 1u
+#define     DEVICE_TRANSMIT_MAC_STATUS_SENT_XOFF_MASK  0x2u
+#define GET_DEVICE_TRANSMIT_MAC_STATUS_SENT_XOFF(__reg__)  (((__reg__) & 0x2) >> 1u)
+#define SET_DEVICE_TRANSMIT_MAC_STATUS_SENT_XOFF(__val__)  (((__val__) << 1u) & 0x2u)
+#define     DEVICE_TRANSMIT_MAC_STATUS_SENT_XON_SHIFT 2u
+#define     DEVICE_TRANSMIT_MAC_STATUS_SENT_XON_MASK  0x4u
+#define GET_DEVICE_TRANSMIT_MAC_STATUS_SENT_XON(__reg__)  (((__reg__) & 0x4) >> 2u)
+#define SET_DEVICE_TRANSMIT_MAC_STATUS_SENT_XON(__val__)  (((__val__) << 2u) & 0x4u)
+#define     DEVICE_TRANSMIT_MAC_STATUS_LINK_UP_SHIFT 3u
+#define     DEVICE_TRANSMIT_MAC_STATUS_LINK_UP_MASK  0x8u
+#define GET_DEVICE_TRANSMIT_MAC_STATUS_LINK_UP(__reg__)  (((__reg__) & 0x8) >> 3u)
+#define SET_DEVICE_TRANSMIT_MAC_STATUS_LINK_UP(__val__)  (((__val__) << 3u) & 0x8u)
+#define     DEVICE_TRANSMIT_MAC_STATUS_ODI_UNDERRUN_SHIFT 4u
+#define     DEVICE_TRANSMIT_MAC_STATUS_ODI_UNDERRUN_MASK  0x10u
+#define GET_DEVICE_TRANSMIT_MAC_STATUS_ODI_UNDERRUN(__reg__)  (((__reg__) & 0x10) >> 4u)
+#define SET_DEVICE_TRANSMIT_MAC_STATUS_ODI_UNDERRUN(__val__)  (((__val__) << 4u) & 0x10u)
+#define     DEVICE_TRANSMIT_MAC_STATUS_ODI_OVERRUN_SHIFT 5u
+#define     DEVICE_TRANSMIT_MAC_STATUS_ODI_OVERRUN_MASK  0x20u
+#define GET_DEVICE_TRANSMIT_MAC_STATUS_ODI_OVERRUN(__reg__)  (((__reg__) & 0x20) >> 5u)
+#define SET_DEVICE_TRANSMIT_MAC_STATUS_ODI_OVERRUN(__val__)  (((__val__) << 5u) & 0x20u)
+
+/** @brief Register definition for @ref DEVICE_t.TransmitMacStatus. */
+typedef register_container RegDEVICETransmitMacStatus_t {
+    /** @brief 32bit direct register access. */
+    APE_DEVICE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, XOFFED, 0, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, SentXOFF, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, SentXON, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, LinkUp, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, ODIUnderrun, 4, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, ODIOverrun, 5, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_6, 6, 26)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_6, 6, 26)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, ODIOverrun, 5, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, ODIUnderrun, 4, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, LinkUp, 3, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, SentXON, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, SentXOFF, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, XOFFED, 0, 1)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "TransmitMacStatus"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICETransmitMacStatus_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.TransmitMacStatus. */
+        r32.setName("TransmitMacStatus");
+        bits.XOFFED.setBaseRegister(&r32);
+        bits.XOFFED.setName("XOFFED");
+        bits.SentXOFF.setBaseRegister(&r32);
+        bits.SentXOFF.setName("SentXOFF");
+        bits.SentXON.setBaseRegister(&r32);
+        bits.SentXON.setName("SentXON");
+        bits.LinkUp.setBaseRegister(&r32);
+        bits.LinkUp.setName("LinkUp");
+        bits.ODIUnderrun.setBaseRegister(&r32);
+        bits.ODIUnderrun.setName("ODIUnderrun");
+        bits.ODIOverrun.setBaseRegister(&r32);
+        bits.ODIOverrun.setName("ODIOverrun");
+    }
+    RegDEVICETransmitMacStatus_t& operator=(const RegDEVICETransmitMacStatus_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegDEVICETransmitMacStatus_t;
 
 #define REG_DEVICE_RECEIVE_MAC_MODE ((volatile APE_DEVICE_H_uint32_t*)0xa0040468) /*  */
 #define     DEVICE_RECEIVE_MAC_MODE_RESET_SHIFT 0u
@@ -2220,6 +2318,74 @@ typedef register_container RegDEVICEReceiveMacMode_t {
     }
 #endif /* CXX_SIMULATOR */
 } RegDEVICEReceiveMacMode_t;
+
+#define REG_DEVICE_RECEIVE_MAC_STATUS ((volatile APE_DEVICE_H_uint32_t*)0xa004046c) /*  */
+#define     DEVICE_RECEIVE_MAC_STATUS_REMOTE_TX_XOFFED_SHIFT 0u
+#define     DEVICE_RECEIVE_MAC_STATUS_REMOTE_TX_XOFFED_MASK  0x1u
+#define GET_DEVICE_RECEIVE_MAC_STATUS_REMOTE_TX_XOFFED(__reg__)  (((__reg__) & 0x1) >> 0u)
+#define SET_DEVICE_RECEIVE_MAC_STATUS_REMOTE_TX_XOFFED(__val__)  (((__val__) << 0u) & 0x1u)
+#define     DEVICE_RECEIVE_MAC_STATUS_XOFF_RECEIVED_SHIFT 1u
+#define     DEVICE_RECEIVE_MAC_STATUS_XOFF_RECEIVED_MASK  0x2u
+#define GET_DEVICE_RECEIVE_MAC_STATUS_XOFF_RECEIVED(__reg__)  (((__reg__) & 0x2) >> 1u)
+#define SET_DEVICE_RECEIVE_MAC_STATUS_XOFF_RECEIVED(__val__)  (((__val__) << 1u) & 0x2u)
+#define     DEVICE_RECEIVE_MAC_STATUS_XON_RECEIVED_SHIFT 2u
+#define     DEVICE_RECEIVE_MAC_STATUS_XON_RECEIVED_MASK  0x4u
+#define GET_DEVICE_RECEIVE_MAC_STATUS_XON_RECEIVED(__reg__)  (((__reg__) & 0x4) >> 2u)
+#define SET_DEVICE_RECEIVE_MAC_STATUS_XON_RECEIVED(__val__)  (((__val__) << 2u) & 0x4u)
+
+/** @brief Register definition for @ref DEVICE_t.ReceiveMacStatus. */
+typedef register_container RegDEVICEReceiveMacStatus_t {
+    /** @brief 32bit direct register access. */
+    APE_DEVICE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, RemoteTXXOFFED, 0, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, XOFFReceived, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, XONReceived, 2, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_3, 3, 29)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_3, 3, 29)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, XONReceived, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, XOFFReceived, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, RemoteTXXOFFED, 0, 1)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "ReceiveMacStatus"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICEReceiveMacStatus_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.ReceiveMacStatus. */
+        r32.setName("ReceiveMacStatus");
+        bits.RemoteTXXOFFED.setBaseRegister(&r32);
+        bits.RemoteTXXOFFED.setName("RemoteTXXOFFED");
+        bits.XOFFReceived.setBaseRegister(&r32);
+        bits.XOFFReceived.setName("XOFFReceived");
+        bits.XONReceived.setBaseRegister(&r32);
+        bits.XONReceived.setName("XONReceived");
+    }
+    RegDEVICEReceiveMacStatus_t& operator=(const RegDEVICEReceiveMacStatus_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegDEVICEReceiveMacStatus_t;
 
 #define REG_DEVICE_PERFECT_MATCH1_HIGH ((volatile APE_DEVICE_H_uint32_t*)0xa0040540) /*  */
 #define     DEVICE_PERFECT_MATCH1_HIGH_HIGH_SHIFT 0u
@@ -7731,14 +7897,20 @@ typedef struct DEVICE_t {
     /** @brief  */
     RegDEVICETransmitMacMode_t TransmitMacMode;
 
+    /** @brief  */
+    RegDEVICETransmitMacStatus_t TransmitMacStatus;
+
     /** @brief Reserved bytes to pad out data structure. */
-    APE_DEVICE_H_uint32_t reserved_1120[2];
+    APE_DEVICE_H_uint32_t reserved_1124[1];
 
     /** @brief  */
     RegDEVICEReceiveMacMode_t ReceiveMacMode;
 
+    /** @brief  */
+    RegDEVICEReceiveMacStatus_t ReceiveMacStatus;
+
     /** @brief Reserved bytes to pad out data structure. */
-    APE_DEVICE_H_uint32_t reserved_1132[53];
+    APE_DEVICE_H_uint32_t reserved_1136[52];
 
     /** @brief  */
     RegDEVICEPerfectMatch1High_t PerfectMatch1High;
@@ -8188,7 +8360,9 @@ typedef struct DEVICE_t {
         MiiCommunication.r32.setComponentOffset(0x44c);
         MiiMode.r32.setComponentOffset(0x454);
         TransmitMacMode.r32.setComponentOffset(0x45c);
+        TransmitMacStatus.r32.setComponentOffset(0x460);
         ReceiveMacMode.r32.setComponentOffset(0x468);
+        ReceiveMacStatus.r32.setComponentOffset(0x46c);
         PerfectMatch1High.r32.setComponentOffset(0x540);
         PerfectMatch1Low.r32.setComponentOffset(0x544);
         PerfectMatch2High.r32.setComponentOffset(0x548);
@@ -8366,14 +8540,16 @@ typedef struct DEVICE_t {
             reserved_1112[i].print();
         }
         TransmitMacMode.print();
-        for(int i = 0; i < 2; i++)
+        TransmitMacStatus.print();
+        for(int i = 0; i < 1; i++)
         {
-            reserved_1120[i].print();
+            reserved_1124[i].print();
         }
         ReceiveMacMode.print();
-        for(int i = 0; i < 53; i++)
+        ReceiveMacStatus.print();
+        for(int i = 0; i < 52; i++)
         {
-            reserved_1132[i].print();
+            reserved_1136[i].print();
         }
         PerfectMatch1High.print();
         PerfectMatch1Low.print();

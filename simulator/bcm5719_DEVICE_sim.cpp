@@ -193,9 +193,17 @@ void init_bcm5719_DEVICE_sim(void *base)
     DEVICE.TransmitMacMode.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     DEVICE.TransmitMacMode.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    /** @brief Bitmap for @ref DEVICE_t.TransmitMacStatus. */
+    DEVICE.TransmitMacStatus.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    DEVICE.TransmitMacStatus.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
     /** @brief Bitmap for @ref DEVICE_t.ReceiveMacMode. */
     DEVICE.ReceiveMacMode.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     DEVICE.ReceiveMacMode.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref DEVICE_t.ReceiveMacStatus. */
+    DEVICE.ReceiveMacStatus.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    DEVICE.ReceiveMacStatus.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
     /** @brief Bitmap for @ref DEVICE_t.PerfectMatch1High. */
     DEVICE.PerfectMatch1High.r32.installReadCallback(read_from_ram, (uint8_t *)base);

@@ -110,7 +110,9 @@ typedef uint32_t APE_DEVICE2_H_uint32_t;
 #define REG_DEVICE2_MII_COMMUNICATION ((volatile APE_DEVICE2_H_uint32_t*)0xa006044c) /*  */
 #define REG_DEVICE2_MII_MODE ((volatile APE_DEVICE2_H_uint32_t*)0xa0060454) /*  */
 #define REG_DEVICE2_TRANSMIT_MAC_MODE ((volatile APE_DEVICE2_H_uint32_t*)0xa006045c) /*  */
+#define REG_DEVICE2_TRANSMIT_MAC_STATUS ((volatile APE_DEVICE2_H_uint32_t*)0xa0060460) /*  */
 #define REG_DEVICE2_RECEIVE_MAC_MODE ((volatile APE_DEVICE2_H_uint32_t*)0xa0060468) /*  */
+#define REG_DEVICE2_RECEIVE_MAC_STATUS ((volatile APE_DEVICE2_H_uint32_t*)0xa006046c) /*  */
 #define REG_DEVICE2_PERFECT_MATCH1_HIGH ((volatile APE_DEVICE2_H_uint32_t*)0xa0060540) /*  */
 #define REG_DEVICE2_PERFECT_MATCH1_LOW ((volatile APE_DEVICE2_H_uint32_t*)0xa0060544) /*  */
 #define REG_DEVICE2_PERFECT_MATCH2_HIGH ((volatile APE_DEVICE2_H_uint32_t*)0xa0060548) /*  */

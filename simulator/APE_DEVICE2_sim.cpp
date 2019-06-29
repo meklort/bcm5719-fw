@@ -200,9 +200,17 @@ void init_APE_DEVICE2_sim(void *arg0)
     DEVICE2.TransmitMacMode.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
     DEVICE2.TransmitMacMode.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
 
+    /** @brief Bitmap for @ref DEVICE2_t.TransmitMacStatus. */
+    DEVICE2.TransmitMacStatus.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
+    DEVICE2.TransmitMacStatus.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+
     /** @brief Bitmap for @ref DEVICE2_t.ReceiveMacMode. */
     DEVICE2.ReceiveMacMode.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
     DEVICE2.ReceiveMacMode.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref DEVICE2_t.ReceiveMacStatus. */
+    DEVICE2.ReceiveMacStatus.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
+    DEVICE2.ReceiveMacStatus.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
 
     /** @brief Bitmap for @ref DEVICE2_t.PerfectMatch1High. */
     DEVICE2.PerfectMatch1High.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
