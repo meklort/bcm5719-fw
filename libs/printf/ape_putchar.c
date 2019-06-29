@@ -48,24 +48,16 @@
 
 void _putchar(char character)
 {
-    SHM.ApeSegLength.r32 = 0xaaaaaaaa;
     uint32_t write_pointer = DEBUG.WritePointer.r32;
-    // while(write_pointer + 1 == DEBUG.ReadPointer.r32)
-    {
-        // Wait for host to read memory.
-    }
 
-    // volatile uint32_t *write_buffer = &DEBUG.Buffer[0].r32;
-    // volatile uint32_t *write_bytes = write_buffer;
     DEBUG.Buffer[write_pointer].r32 = character;
-    // write_bytes[write_pointer] = '1';//character;
     write_pointer++;
+
     if(write_pointer >= sizeof(DEBUG.Buffer)/4)
     {
         write_pointer = 0;
     }
 
     DEBUG.WritePointer.r32 = write_pointer;
-    SHM.ApeSegLength.r32 = 0xbbbbbbbb;
 
 }
