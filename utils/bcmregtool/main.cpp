@@ -67,10 +67,14 @@
 #include <APE.h>
 #include <bcm5719_SHM.h>
 #include <bcm5719_SHM_CHANNEL0.h>
+#include <bcm5719_SHM_CHANNEL1.h>
 #include <elfio/elfio.hpp>
 
 #include <types.h>
+#include <bcm5719_DEVICE.h>
+#include <bcm5719_APE.h>
 #include <APE_APE_PERI.h>
+#include <APE_NVIC.h>
 
 #include "../NVRam/bcm5719_NVM.h"
 
@@ -171,15 +175,15 @@ const string symbol_for_address(uint32_t address, uint32_t &offset)
                 unsigned char other;
 
                 // Read symbol properties
-                symbols.get_symbol( j, name, value, size, bind,
-                                       type, section_index, other );
-
-
-                if(value <= address &&
-                    value + size > address)
+                if(symbols.get_symbol( j, name, value, size, bind,
+                                       type, section_index, other ))
                 {
-                    offset = address - value;
-                    return name;
+                    if(value <= address &&
+                        value + size > address)
+                    {
+                        offset = address - value;
+                        return name;
+                    }
                 }
             }
         }
@@ -396,6 +400,11 @@ int main(int argc, char const *argv[])
             .metavar("APE_FILE")
             .help("File to boot on the APE.");
 
+    parser.add_option("-n", "--network")
+            .dest("network")
+            .set_default("0")
+            .action("store_true")
+            .help("Print network information / status.");
 
     parser.add_option("-apereset", "--apereset")
             .dest("apereset")
@@ -415,6 +424,11 @@ int main(int argc, char const *argv[])
             .action("store_true")
             .help("Print MII information registers.");
 
+    parser.add_option("-d", "--dumpregs")
+            .dest("dumpregs")
+            .set_default("0")
+            .action("store_true")
+            .help("Dump main device and APE registers.");
 
     optparse::Values options = parser.parse_args(argc, argv);
     vector<string> args = parser.args();
@@ -508,25 +522,9 @@ int main(int argc, char const *argv[])
         uint8_t phy = MII_getPhy();
 
         printf("MII Phy:          %d\n", phy);
-                printf("MII Status:       0x%04X\n", MII_readRegister(phy, (mii_reg_t)REG_MII_STATUS));
+        printf("MII Status:       0x%04X\n", MII_readRegister(phy, (mii_reg_t)REG_MII_STATUS));
         printf("MII PHY ID[high]: 0x%04X\n", MII_readRegister(phy, (mii_reg_t)REG_MII_PHY_ID_HIGH));
         printf("MII PHY ID[low]:  0x%04X\n", MII_readRegister(phy, (mii_reg_t)REG_MII_PHY_ID_LOW));
-
-        RegMIIControl_t control;
-        control.r16 = MII_readRegister(phy, (mii_reg_t)REG_MII_CONTROL);
-        control.print();
-
-        RegMIIAutonegotiationAdvertisement_t auto_neg_advert;
-        auto_neg_advert.r16 = MII_readRegister(phy, (mii_reg_t)REG_MII_AUTONEGOTIATION_ADVERTISEMENT);
-        auto_neg_advert.print();
-
-        RegMII1000baseTControl_t gig_control;
-        gig_control.r16 = MII_readRegister(phy, (mii_reg_t)REG_MII_1000BASE_T_CONTROL);
-        gig_control.print();
-
-        RegMIISpareControl3_t sc3;
-        sc3.r16 = MII_readRegister(phy, (mii_reg_t)REG_MII_SPARE_CONTROL_3);
-        sc3.print();
 
         exit(0);
     }
@@ -688,13 +686,50 @@ int main(int argc, char const *argv[])
         printf("APE RCPU PCI Subsystem ID: 0x%08X\n", (uint32_t)SHM.RcpuPciSubsystemId.r32);
 
         APE_PERI.RmuControl.print();
+        APE_PERI.ArbControl.print();
 
         DEVICE.PerfectMatch1High.print();
         DEVICE.PerfectMatch1Low.print();
 
-
+        printf("\n======= Port 0 =======\n");
         APE.TxToNetPoolModeStatus0.print();
         APE.RxPoolModeStatus0.print();
+
+        SHM_CHANNEL0.NcsiChannelCtrlstatRx.print();
+        SHM_CHANNEL0.NcsiChannelCtrlstatAllTx.print();
+
+        APE_PERI.BmcToNcRxStatus.print();
+
+        exit(0);
+    }
+
+    if(options.get("dumpregs"))
+    {
+        DEVICE.print();
+        APE.print();
+        APE_PERI.print();
+
+        exit(0);
+    }
+
+    if(options.get("network"))
+    {
+        RegMIIStatus_t stat;
+
+        uint8_t phy = MII_getPhy();
+        APE_aquireLock();
+        uint16_t status_value = MII_readRegister(phy, (mii_reg_t)REG_MII_STATUS);
+        stat.r16 = status_value;
+        stat.print();
+        if(stat.bits.ExtendedStatusSupported)
+        {
+            RegMIIIeeeExtendedStatus_t ext_stat;
+            uint16_t ext_status_value = MII_readRegister(phy, (mii_reg_t)REG_MII_IEEE_EXTENDED_STATUS);
+            ext_stat.r16 = ext_status_value;
+            ext_stat.print();
+        }
+
+        APE_releaseLock();
 
         exit(0);
     }
