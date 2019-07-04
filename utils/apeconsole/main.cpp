@@ -113,11 +113,13 @@ int main(int argc, char const *argv[])
         uint32_t cached_pointer = *read_pointer;
         if(cached_pointer != *write_pointer)
         {
-            char character = (uint8_t)buffer[cached_pointer];
+            uint32_t word_pointer = cached_pointer / 4;
+            uint32_t byte_index = cached_pointer % 4;
+            char character = (uint8_t)(buffer[word_pointer] >> (byte_index * 8));
             // printf("Buffer[%d] = %c\n", cached_pointer, character);
             putchar(character);
 
-            if(cached_pointer++ >= buffer_size/4)
+            if(cached_pointer++ >= buffer_size)
             {
                 cached_pointer = 0;
             }
