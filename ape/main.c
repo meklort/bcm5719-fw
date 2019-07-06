@@ -44,6 +44,9 @@
 
 #include "ape.h"
 
+#include <APE_DEBUG.h>
+
+
 #include <APE_APE.h>
 #include <APE_APE_PERI.h>
 #include <APE_SHM.h>
@@ -51,6 +54,8 @@
 #include <NCSI.h>
 #include <Network.h>
 #include <types.h>
+
+#include <printf.h>
 
 void handleCommand(void)
 {
@@ -106,7 +111,7 @@ void handleBMCPacket(void)
     {
         if (stat.bits.Bad)
         {
-            // TODO: ACK bad packet.
+            // ACK bad packet.
             APE_PERI.BmcToNcRxControl.bits.ResetBad = 1;
             while (APE_PERI.BmcToNcRxControl.bits.ResetBad)
             {
@@ -118,7 +123,6 @@ void handleBMCPacket(void)
             int32_t bytes = stat.bits.PacketLength;
             if (!stat.bits.Passthru)
             {
-                // stat.print();
                 int32_t words = DIVIDE_RND_UP(bytes, sizeof(uint32_t));
                 if (words > ARRAY_ELEMENTS(buffer))
                 {
@@ -160,6 +164,7 @@ void __attribute__((noreturn)) loaderLoop(void)
     SHM.SegSig.bits.Sig = SHM_SEG_SIG_SIG_LOADER;
     SHM.FwStatus.bits.Ready = 1;
 
+    printf("APE Ready\n");
     for (;;)
     {
         handleBMCPacket();
@@ -170,6 +175,15 @@ void __attribute__((noreturn)) loaderLoop(void)
 
 void __attribute__((noreturn)) __start()
 {
+    if(DEBUG.WritePointer.r32 >= sizeof(DEBUG.Buffer) ||
+       DEBUG.ReadPointer.r32 >= sizeof(DEBUG.Buffer))
+    {
+        // Appears to be a full chip reset. Initialize the pointers so everybody is happy.
+        DEBUG.WritePointer.r32 = 0;
+        DEBUG.ReadPointer.r32 = 0;
+        printf("Resetting debug pointers.\n");
+    }
+
     NCSI_init();
     Network_InitTxRx();
     initRMU();
