@@ -115,7 +115,14 @@ int main(int argc, char const *argv[])
             .help(  "hardware: Use the attached physical device.\n"
                     "file: Use the file specified with -f, --file\n");
 
-    parser.add_option("-f", "--file")
+    parser.add_option("-f", "--function")
+            .dest("function")
+            .type("int")
+            .set_default("1")
+            .metavar("FUNCTION")
+            .help("Read registers from the specified pci function.");
+
+    parser.add_option("-i", "--file")
             .dest("filename")
             .help("Read from the specified file")
             .metavar("FILE");
@@ -185,8 +192,9 @@ int main(int argc, char const *argv[])
     }
     else if("hardware" == options["target"])
     {
-        if(!initHAL(NULL))
+        if(!initHAL(NULL, options.get("function")))
         {
+            cerr << "Unable to locate pci device with function " << options["function"] << " for the debug console." << endl;
             exit(-1);
         }
 
