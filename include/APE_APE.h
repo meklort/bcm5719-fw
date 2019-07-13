@@ -1567,6 +1567,10 @@ typedef register_container RegAPEGint_t {
 #define     APE_OTP_CONTROL_START_MASK  0x1u
 #define GET_APE_OTP_CONTROL_START(__reg__)  (((__reg__) & 0x1) >> 0u)
 #define SET_APE_OTP_CONTROL_START(__val__)  (((__val__) << 0u) & 0x1u)
+#define     APE_OTP_CONTROL_INIT_SHIFT 3u
+#define     APE_OTP_CONTROL_INIT_MASK  0x8u
+#define GET_APE_OTP_CONTROL_INIT(__reg__)  (((__reg__) & 0x8) >> 3u)
+#define SET_APE_OTP_CONTROL_INIT(__val__)  (((__val__) << 3u) & 0x8u)
 #define     APE_OTP_CONTROL_PROG_ENABLE_SHIFT 21u
 #define     APE_OTP_CONTROL_PROG_ENABLE_MASK  0x200000u
 #define GET_APE_OTP_CONTROL_PROG_ENABLE(__reg__)  (((__reg__) & 0x200000) >> 21u)
@@ -1582,7 +1586,11 @@ typedef register_container RegAPEOtpControl_t {
         /** @brief  */
         BITFIELD_MEMBER(APE_APE_H_uint32_t, Start, 0, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_20_1, 1, 20)
+        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_2_1, 1, 2)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_APE_H_uint32_t, Init, 3, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_20_4, 4, 17)
         /** @brief  */
         BITFIELD_MEMBER(APE_APE_H_uint32_t, ProgEnable, 21, 1)
         /** @brief Padding */
@@ -1593,7 +1601,11 @@ typedef register_container RegAPEOtpControl_t {
         /** @brief  */
         BITFIELD_MEMBER(APE_APE_H_uint32_t, ProgEnable, 21, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_20_1, 1, 20)
+        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_20_4, 4, 17)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_APE_H_uint32_t, Init, 3, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_2_1, 1, 2)
         /** @brief  */
         BITFIELD_MEMBER(APE_APE_H_uint32_t, Start, 0, 1)
 #else
@@ -1613,6 +1625,8 @@ typedef register_container RegAPEOtpControl_t {
         r32.setName("OtpControl");
         bits.Start.setBaseRegister(&r32);
         bits.Start.setName("Start");
+        bits.Init.setBaseRegister(&r32);
+        bits.Init.setName("Init");
         bits.ProgEnable.setBaseRegister(&r32);
         bits.ProgEnable.setName("ProgEnable");
     }
