@@ -55,7 +55,9 @@
 #include <Network.h>
 #include <types.h>
 
+#ifndef CXX_SIMULATOR
 #include <printf.h>
+#endif
 
 void handleCommand(void)
 {
@@ -181,8 +183,15 @@ void __attribute__((noreturn)) __start()
         // Appears to be a full chip reset. Initialize the pointers so everybody is happy.
         DEBUG.WritePointer.r32 = 0;
         DEBUG.ReadPointer.r32 = 0;
-        printf("Resetting debug pointers.\n");
     }
+
+    // Wait for the MIPS / RX CPU to start up and finish initializing.
+    uint32_t numLoops = 0;
+    do {
+        numLoops++;
+        // Spin
+    } while(SHM_RCPU_SEG_SIG_SIG_RCPU_MAGIC != SHM.RcpuSegSig.bits.Sig);
+    printf("Begin APE: %d.\n", numLoops);
 
     NCSI_init();
     Network_InitTxRx();
