@@ -154,7 +154,13 @@ void handleBMCPacket(void)
             else
             {
                 // Pass through to network
-                Network_TX_transmitPassthroughPacket(bytes, &gPort0);
+                NetworkPort_t *port = &gPort0;
+                if(!Network_TX_transmitPassthroughPacket(bytes, port))
+                {
+                    printf("Resetting TX...\n");
+                    // Reset TX, as it's likely locked up now.
+                    Network_resetTX(port);
+                }
             }
         }
     }
