@@ -61,7 +61,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC include)
 
 # ARM Library
 arm_add_library(${PROJECT_NAME}-arm STATIC ${SOURCES})
-target_link_libraries(${PROJECT_NAME}-arm PRIVATE NCSI-arm)
+target_link_libraries(${PROJECT_NAME}-arm PRIVATE NCSI-arm printf-arm)
 target_include_directories(${PROJECT_NAME}-arm PUBLIC ../../include)
 target_include_directories(${PROJECT_NAME}-arm PUBLIC include)
 
