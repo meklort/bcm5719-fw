@@ -734,20 +734,8 @@ void Network_InitFilters(NetworkPort_t *port)
 #endif
 }
 
-void Network_InitPort(NetworkPort_t *port)
+void Network_resetTX(NetworkPort_t *port)
 {
-    Network_InitFilters(port);
-
-    // Enable RX
-    RegAPERxPoolModeStatus_t rxMode;
-    rxMode.r32 = 0;
-    rxMode.bits.Reset = 1;
-    *(port->rx_mode) = rxMode;
-
-    rxMode.bits.Reset = 0;
-    rxMode.bits.Enable = 1;
-    *(port->rx_mode) = rxMode;
-
     // Enable TX
     RegAPETxToNetPoolModeStatus_t txMode;
     txMode.r32 = 0;
@@ -757,6 +745,27 @@ void Network_InitPort(NetworkPort_t *port)
     txMode.bits.Reset = 0;
     txMode.bits.Enable = 1;
     *(port->tx_mode) = txMode;
+}
+
+void Network_resetRX(NetworkPort_t *port)
+{
+    // Enable RX
+    RegAPERxPoolModeStatus_t rxMode;
+    rxMode.r32 = 0;
+    rxMode.bits.Reset = 1;
+    *(port->rx_mode) = rxMode;
+
+    rxMode.bits.Reset = 0;
+    rxMode.bits.Enable = 1;
+    *(port->rx_mode) = rxMode;
+}
+
+void Network_InitPort(NetworkPort_t *port)
+{
+    Network_InitFilters(port);
+
+    Network_resetTX(port);
+    Network_resetRX(port);
 
     // Ensure REG_RECEIVE_MAC_MODE has ENABLE set.
     // I recommend also setting APE_PROMISCUOUS_MODE and PROMISCUOUS_MODE,

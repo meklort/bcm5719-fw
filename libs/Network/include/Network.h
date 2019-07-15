@@ -98,13 +98,17 @@ extern NetworkPort_t gPort3;
 void Network_InitPort(NetworkPort_t *port);
 void Network_InitTxRx(void);
 
+void Network_resetTX(NetworkPort_t *port);
+void Network_resetRX(NetworkPort_t *port);
+
 uint32_t Network_TX_numBlocksNeeded(uint32_t frame_size);
 int32_t Network_TX_allocateBlock(NetworkPort_t *port);
+void Network_TX_releaseBlock(NetworkPort_t *port, int32_t block);
 
-void Network_TX_transmitBePacket(uint8_t *packet, uint32_t length, NetworkPort_t *port);
-void Network_TX_transmitLePacket(uint8_t *packet, uint32_t length, NetworkPort_t *port);
+bool Network_TX_transmitBePacket(uint8_t *packet, uint32_t length, NetworkPort_t *port);
+bool Network_TX_transmitLePacket(uint8_t *packet, uint32_t length, NetworkPort_t *port);
 
-void Network_TX_transmitPassthroughPacket(uint32_t length, NetworkPort_t *port);
+bool Network_TX_transmitPassthroughPacket(uint32_t length, NetworkPort_t *port);
 
 // void Network_TX_transmitPassthroughPacket(RegAPE_PERIBmcToNcRxStatus_t
 // rx_status);
