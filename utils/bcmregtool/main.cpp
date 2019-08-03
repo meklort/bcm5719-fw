@@ -406,6 +406,12 @@ int main(int argc, char const *argv[])
             .action("store_true")
             .help("Print network information / status.");
 
+    parser.add_option("--nvm")
+            .dest("nvm")
+            .set_default("0")
+            .action("store_true")
+            .help("Print NVM registers");
+
     parser.add_option("-apereset", "--apereset")
             .dest("apereset")
             .set_default("0")
@@ -781,6 +787,8 @@ int main(int argc, char const *argv[])
         APE.RxPoolRetire0.print();
         APE.RxPoolModeStatus0.print();
 
+        APE.Gpio.print();
+
         exit(0);
     }
 
@@ -789,6 +797,13 @@ int main(int argc, char const *argv[])
         DEVICE.print();
         APE.print();
         APE_PERI.print();
+
+        exit(0);
+    }
+
+    if(options.get("nvm"))
+    {
+        NVM.print();
 
         exit(0);
     }
@@ -876,13 +891,13 @@ int main(int argc, char const *argv[])
         printf("Reg 65f4: 0x%08X\n", (uint32_t)DEVICE._65f4.r32);
         printf("Reg 7c04: 0x%08X\n", (uint32_t)DEVICE._7c04.r32);
 
-        printf("LedControl:         0x%08X\n", (uint32_t)DEVICE.LedControl.r32);
+        DEVICE.LedControl.print();
         printf("GrcModeControl:     0x%08X\n", (uint32_t)DEVICE.GrcModeControl.r32);
-        DEVICE.GrcModeControl.bits.NVRAMWriteEnable = 1;
+        // DEVICE.GrcModeControl.bits.NVRAMWriteEnable = 1;
         DEVICE.GrcModeControl.print();
-        printf("GphyControlStatus:  0x%08X\n", (uint32_t)DEVICE.GphyControlStatus.r32);
-        printf("TopLevelMiscellaneousControl1: 0x%08X\n", (uint32_t)DEVICE.TopLevelMiscellaneousControl1.r32);
-        printf("MiscellaneousLocalControl:     0x%08X\n", (uint32_t)DEVICE.MiscellaneousLocalControl.r32);
+        DEVICE.GphyControlStatus.print();
+        DEVICE.TopLevelMiscellaneousControl1.print();
+        DEVICE.MiscellaneousLocalControl.print();
 
         DEVICE.RxRiscMode.print();
         DEVICE.RxRiscStatus.print();
