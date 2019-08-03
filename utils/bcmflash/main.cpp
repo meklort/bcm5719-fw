@@ -113,7 +113,7 @@ int main(int argc, char const *argv[])
             .dest("target")
             // .set_default("hardware")
             .help(  "hardware: Use the attached physical device.\n"
-                    "file: Use the file specified with -f, --file\n");
+                    "file: Use the file specified with -i, --file\n");
 
     parser.add_option("-f", "--function")
             .dest("function")
@@ -121,6 +121,12 @@ int main(int argc, char const *argv[])
             .set_default("1")
             .metavar("FUNCTION")
             .help("Read registers from the specified pci function.");
+
+    parser.add_option("--nvm-recovery")
+            .dest("recovery")
+            .action("store_true")
+            .set_default("0")
+            .help("Recover form an incorrect NVM autodetection. Only valid with --target=hardware");
 
     parser.add_option("-i", "--file")
             .dest("filename")
@@ -200,6 +206,30 @@ int main(int argc, char const *argv[])
 
         printf("ChipId: %x\n", (uint32_t)DEVICE.ChipId.r32);
 
+        if(options.get("recovery"))
+        {
+            NVRam_acquireLock();
+            NVRam_disable();
+            // Value pulled form the talos / blackbird. Update as needed.
+            uint32_t cfg1 = 0x14080f3;
+            uint32_t cfg2 = 0xd70081;
+            uint32_t cfg3 = 0x3000a00;
+            uint32_t sense = 0x30030;
+            printf("Updating NvmCfg1 from %x to %x.\n", (uint32_t)NVM.NvmCfg1.r32, cfg1);
+            printf("Updating NvmCfg2 from %x to %x.\n", (uint32_t)NVM.NvmCfg2.r32, cfg2);
+            printf("Updating NvmCfg3 from %x to %x.\n", (uint32_t)NVM.NvmCfg3.r32, cfg3);
+            printf("Updating AutoSenseStatus from %x to %x.\n", (uint32_t)NVM.AutoSenseStatus.r32, sense);
+            NVM.NvmCfg1.r32 = cfg1;
+            NVM.NvmCfg2.r32 = cfg2;
+            NVM.NvmCfg3.r32 = cfg3;
+            NVM.AutoSenseStatus.r32 = sense;
+
+            NVRam_releaseLock();
+
+            exit(0);
+        }
+
+
         if(options.get("unlock"))
         {
             NVM.SoftwareArbitration.bits.ReqClr0 = 1;
@@ -242,6 +272,7 @@ int main(int argc, char const *argv[])
 
         if("hardware" == options["target"])
         {
+            cout << "Restoring from " << options["restore"] << " to hardware." << endl;
             NVRam_acquireLock();
 
             NVRam_enable();
