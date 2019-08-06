@@ -100,7 +100,7 @@ int32_t __attribute__((noinline)) Network_TX_allocateBlock(NetworkPort_t *port)
     if (APE_TX_TO_NET_BUFFER_ALLOCATOR_STATE_ALLOCATION_OK != status.bits.State)
     {
         block = -1;
-        printf("Error: Failed to allocate TX block.\n");
+        printf("TX Alloc Error.\n");
     }
     else
     {
@@ -431,6 +431,7 @@ bool Network_TX_transmitPassthroughPacket(uint32_t length, NetworkPort_t *port)
         next_block = Network_TX_allocateBlock(port);
         if(next_block < 0)
         {
+            drainPassthroughBytes(length);
             return false;
         }
     }
