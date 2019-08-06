@@ -42,8 +42,8 @@
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef APE_H
-#define APE_H
+#ifndef LIBS_APE_H
+#define LIBS_APE_H
 
 void APE_aquireLock(void);
 
@@ -51,4 +51,4 @@ void APE_releaseLock(void);
 
 void APE_releaseAllLocks(void);
 
-#endif /* APE_H */
+#endif /* LIBS_APE_H */
