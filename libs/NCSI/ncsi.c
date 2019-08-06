@@ -55,6 +55,15 @@
 #include <Network.h>
 #include <types.h>
 
+#include <MII.h>
+
+#ifdef CXX_SIMULATOR
+#include <stdio.h>
+#else
+#include <printf.h>
+#endif
+#define debug(...)  printf(__VA_ARGS__)
+
 #define NUM_CHANNELS 1
 #define MAX_CHANNELS 4
 
@@ -93,10 +102,10 @@ NetworkFrame_t gResponseFrame =
         .PayloadLength = 4,
         .reserved_1 = 0,
 
-        .ResponseCode = 0,
+        .ResponseCode = 0,      /* Filled in by appropriate handler. */
         .reserved_4 = 0,
         .reserved_5 = 0,
-        .ReasonCode = 0,
+        .ReasonCode = 0,        /* Filled in by appropriate handler. */
         .Checksum_High = 0,
         .Checksum_Low = 0,
     },
@@ -290,15 +299,13 @@ typedef struct
 
 void unknownHandler(NetworkFrame_t *frame)
 {
-#if CXX_SIMULATOR
-    printf("Unhandled Packet Type: %x\n", frame->header.EtherType);
-    printf("ManagmentControllerID: %x\n", frame->controlPacket.ManagmentControllerID);
-    printf("HeaderRevision: %x\n", frame->controlPacket.HeaderRevision);
-    printf("Control Packet Type: %x\n", frame->controlPacket.ControlPacketType);
-    printf("Channel ID: %x\n", frame->controlPacket.ChannelID);
-    printf("Instance ID: %d\n", frame->controlPacket.InstanceID);
-    printf("Payload Length: %d\n", frame->controlPacket.PayloadLength);
-#endif
+    debug("Unhandled Packet Type: %x\n", frame->header.EtherType);
+    debug("ManagmentControllerID: %x\n", frame->controlPacket.ManagmentControllerID);
+    debug("HeaderRevision: %x\n", frame->controlPacket.HeaderRevision);
+    debug("Control Packet Type: %x\n", frame->controlPacket.ControlPacketType);
+    debug("Channel ID: %x\n", frame->controlPacket.ChannelID);
+    debug("Instance ID: %d\n", frame->controlPacket.InstanceID);
+    debug("Payload Length: %d\n", frame->controlPacket.PayloadLength);
 
     sendNCSIResponse(frame->controlPacket.InstanceID, frame->controlPacket.ChannelID, frame->controlPacket.ControlPacketType,
                      NCSI_RESPONSE_CODE_COMMAND_UNSUPPORTED, NCSI_REASON_CODE_UNKNOWN_UNSUPPORTED);
@@ -309,10 +316,7 @@ static void clearInitialStateHandler(NetworkFrame_t *frame)
     int ch = frame->controlPacket.ChannelID & CHANNEL_ID_MASK;
 
     gPackageState.channel[ch].shm->NcsiChannelInfo.bits.Ready = true;
-#if CXX_SIMULATOR
-    printf("Clear initial state: channel %x\n", ch);
-    printf("     Initialized: %d\n", (uint32_t)gPackageState.channel[ch].shm->NcsiChannelInfo.bits.Ready);
-#endif
+    debug("Clear initial state: channel %x\n", ch);
 
     sendNCSIResponse(frame->controlPacket.InstanceID, frame->controlPacket.ChannelID, frame->controlPacket.ControlPacketType,
                      NCSI_RESPONSE_CODE_COMMAND_COMPLETE, NCSI_REASON_CODE_NONE);
@@ -320,21 +324,15 @@ static void clearInitialStateHandler(NetworkFrame_t *frame)
 
 static void selectPackageHandler(NetworkFrame_t *frame)
 {
-#if CXX_SIMULATOR
-    printf("Package enabled. HardwareArbitartionDisabled: %d\n", frame->selectPackage.HardwareArbitartionDisabled);
-#endif
+    debug("Package enabled. Arb: %d\n", !frame->selectPackage.HardwareArbitartionDisabled);
     gPackageState.selected = true;
-    SHM.ApeSegLength.r32 |= 0x800;
     sendNCSIResponse(frame->controlPacket.InstanceID, frame->controlPacket.ChannelID, frame->controlPacket.ControlPacketType,
                      NCSI_RESPONSE_CODE_COMMAND_COMPLETE, NCSI_REASON_CODE_NONE);
 }
 
 static void deselectPackageHandler(NetworkFrame_t *frame)
 {
-#if CXX_SIMULATOR
-    printf("Package disabled.\n");
-#endif
-    SHM.ApeSegLength.r32 |= 0x80;
+    debug("Package disabled.\n");
     sendNCSIResponse(frame->controlPacket.InstanceID, frame->controlPacket.ChannelID, frame->controlPacket.ControlPacketType,
                      NCSI_RESPONSE_CODE_COMMAND_COMPLETE, NCSI_REASON_CODE_NONE);
     gPackageState.selected = false;
@@ -344,9 +342,7 @@ static void enableChannelHandler(NetworkFrame_t *frame)
 {
     int ch = frame->controlPacket.ChannelID & CHANNEL_ID_MASK;
 
-#if CXX_SIMULATOR
-    printf("Enable Channel: channel %x\n", ch);
-#endif
+    debug("Enable Channel: %x\n", ch);
     gPackageState.channel[ch].shm->NcsiChannelInfo.bits.Enabled = true;
 
     sendNCSIResponse(frame->controlPacket.InstanceID, frame->controlPacket.ChannelID, frame->controlPacket.ControlPacketType,
@@ -357,9 +353,7 @@ static void disableChannelHandler(NetworkFrame_t *frame)
 {
     int ch = frame->controlPacket.ChannelID & CHANNEL_ID_MASK;
 
-#if CXX_SIMULATOR
-    printf("Disable Channel: channel %x\n", ch);
-#endif
+    debug("Disable Channel: %x\n", ch);
     gPackageState.channel[ch].shm->NcsiChannelInfo.bits.Enabled = false;
 
     sendNCSIResponse(frame->controlPacket.InstanceID, frame->controlPacket.ChannelID, frame->controlPacket.ControlPacketType,
@@ -370,9 +364,7 @@ static void resetChannelHandler(NetworkFrame_t *frame)
 {
     int ch = frame->controlPacket.ChannelID & CHANNEL_ID_MASK;
 
-#if CXX_SIMULATOR
-    printf("Reset Channel: channel %x\n", ch);
-#endif
+    debug("Reset Channel: %x\n", ch);
     resetChannel(ch);
 
     sendNCSIResponse(frame->controlPacket.InstanceID, frame->controlPacket.ChannelID, frame->controlPacket.ControlPacketType,
@@ -383,9 +375,7 @@ static void enableChannelNetworkTXHandler(NetworkFrame_t *frame)
 {
     int ch = frame->controlPacket.ChannelID & CHANNEL_ID_MASK;
 
-#if CXX_SIMULATOR
-    printf("Enable Channel Network TX: channel %x\n", ch);
-#endif
+    debug("Enable Channel Network TX: channel %x\n", ch);
     gPackageState.channel[ch].shm->NcsiChannelInfo.bits.TXPassthrough = true;
 
     sendNCSIResponse(frame->controlPacket.InstanceID, frame->controlPacket.ChannelID, frame->controlPacket.ControlPacketType,
@@ -394,26 +384,21 @@ static void enableChannelNetworkTXHandler(NetworkFrame_t *frame)
 
 static void disableChannelNetworkTXHandler(NetworkFrame_t *frame)
 {
-    uint16_t response = NCSI_RESPONSE_CODE_COMMAND_COMPLETE;
-    uint16_t reason = NCSI_REASON_CODE_NONE;
     int ch = frame->controlPacket.ChannelID & CHANNEL_ID_MASK;
 
-#if CXX_SIMULATOR
-    printf("Disable Channel Network TX: channel %x\n", ch);
-#endif
+    debug("Disable Channel Network TX: %x\n", ch);
     gPackageState.channel[ch].shm->NcsiChannelInfo.bits.TXPassthrough = false;
 
-    sendNCSIResponse(frame->controlPacket.InstanceID, frame->controlPacket.ChannelID, frame->controlPacket.ControlPacketType, response, reason);
+    sendNCSIResponse(frame->controlPacket.InstanceID, frame->controlPacket.ChannelID, frame->controlPacket.ControlPacketType,
+                     NCSI_RESPONSE_CODE_COMMAND_COMPLETE, NCSI_REASON_CODE_NONE);
 }
 
 static void AENEnableHandler(NetworkFrame_t *frame)
 {
     int ch = frame->controlPacket.ChannelID & CHANNEL_ID_MASK;
     uint32_t AENControl = (frame->AENEnable.AENControl_Low | (frame->AENEnable.AENControl_High << 16));
-#if CXX_SIMULATOR
-    printf("AEN Enable: AEN_MC_ID %x\n", frame->AENEnable.AEN_MC_ID);
-    printf("AEN Enable: AENControl %x\n", AENControl);
-#endif
+    debug("AEN Enable: AEN_MC_ID %x\n", frame->AENEnable.AEN_MC_ID);
+    debug("AEN Enable: AENControl %x\n", AENControl);
 
     gPackageState.channel[ch].shm->NcsiChannelMcid.r32 = frame->AENEnable.AEN_MC_ID;
     gPackageState.channel[ch].shm->NcsiChannelMcid.r32 = AENControl;
@@ -426,10 +411,8 @@ static void setLinkHandler(NetworkFrame_t *frame)
 {
     uint32_t LinkSettings = (frame->setLink.LinkSettings_Low | (frame->setLink.LinkSettings_High << 16));
     uint32_t OEMLinkSettings = (frame->setLink.OEMLinkSettings_Low | (frame->setLink.OEMLinkSettings_High << 16));
-#if CXX_SIMULATOR
-    printf("Set Link: LinkSettings %x\n", LinkSettings);
-    printf("Set Link: OEMLinkSettings %x\n", OEMLinkSettings);
-#endif
+    debug("Set Link: LinkSettings %x\n", LinkSettings);
+    debug("Set Link: OEMLinkSettings %x\n", OEMLinkSettings);
 
     int ch = frame->controlPacket.ChannelID & CHANNEL_ID_MASK;
     channel_state_t *channel = &(gPackageState.channel[ch]);
@@ -482,9 +465,7 @@ static void getLinkStatusHandler(NetworkFrame_t *frame)
     uint32_t LinkStatus = linkStatus.r32;
     uint32_t OEMLinkStatus = 0;
     uint32_t OtherIndications = 0;
-#if CXX_SIMULATOR
-    printf("Get Link Status: channel %x\n", frame->controlPacket.ChannelID);
-#endif
+    debug("Get Link Status: channel %x\n", frame->controlPacket.ChannelID);
 
     sendNCSILinkStatusResponse(frame->controlPacket.InstanceID, frame->controlPacket.ChannelID, LinkStatus, OEMLinkStatus, OtherIndications);
 }
@@ -496,9 +477,7 @@ static void disableVLANHandler(NetworkFrame_t *frame)
     channel_state_t *channel = &(gPackageState.channel[ch]);
     channel->shm->NcsiChannelInfo.bits.VLAN = false;
 
-#if CXX_SIMULATOR
-    printf("Disable VLAN: channel %x\n", ch);
-#endif
+    debug("Disable VLAN: channel %x\n", ch);
 
     sendNCSIResponse(frame->controlPacket.InstanceID, frame->controlPacket.ChannelID, frame->controlPacket.ControlPacketType,
                      NCSI_RESPONSE_CODE_COMMAND_COMPLETE, NCSI_REASON_CODE_NONE);
@@ -528,12 +507,24 @@ static void enableVLANHandler(NetworkFrame_t *frame)
     channel_state_t *channel = &(gPackageState.channel[ch]);
     channel->shm->NcsiChannelInfo.bits.VLAN = false;
 
-#if CXX_SIMULATOR
-    printf("Enable VLAN: channel %x\n", ch);
-#endif
+    debug("Enable VLAN: channel %x\n", ch);
 
     sendNCSIResponse(frame->controlPacket.InstanceID, frame->controlPacket.ChannelID, frame->controlPacket.ControlPacketType,
                      NCSI_RESPONSE_CODE_COMMAND_COMPLETE, NCSI_REASON_CODE_NONE);
+}
+
+static void setVLANFilter(NetworkFrame_t *frame)
+{
+    // TODO
+    int ch = frame->controlPacket.ChannelID & CHANNEL_ID_MASK;
+    channel_state_t *channel = &(gPackageState.channel[ch]);
+    channel->shm->NcsiChannelInfo.bits.VLAN = false;
+
+    debug("Set VLAN Filter: channel %x\n", ch);
+
+    sendNCSIResponse(frame->controlPacket.InstanceID, frame->controlPacket.ChannelID, frame->controlPacket.ControlPacketType,
+                     NCSI_RESPONSE_CODE_COMMAND_COMPLETE, NCSI_REASON_CODE_NONE);
+
 }
 
 static void setMACAddressHandler(NetworkFrame_t *frame)
@@ -542,15 +533,11 @@ static void setMACAddressHandler(NetworkFrame_t *frame)
     channel_state_t *channel = &(gPackageState.channel[ch]);
     // channel->shm->NcsiChannelInfo.bits.Enabled = false;
 
-#if CXX_SIMULATOR
-    printf("Set MAC: channel %x\n", ch);
-    printf("MAC54: 0x%04X\n", frame->setMACAddr.MAC54);
-    printf("MAC32: 0x%04X\n", frame->setMACAddr.MAC32);
-    printf("MAC10: 0x%04X\n", frame->setMACAddr.MAC10);
-    printf("Enable: 0x%04X\n", frame->setMACAddr.Enable);
-    printf("AT: 0x%04X\n", frame->setMACAddr.AT);
-    printf("MACNumber: 0x%04X\n", frame->setMACAddr.MACNumber);
-#endif
+    debug("Set MAC: channel %x\n", ch);
+    debug("  MAC: 0x%04x%04x%04x\n", frame->setMACAddr.MAC54, frame->setMACAddr.MAC32, frame->setMACAddr.MAC10);
+    debug("  Enable: %d\n", frame->setMACAddr.Enable);
+    debug("  AT: %d\n", frame->setMACAddr.AT);
+    debug("  MACNumber: %d\n", frame->setMACAddr.MACNumber);
 
     // TODO: Handle AT.
 
@@ -567,10 +554,8 @@ static void enableBroadcastFilteringHandler(NetworkFrame_t *frame)
     // channel_state_t* channel = &(gPackageState.channel[ch]);
     // channel->shm->NcsiChannelInfo.bits.Enabled = false;
 
-#if CXX_SIMULATOR
     int ch = frame->controlPacket.ChannelID & CHANNEL_ID_MASK;
-    printf("Enable Broadcast Filtering: channel %x\n", ch);
-#endif
+    debug("Enable Broadcast Filtering: channel %x\n", ch);
 
     sendNCSIResponse(frame->controlPacket.InstanceID, frame->controlPacket.ChannelID, frame->controlPacket.ControlPacketType,
                      NCSI_RESPONSE_CODE_COMMAND_COMPLETE, NCSI_REASON_CODE_NONE);
@@ -594,7 +579,7 @@ ncsi_handler_t gNCSIHandlers[] = {
     [0x08] = { .payloadLength = 8, .ignoreInit = false, .packageCommand = false, .fn = AENEnableHandler }, // Conditional
     [0x09] = { .payloadLength = 8, .ignoreInit = false, .packageCommand = false, .fn = setLinkHandler },
     [0x0A] = { .payloadLength = 0, .ignoreInit = false, .packageCommand = false, .fn = getLinkStatusHandler },
-    [0x0B] = { .payloadLength = 8, .ignoreInit = false, .packageCommand = false, .fn = unknownHandler },
+    [0x0B] = { .payloadLength = 8, .ignoreInit = false, .packageCommand = false, .fn = setVLANFilter },
     [0x0C] = { .payloadLength = 4, .ignoreInit = false, .packageCommand = false, .fn = enableVLANHandler },
     [0x0D] = { .payloadLength = 0, .ignoreInit = false, .packageCommand = false, .fn = disableVLANHandler },
     [0x0E] = { .payloadLength = 8, .ignoreInit = false, .packageCommand = false, .fn = setMACAddressHandler },
@@ -616,6 +601,8 @@ void handleNCSIFrame(NetworkFrame_t *frame)
     uint8_t package = frame->controlPacket.ChannelID >> PACKAGE_ID_SHIFT;
     if(package != 0)
     {
+        debug("Ignoring command to package %d\n", package);
+
         // Ignore - not us.
         return;
     }
@@ -630,7 +617,7 @@ void handleNCSIFrame(NetworkFrame_t *frame)
         if (handler->payloadLength != payloadLength)
         {
 #if CXX_SIMULATOR
-            printf("[%x] Unexpected payload length: 0x%04x != 0x%04x\n", command, handler->payloadLength, payloadLength);
+            debug("[%x] Unexpected payload length: 0x%04x != 0x%04x\n", command, handler->payloadLength, payloadLength);
 #endif
             // Unexpected payload length
             sendNCSIResponse(frame->controlPacket.InstanceID, frame->controlPacket.ChannelID, frame->controlPacket.ControlPacketType,
@@ -640,6 +627,8 @@ void handleNCSIFrame(NetworkFrame_t *frame)
            (handler->ignoreInit &&  ch < gPackageState.numChannels))
         {
             // Package command. Must handle.
+            debug("[%x] packageCommand/ignore init channel: %d\n", command, ch);
+
             if (channel)
             {
                 ++channel->shm->NcsiChannelCtrlstatRx.r32;
@@ -653,9 +642,7 @@ void handleNCSIFrame(NetworkFrame_t *frame)
             if (ch >= gPackageState.numChannels)
             {
 
-#if CXX_SIMULATOR
-                printf("[%x] Invalid channel: %d\n", command, ch);
-#endif
+                debug("[%x] Invalid channel: %d\n", command, ch);
                 // Channel does not exist.
                 sendNCSIResponse(frame->controlPacket.InstanceID, frame->controlPacket.ChannelID, frame->controlPacket.ControlPacketType,
                                  NCSI_RESPONSE_CODE_COMMAND_FAILED, NCSI_REASON_CODE_INVALID_PARAM);
@@ -665,11 +652,7 @@ void handleNCSIFrame(NetworkFrame_t *frame)
                 gPackageState.selected = true;
                 if (false == gPackageState.channel[ch].shm->NcsiChannelInfo.bits.Ready)
                 {
-#if CXX_SIMULATOR
-                    printf("[%x] Channel not initialized: %d\n", command, ch);
-                    printf("     Ignore Init: %d\n", handler->ignoreInit);
-                    printf("     Initialized: %d\n", (uint32_t)gPackageState.channel[ch].shm->NcsiChannelInfo.bits.Ready);
-#endif
+                    debug("[%x] Channel not initialized: %d\n", command, ch);
                     // Initialization required for the channel
                     sendNCSIResponse(frame->controlPacket.InstanceID, frame->controlPacket.ChannelID, frame->controlPacket.ControlPacketType,
                                      NCSI_RESPONSE_CODE_COMMAND_FAILED, NCSI_REASON_CODE_INITIALIZATION_REQUIRED);
@@ -688,9 +671,8 @@ void handleNCSIFrame(NetworkFrame_t *frame)
     }
     else
     {
-#if CXX_SIMULATOR
-        printf("[%x] Unknown command\n", command);
-#endif
+        debug("[%x] Unknown command\n", command);
+
         // Unknown command.
         sendNCSIResponse(frame->controlPacket.InstanceID, frame->controlPacket.ChannelID, frame->controlPacket.ControlPacketType,
                          NCSI_RESPONSE_CODE_COMMAND_UNSUPPORTED, NCSI_REASON_CODE_UNKNOWN_UNSUPPORTED);
@@ -699,14 +681,18 @@ void handleNCSIFrame(NetworkFrame_t *frame)
 
 void resetChannel(int ch)
 {
-#if CXX_SIMULATOR
-    printf("Resetting channel: %d\n", ch);
-#endif
-
     channel_state_t *channel = &(gPackageState.channel[ch]);
 
     channel->shm->NcsiChannelInfo.r32 = 0;
     channel->shm->NcsiChannelCtrlstatRx.r32 = 0;
+    channel->shm->NcsiChannelInfo.bits.Ready = false;
+
+    APE_aquireLock();
+    uint8_t phy = DEVICE_MII_COMMUNICATION_PHY_ADDRESS_SGMII_0 + ch;
+    MII_writeRegister(phy, (mii_reg_t)0, 0x8000);
+
+
+    APE_releaseLock();
 }
 
 void NCSI_TxPacket(uint32_t *packet, uint32_t packet_len)
@@ -715,7 +701,7 @@ void NCSI_TxPacket(uint32_t *packet, uint32_t packet_len)
 
     RegAPE_PERIBmcToNcTxControl_t txControl;
     txControl.r32 = 0;
-    txControl.bits.LastByteCount = packet_len % sizeof(uint32_t);
+    txControl.bits.LastByteCount = packet_len; /* 2 bits - automatically rounded. */
 
     // Wait for enough free space.
     while (APE_PERI.BmcToNcTxStatus.bits.InFifo < packetWords)
@@ -726,7 +712,7 @@ void NCSI_TxPacket(uint32_t *packet, uint32_t packet_len)
     for (int i = 0; i < packetWords - 1; i++)
     {
 #if CXX_SIMULATOR
-        printf("Transmitting word %d: 0x%08x\n", i, packet[i]);
+        debug("Transmitting word %d: 0x%08x\n", i, packet[i]);
 #endif
         APE_PERI.BmcToNcTxBuffer.r32 = packet[i];
     }
@@ -734,7 +720,8 @@ void NCSI_TxPacket(uint32_t *packet, uint32_t packet_len)
     APE_PERI.BmcToNcTxControl = txControl;
 
 #if CXX_SIMULATOR
-    printf("Transmitting last word %d: 0x%08x\n", packetWords - 1, packet[packetWords - 1]);
+    debug("Last byte count: %d\n", (int)txControl.bits.LastByteCount);
+    debug("Transmitting last word %d: 0x%08x\n", packetWords - 1, packet[packetWords - 1]);
 #endif
     APE_PERI.BmcToNcTxBufferLast.r32 = packet[packetWords - 1];
 }
@@ -803,14 +790,21 @@ void sendNCSIResponse(uint8_t InstanceID, uint8_t channelID, uint16_t controlID,
     NCSI_TxPacket(gResponseFrame.words, packetSize);
 }
 
+#ifndef CXX_SIMULATOR
+
+#include "tg3.h"
+
+struct tg3 gTG3;
+#endif
+
 void NCSI_init(void)
 {
+    debug("Resetting channels...\n");
     for (int i = 0; i < ARRAY_ELEMENTS(gPackageState.channel); i++)
     {
-        gPackageState.channel[i].shm->NcsiChannelInfo.bits.Ready = false;
+        resetChannel(i);
     }
     SHM.SegSig.r32 = 0;// (1 << command);
-
 }
 
 void NCSI_handlePassthrough(void)
