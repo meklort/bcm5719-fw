@@ -1,3 +1,47 @@
+////////////////////////////////////////////////////////////////////////////////
+///
+/// @file       bcm5719_eeprom.h
+///
+/// @project    bcm5719
+///
+/// @brief      EEPROM definition for the BCM5719
+///
+////////////////////////////////////////////////////////////////////////////////
+///
+////////////////////////////////////////////////////////////////////////////////
+///
+/// @copyright Copyright (c) 2018-2019, Evan Lojewski
+/// @cond
+///
+/// All rights reserved.
+///
+/// Redistribution and use in source and binary forms, with or without
+/// modification, are permitted provided that the following conditions are met:
+/// 1. Redistributions of source code must retain the above copyright notice,
+/// this list of conditions and the following disclaimer.
+/// 2. Redistributions in binary form must reproduce the above copyright notice,
+/// this list of conditions and the following disclaimer in the documentation
+/// and/or other materials provided with the distribution.
+/// 3. Neither the name of the <organization> nor the
+/// names of its contributors may be used to endorse or promote products
+/// derived from this software without specific prior written permission.
+///
+////////////////////////////////////////////////////////////////////////////////
+///
+/// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+/// AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+/// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+/// ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+/// LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+/// CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+/// SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+/// INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+/// CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+/// ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+/// POSSIBILITY OF SUCH DAMAGE.
+/// @endcond
+////////////////////////////////////////////////////////////////////////////////
+
 #ifndef BCMNVRAM
 #define BCMNVRAM
 
@@ -7,6 +51,10 @@
 #else
 #define _Static_assert(...)
 #define ELEMENT_OFFSET(__struct__, __elememnt__)        
+#endif
+
+#if !defined(__LITTLE_ENDIAN__) && !defined(__BIG_ENDIAN__)
+#error Unknown endianness
 #endif
 
 #include <types.h>
@@ -115,41 +163,77 @@ typedef struct {
 
     uint8_t     mfrData[4];
 
+#ifdef __LITTLE_ENDIAN__
     uint16_t    func0PXEVLAN;
     uint16_t    func1PXEVLAN;
+#else
+    uint16_t    func1PXEVLAN;
+    uint16_t    func0PXEVLAN;
+#endif
 
+#ifdef __LITTLE_ENDIAN__
+    uint16_t    vendorID;           /*< PCI Vendor ID. */
+    uint16_t    deviceID;           /*< PCI Device ID. */
+#else
     uint16_t    deviceID;           /*< PCI Device ID. */
     uint16_t    vendorID;           /*< PCI Vendor ID. */
+#endif
 
+#ifdef __LITTLE_ENDIAN__
+    uint16_t    subsystemVendorID;  /*< PCI Subsystem Vendor ID. */
+    uint16_t    subsystemDeviceID;  /*< PCI Subsystem Device ID. */
+#else
     uint16_t    subsystemDeviceID;  /*< PCI Subsystem Device ID. */
     uint16_t    subsystemVendorID;  /*< PCI Subsystem Vendor ID. */
+#endif
 
+#ifdef __LITTLE_ENDIAN__
+    uint8_t     SMBusAddrBMC;
+    uint8_t     SMBusAddr;
+
+    uint16_t    cpuClock;           /*< 66MHz, Legacy */
+#else
     uint16_t    cpuClock;           /*< 66MHz, Legacy */
 
     uint8_t     SMBusAddr;
     uint8_t     SMBusAddrBMC;
+#endif
 
     uint32_t    macAddr0Backup[2];
     uint32_t    macAddr1Backup[2];
 
     union {
         struct {
+#ifdef __LITTLE_ENDIAN__
+            uint8_t     powerDissipatedD0;  /*< Power dissipated in the D0 state. Note: The data scale is hard coded at 0.1. */
+            uint8_t     powerDissipatedD1;  /*< Power dissipated in the D1 state. The NetXtreme II family does not support the D1 state. */
+            uint8_t     powerDissipatedD2;  /*< Power dissipated in the D2 state. The NetXtreme II family does not support the D2 state. */
+            uint8_t     powerDissipatedD3;  /*< Power dissipated in the D3 state. Note: The data scale is hard coded at 0.1. */
+#else
             uint8_t     powerDissipatedD3;  /*< Power dissipated in the D3 state. Note: The data scale is hard coded at 0.1. */
             uint8_t     powerDissipatedD2;  /*< Power dissipated in the D2 state. The NetXtreme II family does not support the D2 state. */
             uint8_t     powerDissipatedD1;  /*< Power dissipated in the D1 state. The NetXtreme II family does not support the D1 state. */
             uint8_t     powerDissipatedD0;  /*< Power dissipated in the D0 state. Note: The data scale is hard coded at 0.1. */
+#endif
         };
-        uint8_t     powerDissipated;
+        uint32_t     powerDissipated;
     };
 
     union {
         struct {
+#ifdef __LITTLE_ENDIAN__
+            uint8_t     powerConsumedD0;    /*< Power consumed in the D0 state. Note: The data scale is hard coded at 0.1. */
+            uint8_t     powerConsumedD1;    /*< Power consumed in the D1 state. The NetXtreme II family does not support the D1 state. */
+            uint8_t     powerConsumedD2;    /*< Power consumed in the D2 state. The NetXtreme II family does not support the D2 state. */
+            uint8_t     powerConsumedD3;    /*< Power consumed in the D3 state. Note: The data scale is hard coded at 0.1. */
+#else
             uint8_t     powerConsumedD3;    /*< Power consumed in the D3 state. Note: The data scale is hard coded at 0.1. */
             uint8_t     powerConsumedD2;    /*< Power consumed in the D2 state. The NetXtreme II family does not support the D2 state. */
             uint8_t     powerConsumedD1;    /*< Power consumed in the D1 state. The NetXtreme II family does not support the D1 state. */
             uint8_t     powerConsumedD0;    /*< Power consumed in the D0 state. Note: The data scale is hard coded at 0.1. */
+#endif
         };
-        uint8_t     powerConsumed;
+        uint32_t     powerConsumed;
     };
 
     uint32_t    func0CfgFeature;
@@ -164,18 +248,33 @@ typedef struct {
     uint32_t    powerBudget0;
     uint32_t    powerBudget1;
     uint32_t    serworksUse;
+#ifdef __LITTLE_ENDIAN__
     uint16_t    func0SERDESOverride;
     uint16_t    func1SERDESOverride;
+#else
+    uint16_t    func1SERDESOverride;
+    uint16_t    func0SERDESOverride;
+#endif
+#ifdef __LITTLE_ENDIAN__
+    uint16_t    macNVMSize;
+    uint16_t    tpmNVMSize;
+#else
     uint16_t    tpmNVMSize;
     uint16_t    macNVMSize;
+#endif
     uint32_t    powerBudget2;
     uint32_t    powerBudget3;
     uint32_t    mfrCRC;
 } NVRAMInfo_t;
 
 typedef struct {
+#ifdef __LITTLE_ENDIAN__
+    uint16_t    mfr2Len;                //   [202] 00 8C          -- Length of manufacturing section 2.
+    uint16_t    mfr2Unk;                //   [200] 00 00          -- Unknown, probably unused.
+#else
     uint16_t    mfr2Unk;                //   [200] 00 00          -- Unknown, probably unused.
     uint16_t    mfr2Len;                //   [202] 00 8C          -- Length of manufacturing section 2.
+#endif
     uint32_t    UNKNOWN0;               //   [204] 00 00 00 00    -- Could be reserved.
 
     uint32_t    macAddr2[2];            //1  [208] Upper 16 bits are zero/unused.
@@ -188,14 +287,34 @@ typedef struct {
     uint32_t    UNKNOWN5;               //   [224] 0
     uint32_t    UNKNOWN6;               //   [228] 0
 
-    uint16_t    pciSubsystemF1GPHY;     //1  [22C] 19 81 ] PCI Subsystem.
-    uint16_t    pciSubsystemF0GPHY;     //1  [22E] 19 81 ] These are selected based on the
-    uint16_t    pciSubsystemF2GPHY;     //1  [230] 19 81 ] function number and whether the NIC is a
-    uint16_t    pciSubsystemF3GPHY;     //1  [232] 19 81 ] GPHY (copper) or SERDES (SFP) NIC.
-    uint16_t    pciSubsystemF1SERDES;   //1  [234] 16 57 ] BCM5719(?). Probably not programmed correctly
-    uint16_t    pciSubsystemF0SERDES;   //1  [236] 16 57 ] since Talos II doesn't use SERDES.
-    uint16_t    pciSubsystemF3SERDES;   //1  [238] 16 57 ]
-    uint16_t    pciSubsystemF2SERDES;   //1  [23A] 16 57 ]
+#ifdef __LITTLE_ENDIAN__
+    uint16_t    pciSubsystemF0GPHY;
+    uint16_t    pciSubsystemF1GPHY;
+#else
+    uint16_t    pciSubsystemF1GPHY;
+    uint16_t    pciSubsystemF0GPHY;
+#endif
+#ifdef __LITTLE_ENDIAN__
+    uint16_t    pciSubsystemF2GPHY;
+    uint16_t    pciSubsystemF3GPHY;
+#else
+    uint16_t    pciSubsystemF3GPHY;
+    uint16_t    pciSubsystemF2GPHY;
+#endif
+#ifdef __LITTLE_ENDIAN__
+    uint16_t    pciSubsystemF0SERDES;
+    uint16_t    pciSubsystemF1SERDES;
+#else
+    uint16_t    pciSubsystemF1SERDES;
+    uint16_t    pciSubsystemF0SERDES;
+#endif
+#ifdef __LITTLE_ENDIAN__
+    uint16_t    pciSubsystemF2SERDES;
+    uint16_t    pciSubsystemF3SERDES;
+#else
+    uint16_t    pciSubsystemF3SERDES;
+    uint16_t    pciSubsystemF2SERDES;
+#endif
 
     uint32_t    UNKNOWN7;               //   [23C] 0
     uint32_t    UNKNOWN8;               //   [240] 0
