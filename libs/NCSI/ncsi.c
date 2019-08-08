@@ -430,13 +430,15 @@ static void getLinkStatusHandler(NetworkFrame_t *frame)
     RegMIIIeeeExtendedStatus_t ext_stat;
     ext_stat.r16 = 0;
 
-    uint8_t phy = DEVICE_MII_COMMUNICATION_PHY_ADDRESS_PHY_0; // MII_getPhy();
+    int ch = frame->controlPacket.ChannelID & CHANNEL_ID_MASK;
+    channel_state_t *channel = &(gPackageState.channel[ch]);
+    uint8_t phy = MII_getPhy(channel->port->device);
     APE_aquireLock();
-    uint16_t status_value = MII_readRegister(phy, (mii_reg_t)REG_MII_STATUS);
+    uint16_t status_value = MII_readRegister(channel->port->device, phy, (mii_reg_t)REG_MII_STATUS);
     stat.r16 = status_value;
     if (stat.bits.ExtendedStatusSupported)
     {
-        uint16_t ext_status_value = MII_readRegister(phy, (mii_reg_t)REG_MII_IEEE_EXTENDED_STATUS);
+        uint16_t ext_status_value = MII_readRegister(channel->port->device, phy, (mii_reg_t)REG_MII_IEEE_EXTENDED_STATUS);
         ext_stat.r16 = ext_status_value;
     }
 
@@ -458,8 +460,6 @@ static void getLinkStatusHandler(NetworkFrame_t *frame)
     linkStatus.bits.LinkSpeed10M_TFullDuplexCapable = stat.bits._10BASE_TFullDuplexCapable;
     linkStatus.bits.LinkSpeed10M_THalfDuplexCapable = stat.bits._10BASE_THalfDuplexCapable;
 
-    int ch = frame->controlPacket.ChannelID & CHANNEL_ID_MASK;
-    channel_state_t *channel = &(gPackageState.channel[ch]);
     channel->shm->NcsiChannelStatus = linkStatus;
 
     uint32_t LinkStatus = linkStatus.r32;
@@ -689,7 +689,7 @@ void resetChannel(int ch)
 
     APE_aquireLock();
     uint8_t phy = DEVICE_MII_COMMUNICATION_PHY_ADDRESS_SGMII_0 + ch;
-    MII_writeRegister(phy, (mii_reg_t)0, 0x8000);
+    MII_writeRegister(channel->port->device, phy, (mii_reg_t)0, 0x8000);
 
 
     APE_releaseLock();

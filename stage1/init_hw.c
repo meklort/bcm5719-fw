@@ -46,12 +46,20 @@
 
 #include <MII.h>
 #include <APE.h>
+#if CXX_SIMULATOR
+#include <APE_DEVICE.h>
+#else
 #include <bcm5719_DEVICE.h>
+#endif
 #include <bcm5719_GEN.h>
 #include <bcm5719_RXMBUF.h>
 #include <bcm5719_TXMBUF.h>
 #include <bcm5719_SDBCACHE.h>
 #include <types.h>
+
+#if CXX_SIMULATOR
+#define volatile
+#endif
 
 void *memset(void *s, int c, size_t n)
 {
@@ -75,17 +83,17 @@ static inline bool is_nic(void)
     return (1 == DEVICE.Status.bits.VMAINPowerStatus);
 }
 
-void init_mii_function0(void)
+void init_mii_function0(volatile DEVICE_t* device)
 {
     if(0 == DEVICE.Status.bits.FunctionNumber)
     {
         reportStatus(STATUS_INIT_HW, 0xf1);
 
         // MIIPORT 0 (0x8010):0x1A |= 0x4000
-        MII_selectBlock(0, 0x8010);
-        uint16_t r1Ah_value = MII_readRegister(0, (mii_reg_t)0x1A);
+        MII_selectBlock(device, 0, 0x8010);
+        uint16_t r1Ah_value = MII_readRegister(device, 0, (mii_reg_t)0x1A);
         r1Ah_value |= 0x4000;
-        MII_writeRegister(0, (mii_reg_t)0x1A, r1Ah_value);
+        MII_writeRegister(device, 0, (mii_reg_t)0x1A, r1Ah_value);
 
         reportStatus(STATUS_INIT_HW, 0xf2);
 
@@ -93,16 +101,16 @@ void init_mii_function0(void)
         // reading 0x1F and confirming it reads 0x8610
         do
         {
-            MII_selectBlock(0, 0x8610);
-        } while (0x8610 != MII_getBlock(0));
+            MII_selectBlock(device, 0, 0x8610);
+        } while (0x8610 != MII_getBlock(device, 0));
 
         reportStatus(STATUS_INIT_HW, 0xf3);
 
         // MIIPORT 0 (0x8610):0x15, set bits 0:1 to 2.
-        uint16_t r15h_value = MII_readRegister(0, (mii_reg_t)0x15);
+        uint16_t r15h_value = MII_readRegister(device, 0, (mii_reg_t)0x15);
         r15h_value &= ~0x3;
         r15h_value |= 0x2;
-        MII_writeRegister(0, (mii_reg_t)0x15, r15h_value);
+        MII_writeRegister(device, 0, (mii_reg_t)0x15, r15h_value);
 
         reportStatus(STATUS_INIT_HW, 0xf4);
 
@@ -112,33 +120,33 @@ void init_mii_function0(void)
         // these unknown MII registers.)
         do
         {
-            r15h_value = MII_readRegister(0, (mii_reg_t)0x15);
+            r15h_value = MII_readRegister(device, 0, (mii_reg_t)0x15);
         } while (2 != (r15h_value & 0x3));
 
         reportStatus(STATUS_INIT_HW, 0xf5);
 
         // (0x8010):0x1A, mask 0x4000.
-        MII_selectBlock(0, 0x8010);
+        MII_selectBlock(device, 0, 0x8010);
         r1Ah_value &= ~0x4000;
-        MII_writeRegister(0, (mii_reg_t)0x1A, r1Ah_value);
+        MII_writeRegister(device, 0, (mii_reg_t)0x1A, r1Ah_value);
 
         reportStatus(STATUS_INIT_HW, 0xf6);
 
-        MII_selectBlock(0, 0);
+        MII_selectBlock(device, 0, 0);
 
         reportStatus(STATUS_INIT_HW, 0xf7);
     }
 }
 
-void init_mii(void)
+void init_mii(volatile DEVICE_t* device)
 {
     //     MII init for all functions (MIIPORT determined by function/PHY type):
     // Set MII_REG_CONTROL to AUTO_NEGOTIATION_ENABLE.
-    uint8_t phy = MII_getPhy();
+    uint8_t phy = MII_getPhy(device);
     RegMIIControl_t control;
-    control.r16 = MII_readRegister(phy, (mii_reg_t)REG_MII_CONTROL);
+    control.r16 = MII_readRegister(device, phy, (mii_reg_t)REG_MII_CONTROL);
     control.bits.AutoNegotiationEnable = 1;
-    MII_writeRegister(phy, (mii_reg_t)REG_MII_CONTROL, control.r16);
+    MII_writeRegister(device, phy, (mii_reg_t)REG_MII_CONTROL, control.r16);
 }
 
 void __attribute__((noinline)) zero_bss(void)
@@ -274,9 +282,9 @@ void init_power(NVRAMContents_t *nvram)
     DEVICE.PciPowerBudget7.r32 = translate_power_budget(pb_raw7);
 }
 
-uint16_t nvm_get_subsystem_device(NVRAMContents_t* nvram)
+uint16_t nvm_get_subsystem_device(volatile DEVICE_t *device, NVRAMContents_t* nvram)
 {
-    switch(MII_getPhy())
+    switch(MII_getPhy(device))
     {
         /* SERDES */
         case DEVICE_MII_COMMUNICATION_PHY_ADDRESS_SGMII_0:
@@ -304,7 +312,7 @@ uint16_t nvm_get_subsystem_device(NVRAMContents_t* nvram)
     }
 }
 
-void init_pci(NVRAMContents_t* nvram)
+void init_pci(volatile DEVICE_t *device, NVRAMContents_t* nvram)
 {
     // PCI Device / Vendor ID.
     RegDEVICEPciVendorDeviceId_t vendor_device;
@@ -317,7 +325,7 @@ void init_pci(NVRAMContents_t* nvram)
     RegDEVICEPciSubsystemId_t subsystem;
     subsystem.r32 = 0;
     subsystem.bits.SubsystemVendorID = nvram->info.subsystemVendorID;
-    subsystem.bits.SubsystemID = nvm_get_subsystem_device(nvram);
+    subsystem.bits.SubsystemID = nvm_get_subsystem_device(device, nvram);
     DEVICE.PciSubsystemId = subsystem;
 
     // RegDEVICEPciClassCodeRevision_t partially from REG_CHIP_ID
@@ -365,7 +373,7 @@ void init_gen(NVRAMContents_t* nvram)
     GEN.GenCfg5.r32 = nvram->info2.cfg5;
 }
 
-void load_nvm_config(NVRAMContents_t *nvram)
+void load_nvm_config(volatile DEVICE_t* device, NVRAMContents_t *nvram)
 {
     // Load information from NVM, set various registers + mem
 
@@ -380,12 +388,12 @@ void load_nvm_config(NVRAMContents_t *nvram)
     init_power(nvram);
 
     // REG_PCI_SUBSYSTEM_ID, vendor, class, rev
-    init_pci(nvram);
+    init_pci(device, nvram);
 
     init_gen(nvram);
 }
 
-void init_hw(NVRAMContents_t *nvram)
+void init_hw(volatile DEVICE_t* device, NVRAMContents_t *nvram)
 {
     reportStatus(STATUS_INIT_HW, 0);
     // Misc regs init
@@ -473,11 +481,11 @@ void init_hw(NVRAMContents_t *nvram)
 
     // Perform MII init.
     APE_aquireLock();
-    init_mii_function0();
+    init_mii_function0(device);
 
     reportStatus(STATUS_INIT_HW, 0xfe);
 
-    init_mii();
+    init_mii(device);
     APE_releaseLock();
 
 

@@ -42,32 +42,40 @@
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
 #include <MII.h>
+#if __mips__
 #include <bcm5719_DEVICE.h>
+#else
+#include <APE_DEVICE.h>
+#endif
 
-static void __attribute__((noinline)) MII_wait(void)
+#ifdef CXX_SIMULATOR
+#define volatile
+#endif
+
+static void __attribute__((noinline)) MII_wait(volatile DEVICE_t* device)
 {
     // Wait for the status bit to be clear.
-    while (DEVICE.MiiCommunication.bits.Start_DIV_Busy)
+    while (device->MiiCommunication.bits.Start_DIV_Busy)
     {
         // Waiting...
     }
 }
 
-uint8_t MII_getPhy(void)
+uint8_t MII_getPhy(volatile DEVICE_t* device)
 {
-    if (DEVICE.SgmiiStatus.bits.MediaSelectionMode)
+    if (device->SgmiiStatus.bits.MediaSelectionMode)
     {
         // SERDES platform
-        return DEVICE.Status.bits.FunctionNumber + DEVICE_MII_COMMUNICATION_PHY_ADDRESS_SGMII_0;
+        return device->Status.bits.FunctionNumber + DEVICE_MII_COMMUNICATION_PHY_ADDRESS_SGMII_0;
     }
     else
     {
         // GPHY platform
-        return DEVICE.Status.bits.FunctionNumber + DEVICE_MII_COMMUNICATION_PHY_ADDRESS_PHY_0;
+        return device->Status.bits.FunctionNumber + DEVICE_MII_COMMUNICATION_PHY_ADDRESS_PHY_0;
     }
 }
 
-static uint16_t MII_readRegisterInternal(uint8_t phy, mii_reg_t reg)
+static uint16_t MII_readRegisterInternal(volatile DEVICE_t* device, uint8_t phy, mii_reg_t reg)
 {
     union
     {
@@ -84,18 +92,18 @@ static uint16_t MII_readRegisterInternal(uint8_t phy, mii_reg_t reg)
     regcontents.bits.RegisterAddress = caster.addr;
 
     // Ensure there are no active transactions
-    MII_wait();
+    MII_wait(device);
 
     // Start the transaction
-    DEVICE.MiiCommunication = regcontents;
+    device->MiiCommunication = regcontents;
 
     // Wait for transaction to complete.
-    MII_wait();
+    MII_wait(device);
 
-    return DEVICE.MiiCommunication.bits.TransactionData;
+    return device->MiiCommunication.bits.TransactionData;
 }
 
-static void MII_writeRegisterInternal(uint8_t phy, mii_reg_t reg, uint16_t data)
+static void MII_writeRegisterInternal(volatile DEVICE_t* device, uint8_t phy, mii_reg_t reg, uint16_t data)
 {
     RegDEVICEMiiCommunication_t regcontents;
     regcontents.r32 = 0;
@@ -106,16 +114,16 @@ static void MII_writeRegisterInternal(uint8_t phy, mii_reg_t reg, uint16_t data)
     regcontents.bits.TransactionData = data;
 
     // Ensure there are no active transactions
-    MII_wait();
+    MII_wait(device);
 
     // Start the transaction
-    DEVICE.MiiCommunication = regcontents;
+    device->MiiCommunication = regcontents;
 
     // Wait for transaction to complete (not strictly required for writes).
-    MII_wait();
+    MII_wait(device);
 }
 
-static uint16_t MII_readShadowRegister18(uint8_t phy, mii_reg_t reg)
+static uint16_t MII_readShadowRegister18(volatile DEVICE_t* device, uint8_t phy, mii_reg_t reg)
 {
     // Write register 18h, bits [2:0] = 111 This selects the Miscellaneous
     // Control register, shadow 7h. All reads must be performed through the
@@ -138,12 +146,12 @@ static uint16_t MII_readShadowRegister18(uint8_t phy, mii_reg_t reg)
     shadow_select.r16 = 0;
     shadow_select.bits.ShadowRegisterReadSelector = shadow_reg;
     shadow_select.bits.ShadowRegisterSelector = 7;
-    MII_writeRegisterInternal(phy, (mii_reg_t)0x18, shadow_select.r16);
+    MII_writeRegisterInternal(device, phy, (mii_reg_t)0x18, shadow_select.r16);
 
-    return MII_readRegisterInternal(phy, (mii_reg_t)0x18);
+    return MII_readRegisterInternal(device, phy, (mii_reg_t)0x18);
 }
 
-static uint16_t MII_readShadowRegister1C(uint8_t phy, mii_reg_t reg)
+static uint16_t MII_readShadowRegister1C(volatile DEVICE_t* device, uint8_t phy, mii_reg_t reg)
 {
     // --------------------------------------------
     // PHY 0x1C Shadow 0x1 register read Procedure
@@ -157,28 +165,28 @@ static uint16_t MII_readShadowRegister1C(uint8_t phy, mii_reg_t reg)
     RegMIICabletronLed_t shadow_select;
     shadow_select.r16 = 0;
     shadow_select.bits.ShadowRegisterSelector = shadow_reg;
-    MII_writeRegisterInternal(phy, (mii_reg_t)0x1C, shadow_select.r16);
+    MII_writeRegisterInternal(device, phy, (mii_reg_t)0x1C, shadow_select.r16);
 
-    return MII_readRegisterInternal(phy, (mii_reg_t)0x1C);
+    return MII_readRegisterInternal(device, phy, (mii_reg_t)0x1C);
 }
 
-uint16_t MII_readRegister(uint8_t phy, mii_reg_t reg)
+uint16_t MII_readRegister(volatile DEVICE_t* device, uint8_t phy, mii_reg_t reg)
 {
     if ((reg & 0xFF) == 0x1C)
     {
-        return MII_readShadowRegister1C(phy, reg);
+        return MII_readShadowRegister1C(device, phy, reg);
     }
     else if ((reg & 0xFF) == 0x18)
     {
-        return MII_readShadowRegister18(phy, reg);
+        return MII_readShadowRegister18(device, phy, reg);
     }
     else
     {
-        return MII_readRegisterInternal(phy, reg);
+        return MII_readRegisterInternal(device, phy, reg);
     }
 }
 
-static void MII_writeShadowRegister18(uint8_t phy, mii_reg_t reg, uint16_t data)
+static void MII_writeShadowRegister18(volatile DEVICE_t* device, uint8_t phy, mii_reg_t reg, uint16_t data)
 {
     // Set Bits [15:3] = Preferred write values Bits [15:3] contain the desired
     // bits to be written to. Set Bits [2:0] = yyy This enables shadow register
@@ -196,15 +204,15 @@ static void MII_writeShadowRegister18(uint8_t phy, mii_reg_t reg, uint16_t data)
     shadow_select.r16 = 0;
     shadow_select.bits.ShadowRegisterReadSelector = shadow_reg;
     shadow_select.bits.ShadowRegisterSelector = 7;
-    MII_writeRegisterInternal(phy, (mii_reg_t)REG_MII_AUXILIARY_CONTROL, shadow_select.r16);
+    MII_writeRegisterInternal(device, phy, (mii_reg_t)REG_MII_AUXILIARY_CONTROL, shadow_select.r16);
 
     RegMIIMiscellaneousControl_t write_data;
     write_data.r16 = data;
     write_data.bits.ShadowRegisterSelector = shadow_reg;
-    MII_writeRegisterInternal(phy, (mii_reg_t)REG_MII_AUXILIARY_CONTROL, write_data.r16);
+    MII_writeRegisterInternal(device, phy, (mii_reg_t)REG_MII_AUXILIARY_CONTROL, write_data.r16);
 }
 
-static void MII_writeShadowRegister1C(uint8_t phy, mii_reg_t reg, uint16_t data)
+static void MII_writeShadowRegister1C(volatile DEVICE_t* device, uint8_t phy, mii_reg_t reg, uint16_t data)
 {
     // --------------------------------------------
     // PHY 0x1C Shadow 0x2 register write Procedure
@@ -217,51 +225,51 @@ static void MII_writeShadowRegister1C(uint8_t phy, mii_reg_t reg, uint16_t data)
     RegMIICabletronLed_t shadow_select;
     shadow_select.r16 = 0;
     shadow_select.bits.ShadowRegisterSelector = shadow_reg;
-    MII_writeRegisterInternal(phy, (mii_reg_t)REG_MII_CABLETRON_LED, shadow_select.r16);
+    MII_writeRegisterInternal(device, phy, (mii_reg_t)REG_MII_CABLETRON_LED, shadow_select.r16);
 
     RegMIICabletronLed_t write_data;
     write_data.r16 = data;
     write_data.bits.ShadowRegisterSelector = shadow_reg;
     write_data.bits.WriteEnable = 1;
 
-    MII_writeRegisterInternal(phy, (mii_reg_t)REG_MII_CABLETRON_LED, write_data.r16);
+    MII_writeRegisterInternal(device, phy, (mii_reg_t)REG_MII_CABLETRON_LED, write_data.r16);
 }
 
-void MII_writeRegister(uint8_t phy, mii_reg_t reg, uint16_t data)
+void MII_writeRegister(volatile DEVICE_t* device, uint8_t phy, mii_reg_t reg, uint16_t data)
 {
     if ((reg & 0xFF) == 0x1C)
     {
-        MII_writeShadowRegister1C(phy, reg, data);
+        MII_writeShadowRegister1C(device, phy, reg, data);
     }
     else if ((reg & 0xFF) == 0x18)
     {
-        MII_writeShadowRegister18(phy, reg, data);
+        MII_writeShadowRegister18(device, phy, reg, data);
     }
     else
     {
-        MII_writeRegisterInternal(phy, reg, data);
+        MII_writeRegisterInternal(device, phy, reg, data);
     }
 }
 
-void MII_selectBlock(uint8_t phy, uint16_t block)
+void MII_selectBlock(volatile DEVICE_t* device, uint8_t phy, uint16_t block)
 {
     // Write register 0x1f with the block.
-    MII_writeRegister(phy, (mii_reg_t)REG_MII_BLOCK_SELECT, block);
+    MII_writeRegister(device, phy, (mii_reg_t)REG_MII_BLOCK_SELECT, block);
 }
 
-uint16_t MII_getBlock(uint8_t phy)
+uint16_t MII_getBlock(volatile DEVICE_t* device, uint8_t phy)
 {
     // Write register 0x1f with the block.
-    return MII_readRegister(phy, (mii_reg_t)REG_MII_BLOCK_SELECT);
+    return MII_readRegister(device, phy, (mii_reg_t)REG_MII_BLOCK_SELECT);
 }
 
-void MII_reset(uint8_t phy)
+void MII_reset(volatile DEVICE_t* device, uint8_t phy)
 {
     // Set MII_REG_CONTROL to RESET; wait until RESET bit clears.
-    MII_writeRegister(phy, (mii_reg_t)REG_MII_CONTROL, MII_CONTROL_RESET_MASK);
+    MII_writeRegister(device, phy, (mii_reg_t)REG_MII_CONTROL, MII_CONTROL_RESET_MASK);
 
     do
     {
         // Spin
-    } while ((MII_readRegister(phy, (mii_reg_t)REG_MII_CONTROL) & MII_CONTROL_RESET_MASK) == MII_CONTROL_RESET_MASK);
+    } while ((MII_readRegister(device, phy, (mii_reg_t)REG_MII_CONTROL) & MII_CONTROL_RESET_MASK) == MII_CONTROL_RESET_MASK);
 }

@@ -47,10 +47,16 @@
 
 #include <bcm5719_GEN.h>
 #include <bcm5719_eeprom.h>
+#if CXX_SIMULATOR
+#include <APE_DEVICE.h>
+#define volatile
+#else
+#include <bcm5719_DEVICE.h>
+#endif
 
 void early_init_hw(void);
-void load_nvm_config(NVRAMContents_t *nvram);
-void init_hw(NVRAMContents_t *nvram);
+void load_nvm_config(volatile DEVICE_t* device, NVRAMContents_t *nvram);
+void init_hw(volatile DEVICE_t* device, NVRAMContents_t *nvram);
 
 #define STATUS_MAIN         (0x8234700u)
 #define STATUS_EARLY_INIT   (0x8234800u)

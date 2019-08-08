@@ -58,7 +58,11 @@
 #include <NVRam.h>
 #include <bcm5719_APE.h>
 #include <bcm5719_BOOTCODE.h>
+#if CXX_SIMULATOR
+#include <APE_DEVICE.h>
+#else
 #include <bcm5719_DEVICE.h>
+#endif
 #include <bcm5719_GEN.h>
 #include <bcm5719_SHM.h>
 
@@ -87,10 +91,10 @@ int main()
     NVRam_releaseLock();
 
 #if !CXX_SIMULATOR
-    load_nvm_config(&gNVMContents);
+    load_nvm_config(&DEVICE, &gNVMContents);
 
     // Initialize the hardware.
-    init_hw(&gNVMContents);
+    init_hw(&DEVICE, &gNVMContents);
 #endif
 
     // Send configuration information to APE SHM.
