@@ -790,13 +790,6 @@ void sendNCSIResponse(uint8_t InstanceID, uint8_t channelID, uint16_t controlID,
     NCSI_TxPacket(gResponseFrame.words, packetSize);
 }
 
-#ifndef CXX_SIMULATOR
-
-#include "tg3.h"
-
-struct tg3 gTG3;
-#endif
-
 void NCSI_init(void)
 {
     debug("Resetting channels...\n");
