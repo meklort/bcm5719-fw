@@ -279,8 +279,6 @@ package_state_t gPackageState = {
 
 void sendNCSIResponse(uint8_t InstanceID, uint8_t channelID, uint16_t controlID, uint16_t response_code, uint16_t reasons_code);
 void sendNCSILinkStatusResponse(uint8_t InstanceID, uint8_t channelID, uint32_t LinkStatus, uint32_t OEMLinkStatus, uint32_t OtherIndications);
-void sendNCSICapabilitiesResponse(uint8_t InstanceID, uint8_t channelID, uint16_t controlID);
-void sendNCSIVersionResponse(uint8_t InstanceID, uint8_t channelID, uint16_t controlID);
 
 void resetChannel(int ch);
 
@@ -485,18 +483,38 @@ static void disableVLANHandler(NetworkFrame_t *frame)
 
 static void getCapabilities(NetworkFrame_t *frame)
 {
-    // TODO:
-    // int ch = frame->controlPacket.ChannelID & CHANNEL_ID_MASK;
+    int ch = frame->controlPacket.ChannelID & CHANNEL_ID_MASK;
     // channel_state_t *channel = &(gPackageState.channel[ch]);
-    sendNCSICapabilitiesResponse(frame->controlPacket.InstanceID, frame->controlPacket.ChannelID, frame->controlPacket.ControlPacketType);
+    uint32_t packetSize = MAX(sizeof(gCapabilitiesFrame.capabilities), ETHERNET_FRAME_MIN - 4);
+
+    gCapabilitiesFrame.capabilities.ChannelID = ch;
+    gCapabilitiesFrame.capabilities.ControlPacketType = frame->controlPacket.ControlPacketType | CONTROL_PACKET_TYPE_RESPONSE;
+    gCapabilitiesFrame.capabilities.InstanceID = frame->controlPacket.InstanceID;
+    gCapabilitiesFrame.capabilities.ResponseCode = NCSI_RESPONSE_CODE_COMMAND_COMPLETE;
+    gCapabilitiesFrame.capabilities.ReasonCode = NCSI_REASON_CODE_NONE;
+
+    NCSI_TxPacket(gCapabilitiesFrame.words, packetSize);
 }
 
 static void getVersionID(NetworkFrame_t *frame)
 {
-    // TODO:
-    // int ch = frame->controlPacket.ChannelID & CHANNEL_ID_MASK;
-    // channel_state_t *channel = &(gPackageState.channel[ch]);
-    sendNCSIVersionResponse(frame->controlPacket.InstanceID, frame->controlPacket.ChannelID, frame->controlPacket.ControlPacketType);
+    int ch = frame->controlPacket.ChannelID & CHANNEL_ID_MASK;
+    channel_state_t *channel = &(gPackageState.channel[ch]);
+    DEVICE_t* device = (DEVICE_t*)channel->port->device;
+    uint32_t packetSize = MAX(sizeof(gVersionFrame.version), ETHERNET_FRAME_MIN - 4);
+
+    gVersionFrame.version.ChannelID = ch;
+    gVersionFrame.version.ControlPacketType = frame->controlPacket.ControlPacketType | CONTROL_PACKET_TYPE_RESPONSE;
+    gVersionFrame.version.InstanceID = frame->controlPacket.InstanceID;
+    gVersionFrame.version.ResponseCode = NCSI_RESPONSE_CODE_COMMAND_COMPLETE;
+    gVersionFrame.version.ReasonCode = NCSI_REASON_CODE_NONE;
+
+    gVersionFrame.version.PCIVendor = device->PciVendorDeviceId.bits.VendorID;
+    gVersionFrame.version.PCIDevice = device->PciVendorDeviceId.bits.DeviceID;
+    gVersionFrame.version.PCISubsystemVendor = device->PciSubsystemId.bits.SubsystemVendorID;
+    gVersionFrame.version.PCISubsystemDevice = device->PciSubsystemId.bits.SubsystemID;
+
+    NCSI_TxPacket(gVersionFrame.words, packetSize);
 }
 
 
@@ -743,38 +761,6 @@ void sendNCSILinkStatusResponse(uint8_t InstanceID, uint8_t channelID, uint32_t 
 
     NCSI_TxPacket(gLinkStatusResponseFrame.words, packetSize);
 }
-
-void sendNCSICapabilitiesResponse(uint8_t InstanceID, uint8_t channelID, uint16_t controlID)
-{
-    uint32_t packetSize = MAX(sizeof(gCapabilitiesFrame.capabilities), ETHERNET_FRAME_MIN - 4);
-
-    gCapabilitiesFrame.capabilities.ChannelID = channelID;
-    gCapabilitiesFrame.capabilities.ControlPacketType = controlID | CONTROL_PACKET_TYPE_RESPONSE;
-    gCapabilitiesFrame.capabilities.InstanceID = InstanceID;
-    gCapabilitiesFrame.capabilities.ResponseCode = NCSI_RESPONSE_CODE_COMMAND_COMPLETE;
-    gCapabilitiesFrame.capabilities.ReasonCode = NCSI_REASON_CODE_NONE;
-
-    NCSI_TxPacket(gCapabilitiesFrame.words, packetSize);
-}
-
-void sendNCSIVersionResponse(uint8_t InstanceID, uint8_t channelID, uint16_t controlID)
-{
-    uint32_t packetSize = MAX(sizeof(gVersionFrame.version), ETHERNET_FRAME_MIN - 4);
-
-    gVersionFrame.version.ChannelID = channelID;
-    gVersionFrame.version.ControlPacketType = controlID | CONTROL_PACKET_TYPE_RESPONSE;
-    gVersionFrame.version.InstanceID = InstanceID;
-    gVersionFrame.version.ResponseCode = NCSI_RESPONSE_CODE_COMMAND_COMPLETE;
-    gVersionFrame.version.ReasonCode = NCSI_REASON_CODE_NONE;
-
-    gVersionFrame.version.PCIVendor = DEVICE.PciVendorDeviceId.bits.VendorID;
-    gVersionFrame.version.PCIDevice = DEVICE.PciVendorDeviceId.bits.DeviceID;
-    gVersionFrame.version.PCISubsystemVendor = DEVICE.PciSubsystemId.bits.SubsystemVendorID;
-    gVersionFrame.version.PCISubsystemDevice = DEVICE.PciSubsystemId.bits.SubsystemID;
-
-    NCSI_TxPacket(gVersionFrame.words, packetSize);
-}
-
 
 void sendNCSIResponse(uint8_t InstanceID, uint8_t channelID, uint16_t controlID, uint16_t response_code, uint16_t reasons_code)
 {
