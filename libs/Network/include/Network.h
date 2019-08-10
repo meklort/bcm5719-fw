@@ -51,6 +51,7 @@
 #include <APE_FILTERS0.h>
 #include <APE_RX_PORT0.h>
 #include <APE_TX_PORT0.h>
+#include <APE_SHM_CHANNEL0.h>
 #include <types.h>
 
 #ifdef CXX_SIMULATOR
@@ -76,6 +77,7 @@ typedef struct
     /* Port Registers */
     VOLATILE DEVICE_t *device;
     VOLATILE FILTERS_t *filters;
+    VOLATILE SHM_CHANNEL_t* shm;
 } NetworkPort_t;
 
 typedef union

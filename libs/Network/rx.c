@@ -124,13 +124,14 @@ bool Network_RxLePatcket(uint32_t *buffer, uint32_t *bytes, NetworkPort_t *port)
         return false;
     }
 }
-
+#include <printf.h>
 bool Network_PassthroughRxPatcket(NetworkPort_t *port)
 {
     RegAPERxbufoffset_t rxbuf;
     rxbuf = *((RegAPERxbufoffset_t *)port->rx_offset);
     if ((int)rxbuf.bits.Valid)
     {
+        printf("***RX***\n");
 #if CXX_SIMULATOR
         rxbuf.print();
 #endif
