@@ -42,6 +42,19 @@
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
 
+def notify(status, description)
+{
+    githubNotify account: 'meklort',
+        context: JOB_NAME,
+        credentialsId: 'jenkins_status',
+        description: description,
+        gitApiUrl: '',
+        repo: 'bcm5719-fw',
+        sha: GIT_COMMIT,
+        status: status,
+        targetUrl: BUILD_URL
+}
+
 def build(nodeName)
 {
     node(nodeName)
@@ -82,6 +95,28 @@ def build(nodeName)
     }
 }
 
-
-build('master')
-build('debian')
+try
+{
+    notify('PENDING', 'Build Pending ')
+    parallel(
+        "fedora": { build('master') },
+        "debian": { build('debian') },
+    )
+}
+catch(e)
+{
+    currentBuild.result = 'FAILURE'
+    throw e
+}
+finally
+{
+    def currentResult = currentBuild.result ?: 'SUCCESS'
+    if(currentResult == 'SUCCESS')
+    {
+        notify('SUCCESS', 'Build Passed ')
+    }
+    else
+    {
+        notify('FAILURE', 'Build Failed ')
+    }
+}
