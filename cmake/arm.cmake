@@ -42,7 +42,10 @@
 ### @endcond
 ################################################################################
 
-SET(ARM_COMPILE_OPTIONS -nostdlib -nodefaultlibs -fomit-frame-pointer -target thumbv7-none-eabi -mcpu=cortex-m3 -mfloat-abi=soft -fno-builtin)
+SET(ARM_COMPILE_OPTIONS -nostdlib -nodefaultlibs
+    $<$<NOT:$<COMPILE_LANGUAGE:ASM>>:-fomit-frame-pointer>  # Don't include for ASM sources
+    $<$<NOT:$<COMPILE_LANGUAGE:ASM>>:-fno-builtin>          # Don't include for ASM sources
+    -target thumbv7-none-eabi -mcpu=cortex-m3 -mfloat-abi=soft)
 SET(ARM_LINK_OPTIONS --gc-sections)
 # SET(CMAKE_EXE_LINKER_FLAGS -static)
 
