@@ -1,10 +1,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @file       ape_purchar.c
+/// @file       EM100.h
 ///
 /// @project
 ///
-/// @brief      APE printf support Routines
+/// @brief      EM100 Debug Routines
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
@@ -41,30 +41,17 @@
 /// POSSIBILITY OF SUCH DAMAGE.
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
+#ifndef EM100_H
+#define EM100_H
 
-#include <printf.h>
-#include <EM100.h>
-#include <APE_DEBUG.h>
-#include <APE_SHM.h>
+#include <types.h>
 
-void _putchar(char character)
-{
-    uint32_t write_pointer = DEBUG.WritePointer.r32;
-    uint32_t word_pointer = write_pointer / 4;
-    uint32_t byte_index = write_pointer % 4;
-    uint32_t byte_mask = 0xFF << (byte_index * 8);
+/**
+ * Print a character out the SPI bus using the EM100 hyperterminal protocl
+ *
+ * This routine caches all characters untill a newline is found or the
+ * buffer is full.
+ */
+void NVRam_EM100_putchar(char c);
 
-    uint32_t new_word = DEBUG.Buffer[word_pointer].r32 & ~byte_mask;
-    new_word |= character << (byte_index * 8);
-    DEBUG.Buffer[word_pointer].r32 = new_word;
-    write_pointer++;
-
-    if(write_pointer >= sizeof(DEBUG.Buffer))
-    {
-        write_pointer = 0;
-    }
-
-    DEBUG.WritePointer.r32 = write_pointer;
-
-    NVRam_EM100_putchar(character);
-}
+#endif /* EM100_H */

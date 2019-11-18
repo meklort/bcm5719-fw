@@ -46,8 +46,10 @@ project(NVRam)
 
 SET(SOURCES
     nvm.c
+    EM100.c
     crc.c
     include/NVRam.h
+    include/EM100.h
 )
 
 # Host Simulation library

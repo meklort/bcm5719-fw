@@ -60,7 +60,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC .)
 
 # ARM Library
 arm_add_library(${PROJECT_NAME}-arm STATIC ${SOURCES} ape_putchar.c)
-target_link_libraries(${PROJECT_NAME}-arm PRIVATE Network-arm MII-arm APE-arm)
+target_link_libraries(${PROJECT_NAME}-arm PRIVATE Network-arm MII-arm APE-arm NVRam-arm)
 target_include_directories(${PROJECT_NAME}-arm PUBLIC ../../include)
 target_include_directories(${PROJECT_NAME}-arm PUBLIC .)
 
