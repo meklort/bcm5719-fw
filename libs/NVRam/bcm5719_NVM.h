@@ -82,6 +82,10 @@ typedef uint32_t BCM5719_NVM_H_uint32_t;
 #define REG_NVM_SIZE (sizeof(NVM_t))
 
 #define REG_NVM_COMMAND ((volatile BCM5719_NVM_H_uint32_t*)0xc0007000) /*  */
+#define     NVM_COMMAND_RESET_SHIFT 1u
+#define     NVM_COMMAND_RESET_MASK  0x2u
+#define GET_NVM_COMMAND_RESET(__reg__)  (((__reg__) & 0x2) >> 1u)
+#define SET_NVM_COMMAND_RESET(__val__)  (((__val__) << 1u) & 0x2u)
 #define     NVM_COMMAND_DONE_SHIFT 3u
 #define     NVM_COMMAND_DONE_MASK  0x8u
 #define GET_NVM_COMMAND_DONE(__reg__)  (((__reg__) & 0x8) >> 3u)
@@ -123,7 +127,11 @@ typedef register_container RegNVMCommand_t {
     BITFIELD_BEGIN(BCM5719_NVM_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_2_0, 0, 3)
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_0_0, 0, 1)
+        /** @brief When set, the entire NVM state machine is reset. This bit is self- clearing. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, Reset, 1, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_2_2, 2, 1)
         /** @brief Sequence completion bit that is asserted when the command requested by assertion of the doit bit has completed. */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, Done, 3, 1)
         /** @brief Command from software to start the defined command. The done bit must be clear before setting this bit. This bit is self clearing and will remain set while the command is active. */
@@ -166,7 +174,11 @@ typedef register_container RegNVMCommand_t {
         /** @brief Sequence completion bit that is asserted when the command requested by assertion of the doit bit has completed. */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, Done, 3, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_2_0, 0, 3)
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_2_2, 2, 1)
+        /** @brief When set, the entire NVM state machine is reset. This bit is self- clearing. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, Reset, 1, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_0_0, 0, 1)
 #else
 #error Unknown Endian
 #endif
@@ -182,6 +194,8 @@ typedef register_container RegNVMCommand_t {
     {
         /** @brief constructor for @ref NVM_t.Command. */
         r32.setName("Command");
+        bits.Reset.setBaseRegister(&r32);
+        bits.Reset.setName("Reset");
         bits.Done.setBaseRegister(&r32);
         bits.Done.setName("Done");
         bits.Doit.setBaseRegister(&r32);
@@ -208,10 +222,59 @@ typedef register_container RegNVMCommand_t {
 } RegNVMCommand_t;
 
 #define REG_NVM_WRITE ((volatile BCM5719_NVM_H_uint32_t*)0xc0007008) /* 32bits of write data are used when write commands are executed. */
+#define     NVM_WRITE_SCLK_OUTPUT_VALUE_SHIFT 2u
+#define     NVM_WRITE_SCLK_OUTPUT_VALUE_MASK  0x4u
+#define GET_NVM_WRITE_SCLK_OUTPUT_VALUE(__reg__)  (((__reg__) & 0x4) >> 2u)
+#define SET_NVM_WRITE_SCLK_OUTPUT_VALUE(__val__)  (((__val__) << 2u) & 0x4u)
+#define     NVM_WRITE_CSB_OUTPUT_VALUE_SHIFT 3u
+#define     NVM_WRITE_CSB_OUTPUT_VALUE_MASK  0x8u
+#define GET_NVM_WRITE_CSB_OUTPUT_VALUE(__reg__)  (((__reg__) & 0x8) >> 3u)
+#define SET_NVM_WRITE_CSB_OUTPUT_VALUE(__val__)  (((__val__) << 3u) & 0x8u)
+#define     NVM_WRITE_SI_OUTPUT_VALUE_SHIFT 4u
+#define     NVM_WRITE_SI_OUTPUT_VALUE_MASK  0x10u
+#define GET_NVM_WRITE_SI_OUTPUT_VALUE(__reg__)  (((__reg__) & 0x10) >> 4u)
+#define SET_NVM_WRITE_SI_OUTPUT_VALUE(__val__)  (((__val__) << 4u) & 0x10u)
+#define     NVM_WRITE_SO_OUTPUT_VALUE_SHIFT 5u
+#define     NVM_WRITE_SO_OUTPUT_VALUE_MASK  0x20u
+#define GET_NVM_WRITE_SO_OUTPUT_VALUE(__reg__)  (((__reg__) & 0x20) >> 5u)
+#define SET_NVM_WRITE_SO_OUTPUT_VALUE(__val__)  (((__val__) << 5u) & 0x20u)
+
 /** @brief Register definition for @ref NVM_t.Write. */
 typedef register_container RegNVMWrite_t {
     /** @brief 32bit direct register access. */
     BCM5719_NVM_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_NVM_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_1_0, 0, 2)
+        /** @brief When in bit-bang mode, this bit controls the SCLK output value. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, SCLKOutputValue, 2, 1)
+        /** @brief When in bit-bang mode, this bit controls the CSb output value. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, CSbOutputValue, 3, 1)
+        /** @brief When in bit-bang mode, this bit controls the SI output value. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, SIOutputValue, 4, 1)
+        /** @brief When in bit-bang mode, this bit controls the SO output value. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, SOOutputValue, 5, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_31_6, 6, 26)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_31_6, 6, 26)
+        /** @brief When in bit-bang mode, this bit controls the SO output value. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, SOOutputValue, 5, 1)
+        /** @brief When in bit-bang mode, this bit controls the SI output value. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, SIOutputValue, 4, 1)
+        /** @brief When in bit-bang mode, this bit controls the CSb output value. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, CSbOutputValue, 3, 1)
+        /** @brief When in bit-bang mode, this bit controls the SCLK output value. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, SCLKOutputValue, 2, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_1_0, 0, 2)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_NVM_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "Write"; }
@@ -223,6 +286,14 @@ typedef register_container RegNVMWrite_t {
     {
         /** @brief constructor for @ref NVM_t.Write. */
         r32.setName("Write");
+        bits.SCLKOutputValue.setBaseRegister(&r32);
+        bits.SCLKOutputValue.setName("SCLKOutputValue");
+        bits.CSbOutputValue.setBaseRegister(&r32);
+        bits.CSbOutputValue.setName("CSbOutputValue");
+        bits.SIOutputValue.setBaseRegister(&r32);
+        bits.SIOutputValue.setName("SIOutputValue");
+        bits.SOOutputValue.setBaseRegister(&r32);
+        bits.SOOutputValue.setName("SOOutputValue");
     }
     RegNVMWrite_t& operator=(const RegNVMWrite_t& other)
     {
@@ -233,10 +304,59 @@ typedef register_container RegNVMWrite_t {
 } RegNVMWrite_t;
 
 #define REG_NVM_ADDR ((volatile BCM5719_NVM_H_uint32_t*)0xc000700c) /* The 24 bit address for a read or write operation (must be 4 byte aligned). */
+#define     NVM_ADDR_SCLK_OUTPUT_DISABLE_SHIFT 2u
+#define     NVM_ADDR_SCLK_OUTPUT_DISABLE_MASK  0x4u
+#define GET_NVM_ADDR_SCLK_OUTPUT_DISABLE(__reg__)  (((__reg__) & 0x4) >> 2u)
+#define SET_NVM_ADDR_SCLK_OUTPUT_DISABLE(__val__)  (((__val__) << 2u) & 0x4u)
+#define     NVM_ADDR_CSB_OUTPUT_DISABLE_SHIFT 3u
+#define     NVM_ADDR_CSB_OUTPUT_DISABLE_MASK  0x8u
+#define GET_NVM_ADDR_CSB_OUTPUT_DISABLE(__reg__)  (((__reg__) & 0x8) >> 3u)
+#define SET_NVM_ADDR_CSB_OUTPUT_DISABLE(__val__)  (((__val__) << 3u) & 0x8u)
+#define     NVM_ADDR_SI_OUTPUT_DISABLE_SHIFT 4u
+#define     NVM_ADDR_SI_OUTPUT_DISABLE_MASK  0x10u
+#define GET_NVM_ADDR_SI_OUTPUT_DISABLE(__reg__)  (((__reg__) & 0x10) >> 4u)
+#define SET_NVM_ADDR_SI_OUTPUT_DISABLE(__val__)  (((__val__) << 4u) & 0x10u)
+#define     NVM_ADDR_SO_OUTPUT_DISABLE_SHIFT 5u
+#define     NVM_ADDR_SO_OUTPUT_DISABLE_MASK  0x20u
+#define GET_NVM_ADDR_SO_OUTPUT_DISABLE(__reg__)  (((__reg__) & 0x20) >> 5u)
+#define SET_NVM_ADDR_SO_OUTPUT_DISABLE(__val__)  (((__val__) << 5u) & 0x20u)
+
 /** @brief Register definition for @ref NVM_t.Addr. */
 typedef register_container RegNVMAddr_t {
     /** @brief 32bit direct register access. */
     BCM5719_NVM_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_NVM_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_1_0, 0, 2)
+        /** @brief When in bit-bang mode, this bit controls the SCLK output enable. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, SCLKOutputDisable, 2, 1)
+        /** @brief When in bit-bang mode, this bit controls the CSb output enable. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, CSbOutputDisable, 3, 1)
+        /** @brief When in bit-bang mode, this bit controls the SI output enable. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, SIOutputDisable, 4, 1)
+        /** @brief When in bit-bang mode, this bit controls the SO output enable. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, SOOutputDisable, 5, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_31_6, 6, 26)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_31_6, 6, 26)
+        /** @brief When in bit-bang mode, this bit controls the SO output enable. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, SOOutputDisable, 5, 1)
+        /** @brief When in bit-bang mode, this bit controls the SI output enable. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, SIOutputDisable, 4, 1)
+        /** @brief When in bit-bang mode, this bit controls the CSb output enable. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, CSbOutputDisable, 3, 1)
+        /** @brief When in bit-bang mode, this bit controls the SCLK output enable. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, SCLKOutputDisable, 2, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_1_0, 0, 2)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_NVM_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "Addr"; }
@@ -248,6 +368,14 @@ typedef register_container RegNVMAddr_t {
     {
         /** @brief constructor for @ref NVM_t.Addr. */
         r32.setName("Addr");
+        bits.SCLKOutputDisable.setBaseRegister(&r32);
+        bits.SCLKOutputDisable.setName("SCLKOutputDisable");
+        bits.CSbOutputDisable.setBaseRegister(&r32);
+        bits.CSbOutputDisable.setName("CSbOutputDisable");
+        bits.SIOutputDisable.setBaseRegister(&r32);
+        bits.SIOutputDisable.setName("SIOutputDisable");
+        bits.SOOutputDisable.setBaseRegister(&r32);
+        bits.SOOutputDisable.setName("SOOutputDisable");
     }
     RegNVMAddr_t& operator=(const RegNVMAddr_t& other)
     {
@@ -258,10 +386,59 @@ typedef register_container RegNVMAddr_t {
 } RegNVMAddr_t;
 
 #define REG_NVM_READ ((volatile BCM5719_NVM_H_uint32_t*)0xc0007010) /* 32bits of read data are used when read commands are executed. */
+#define     NVM_READ_SCLK_INPUT_VALUE_SHIFT 2u
+#define     NVM_READ_SCLK_INPUT_VALUE_MASK  0x4u
+#define GET_NVM_READ_SCLK_INPUT_VALUE(__reg__)  (((__reg__) & 0x4) >> 2u)
+#define SET_NVM_READ_SCLK_INPUT_VALUE(__val__)  (((__val__) << 2u) & 0x4u)
+#define     NVM_READ_CSB_INPUT_VALUE_SHIFT 3u
+#define     NVM_READ_CSB_INPUT_VALUE_MASK  0x8u
+#define GET_NVM_READ_CSB_INPUT_VALUE(__reg__)  (((__reg__) & 0x8) >> 3u)
+#define SET_NVM_READ_CSB_INPUT_VALUE(__val__)  (((__val__) << 3u) & 0x8u)
+#define     NVM_READ_SI_INPUT_VALUE_SHIFT 4u
+#define     NVM_READ_SI_INPUT_VALUE_MASK  0x10u
+#define GET_NVM_READ_SI_INPUT_VALUE(__reg__)  (((__reg__) & 0x10) >> 4u)
+#define SET_NVM_READ_SI_INPUT_VALUE(__val__)  (((__val__) << 4u) & 0x10u)
+#define     NVM_READ_SO_INPUT_VALUE_SHIFT 5u
+#define     NVM_READ_SO_INPUT_VALUE_MASK  0x20u
+#define GET_NVM_READ_SO_INPUT_VALUE(__reg__)  (((__reg__) & 0x20) >> 5u)
+#define SET_NVM_READ_SO_INPUT_VALUE(__val__)  (((__val__) << 5u) & 0x20u)
+
 /** @brief Register definition for @ref NVM_t.Read. */
 typedef register_container RegNVMRead_t {
     /** @brief 32bit direct register access. */
     BCM5719_NVM_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_NVM_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_1_0, 0, 2)
+        /** @brief When in bit-bang mode, this bit reads the current SCLK input value. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, SCLKInputValue, 2, 1)
+        /** @brief When in bit-bang mode, this bit reads the current CSb input value. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, CSbInputValue, 3, 1)
+        /** @brief When in bit-bang mode, this bit reads the current SI input value. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, SIInputValue, 4, 1)
+        /** @brief When in bit-bang mode, this bit reads the current SO input value. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, SOInputValue, 5, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_31_6, 6, 26)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_31_6, 6, 26)
+        /** @brief When in bit-bang mode, this bit reads the current SO input value. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, SOInputValue, 5, 1)
+        /** @brief When in bit-bang mode, this bit reads the current SI input value. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, SIInputValue, 4, 1)
+        /** @brief When in bit-bang mode, this bit reads the current CSb input value. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, CSbInputValue, 3, 1)
+        /** @brief When in bit-bang mode, this bit reads the current SCLK input value. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, SCLKInputValue, 2, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_1_0, 0, 2)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_NVM_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "Read"; }
@@ -273,6 +450,14 @@ typedef register_container RegNVMRead_t {
     {
         /** @brief constructor for @ref NVM_t.Read. */
         r32.setName("Read");
+        bits.SCLKInputValue.setBaseRegister(&r32);
+        bits.SCLKInputValue.setName("SCLKInputValue");
+        bits.CSbInputValue.setBaseRegister(&r32);
+        bits.CSbInputValue.setName("CSbInputValue");
+        bits.SIInputValue.setBaseRegister(&r32);
+        bits.SIInputValue.setName("SIInputValue");
+        bits.SOInputValue.setBaseRegister(&r32);
+        bits.SOInputValue.setName("SOInputValue");
     }
     RegNVMRead_t& operator=(const RegNVMRead_t& other)
     {
@@ -291,6 +476,18 @@ typedef register_container RegNVMRead_t {
 #define     NVM_NVM_CFG_1_BUFFER_MODE_MASK  0x2u
 #define GET_NVM_NVM_CFG_1_BUFFER_MODE(__reg__)  (((__reg__) & 0x2) >> 1u)
 #define SET_NVM_NVM_CFG_1_BUFFER_MODE(__val__)  (((__val__) << 1u) & 0x2u)
+#define     NVM_NVM_CFG_1_PASS_MODE_SHIFT 2u
+#define     NVM_NVM_CFG_1_PASS_MODE_MASK  0x4u
+#define GET_NVM_NVM_CFG_1_PASS_MODE(__reg__)  (((__reg__) & 0x4) >> 2u)
+#define SET_NVM_NVM_CFG_1_PASS_MODE(__val__)  (((__val__) << 2u) & 0x4u)
+#define     NVM_NVM_CFG_1_BITBANG_MODE_SHIFT 3u
+#define     NVM_NVM_CFG_1_BITBANG_MODE_MASK  0x8u
+#define GET_NVM_NVM_CFG_1_BITBANG_MODE(__reg__)  (((__reg__) & 0x8) >> 3u)
+#define SET_NVM_NVM_CFG_1_BITBANG_MODE(__val__)  (((__val__) << 3u) & 0x8u)
+#define     NVM_NVM_CFG_1_STATUS_BIT_SHIFT 4u
+#define     NVM_NVM_CFG_1_STATUS_BIT_MASK  0x70u
+#define GET_NVM_NVM_CFG_1_STATUS_BIT(__reg__)  (((__reg__) & 0x70) >> 4u)
+#define SET_NVM_NVM_CFG_1_STATUS_BIT(__val__)  (((__val__) << 4u) & 0x70u)
 #define     NVM_NVM_CFG_1_SPI_CLK_DIV_SHIFT 7u
 #define     NVM_NVM_CFG_1_SPI_CLK_DIV_MASK  0x780u
 #define GET_NVM_NVM_CFG_1_SPI_CLK_DIV(__reg__)  (((__reg__) & 0x780) >> 7u)
@@ -326,15 +523,19 @@ typedef register_container RegNVMNvmCfg1_t {
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, FlashMode, 0, 1)
         /** @brief Enable SSRAM Buffered Interface mode. */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, BufferMode, 1, 1)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_6_2, 2, 5)
+        /** @brief Enable pass-thorough mode to the byte level SPI and SEE state machines. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, PassMode, 2, 1)
+        /** @brief Enable bit-bang mode to control pins. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, BitbangMode, 3, 1)
+        /** @brief Bit Offset in status command response to interpret as the ready flag. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, StatusBit, 4, 3)
         /** @brief The equation to calculate the clock freq. for SCK is: CORE_CLK / ((SPI_CLK_DIV + 1) * 2) */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, SPICLKDIV, 7, 4)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_23_11, 11, 13)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, ProtectMode, 24, 1)
-        /** @brief  */
+        /** @brief Enables 1-Mbit devices as opposed to 512 Kbit. At CORE reset, this pin is set to the value of the SO pin. */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, FlashSize, 25, 1)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_27_26, 26, 2)
@@ -349,7 +550,7 @@ typedef register_container RegNVMNvmCfg1_t {
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, PageSize, 28, 3)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_27_26, 26, 2)
-        /** @brief  */
+        /** @brief Enables 1-Mbit devices as opposed to 512 Kbit. At CORE reset, this pin is set to the value of the SO pin. */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, FlashSize, 25, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, ProtectMode, 24, 1)
@@ -357,8 +558,12 @@ typedef register_container RegNVMNvmCfg1_t {
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_23_11, 11, 13)
         /** @brief The equation to calculate the clock freq. for SCK is: CORE_CLK / ((SPI_CLK_DIV + 1) * 2) */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, SPICLKDIV, 7, 4)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_6_2, 2, 5)
+        /** @brief Bit Offset in status command response to interpret as the ready flag. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, StatusBit, 4, 3)
+        /** @brief Enable bit-bang mode to control pins. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, BitbangMode, 3, 1)
+        /** @brief Enable pass-thorough mode to the byte level SPI and SEE state machines. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, PassMode, 2, 1)
         /** @brief Enable SSRAM Buffered Interface mode. */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, BufferMode, 1, 1)
         /** @brief Enable Flash Interface mode. */
@@ -382,6 +587,12 @@ typedef register_container RegNVMNvmCfg1_t {
         bits.FlashMode.setName("FlashMode");
         bits.BufferMode.setBaseRegister(&r32);
         bits.BufferMode.setName("BufferMode");
+        bits.PassMode.setBaseRegister(&r32);
+        bits.PassMode.setName("PassMode");
+        bits.BitbangMode.setBaseRegister(&r32);
+        bits.BitbangMode.setName("BitbangMode");
+        bits.StatusBit.setBaseRegister(&r32);
+        bits.StatusBit.setName("StatusBit");
         bits.SPICLKDIV.setBaseRegister(&r32);
         bits.SPICLKDIV.setName("SPICLKDIV");
         bits.ProtectMode.setBaseRegister(&r32);

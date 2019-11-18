@@ -30,6 +30,13 @@
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
                     <ipxact:field>
+                        <ipxact:name>Reset</ipxact:name>
+                        <ipxact:description>When set, the entire NVM state machine is reset. This bit is self- clearing.</ipxact:description>
+                        <ipxact:bitOffset>1</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
                         <ipxact:name>Done</ipxact:name>
                         <ipxact:description>Sequence completion bit that is asserted when the command requested by assertion of the doit bit has completed.</ipxact:description>
                         <ipxact:bitOffset>3</ipxact:bitOffset>
@@ -93,6 +100,34 @@
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>SCLK Output Value</ipxact:name>
+                        <ipxact:description>When in bit-bang mode, this bit controls the SCLK output value.</ipxact:description>
+                        <ipxact:bitOffset>2</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>CSb Output Value</ipxact:name>
+                        <ipxact:description>When in bit-bang mode, this bit controls the CSb output value.</ipxact:description>
+                        <ipxact:bitOffset>3</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>SI Output Value</ipxact:name>
+                        <ipxact:description>When in bit-bang mode, this bit controls the SI output value.</ipxact:description>
+                        <ipxact:bitOffset>4</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>SO Output Value</ipxact:name>
+                        <ipxact:description>When in bit-bang mode, this bit controls the SO output value.</ipxact:description>
+                        <ipxact:bitOffset>5</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>ADDR</ipxact:name>
@@ -101,6 +136,34 @@
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>SCLK Output Disable</ipxact:name>
+                        <ipxact:description>When in bit-bang mode, this bit controls the SCLK output enable.</ipxact:description>
+                        <ipxact:bitOffset>2</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>CSb Output Disable</ipxact:name>
+                        <ipxact:description>When in bit-bang mode, this bit controls the CSb output enable.</ipxact:description>
+                        <ipxact:bitOffset>3</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>SI Output Disable</ipxact:name>
+                        <ipxact:description>When in bit-bang mode, this bit controls the SI output enable.</ipxact:description>
+                        <ipxact:bitOffset>4</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>SO Output Disable</ipxact:name>
+                        <ipxact:description>When in bit-bang mode, this bit controls the SO output enable.</ipxact:description>
+                        <ipxact:bitOffset>5</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>READ</ipxact:name>
@@ -109,6 +172,34 @@
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>SCLK Input Value</ipxact:name>
+                        <ipxact:description>When in bit-bang mode, this bit reads the current SCLK input value.</ipxact:description>
+                        <ipxact:bitOffset>2</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>CSb Input Value</ipxact:name>
+                        <ipxact:description>When in bit-bang mode, this bit reads the current CSb input value.</ipxact:description>
+                        <ipxact:bitOffset>3</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>SI Input Value</ipxact:name>
+                        <ipxact:description>When in bit-bang mode, this bit reads the current SI input value.</ipxact:description>
+                        <ipxact:bitOffset>4</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>SO Input Value</ipxact:name>
+                        <ipxact:description>When in bit-bang mode, this bit reads the current SO input value.</ipxact:description>
+                        <ipxact:bitOffset>5</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>NVM_CFG_1</ipxact:name>
@@ -132,6 +223,27 @@
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
+                        <ipxact:name>Pass Mode</ipxact:name>
+                        <ipxact:description>Enable pass-thorough mode to the byte level SPI and SEE state machines.</ipxact:description>
+                        <ipxact:bitOffset>2</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Bitbang Mode</ipxact:name>
+                        <ipxact:description>Enable bit-bang mode to control pins.</ipxact:description>
+                        <ipxact:bitOffset>3</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Status Bit</ipxact:name>
+                        <ipxact:description>Bit Offset in status command response to interpret as the ready flag.</ipxact:description>
+                        <ipxact:bitOffset>4</ipxact:bitOffset>
+                        <ipxact:bitWidth>3</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
                         <ipxact:name>SPI CLK DIV</ipxact:name>
                         <ipxact:description>The equation to calculate the clock freq. for SCK is: CORE_CLK / ((SPI_CLK_DIV + 1) * 2)</ipxact:description>
                         <ipxact:bitOffset>7</ipxact:bitOffset>
@@ -147,7 +259,7 @@
                     </ipxact:field>
                     <ipxact:field>
                         <ipxact:name>Flash Size</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:description>Enables 1-Mbit devices as opposed to 512 Kbit. At CORE reset, this pin is set to the value of the SO pin.</ipxact:description>
                         <ipxact:bitOffset>25</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
