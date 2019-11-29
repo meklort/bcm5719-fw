@@ -65,7 +65,7 @@ function(arm_add_executable target)
 
     add_custom_command(
         TARGET ${target} POST_BUILD
-        COMMAND elf2ape -i ${target} -o ${target}.bin
+        COMMAND elf2ape -n ${target} -i ${target} -o ${target}.bin
         BYPRODUCTS ${target}.bin
         DEPENDS elf2ape)
 
