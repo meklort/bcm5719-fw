@@ -124,6 +124,14 @@ typedef register_container RegTX_PORTOut_t {
         r32.setName("Out");
         bits.all.setBaseRegister(&r32);
         bits.all.setName("all");
+        bits.all.addEnum("Control Word", 0x0);
+        bits.all.addEnum("Additional Payload Word", 0x2);
+        bits.all.addEnum("Frame Len Word", 0x3);
+        bits.all.addEnum("Num Blocks Word", 0x9);
+        bits.all.addEnum("First Payload Word", 0xc);
+        bits.all.addEnum("BLOCK_WORDS", 0x20);
+        bits.all.addEnum("BLOCK_BYTES", 0x80);
+
     }
     RegTX_PORTOut_t& operator=(const RegTX_PORTOut_t& other)
     {

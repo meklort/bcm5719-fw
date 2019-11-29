@@ -601,6 +601,13 @@ typedef register_container RegNVMNvmCfg1_t {
         bits.FlashSize.setName("FlashSize");
         bits.PageSize.setBaseRegister(&r32);
         bits.PageSize.setName("PageSize");
+        bits.PageSize.addEnum("256 bytes", 0x0);
+        bits.PageSize.addEnum("512 bytes", 0x1);
+        bits.PageSize.addEnum("1024 bytes", 0x2);
+        bits.PageSize.addEnum("2048 bytes", 0x3);
+        bits.PageSize.addEnum("4096 bytes", 0x4);
+        bits.PageSize.addEnum("264 bytes", 0x5);
+
     }
     RegNVMNvmCfg1_t& operator=(const RegNVMNvmCfg1_t& other)
     {
@@ -783,6 +790,22 @@ typedef register_container RegNVMNvmCfg3_t {
 #define     NVM_SOFTWARE_ARBITRATION_ARB_WON3_MASK  0x800u
 #define GET_NVM_SOFTWARE_ARBITRATION_ARB_WON3(__reg__)  (((__reg__) & 0x800) >> 11u)
 #define SET_NVM_SOFTWARE_ARBITRATION_ARB_WON3(__val__)  (((__val__) << 11u) & 0x800u)
+#define     NVM_SOFTWARE_ARBITRATION_REQ0_SHIFT 12u
+#define     NVM_SOFTWARE_ARBITRATION_REQ0_MASK  0x1000u
+#define GET_NVM_SOFTWARE_ARBITRATION_REQ0(__reg__)  (((__reg__) & 0x1000) >> 12u)
+#define SET_NVM_SOFTWARE_ARBITRATION_REQ0(__val__)  (((__val__) << 12u) & 0x1000u)
+#define     NVM_SOFTWARE_ARBITRATION_REQ1_SHIFT 13u
+#define     NVM_SOFTWARE_ARBITRATION_REQ1_MASK  0x2000u
+#define GET_NVM_SOFTWARE_ARBITRATION_REQ1(__reg__)  (((__reg__) & 0x2000) >> 13u)
+#define SET_NVM_SOFTWARE_ARBITRATION_REQ1(__val__)  (((__val__) << 13u) & 0x2000u)
+#define     NVM_SOFTWARE_ARBITRATION_REQ2_SHIFT 14u
+#define     NVM_SOFTWARE_ARBITRATION_REQ2_MASK  0x4000u
+#define GET_NVM_SOFTWARE_ARBITRATION_REQ2(__reg__)  (((__reg__) & 0x4000) >> 14u)
+#define SET_NVM_SOFTWARE_ARBITRATION_REQ2(__val__)  (((__val__) << 14u) & 0x4000u)
+#define     NVM_SOFTWARE_ARBITRATION_REQ3_SHIFT 15u
+#define     NVM_SOFTWARE_ARBITRATION_REQ3_MASK  0x8000u
+#define GET_NVM_SOFTWARE_ARBITRATION_REQ3(__reg__)  (((__reg__) & 0x8000) >> 15u)
+#define SET_NVM_SOFTWARE_ARBITRATION_REQ3(__val__)  (((__val__) << 15u) & 0x8000u)
 
 /** @brief Register definition for @ref NVM_t.SoftwareArbitration. */
 typedef register_container RegNVMSoftwareArbitration_t {
@@ -791,58 +814,74 @@ typedef register_container RegNVMSoftwareArbitration_t {
 
     BITFIELD_BEGIN(BCM5719_NVM_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
-        /** @brief  */
+        /** @brief Set Software Arbitration request Bit 0. This bit is set by writing a 1 to this bit position. */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, ReqSet0, 0, 1)
-        /** @brief  */
+        /** @brief Set Software Arbitration request Bit 1. This bit is set by writing a 1 to this bit position. */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, ReqSet1, 1, 1)
-        /** @brief  */
+        /** @brief Set Software Arbitration request Bit 2. This bit is set by writing a 1 to this bit position. */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, ReqSet2, 2, 1)
-        /** @brief  */
+        /** @brief Set Software Arbitration request Bit 3. This bit is set by writing a 1 to this bit position. */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, ReqSet3, 3, 1)
-        /** @brief  */
+        /** @brief Clear Software Arbitration request Bit 0. This bit is cleared by writing a 1 to this bit position. */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, ReqClr0, 4, 1)
-        /** @brief  */
+        /** @brief Clear Software Arbitration request Bit 1. This bit is cleared by writing a 1 to this bit position. */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, ReqClr1, 5, 1)
-        /** @brief  */
+        /** @brief Clear Software Arbitration request Bit 2. This bit is cleared by writing a 1 to this bit position. */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, ReqClr2, 6, 1)
-        /** @brief  */
+        /** @brief Clear Software Arbitration request Bit 3. This bit is cleared by writing a 1 to this bit position. */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, ReqClr3, 7, 1)
-        /** @brief  */
+        /** @brief When arbitration is won, this bit will be read as 1, when an operation is complete, then the Req Clr0 must be written to clear this bit. */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, ArbWon0, 8, 1)
-        /** @brief  */
+        /** @brief When arbitration is won, this bit will be read as 1, when an operation is complete, then the Req Clr1 must be written to clear this bit. */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, ArbWon1, 9, 1)
-        /** @brief  */
+        /** @brief When arbitration is won, this bit will be read as 1, when an operation is complete, then the Req Clr2 must be written to clear this bit. */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, ArbWon2, 10, 1)
-        /** @brief  */
+        /** @brief When arbitration is won, this bit will be read as 1, when an operation is complete, then the Req Clr3 must be written to clear this bit. */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, ArbWon3, 11, 1)
+        /** @brief This is the status of requester 0. When this bit is one, it means that Req Set0 has been set since Req Clr0. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, Req0, 12, 1)
+        /** @brief This is the status of requester 1. When this bit is one, it means that Req Set1 has been set since Req Clr1. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, Req1, 13, 1)
+        /** @brief This is the status of requester 2. When this bit is one, it means that Req Set2 has been set since Req Clr2. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, Req2, 14, 1)
+        /** @brief This is the status of requester 3. When this bit is one, it means that Req Set3 has been set since Req Clr3. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, Req3, 15, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_31_12, 12, 20)
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_31_16, 16, 16)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_31_12, 12, 20)
-        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, reserved_31_16, 16, 16)
+        /** @brief This is the status of requester 3. When this bit is one, it means that Req Set3 has been set since Req Clr3. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, Req3, 15, 1)
+        /** @brief This is the status of requester 2. When this bit is one, it means that Req Set2 has been set since Req Clr2. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, Req2, 14, 1)
+        /** @brief This is the status of requester 1. When this bit is one, it means that Req Set1 has been set since Req Clr1. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, Req1, 13, 1)
+        /** @brief This is the status of requester 0. When this bit is one, it means that Req Set0 has been set since Req Clr0. */
+        BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, Req0, 12, 1)
+        /** @brief When arbitration is won, this bit will be read as 1, when an operation is complete, then the Req Clr3 must be written to clear this bit. */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, ArbWon3, 11, 1)
-        /** @brief  */
+        /** @brief When arbitration is won, this bit will be read as 1, when an operation is complete, then the Req Clr2 must be written to clear this bit. */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, ArbWon2, 10, 1)
-        /** @brief  */
+        /** @brief When arbitration is won, this bit will be read as 1, when an operation is complete, then the Req Clr1 must be written to clear this bit. */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, ArbWon1, 9, 1)
-        /** @brief  */
+        /** @brief When arbitration is won, this bit will be read as 1, when an operation is complete, then the Req Clr0 must be written to clear this bit. */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, ArbWon0, 8, 1)
-        /** @brief  */
+        /** @brief Clear Software Arbitration request Bit 3. This bit is cleared by writing a 1 to this bit position. */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, ReqClr3, 7, 1)
-        /** @brief  */
+        /** @brief Clear Software Arbitration request Bit 2. This bit is cleared by writing a 1 to this bit position. */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, ReqClr2, 6, 1)
-        /** @brief  */
+        /** @brief Clear Software Arbitration request Bit 1. This bit is cleared by writing a 1 to this bit position. */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, ReqClr1, 5, 1)
-        /** @brief  */
+        /** @brief Clear Software Arbitration request Bit 0. This bit is cleared by writing a 1 to this bit position. */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, ReqClr0, 4, 1)
-        /** @brief  */
+        /** @brief Set Software Arbitration request Bit 3. This bit is set by writing a 1 to this bit position. */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, ReqSet3, 3, 1)
-        /** @brief  */
+        /** @brief Set Software Arbitration request Bit 2. This bit is set by writing a 1 to this bit position. */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, ReqSet2, 2, 1)
-        /** @brief  */
+        /** @brief Set Software Arbitration request Bit 1. This bit is set by writing a 1 to this bit position. */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, ReqSet1, 1, 1)
-        /** @brief  */
+        /** @brief Set Software Arbitration request Bit 0. This bit is set by writing a 1 to this bit position. */
         BITFIELD_MEMBER(BCM5719_NVM_H_uint32_t, ReqSet0, 0, 1)
 #else
 #error Unknown Endian
@@ -883,6 +922,14 @@ typedef register_container RegNVMSoftwareArbitration_t {
         bits.ArbWon2.setName("ArbWon2");
         bits.ArbWon3.setBaseRegister(&r32);
         bits.ArbWon3.setName("ArbWon3");
+        bits.Req0.setBaseRegister(&r32);
+        bits.Req0.setName("Req0");
+        bits.Req1.setBaseRegister(&r32);
+        bits.Req1.setName("Req1");
+        bits.Req2.setBaseRegister(&r32);
+        bits.Req2.setName("Req2");
+        bits.Req3.setBaseRegister(&r32);
+        bits.Req3.setName("Req3");
     }
     RegNVMSoftwareArbitration_t& operator=(const RegNVMSoftwareArbitration_t& other)
     {
@@ -1153,6 +1200,16 @@ typedef register_container RegNVMAutoSenseStatus_t {
         bits.AutoConfigState.setName("AutoConfigState");
         bits.AutoDetectedDeviceID.setBaseRegister(&r32);
         bits.AutoDetectedDeviceID.setName("AutoDetectedDeviceID");
+        bits.AutoDetectedDeviceID.addEnum("AT45DB041D", 0x0);
+        bits.AutoDetectedDeviceID.addEnum("AT45DB021D", 0x3);
+        bits.AutoDetectedDeviceID.addEnum("AT45DB011D", 0x4);
+        bits.AutoDetectedDeviceID.addEnum("STM25PE40", 0x8);
+        bits.AutoDetectedDeviceID.addEnum("STM25PE20", 0xa);
+        bits.AutoDetectedDeviceID.addEnum("STM25PE10", 0xb);
+        bits.AutoDetectedDeviceID.addEnum("STM45PE10", 0xc);
+        bits.AutoDetectedDeviceID.addEnum("STM45PE20", 0xd);
+        bits.AutoDetectedDeviceID.addEnum("STM45PE40", 0xe);
+
     }
     RegNVMAutoSenseStatus_t& operator=(const RegNVMAutoSenseStatus_t& other)
     {

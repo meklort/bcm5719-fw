@@ -420,12 +420,42 @@ typedef register_container RegAPEStatus_t {
         bits.LAN0Dstate.setName("LAN0Dstate");
         bits.BootMode.setBaseRegister(&r32);
         bits.BootMode.setName("BootMode");
+        bits.BootMode.addEnum("NVRAM", 0x0);
+        bits.BootMode.addEnum("Fast", 0x1);
+
         bits.LAN1Dstate.setBaseRegister(&r32);
         bits.LAN1Dstate.setName("LAN1Dstate");
         bits.BootStatusB.setBaseRegister(&r32);
         bits.BootStatusB.setName("BootStatusB");
+        bits.BootStatusB.addEnum("Prog 0", 0x0);
+        bits.BootStatusB.addEnum("Prog 1", 0x1);
+        bits.BootStatusB.addEnum("BPC Enter", 0x2);
+        bits.BootStatusB.addEnum("Decode", 0x3);
+        bits.BootStatusB.addEnum("Read NVRAM Header", 0x4);
+        bits.BootStatusB.addEnum("Read Code", 0x5);
+        bits.BootStatusB.addEnum("Jump", 0x6);
+        bits.BootStatusB.addEnum("Prog 7", 0x7);
+        bits.BootStatusB.addEnum("BPC Success", 0x8);
+
         bits.BootStatusA.setBaseRegister(&r32);
         bits.BootStatusA.setName("BootStatusA");
+        bits.BootStatusA.addEnum("None", 0x0);
+        bits.BootStatusA.addEnum("NMI Exception", 0x1);
+        bits.BootStatusA.addEnum("Fault Exception", 0x2);
+        bits.BootStatusA.addEnum("Memory Check", 0x3);
+        bits.BootStatusA.addEnum("Unknown 4", 0x4);
+        bits.BootStatusA.addEnum("Romloader Disabled", 0x5);
+        bits.BootStatusA.addEnum("Magic Number", 0x6);
+        bits.BootStatusA.addEnum("APE Init Code", 0x7);
+        bits.BootStatusA.addEnum("Header Checksum", 0x8);
+        bits.BootStatusA.addEnum("APE Header", 0x9);
+        bits.BootStatusA.addEnum("Image Checksum", 0xa);
+        bits.BootStatusA.addEnum("NVRAM Checksum", 0xb);
+        bits.BootStatusA.addEnum("Invalid Type", 0xc);
+        bits.BootStatusA.addEnum("ROM Loader Checksum", 0xd);
+        bits.BootStatusA.addEnum("Invalid Unzip Len", 0xe);
+        bits.BootStatusA.addEnum("Unknown F", 0xf);
+
     }
     RegAPEStatus_t& operator=(const RegAPEStatus_t& other)
     {
@@ -1043,6 +1073,11 @@ typedef register_container RegAPERxPoolRetire_t {
         bits.Retire.setName("Retire");
         bits.State.setBaseRegister(&r32);
         bits.State.setName("State");
+        bits.State.addEnum("Processing", 0x0);
+        bits.State.addEnum("Retired OK", 0x1);
+        bits.State.addEnum("Error: Full", 0x2);
+        bits.State.addEnum("Error: In Halt", 0x3);
+
         bits.Count.setBaseRegister(&r32);
         bits.Count.setName("Count");
     }
@@ -1233,10 +1268,17 @@ typedef register_container RegAPETxToNetBufferAllocator_t {
         r32.setName("TxToNetBufferAllocator0");
         bits.Index.setBaseRegister(&r32);
         bits.Index.setName("Index");
+        bits.Index.addEnum("Block Size", 0x80);
+
         bits.RequestAllocation.setBaseRegister(&r32);
         bits.RequestAllocation.setName("RequestAllocation");
         bits.State.setBaseRegister(&r32);
         bits.State.setName("State");
+        bits.State.addEnum("Processing", 0x0);
+        bits.State.addEnum("Allocation OK", 0x1);
+        bits.State.addEnum("Error: Empty", 0x2);
+        bits.State.addEnum("Error: In Halt", 0x3);
+
     }
     RegAPETxToNetBufferAllocator_t& operator=(const RegAPETxToNetBufferAllocator_t& other)
     {
@@ -1822,6 +1864,16 @@ typedef register_container RegAPECpuStatus_t {
         r32.setName("CpuStatus");
         bits.Status.setBaseRegister(&r32);
         bits.Status.setName("Status");
+        bits.Status.addEnum("Running", 0x0);
+        bits.Status.addEnum("Halted", 0x1);
+        bits.Status.addEnum("Locked Out", 0x2);
+        bits.Status.addEnum("Sleeping", 0x3);
+        bits.Status.addEnum("Deep Sleep", 0x4);
+        bits.Status.addEnum("Interrupt Pending", 0x8);
+        bits.Status.addEnum("Interrupt Entry", 0x9);
+        bits.Status.addEnum("Interrupt Exit", 0xa);
+        bits.Status.addEnum("Interrupt Return", 0xb);
+
         bits.ActiveInterrupt.setBaseRegister(&r32);
         bits.ActiveInterrupt.setName("ActiveInterrupt");
     }

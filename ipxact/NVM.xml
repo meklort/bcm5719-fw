@@ -351,85 +351,113 @@
                     <ipxact:volatile>true</ipxact:volatile>
                     <ipxact:field>
                         <ipxact:name>Req Set0</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:description>Set Software Arbitration request Bit 0. This bit is set by writing a 1 to this bit position.</ipxact:description>
                         <ipxact:bitOffset>0</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
                         <ipxact:name>Req Set1</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:description>Set Software Arbitration request Bit 1. This bit is set by writing a 1 to this bit position.</ipxact:description>
                         <ipxact:bitOffset>1</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
                         <ipxact:name>Req Set2</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:description>Set Software Arbitration request Bit 2. This bit is set by writing a 1 to this bit position.</ipxact:description>
                         <ipxact:bitOffset>2</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
                         <ipxact:name>Req Set3</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:description>Set Software Arbitration request Bit 3. This bit is set by writing a 1 to this bit position.</ipxact:description>
                         <ipxact:bitOffset>3</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
                         <ipxact:name>Req Clr0</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:description>Clear Software Arbitration request Bit 0. This bit is cleared by writing a 1 to this bit position.</ipxact:description>
                         <ipxact:bitOffset>4</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
                         <ipxact:name>Req Clr1</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:description>Clear Software Arbitration request Bit 1. This bit is cleared by writing a 1 to this bit position.</ipxact:description>
                         <ipxact:bitOffset>5</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
                         <ipxact:name>Req Clr2</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:description>Clear Software Arbitration request Bit 2. This bit is cleared by writing a 1 to this bit position.</ipxact:description>
                         <ipxact:bitOffset>6</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
                         <ipxact:name>Req Clr3</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:description>Clear Software Arbitration request Bit 3. This bit is cleared by writing a 1 to this bit position.</ipxact:description>
                         <ipxact:bitOffset>7</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
                         <ipxact:name>Arb Won0</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:description>When arbitration is won, this bit will be read as 1, when an operation is complete, then the Req Clr0 must be written to clear this bit.</ipxact:description>
                         <ipxact:bitOffset>8</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
                         <ipxact:name>Arb Won1</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:description>When arbitration is won, this bit will be read as 1, when an operation is complete, then the Req Clr1 must be written to clear this bit.</ipxact:description>
                         <ipxact:bitOffset>9</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
                         <ipxact:name>Arb Won2</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:description>When arbitration is won, this bit will be read as 1, when an operation is complete, then the Req Clr2 must be written to clear this bit.</ipxact:description>
                         <ipxact:bitOffset>10</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
                         <ipxact:name>Arb Won3</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:description>When arbitration is won, this bit will be read as 1, when an operation is complete, then the Req Clr3 must be written to clear this bit.</ipxact:description>
                         <ipxact:bitOffset>11</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Req0</ipxact:name>
+                        <ipxact:description>This is the status of requester 0. When this bit is one, it means that Req Set0 has been set since Req Clr0.</ipxact:description>
+                        <ipxact:bitOffset>12</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Req1</ipxact:name>
+                        <ipxact:description>This is the status of requester 1. When this bit is one, it means that Req Set1 has been set since Req Clr1.</ipxact:description>
+                        <ipxact:bitOffset>13</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Req2</ipxact:name>
+                        <ipxact:description>This is the status of requester 2. When this bit is one, it means that Req Set2 has been set since Req Clr2.</ipxact:description>
+                        <ipxact:bitOffset>14</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Req3</ipxact:name>
+                        <ipxact:description>This is the status of requester 3. When this bit is one, it means that Req Set3 has been set since Req Clr3.</ipxact:description>
+                        <ipxact:bitOffset>15</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>

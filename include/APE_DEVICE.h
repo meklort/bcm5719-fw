@@ -302,10 +302,20 @@ typedef register_container RegDEVICEMiscellaneousHostControl_t {
         bits.EnableTLPMinorErrorTolerance.setName("EnableTLPMinorErrorTolerance");
         bits.MetalRevID.setBaseRegister(&r32);
         bits.MetalRevID.setName("MetalRevID");
+        bits.MetalRevID.addEnum("0", 0x0);
+        bits.MetalRevID.addEnum("1", 0x1);
+        bits.MetalRevID.addEnum("2", 0x2);
+
         bits.AllLayerID.setBaseRegister(&r32);
         bits.AllLayerID.setName("AllLayerID");
+        bits.AllLayerID.addEnum("A", 0x0);
+        bits.AllLayerID.addEnum("B", 0x1);
+        bits.AllLayerID.addEnum("C", 0x2);
+
         bits.ProductID.setBaseRegister(&r32);
         bits.ProductID.setName("ProductID");
+        bits.ProductID.addEnum("New Product Mapping", 0xf);
+
     }
     RegDEVICEMiscellaneousHostControl_t& operator=(const RegDEVICEMiscellaneousHostControl_t& other)
     {
@@ -640,6 +650,9 @@ typedef register_container RegDEVICELinkStatusControl_t {
         r32.setName("LinkStatusControl");
         bits.NegotiatedLinkSpeed.setBaseRegister(&r32);
         bits.NegotiatedLinkSpeed.setName("NegotiatedLinkSpeed");
+        bits.NegotiatedLinkSpeed.addEnum("PCIe 1.0", 0x1);
+        bits.NegotiatedLinkSpeed.addEnum("PCIe 2.0", 0x2);
+
         bits.NegotiatedLinkWidth.setBaseRegister(&r32);
         bits.NegotiatedLinkWidth.setName("NegotiatedLinkWidth");
     }
@@ -953,6 +966,11 @@ typedef register_container RegDEVICEEmacMode_t {
         bits.HalfDuplex.setName("HalfDuplex");
         bits.PortMode.setBaseRegister(&r32);
         bits.PortMode.setName("PortMode");
+        bits.PortMode.addEnum("None", 0x0);
+        bits.PortMode.addEnum("10/100", 0x1);
+        bits.PortMode.addEnum("1000", 0x2);
+        bits.PortMode.addEnum("TBI", 0x3);
+
         bits.LoopbackMode.setBaseRegister(&r32);
         bits.LoopbackMode.setName("LoopbackMode");
         bits.TaggedMACControl.setBaseRegister(&r32);
@@ -1368,7 +1386,7 @@ typedef register_container RegDEVICEEmacEvent_t {
 #define     DEVICE_LED_CONTROL_LED_MODE_MAC 0x0u
 #define     DEVICE_LED_CONTROL_LED_MODE_PHY_MODE_1 0x1u
 #define     DEVICE_LED_CONTROL_LED_MODE_PHY_MODE_2 0x2u
-#define     DEVICE_LED_CONTROL_LED_MODE_PHY_MODE_1_ 0x3u
+#define     DEVICE_LED_CONTROL_LED_MODE_PHY_MODE_3 0x3u
 
 #define     DEVICE_LED_CONTROL_MAC_MODE_SHIFT 13u
 #define     DEVICE_LED_CONTROL_MAC_MODE_MASK  0x2000u
@@ -1502,6 +1520,11 @@ typedef register_container RegDEVICELedControl_t {
         bits.LEDStatusTraffic.setName("LEDStatusTraffic");
         bits.LEDMode.setBaseRegister(&r32);
         bits.LEDMode.setName("LEDMode");
+        bits.LEDMode.addEnum("MAC", 0x0);
+        bits.LEDMode.addEnum("PHY Mode 1", 0x1);
+        bits.LEDMode.addEnum("PHY Mode 2", 0x2);
+        bits.LEDMode.addEnum("PHY Mode 3", 0x3);
+
         bits.MACMode.setBaseRegister(&r32);
         bits.MACMode.setName("MACMode");
         bits.SharedTraffic_DIV_LinkLEDMode.setBaseRegister(&r32);
@@ -1912,8 +1935,20 @@ typedef register_container RegDEVICEMiiCommunication_t {
         bits.RegisterAddress.setName("RegisterAddress");
         bits.PHYAddress.setBaseRegister(&r32);
         bits.PHYAddress.setName("PHYAddress");
+        bits.PHYAddress.addEnum("PHY 0", 0x1);
+        bits.PHYAddress.addEnum("PHY 1", 0x2);
+        bits.PHYAddress.addEnum("PHY 2", 0x3);
+        bits.PHYAddress.addEnum("PHY 3", 0x4);
+        bits.PHYAddress.addEnum("SGMII 0", 0x8);
+        bits.PHYAddress.addEnum("SGMII 1", 0x9);
+        bits.PHYAddress.addEnum("SGMII 2", 0xa);
+        bits.PHYAddress.addEnum("SGMII 3", 0xb);
+
         bits.Command.setBaseRegister(&r32);
         bits.Command.setName("Command");
+        bits.Command.addEnum("Write", 0x1);
+        bits.Command.addEnum("Read", 0x2);
+
         bits.ReadFailed.setBaseRegister(&r32);
         bits.ReadFailed.setName("ReadFailed");
         bits.Start_DIV_Busy.setBaseRegister(&r32);
@@ -2901,6 +2936,9 @@ typedef register_container RegDEVICESgmiiStatus_t {
         bits.PauseTX.setName("PauseTX");
         bits.MediaSelectionMode.setBaseRegister(&r32);
         bits.MediaSelectionMode.setName("MediaSelectionMode");
+        bits.MediaSelectionMode.addEnum("Copper", 0x0);
+        bits.MediaSelectionMode.addEnum("SGMII", 0x1);
+
         bits.PCSCRSDetect.setBaseRegister(&r32);
         bits.PCSCRSDetect.setName("PCSCRSDetect");
         bits.ExternalCRSDetect.setBaseRegister(&r32);
@@ -3153,6 +3191,18 @@ typedef register_container RegDEVICELinkAwarePowerModeClockPolicy_t {
         r32.setName("LinkAwarePowerModeClockPolicy");
         bits.MACClockSwitch.setBaseRegister(&r32);
         bits.MACClockSwitch.setName("MACClockSwitch");
+        bits.MACClockSwitch.addEnum("60.0MHz", 0x1);
+        bits.MACClockSwitch.addEnum("30.0MHz", 0x3);
+        bits.MACClockSwitch.addEnum("15.0MHz", 0x5);
+        bits.MACClockSwitch.addEnum("7.5MHz", 0x7);
+        bits.MACClockSwitch.addEnum("3.75MHz", 0x9);
+        bits.MACClockSwitch.addEnum("12.5MHz", 0x11);
+        bits.MACClockSwitch.addEnum("6.25MHz", 0x13);
+        bits.MACClockSwitch.addEnum("3.125MHz", 0x15);
+        bits.MACClockSwitch.addEnum("1.563MHz", 0x17);
+        bits.MACClockSwitch.addEnum("781kHz", 0x19);
+        bits.MACClockSwitch.addEnum("12.5MHz/1.25MHz", 0x1f);
+
     }
     RegDEVICELinkAwarePowerModeClockPolicy_t& operator=(const RegDEVICELinkAwarePowerModeClockPolicy_t& other)
     {
@@ -3412,12 +3462,21 @@ typedef register_container RegDEVICEStatus_t {
         bits.LinkIdleStatus.setName("LinkIdleStatus");
         bits.EthernetLinkStatus.setBaseRegister(&r32);
         bits.EthernetLinkStatus.setName("EthernetLinkStatus");
+        bits.EthernetLinkStatus.addEnum("1000 Mb", 0x0);
+        bits.EthernetLinkStatus.addEnum("100 Mb", 0x1);
+        bits.EthernetLinkStatus.addEnum("10 Mb", 0x2);
+        bits.EthernetLinkStatus.addEnum("No Link", 0x3);
+
         bits.WOLMagicPacketDetectionEnablePort1.setBaseRegister(&r32);
         bits.WOLMagicPacketDetectionEnablePort1.setName("WOLMagicPacketDetectionEnablePort1");
         bits.WOLACPIDetectionEnablePort1.setBaseRegister(&r32);
         bits.WOLACPIDetectionEnablePort1.setName("WOLACPIDetectionEnablePort1");
         bits.APEStatus.setBaseRegister(&r32);
         bits.APEStatus.setName("APEStatus");
+        bits.APEStatus.addEnum("Active", 0x0);
+        bits.APEStatus.addEnum("Sleep", 0x1);
+        bits.APEStatus.addEnum("Deep Sleep", 0x2);
+
         bits.FunctionEnable.setBaseRegister(&r32);
         bits.FunctionEnable.setName("FunctionEnable");
         bits.FunctionNumber.setBaseRegister(&r32);
@@ -4314,8 +4373,18 @@ typedef register_container RegDEVICELsoNonlsoBdReadDmaCorruptionEnableControl_t 
         r32.setName("LsoNonlsoBdReadDmaCorruptionEnableControl");
         bits.PCIRequestBurstLengthforBDRDMAEngine.setBaseRegister(&r32);
         bits.PCIRequestBurstLengthforBDRDMAEngine.setName("PCIRequestBurstLengthforBDRDMAEngine");
+        bits.PCIRequestBurstLengthforBDRDMAEngine.addEnum("128B", 0x0);
+        bits.PCIRequestBurstLengthforBDRDMAEngine.addEnum("256B", 0x1);
+        bits.PCIRequestBurstLengthforBDRDMAEngine.addEnum("512B", 0x2);
+        bits.PCIRequestBurstLengthforBDRDMAEngine.addEnum("4K", 0x3);
+
         bits.PCIRequestBurstLengthforNonLSORDMAEngine.setBaseRegister(&r32);
         bits.PCIRequestBurstLengthforNonLSORDMAEngine.setName("PCIRequestBurstLengthforNonLSORDMAEngine");
+        bits.PCIRequestBurstLengthforNonLSORDMAEngine.addEnum("128B", 0x0);
+        bits.PCIRequestBurstLengthforNonLSORDMAEngine.addEnum("256B", 0x1);
+        bits.PCIRequestBurstLengthforNonLSORDMAEngine.addEnum("512B", 0x2);
+        bits.PCIRequestBurstLengthforNonLSORDMAEngine.addEnum("4K", 0x3);
+
     }
     RegDEVICELsoNonlsoBdReadDmaCorruptionEnableControl_t& operator=(const RegDEVICELsoNonlsoBdReadDmaCorruptionEnableControl_t& other)
     {
@@ -6086,14 +6155,35 @@ typedef register_container RegDEVICEPciPowerBudget0_t {
         bits.BasePower.setName("BasePower");
         bits.DataScale.setBaseRegister(&r32);
         bits.DataScale.setName("DataScale");
+        bits.DataScale.addEnum("1.0x", 0x0);
+        bits.DataScale.addEnum("0.1x", 0x1);
+        bits.DataScale.addEnum("0.01x", 0x2);
+        bits.DataScale.addEnum("0.001x", 0x3);
+
         bits.PMSubState.setBaseRegister(&r32);
         bits.PMSubState.setName("PMSubState");
         bits.PMState.setBaseRegister(&r32);
         bits.PMState.setName("PMState");
+        bits.PMState.addEnum("D0", 0x0);
+        bits.PMState.addEnum("D1", 0x1);
+        bits.PMState.addEnum("D2", 0x2);
+        bits.PMState.addEnum("D3", 0x3);
+
         bits.Type.setBaseRegister(&r32);
         bits.Type.setName("Type");
+        bits.Type.addEnum("PME Aux", 0x0);
+        bits.Type.addEnum("Auxiliary", 0x1);
+        bits.Type.addEnum("Idle", 0x2);
+        bits.Type.addEnum("Sustained", 0x3);
+        bits.Type.addEnum("Maximum", 0x7);
+
         bits.PowerRail.setBaseRegister(&r32);
         bits.PowerRail.setName("PowerRail");
+        bits.PowerRail.addEnum("Power 12V", 0x0);
+        bits.PowerRail.addEnum("Power 3.3V", 0x1);
+        bits.PowerRail.addEnum("Power 1.5V or 1.8V", 0x2);
+        bits.PowerRail.addEnum("Thermal", 0x7);
+
     }
     RegDEVICEPciPowerBudget0_t& operator=(const RegDEVICEPciPowerBudget0_t& other)
     {
@@ -6205,14 +6295,35 @@ typedef register_container RegDEVICEPciPowerBudget1_t {
         bits.BasePower.setName("BasePower");
         bits.DataScale.setBaseRegister(&r32);
         bits.DataScale.setName("DataScale");
+        bits.DataScale.addEnum("1.0x", 0x0);
+        bits.DataScale.addEnum("0.1x", 0x1);
+        bits.DataScale.addEnum("0.01x", 0x2);
+        bits.DataScale.addEnum("0.001x", 0x3);
+
         bits.PMSubState.setBaseRegister(&r32);
         bits.PMSubState.setName("PMSubState");
         bits.PMState.setBaseRegister(&r32);
         bits.PMState.setName("PMState");
+        bits.PMState.addEnum("D0", 0x0);
+        bits.PMState.addEnum("D1", 0x1);
+        bits.PMState.addEnum("D2", 0x2);
+        bits.PMState.addEnum("D3", 0x3);
+
         bits.Type.setBaseRegister(&r32);
         bits.Type.setName("Type");
+        bits.Type.addEnum("PME Aux", 0x0);
+        bits.Type.addEnum("Auxiliary", 0x1);
+        bits.Type.addEnum("Idle", 0x2);
+        bits.Type.addEnum("Sustained", 0x3);
+        bits.Type.addEnum("Maximum", 0x7);
+
         bits.PowerRail.setBaseRegister(&r32);
         bits.PowerRail.setName("PowerRail");
+        bits.PowerRail.addEnum("Power 12V", 0x0);
+        bits.PowerRail.addEnum("Power 3.3V", 0x1);
+        bits.PowerRail.addEnum("Power 1.5V or 1.8V", 0x2);
+        bits.PowerRail.addEnum("Thermal", 0x7);
+
     }
     RegDEVICEPciPowerBudget1_t& operator=(const RegDEVICEPciPowerBudget1_t& other)
     {
@@ -6324,14 +6435,35 @@ typedef register_container RegDEVICEPciPowerBudget2_t {
         bits.BasePower.setName("BasePower");
         bits.DataScale.setBaseRegister(&r32);
         bits.DataScale.setName("DataScale");
+        bits.DataScale.addEnum("1.0x", 0x0);
+        bits.DataScale.addEnum("0.1x", 0x1);
+        bits.DataScale.addEnum("0.01x", 0x2);
+        bits.DataScale.addEnum("0.001x", 0x3);
+
         bits.PMSubState.setBaseRegister(&r32);
         bits.PMSubState.setName("PMSubState");
         bits.PMState.setBaseRegister(&r32);
         bits.PMState.setName("PMState");
+        bits.PMState.addEnum("D0", 0x0);
+        bits.PMState.addEnum("D1", 0x1);
+        bits.PMState.addEnum("D2", 0x2);
+        bits.PMState.addEnum("D3", 0x3);
+
         bits.Type.setBaseRegister(&r32);
         bits.Type.setName("Type");
+        bits.Type.addEnum("PME Aux", 0x0);
+        bits.Type.addEnum("Auxiliary", 0x1);
+        bits.Type.addEnum("Idle", 0x2);
+        bits.Type.addEnum("Sustained", 0x3);
+        bits.Type.addEnum("Maximum", 0x7);
+
         bits.PowerRail.setBaseRegister(&r32);
         bits.PowerRail.setName("PowerRail");
+        bits.PowerRail.addEnum("Power 12V", 0x0);
+        bits.PowerRail.addEnum("Power 3.3V", 0x1);
+        bits.PowerRail.addEnum("Power 1.5V or 1.8V", 0x2);
+        bits.PowerRail.addEnum("Thermal", 0x7);
+
     }
     RegDEVICEPciPowerBudget2_t& operator=(const RegDEVICEPciPowerBudget2_t& other)
     {
@@ -6443,14 +6575,35 @@ typedef register_container RegDEVICEPciPowerBudget3_t {
         bits.BasePower.setName("BasePower");
         bits.DataScale.setBaseRegister(&r32);
         bits.DataScale.setName("DataScale");
+        bits.DataScale.addEnum("1.0x", 0x0);
+        bits.DataScale.addEnum("0.1x", 0x1);
+        bits.DataScale.addEnum("0.01x", 0x2);
+        bits.DataScale.addEnum("0.001x", 0x3);
+
         bits.PMSubState.setBaseRegister(&r32);
         bits.PMSubState.setName("PMSubState");
         bits.PMState.setBaseRegister(&r32);
         bits.PMState.setName("PMState");
+        bits.PMState.addEnum("D0", 0x0);
+        bits.PMState.addEnum("D1", 0x1);
+        bits.PMState.addEnum("D2", 0x2);
+        bits.PMState.addEnum("D3", 0x3);
+
         bits.Type.setBaseRegister(&r32);
         bits.Type.setName("Type");
+        bits.Type.addEnum("PME Aux", 0x0);
+        bits.Type.addEnum("Auxiliary", 0x1);
+        bits.Type.addEnum("Idle", 0x2);
+        bits.Type.addEnum("Sustained", 0x3);
+        bits.Type.addEnum("Maximum", 0x7);
+
         bits.PowerRail.setBaseRegister(&r32);
         bits.PowerRail.setName("PowerRail");
+        bits.PowerRail.addEnum("Power 12V", 0x0);
+        bits.PowerRail.addEnum("Power 3.3V", 0x1);
+        bits.PowerRail.addEnum("Power 1.5V or 1.8V", 0x2);
+        bits.PowerRail.addEnum("Thermal", 0x7);
+
     }
     RegDEVICEPciPowerBudget3_t& operator=(const RegDEVICEPciPowerBudget3_t& other)
     {
@@ -6562,14 +6715,35 @@ typedef register_container RegDEVICEPciPowerBudget4_t {
         bits.BasePower.setName("BasePower");
         bits.DataScale.setBaseRegister(&r32);
         bits.DataScale.setName("DataScale");
+        bits.DataScale.addEnum("1.0x", 0x0);
+        bits.DataScale.addEnum("0.1x", 0x1);
+        bits.DataScale.addEnum("0.01x", 0x2);
+        bits.DataScale.addEnum("0.001x", 0x3);
+
         bits.PMSubState.setBaseRegister(&r32);
         bits.PMSubState.setName("PMSubState");
         bits.PMState.setBaseRegister(&r32);
         bits.PMState.setName("PMState");
+        bits.PMState.addEnum("D0", 0x0);
+        bits.PMState.addEnum("D1", 0x1);
+        bits.PMState.addEnum("D2", 0x2);
+        bits.PMState.addEnum("D3", 0x3);
+
         bits.Type.setBaseRegister(&r32);
         bits.Type.setName("Type");
+        bits.Type.addEnum("PME Aux", 0x0);
+        bits.Type.addEnum("Auxiliary", 0x1);
+        bits.Type.addEnum("Idle", 0x2);
+        bits.Type.addEnum("Sustained", 0x3);
+        bits.Type.addEnum("Maximum", 0x7);
+
         bits.PowerRail.setBaseRegister(&r32);
         bits.PowerRail.setName("PowerRail");
+        bits.PowerRail.addEnum("Power 12V", 0x0);
+        bits.PowerRail.addEnum("Power 3.3V", 0x1);
+        bits.PowerRail.addEnum("Power 1.5V or 1.8V", 0x2);
+        bits.PowerRail.addEnum("Thermal", 0x7);
+
     }
     RegDEVICEPciPowerBudget4_t& operator=(const RegDEVICEPciPowerBudget4_t& other)
     {
@@ -6681,14 +6855,35 @@ typedef register_container RegDEVICEPciPowerBudget5_t {
         bits.BasePower.setName("BasePower");
         bits.DataScale.setBaseRegister(&r32);
         bits.DataScale.setName("DataScale");
+        bits.DataScale.addEnum("1.0x", 0x0);
+        bits.DataScale.addEnum("0.1x", 0x1);
+        bits.DataScale.addEnum("0.01x", 0x2);
+        bits.DataScale.addEnum("0.001x", 0x3);
+
         bits.PMSubState.setBaseRegister(&r32);
         bits.PMSubState.setName("PMSubState");
         bits.PMState.setBaseRegister(&r32);
         bits.PMState.setName("PMState");
+        bits.PMState.addEnum("D0", 0x0);
+        bits.PMState.addEnum("D1", 0x1);
+        bits.PMState.addEnum("D2", 0x2);
+        bits.PMState.addEnum("D3", 0x3);
+
         bits.Type.setBaseRegister(&r32);
         bits.Type.setName("Type");
+        bits.Type.addEnum("PME Aux", 0x0);
+        bits.Type.addEnum("Auxiliary", 0x1);
+        bits.Type.addEnum("Idle", 0x2);
+        bits.Type.addEnum("Sustained", 0x3);
+        bits.Type.addEnum("Maximum", 0x7);
+
         bits.PowerRail.setBaseRegister(&r32);
         bits.PowerRail.setName("PowerRail");
+        bits.PowerRail.addEnum("Power 12V", 0x0);
+        bits.PowerRail.addEnum("Power 3.3V", 0x1);
+        bits.PowerRail.addEnum("Power 1.5V or 1.8V", 0x2);
+        bits.PowerRail.addEnum("Thermal", 0x7);
+
     }
     RegDEVICEPciPowerBudget5_t& operator=(const RegDEVICEPciPowerBudget5_t& other)
     {
@@ -6800,14 +6995,35 @@ typedef register_container RegDEVICEPciPowerBudget6_t {
         bits.BasePower.setName("BasePower");
         bits.DataScale.setBaseRegister(&r32);
         bits.DataScale.setName("DataScale");
+        bits.DataScale.addEnum("1.0x", 0x0);
+        bits.DataScale.addEnum("0.1x", 0x1);
+        bits.DataScale.addEnum("0.01x", 0x2);
+        bits.DataScale.addEnum("0.001x", 0x3);
+
         bits.PMSubState.setBaseRegister(&r32);
         bits.PMSubState.setName("PMSubState");
         bits.PMState.setBaseRegister(&r32);
         bits.PMState.setName("PMState");
+        bits.PMState.addEnum("D0", 0x0);
+        bits.PMState.addEnum("D1", 0x1);
+        bits.PMState.addEnum("D2", 0x2);
+        bits.PMState.addEnum("D3", 0x3);
+
         bits.Type.setBaseRegister(&r32);
         bits.Type.setName("Type");
+        bits.Type.addEnum("PME Aux", 0x0);
+        bits.Type.addEnum("Auxiliary", 0x1);
+        bits.Type.addEnum("Idle", 0x2);
+        bits.Type.addEnum("Sustained", 0x3);
+        bits.Type.addEnum("Maximum", 0x7);
+
         bits.PowerRail.setBaseRegister(&r32);
         bits.PowerRail.setName("PowerRail");
+        bits.PowerRail.addEnum("Power 12V", 0x0);
+        bits.PowerRail.addEnum("Power 3.3V", 0x1);
+        bits.PowerRail.addEnum("Power 1.5V or 1.8V", 0x2);
+        bits.PowerRail.addEnum("Thermal", 0x7);
+
     }
     RegDEVICEPciPowerBudget6_t& operator=(const RegDEVICEPciPowerBudget6_t& other)
     {
@@ -6919,14 +7135,35 @@ typedef register_container RegDEVICEPciPowerBudget7_t {
         bits.BasePower.setName("BasePower");
         bits.DataScale.setBaseRegister(&r32);
         bits.DataScale.setName("DataScale");
+        bits.DataScale.addEnum("1.0x", 0x0);
+        bits.DataScale.addEnum("0.1x", 0x1);
+        bits.DataScale.addEnum("0.01x", 0x2);
+        bits.DataScale.addEnum("0.001x", 0x3);
+
         bits.PMSubState.setBaseRegister(&r32);
         bits.PMSubState.setName("PMSubState");
         bits.PMState.setBaseRegister(&r32);
         bits.PMState.setName("PMState");
+        bits.PMState.addEnum("D0", 0x0);
+        bits.PMState.addEnum("D1", 0x1);
+        bits.PMState.addEnum("D2", 0x2);
+        bits.PMState.addEnum("D3", 0x3);
+
         bits.Type.setBaseRegister(&r32);
         bits.Type.setName("Type");
+        bits.Type.addEnum("PME Aux", 0x0);
+        bits.Type.addEnum("Auxiliary", 0x1);
+        bits.Type.addEnum("Idle", 0x2);
+        bits.Type.addEnum("Sustained", 0x3);
+        bits.Type.addEnum("Maximum", 0x7);
+
         bits.PowerRail.setBaseRegister(&r32);
         bits.PowerRail.setName("PowerRail");
+        bits.PowerRail.addEnum("Power 12V", 0x0);
+        bits.PowerRail.addEnum("Power 3.3V", 0x1);
+        bits.PowerRail.addEnum("Power 1.5V or 1.8V", 0x2);
+        bits.PowerRail.addEnum("Thermal", 0x7);
+
     }
     RegDEVICEPciPowerBudget7_t& operator=(const RegDEVICEPciPowerBudget7_t& other)
     {
@@ -7736,14 +7973,43 @@ typedef register_container RegDEVICEEavRefClockControl_t {
         r32.setName("EavRefClockControl");
         bits.TimesyncGPIOMapping.setBaseRegister(&r32);
         bits.TimesyncGPIOMapping.setName("TimesyncGPIOMapping");
+        bits.TimesyncGPIOMapping.addEnum("Snap-Shot[0]", 0x0);
+        bits.TimesyncGPIOMapping.addEnum("Snap-Shot[1]", 0x1);
+        bits.TimesyncGPIOMapping.addEnum("Time Watchdog[0]", 0x2);
+        bits.TimesyncGPIOMapping.addEnum("Time Watchdog[1]", 0x3);
+
         bits.APEGPIO0Mapping.setBaseRegister(&r32);
         bits.APEGPIO0Mapping.setName("APEGPIO0Mapping");
+        bits.APEGPIO0Mapping.addEnum("Not Used", 0x0);
+        bits.APEGPIO0Mapping.addEnum("Snap-Shot[0]", 0x4);
+        bits.APEGPIO0Mapping.addEnum("Snap-Shot[1]", 0x5);
+        bits.APEGPIO0Mapping.addEnum("Time Watchdog[0]", 0x6);
+        bits.APEGPIO0Mapping.addEnum("Time Watchdog[1]", 0x7);
+
         bits.APEGPIO1Mapping.setBaseRegister(&r32);
         bits.APEGPIO1Mapping.setName("APEGPIO1Mapping");
+        bits.APEGPIO1Mapping.addEnum("Not Used", 0x0);
+        bits.APEGPIO1Mapping.addEnum("Snap-Shot[0]", 0x4);
+        bits.APEGPIO1Mapping.addEnum("Snap-Shot[1]", 0x5);
+        bits.APEGPIO1Mapping.addEnum("Time Watchdog[0]", 0x6);
+        bits.APEGPIO1Mapping.addEnum("Time Watchdog[1]", 0x7);
+
         bits.APEGPIO2Mapping.setBaseRegister(&r32);
         bits.APEGPIO2Mapping.setName("APEGPIO2Mapping");
+        bits.APEGPIO2Mapping.addEnum("Not Used", 0x0);
+        bits.APEGPIO2Mapping.addEnum("Snap-Shot[0]", 0x4);
+        bits.APEGPIO2Mapping.addEnum("Snap-Shot[1]", 0x5);
+        bits.APEGPIO2Mapping.addEnum("Time Watchdog[0]", 0x6);
+        bits.APEGPIO2Mapping.addEnum("Time Watchdog[1]", 0x7);
+
         bits.APEGPIO3Mapping.setBaseRegister(&r32);
         bits.APEGPIO3Mapping.setName("APEGPIO3Mapping");
+        bits.APEGPIO3Mapping.addEnum("Not Used", 0x0);
+        bits.APEGPIO3Mapping.addEnum("Snap-Shot[0]", 0x4);
+        bits.APEGPIO3Mapping.addEnum("Snap-Shot[1]", 0x5);
+        bits.APEGPIO3Mapping.addEnum("Time Watchdog[0]", 0x6);
+        bits.APEGPIO3Mapping.addEnum("Time Watchdog[1]", 0x7);
+
     }
     RegDEVICEEavRefClockControl_t& operator=(const RegDEVICEEavRefClockControl_t& other)
     {
