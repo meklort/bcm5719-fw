@@ -48,6 +48,7 @@
 
 bool NVRam_acquireLock(void);
 bool NVRam_releaseLock(void);
+bool NVRam_releaseAllLocks(void);
 
 uint32_t NVRam_readWord(uint32_t address);
 void NVRam_read(uint32_t address, uint32_t *buffer, uint32_t words);
