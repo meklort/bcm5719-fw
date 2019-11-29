@@ -49,9 +49,12 @@
 #include <stdio.h>
 #include <utility>
 #include <vector>
+#include <list>
 
 class CXXRegisterBase
 {
+private:
+    std::list<std::pair<int, const char*>> mEnums;
 public:
     CXXRegisterBase(unsigned int offset, unsigned int width)
     {
@@ -83,6 +86,28 @@ public:
         }
     }
 
+    const char* getEnum(int value)
+    {
+        std::list<std::pair<int, const char*>>::iterator it;
+        for (it = mEnums.begin(); it != mEnums.end();
+             it++)
+        {
+            if(value == (*it).first)
+            {
+                return (*it).second;
+            }
+        }
+        return NULL;
+    }
+
+    void addEnum(const char* name, int value)
+    {
+        if(!getEnum(value))
+        {
+            mEnums.push_back(std::make_pair(value, name));
+        }
+    }
+
     const char *getName(void)
     {
         return mName;
@@ -100,18 +125,24 @@ public:
 
     void print(unsigned int value, int indent = false)
     {
-        unsigned int masked = value & mMask;
+        unsigned int masked = (value & mMask) >> mBitPosition;
+        const char* enumstr = getEnum(masked);
         if (indent)
         {
             std::cout << std::right << std::setw(35) << mName << ": 0x"
-                      << std::hex << (masked >> mBitPosition) << std::endl;
+                      << std::hex << masked;
         }
         else
         {
             std::cout << std::endl
                       << std::left << std::setw(36) << mName << " 0x"
-                      << std::hex << (masked >> mBitPosition) << std::endl;
+                      << std::hex << masked;
         }
+        if(enumstr)
+        {
+            std::cout << " (" << enumstr << ")";
+        }
+        std::cout << std::endl;
     }
 
     void printAll(unsigned int value)

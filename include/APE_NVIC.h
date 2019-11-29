@@ -124,6 +124,10 @@ typedef register_container RegNVICInterruptControlType_t {
         r32.setName("InterruptControlType");
         bits.INTLINESNUM.setBaseRegister(&r32);
         bits.INTLINESNUM.setName("INTLINESNUM");
+        bits.INTLINESNUM.addEnum("0 to 32", 0x0);
+        bits.INTLINESNUM.addEnum("33 to 64", 0x1);
+        bits.INTLINESNUM.addEnum("65 to 96", 0x2);
+
     }
     RegNVICInterruptControlType_t& operator=(const RegNVICInterruptControlType_t& other)
     {

@@ -122,6 +122,12 @@ typedef register_container RegRX_PORTIn_t {
         r32.setName("In");
         bits.all.setBaseRegister(&r32);
         bits.all.setName("all");
+        bits.all.addEnum("Control Word", 0x0);
+        bits.all.addEnum("Additional Payload Word", 0x2);
+        bits.all.addEnum("First Payload Word", 0xc);
+        bits.all.addEnum("BLOCK_WORDS", 0x20);
+        bits.all.addEnum("BLOCK_BYTES", 0x80);
+
     }
     RegRX_PORTIn_t& operator=(const RegRX_PORTIn_t& other)
     {

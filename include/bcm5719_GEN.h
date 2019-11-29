@@ -118,6 +118,8 @@ typedef register_container RegGENGenFwMbox_t {
         r32.setName("GenFwMbox");
         bits.MBOX.setBaseRegister(&r32);
         bits.MBOX.setName("MBOX");
+        bits.MBOX.addEnum("Bootcode Ready", 0xb49a89ab);
+
     }
     RegGENGenFwMbox_t& operator=(const RegGENGenFwMbox_t& other)
     {
@@ -166,6 +168,10 @@ typedef register_container RegGENGenDataSig_t {
         r32.setName("GenDataSig");
         bits.SIG.setBaseRegister(&r32);
         bits.SIG.setName("SIG");
+        bits.SIG.addEnum("Stage2 Magic Invalid", 0xbad0000);
+        bits.SIG.addEnum("Stage2 CRC Invalid", 0xbad0001);
+        bits.SIG.addEnum("Driver Ready", 0x4b657654);
+
     }
     RegGENGenDataSig_t& operator=(const RegGENGenDataSig_t& other)
     {
@@ -953,6 +959,11 @@ typedef register_container RegGENGenCfgHw_t {
         bits.AutoPowerdownEnable.setName("AutoPowerdownEnable");
         bits.SHASTALEDControl.setBaseRegister(&r32);
         bits.SHASTALEDControl.setName("SHASTALEDControl");
+        bits.SHASTALEDControl.addEnum("Legacy", 0x0);
+        bits.SHASTALEDControl.addEnum("Shared", 0x1);
+        bits.SHASTALEDControl.addEnum("MAC", 0x2);
+        bits.SHASTALEDControl.addEnum("Combo", 0x3);
+
         bits.TimeSyncModeEnable.setBaseRegister(&r32);
         bits.TimeSyncModeEnable.setName("TimeSyncModeEnable");
         bits.TimesyncGPIOMapping.setBaseRegister(&r32);

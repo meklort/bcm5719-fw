@@ -226,8 +226,22 @@ typedef register_container RegFILTERSElementConfig_t {
         bits.RuleClass.setName("RuleClass");
         bits.RuleHeader.setBaseRegister(&r32);
         bits.RuleHeader.setName("RuleHeader");
+        bits.RuleHeader.addEnum("SOF", 0x0);
+        bits.RuleHeader.addEnum("IP", 0x1);
+        bits.RuleHeader.addEnum("TCP", 0x2);
+        bits.RuleHeader.addEnum("UDP", 0x3);
+        bits.RuleHeader.addEnum("DATA", 0x4);
+        bits.RuleHeader.addEnum("ICMPv4", 0x5);
+        bits.RuleHeader.addEnum("ICMPv6", 0x6);
+        bits.RuleHeader.addEnum("VLAN", 0x7);
+
         bits.RuleOp.setBaseRegister(&r32);
         bits.RuleOp.setName("RuleOp");
+        bits.RuleOp.addEnum("EQ", 0x0);
+        bits.RuleOp.addEnum("NE", 0x1);
+        bits.RuleOp.addEnum("GT", 0x2);
+        bits.RuleOp.addEnum("LT", 0x3);
+
         bits.RuleMap.setBaseRegister(&r32);
         bits.RuleMap.setName("RuleMap");
         bits.RuleDiscard.setBaseRegister(&r32);
@@ -399,6 +413,10 @@ typedef register_container RegFILTERSRuleSet_t {
         r32.setName("RuleSet");
         bits.Action.setBaseRegister(&r32);
         bits.Action.setName("Action");
+        bits.Action.addEnum("To APE Only", 0x0);
+        bits.Action.addEnum("To APE And Host", 0x1);
+        bits.Action.addEnum("Discard", 0x2);
+
         bits.Count.setBaseRegister(&r32);
         bits.Count.setName("Count");
         bits.Enable.setBaseRegister(&r32);

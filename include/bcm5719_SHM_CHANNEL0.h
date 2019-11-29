@@ -1355,6 +1355,16 @@ typedef register_container RegSHM_CHANNELNcsiChannelStatus_t {
         bits.Linkup.setName("Linkup");
         bits.LinkStatus.setBaseRegister(&r32);
         bits.LinkStatus.setName("LinkStatus");
+        bits.LinkStatus.addEnum("No Link", 0x0);
+        bits.LinkStatus.addEnum("10BASE-T half-duplex", 0x1);
+        bits.LinkStatus.addEnum("10BASE-T full-duplex", 0x2);
+        bits.LinkStatus.addEnum("100BASE-TX half-duplex", 0x3);
+        bits.LinkStatus.addEnum("100BASE-T4", 0x4);
+        bits.LinkStatus.addEnum("100BASE-TX full-duplex", 0x5);
+        bits.LinkStatus.addEnum("1000BASE-T half-duplex", 0x6);
+        bits.LinkStatus.addEnum("1000BASE-T full-duplex", 0x7);
+        bits.LinkStatus.addEnum("10G-BASE-T", 0x8);
+
         bits.AutonegotiationEnabled.setBaseRegister(&r32);
         bits.AutonegotiationEnabled.setName("AutonegotiationEnabled");
         bits.AutonegotiationComplete.setBaseRegister(&r32);
@@ -1381,6 +1391,11 @@ typedef register_container RegSHM_CHANNELNcsiChannelStatus_t {
         bits.RXFlowControlFlag.setName("RXFlowControlFlag");
         bits.LinkPartnerAdvertisedFlowControl.setBaseRegister(&r32);
         bits.LinkPartnerAdvertisedFlowControl.setName("LinkPartnerAdvertisedFlowControl");
+        bits.LinkPartnerAdvertisedFlowControl.addEnum("Not Capable", 0x0);
+        bits.LinkPartnerAdvertisedFlowControl.addEnum("Symmetric Pause", 0x1);
+        bits.LinkPartnerAdvertisedFlowControl.addEnum("Asymmetric Pause", 0x2);
+        bits.LinkPartnerAdvertisedFlowControl.addEnum("Symmetric and Asymmetric Pause", 0x3);
+
         bits.SerDesLink.setBaseRegister(&r32);
         bits.SerDesLink.setName("SerDesLink");
         bits.OEMLinkStatusValid.setBaseRegister(&r32);

@@ -118,6 +118,8 @@ typedef register_container RegSHMSegSig_t {
         r32.setName("SegSig");
         bits.Sig.setBaseRegister(&r32);
         bits.Sig.setName("Sig");
+        bits.Sig.addEnum("LOADER", 0x10ad10ad);
+
     }
     RegSHMSegSig_t& operator=(const RegSHMSegSig_t& other)
     {
@@ -505,6 +507,11 @@ typedef register_container RegSHMLoaderCommand_t {
         r32.setName("LoaderCommand");
         bits.Command.setBaseRegister(&r32);
         bits.Command.setName("Command");
+        bits.Command.addEnum("NOP", 0x0);
+        bits.Command.addEnum("READ_MEM", 0x1);
+        bits.Command.addEnum("WRITE_MEM", 0x2);
+        bits.Command.addEnum("CALL", 0x3);
+
     }
     RegSHMLoaderCommand_t& operator=(const RegSHMLoaderCommand_t& other)
     {
@@ -601,6 +608,8 @@ typedef register_container RegSHMRcpuSegSig_t {
         r32.setName("RcpuSegSig");
         bits.Sig.setBaseRegister(&r32);
         bits.Sig.setName("Sig");
+        bits.Sig.addEnum("RCPU_MAGIC", 0x52435055);
+
     }
     RegSHMRcpuSegSig_t& operator=(const RegSHMRcpuSegSig_t& other)
     {
@@ -930,6 +939,8 @@ typedef register_container RegSHMRcpuCpmuStatus_t {
         r32.setName("RcpuCpmuStatus");
         bits.Address.setBaseRegister(&r32);
         bits.Address.setName("Address");
+        bits.Address.addEnum("ADDRESS", 0x362c);
+
         bits.Status.setBaseRegister(&r32);
         bits.Status.setName("Status");
     }
@@ -1271,8 +1282,17 @@ typedef register_container RegSHMEventStatus_t {
         bits.DriverEvent.setName("DriverEvent");
         bits.Command.setBaseRegister(&r32);
         bits.Command.setName("Command");
+        bits.Command.addEnum("State Change", 0x5);
+        bits.Command.addEnum("Scratchpad Read", 0x16);
+        bits.Command.addEnum("Scratchpad Write", 0x17);
+
         bits.State.setBaseRegister(&r32);
         bits.State.setName("State");
+        bits.State.addEnum("Start", 0x1);
+        bits.State.addEnum("Unload", 0x2);
+        bits.State.addEnum("WOL", 0x3);
+        bits.State.addEnum("Suspend", 0x4);
+
         bits.Pending.setBaseRegister(&r32);
         bits.Pending.setName("Pending");
     }

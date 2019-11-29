@@ -221,6 +221,11 @@ typedef register_container RegMIIControl_t {
         bits.AutoNegotiationEnable.setName("AutoNegotiationEnable");
         bits.SpeedSelectLSB.setBaseRegister(&r16);
         bits.SpeedSelectLSB.setName("SpeedSelectLSB");
+        bits.SpeedSelectLSB.addEnum("10Mbit/s", 0x0);
+        bits.SpeedSelectLSB.addEnum("100Mbit/s", 0x1);
+        bits.SpeedSelectLSB.addEnum("1000Mbit/s", 0x2);
+        bits.SpeedSelectLSB.addEnum("Reserved", 0x3);
+
         bits.LoopbackMode.setBaseRegister(&r16);
         bits.LoopbackMode.setName("LoopbackMode");
         bits.Reset.setBaseRegister(&r16);
@@ -653,6 +658,8 @@ typedef register_container RegMIIAutonegotiationAdvertisement_t {
         r16.setName("AutonegotiationAdvertisement");
         bits.ProtocolSelect.setBaseRegister(&r16);
         bits.ProtocolSelect.setName("ProtocolSelect");
+        bits.ProtocolSelect.addEnum("IEEE 802.3", 0x1);
+
         bits._10BASE_THalfDuplexCapable.setBaseRegister(&r16);
         bits._10BASE_THalfDuplexCapable.setName("_10BASE_THalfDuplexCapable");
         bits._10BASE_TFullDuplexCapable.setBaseRegister(&r16);
@@ -932,6 +939,9 @@ typedef register_container RegMIIAutonegotiationExpansion_t {
         bits.ParallelDetectionFault.setName("ParallelDetectionFault");
         bits.NextPageReceiveLocation.setBaseRegister(&r16);
         bits.NextPageReceiveLocation.setName("NextPageReceiveLocation");
+        bits.NextPageReceiveLocation.addEnum("Next pages stored in register 0x05", 0x0);
+        bits.NextPageReceiveLocation.addEnum("Next pages stored in register 0x08", 0x1);
+
         bits.NextPageReceiveLocationCapable.setBaseRegister(&r16);
         bits.NextPageReceiveLocationCapable.setName("NextPageReceiveLocationCapable");
     }
