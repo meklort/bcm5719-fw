@@ -55,10 +55,16 @@
 
 #ifdef CXX_SIMULATOR
 #include <arpa/inet.h>
-#define REQ ReqSet2
-#define CLR ReqClr2
-#define WON ArbWon2
-#else /* Firmware */
+#define REQ ReqSet1
+#define CLR ReqClr1
+#define WON ArbWon1
+#elif __arm__                /* APE */
+#define ntohl(__x__) (__x__) /* Todo: swap */
+#define htonl(__x__) (__x__) /* Todo: swap */
+#define REQ ReqSet0
+#define CLR ReqClr0
+#define WON ArbWon0
+#else /* RX CPU Firmware */
 #define ntohl(__x__) (__x__)
 #define htonl(__x__) (__x__)
 #define REQ ReqSet0
@@ -137,6 +143,19 @@ bool NVRam_releaseLock(void)
     RegNVMSoftwareArbitration_t req;
     req.r32 = 0;
     req.bits.CLR = 1;
+    NVM.SoftwareArbitration = req;
+
+    return true;
+}
+
+bool NVRam_releaseAllLocks(void)
+{
+    RegNVMSoftwareArbitration_t req;
+    req.r32 = 0;
+    req.bits.ReqClr0 = 1;
+    req.bits.ReqClr1 = 1;
+    req.bits.ReqClr2 = 1;
+    req.bits.ReqClr3 = 1;
     NVM.SoftwareArbitration = req;
 
     return true;

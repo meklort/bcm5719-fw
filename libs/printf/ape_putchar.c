@@ -43,6 +43,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include <printf.h>
+#include <EM100.h>
 #include <APE_DEBUG.h>
 #include <APE_SHM.h>
 
@@ -65,4 +66,5 @@ void _putchar(char character)
 
     DEBUG.WritePointer.r32 = write_pointer;
 
+    NVRam_EM100_putchar(character);
 }

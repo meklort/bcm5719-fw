@@ -1,16 +1,16 @@
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @file       NVRam.h
+/// @file       EM100.h
 ///
 /// @project
 ///
-/// @brief      NVRam Support Routines
+/// @brief      EM100 Debug Routines
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2018, Evan Lojewski
+/// @copyright Copyright (c) 2019, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -41,28 +41,17 @@
 /// POSSIBILITY OF SUCH DAMAGE.
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
-#ifndef NVRAM_H
-#define NVRAM_H
+#ifndef EM100_H
+#define EM100_H
 
 #include <types.h>
 
-bool NVRam_acquireLock(void);
-bool NVRam_releaseLock(void);
-bool NVRam_releaseAllLocks(void);
+/**
+ * Print a character out the SPI bus using the EM100 hyperterminal protocl
+ *
+ * This routine caches all characters untill a newline is found or the
+ * buffer is full.
+ */
+void NVRam_EM100_putchar(char c);
 
-uint32_t NVRam_readWord(uint32_t address);
-void NVRam_read(uint32_t address, uint32_t *buffer, uint32_t words);
-
-void NVRam_writeWord(uint32_t address, uint32_t data);
-void NVRam_write(uint32_t address, uint32_t *buffer, uint32_t words);
-
-void NVRam_enable(void);
-void NVRam_enableWrites(void);
-void NVRam_disable(void);
-void NVRam_disableWrites(void);
-
-uint32_t NVRam_crc(const uint8_t *pcDatabuf, // Pointer to data buffer
-                   uint32_t ulDatalen,       // Length of data buffer in bytes
-                   uint32_t crc);            // Initial value
-
-#endif /* NVRAM_H */
+#endif /* EM100_H */
