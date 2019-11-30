@@ -139,6 +139,12 @@ int main(int argc, char const *argv[])
         .help("Output ape binary")
         .metavar("FILE");
 
+    parser.add_option("-n", "--name")
+        .dest("name")
+        .help("Output ape binary")
+        .metavar("FILE");
+
+
     optparse::Values options = parser.parse_args(argc, argv);
     vector<string> args = parser.args();
 
@@ -263,6 +269,12 @@ int main(int argc, char const *argv[])
     ape.header.magic = APE_HEADER_MAGIC;
     ape.header.unk0 = APE_HEADER_UNK0;
     // ape.header.name =
+    if (options.is_set("name"))
+    {
+        string name = options["name"];
+        strncpy((char*)ape.header.name, name.c_str(), sizeof(ape.header.name));
+    }
+
     ape.header.version = get_symbol_value("VERSION", reader);
     ape.header.entrypoint = get_symbol_value("__start", reader);
     ape.header.unk1 = APE_HEADER_UNK1;
