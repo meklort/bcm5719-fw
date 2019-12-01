@@ -128,6 +128,10 @@ void init_APE_DEVICE1_sim(void *arg0)
     DEVICE1.ApeMemoryData.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
     DEVICE1.ApeMemoryData.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
 
+    /** @brief Bitmap for @ref DEVICE1_t.160. */
+    DEVICE1._160.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
+    DEVICE1._160.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+
     /** @brief Bitmap for @ref DEVICE1_t.EmacMode. */
     DEVICE1.EmacMode.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
     DEVICE1.EmacMode.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
@@ -183,6 +187,10 @@ void init_APE_DEVICE1_sim(void *arg0)
     /** @brief Bitmap for @ref DEVICE1_t.WolPatternCfg. */
     DEVICE1.WolPatternCfg.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
     DEVICE1.WolPatternCfg.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref DEVICE1_t.438. */
+    DEVICE1._438.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
+    DEVICE1._438.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
 
     /** @brief Bitmap for @ref DEVICE1_t.MtuSize. */
     DEVICE1.MtuSize.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
@@ -252,6 +260,10 @@ void init_APE_DEVICE1_sim(void *arg0)
     DEVICE1.CpmuControl.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
     DEVICE1.CpmuControl.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
 
+    /** @brief Bitmap for @ref DEVICE1_t.NoLinkPowerModeClockPolicy. */
+    DEVICE1.NoLinkPowerModeClockPolicy.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
+    DEVICE1.NoLinkPowerModeClockPolicy.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+
     /** @brief Bitmap for @ref DEVICE1_t.LinkAwarePowerModeClockPolicy. */
     DEVICE1.LinkAwarePowerModeClockPolicy.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
     DEVICE1.LinkAwarePowerModeClockPolicy.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
@@ -288,6 +300,10 @@ void init_APE_DEVICE1_sim(void *arg0)
     DEVICE1.GphyStrap.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
     DEVICE1.GphyStrap.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
 
+    /** @brief Bitmap for @ref DEVICE1_t.FlashClockControlPolicy. */
+    DEVICE1.FlashClockControlPolicy.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
+    DEVICE1.FlashClockControlPolicy.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+
     /** @brief Bitmap for @ref DEVICE1_t.TopLevelMiscellaneousControl1. */
     DEVICE1.TopLevelMiscellaneousControl1.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
     DEVICE1.TopLevelMiscellaneousControl1.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
@@ -311,6 +327,10 @@ void init_APE_DEVICE1_sim(void *arg0)
     /** @brief Bitmap for @ref DEVICE1_t.GlobalMutexGrant. */
     DEVICE1.GlobalMutexGrant.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
     DEVICE1.GlobalMutexGrant.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref DEVICE1_t.TemperatureMonitorControl. */
+    DEVICE1.TemperatureMonitorControl.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
+    DEVICE1.TemperatureMonitorControl.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
 
     /** @brief Bitmap for @ref DEVICE1_t.MemoryArbiterMode. */
     DEVICE1.MemoryArbiterMode.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
@@ -507,6 +527,10 @@ void init_APE_DEVICE1_sim(void *arg0)
     /** @brief Bitmap for @ref DEVICE1_t.64c0. */
     DEVICE1._64c0.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
     DEVICE1._64c0.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref DEVICE1_t.64c4. */
+    DEVICE1._64c4.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
+    DEVICE1._64c4.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
 
     /** @brief Bitmap for @ref DEVICE1_t.64c8. */
     DEVICE1._64c8.r32.installReadCallback(loader_read_mem, (uint8_t *)base);

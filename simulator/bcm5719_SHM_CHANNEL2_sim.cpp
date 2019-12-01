@@ -113,6 +113,11 @@ void init_bcm5719_SHM_CHANNEL2_sim(void *base)
     SHM_CHANNEL2.NcsiChannelVlan.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     SHM_CHANNEL2.NcsiChannelVlan.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    for(int i = 0; i < 1; i++)
+    {
+        SHM_CHANNEL2.reserved_32[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        SHM_CHANNEL2.reserved_32[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
     /** @brief Bitmap for @ref SHM_CHANNEL_t.NcsiChannelAltHostMacHigh. */
     SHM_CHANNEL2.NcsiChannelAltHostMacHigh.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     SHM_CHANNEL2.NcsiChannelAltHostMacHigh.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
@@ -125,6 +130,11 @@ void init_bcm5719_SHM_CHANNEL2_sim(void *base)
     SHM_CHANNEL2.NcsiChannelAltHostMacLow.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     SHM_CHANNEL2.NcsiChannelAltHostMacLow.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    for(int i = 0; i < 1; i++)
+    {
+        SHM_CHANNEL2.reserved_48[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        SHM_CHANNEL2.reserved_48[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
     /** @brief Bitmap for @ref SHM_CHANNEL_t.NcsiChannelMac0High. */
     SHM_CHANNEL2.NcsiChannelMac0High.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     SHM_CHANNEL2.NcsiChannelMac0High.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
@@ -137,6 +147,11 @@ void init_bcm5719_SHM_CHANNEL2_sim(void *base)
     SHM_CHANNEL2.NcsiChannelMac0Low.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     SHM_CHANNEL2.NcsiChannelMac0Low.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    for(int i = 0; i < 1; i++)
+    {
+        SHM_CHANNEL2.reserved_64[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        SHM_CHANNEL2.reserved_64[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
     /** @brief Bitmap for @ref SHM_CHANNEL_t.NcsiChannelMac1High. */
     SHM_CHANNEL2.NcsiChannelMac1High.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     SHM_CHANNEL2.NcsiChannelMac1High.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
@@ -149,6 +164,11 @@ void init_bcm5719_SHM_CHANNEL2_sim(void *base)
     SHM_CHANNEL2.NcsiChannelMac1Low.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     SHM_CHANNEL2.NcsiChannelMac1Low.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    for(int i = 0; i < 1; i++)
+    {
+        SHM_CHANNEL2.reserved_80[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        SHM_CHANNEL2.reserved_80[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
     /** @brief Bitmap for @ref SHM_CHANNEL_t.NcsiChannelMac2High. */
     SHM_CHANNEL2.NcsiChannelMac2High.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     SHM_CHANNEL2.NcsiChannelMac2High.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
@@ -161,6 +181,11 @@ void init_bcm5719_SHM_CHANNEL2_sim(void *base)
     SHM_CHANNEL2.NcsiChannelMac2Low.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     SHM_CHANNEL2.NcsiChannelMac2Low.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    for(int i = 0; i < 1; i++)
+    {
+        SHM_CHANNEL2.reserved_96[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        SHM_CHANNEL2.reserved_96[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
     /** @brief Bitmap for @ref SHM_CHANNEL_t.NcsiChannelMac3High. */
     SHM_CHANNEL2.NcsiChannelMac3High.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     SHM_CHANNEL2.NcsiChannelMac3High.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
@@ -209,10 +234,20 @@ void init_bcm5719_SHM_CHANNEL2_sim(void *base)
     SHM_CHANNEL2.NcsiChannelSlink.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     SHM_CHANNEL2.NcsiChannelSlink.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    for(int i = 0; i < 3; i++)
+    {
+        SHM_CHANNEL2.reserved_148[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        SHM_CHANNEL2.reserved_148[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
     /** @brief Bitmap for @ref SHM_CHANNEL_t.NcsiChannelDbg. */
     SHM_CHANNEL2.NcsiChannelDbg.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     SHM_CHANNEL2.NcsiChannelDbg.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    for(int i = 0; i < 3; i++)
+    {
+        SHM_CHANNEL2.reserved_164[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        SHM_CHANNEL2.reserved_164[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
     /** @brief Bitmap for @ref SHM_CHANNEL_t.NcsiChannelCtrlstatRx. */
     SHM_CHANNEL2.NcsiChannelCtrlstatRx.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     SHM_CHANNEL2.NcsiChannelCtrlstatRx.r32.installWriteCallback(write_to_ram, (uint8_t *)base);

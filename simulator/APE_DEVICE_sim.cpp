@@ -128,6 +128,10 @@ void init_APE_DEVICE_sim(void *arg0)
     DEVICE.ApeMemoryData.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
     DEVICE.ApeMemoryData.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
 
+    /** @brief Bitmap for @ref DEVICE_t.160. */
+    DEVICE._160.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
+    DEVICE._160.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+
     /** @brief Bitmap for @ref DEVICE_t.EmacMode. */
     DEVICE.EmacMode.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
     DEVICE.EmacMode.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
@@ -183,6 +187,10 @@ void init_APE_DEVICE_sim(void *arg0)
     /** @brief Bitmap for @ref DEVICE_t.WolPatternCfg. */
     DEVICE.WolPatternCfg.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
     DEVICE.WolPatternCfg.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref DEVICE_t.438. */
+    DEVICE._438.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
+    DEVICE._438.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
 
     /** @brief Bitmap for @ref DEVICE_t.MtuSize. */
     DEVICE.MtuSize.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
@@ -252,6 +260,10 @@ void init_APE_DEVICE_sim(void *arg0)
     DEVICE.CpmuControl.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
     DEVICE.CpmuControl.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
 
+    /** @brief Bitmap for @ref DEVICE_t.NoLinkPowerModeClockPolicy. */
+    DEVICE.NoLinkPowerModeClockPolicy.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
+    DEVICE.NoLinkPowerModeClockPolicy.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+
     /** @brief Bitmap for @ref DEVICE_t.LinkAwarePowerModeClockPolicy. */
     DEVICE.LinkAwarePowerModeClockPolicy.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
     DEVICE.LinkAwarePowerModeClockPolicy.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
@@ -288,6 +300,10 @@ void init_APE_DEVICE_sim(void *arg0)
     DEVICE.GphyStrap.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
     DEVICE.GphyStrap.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
 
+    /** @brief Bitmap for @ref DEVICE_t.FlashClockControlPolicy. */
+    DEVICE.FlashClockControlPolicy.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
+    DEVICE.FlashClockControlPolicy.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+
     /** @brief Bitmap for @ref DEVICE_t.TopLevelMiscellaneousControl1. */
     DEVICE.TopLevelMiscellaneousControl1.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
     DEVICE.TopLevelMiscellaneousControl1.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
@@ -311,6 +327,10 @@ void init_APE_DEVICE_sim(void *arg0)
     /** @brief Bitmap for @ref DEVICE_t.GlobalMutexGrant. */
     DEVICE.GlobalMutexGrant.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
     DEVICE.GlobalMutexGrant.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref DEVICE_t.TemperatureMonitorControl. */
+    DEVICE.TemperatureMonitorControl.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
+    DEVICE.TemperatureMonitorControl.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
 
     /** @brief Bitmap for @ref DEVICE_t.MemoryArbiterMode. */
     DEVICE.MemoryArbiterMode.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
@@ -507,6 +527,10 @@ void init_APE_DEVICE_sim(void *arg0)
     /** @brief Bitmap for @ref DEVICE_t.64c0. */
     DEVICE._64c0.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
     DEVICE._64c0.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref DEVICE_t.64c4. */
+    DEVICE._64c4.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
+    DEVICE._64c4.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
 
     /** @brief Bitmap for @ref DEVICE_t.64c8. */
     DEVICE._64c8.r32.installReadCallback(loader_read_mem, (uint8_t *)base);

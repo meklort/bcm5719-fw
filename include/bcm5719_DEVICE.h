@@ -714,6 +714,31 @@ typedef register_container RegDEVICEApeMemoryData_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEApeMemoryData_t;
 
+#define REG_DEVICE_160 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0000160) /* Unknown register. */
+/** @brief Register definition for @ref DEVICE_t.160. */
+typedef register_container RegDEVICE160_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "160"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICE160_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.160. */
+        r32.setName("160");
+    }
+    RegDEVICE160_t& operator=(const RegDEVICE160_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegDEVICE160_t;
+
 #define REG_DEVICE_EMAC_MODE ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0000400) /*  */
 #define     DEVICE_EMAC_MODE_GLOBAL_RESET_SHIFT 0u
 #define     DEVICE_EMAC_MODE_GLOBAL_RESET_MASK  0x1u
@@ -1791,6 +1816,31 @@ typedef register_container RegDEVICEWolPatternCfg_t {
     }
 #endif /* CXX_SIMULATOR */
 } RegDEVICEWolPatternCfg_t;
+
+#define REG_DEVICE_438 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0000438) /* Unknown register. */
+/** @brief Register definition for @ref DEVICE_t.438. */
+typedef register_container RegDEVICE438_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "438"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICE438_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.438. */
+        r32.setName("438");
+    }
+    RegDEVICE438_t& operator=(const RegDEVICE438_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegDEVICE438_t;
 
 #define REG_DEVICE_MTU_SIZE ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000043c) /* 2-byte field which is the largest size frame that will be accepted without being marked as oversize. */
 #define     DEVICE_MTU_SIZE_MTU_SHIFT 0u
@@ -3136,6 +3186,82 @@ typedef register_container RegDEVICECpmuControl_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICECpmuControl_t;
 
+#define REG_DEVICE_NO_LINK_POWER_MODE_CLOCK_POLICY ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0003604) /*  */
+#define     DEVICE_NO_LINK_POWER_MODE_CLOCK_POLICY_MAC_CLOCK_SWITCH_SHIFT 16u
+#define     DEVICE_NO_LINK_POWER_MODE_CLOCK_POLICY_MAC_CLOCK_SWITCH_MASK  0x1f0000u
+#define GET_DEVICE_NO_LINK_POWER_MODE_CLOCK_POLICY_MAC_CLOCK_SWITCH(__reg__)  (((__reg__) & 0x1f0000) >> 16u)
+#define SET_DEVICE_NO_LINK_POWER_MODE_CLOCK_POLICY_MAC_CLOCK_SWITCH(__val__)  (((__val__) << 16u) & 0x1f0000u)
+#define     DEVICE_NO_LINK_POWER_MODE_CLOCK_POLICY_MAC_CLOCK_SWITCH_62_5MHZ 0x0u
+#define     DEVICE_NO_LINK_POWER_MODE_CLOCK_POLICY_MAC_CLOCK_SWITCH_60_0MHZ 0x1u
+#define     DEVICE_NO_LINK_POWER_MODE_CLOCK_POLICY_MAC_CLOCK_SWITCH_30_0MHZ 0x3u
+#define     DEVICE_NO_LINK_POWER_MODE_CLOCK_POLICY_MAC_CLOCK_SWITCH_15_0MHZ 0x5u
+#define     DEVICE_NO_LINK_POWER_MODE_CLOCK_POLICY_MAC_CLOCK_SWITCH_7_5MHZ 0x7u
+#define     DEVICE_NO_LINK_POWER_MODE_CLOCK_POLICY_MAC_CLOCK_SWITCH_3_75MHZ 0x9u
+#define     DEVICE_NO_LINK_POWER_MODE_CLOCK_POLICY_MAC_CLOCK_SWITCH_12_5MHZ 0x11u
+#define     DEVICE_NO_LINK_POWER_MODE_CLOCK_POLICY_MAC_CLOCK_SWITCH_6_25MHZ 0x13u
+#define     DEVICE_NO_LINK_POWER_MODE_CLOCK_POLICY_MAC_CLOCK_SWITCH_3_125MHZ 0x15u
+#define     DEVICE_NO_LINK_POWER_MODE_CLOCK_POLICY_MAC_CLOCK_SWITCH_1_563MHZ 0x17u
+#define     DEVICE_NO_LINK_POWER_MODE_CLOCK_POLICY_MAC_CLOCK_SWITCH_12_5MHZ_DIV_1_25MHZ 0x1fu
+
+
+/** @brief Register definition for @ref DEVICE_t.NoLinkPowerModeClockPolicy. */
+typedef register_container RegDEVICENoLinkPowerModeClockPolicy_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_DEVICE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_15_0, 0, 16)
+        /** @brief Software Controlled MAC Core Clock Speed Select. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MACClockSwitch, 16, 5)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
+        /** @brief Software Controlled MAC Core Clock Speed Select. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, MACClockSwitch, 16, 5)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_15_0, 0, 16)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "NoLinkPowerModeClockPolicy"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICENoLinkPowerModeClockPolicy_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.NoLinkPowerModeClockPolicy. */
+        r32.setName("NoLinkPowerModeClockPolicy");
+        bits.MACClockSwitch.setBaseRegister(&r32);
+        bits.MACClockSwitch.setName("MACClockSwitch");
+        bits.MACClockSwitch.addEnum("62.5MHz", 0x0);
+        bits.MACClockSwitch.addEnum("60.0MHz", 0x1);
+        bits.MACClockSwitch.addEnum("30.0MHz", 0x3);
+        bits.MACClockSwitch.addEnum("15.0MHz", 0x5);
+        bits.MACClockSwitch.addEnum("7.5MHz", 0x7);
+        bits.MACClockSwitch.addEnum("3.75MHz", 0x9);
+        bits.MACClockSwitch.addEnum("12.5MHz", 0x11);
+        bits.MACClockSwitch.addEnum("6.25MHz", 0x13);
+        bits.MACClockSwitch.addEnum("3.125MHz", 0x15);
+        bits.MACClockSwitch.addEnum("1.563MHz", 0x17);
+        bits.MACClockSwitch.addEnum("12.5MHz/1.25MHz", 0x1f);
+
+    }
+    RegDEVICENoLinkPowerModeClockPolicy_t& operator=(const RegDEVICENoLinkPowerModeClockPolicy_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegDEVICENoLinkPowerModeClockPolicy_t;
+
 #define REG_DEVICE_LINK_AWARE_POWER_MODE_CLOCK_POLICY ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0003610) /*  */
 #define     DEVICE_LINK_AWARE_POWER_MODE_CLOCK_POLICY_MAC_CLOCK_SWITCH_SHIFT 16u
 #define     DEVICE_LINK_AWARE_POWER_MODE_CLOCK_POLICY_MAC_CLOCK_SWITCH_MASK  0x1f0000u
@@ -3540,6 +3666,14 @@ typedef register_container RegDEVICEClockStatus_t {
 #define     DEVICE_GPHY_CONTROL_STATUS_SGMII_DIV_PCS_POWER_DOWN_MASK  0x8000u
 #define GET_DEVICE_GPHY_CONTROL_STATUS_SGMII_DIV_PCS_POWER_DOWN(__reg__)  (((__reg__) & 0x8000) >> 15u)
 #define SET_DEVICE_GPHY_CONTROL_STATUS_SGMII_DIV_PCS_POWER_DOWN(__val__)  (((__val__) << 15u) & 0x8000u)
+#define     DEVICE_GPHY_CONTROL_STATUS_PCIE_PLL_LOCK_STATUS_SHIFT 22u
+#define     DEVICE_GPHY_CONTROL_STATUS_PCIE_PLL_LOCK_STATUS_MASK  0x400000u
+#define GET_DEVICE_GPHY_CONTROL_STATUS_PCIE_PLL_LOCK_STATUS(__reg__)  (((__reg__) & 0x400000) >> 22u)
+#define SET_DEVICE_GPHY_CONTROL_STATUS_PCIE_PLL_LOCK_STATUS(__val__)  (((__val__) << 22u) & 0x400000u)
+#define     DEVICE_GPHY_CONTROL_STATUS_GPHY_PLL_LOCK_STATUS_SHIFT 23u
+#define     DEVICE_GPHY_CONTROL_STATUS_GPHY_PLL_LOCK_STATUS_MASK  0x800000u
+#define GET_DEVICE_GPHY_CONTROL_STATUS_GPHY_PLL_LOCK_STATUS(__reg__)  (((__reg__) & 0x800000) >> 23u)
+#define SET_DEVICE_GPHY_CONTROL_STATUS_GPHY_PLL_LOCK_STATUS(__val__)  (((__val__) << 23u) & 0x800000u)
 #define     DEVICE_GPHY_CONTROL_STATUS_NCSI_PLL_LOCK_STATUS_SHIFT 25u
 #define     DEVICE_GPHY_CONTROL_STATUS_NCSI_PLL_LOCK_STATUS_MASK  0x2000000u
 #define GET_DEVICE_GPHY_CONTROL_STATUS_NCSI_PLL_LOCK_STATUS(__reg__)  (((__reg__) & 0x2000000) >> 25u)
@@ -3552,6 +3686,10 @@ typedef register_container RegDEVICEClockStatus_t {
 #define     DEVICE_GPHY_CONTROL_STATUS_SWITCHING_REGULATOR_POWER_DOWN_MASK  0x8000000u
 #define GET_DEVICE_GPHY_CONTROL_STATUS_SWITCHING_REGULATOR_POWER_DOWN(__reg__)  (((__reg__) & 0x8000000) >> 27u)
 #define SET_DEVICE_GPHY_CONTROL_STATUS_SWITCHING_REGULATOR_POWER_DOWN(__val__)  (((__val__) << 27u) & 0x8000000u)
+#define     DEVICE_GPHY_CONTROL_STATUS_KEEP_NCSI_PLL_ON_DURING_LOW_POWER_MODE__SHIFT 28u
+#define     DEVICE_GPHY_CONTROL_STATUS_KEEP_NCSI_PLL_ON_DURING_LOW_POWER_MODE__MASK  0x10000000u
+#define GET_DEVICE_GPHY_CONTROL_STATUS_KEEP_NCSI_PLL_ON_DURING_LOW_POWER_MODE_(__reg__)  (((__reg__) & 0x10000000) >> 28u)
+#define SET_DEVICE_GPHY_CONTROL_STATUS_KEEP_NCSI_PLL_ON_DURING_LOW_POWER_MODE_(__val__)  (((__val__) << 28u) & 0x10000000u)
 
 /** @brief Register definition for @ref DEVICE_t.GphyControlStatus. */
 typedef register_container RegDEVICEGphyControlStatus_t {
@@ -3568,25 +3706,35 @@ typedef register_container RegDEVICEGphyControlStatus_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, CPMUSoftwareReset, 2, 1)
         /** @brief Software reset for resetting all the registers to default. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, CPMURegisterSoftwareReset, 3, 1)
-        /** @brief  */
+        /** @brief Force CPMU into Low Power State, LAN function will be powered down (GPHY, PCIE, IPSEC, APE). This bit is cleared by a rising edge of PERST_L. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerDown, 4, 1)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_14_5, 5, 10)
         /** @brief Setting this bit will powerdown SGMII-PCS module. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SGMII_DIV_PCSPowerDown, 15, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_24_16, 16, 9)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_21_16, 16, 6)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PCIePLLLockStatus, 22, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPHYPLLLockStatus, 23, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_24_24, 24, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, NCSIPLLLockStatus, 25, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, TLPClockSource, 26, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SwitchingRegulatorPowerDown, 27, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, KeepNCSIPLLonduringlowpowermode_, 28, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_28, 28, 4)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_29, 29, 3)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_28, 28, 4)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_29, 29, 3)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, KeepNCSIPLLonduringlowpowermode_, 28, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SwitchingRegulatorPowerDown, 27, 1)
         /** @brief  */
@@ -3594,12 +3742,18 @@ typedef register_container RegDEVICEGphyControlStatus_t {
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, NCSIPLLLockStatus, 25, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_24_16, 16, 9)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_24_24, 24, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPHYPLLLockStatus, 23, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PCIePLLLockStatus, 22, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_21_16, 16, 6)
         /** @brief Setting this bit will powerdown SGMII-PCS module. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, SGMII_DIV_PCSPowerDown, 15, 1)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_14_5, 5, 10)
-        /** @brief  */
+        /** @brief Force CPMU into Low Power State, LAN function will be powered down (GPHY, PCIE, IPSEC, APE). This bit is cleared by a rising edge of PERST_L. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerDown, 4, 1)
         /** @brief Software reset for resetting all the registers to default. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, CPMURegisterSoftwareReset, 3, 1)
@@ -3636,12 +3790,18 @@ typedef register_container RegDEVICEGphyControlStatus_t {
         bits.PowerDown.setName("PowerDown");
         bits.SGMII_DIV_PCSPowerDown.setBaseRegister(&r32);
         bits.SGMII_DIV_PCSPowerDown.setName("SGMII_DIV_PCSPowerDown");
+        bits.PCIePLLLockStatus.setBaseRegister(&r32);
+        bits.PCIePLLLockStatus.setName("PCIePLLLockStatus");
+        bits.GPHYPLLLockStatus.setBaseRegister(&r32);
+        bits.GPHYPLLLockStatus.setName("GPHYPLLLockStatus");
         bits.NCSIPLLLockStatus.setBaseRegister(&r32);
         bits.NCSIPLLLockStatus.setName("NCSIPLLLockStatus");
         bits.TLPClockSource.setBaseRegister(&r32);
         bits.TLPClockSource.setName("TLPClockSource");
         bits.SwitchingRegulatorPowerDown.setBaseRegister(&r32);
         bits.SwitchingRegulatorPowerDown.setName("SwitchingRegulatorPowerDown");
+        bits.KeepNCSIPLLonduringlowpowermode_.setBaseRegister(&r32);
+        bits.KeepNCSIPLLonduringlowpowermode_.setName("KeepNCSIPLLonduringlowpowermode_");
     }
     RegDEVICEGphyControlStatus_t& operator=(const RegDEVICEGphyControlStatus_t& other)
     {
@@ -3677,10 +3837,31 @@ typedef register_container RegDEVICEChipId_t {
 } RegDEVICEChipId_t;
 
 #define REG_DEVICE_MUTEX_REQUEST ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000365c) /* Writing a 1 to any of these bits pends a Mutex lock request on behalf of a software agent. The bit is subsequently latched by hardware and shall read 1 as long as the request is pending. Writing a 0 to a bit shall have no effect. */
+#define     DEVICE_MUTEX_REQUEST_REQUEST_SHIFT 0u
+#define     DEVICE_MUTEX_REQUEST_REQUEST_MASK  0xffffu
+#define GET_DEVICE_MUTEX_REQUEST_REQUEST(__reg__)  (((__reg__) & 0xffff) >> 0u)
+#define SET_DEVICE_MUTEX_REQUEST_REQUEST(__val__)  (((__val__) << 0u) & 0xffffu)
+
 /** @brief Register definition for @ref DEVICE_t.MutexRequest. */
 typedef register_container RegDEVICEMutexRequest_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief Writing a 1 to any of these bits pends a Mutex lock request on behalf of a software agent. The bit is subsequently latched by hardware and shall read 1 as long as the request is pending. Writing a 0 to a bit shall have no effect. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Request, 0, 16)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_16, 16, 16)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_16, 16, 16)
+        /** @brief Writing a 1 to any of these bits pends a Mutex lock request on behalf of a software agent. The bit is subsequently latched by hardware and shall read 1 as long as the request is pending. Writing a 0 to a bit shall have no effect. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Request, 0, 16)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "MutexRequest"; }
@@ -3692,6 +3873,8 @@ typedef register_container RegDEVICEMutexRequest_t {
     {
         /** @brief constructor for @ref DEVICE_t.MutexRequest. */
         r32.setName("MutexRequest");
+        bits.Request.setBaseRegister(&r32);
+        bits.Request.setName("Request");
     }
     RegDEVICEMutexRequest_t& operator=(const RegDEVICEMutexRequest_t& other)
     {
@@ -3702,10 +3885,31 @@ typedef register_container RegDEVICEMutexRequest_t {
 } RegDEVICEMutexRequest_t;
 
 #define REG_DEVICE_MUTEX_GRANT ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0003660) /* Reading this field shall return a maximum of one set bit at any time. The set bit shall point to the lock owner. If the Mutex is not locked, then a read shall return a value 0x0000. Writing a 1 to the already set bit shall relinquish the lock and the set bit shall be cleared. Writing a 1 to an unset bit shall cancel the corresponding pending request if there was one, and the pairing bit in the Mutex_Request_Reg shall be cleared. */
+#define     DEVICE_MUTEX_GRANT_GRANTED_SHIFT 0u
+#define     DEVICE_MUTEX_GRANT_GRANTED_MASK  0xffffu
+#define GET_DEVICE_MUTEX_GRANT_GRANTED(__reg__)  (((__reg__) & 0xffff) >> 0u)
+#define SET_DEVICE_MUTEX_GRANT_GRANTED(__val__)  (((__val__) << 0u) & 0xffffu)
+
 /** @brief Register definition for @ref DEVICE_t.MutexGrant. */
 typedef register_container RegDEVICEMutexGrant_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief Reading this field shall return a maximum of one set bit at any time. The set bit shall point to the lock owner. If the Mutex is not locked, then a read shall return a value 0x0000. Writing a 1 to the already set bit shall relinquish the lock and the set bit shall be cleared. Writing a 1 to an unset bit shall cancel the corresponding pending request if there was one, and the pairing bit in the Mutex_Request_Reg shall be cleared. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Granted, 0, 16)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_16, 16, 16)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_16, 16, 16)
+        /** @brief Reading this field shall return a maximum of one set bit at any time. The set bit shall point to the lock owner. If the Mutex is not locked, then a read shall return a value 0x0000. Writing a 1 to the already set bit shall relinquish the lock and the set bit shall be cleared. Writing a 1 to an unset bit shall cancel the corresponding pending request if there was one, and the pairing bit in the Mutex_Request_Reg shall be cleared. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Granted, 0, 16)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "MutexGrant"; }
@@ -3717,6 +3921,8 @@ typedef register_container RegDEVICEMutexGrant_t {
     {
         /** @brief constructor for @ref DEVICE_t.MutexGrant. */
         r32.setName("MutexGrant");
+        bits.Granted.setBaseRegister(&r32);
+        bits.Granted.setName("Granted");
     }
     RegDEVICEMutexGrant_t& operator=(const RegDEVICEMutexGrant_t& other)
     {
@@ -3739,6 +3945,10 @@ typedef register_container RegDEVICEMutexGrant_t {
 #define     DEVICE_GPHY_STRAP_RXCPU_SPAD_ECC_ENABLE_MASK  0x10u
 #define GET_DEVICE_GPHY_STRAP_RXCPU_SPAD_ECC_ENABLE(__reg__)  (((__reg__) & 0x10) >> 4u)
 #define SET_DEVICE_GPHY_STRAP_RXCPU_SPAD_ECC_ENABLE(__val__)  (((__val__) << 4u) & 0x10u)
+#define     DEVICE_GPHY_STRAP_APE_CM3_BIG_ENDIAN_ENABLE_SHIFT 8u
+#define     DEVICE_GPHY_STRAP_APE_CM3_BIG_ENDIAN_ENABLE_MASK  0x100u
+#define GET_DEVICE_GPHY_STRAP_APE_CM3_BIG_ENDIAN_ENABLE(__reg__)  (((__reg__) & 0x100) >> 8u)
+#define SET_DEVICE_GPHY_STRAP_APE_CM3_BIG_ENDIAN_ENABLE(__val__)  (((__val__) << 8u) & 0x100u)
 
 /** @brief Register definition for @ref DEVICE_t.GphyStrap. */
 typedef register_container RegDEVICEGphyStrap_t {
@@ -3756,10 +3966,18 @@ typedef register_container RegDEVICEGphyStrap_t {
         /** @brief Enable ECC for rxcpu scratchpad. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, RXCPUSPADECCEnable, 4, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_5, 5, 27)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_7_5, 5, 3)
+        /** @brief Enable APE CM3 Big Endian Setting */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APECM3BigEndianEnable, 8, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_9, 9, 23)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_5, 5, 27)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_9, 9, 23)
+        /** @brief Enable APE CM3 Big Endian Setting */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APECM3BigEndianEnable, 8, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_7_5, 5, 3)
         /** @brief Enable ECC for rxcpu scratchpad. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, RXCPUSPADECCEnable, 4, 1)
         /** @brief Enable RXMBUF ECC. */
@@ -3789,6 +4007,8 @@ typedef register_container RegDEVICEGphyStrap_t {
         bits.RXMBUFECCEnable.setName("RXMBUFECCEnable");
         bits.RXCPUSPADECCEnable.setBaseRegister(&r32);
         bits.RXCPUSPADECCEnable.setName("RXCPUSPADECCEnable");
+        bits.APECM3BigEndianEnable.setBaseRegister(&r32);
+        bits.APECM3BigEndianEnable.setName("APECM3BigEndianEnable");
     }
     RegDEVICEGphyStrap_t& operator=(const RegDEVICEGphyStrap_t& other)
     {
@@ -3797,6 +4017,166 @@ typedef register_container RegDEVICEGphyStrap_t {
     }
 #endif /* CXX_SIMULATOR */
 } RegDEVICEGphyStrap_t;
+
+#define REG_DEVICE_FLASH_CLOCK_CONTROL_POLICY ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000366c) /*  */
+#define     DEVICE_FLASH_CLOCK_CONTROL_POLICY_OVERRIDE_FLASH_CLOCK_SWITCH_SHIFT 0u
+#define     DEVICE_FLASH_CLOCK_CONTROL_POLICY_OVERRIDE_FLASH_CLOCK_SWITCH_MASK  0x3u
+#define GET_DEVICE_FLASH_CLOCK_CONTROL_POLICY_OVERRIDE_FLASH_CLOCK_SWITCH(__reg__)  (((__reg__) & 0x3) >> 0u)
+#define SET_DEVICE_FLASH_CLOCK_CONTROL_POLICY_OVERRIDE_FLASH_CLOCK_SWITCH(__val__)  (((__val__) << 0u) & 0x3u)
+#define     DEVICE_FLASH_CLOCK_CONTROL_POLICY_OVERRIDE_FLASH_CLOCK_SWITCH_62_5_MHZ_NCSI_DLL 0x0u
+#define     DEVICE_FLASH_CLOCK_CONTROL_POLICY_OVERRIDE_FLASH_CLOCK_SWITCH_25_MHZ 0x3u
+
+#define     DEVICE_FLASH_CLOCK_CONTROL_POLICY_FLASH_CLOCK_POLICY_SHIFT 4u
+#define     DEVICE_FLASH_CLOCK_CONTROL_POLICY_FLASH_CLOCK_POLICY_MASK  0x70u
+#define GET_DEVICE_FLASH_CLOCK_CONTROL_POLICY_FLASH_CLOCK_POLICY(__reg__)  (((__reg__) & 0x70) >> 4u)
+#define SET_DEVICE_FLASH_CLOCK_CONTROL_POLICY_FLASH_CLOCK_POLICY(__val__)  (((__val__) << 4u) & 0x70u)
+#define     DEVICE_FLASH_CLOCK_CONTROL_POLICY_FLASH_CLOCK_POLICY_62_5_MHZ_NCSI_DLL 0x0u
+#define     DEVICE_FLASH_CLOCK_CONTROL_POLICY_FLASH_CLOCK_POLICY_25_MHZ 0x3u
+
+#define     DEVICE_FLASH_CLOCK_CONTROL_POLICY_FLASH_IDLE_CLOCK_POLICY_SHIFT 8u
+#define     DEVICE_FLASH_CLOCK_CONTROL_POLICY_FLASH_IDLE_CLOCK_POLICY_MASK  0x700u
+#define GET_DEVICE_FLASH_CLOCK_CONTROL_POLICY_FLASH_IDLE_CLOCK_POLICY(__reg__)  (((__reg__) & 0x700) >> 8u)
+#define SET_DEVICE_FLASH_CLOCK_CONTROL_POLICY_FLASH_IDLE_CLOCK_POLICY(__val__)  (((__val__) << 8u) & 0x700u)
+#define     DEVICE_FLASH_CLOCK_CONTROL_POLICY_FLASH_IDLE_CLOCK_POLICY_62_5_MHZ_NCSI_DLL 0x0u
+#define     DEVICE_FLASH_CLOCK_CONTROL_POLICY_FLASH_IDLE_CLOCK_POLICY_25_MHZ 0x3u
+
+#define     DEVICE_FLASH_CLOCK_CONTROL_POLICY_EAV_CLOCK_POLICY_SHIFT 12u
+#define     DEVICE_FLASH_CLOCK_CONTROL_POLICY_EAV_CLOCK_POLICY_MASK  0xff000u
+#define GET_DEVICE_FLASH_CLOCK_CONTROL_POLICY_EAV_CLOCK_POLICY(__reg__)  (((__reg__) & 0xff000) >> 12u)
+#define SET_DEVICE_FLASH_CLOCK_CONTROL_POLICY_EAV_CLOCK_POLICY(__val__)  (((__val__) << 12u) & 0xff000u)
+#define     DEVICE_FLASH_CLOCK_CONTROL_POLICY_EAV_CLOCK_POLICY_4_8MHZ 0x0u
+#define     DEVICE_FLASH_CLOCK_CONTROL_POLICY_EAV_CLOCK_POLICY_1250_MHZ 0x1u
+#define     DEVICE_FLASH_CLOCK_CONTROL_POLICY_EAV_CLOCK_POLICY_125_MHZ 0xau
+
+#define     DEVICE_FLASH_CLOCK_CONTROL_POLICY_FORCE_EAV_CLOCK_DISABLE_SHIFT 28u
+#define     DEVICE_FLASH_CLOCK_CONTROL_POLICY_FORCE_EAV_CLOCK_DISABLE_MASK  0x10000000u
+#define GET_DEVICE_FLASH_CLOCK_CONTROL_POLICY_FORCE_EAV_CLOCK_DISABLE(__reg__)  (((__reg__) & 0x10000000) >> 28u)
+#define SET_DEVICE_FLASH_CLOCK_CONTROL_POLICY_FORCE_EAV_CLOCK_DISABLE(__val__)  (((__val__) << 28u) & 0x10000000u)
+#define     DEVICE_FLASH_CLOCK_CONTROL_POLICY_FLASH_IDLE_MODE_ENABLE_SHIFT 29u
+#define     DEVICE_FLASH_CLOCK_CONTROL_POLICY_FLASH_IDLE_MODE_ENABLE_MASK  0x20000000u
+#define GET_DEVICE_FLASH_CLOCK_CONTROL_POLICY_FLASH_IDLE_MODE_ENABLE(__reg__)  (((__reg__) & 0x20000000) >> 29u)
+#define SET_DEVICE_FLASH_CLOCK_CONTROL_POLICY_FLASH_IDLE_MODE_ENABLE(__val__)  (((__val__) << 29u) & 0x20000000u)
+#define     DEVICE_FLASH_CLOCK_CONTROL_POLICY_FORCE_FLASH_CLOCK_DISABLE_SHIFT 30u
+#define     DEVICE_FLASH_CLOCK_CONTROL_POLICY_FORCE_FLASH_CLOCK_DISABLE_MASK  0x40000000u
+#define GET_DEVICE_FLASH_CLOCK_CONTROL_POLICY_FORCE_FLASH_CLOCK_DISABLE(__reg__)  (((__reg__) & 0x40000000) >> 30u)
+#define SET_DEVICE_FLASH_CLOCK_CONTROL_POLICY_FORCE_FLASH_CLOCK_DISABLE(__val__)  (((__val__) << 30u) & 0x40000000u)
+#define     DEVICE_FLASH_CLOCK_CONTROL_POLICY_FLASH_CLOCK_SPEED_OVERRIDE_SHIFT 30u
+#define     DEVICE_FLASH_CLOCK_CONTROL_POLICY_FLASH_CLOCK_SPEED_OVERRIDE_MASK  0x40000000u
+#define GET_DEVICE_FLASH_CLOCK_CONTROL_POLICY_FLASH_CLOCK_SPEED_OVERRIDE(__reg__)  (((__reg__) & 0x40000000) >> 30u)
+#define SET_DEVICE_FLASH_CLOCK_CONTROL_POLICY_FLASH_CLOCK_SPEED_OVERRIDE(__val__)  (((__val__) << 30u) & 0x40000000u)
+
+/** @brief Register definition for @ref DEVICE_t.FlashClockControlPolicy. */
+typedef register_container RegDEVICEFlashClockControlPolicy_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_DEVICE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief Software Controlled Flash Clock Speed */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, OverrideFlashClockSwitch, 0, 2)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_3_2, 2, 2)
+        /** @brief Software Controlled Flash Clock Speed */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, FlashClockPolicy, 4, 3)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_7_7, 7, 1)
+        /** @brief Software Controlled Flash Clock Speed */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, FlashIdleClockPolicy, 8, 3)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_11_11, 11, 1)
+        /** @brief Software Controlled EAV Clock Speed Select */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EAVClockPolicy, 12, 8)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_27_20, 20, 8)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ForceEAVClockDisable, 28, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, FlashIdlemodeEnable, 29, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ForceFlashClockDisable, 30, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, FlashClockSpeedOverride, 30, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_31, 31, 1)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_31, 31, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, FlashClockSpeedOverride, 30, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ForceFlashClockDisable, 30, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, FlashIdlemodeEnable, 29, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ForceEAVClockDisable, 28, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_27_20, 20, 8)
+        /** @brief Software Controlled EAV Clock Speed Select */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, EAVClockPolicy, 12, 8)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_11_11, 11, 1)
+        /** @brief Software Controlled Flash Clock Speed */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, FlashIdleClockPolicy, 8, 3)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_7_7, 7, 1)
+        /** @brief Software Controlled Flash Clock Speed */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, FlashClockPolicy, 4, 3)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_3_2, 2, 2)
+        /** @brief Software Controlled Flash Clock Speed */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, OverrideFlashClockSwitch, 0, 2)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "FlashClockControlPolicy"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICEFlashClockControlPolicy_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.FlashClockControlPolicy. */
+        r32.setName("FlashClockControlPolicy");
+        bits.OverrideFlashClockSwitch.setBaseRegister(&r32);
+        bits.OverrideFlashClockSwitch.setName("OverrideFlashClockSwitch");
+        bits.OverrideFlashClockSwitch.addEnum("62.5 MHz NCSI DLL", 0x0);
+        bits.OverrideFlashClockSwitch.addEnum("25 MHz", 0x3);
+
+        bits.FlashClockPolicy.setBaseRegister(&r32);
+        bits.FlashClockPolicy.setName("FlashClockPolicy");
+        bits.FlashClockPolicy.addEnum("62.5 MHz NCSI DLL", 0x0);
+        bits.FlashClockPolicy.addEnum("25 MHz", 0x3);
+
+        bits.FlashIdleClockPolicy.setBaseRegister(&r32);
+        bits.FlashIdleClockPolicy.setName("FlashIdleClockPolicy");
+        bits.FlashIdleClockPolicy.addEnum("62.5 MHz NCSI DLL", 0x0);
+        bits.FlashIdleClockPolicy.addEnum("25 MHz", 0x3);
+
+        bits.EAVClockPolicy.setBaseRegister(&r32);
+        bits.EAVClockPolicy.setName("EAVClockPolicy");
+        bits.EAVClockPolicy.addEnum("4.8MHz", 0x0);
+        bits.EAVClockPolicy.addEnum("1250 MHz", 0x1);
+        bits.EAVClockPolicy.addEnum("125 MHz", 0xa);
+
+        bits.ForceEAVClockDisable.setBaseRegister(&r32);
+        bits.ForceEAVClockDisable.setName("ForceEAVClockDisable");
+        bits.FlashIdlemodeEnable.setBaseRegister(&r32);
+        bits.FlashIdlemodeEnable.setName("FlashIdlemodeEnable");
+        bits.ForceFlashClockDisable.setBaseRegister(&r32);
+        bits.ForceFlashClockDisable.setName("ForceFlashClockDisable");
+        bits.FlashClockSpeedOverride.setBaseRegister(&r32);
+        bits.FlashClockSpeedOverride.setName("FlashClockSpeedOverride");
+    }
+    RegDEVICEFlashClockControlPolicy_t& operator=(const RegDEVICEFlashClockControlPolicy_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegDEVICEFlashClockControlPolicy_t;
 
 #define REG_DEVICE_TOP_LEVEL_MISCELLANEOUS_CONTROL_1 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000367c) /*  */
 #define     DEVICE_TOP_LEVEL_MISCELLANEOUS_CONTROL_1_NCSI_CLOCK_OUTPUT_DISABLE_SHIFT 4u
@@ -4135,10 +4515,31 @@ typedef register_container RegDEVICEEeeControl_t {
 } RegDEVICEEeeControl_t;
 
 #define REG_DEVICE_GLOBAL_MUTEX_REQUEST ((volatile BCM5719_DEVICE_H_uint32_t*)0xc00036f0) /*  */
+#define     DEVICE_GLOBAL_MUTEX_REQUEST_REQUEST_SHIFT 0u
+#define     DEVICE_GLOBAL_MUTEX_REQUEST_REQUEST_MASK  0xffffu
+#define GET_DEVICE_GLOBAL_MUTEX_REQUEST_REQUEST(__reg__)  (((__reg__) & 0xffff) >> 0u)
+#define SET_DEVICE_GLOBAL_MUTEX_REQUEST_REQUEST(__val__)  (((__val__) << 0u) & 0xffffu)
+
 /** @brief Register definition for @ref DEVICE_t.GlobalMutexRequest. */
 typedef register_container RegDEVICEGlobalMutexRequest_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief Writing a 1 to any of these bits pends a Mutex lock request on behalf of a software agent. The bit is subsequently latched by hardware and shall read 1 as long as the request is pending. Writing a 0 to a bit shall have no effect. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Request, 0, 16)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_16, 16, 16)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_16, 16, 16)
+        /** @brief Writing a 1 to any of these bits pends a Mutex lock request on behalf of a software agent. The bit is subsequently latched by hardware and shall read 1 as long as the request is pending. Writing a 0 to a bit shall have no effect. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Request, 0, 16)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "GlobalMutexRequest"; }
@@ -4150,6 +4551,8 @@ typedef register_container RegDEVICEGlobalMutexRequest_t {
     {
         /** @brief constructor for @ref DEVICE_t.GlobalMutexRequest. */
         r32.setName("GlobalMutexRequest");
+        bits.Request.setBaseRegister(&r32);
+        bits.Request.setName("Request");
     }
     RegDEVICEGlobalMutexRequest_t& operator=(const RegDEVICEGlobalMutexRequest_t& other)
     {
@@ -4160,10 +4563,31 @@ typedef register_container RegDEVICEGlobalMutexRequest_t {
 } RegDEVICEGlobalMutexRequest_t;
 
 #define REG_DEVICE_GLOBAL_MUTEX_GRANT ((volatile BCM5719_DEVICE_H_uint32_t*)0xc00036f4) /*  */
+#define     DEVICE_GLOBAL_MUTEX_GRANT_GRANTED_SHIFT 0u
+#define     DEVICE_GLOBAL_MUTEX_GRANT_GRANTED_MASK  0xffffu
+#define GET_DEVICE_GLOBAL_MUTEX_GRANT_GRANTED(__reg__)  (((__reg__) & 0xffff) >> 0u)
+#define SET_DEVICE_GLOBAL_MUTEX_GRANT_GRANTED(__val__)  (((__val__) << 0u) & 0xffffu)
+
 /** @brief Register definition for @ref DEVICE_t.GlobalMutexGrant. */
 typedef register_container RegDEVICEGlobalMutexGrant_t {
     /** @brief 32bit direct register access. */
     BCM5719_DEVICE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief Reading this field shall return a maximum of one set bit at any time. The set bit shall point to the lock owner. If the Mutex is not locked, then a read shall return a value 0x0000. Writing a 1 to the already set bit shall relinquish the lock and the set bit shall be cleared. Writing a 1 to an unset bit shall cancel the corresponding pending request if there was one, and the pairing bit in the Mutex_Request_Reg shall be cleared. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Granted, 0, 16)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_16, 16, 16)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_16, 16, 16)
+        /** @brief Reading this field shall return a maximum of one set bit at any time. The set bit shall point to the lock owner. If the Mutex is not locked, then a read shall return a value 0x0000. Writing a 1 to the already set bit shall relinquish the lock and the set bit shall be cleared. Writing a 1 to an unset bit shall cancel the corresponding pending request if there was one, and the pairing bit in the Mutex_Request_Reg shall be cleared. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Granted, 0, 16)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "GlobalMutexGrant"; }
@@ -4175,6 +4599,8 @@ typedef register_container RegDEVICEGlobalMutexGrant_t {
     {
         /** @brief constructor for @ref DEVICE_t.GlobalMutexGrant. */
         r32.setName("GlobalMutexGrant");
+        bits.Granted.setBaseRegister(&r32);
+        bits.Granted.setName("Granted");
     }
     RegDEVICEGlobalMutexGrant_t& operator=(const RegDEVICEGlobalMutexGrant_t& other)
     {
@@ -4183,6 +4609,98 @@ typedef register_container RegDEVICEGlobalMutexGrant_t {
     }
 #endif /* CXX_SIMULATOR */
 } RegDEVICEGlobalMutexGrant_t;
+
+#define REG_DEVICE_TEMPERATURE_MONITOR_CONTROL ((volatile BCM5719_DEVICE_H_uint32_t*)0xc00036fc) /*  */
+#define     DEVICE_TEMPERATURE_MONITOR_CONTROL_ADC_TEST_ENABLE_SHIFT 0u
+#define     DEVICE_TEMPERATURE_MONITOR_CONTROL_ADC_TEST_ENABLE_MASK  0x1u
+#define GET_DEVICE_TEMPERATURE_MONITOR_CONTROL_ADC_TEST_ENABLE(__reg__)  (((__reg__) & 0x1) >> 0u)
+#define SET_DEVICE_TEMPERATURE_MONITOR_CONTROL_ADC_TEST_ENABLE(__val__)  (((__val__) << 0u) & 0x1u)
+#define     DEVICE_TEMPERATURE_MONITOR_CONTROL_BIAS_ADJUST_SHIFT 1u
+#define     DEVICE_TEMPERATURE_MONITOR_CONTROL_BIAS_ADJUST_MASK  0xfeu
+#define GET_DEVICE_TEMPERATURE_MONITOR_CONTROL_BIAS_ADJUST(__reg__)  (((__reg__) & 0xfe) >> 1u)
+#define SET_DEVICE_TEMPERATURE_MONITOR_CONTROL_BIAS_ADJUST(__val__)  (((__val__) << 1u) & 0xfeu)
+#define     DEVICE_TEMPERATURE_MONITOR_CONTROL_TEMPERATURE_DATA_SHIFT 8u
+#define     DEVICE_TEMPERATURE_MONITOR_CONTROL_TEMPERATURE_DATA_MASK  0xff00u
+#define GET_DEVICE_TEMPERATURE_MONITOR_CONTROL_TEMPERATURE_DATA(__reg__)  (((__reg__) & 0xff00) >> 8u)
+#define SET_DEVICE_TEMPERATURE_MONITOR_CONTROL_TEMPERATURE_DATA(__val__)  (((__val__) << 8u) & 0xff00u)
+#define     DEVICE_TEMPERATURE_MONITOR_CONTROL_TEMPERATURE_MONITOR_HOLD_SHIFT 17u
+#define     DEVICE_TEMPERATURE_MONITOR_CONTROL_TEMPERATURE_MONITOR_HOLD_MASK  0x20000u
+#define GET_DEVICE_TEMPERATURE_MONITOR_CONTROL_TEMPERATURE_MONITOR_HOLD(__reg__)  (((__reg__) & 0x20000) >> 17u)
+#define SET_DEVICE_TEMPERATURE_MONITOR_CONTROL_TEMPERATURE_MONITOR_HOLD(__val__)  (((__val__) << 17u) & 0x20000u)
+#define     DEVICE_TEMPERATURE_MONITOR_CONTROL_TEMPERATURE_MONITOR_POWER_DOWN_SHIFT 18u
+#define     DEVICE_TEMPERATURE_MONITOR_CONTROL_TEMPERATURE_MONITOR_POWER_DOWN_MASK  0x40000u
+#define GET_DEVICE_TEMPERATURE_MONITOR_CONTROL_TEMPERATURE_MONITOR_POWER_DOWN(__reg__)  (((__reg__) & 0x40000) >> 18u)
+#define SET_DEVICE_TEMPERATURE_MONITOR_CONTROL_TEMPERATURE_MONITOR_POWER_DOWN(__val__)  (((__val__) << 18u) & 0x40000u)
+
+/** @brief Register definition for @ref DEVICE_t.TemperatureMonitorControl. */
+typedef register_container RegDEVICETemperatureMonitorControl_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_DEVICE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ADCTestEnable, 0, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BiasAdjust, 1, 7)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, TemperatureData, 8, 8)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_16_16, 16, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, TemperatureMonitorHold, 17, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, TemperatureMonitorPowerDown, 18, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_19, 19, 13)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_19, 19, 13)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, TemperatureMonitorPowerDown, 18, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, TemperatureMonitorHold, 17, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_16_16, 16, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, TemperatureData, 8, 8)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BiasAdjust, 1, 7)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, ADCTestEnable, 0, 1)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "TemperatureMonitorControl"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICETemperatureMonitorControl_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.TemperatureMonitorControl. */
+        r32.setName("TemperatureMonitorControl");
+        bits.ADCTestEnable.setBaseRegister(&r32);
+        bits.ADCTestEnable.setName("ADCTestEnable");
+        bits.BiasAdjust.setBaseRegister(&r32);
+        bits.BiasAdjust.setName("BiasAdjust");
+        bits.TemperatureData.setBaseRegister(&r32);
+        bits.TemperatureData.setName("TemperatureData");
+        bits.TemperatureMonitorHold.setBaseRegister(&r32);
+        bits.TemperatureMonitorHold.setName("TemperatureMonitorHold");
+        bits.TemperatureMonitorPowerDown.setBaseRegister(&r32);
+        bits.TemperatureMonitorPowerDown.setName("TemperatureMonitorPowerDown");
+    }
+    RegDEVICETemperatureMonitorControl_t& operator=(const RegDEVICETemperatureMonitorControl_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegDEVICETemperatureMonitorControl_t;
 
 #define REG_DEVICE_MEMORY_ARBITER_MODE ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0004000) /*  */
 #define     DEVICE_MEMORY_ARBITER_MODE_ENABLE_SHIFT 1u
@@ -5953,6 +6471,31 @@ typedef register_container RegDEVICE64c0_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICE64c0_t;
 
+#define REG_DEVICE_64C4 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc00064c4) /*  */
+/** @brief Register definition for @ref DEVICE_t.64c4. */
+typedef register_container RegDEVICE64c4_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "64c4"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICE64c4_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.64c4. */
+        r32.setName("64c4");
+    }
+    RegDEVICE64c4_t& operator=(const RegDEVICE64c4_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegDEVICE64c4_t;
+
 #define REG_DEVICE_64C8 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc00064c8) /*  */
 /** @brief Register definition for @ref DEVICE_t.64c8. */
 typedef register_container RegDEVICE64c8_t {
@@ -7249,6 +7792,10 @@ typedef register_container RegDEVICE65f4_t {
 } RegDEVICE65f4_t;
 
 #define REG_DEVICE_GRC_MODE_CONTROL ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006800) /*  */
+#define     DEVICE_GRC_MODE_CONTROL_HOST_STACK_UP_SHIFT 16u
+#define     DEVICE_GRC_MODE_CONTROL_HOST_STACK_UP_MASK  0x10000u
+#define GET_DEVICE_GRC_MODE_CONTROL_HOST_STACK_UP(__reg__)  (((__reg__) & 0x10000) >> 16u)
+#define SET_DEVICE_GRC_MODE_CONTROL_HOST_STACK_UP(__val__)  (((__val__) << 16u) & 0x10000u)
 #define     DEVICE_GRC_MODE_CONTROL_TIME_SYNC_MODE_ENABLE_SHIFT 19u
 #define     DEVICE_GRC_MODE_CONTROL_TIME_SYNC_MODE_ENABLE_MASK  0x80000u
 #define GET_DEVICE_GRC_MODE_CONTROL_TIME_SYNC_MODE_ENABLE(__reg__)  (((__reg__) & 0x80000) >> 19u)
@@ -7278,7 +7825,11 @@ typedef register_container RegDEVICEGrcModeControl_t {
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_18_0, 0, 19)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_15_0, 0, 16)
+        /** @brief The host stack is ready to receive data from the NIC. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, HostStackUp, 16, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_18_17, 17, 2)
         /** @brief Write 1 to this bit to enable Time Sync Mode. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, TimeSyncModeEnable, 19, 1)
         /** @brief Padding */
@@ -7313,7 +7864,11 @@ typedef register_container RegDEVICEGrcModeControl_t {
         /** @brief Write 1 to this bit to enable Time Sync Mode. */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, TimeSyncModeEnable, 19, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_18_0, 0, 19)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_18_17, 17, 2)
+        /** @brief The host stack is ready to receive data from the NIC. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, HostStackUp, 16, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_15_0, 0, 16)
 #else
 #error Unknown Endian
 #endif
@@ -7329,6 +7884,8 @@ typedef register_container RegDEVICEGrcModeControl_t {
     {
         /** @brief constructor for @ref DEVICE_t.GrcModeControl. */
         r32.setName("GrcModeControl");
+        bits.HostStackUp.setBaseRegister(&r32);
+        bits.HostStackUp.setName("HostStackUp");
         bits.TimeSyncModeEnable.setBaseRegister(&r32);
         bits.TimeSyncModeEnable.setName("TimeSyncModeEnable");
         bits.NVRAMWriteEnable.setBaseRegister(&r32);
@@ -7349,14 +7906,39 @@ typedef register_container RegDEVICEGrcModeControl_t {
 } RegDEVICEGrcModeControl_t;
 
 #define REG_DEVICE_MISCELLANEOUS_CONFIG ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006804) /*  */
-#define     DEVICE_MISCELLANEOUS_CONFIG_GRC_RESET_SHIFT 1u
-#define     DEVICE_MISCELLANEOUS_CONFIG_GRC_RESET_MASK  0x2u
-#define GET_DEVICE_MISCELLANEOUS_CONFIG_GRC_RESET(__reg__)  (((__reg__) & 0x2) >> 1u)
-#define SET_DEVICE_MISCELLANEOUS_CONFIG_GRC_RESET(__val__)  (((__val__) << 1u) & 0x2u)
-#define     DEVICE_MISCELLANEOUS_CONFIG_ALL_SHIFT 1u
-#define     DEVICE_MISCELLANEOUS_CONFIG_ALL_MASK  0xfffffffeu
-#define GET_DEVICE_MISCELLANEOUS_CONFIG_ALL(__reg__)  (((__reg__) & 0xfffffffe) >> 1u)
-#define SET_DEVICE_MISCELLANEOUS_CONFIG_ALL(__val__)  (((__val__) << 1u) & 0xfffffffeu)
+#define     DEVICE_MISCELLANEOUS_CONFIG_GRC_RESET_SHIFT 0u
+#define     DEVICE_MISCELLANEOUS_CONFIG_GRC_RESET_MASK  0x1u
+#define GET_DEVICE_MISCELLANEOUS_CONFIG_GRC_RESET(__reg__)  (((__reg__) & 0x1) >> 0u)
+#define SET_DEVICE_MISCELLANEOUS_CONFIG_GRC_RESET(__val__)  (((__val__) << 0u) & 0x1u)
+#define     DEVICE_MISCELLANEOUS_CONFIG_TIMER_PRESCALER_SHIFT 1u
+#define     DEVICE_MISCELLANEOUS_CONFIG_TIMER_PRESCALER_MASK  0xfeu
+#define GET_DEVICE_MISCELLANEOUS_CONFIG_TIMER_PRESCALER(__reg__)  (((__reg__) & 0xfe) >> 1u)
+#define SET_DEVICE_MISCELLANEOUS_CONFIG_TIMER_PRESCALER(__val__)  (((__val__) << 1u) & 0xfeu)
+#define     DEVICE_MISCELLANEOUS_CONFIG_BOND_ID_SHIFT 13u
+#define     DEVICE_MISCELLANEOUS_CONFIG_BOND_ID_MASK  0x1e000u
+#define GET_DEVICE_MISCELLANEOUS_CONFIG_BOND_ID(__reg__)  (((__reg__) & 0x1e000) >> 13u)
+#define SET_DEVICE_MISCELLANEOUS_CONFIG_BOND_ID(__val__)  (((__val__) << 13u) & 0x1e000u)
+#define     DEVICE_MISCELLANEOUS_CONFIG_POWER_STATE_SHIFT 17u
+#define     DEVICE_MISCELLANEOUS_CONFIG_POWER_STATE_MASK  0x60000u
+#define GET_DEVICE_MISCELLANEOUS_CONFIG_POWER_STATE(__reg__)  (((__reg__) & 0x60000) >> 17u)
+#define SET_DEVICE_MISCELLANEOUS_CONFIG_POWER_STATE(__val__)  (((__val__) << 17u) & 0x60000u)
+#define     DEVICE_MISCELLANEOUS_CONFIG_POWER_STATE_D0 0x0u
+#define     DEVICE_MISCELLANEOUS_CONFIG_POWER_STATE_D1 0x1u
+#define     DEVICE_MISCELLANEOUS_CONFIG_POWER_STATE_D2 0x2u
+#define     DEVICE_MISCELLANEOUS_CONFIG_POWER_STATE_D3 0x3u
+
+#define     DEVICE_MISCELLANEOUS_CONFIG_PME_EN_STATE_SHIFT 19u
+#define     DEVICE_MISCELLANEOUS_CONFIG_PME_EN_STATE_MASK  0x80000u
+#define GET_DEVICE_MISCELLANEOUS_CONFIG_PME_EN_STATE(__reg__)  (((__reg__) & 0x80000) >> 19u)
+#define SET_DEVICE_MISCELLANEOUS_CONFIG_PME_EN_STATE(__val__)  (((__val__) << 19u) & 0x80000u)
+#define     DEVICE_MISCELLANEOUS_CONFIG_POWERDOWN_SHIFT 20u
+#define     DEVICE_MISCELLANEOUS_CONFIG_POWERDOWN_MASK  0x100000u
+#define GET_DEVICE_MISCELLANEOUS_CONFIG_POWERDOWN(__reg__)  (((__reg__) & 0x100000) >> 20u)
+#define SET_DEVICE_MISCELLANEOUS_CONFIG_POWERDOWN(__val__)  (((__val__) << 20u) & 0x100000u)
+#define     DEVICE_MISCELLANEOUS_CONFIG_DISABLE_GRC_RESET_SHIFT 29u
+#define     DEVICE_MISCELLANEOUS_CONFIG_DISABLE_GRC_RESET_MASK  0x20000000u
+#define GET_DEVICE_MISCELLANEOUS_CONFIG_DISABLE_GRC_RESET(__reg__)  (((__reg__) & 0x20000000) >> 29u)
+#define SET_DEVICE_MISCELLANEOUS_CONFIG_DISABLE_GRC_RESET(__val__)  (((__val__) << 29u) & 0x20000000u)
 
 /** @brief Register definition for @ref DEVICE_t.MiscellaneousConfig. */
 typedef register_container RegDEVICEMiscellaneousConfig_t {
@@ -7365,19 +7947,47 @@ typedef register_container RegDEVICEMiscellaneousConfig_t {
 
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
+        /** @brief Write 1 to this bit resets the CORE_CLK blocks in the device. This is a self-clearing bit. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GRCReset, 0, 1)
+        /** @brief Local Core clock frequency in MHz, minus 1, which should correspond to each advance of the timer. Reset to all 1. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, TimerPrescaler, 1, 7)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_0_0, 0, 1)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_12_8, 8, 5)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GRCReset, 1, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, all, 1, 31)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BondID, 13, 4)
+        /** @brief Indicates the current power state of the device. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerState, 17, 2)
+        /** @brief State of PME Enable for this device. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMEENState, 19, 1)
+        /** @brief Setting this bit will power down the device (power consumption is ~20 mW). This bit is cleared by PCI reset. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Powerdown, 20, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_28_21, 21, 8)
+        /** @brief Setting this bit will prevent reset to PCIE block. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DisableGRCReset, 29, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_30, 30, 2)
 #elif defined(__BIG_ENDIAN__)
-        /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, all, 1, 31)
-        /** @brief  */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GRCReset, 1, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_0_0, 0, 1)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_30, 30, 2)
+        /** @brief Setting this bit will prevent reset to PCIE block. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, DisableGRCReset, 29, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_28_21, 21, 8)
+        /** @brief Setting this bit will power down the device (power consumption is ~20 mW). This bit is cleared by PCI reset. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Powerdown, 20, 1)
+        /** @brief State of PME Enable for this device. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PMEENState, 19, 1)
+        /** @brief Indicates the current power state of the device. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, PowerState, 17, 2)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, BondID, 13, 4)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_12_8, 8, 5)
+        /** @brief Local Core clock frequency in MHz, minus 1, which should correspond to each advance of the timer. Reset to all 1. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, TimerPrescaler, 1, 7)
+        /** @brief Write 1 to this bit resets the CORE_CLK blocks in the device. This is a self-clearing bit. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GRCReset, 0, 1)
 #else
 #error Unknown Endian
 #endif
@@ -7395,8 +8005,23 @@ typedef register_container RegDEVICEMiscellaneousConfig_t {
         r32.setName("MiscellaneousConfig");
         bits.GRCReset.setBaseRegister(&r32);
         bits.GRCReset.setName("GRCReset");
-        bits.all.setBaseRegister(&r32);
-        bits.all.setName("all");
+        bits.TimerPrescaler.setBaseRegister(&r32);
+        bits.TimerPrescaler.setName("TimerPrescaler");
+        bits.BondID.setBaseRegister(&r32);
+        bits.BondID.setName("BondID");
+        bits.PowerState.setBaseRegister(&r32);
+        bits.PowerState.setName("PowerState");
+        bits.PowerState.addEnum("D0", 0x0);
+        bits.PowerState.addEnum("D1", 0x1);
+        bits.PowerState.addEnum("D2", 0x2);
+        bits.PowerState.addEnum("D3", 0x3);
+
+        bits.PMEENState.setBaseRegister(&r32);
+        bits.PMEENState.setName("PMEENState");
+        bits.Powerdown.setBaseRegister(&r32);
+        bits.Powerdown.setName("Powerdown");
+        bits.DisableGRCReset.setBaseRegister(&r32);
+        bits.DisableGRCReset.setName("DisableGRCReset");
     }
     RegDEVICEMiscellaneousConfig_t& operator=(const RegDEVICEMiscellaneousConfig_t& other)
     {
@@ -7407,6 +8032,18 @@ typedef register_container RegDEVICEMiscellaneousConfig_t {
 } RegDEVICEMiscellaneousConfig_t;
 
 #define REG_DEVICE_MISCELLANEOUS_LOCAL_CONTROL ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0006808) /*  */
+#define     DEVICE_MISCELLANEOUS_LOCAL_CONTROL_GPIO_3_INPUT_SHIFT 5u
+#define     DEVICE_MISCELLANEOUS_LOCAL_CONTROL_GPIO_3_INPUT_MASK  0x20u
+#define GET_DEVICE_MISCELLANEOUS_LOCAL_CONTROL_GPIO_3_INPUT(__reg__)  (((__reg__) & 0x20) >> 5u)
+#define SET_DEVICE_MISCELLANEOUS_LOCAL_CONTROL_GPIO_3_INPUT(__val__)  (((__val__) << 5u) & 0x20u)
+#define     DEVICE_MISCELLANEOUS_LOCAL_CONTROL_GPIO_3_OUTPUT_ENABLE_SHIFT 6u
+#define     DEVICE_MISCELLANEOUS_LOCAL_CONTROL_GPIO_3_OUTPUT_ENABLE_MASK  0x40u
+#define GET_DEVICE_MISCELLANEOUS_LOCAL_CONTROL_GPIO_3_OUTPUT_ENABLE(__reg__)  (((__reg__) & 0x40) >> 6u)
+#define SET_DEVICE_MISCELLANEOUS_LOCAL_CONTROL_GPIO_3_OUTPUT_ENABLE(__val__)  (((__val__) << 6u) & 0x40u)
+#define     DEVICE_MISCELLANEOUS_LOCAL_CONTROL_GPIO_3_OUTPUT_SHIFT 7u
+#define     DEVICE_MISCELLANEOUS_LOCAL_CONTROL_GPIO_3_OUTPUT_MASK  0x80u
+#define GET_DEVICE_MISCELLANEOUS_LOCAL_CONTROL_GPIO_3_OUTPUT(__reg__)  (((__reg__) & 0x80) >> 7u)
+#define SET_DEVICE_MISCELLANEOUS_LOCAL_CONTROL_GPIO_3_OUTPUT(__val__)  (((__val__) << 7u) & 0x80u)
 #define     DEVICE_MISCELLANEOUS_LOCAL_CONTROL_GPIO_0_INPUT_SHIFT 8u
 #define     DEVICE_MISCELLANEOUS_LOCAL_CONTROL_GPIO_0_INPUT_MASK  0x100u
 #define GET_DEVICE_MISCELLANEOUS_LOCAL_CONTROL_GPIO_0_INPUT(__reg__)  (((__reg__) & 0x100) >> 8u)
@@ -7443,6 +8080,10 @@ typedef register_container RegDEVICEMiscellaneousConfig_t {
 #define     DEVICE_MISCELLANEOUS_LOCAL_CONTROL_GPIO_2_OUTPUT_MASK  0x10000u
 #define GET_DEVICE_MISCELLANEOUS_LOCAL_CONTROL_GPIO_2_OUTPUT(__reg__)  (((__reg__) & 0x10000) >> 16u)
 #define SET_DEVICE_MISCELLANEOUS_LOCAL_CONTROL_GPIO_2_OUTPUT(__val__)  (((__val__) << 16u) & 0x10000u)
+#define     DEVICE_MISCELLANEOUS_LOCAL_CONTROL_APE_GPIO_IN_SHIFT 17u
+#define     DEVICE_MISCELLANEOUS_LOCAL_CONTROL_APE_GPIO_IN_MASK  0xfe0000u
+#define GET_DEVICE_MISCELLANEOUS_LOCAL_CONTROL_APE_GPIO_IN(__reg__)  (((__reg__) & 0xfe0000) >> 17u)
+#define SET_DEVICE_MISCELLANEOUS_LOCAL_CONTROL_APE_GPIO_IN(__val__)  (((__val__) << 17u) & 0xfe0000u)
 #define     DEVICE_MISCELLANEOUS_LOCAL_CONTROL_AUTO_SEEPROM_ACCESS_SHIFT 24u
 #define     DEVICE_MISCELLANEOUS_LOCAL_CONTROL_AUTO_SEEPROM_ACCESS_MASK  0x1000000u
 #define GET_DEVICE_MISCELLANEOUS_LOCAL_CONTROL_AUTO_SEEPROM_ACCESS(__reg__)  (((__reg__) & 0x1000000) >> 24u)
@@ -7456,7 +8097,13 @@ typedef register_container RegDEVICEMiscellaneousLocalControl_t {
     BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_7_0, 0, 8)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_4_0, 0, 5)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPIO3Input, 5, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPIO3OutputEnable, 6, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPIO3Output, 7, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPIO0Input, 8, 1)
         /** @brief  */
@@ -7475,8 +8122,8 @@ typedef register_container RegDEVICEMiscellaneousLocalControl_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPIO1Output, 15, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPIO2Output, 16, 1)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_23_17, 17, 7)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APEGPIOIn, 17, 7)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, AutoSEEPROMAccess, 24, 1)
         /** @brief Padding */
@@ -7486,8 +8133,8 @@ typedef register_container RegDEVICEMiscellaneousLocalControl_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_31_25, 25, 7)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, AutoSEEPROMAccess, 24, 1)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_23_17, 17, 7)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, APEGPIOIn, 17, 7)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPIO2Output, 16, 1)
         /** @brief  */
@@ -7506,8 +8153,14 @@ typedef register_container RegDEVICEMiscellaneousLocalControl_t {
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPIO1Input, 9, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPIO0Input, 8, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPIO3Output, 7, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPIO3OutputEnable, 6, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, GPIO3Input, 5, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_7_0, 0, 8)
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_4_0, 0, 5)
 #else
 #error Unknown Endian
 #endif
@@ -7523,6 +8176,12 @@ typedef register_container RegDEVICEMiscellaneousLocalControl_t {
     {
         /** @brief constructor for @ref DEVICE_t.MiscellaneousLocalControl. */
         r32.setName("MiscellaneousLocalControl");
+        bits.GPIO3Input.setBaseRegister(&r32);
+        bits.GPIO3Input.setName("GPIO3Input");
+        bits.GPIO3OutputEnable.setBaseRegister(&r32);
+        bits.GPIO3OutputEnable.setName("GPIO3OutputEnable");
+        bits.GPIO3Output.setBaseRegister(&r32);
+        bits.GPIO3Output.setName("GPIO3Output");
         bits.GPIO0Input.setBaseRegister(&r32);
         bits.GPIO0Input.setName("GPIO0Input");
         bits.GPIO1Input.setBaseRegister(&r32);
@@ -7541,6 +8200,8 @@ typedef register_container RegDEVICEMiscellaneousLocalControl_t {
         bits.GPIO1Output.setName("GPIO1Output");
         bits.GPIO2Output.setBaseRegister(&r32);
         bits.GPIO2Output.setName("GPIO2Output");
+        bits.APEGPIOIn.setBaseRegister(&r32);
+        bits.APEGPIOIn.setName("APEGPIOIn");
         bits.AutoSEEPROMAccess.setBaseRegister(&r32);
         bits.AutoSEEPROMAccess.setName("AutoSEEPROMAccess");
     }
@@ -8095,7 +8756,13 @@ typedef struct DEVICE_t {
     RegDEVICEApeMemoryData_t ApeMemoryData;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_256[192];
+    BCM5719_DEVICE_H_uint32_t reserved_256[24];
+
+    /** @brief Unknown register. */
+    RegDEVICE160_t _160;
+
+    /** @brief Reserved bytes to pad out data structure. */
+    BCM5719_DEVICE_H_uint32_t reserved_356[167];
 
     /** @brief  */
     RegDEVICEEmacMode_t EmacMode;
@@ -8139,8 +8806,8 @@ typedef struct DEVICE_t {
     /** @brief  */
     RegDEVICEWolPatternCfg_t WolPatternCfg;
 
-    /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_1080[1];
+    /** @brief Unknown register. */
+    RegDEVICE438_t _438;
 
     /** @brief 2-byte field which is the largest size frame that will be accepted without being marked as oversize. */
     RegDEVICEMtuSize_t MtuSize;
@@ -8214,8 +8881,11 @@ typedef struct DEVICE_t {
     /** @brief  */
     RegDEVICECpmuControl_t CpmuControl;
 
+    /** @brief  */
+    RegDEVICENoLinkPowerModeClockPolicy_t NoLinkPowerModeClockPolicy;
+
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_13828[3];
+    BCM5719_DEVICE_H_uint32_t reserved_13832[2];
 
     /** @brief  */
     RegDEVICELinkAwarePowerModeClockPolicy_t LinkAwarePowerModeClockPolicy;
@@ -8257,7 +8927,13 @@ typedef struct DEVICE_t {
     RegDEVICEGphyStrap_t GphyStrap;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_13928[5];
+    BCM5719_DEVICE_H_uint32_t reserved_13928[1];
+
+    /** @brief  */
+    RegDEVICEFlashClockControlPolicy_t FlashClockControlPolicy;
+
+    /** @brief Reserved bytes to pad out data structure. */
+    BCM5719_DEVICE_H_uint32_t reserved_13936[3];
 
     /** @brief  */
     RegDEVICETopLevelMiscellaneousControl1_t TopLevelMiscellaneousControl1;
@@ -8290,7 +8966,13 @@ typedef struct DEVICE_t {
     RegDEVICEGlobalMutexGrant_t GlobalMutexGrant;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_14072[578];
+    BCM5719_DEVICE_H_uint32_t reserved_14072[1];
+
+    /** @brief  */
+    RegDEVICETemperatureMonitorControl_t TemperatureMonitorControl;
+
+    /** @brief Reserved bytes to pad out data structure. */
+    BCM5719_DEVICE_H_uint32_t reserved_14080[576];
 
     /** @brief  */
     RegDEVICEMemoryArbiterMode_t MemoryArbiterMode;
@@ -8469,8 +9151,8 @@ typedef struct DEVICE_t {
     /** @brief  */
     RegDEVICE64c0_t _64c0;
 
-    /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_25796[1];
+    /** @brief  */
+    RegDEVICE64c4_t _64c4;
 
     /** @brief  */
     RegDEVICE64c8_t _64c8;
@@ -8598,16 +9280,49 @@ typedef struct DEVICE_t {
 #ifdef CXX_SIMULATOR
     DEVICE_t()
     {
+        for(int i = 0; i < 26; i++)
+        {
+            reserved_0[i].setComponentOffset(0x0 + (i * 4));
+        }
         MiscellaneousHostControl.r32.setComponentOffset(0x68);
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_108[i].setComponentOffset(0x6c + (i * 4));
+        }
         PciState.r32.setComponentOffset(0x70);
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_116[i].setComponentOffset(0x74 + (i * 4));
+        }
         RegisterBase.r32.setComponentOffset(0x78);
         MemoryBase.r32.setComponentOffset(0x7c);
         RegisterData.r32.setComponentOffset(0x80);
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_132[i].setComponentOffset(0x84 + (i * 4));
+        }
         UndiReceiveReturnRingConsumerIndex.r32.setComponentOffset(0x88);
         UndiReceiveReturnRingConsumerIndexLow.r32.setComponentOffset(0x8c);
+        for(int i = 0; i < 11; i++)
+        {
+            reserved_144[i].setComponentOffset(0x90 + (i * 4));
+        }
         LinkStatusControl.r32.setComponentOffset(0xbc);
+        for(int i = 0; i < 14; i++)
+        {
+            reserved_192[i].setComponentOffset(0xc0 + (i * 4));
+        }
         ApeMemoryBase.r32.setComponentOffset(0xf8);
         ApeMemoryData.r32.setComponentOffset(0xfc);
+        for(int i = 0; i < 24; i++)
+        {
+            reserved_256[i].setComponentOffset(0x100 + (i * 4));
+        }
+        _160.r32.setComponentOffset(0x160);
+        for(int i = 0; i < 167; i++)
+        {
+            reserved_356[i].setComponentOffset(0x164 + (i * 4));
+        }
         EmacMode.r32.setComponentOffset(0x400);
         EmacStatus.r32.setComponentOffset(0x404);
         EmacEvent.r32.setComponentOffset(0x408);
@@ -8622,13 +9337,34 @@ typedef struct DEVICE_t {
         EmacMacAddresses3Low.r32.setComponentOffset(0x42c);
         WolPatternPointer.r32.setComponentOffset(0x430);
         WolPatternCfg.r32.setComponentOffset(0x434);
+        _438.r32.setComponentOffset(0x438);
         MtuSize.r32.setComponentOffset(0x43c);
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_1088[i].setComponentOffset(0x440 + (i * 4));
+        }
         MiiCommunication.r32.setComponentOffset(0x44c);
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_1104[i].setComponentOffset(0x450 + (i * 4));
+        }
         MiiMode.r32.setComponentOffset(0x454);
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_1112[i].setComponentOffset(0x458 + (i * 4));
+        }
         TransmitMacMode.r32.setComponentOffset(0x45c);
         TransmitMacStatus.r32.setComponentOffset(0x460);
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_1124[i].setComponentOffset(0x464 + (i * 4));
+        }
         ReceiveMacMode.r32.setComponentOffset(0x468);
         ReceiveMacStatus.r32.setComponentOffset(0x46c);
+        for(int i = 0; i < 52; i++)
+        {
+            reserved_1136[i].setComponentOffset(0x470 + (i * 4));
+        }
         PerfectMatch1High.r32.setComponentOffset(0x540);
         PerfectMatch1Low.r32.setComponentOffset(0x544);
         PerfectMatch2High.r32.setComponentOffset(0x548);
@@ -8637,31 +9373,118 @@ typedef struct DEVICE_t {
         PerfectMatch3Low.r32.setComponentOffset(0x554);
         PerfectMatch4High.r32.setComponentOffset(0x558);
         PerfectMatch4Low.r32.setComponentOffset(0x55c);
+        for(int i = 0; i < 21; i++)
+        {
+            reserved_1376[i].setComponentOffset(0x560 + (i * 4));
+        }
         SgmiiStatus.r32.setComponentOffset(0x5b4);
+        for(int i = 0; i < 3090; i++)
+        {
+            reserved_1464[i].setComponentOffset(0x5b8 + (i * 4));
+        }
         CpmuControl.r32.setComponentOffset(0x3600);
+        NoLinkPowerModeClockPolicy.r32.setComponentOffset(0x3604);
+        for(int i = 0; i < 2; i++)
+        {
+            reserved_13832[i].setComponentOffset(0x3608 + (i * 4));
+        }
         LinkAwarePowerModeClockPolicy.r32.setComponentOffset(0x3610);
+        for(int i = 0; i < 4; i++)
+        {
+            reserved_13844[i].setComponentOffset(0x3614 + (i * 4));
+        }
         ClockSpeedOverridePolicy.r32.setComponentOffset(0x3624);
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_13864[i].setComponentOffset(0x3628 + (i * 4));
+        }
         Status.r32.setComponentOffset(0x362c);
         ClockStatus.r32.setComponentOffset(0x3630);
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_13876[i].setComponentOffset(0x3634 + (i * 4));
+        }
         GphyControlStatus.r32.setComponentOffset(0x3638);
+        for(int i = 0; i < 7; i++)
+        {
+            reserved_13884[i].setComponentOffset(0x363c + (i * 4));
+        }
         ChipId.r32.setComponentOffset(0x3658);
         MutexRequest.r32.setComponentOffset(0x365c);
         MutexGrant.r32.setComponentOffset(0x3660);
         GphyStrap.r32.setComponentOffset(0x3664);
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_13928[i].setComponentOffset(0x3668 + (i * 4));
+        }
+        FlashClockControlPolicy.r32.setComponentOffset(0x366c);
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_13936[i].setComponentOffset(0x3670 + (i * 4));
+        }
         TopLevelMiscellaneousControl1.r32.setComponentOffset(0x367c);
+        for(int i = 0; i < 12; i++)
+        {
+            reserved_13952[i].setComponentOffset(0x3680 + (i * 4));
+        }
         EeeMode.r32.setComponentOffset(0x36b0);
+        for(int i = 0; i < 2; i++)
+        {
+            reserved_14004[i].setComponentOffset(0x36b4 + (i * 4));
+        }
         EeeLinkIdleControl.r32.setComponentOffset(0x36bc);
+        for(int i = 0; i < 4; i++)
+        {
+            reserved_14016[i].setComponentOffset(0x36c0 + (i * 4));
+        }
         EeeControl.r32.setComponentOffset(0x36d0);
+        for(int i = 0; i < 7; i++)
+        {
+            reserved_14036[i].setComponentOffset(0x36d4 + (i * 4));
+        }
         GlobalMutexRequest.r32.setComponentOffset(0x36f0);
         GlobalMutexGrant.r32.setComponentOffset(0x36f4);
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_14072[i].setComponentOffset(0x36f8 + (i * 4));
+        }
+        TemperatureMonitorControl.r32.setComponentOffset(0x36fc);
+        for(int i = 0; i < 576; i++)
+        {
+            reserved_14080[i].setComponentOffset(0x3700 + (i * 4));
+        }
         MemoryArbiterMode.r32.setComponentOffset(0x4000);
+        for(int i = 0; i < 255; i++)
+        {
+            reserved_16388[i].setComponentOffset(0x4004 + (i * 4));
+        }
         BufferManagerMode.r32.setComponentOffset(0x4400);
+        for(int i = 0; i < 323; i++)
+        {
+            reserved_17412[i].setComponentOffset(0x4404 + (i * 4));
+        }
         LsoNonlsoBdReadDmaCorruptionEnableControl.r32.setComponentOffset(0x4910);
+        for(int i = 0; i < 443; i++)
+        {
+            reserved_18708[i].setComponentOffset(0x4914 + (i * 4));
+        }
         RxRiscMode.r32.setComponentOffset(0x5000);
         RxRiscStatus.r32.setComponentOffset(0x5004);
+        for(int i = 0; i < 5; i++)
+        {
+            reserved_20488[i].setComponentOffset(0x5008 + (i * 4));
+        }
         RxRiscProgramCounter.r32.setComponentOffset(0x501c);
         RxRiscCurrentInstruction.r32.setComponentOffset(0x5020);
+        for(int i = 0; i < 4; i++)
+        {
+            reserved_20516[i].setComponentOffset(0x5024 + (i * 4));
+        }
         RxRiscHardwareBreakpoint.r32.setComponentOffset(0x5034);
+        for(int i = 0; i < 114; i++)
+        {
+            reserved_20536[i].setComponentOffset(0x5038 + (i * 4));
+        }
         RxRiscRegister0.r32.setComponentOffset(0x5200);
         RxRiscRegister1.r32.setComponentOffset(0x5204);
         RxRiscRegister2.r32.setComponentOffset(0x5208);
@@ -8694,19 +9517,48 @@ typedef struct DEVICE_t {
         RxRiscRegister29.r32.setComponentOffset(0x5274);
         RxRiscRegister30.r32.setComponentOffset(0x5278);
         RxRiscRegister31.r32.setComponentOffset(0x527c);
+        for(int i = 0; i < 1122; i++)
+        {
+            reserved_21120[i].setComponentOffset(0x5280 + (i * 4));
+        }
         _6408.r32.setComponentOffset(0x6408);
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_25612[i].setComponentOffset(0x640c + (i * 4));
+        }
         PciPowerConsumptionInfo.r32.setComponentOffset(0x6410);
         PciPowerDissipatedInfo.r32.setComponentOffset(0x6414);
+        for(int i = 0; i < 5; i++)
+        {
+            reserved_25624[i].setComponentOffset(0x6418 + (i * 4));
+        }
         PciVpdRequest.r32.setComponentOffset(0x642c);
         PciVpdResponse.r32.setComponentOffset(0x6430);
         PciVendorDeviceId.r32.setComponentOffset(0x6434);
         PciSubsystemId.r32.setComponentOffset(0x6438);
         PciClassCodeRevision.r32.setComponentOffset(0x643c);
+        for(int i = 0; i < 32; i++)
+        {
+            reserved_25664[i].setComponentOffset(0x6440 + (i * 4));
+        }
         _64c0.r32.setComponentOffset(0x64c0);
+        _64c4.r32.setComponentOffset(0x64c4);
         _64c8.r32.setComponentOffset(0x64c8);
+        for(int i = 0; i < 4; i++)
+        {
+            reserved_25804[i].setComponentOffset(0x64cc + (i * 4));
+        }
         _64dc.r32.setComponentOffset(0x64dc);
+        for(int i = 0; i < 9; i++)
+        {
+            reserved_25824[i].setComponentOffset(0x64e0 + (i * 4));
+        }
         PciSerialNumberLow.r32.setComponentOffset(0x6504);
         PciSerialNumberHigh.r32.setComponentOffset(0x6508);
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_25868[i].setComponentOffset(0x650c + (i * 4));
+        }
         PciPowerBudget0.r32.setComponentOffset(0x6510);
         PciPowerBudget1.r32.setComponentOffset(0x6514);
         PciPowerBudget2.r32.setComponentOffset(0x6518);
@@ -8716,20 +9568,60 @@ typedef struct DEVICE_t {
         PciPowerBudget6.r32.setComponentOffset(0x6528);
         PciPowerBudget7.r32.setComponentOffset(0x652c);
         _6530.r32.setComponentOffset(0x6530);
+        for(int i = 0; i < 7; i++)
+        {
+            reserved_25908[i].setComponentOffset(0x6534 + (i * 4));
+        }
         _6550.r32.setComponentOffset(0x6550);
+        for(int i = 0; i < 40; i++)
+        {
+            reserved_25940[i].setComponentOffset(0x6554 + (i * 4));
+        }
         _65f4.r32.setComponentOffset(0x65f4);
+        for(int i = 0; i < 130; i++)
+        {
+            reserved_26104[i].setComponentOffset(0x65f8 + (i * 4));
+        }
         GrcModeControl.r32.setComponentOffset(0x6800);
         MiscellaneousConfig.r32.setComponentOffset(0x6804);
         MiscellaneousLocalControl.r32.setComponentOffset(0x6808);
         Timer.r32.setComponentOffset(0x680c);
         RxCpuEvent.r32.setComponentOffset(0x6810);
+        for(int i = 0; i < 9; i++)
+        {
+            reserved_26644[i].setComponentOffset(0x6814 + (i * 4));
+        }
         _6838.r32.setComponentOffset(0x6838);
+        for(int i = 0; i < 2; i++)
+        {
+            reserved_26684[i].setComponentOffset(0x683c + (i * 4));
+        }
         MdiControl.r32.setComponentOffset(0x6844);
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_26696[i].setComponentOffset(0x6848 + (i * 4));
+        }
         RxCpuEventEnable.r32.setComponentOffset(0x684c);
+        for(int i = 0; i < 17; i++)
+        {
+            reserved_26704[i].setComponentOffset(0x6850 + (i * 4));
+        }
         FastBootProgramCounter.r32.setComponentOffset(0x6894);
+        for(int i = 0; i < 21; i++)
+        {
+            reserved_26776[i].setComponentOffset(0x6898 + (i * 4));
+        }
         ExpansionRomAddr.r32.setComponentOffset(0x68ec);
         _68f0.r32.setComponentOffset(0x68f0);
+        for(int i = 0; i < 5; i++)
+        {
+            reserved_26868[i].setComponentOffset(0x68f4 + (i * 4));
+        }
         EavRefClockControl.r32.setComponentOffset(0x6908);
+        for(int i = 0; i < 1214; i++)
+        {
+            reserved_26892[i].setComponentOffset(0x690c + (i * 4));
+        }
         _7c04.r32.setComponentOffset(0x7c04);
     }
     void print()
@@ -8768,9 +9660,14 @@ typedef struct DEVICE_t {
         }
         ApeMemoryBase.print();
         ApeMemoryData.print();
-        for(int i = 0; i < 192; i++)
+        for(int i = 0; i < 24; i++)
         {
             reserved_256[i].print();
+        }
+        _160.print();
+        for(int i = 0; i < 167; i++)
+        {
+            reserved_356[i].print();
         }
         EmacMode.print();
         EmacStatus.print();
@@ -8786,10 +9683,7 @@ typedef struct DEVICE_t {
         EmacMacAddresses3Low.print();
         WolPatternPointer.print();
         WolPatternCfg.print();
-        for(int i = 0; i < 1; i++)
-        {
-            reserved_1080[i].print();
-        }
+        _438.print();
         MtuSize.print();
         for(int i = 0; i < 3; i++)
         {
@@ -8835,9 +9729,10 @@ typedef struct DEVICE_t {
             reserved_1464[i].print();
         }
         CpmuControl.print();
-        for(int i = 0; i < 3; i++)
+        NoLinkPowerModeClockPolicy.print();
+        for(int i = 0; i < 2; i++)
         {
-            reserved_13828[i].print();
+            reserved_13832[i].print();
         }
         LinkAwarePowerModeClockPolicy.print();
         for(int i = 0; i < 4; i++)
@@ -8864,9 +9759,14 @@ typedef struct DEVICE_t {
         MutexRequest.print();
         MutexGrant.print();
         GphyStrap.print();
-        for(int i = 0; i < 5; i++)
+        for(int i = 0; i < 1; i++)
         {
             reserved_13928[i].print();
+        }
+        FlashClockControlPolicy.print();
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_13936[i].print();
         }
         TopLevelMiscellaneousControl1.print();
         for(int i = 0; i < 12; i++)
@@ -8890,9 +9790,14 @@ typedef struct DEVICE_t {
         }
         GlobalMutexRequest.print();
         GlobalMutexGrant.print();
-        for(int i = 0; i < 578; i++)
+        for(int i = 0; i < 1; i++)
         {
             reserved_14072[i].print();
+        }
+        TemperatureMonitorControl.print();
+        for(int i = 0; i < 576; i++)
+        {
+            reserved_14080[i].print();
         }
         MemoryArbiterMode.print();
         for(int i = 0; i < 255; i++)
@@ -8983,10 +9888,7 @@ typedef struct DEVICE_t {
             reserved_25664[i].print();
         }
         _64c0.print();
-        for(int i = 0; i < 1; i++)
-        {
-            reserved_25796[i].print();
-        }
+        _64c4.print();
         _64c8.print();
         for(int i = 0; i < 4; i++)
         {

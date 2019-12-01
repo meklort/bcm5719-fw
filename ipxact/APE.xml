@@ -412,6 +412,57 @@
             <ipxact:addressUnitBits>8</ipxact:addressUnitBits>
         </ipxact:memoryMap>
 
+        <!-- APE SHM Registers: 0x6022_1000 to 0x6022_1FFF-->
+        <ipxact:memoryMap>
+            <ipxact:name>SHM1</ipxact:name>
+            <ipxact:description>Device SHM Registers, function 1</ipxact:description>
+            <ipxact:addressBlock>
+                <ipxact:name>SHM1</ipxact:name>
+                <ipxact:description>Device SHM Registers, function 1</ipxact:description>
+                <ipxact:typeIdentifier>SHM</ipxact:typeIdentifier>>
+                <ipxact:baseAddress>0x60221000</ipxact:baseAddress>
+                <!-- LINK: addressBlockDefinitionGroup: see 6.9.3, Address blockdefinition group -->
+                <!-- LINK: memoryBlockData: see 6.9.4, memoryBlockData group -->
+                <ipxact:usage>register</ipxact:usage>
+                <ipxact:volatile>false</ipxact:volatile>
+            </ipxact:addressBlock>
+            <ipxact:addressUnitBits>8</ipxact:addressUnitBits>
+        </ipxact:memoryMap>
+
+        <!-- APE SHM Registers: 0x6022_2000 to 0x6022_2FFF-->
+        <ipxact:memoryMap>
+            <ipxact:name>SHM2</ipxact:name>
+            <ipxact:description>Device SHM Registers, function 2</ipxact:description>
+            <ipxact:addressBlock>
+                <ipxact:name>SHM2</ipxact:name>
+                <ipxact:description>Device SHM Registers, function 2</ipxact:description>
+                <ipxact:typeIdentifier>SHM</ipxact:typeIdentifier>>
+                <ipxact:baseAddress>0x60222000</ipxact:baseAddress>
+                <!-- LINK: addressBlockDefinitionGroup: see 6.9.3, Address blockdefinition group -->
+                <!-- LINK: memoryBlockData: see 6.9.4, memoryBlockData group -->
+                <ipxact:usage>register</ipxact:usage>
+                <ipxact:volatile>false</ipxact:volatile>
+            </ipxact:addressBlock>
+            <ipxact:addressUnitBits>8</ipxact:addressUnitBits>
+        </ipxact:memoryMap>
+
+        <!-- APE SHM Registers: 0x6022_3000 to 0x6022_3FFF-->
+        <ipxact:memoryMap>
+            <ipxact:name>SHM3</ipxact:name>
+            <ipxact:description>Device SHM Registers, function 3</ipxact:description>
+            <ipxact:addressBlock>
+                <ipxact:name>SHM3</ipxact:name>
+                <ipxact:description>Device SHM Registers, function 3</ipxact:description>
+                <ipxact:typeIdentifier>SHM</ipxact:typeIdentifier>>
+                <ipxact:baseAddress>0x60223000</ipxact:baseAddress>
+                <!-- LINK: addressBlockDefinitionGroup: see 6.9.3, Address blockdefinition group -->
+                <!-- LINK: memoryBlockData: see 6.9.4, memoryBlockData group -->
+                <ipxact:usage>register</ipxact:usage>
+                <ipxact:volatile>false</ipxact:volatile>
+            </ipxact:addressBlock>
+            <ipxact:addressUnitBits>8</ipxact:addressUnitBits>
+        </ipxact:memoryMap>
+
         <ipxact:memoryMap>
             <ipxact:name>SHM_CHANNEL0</ipxact:name>
             <ipxact:description>Device SHM Registers, function 0</ipxact:description>
@@ -471,119 +522,5 @@
             </ipxact:addressBlock>
             <ipxact:addressUnitBits>8</ipxact:addressUnitBits>
         </ipxact:memoryMap>
-
-        <!-- APE SHM Registers: 0x6022_1000 to 0x6022_1FFF-->
-<!--         <ipxact:memoryMap>
-            <ipxact:name>SHM1</ipxact:name>
-            <ipxact:description>Device SHM Registers, function 1</ipxact:description>
-            <ipxact:addressBlock>
-                <ipxact:name>SHM1</ipxact:name>
-                <ipxact:description>Device SHM Registers, function 1</ipxact:description>
-                <ipxact:typeIdentifier>SHM</ipxact:typeIdentifier>>
-                <ipxact:baseAddress>0x60221000</ipxact:baseAddress>
-                <!-- LINK: addressBlockDefinitionGroup: see 6.9.3, Address blockdefinition group -->
-                <!-- LINK: memoryBlockData: see 6.9.4, memoryBlockData group -->
-                <!--<ipxact:usage>register</ipxact:usage>
-                <ipxact:volatile>false</ipxact:volatile>
-            </ipxact:addressBlock>
-            <ipxact:addressUnitBits>8</ipxact:addressUnitBits>
-        </ipxact:memoryMap>
- -->
-        <ipxact:memoryMap>
-            <ipxact:name>DEBUG</ipxact:name>
-            <ipxact:description>Device SHM Registers, function 1</ipxact:description>
-            <ipxact:addressBlock>
-                <ipxact:name>DEBUG</ipxact:name>
-                <ipxact:description>Device SHM Registers, function 1 for debug</ipxact:description>
-                <ipxact:typeIdentifier>DEBUG</ipxact:typeIdentifier>>
-                <ipxact:baseAddress>0x60221000</ipxact:baseAddress>
-                <!-- LINK: addressBlockDefinitionGroup: see 6.9.3, Address blockdefinition group -->
-                <!-- LINK: memoryBlockData: see 6.9.4, memoryBlockData group -->
-                <ipxact:usage>register</ipxact:usage>
-                <ipxact:volatile>false</ipxact:volatile>
-                <ipxact:register>
-                    <ipxact:name>write_pointer</ipxact:name>
-                    <ipxact:description>Offset in the debug buffer to write data.</ipxact:description>
-                    <ipxact:addressOffset>0x0</ipxact:addressOffset>
-                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
-                    <ipxact:size>32</ipxact:size>
-                    <ipxact:volatile>true</ipxact:volatile>
-                    <ipxact:field>
-                        <ipxact:name>offset</ipxact:name>
-                        <ipxact:description>All bits</ipxact:description>
-                        <ipxact:bitOffset>0</ipxact:bitOffset>
-                        <ipxact:bitWidth>32</ipxact:bitWidth>
-                    </ipxact:field>
-                </ipxact:register>
-
-                <ipxact:register>
-                    <ipxact:name>read_pointer</ipxact:name>
-                    <ipxact:description>Offset in the debug buffer to read data.</ipxact:description>
-                    <ipxact:addressOffset>0x4</ipxact:addressOffset>
-                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
-                    <ipxact:size>32</ipxact:size>
-                    <ipxact:volatile>true</ipxact:volatile>
-                    <ipxact:field>
-                        <ipxact:name>offset</ipxact:name>
-                        <ipxact:description>All bits</ipxact:description>
-                        <ipxact:bitOffset>0</ipxact:bitOffset>
-                        <ipxact:bitWidth>32</ipxact:bitWidth>
-                    </ipxact:field>
-                </ipxact:register>
-
-                <ipxact:register>
-                    <ipxact:name>buffer</ipxact:name>
-                    <ipxact:description>Debug memory</ipxact:description>
-                    <ipxact:addressOffset>0x8</ipxact:addressOffset>
-                    <ipxact:dim>0x3fe</ipxact:dim>
-                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
-                    <ipxact:size>32</ipxact:size>
-                    <ipxact:volatile>true</ipxact:volatile>
-                    <ipxact:field>
-                        <ipxact:name>all</ipxact:name>
-                        <ipxact:description>All bits</ipxact:description>
-                        <ipxact:bitOffset>0</ipxact:bitOffset>
-                        <ipxact:bitWidth>32</ipxact:bitWidth>
-                    </ipxact:field>
-                </ipxact:register>
-            </ipxact:addressBlock>
-            <ipxact:addressUnitBits>8</ipxact:addressUnitBits>
-        </ipxact:memoryMap>
-
-
-        <!-- APE SHM Registers: 0x6022_2000 to 0x6022_2FFF-->
-        <ipxact:memoryMap>
-            <ipxact:name>SHM2</ipxact:name>
-            <ipxact:description>Device SHM Registers, function 2</ipxact:description>
-            <ipxact:addressBlock>
-                <ipxact:name>SHM2</ipxact:name>
-                <ipxact:description>Device SHM Registers, function 2</ipxact:description>
-                <ipxact:typeIdentifier>SHM</ipxact:typeIdentifier>>
-                <ipxact:baseAddress>0x60222000</ipxact:baseAddress>
-                <!-- LINK: addressBlockDefinitionGroup: see 6.9.3, Address blockdefinition group -->
-                <!-- LINK: memoryBlockData: see 6.9.4, memoryBlockData group -->
-                <ipxact:usage>register</ipxact:usage>
-                <ipxact:volatile>false</ipxact:volatile>
-            </ipxact:addressBlock>
-            <ipxact:addressUnitBits>8</ipxact:addressUnitBits>
-        </ipxact:memoryMap>
-
-        <!-- APE SHM Registers: 0x6022_3000 to 0x6022_3FFF-->
-        <ipxact:memoryMap>
-            <ipxact:name>SHM3</ipxact:name>
-            <ipxact:description>Device SHM Registers, function 3</ipxact:description>
-            <ipxact:addressBlock>
-                <ipxact:name>SHM3</ipxact:name>
-                <ipxact:description>Device SHM Registers, function 3</ipxact:description>
-                <ipxact:typeIdentifier>SHM</ipxact:typeIdentifier>>
-                <ipxact:baseAddress>0x60223000</ipxact:baseAddress>
-                <!-- LINK: addressBlockDefinitionGroup: see 6.9.3, Address blockdefinition group -->
-                <!-- LINK: memoryBlockData: see 6.9.4, memoryBlockData group -->
-                <ipxact:usage>register</ipxact:usage>
-                <ipxact:volatile>false</ipxact:volatile>
-            </ipxact:addressBlock>
-            <ipxact:addressUnitBits>8</ipxact:addressUnitBits>
-        </ipxact:memoryMap>
-
     </ipxact:memoryMaps>
 </ipxact:component>

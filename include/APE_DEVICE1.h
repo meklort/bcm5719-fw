@@ -92,6 +92,7 @@ typedef uint32_t APE_DEVICE1_H_uint32_t;
 #define REG_DEVICE1_LINK_STATUS_CONTROL ((volatile APE_DEVICE1_H_uint32_t*)0xa00500bc) /* PCIe standard register. */
 #define REG_DEVICE1_APE_MEMORY_BASE ((volatile APE_DEVICE1_H_uint32_t*)0xa00500f8) /* APE Memory address to read/write using the APE Memory Data register.. */
 #define REG_DEVICE1_APE_MEMORY_DATA ((volatile APE_DEVICE1_H_uint32_t*)0xa00500fc) /* APE Memory value at the location pointed by the Memory Base Register. */
+#define REG_DEVICE1_160 ((volatile APE_DEVICE1_H_uint32_t*)0xa0050160) /* Unknown register. */
 #define REG_DEVICE1_EMAC_MODE ((volatile APE_DEVICE1_H_uint32_t*)0xa0050400) /*  */
 #define REG_DEVICE1_EMAC_STATUS ((volatile APE_DEVICE1_H_uint32_t*)0xa0050404) /*  */
 #define REG_DEVICE1_EMAC_EVENT ((volatile APE_DEVICE1_H_uint32_t*)0xa0050408) /*  */
@@ -106,6 +107,7 @@ typedef uint32_t APE_DEVICE1_H_uint32_t;
 #define REG_DEVICE1_EMAC_MAC_ADDRESSES_3_LOW ((volatile APE_DEVICE1_H_uint32_t*)0xa005042c) /* Lower 4-byte of this node's MAC address. */
 #define REG_DEVICE1_WOL_PATTERN_POINTER ((volatile APE_DEVICE1_H_uint32_t*)0xa0050430) /* Specifies the offset into the 6KB BD memory for frame comparison. (Bits 3:0 are ignored to align the memory address to a natural 128-bit boundary). */
 #define REG_DEVICE1_WOL_PATTERN_CFG ((volatile APE_DEVICE1_H_uint32_t*)0xa0050434) /*  */
+#define REG_DEVICE1_438 ((volatile APE_DEVICE1_H_uint32_t*)0xa0050438) /* Unknown register. */
 #define REG_DEVICE1_MTU_SIZE ((volatile APE_DEVICE1_H_uint32_t*)0xa005043c) /* 2-byte field which is the largest size frame that will be accepted without being marked as oversize. */
 #define REG_DEVICE1_MII_COMMUNICATION ((volatile APE_DEVICE1_H_uint32_t*)0xa005044c) /*  */
 #define REG_DEVICE1_MII_MODE ((volatile APE_DEVICE1_H_uint32_t*)0xa0050454) /*  */
@@ -123,6 +125,7 @@ typedef uint32_t APE_DEVICE1_H_uint32_t;
 #define REG_DEVICE1_PERFECT_MATCH4_LOW ((volatile APE_DEVICE1_H_uint32_t*)0xa005055c) /*  */
 #define REG_DEVICE1_SGMII_STATUS ((volatile APE_DEVICE1_H_uint32_t*)0xa00505b4) /* This register reflects various status of the respective SGMII port when enabled. */
 #define REG_DEVICE1_CPMU_CONTROL ((volatile APE_DEVICE1_H_uint32_t*)0xa0053600) /*  */
+#define REG_DEVICE1_NO_LINK_POWER_MODE_CLOCK_POLICY ((volatile APE_DEVICE1_H_uint32_t*)0xa0053604) /*  */
 #define REG_DEVICE1_LINK_AWARE_POWER_MODE_CLOCK_POLICY ((volatile APE_DEVICE1_H_uint32_t*)0xa0053610) /*  */
 #define REG_DEVICE1_CLOCK_SPEED_OVERRIDE_POLICY ((volatile APE_DEVICE1_H_uint32_t*)0xa0053624) /*  */
 #define REG_DEVICE1_STATUS ((volatile APE_DEVICE1_H_uint32_t*)0xa005362c) /*  */
@@ -132,12 +135,14 @@ typedef uint32_t APE_DEVICE1_H_uint32_t;
 #define REG_DEVICE1_MUTEX_REQUEST ((volatile APE_DEVICE1_H_uint32_t*)0xa005365c) /* Writing a 1 to any of these bits pends a Mutex lock request on behalf of a software agent. The bit is subsequently latched by hardware and shall read 1 as long as the request is pending. Writing a 0 to a bit shall have no effect. */
 #define REG_DEVICE1_MUTEX_GRANT ((volatile APE_DEVICE1_H_uint32_t*)0xa0053660) /* Reading this field shall return a maximum of one set bit at any time. The set bit shall point to the lock owner. If the Mutex is not locked, then a read shall return a value 0x0000. Writing a 1 to the already set bit shall relinquish the lock and the set bit shall be cleared. Writing a 1 to an unset bit shall cancel the corresponding pending request if there was one, and the pairing bit in the Mutex_Request_Reg shall be cleared. */
 #define REG_DEVICE1_GPHY_STRAP ((volatile APE_DEVICE1_H_uint32_t*)0xa0053664) /*  */
+#define REG_DEVICE1_FLASH_CLOCK_CONTROL_POLICY ((volatile APE_DEVICE1_H_uint32_t*)0xa005366c) /*  */
 #define REG_DEVICE1_TOP_LEVEL_MISCELLANEOUS_CONTROL_1 ((volatile APE_DEVICE1_H_uint32_t*)0xa005367c) /*  */
 #define REG_DEVICE1_EEE_MODE ((volatile APE_DEVICE1_H_uint32_t*)0xa00536b0) /*  */
 #define REG_DEVICE1_EEE_LINK_IDLE_CONTROL ((volatile APE_DEVICE1_H_uint32_t*)0xa00536bc) /*  */
 #define REG_DEVICE1_EEE_CONTROL ((volatile APE_DEVICE1_H_uint32_t*)0xa00536d0) /*  */
 #define REG_DEVICE1_GLOBAL_MUTEX_REQUEST ((volatile APE_DEVICE1_H_uint32_t*)0xa00536f0) /*  */
 #define REG_DEVICE1_GLOBAL_MUTEX_GRANT ((volatile APE_DEVICE1_H_uint32_t*)0xa00536f4) /*  */
+#define REG_DEVICE1_TEMPERATURE_MONITOR_CONTROL ((volatile APE_DEVICE1_H_uint32_t*)0xa00536fc) /*  */
 #define REG_DEVICE1_MEMORY_ARBITER_MODE ((volatile APE_DEVICE1_H_uint32_t*)0xa0054000) /*  */
 #define REG_DEVICE1_BUFFER_MANAGER_MODE ((volatile APE_DEVICE1_H_uint32_t*)0xa0054400) /*  */
 #define REG_DEVICE1_LSO_NONLSO_BD_READ_DMA_CORRUPTION_ENABLE_CONTROL ((volatile APE_DEVICE1_H_uint32_t*)0xa0054910) /*  */
@@ -187,6 +192,7 @@ typedef uint32_t APE_DEVICE1_H_uint32_t;
 #define REG_DEVICE1_PCI_SUBSYSTEM_ID ((volatile APE_DEVICE1_H_uint32_t*)0xa0056438) /* This is the undocumented register used to set the PCI Subsystem/Subsystem Vendor ID, which is configurable from NVM. */
 #define REG_DEVICE1_PCI_CLASS_CODE_REVISION ((volatile APE_DEVICE1_H_uint32_t*)0xa005643c) /* This undocumented register is suspected to set the class code and device revision in PCI configuration space. Unconfirmed. */
 #define REG_DEVICE1_64C0 ((volatile APE_DEVICE1_H_uint32_t*)0xa00564c0) /*  */
+#define REG_DEVICE1_64C4 ((volatile APE_DEVICE1_H_uint32_t*)0xa00564c4) /*  */
 #define REG_DEVICE1_64C8 ((volatile APE_DEVICE1_H_uint32_t*)0xa00564c8) /*  */
 #define REG_DEVICE1_64DC ((volatile APE_DEVICE1_H_uint32_t*)0xa00564dc) /*  */
 #define REG_DEVICE1_PCI_SERIAL_NUMBER_LOW ((volatile APE_DEVICE1_H_uint32_t*)0xa0056504) /* This sets the low 32 bits of the 64-bit device serial number, which isexposed as a PCIe capability in configuration space. */
