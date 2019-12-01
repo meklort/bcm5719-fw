@@ -93,6 +93,10 @@ void init_bcm5719_APE_PERI(void)
 
     /** @brief Bitmap for @ref APE_PERI_t.BmcToNcRxControl. */
 
+    /** @brief Bitmap for @ref APE_PERI_t.BmcToNcRxStatus1. */
+
+    /** @brief Bitmap for @ref APE_PERI_t.BmcToNcRxStatus2. */
+
     /** @brief Bitmap for @ref APE_PERI_t.BmcToNcTxStatus. */
 
     /** @brief Bitmap for @ref APE_PERI_t.BmcToNcTxControl. */
@@ -100,6 +104,8 @@ void init_bcm5719_APE_PERI(void)
     /** @brief Bitmap for @ref APE_PERI_t.BmcToNcTxBuffer. */
 
     /** @brief Bitmap for @ref APE_PERI_t.BmcToNcTxBufferLast. */
+
+    /** @brief Bitmap for @ref APE_PERI_t.BmcToNcTxStatus1. */
 
     /** @brief Bitmap for @ref APE_PERI_t.RmuControl. */
 

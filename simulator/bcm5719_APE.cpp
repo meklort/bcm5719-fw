@@ -77,6 +77,8 @@ void init_bcm5719_APE(void)
 
     /** @brief Bitmap for @ref APE_t.RxPoolRetire0. */
 
+    /** @brief Bitmap for @ref APE_t.RxPoolFreePointer0. */
+
     /** @brief Bitmap for @ref APE_t.RxPoolRetire1. */
 
     /** @brief Bitmap for @ref APE_t.TxToNetPoolModeStatus0. */
@@ -86,6 +88,8 @@ void init_bcm5719_APE(void)
     /** @brief Bitmap for @ref APE_t.TxToNetBufferReturn0. */
 
     /** @brief Bitmap for @ref APE_t.TxToNetBufferRing0. */
+
+    /** @brief Bitmap for @ref APE_t.RxPoolFreePointer1. */
 
     /** @brief Bitmap for @ref APE_t.Tick1mhz. */
 
@@ -125,6 +129,8 @@ void init_bcm5719_APE(void)
 
     /** @brief Bitmap for @ref APE_t.RxPoolRetire2. */
 
+    /** @brief Bitmap for @ref APE_t.RxPoolFreePointer2. */
+
     /** @brief Bitmap for @ref APE_t.TxToNetPoolModeStatus2. */
 
     /** @brief Bitmap for @ref APE_t.TxToNetBufferAllocator2. */
@@ -140,6 +146,8 @@ void init_bcm5719_APE(void)
     /** @brief Bitmap for @ref APE_t.RxPoolModeStatus3. */
 
     /** @brief Bitmap for @ref APE_t.RxPoolRetire3. */
+
+    /** @brief Bitmap for @ref APE_t.RxPoolFreePointer3. */
 
     /** @brief Bitmap for @ref APE_t.TxToNetPoolModeStatus3. */
 

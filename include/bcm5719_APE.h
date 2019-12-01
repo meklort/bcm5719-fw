@@ -1089,6 +1089,74 @@ typedef register_container RegAPERxPoolRetire_t {
 #endif /* CXX_SIMULATOR */
 } RegAPERxPoolRetire_t;
 
+#define REG_APE_RX_POOL_FREE_POINTER_0 ((volatile BCM5719_APE_H_uint32_t*)0xc0010084) /*  */
+#define     APE_RX_POOL_FREE_POINTER_0_TAIL_SHIFT 0u
+#define     APE_RX_POOL_FREE_POINTER_0_TAIL_MASK  0xfffu
+#define GET_APE_RX_POOL_FREE_POINTER_0_TAIL(__reg__)  (((__reg__) & 0xfff) >> 0u)
+#define SET_APE_RX_POOL_FREE_POINTER_0_TAIL(__val__)  (((__val__) << 0u) & 0xfffu)
+#define     APE_RX_POOL_FREE_POINTER_0_HEAD_SHIFT 12u
+#define     APE_RX_POOL_FREE_POINTER_0_HEAD_MASK  0xfff000u
+#define GET_APE_RX_POOL_FREE_POINTER_0_HEAD(__reg__)  (((__reg__) & 0xfff000) >> 12u)
+#define SET_APE_RX_POOL_FREE_POINTER_0_HEAD(__val__)  (((__val__) << 12u) & 0xfff000u)
+#define     APE_RX_POOL_FREE_POINTER_0_FREE_COUNT_SHIFT 24u
+#define     APE_RX_POOL_FREE_POINTER_0_FREE_COUNT_MASK  0x3f000000u
+#define GET_APE_RX_POOL_FREE_POINTER_0_FREE_COUNT(__reg__)  (((__reg__) & 0x3f000000) >> 24u)
+#define SET_APE_RX_POOL_FREE_POINTER_0_FREE_COUNT(__val__)  (((__val__) << 24u) & 0x3f000000u)
+
+/** @brief Register definition for @ref APE_t.RxPoolFreePointer0. */
+typedef register_container RegAPERxPoolFreePointer_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_APE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_APE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Tail, 0, 12)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Head, 12, 12)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, FreeCount, 24, 6)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_30, 30, 2)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_30, 30, 2)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, FreeCount, 24, 6)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Head, 12, 12)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Tail, 0, 12)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RxPoolFreePointer0"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegAPERxPoolFreePointer_t()
+    {
+        /** @brief constructor for @ref APE_t.RxPoolFreePointer0. */
+        r32.setName("RxPoolFreePointer0");
+        bits.Tail.setBaseRegister(&r32);
+        bits.Tail.setName("Tail");
+        bits.Head.setBaseRegister(&r32);
+        bits.Head.setName("Head");
+        bits.FreeCount.setBaseRegister(&r32);
+        bits.FreeCount.setName("FreeCount");
+    }
+    RegAPERxPoolFreePointer_t& operator=(const RegAPERxPoolFreePointer_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegAPERxPoolFreePointer_t;
+
 #define REG_APE_RX_POOL_RETIRE_1 ((volatile BCM5719_APE_H_uint32_t*)0xc0010088) /* Used to indicate when the APE is done with a region of the 0xA000_0000 RX pool buffer so that it can be used to receive another frame. */
 #define REG_APE_TX_TO_NET_POOL_MODE_STATUS_0 ((volatile BCM5719_APE_H_uint32_t*)0xc001008c) /*  */
 #define     APE_TX_TO_NET_POOL_MODE_STATUS_0_HALT_SHIFT 0u
@@ -1338,6 +1406,7 @@ typedef register_container RegAPETxToNetBufferRing_t {
 #endif /* CXX_SIMULATOR */
 } RegAPETxToNetBufferRing_t;
 
+#define REG_APE_RX_POOL_FREE_POINTER_1 ((volatile BCM5719_APE_H_uint32_t*)0xc001009c) /*  */
 #define REG_APE_TICK_1MHZ ((volatile BCM5719_APE_H_uint32_t*)0xc00100a8) /* Unknown, monotonically increasing value. Increases at a rate of 1MHz. */
 /** @brief Register definition for @ref APE_t.Tick1mhz. */
 typedef register_container RegAPETick1mhz_t {
@@ -1894,6 +1963,7 @@ typedef register_container RegAPECpuStatus_t {
 #define REG_APE_TX_TO_NET_DOORBELL_FUNC2 ((volatile BCM5719_APE_H_uint32_t*)0xc0010204) /* Written on APE TX to network after filling 0xA002 buffer with packet. */
 #define REG_APE_RX_POOL_MODE_STATUS_2 ((volatile BCM5719_APE_H_uint32_t*)0xc0010214) /*  */
 #define REG_APE_RX_POOL_RETIRE_2 ((volatile BCM5719_APE_H_uint32_t*)0xc0010218) /* Used to indicate when the APE is done with a region of the 0xA000_0000 RX pool buffer so that it can be used to receive another frame. */
+#define REG_APE_RX_POOL_FREE_POINTER_2 ((volatile BCM5719_APE_H_uint32_t*)0xc001021c) /*  */
 #define REG_APE_TX_TO_NET_POOL_MODE_STATUS_2 ((volatile BCM5719_APE_H_uint32_t*)0xc0010220) /*  */
 #define REG_APE_TX_TO_NET_BUFFER_ALLOCATOR_2 ((volatile BCM5719_APE_H_uint32_t*)0xc0010224) /*  */
 #define REG_APE_TX_TO_NET_BUFFER_RETURN_2 ((volatile BCM5719_APE_H_uint32_t*)0xc0010228) /*  */
@@ -1902,6 +1972,7 @@ typedef register_container RegAPECpuStatus_t {
 #define REG_APE_TX_TO_NET_DOORBELL_FUNC3 ((volatile BCM5719_APE_H_uint32_t*)0xc0010304) /* Written on APE TX to network after filling 0xA002 buffer with packet. */
 #define REG_APE_RX_POOL_MODE_STATUS_3 ((volatile BCM5719_APE_H_uint32_t*)0xc0010314) /*  */
 #define REG_APE_RX_POOL_RETIRE_3 ((volatile BCM5719_APE_H_uint32_t*)0xc0010318) /* Used to indicate when the APE is done with a region of the 0xA000_0000 RX pool buffer so that it can be used to receive another frame. */
+#define REG_APE_RX_POOL_FREE_POINTER_3 ((volatile BCM5719_APE_H_uint32_t*)0xc001031c) /*  */
 #define REG_APE_TX_TO_NET_POOL_MODE_STATUS_3 ((volatile BCM5719_APE_H_uint32_t*)0xc0010320) /*  */
 #define REG_APE_TX_TO_NET_BUFFER_ALLOCATOR_3 ((volatile BCM5719_APE_H_uint32_t*)0xc0010324) /*  */
 #define REG_APE_TX_TO_NET_BUFFER_RETURN_3 ((volatile BCM5719_APE_H_uint32_t*)0xc0010328) /*  */
@@ -1962,8 +2033,8 @@ typedef struct APE_t {
     /** @brief Used to indicate when the APE is done with a region of the 0xA000_0000 RX pool buffer so that it can be used to receive another frame. */
     RegAPERxPoolRetire_t RxPoolRetire0;
 
-    /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_APE_H_uint32_t reserved_132[1];
+    /** @brief  */
+    RegAPERxPoolFreePointer_t RxPoolFreePointer0;
 
     /** @brief Used to indicate when the APE is done with a region of the 0xA000_0000 RX pool buffer so that it can be used to receive another frame. */
     RegAPERxPoolRetire_t RxPoolRetire1;
@@ -1980,8 +2051,11 @@ typedef struct APE_t {
     /** @brief  */
     RegAPETxToNetBufferRing_t TxToNetBufferRing0;
 
+    /** @brief  */
+    RegAPERxPoolFreePointer_t RxPoolFreePointer1;
+
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_APE_H_uint32_t reserved_156[3];
+    BCM5719_APE_H_uint32_t reserved_160[2];
 
     /** @brief Unknown, monotonically increasing value. Increases at a rate of 1MHz. */
     RegAPETick1mhz_t Tick1mhz;
@@ -2061,8 +2135,8 @@ typedef struct APE_t {
     /** @brief Used to indicate when the APE is done with a region of the 0xA000_0000 RX pool buffer so that it can be used to receive another frame. */
     RegAPERxPoolRetire_t RxPoolRetire2;
 
-    /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_APE_H_uint32_t reserved_540[1];
+    /** @brief  */
+    RegAPERxPoolFreePointer_t RxPoolFreePointer2;
 
     /** @brief  */
     RegAPETxToNetPoolModeStatus_t TxToNetPoolModeStatus2;
@@ -2094,8 +2168,8 @@ typedef struct APE_t {
     /** @brief Used to indicate when the APE is done with a region of the 0xA000_0000 RX pool buffer so that it can be used to receive another frame. */
     RegAPERxPoolRetire_t RxPoolRetire3;
 
-    /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_APE_H_uint32_t reserved_796[1];
+    /** @brief  */
+    RegAPERxPoolFreePointer_t RxPoolFreePointer3;
 
     /** @brief  */
     RegAPETxToNetPoolModeStatus_t TxToNetPoolModeStatus3;
@@ -2116,6 +2190,10 @@ typedef struct APE_t {
         Status.r32.setComponentOffset(0x4);
         GpioMessage.r32.setComponentOffset(0x8);
         Event.r32.setComponentOffset(0xc);
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_16[i].setComponentOffset(0x10 + (i * 4));
+        }
         RxbufoffsetFunc0.r32.setName("RxbufoffsetFunc0");
         RxbufoffsetFunc0.r32.setComponentOffset(0x14);
         RxbufoffsetFunc1.r32.setName("RxbufoffsetFunc1");
@@ -2123,15 +2201,29 @@ typedef struct APE_t {
         TxToNetDoorbellFunc0.r32.setName("TxToNetDoorbellFunc0");
         TxToNetDoorbellFunc0.r32.setComponentOffset(0x1c);
         TxState0.r32.setComponentOffset(0x20);
+        for(int i = 0; i < 2; i++)
+        {
+            reserved_36[i].setComponentOffset(0x24 + (i * 4));
+        }
         Mode2.r32.setComponentOffset(0x2c);
         Status2.r32.setComponentOffset(0x30);
+        for(int i = 0; i < 6; i++)
+        {
+            reserved_52[i].setComponentOffset(0x34 + (i * 4));
+        }
         LockGrantObsolete.r32.setComponentOffset(0x4c);
+        for(int i = 0; i < 10; i++)
+        {
+            reserved_80[i].setComponentOffset(0x50 + (i * 4));
+        }
         RxPoolModeStatus0.r32.setName("RxPoolModeStatus0");
         RxPoolModeStatus0.r32.setComponentOffset(0x78);
         RxPoolModeStatus1.r32.setName("RxPoolModeStatus1");
         RxPoolModeStatus1.r32.setComponentOffset(0x7c);
         RxPoolRetire0.r32.setName("RxPoolRetire0");
         RxPoolRetire0.r32.setComponentOffset(0x80);
+        RxPoolFreePointer0.r32.setName("RxPoolFreePointer0");
+        RxPoolFreePointer0.r32.setComponentOffset(0x84);
         RxPoolRetire1.r32.setName("RxPoolRetire1");
         RxPoolRetire1.r32.setComponentOffset(0x88);
         TxToNetPoolModeStatus0.r32.setName("TxToNetPoolModeStatus0");
@@ -2142,16 +2234,42 @@ typedef struct APE_t {
         TxToNetBufferReturn0.r32.setComponentOffset(0x94);
         TxToNetBufferRing0.r32.setName("TxToNetBufferRing0");
         TxToNetBufferRing0.r32.setComponentOffset(0x98);
+        RxPoolFreePointer1.r32.setName("RxPoolFreePointer1");
+        RxPoolFreePointer1.r32.setComponentOffset(0x9c);
+        for(int i = 0; i < 2; i++)
+        {
+            reserved_160[i].setComponentOffset(0xa0 + (i * 4));
+        }
         Tick1mhz.r32.setComponentOffset(0xa8);
         Tick1khz.r32.setComponentOffset(0xac);
         Tick10hz.r32.setComponentOffset(0xb0);
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_180[i].setComponentOffset(0xb4 + (i * 4));
+        }
         Gpio.r32.setComponentOffset(0xb8);
         Gint.r32.setComponentOffset(0xbc);
+        for(int i = 0; i < 10; i++)
+        {
+            reserved_192[i].setComponentOffset(0xc0 + (i * 4));
+        }
         OtpControl.r32.setComponentOffset(0xe8);
         OtpStatus.r32.setComponentOffset(0xec);
         OtpAddr.r32.setComponentOffset(0xf0);
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_244[i].setComponentOffset(0xf4 + (i * 4));
+        }
         OtpReadData.r32.setComponentOffset(0xf8);
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_252[i].setComponentOffset(0xfc + (i * 4));
+        }
         CpuStatus.r32.setComponentOffset(0x108);
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_268[i].setComponentOffset(0x10c + (i * 4));
+        }
         TxToNetPoolModeStatus1.r32.setName("TxToNetPoolModeStatus1");
         TxToNetPoolModeStatus1.r32.setComponentOffset(0x110);
         TxToNetBufferAllocator1.r32.setName("TxToNetBufferAllocator1");
@@ -2162,14 +2280,24 @@ typedef struct APE_t {
         TxToNetBufferRing1.r32.setComponentOffset(0x11c);
         TxToNetDoorbellFunc1.r32.setName("TxToNetDoorbellFunc1");
         TxToNetDoorbellFunc1.r32.setComponentOffset(0x120);
+        for(int i = 0; i < 55; i++)
+        {
+            reserved_292[i].setComponentOffset(0x124 + (i * 4));
+        }
         RxbufoffsetFunc2.r32.setName("RxbufoffsetFunc2");
         RxbufoffsetFunc2.r32.setComponentOffset(0x200);
         TxToNetDoorbellFunc2.r32.setName("TxToNetDoorbellFunc2");
         TxToNetDoorbellFunc2.r32.setComponentOffset(0x204);
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_520[i].setComponentOffset(0x208 + (i * 4));
+        }
         RxPoolModeStatus2.r32.setName("RxPoolModeStatus2");
         RxPoolModeStatus2.r32.setComponentOffset(0x214);
         RxPoolRetire2.r32.setName("RxPoolRetire2");
         RxPoolRetire2.r32.setComponentOffset(0x218);
+        RxPoolFreePointer2.r32.setName("RxPoolFreePointer2");
+        RxPoolFreePointer2.r32.setComponentOffset(0x21c);
         TxToNetPoolModeStatus2.r32.setName("TxToNetPoolModeStatus2");
         TxToNetPoolModeStatus2.r32.setComponentOffset(0x220);
         TxToNetBufferAllocator2.r32.setName("TxToNetBufferAllocator2");
@@ -2178,14 +2306,24 @@ typedef struct APE_t {
         TxToNetBufferReturn2.r32.setComponentOffset(0x228);
         TxToNetBufferRing2.r32.setName("TxToNetBufferRing2");
         TxToNetBufferRing2.r32.setComponentOffset(0x22c);
+        for(int i = 0; i < 52; i++)
+        {
+            reserved_560[i].setComponentOffset(0x230 + (i * 4));
+        }
         RxbufoffsetFunc3.r32.setName("RxbufoffsetFunc3");
         RxbufoffsetFunc3.r32.setComponentOffset(0x300);
         TxToNetDoorbellFunc3.r32.setName("TxToNetDoorbellFunc3");
         TxToNetDoorbellFunc3.r32.setComponentOffset(0x304);
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_776[i].setComponentOffset(0x308 + (i * 4));
+        }
         RxPoolModeStatus3.r32.setName("RxPoolModeStatus3");
         RxPoolModeStatus3.r32.setComponentOffset(0x314);
         RxPoolRetire3.r32.setName("RxPoolRetire3");
         RxPoolRetire3.r32.setComponentOffset(0x318);
+        RxPoolFreePointer3.r32.setName("RxPoolFreePointer3");
+        RxPoolFreePointer3.r32.setComponentOffset(0x31c);
         TxToNetPoolModeStatus3.r32.setName("TxToNetPoolModeStatus3");
         TxToNetPoolModeStatus3.r32.setComponentOffset(0x320);
         TxToNetBufferAllocator3.r32.setName("TxToNetBufferAllocator3");
@@ -2227,18 +2365,16 @@ typedef struct APE_t {
         RxPoolModeStatus0.print();
         RxPoolModeStatus1.print();
         RxPoolRetire0.print();
-        for(int i = 0; i < 1; i++)
-        {
-            reserved_132[i].print();
-        }
+        RxPoolFreePointer0.print();
         RxPoolRetire1.print();
         TxToNetPoolModeStatus0.print();
         TxToNetBufferAllocator0.print();
         TxToNetBufferReturn0.print();
         TxToNetBufferRing0.print();
-        for(int i = 0; i < 3; i++)
+        RxPoolFreePointer1.print();
+        for(int i = 0; i < 2; i++)
         {
-            reserved_156[i].print();
+            reserved_160[i].print();
         }
         Tick1mhz.print();
         Tick1khz.print();
@@ -2287,10 +2423,7 @@ typedef struct APE_t {
         }
         RxPoolModeStatus2.print();
         RxPoolRetire2.print();
-        for(int i = 0; i < 1; i++)
-        {
-            reserved_540[i].print();
-        }
+        RxPoolFreePointer2.print();
         TxToNetPoolModeStatus2.print();
         TxToNetBufferAllocator2.print();
         TxToNetBufferReturn2.print();
@@ -2307,10 +2440,7 @@ typedef struct APE_t {
         }
         RxPoolModeStatus3.print();
         RxPoolRetire3.print();
-        for(int i = 0; i < 1; i++)
-        {
-            reserved_796[i].print();
-        }
+        RxPoolFreePointer3.print();
         TxToNetPoolModeStatus3.print();
         TxToNetBufferAllocator3.print();
         TxToNetBufferReturn3.print();

@@ -491,6 +491,10 @@ typedef struct FILTERS_t {
         {
             RuleSet[i].r32.setComponentOffset(0x104 + (i * 4));
         }
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_384[i].setComponentOffset(0x180 + (i * 4));
+        }
         for(int i = 0; i < 31; i++)
         {
             RuleMask[i].r32.setComponentOffset(0x184 + (i * 4));

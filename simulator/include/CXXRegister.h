@@ -58,7 +58,7 @@ private:
 public:
     CXXRegisterBase(unsigned int offset, unsigned int width)
     {
-        mName = "(undefined)";
+        mName = NULL;
         mComponentOffset = 0;
         mMask = 0;
         mBaseRegister = NULL;
@@ -110,7 +110,14 @@ public:
 
     const char *getName(void)
     {
-        return mName;
+        if(!mName)
+        {
+            return "(undefined)";
+        }
+        else
+        {
+            return mName;
+        }
     }
 
     void setComponentOffset(unsigned int offset)
@@ -125,17 +132,24 @@ public:
 
     void print(unsigned int value, int indent = false)
     {
+        const char* name = mName;
+        char addr_str[16];
+        if(!name)
+        {
+            snprintf(addr_str, sizeof(addr_str), "0x%X", mComponentOffset);
+            name = addr_str;
+        }
         unsigned int masked = (value & mMask) >> mBitPosition;
         const char* enumstr = getEnum(masked);
         if (indent)
         {
-            std::cout << std::right << std::setw(35) << mName << ": 0x"
+            std::cout << std::right << std::setw(35) << name << ": 0x"
                       << std::hex << masked;
         }
         else
         {
             std::cout << std::endl
-                      << std::left << std::setw(36) << mName << " 0x"
+                      << std::left << std::setw(36) << name << " 0x"
                       << std::hex << masked;
         }
         if(enumstr)

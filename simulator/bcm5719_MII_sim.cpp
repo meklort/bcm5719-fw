@@ -125,6 +125,11 @@ void init_bcm5719_MII_sim(void *base)
     MII._1000baseTStatus.r16.installReadCallback(read_from_ram, (uint8_t *)base);
     MII._1000baseTStatus.r16.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    for(int i = 0; i < 3; i++)
+    {
+        MII.reserved_11[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        MII.reserved_11[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
     /** @brief Bitmap for @ref MII_t.BroadreachLreAccess. */
     MII.BroadreachLreAccess.r16.installReadCallback(read_from_ram, (uint8_t *)base);
     MII.BroadreachLreAccess.r16.installWriteCallback(write_to_ram, (uint8_t *)base);
@@ -153,6 +158,11 @@ void init_bcm5719_MII_sim(void *base)
     MII.LocalRemoteReceiverNotOkCounter.r16.installReadCallback(read_from_ram, (uint8_t *)base);
     MII.LocalRemoteReceiverNotOkCounter.r16.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    for(int i = 0; i < 3; i++)
+    {
+        MII.reserved_21[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        MII.reserved_21[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
     /** @brief Bitmap for @ref MII_t.AuxiliaryControl. */
     MII.AuxiliaryControl.r16.installReadCallback(read_from_ram, (uint8_t *)base);
     MII.AuxiliaryControl.r16.installWriteCallback(write_to_ram, (uint8_t *)base);
@@ -173,6 +183,11 @@ void init_bcm5719_MII_sim(void *base)
     MII.CabletronLed.r16.installReadCallback(read_from_ram, (uint8_t *)base);
     MII.CabletronLed.r16.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    for(int i = 0; i < 1; i++)
+    {
+        MII.reserved_29[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        MII.reserved_29[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
     /** @brief Bitmap for @ref MII_t.Test1. */
     MII.Test1.r16.installReadCallback(read_from_ram, (uint8_t *)base);
     MII.Test1.r16.installWriteCallback(write_to_ram, (uint8_t *)base);
@@ -181,42 +196,92 @@ void init_bcm5719_MII_sim(void *base)
     MII.BlockSelect.r16.installReadCallback(read_from_ram, (uint8_t *)base);
     MII.BlockSelect.r16.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    for(int i = 0; i < 62; i++)
+    {
+        MII.reserved_32[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        MII.reserved_32[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
     /** @brief Bitmap for @ref MII_t.10baseT. */
     MII._10baseT.r16.installReadCallback(read_from_ram, (uint8_t *)base);
     MII._10baseT.r16.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    for(int i = 0; i < 3; i++)
+    {
+        MII.reserved_281[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        MII.reserved_281[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
     /** @brief Bitmap for @ref MII_t.DllSelection. */
     MII.DllSelection.r16.installReadCallback(read_from_ram, (uint8_t *)base);
     MII.DllSelection.r16.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    for(int i = 0; i < 251; i++)
+    {
+        MII.reserved_285[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        MII.reserved_285[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
     /** @brief Bitmap for @ref MII_t.PowerAndMiiControl. */
     MII.PowerAndMiiControl.r16.installReadCallback(read_from_ram, (uint8_t *)base);
     MII.PowerAndMiiControl.r16.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    for(int i = 0; i < 3; i++)
+    {
+        MII.reserved_537[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        MII.reserved_537[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
     /** @brief Bitmap for @ref MII_t.SpareControl1. */
     MII.SpareControl1.r16.installReadCallback(read_from_ram, (uint8_t *)base);
     MII.SpareControl1.r16.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    for(int i = 0; i < 255; i++)
+    {
+        MII.reserved_541[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        MII.reserved_541[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
     /** @brief Bitmap for @ref MII_t.ClockAlignmentControl. */
     MII.ClockAlignmentControl.r16.installReadCallback(read_from_ram, (uint8_t *)base);
     MII.ClockAlignmentControl.r16.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    for(int i = 0; i < 251; i++)
+    {
+        MII.reserved_797[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        MII.reserved_797[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
     /** @brief Bitmap for @ref MII_t.MiscTest1. */
     MII.MiscTest1.r16.installReadCallback(read_from_ram, (uint8_t *)base);
     MII.MiscTest1.r16.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    for(int i = 0; i < 3; i++)
+    {
+        MII.reserved_1049[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        MII.reserved_1049[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
     /** @brief Bitmap for @ref MII_t.SpareControl2. */
     MII.SpareControl2.r16.installReadCallback(read_from_ram, (uint8_t *)base);
     MII.SpareControl2.r16.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    for(int i = 0; i < 251; i++)
+    {
+        MII.reserved_1053[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        MII.reserved_1053[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
     /** @brief Bitmap for @ref MII_t.MiscTest2. */
     MII.MiscTest2.r16.installReadCallback(read_from_ram, (uint8_t *)base);
     MII.MiscTest2.r16.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    for(int i = 0; i < 3; i++)
+    {
+        MII.reserved_1305[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        MII.reserved_1305[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
     /** @brief Bitmap for @ref MII_t.SpareControl3. */
     MII.SpareControl3.r16.installReadCallback(read_from_ram, (uint8_t *)base);
     MII.SpareControl3.r16.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    for(int i = 0; i < 507; i++)
+    {
+        MII.reserved_1309[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        MII.reserved_1309[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
     /** @brief Bitmap for @ref MII_t.MiscellaneousControl. */
     MII.MiscellaneousControl.r16.installReadCallback(read_from_ram, (uint8_t *)base);
     MII.MiscellaneousControl.r16.installWriteCallback(write_to_ram, (uint8_t *)base);

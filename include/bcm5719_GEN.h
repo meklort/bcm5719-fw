@@ -1617,23 +1617,63 @@ typedef struct GEN_t {
         GenDataSig.r32.setComponentOffset(0x4);
         GenCfg.r32.setComponentOffset(0x8);
         GenVersion.r32.setComponentOffset(0xc);
+        for(int i = 0; i < 5; i++)
+        {
+            reserved_16[i].setComponentOffset(0x10 + (i * 4));
+        }
         GenPhyId.r32.setComponentOffset(0x24);
+        for(int i = 0; i < 34; i++)
+        {
+            reserved_40[i].setComponentOffset(0x28 + (i * 4));
+        }
         GenAsfStatusMbox.r32.setComponentOffset(0xb0);
         GenFwDriverStateMbox.r32.setComponentOffset(0xb4);
         GenFwResetTypeMbox.r32.setComponentOffset(0xb8);
         GenBc.r32.setComponentOffset(0xbc);
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_192[i].setComponentOffset(0xc0 + (i * 4));
+        }
         GenMacAddrHighMbox.r32.setComponentOffset(0xc4);
         GenMacAddrLowMbox.r32.setComponentOffset(0xc8);
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_204[i].setComponentOffset(0xcc + (i * 4));
+        }
         GenD8.r32.setComponentOffset(0xd8);
+        for(int i = 0; i < 64; i++)
+        {
+            reserved_220[i].setComponentOffset(0xdc + (i * 4));
+        }
         Gen1dc.r32.setComponentOffset(0x1dc);
         GenWolMbox.r32.setComponentOffset(0x1e0);
         GenCfgFeature.r32.setComponentOffset(0x1e4);
         GenCfgHw.r32.setComponentOffset(0x1e8);
         GenCfgShared.r32.setComponentOffset(0x1ec);
+        for(int i = 0; i < 9; i++)
+        {
+            reserved_496[i].setComponentOffset(0x1f0 + (i * 4));
+        }
         GenFwVersion.r32.setComponentOffset(0x214);
+        for(int i = 0; i < 36; i++)
+        {
+            reserved_536[i].setComponentOffset(0x218 + (i * 4));
+        }
         GenCfgHw2.r32.setComponentOffset(0x2a8);
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_684[i].setComponentOffset(0x2ac + (i * 4));
+        }
         GenCpmuStatus.r32.setComponentOffset(0x2b0);
+        for(int i = 0; i < 2; i++)
+        {
+            reserved_692[i].setComponentOffset(0x2b4 + (i * 4));
+        }
         GenCfg5.r32.setComponentOffset(0x2bc);
+        for(int i = 0; i < 40; i++)
+        {
+            reserved_704[i].setComponentOffset(0x2c0 + (i * 4));
+        }
         GenDbgControlStatus.r32.setComponentOffset(0x360);
         GenDbgData.r32.setComponentOffset(0x364);
     }

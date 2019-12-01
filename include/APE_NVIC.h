@@ -2332,34 +2332,150 @@ typedef struct NVIC_t {
 #ifdef CXX_SIMULATOR
     NVIC_t()
     {
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_0[i].setComponentOffset(0x0 + (i * 4));
+        }
         InterruptControlType.r32.setComponentOffset(0x4);
+        for(int i = 0; i < 11; i++)
+        {
+            reserved_5[i].setComponentOffset(0x5 + (i * 4));
+        }
         SystickControlAndStatus.r32.setComponentOffset(0x10);
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_17[i].setComponentOffset(0x11 + (i * 4));
+        }
         SystickReloadValue.r32.setComponentOffset(0x14);
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_21[i].setComponentOffset(0x15 + (i * 4));
+        }
         SystickCurrentValue.r32.setComponentOffset(0x18);
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_25[i].setComponentOffset(0x19 + (i * 4));
+        }
         SystickCalibrationValue.r32.setComponentOffset(0x1c);
+        for(int i = 0; i < 227; i++)
+        {
+            reserved_29[i].setComponentOffset(0x1d + (i * 4));
+        }
         InterruptSetEnable.r32.setComponentOffset(0x100);
+        for(int i = 0; i < 127; i++)
+        {
+            reserved_257[i].setComponentOffset(0x101 + (i * 4));
+        }
         InterruptClearEnable.r32.setComponentOffset(0x180);
+        for(int i = 0; i < 127; i++)
+        {
+            reserved_385[i].setComponentOffset(0x181 + (i * 4));
+        }
         InterruptSetPending.r32.setComponentOffset(0x200);
+        for(int i = 0; i < 127; i++)
+        {
+            reserved_513[i].setComponentOffset(0x201 + (i * 4));
+        }
         InterruptClearPending.r32.setComponentOffset(0x280);
+        for(int i = 0; i < 127; i++)
+        {
+            reserved_641[i].setComponentOffset(0x281 + (i * 4));
+        }
         ActiveBit.r32.setComponentOffset(0x300);
+        for(int i = 0; i < 255; i++)
+        {
+            reserved_769[i].setComponentOffset(0x301 + (i * 4));
+        }
         InterruptPriority0.r32.setComponentOffset(0x400);
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_1025[i].setComponentOffset(0x401 + (i * 4));
+        }
         InterruptPriority1.r32.setComponentOffset(0x404);
+        for(int i = 0; i < 2299; i++)
+        {
+            reserved_1029[i].setComponentOffset(0x405 + (i * 4));
+        }
         CpuId.r32.setComponentOffset(0xd00);
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_3329[i].setComponentOffset(0xd01 + (i * 4));
+        }
         InterruptControlState.r32.setComponentOffset(0xd04);
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_3333[i].setComponentOffset(0xd05 + (i * 4));
+        }
         VectorTableOffset.r32.setComponentOffset(0xd08);
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_3337[i].setComponentOffset(0xd09 + (i * 4));
+        }
         ApplicationInterruptAndResetControl.r32.setComponentOffset(0xd0c);
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_3341[i].setComponentOffset(0xd0d + (i * 4));
+        }
         SystemControl.r32.setComponentOffset(0xd10);
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_3345[i].setComponentOffset(0xd11 + (i * 4));
+        }
         ConfigurationControl.r32.setComponentOffset(0xd14);
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_3349[i].setComponentOffset(0xd15 + (i * 4));
+        }
         SystemHandlerPriority4.r32.setComponentOffset(0xd18);
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_3353[i].setComponentOffset(0xd19 + (i * 4));
+        }
         SystemHandlerPriority8.r32.setComponentOffset(0xd1c);
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_3357[i].setComponentOffset(0xd1d + (i * 4));
+        }
         SystemHandlerPriority12.r32.setComponentOffset(0xd20);
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_3361[i].setComponentOffset(0xd21 + (i * 4));
+        }
         SystemHandlerControlAndState.r32.setComponentOffset(0xd24);
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_3365[i].setComponentOffset(0xd25 + (i * 4));
+        }
         FaultStatus.r32.setComponentOffset(0xd28);
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_3369[i].setComponentOffset(0xd29 + (i * 4));
+        }
         HardFaultStatus.r32.setComponentOffset(0xd2c);
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_3373[i].setComponentOffset(0xd2d + (i * 4));
+        }
         DebugFaultStatus.r32.setComponentOffset(0xd30);
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_3377[i].setComponentOffset(0xd31 + (i * 4));
+        }
         MemoryManageFaultAddress.r32.setComponentOffset(0xd34);
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_3381[i].setComponentOffset(0xd35 + (i * 4));
+        }
         BusFaultAddress.r32.setComponentOffset(0xd38);
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_3385[i].setComponentOffset(0xd39 + (i * 4));
+        }
         AuxiliaryFaultAddress.r32.setComponentOffset(0xd3c);
+        for(int i = 0; i < 451; i++)
+        {
+            reserved_3389[i].setComponentOffset(0xd3d + (i * 4));
+        }
         SoftwareTriggerInterrupt.r32.setComponentOffset(0xf00);
     }
     void print()

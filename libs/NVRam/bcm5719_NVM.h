@@ -1267,6 +1267,10 @@ typedef struct NVM_t {
     NVM_t()
     {
         Command.r32.setComponentOffset(0x0);
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_4[i].setComponentOffset(0x4 + (i * 4));
+        }
         Write.r32.setComponentOffset(0x8);
         Addr.r32.setComponentOffset(0xc);
         Read.r32.setComponentOffset(0x10);
@@ -1277,6 +1281,10 @@ typedef struct NVM_t {
         Access.r32.setComponentOffset(0x24);
         NvmWrite1.r32.setComponentOffset(0x28);
         ArbitrationWatchdog.r32.setComponentOffset(0x2c);
+        for(int i = 0; i < 2; i++)
+        {
+            reserved_48[i].setComponentOffset(0x30 + (i * 4));
+        }
         AutoSenseStatus.r32.setComponentOffset(0x38);
     }
     void print()

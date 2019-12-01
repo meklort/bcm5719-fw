@@ -89,6 +89,11 @@ void init_bcm5719_SHM_sim(void *base)
     SHM.ApeSegLength.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     SHM.ApeSegLength.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    for(int i = 0; i < 1; i++)
+    {
+        SHM.reserved_8[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        SHM.reserved_8[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
     /** @brief Bitmap for @ref SHM_t.FwStatus. */
     SHM.FwStatus.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     SHM.FwStatus.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
@@ -121,6 +126,11 @@ void init_bcm5719_SHM_sim(void *base)
     SHM._4028.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     SHM._4028.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    for(int i = 0; i < 3; i++)
+    {
+        SHM.reserved_44[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        SHM.reserved_44[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
     /** @brief Bitmap for @ref SHM_t.LoaderCommand. */
     SHM.LoaderCommand.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     SHM.LoaderCommand.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
@@ -133,6 +143,11 @@ void init_bcm5719_SHM_sim(void *base)
     SHM.LoaderArg1.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     SHM.LoaderArg1.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    for(int i = 0; i < 47; i++)
+    {
+        SHM.reserved_68[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        SHM.reserved_68[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
     /** @brief Bitmap for @ref SHM_t.RcpuSegSig. */
     SHM.RcpuSegSig.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     SHM.RcpuSegSig.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
@@ -185,6 +200,11 @@ void init_bcm5719_SHM_sim(void *base)
     SHM.RcpuCpmuStatus.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     SHM.RcpuCpmuStatus.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    for(int i = 0; i < 51; i++)
+    {
+        SHM.reserved_308[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        SHM.reserved_308[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
     /** @brief Bitmap for @ref SHM_t.HostSegSig. */
     SHM.HostSegSig.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     SHM.HostSegSig.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
@@ -217,18 +237,38 @@ void init_bcm5719_SHM_sim(void *base)
     SHM.HostDriverState.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     SHM.HostDriverState.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    for(int i = 0; i < 1; i++)
+    {
+        SHM.reserved_544[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        SHM.reserved_544[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
     /** @brief Bitmap for @ref SHM_t.WolSpeed. */
     SHM.WolSpeed.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     SHM.WolSpeed.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    for(int i = 0; i < 54; i++)
+    {
+        SHM.reserved_552[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        SHM.reserved_552[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
     /** @brief Bitmap for @ref SHM_t.EventStatus. */
     SHM.EventStatus.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     SHM.EventStatus.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    for(int i = 0; i < 1; i++)
+    {
+        SHM.reserved_772[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        SHM.reserved_772[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
     /** @brief Bitmap for @ref SHM_t.ProtMagic. */
     SHM.ProtMagic.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     SHM.ProtMagic.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    for(int i = 0; i < 2; i++)
+    {
+        SHM.reserved_780[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        SHM.reserved_780[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
     /** @brief Bitmap for @ref SHM_t.ProtMac0High. */
     SHM.ProtMac0High.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     SHM.ProtMac0High.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
@@ -237,10 +277,20 @@ void init_bcm5719_SHM_sim(void *base)
     SHM.ProtMac0Low.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     SHM.ProtMac0Low.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    for(int i = 0; i < 313; i++)
+    {
+        SHM.reserved_796[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        SHM.reserved_796[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
     /** @brief Bitmap for @ref SHM_t.NcsiSig. */
     SHM.NcsiSig.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     SHM.NcsiSig.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    for(int i = 0; i < 3; i++)
+    {
+        SHM.reserved_2052[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        SHM.reserved_2052[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
     /** @brief Bitmap for @ref SHM_t.NcsiBuildTime. */
     SHM.NcsiBuildTime.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     SHM.NcsiBuildTime.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
@@ -265,6 +315,11 @@ void init_bcm5719_SHM_sim(void *base)
     SHM.NcsiBuildDate3.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     SHM.NcsiBuildDate3.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    for(int i = 0; i < 26; i++)
+    {
+        SHM.reserved_2088[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        SHM.reserved_2088[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
     /** @brief Bitmap for @ref SHM_t.ChipId. */
     SHM.ChipId.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     SHM.ChipId.r32.installWriteCallback(write_to_ram, (uint8_t *)base);

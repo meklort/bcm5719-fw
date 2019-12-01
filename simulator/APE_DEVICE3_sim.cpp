@@ -128,6 +128,10 @@ void init_APE_DEVICE3_sim(void *arg0)
     DEVICE3.ApeMemoryData.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
     DEVICE3.ApeMemoryData.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
 
+    /** @brief Bitmap for @ref DEVICE3_t.160. */
+    DEVICE3._160.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
+    DEVICE3._160.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+
     /** @brief Bitmap for @ref DEVICE3_t.EmacMode. */
     DEVICE3.EmacMode.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
     DEVICE3.EmacMode.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
@@ -183,6 +187,10 @@ void init_APE_DEVICE3_sim(void *arg0)
     /** @brief Bitmap for @ref DEVICE3_t.WolPatternCfg. */
     DEVICE3.WolPatternCfg.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
     DEVICE3.WolPatternCfg.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref DEVICE3_t.438. */
+    DEVICE3._438.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
+    DEVICE3._438.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
 
     /** @brief Bitmap for @ref DEVICE3_t.MtuSize. */
     DEVICE3.MtuSize.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
@@ -252,6 +260,10 @@ void init_APE_DEVICE3_sim(void *arg0)
     DEVICE3.CpmuControl.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
     DEVICE3.CpmuControl.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
 
+    /** @brief Bitmap for @ref DEVICE3_t.NoLinkPowerModeClockPolicy. */
+    DEVICE3.NoLinkPowerModeClockPolicy.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
+    DEVICE3.NoLinkPowerModeClockPolicy.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+
     /** @brief Bitmap for @ref DEVICE3_t.LinkAwarePowerModeClockPolicy. */
     DEVICE3.LinkAwarePowerModeClockPolicy.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
     DEVICE3.LinkAwarePowerModeClockPolicy.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
@@ -288,6 +300,10 @@ void init_APE_DEVICE3_sim(void *arg0)
     DEVICE3.GphyStrap.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
     DEVICE3.GphyStrap.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
 
+    /** @brief Bitmap for @ref DEVICE3_t.FlashClockControlPolicy. */
+    DEVICE3.FlashClockControlPolicy.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
+    DEVICE3.FlashClockControlPolicy.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+
     /** @brief Bitmap for @ref DEVICE3_t.TopLevelMiscellaneousControl1. */
     DEVICE3.TopLevelMiscellaneousControl1.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
     DEVICE3.TopLevelMiscellaneousControl1.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
@@ -311,6 +327,10 @@ void init_APE_DEVICE3_sim(void *arg0)
     /** @brief Bitmap for @ref DEVICE3_t.GlobalMutexGrant. */
     DEVICE3.GlobalMutexGrant.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
     DEVICE3.GlobalMutexGrant.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref DEVICE3_t.TemperatureMonitorControl. */
+    DEVICE3.TemperatureMonitorControl.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
+    DEVICE3.TemperatureMonitorControl.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
 
     /** @brief Bitmap for @ref DEVICE3_t.MemoryArbiterMode. */
     DEVICE3.MemoryArbiterMode.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
@@ -507,6 +527,10 @@ void init_APE_DEVICE3_sim(void *arg0)
     /** @brief Bitmap for @ref DEVICE3_t.64c0. */
     DEVICE3._64c0.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
     DEVICE3._64c0.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref DEVICE3_t.64c4. */
+    DEVICE3._64c4.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
+    DEVICE3._64c4.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
 
     /** @brief Bitmap for @ref DEVICE3_t.64c8. */
     DEVICE3._64c8.r32.installReadCallback(loader_read_mem, (uint8_t *)base);

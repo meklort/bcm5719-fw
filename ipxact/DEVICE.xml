@@ -376,6 +376,14 @@
                     <ipxact:volatile>true</ipxact:volatile>
                 </ipxact:register>
                 <ipxact:register>
+                    <ipxact:name>160</ipxact:name>
+                    <ipxact:description>Unknown register.</ipxact:description>
+                    <ipxact:addressOffset>0x160</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
                     <ipxact:name>EMAC_MODE</ipxact:name>
                     <ipxact:description></ipxact:description>
                     <ipxact:addressOffset>0x400</ipxact:addressOffset>
@@ -959,6 +967,14 @@
                     <ipxact:name>WOL_PATTERN_CFG</ipxact:name>
                     <ipxact:description></ipxact:description>
                     <ipxact:addressOffset>0x434</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>438</ipxact:name>
+                    <ipxact:description>Unknown register.</ipxact:description>
+                    <ipxact:addressOffset>0x438</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
@@ -1606,6 +1622,73 @@
                     </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>
+                    <ipxact:name>NO_LINK_POWER_MODE_CLOCK_POLICY</ipxact:name>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0x3604</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>MAC Clock Switch</ipxact:name>
+                        <ipxact:description>Software Controlled MAC Core Clock Speed Select.</ipxact:description>
+                        <ipxact:bitOffset>16</ipxact:bitOffset>
+                        <ipxact:bitWidth>5</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <!-- LINK: enumeratedValue: see 6.11.10, Enumeration values -->
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>62.5MHz</ipxact:name>
+                                <ipxact:value>0</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>60.0MHz</ipxact:name>
+                                <ipxact:value>1</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>30.0MHz</ipxact:name>
+                                <ipxact:value>3</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>15.0MHz</ipxact:name>
+                                <ipxact:value>5</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>7.5MHz</ipxact:name>
+                                <ipxact:value>7</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>3.75MHz</ipxact:name>
+                                <ipxact:value>9</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:description>CK25/2</ipxact:description>
+                                <ipxact:name>12.5MHz</ipxact:name>
+                                <ipxact:value>17</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:description>CK25/4</ipxact:description>
+                                <ipxact:name>6.25MHz</ipxact:name>
+                                <ipxact:value>19</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:description>CK25/8</ipxact:description>
+                                <ipxact:name>3.125MHz</ipxact:name>
+                                <ipxact:value>21</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:description>CK25/16</ipxact:description>
+                                <ipxact:name>1.563MHz</ipxact:name>
+                                <ipxact:value>23</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:description>MII_CLK/2</ipxact:description>
+                                <ipxact:name>12.5MHz/1.25MHz</ipxact:name>
+                                <ipxact:value>31</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
+                    </ipxact:field>
+                </ipxact:register>
+                <ipxact:register>
                     <ipxact:name>LINK_AWARE_POWER_MODE_CLOCK_POLICY</ipxact:name>
                     <ipxact:description></ipxact:description>
                     <ipxact:addressOffset>0x3610</ipxact:addressOffset>
@@ -1888,7 +1971,7 @@
                     </ipxact:field>
                     <ipxact:field>
                         <ipxact:name>Power Down</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:description>Force CPMU into Low Power State, LAN function will be powered down (GPHY, PCIE, IPSEC, APE). This bit is cleared by a rising edge of PERST_L.</ipxact:description>
                         <ipxact:bitOffset>4</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
@@ -1897,6 +1980,20 @@
                         <ipxact:name>SGMII/PCS Power Down</ipxact:name>
                         <ipxact:description>Setting this bit will powerdown SGMII-PCS module.</ipxact:description>
                         <ipxact:bitOffset>15</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>PCIe PLL Lock Status</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>22</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>GPHY PLL Lock Status</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>23</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
@@ -1921,6 +2018,13 @@
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Keep NCSI PLL on during low power mode.</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>28</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>CHIP_ID</ipxact:name>
@@ -1937,6 +2041,13 @@
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>Request</ipxact:name>
+                        <ipxact:description>Writing a 1 to any of these bits pends a Mutex lock request on behalf of a software agent. The bit is subsequently latched by hardware and shall read 1 as long as the request is pending. Writing a 0 to a bit shall have no effect.</ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>16</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>MUTEX_GRANT</ipxact:name>
@@ -1945,6 +2056,13 @@
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>Granted</ipxact:name>
+                        <ipxact:description>Reading this field shall return a maximum of one set bit at any time. The set bit shall point to the lock owner. If the Mutex is not locked, then a read shall return a value 0x0000. Writing a 1 to the already set bit shall relinquish the lock and the set bit shall be cleared. Writing a 1 to an unset bit shall cancel the corresponding pending request if there was one, and the pairing bit in the Mutex_Request_Reg shall be cleared.</ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>16</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>GPHY_STRAP</ipxact:name>
@@ -1971,6 +2089,125 @@
                         <ipxact:name>RXCPU SPAD ECC Enable</ipxact:name>
                         <ipxact:description>Enable ECC for rxcpu scratchpad.</ipxact:description>
                         <ipxact:bitOffset>4</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>APE CM3 Big Endian Enable</ipxact:name>
+                        <ipxact:description>Enable APE CM3 Big Endian Setting</ipxact:description>
+                        <ipxact:bitOffset>8</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>FLASH_CLOCK_CONTROL_POLICY</ipxact:name>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0x366c</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>Override Flash Clock Switch</ipxact:name>
+                        <ipxact:description>Software Controlled Flash Clock Speed</ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>2</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <!-- LINK: enumeratedValue: see 6.11.10, Enumeration values -->
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>62.5 MHz NCSI DLL</ipxact:name>
+                                <ipxact:value>0</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>25 MHz</ipxact:name>
+                                <ipxact:value>3</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Flash Clock Policy</ipxact:name>
+                        <ipxact:description>Software Controlled Flash Clock Speed</ipxact:description>
+                        <ipxact:bitOffset>4</ipxact:bitOffset>
+                        <ipxact:bitWidth>3</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <!-- LINK: enumeratedValue: see 6.11.10, Enumeration values -->
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>62.5 MHz NCSI DLL</ipxact:name>
+                                <ipxact:value>0</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>25 MHz</ipxact:name>
+                                <ipxact:value>3</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Flash Idle Clock Policy</ipxact:name>
+                        <ipxact:description>Software Controlled Flash Clock Speed</ipxact:description>
+                        <ipxact:bitOffset>8</ipxact:bitOffset>
+                        <ipxact:bitWidth>3</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <!-- LINK: enumeratedValue: see 6.11.10, Enumeration values -->
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>62.5 MHz NCSI DLL</ipxact:name>
+                                <ipxact:value>0</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>25 MHz</ipxact:name>
+                                <ipxact:value>3</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>EAV Clock Policy</ipxact:name>
+                        <ipxact:description>Software Controlled EAV Clock Speed Select</ipxact:description>
+                        <ipxact:bitOffset>12</ipxact:bitOffset>
+                        <ipxact:bitWidth>8</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <!-- LINK: enumeratedValue: see 6.11.10, Enumeration values -->
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>4.8MHz</ipxact:name>
+                                <ipxact:value>0</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>1250 MHz</ipxact:name>
+                                <ipxact:value>1</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>125 MHz</ipxact:name>
+                                <ipxact:value>10</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Force EAV Clock Disable</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>28</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Flash Idle mode Enable</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>29</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Force Flash Clock Disable</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>30</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Flash Clock Speed Override</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>30</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
@@ -2140,6 +2377,13 @@
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>Request</ipxact:name>
+                        <ipxact:description>Writing a 1 to any of these bits pends a Mutex lock request on behalf of a software agent. The bit is subsequently latched by hardware and shall read 1 as long as the request is pending. Writing a 0 to a bit shall have no effect.</ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>16</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>GLOBAL_MUTEX_GRANT</ipxact:name>
@@ -2148,6 +2392,56 @@
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>Granted</ipxact:name>
+                        <ipxact:description>Reading this field shall return a maximum of one set bit at any time. The set bit shall point to the lock owner. If the Mutex is not locked, then a read shall return a value 0x0000. Writing a 1 to the already set bit shall relinquish the lock and the set bit shall be cleared. Writing a 1 to an unset bit shall cancel the corresponding pending request if there was one, and the pairing bit in the Mutex_Request_Reg shall be cleared.</ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>16</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>TEMPERATURE_MONITOR_CONTROL</ipxact:name>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0x36fc</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>ADC Test Enable</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Bias Adjust</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>1</ipxact:bitOffset>
+                        <ipxact:bitWidth>7</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Temperature Data</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>8</ipxact:bitOffset>
+                        <ipxact:bitWidth>8</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Temperature Monitor Hold</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>17</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Temperature Monitor Power Down</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>18</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>MEMORY_ARBITER_MODE</ipxact:name>
@@ -2855,6 +3149,14 @@
                     <ipxact:name>64C0</ipxact:name>
                     <ipxact:description></ipxact:description>
                     <ipxact:addressOffset>0x64c0</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>64C4</ipxact:name>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0x64c4</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
@@ -3931,6 +4233,13 @@
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
                     <ipxact:field>
+                        <ipxact:name>Host Stack Up</ipxact:name>
+                        <ipxact:description>The host stack is ready to receive data from the NIC.</ipxact:description>
+                        <ipxact:bitOffset>16</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
                         <ipxact:name>Time Sync Mode Enable</ipxact:name>
                         <ipxact:description>Write 1 to this bit to enable Time Sync Mode.</ipxact:description>
                         <ipxact:bitOffset>19</ipxact:bitOffset>
@@ -3975,16 +4284,68 @@
                     <ipxact:volatile>true</ipxact:volatile>
                     <ipxact:field>
                         <ipxact:name>GRC Reset</ipxact:name>
-                        <ipxact:description></ipxact:description>
-                        <ipxact:bitOffset>1</ipxact:bitOffset>
+                        <ipxact:description>Write 1 to this bit resets the CORE_CLK blocks in the device. This is a self-clearing bit.</ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
-                        <ipxact:name>all</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:name>Timer Prescaler</ipxact:name>
+                        <ipxact:description>Local Core clock frequency in MHz, minus 1, which should correspond to each advance of the timer. Reset to all 1.</ipxact:description>
                         <ipxact:bitOffset>1</ipxact:bitOffset>
-                        <ipxact:bitWidth>31</ipxact:bitWidth>
+                        <ipxact:bitWidth>7</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Bond ID</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>13</ipxact:bitOffset>
+                        <ipxact:bitWidth>4</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Power State</ipxact:name>
+                        <ipxact:description>Indicates the current power state of the device.</ipxact:description>
+                        <ipxact:bitOffset>17</ipxact:bitOffset>
+                        <ipxact:bitWidth>2</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>D0</ipxact:name>
+                                <ipxact:value>0</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>D1</ipxact:name>
+                                <ipxact:value>1</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>D2</ipxact:name>
+                                <ipxact:value>2</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>D3</ipxact:name>
+                                <ipxact:value>3</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>PME EN State</ipxact:name>
+                        <ipxact:description>State of PME Enable for this device.</ipxact:description>
+                        <ipxact:bitOffset>19</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Powerdown</ipxact:name>
+                        <ipxact:description>Setting this bit will power down the device (power consumption is ~20 mW). This bit is cleared by PCI reset.</ipxact:description>
+                        <ipxact:bitOffset>20</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Disable GRC Reset</ipxact:name>
+                        <ipxact:description>Setting this bit will prevent reset to PCIE block.</ipxact:description>
+                        <ipxact:bitOffset>29</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                 </ipxact:register>
@@ -3995,6 +4356,27 @@
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>GPIO 3 Input</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>5</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>GPIO 3 Output Enable</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>6</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>GPIO 3 Output</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>7</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
                     <ipxact:field>
                         <ipxact:name>GPIO 0 Input</ipxact:name>
                         <ipxact:description></ipxact:description>
@@ -4056,6 +4438,13 @@
                         <ipxact:description></ipxact:description>
                         <ipxact:bitOffset>16</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>APE GPIO In</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>17</ipxact:bitOffset>
+                        <ipxact:bitWidth>7</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>

@@ -1216,6 +1216,56 @@ typedef register_container RegAPE_PERIBmcToNcRxControl_t {
 #endif /* CXX_SIMULATOR */
 } RegAPE_PERIBmcToNcRxControl_t;
 
+#define REG_APE_PERI_BMC_TO_NC_RX_STATUS_1 ((volatile APE_APE_PERI_H_uint32_t*)0x60240358) /*  */
+/** @brief Register definition for @ref APE_PERI_t.BmcToNcRxStatus1. */
+typedef register_container RegAPE_PERIBmcToNcRxStatus1_t {
+    /** @brief 32bit direct register access. */
+    APE_APE_PERI_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "BmcToNcRxStatus1"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegAPE_PERIBmcToNcRxStatus1_t()
+    {
+        /** @brief constructor for @ref APE_PERI_t.BmcToNcRxStatus1. */
+        r32.setName("BmcToNcRxStatus1");
+    }
+    RegAPE_PERIBmcToNcRxStatus1_t& operator=(const RegAPE_PERIBmcToNcRxStatus1_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegAPE_PERIBmcToNcRxStatus1_t;
+
+#define REG_APE_PERI_BMC_TO_NC_RX_STATUS_2 ((volatile APE_APE_PERI_H_uint32_t*)0x6024035c) /*  */
+/** @brief Register definition for @ref APE_PERI_t.BmcToNcRxStatus2. */
+typedef register_container RegAPE_PERIBmcToNcRxStatus2_t {
+    /** @brief 32bit direct register access. */
+    APE_APE_PERI_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "BmcToNcRxStatus2"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegAPE_PERIBmcToNcRxStatus2_t()
+    {
+        /** @brief constructor for @ref APE_PERI_t.BmcToNcRxStatus2. */
+        r32.setName("BmcToNcRxStatus2");
+    }
+    RegAPE_PERIBmcToNcRxStatus2_t& operator=(const RegAPE_PERIBmcToNcRxStatus2_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegAPE_PERIBmcToNcRxStatus2_t;
+
 #define REG_APE_PERI_BMC_TO_NC_TX_STATUS ((volatile APE_APE_PERI_H_uint32_t*)0x60240370) /*  */
 #define     APE_PERI_BMC_TO_NC_TX_STATUS_UNDERRUN_SHIFT 0u
 #define     APE_PERI_BMC_TO_NC_TX_STATUS_UNDERRUN_MASK  0x1u
@@ -1513,6 +1563,31 @@ typedef register_container RegAPE_PERIBmcToNcTxBufferLast_t {
     }
 #endif /* CXX_SIMULATOR */
 } RegAPE_PERIBmcToNcTxBufferLast_t;
+
+#define REG_APE_PERI_BMC_TO_NC_TX_STATUS_1 ((volatile APE_APE_PERI_H_uint32_t*)0x60240380) /*  */
+/** @brief Register definition for @ref APE_PERI_t.BmcToNcTxStatus1. */
+typedef register_container RegAPE_PERIBmcToNcTxStatus1_t {
+    /** @brief 32bit direct register access. */
+    APE_APE_PERI_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "BmcToNcTxStatus1"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegAPE_PERIBmcToNcTxStatus1_t()
+    {
+        /** @brief constructor for @ref APE_PERI_t.BmcToNcTxStatus1. */
+        r32.setName("BmcToNcTxStatus1");
+    }
+    RegAPE_PERIBmcToNcTxStatus1_t& operator=(const RegAPE_PERIBmcToNcTxStatus1_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegAPE_PERIBmcToNcTxStatus1_t;
 
 #define REG_APE_PERI_RMU_CONTROL ((volatile APE_APE_PERI_H_uint32_t*)0x602403a0) /*  */
 #define     APE_PERI_RMU_CONTROL_RESET_TX_SHIFT 0u
@@ -3443,8 +3518,14 @@ typedef struct APE_PERI_t {
     /** @brief  */
     RegAPE_PERIBmcToNcRxControl_t BmcToNcRxControl;
 
+    /** @brief  */
+    RegAPE_PERIBmcToNcRxStatus1_t BmcToNcRxStatus1;
+
+    /** @brief  */
+    RegAPE_PERIBmcToNcRxStatus2_t BmcToNcRxStatus2;
+
     /** @brief Reserved bytes to pad out data structure. */
-    APE_APE_PERI_H_uint32_t reserved_856[6];
+    APE_APE_PERI_H_uint32_t reserved_864[4];
 
     /** @brief  */
     RegAPE_PERIBmcToNcTxStatus_t BmcToNcTxStatus;
@@ -3458,8 +3539,11 @@ typedef struct APE_PERI_t {
     /** @brief  */
     RegAPE_PERIBmcToNcTxBufferLast_t BmcToNcTxBufferLast;
 
+    /** @brief  */
+    RegAPE_PERIBmcToNcTxStatus1_t BmcToNcTxStatus1;
+
     /** @brief Reserved bytes to pad out data structure. */
-    APE_APE_PERI_H_uint32_t reserved_896[8];
+    APE_APE_PERI_H_uint32_t reserved_900[7];
 
     /** @brief  */
     RegAPE_PERIRmuControl_t RmuControl;
@@ -3521,6 +3605,10 @@ typedef struct APE_PERI_t {
 #ifdef CXX_SIMULATOR
     APE_PERI_t()
     {
+        for(int i = 0; i < 192; i++)
+        {
+            reserved_0[i].setComponentOffset(0x0 + (i * 4));
+        }
         BmcToNcRxStatus.r32.setComponentOffset(0x300);
         BmcToNcSourceMacHigh.r32.setComponentOffset(0x304);
         BmcToNcSourceMacLow.r32.setComponentOffset(0x308);
@@ -3543,12 +3631,27 @@ typedef struct APE_PERI_t {
         BmcToNcRxVlan.r32.setComponentOffset(0x34c);
         BmcToNcReadBuffer.r32.setComponentOffset(0x350);
         BmcToNcRxControl.r32.setComponentOffset(0x354);
+        BmcToNcRxStatus1.r32.setComponentOffset(0x358);
+        BmcToNcRxStatus2.r32.setComponentOffset(0x35c);
+        for(int i = 0; i < 4; i++)
+        {
+            reserved_864[i].setComponentOffset(0x360 + (i * 4));
+        }
         BmcToNcTxStatus.r32.setComponentOffset(0x370);
         BmcToNcTxControl.r32.setComponentOffset(0x374);
         BmcToNcTxBuffer.r32.setComponentOffset(0x378);
         BmcToNcTxBufferLast.r32.setComponentOffset(0x37c);
+        BmcToNcTxStatus1.r32.setComponentOffset(0x380);
+        for(int i = 0; i < 7; i++)
+        {
+            reserved_900[i].setComponentOffset(0x384 + (i * 4));
+        }
         RmuControl.r32.setComponentOffset(0x3a0);
         ArbControl.r32.setComponentOffset(0x3a4);
+        for(int i = 0; i < 22; i++)
+        {
+            reserved_936[i].setComponentOffset(0x3a8 + (i * 4));
+        }
         PerLockRequestPhy0.r32.setComponentOffset(0x400);
         PerLockRequestGrc.r32.setComponentOffset(0x404);
         PerLockRequestPhy1.r32.setComponentOffset(0x408);
@@ -3594,17 +3697,20 @@ typedef struct APE_PERI_t {
         BmcToNcRxVlan.print();
         BmcToNcReadBuffer.print();
         BmcToNcRxControl.print();
-        for(int i = 0; i < 6; i++)
+        BmcToNcRxStatus1.print();
+        BmcToNcRxStatus2.print();
+        for(int i = 0; i < 4; i++)
         {
-            reserved_856[i].print();
+            reserved_864[i].print();
         }
         BmcToNcTxStatus.print();
         BmcToNcTxControl.print();
         BmcToNcTxBuffer.print();
         BmcToNcTxBufferLast.print();
-        for(int i = 0; i < 8; i++)
+        BmcToNcTxStatus1.print();
+        for(int i = 0; i < 7; i++)
         {
-            reserved_896[i].print();
+            reserved_900[i].print();
         }
         RmuControl.print();
         ArbControl.print();

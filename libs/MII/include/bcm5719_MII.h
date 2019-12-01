@@ -4282,6 +4282,10 @@ typedef struct MII_t {
         AutonegotiationLinkPartnerAbilityNextPage.r16.setComponentOffset(0x8);
         _1000baseTControl.r16.setComponentOffset(0x9);
         _1000baseTStatus.r16.setComponentOffset(0xa);
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_11[i].setComponentOffset(0xb + (i * 2));
+        }
         BroadreachLreAccess.r16.setComponentOffset(0xe);
         IeeeExtendedStatus.r16.setComponentOffset(0xf);
         PhyExtendedControl.r16.setComponentOffset(0x10);
@@ -4289,22 +4293,70 @@ typedef struct MII_t {
         ReceiveErrorCounter.r16.setComponentOffset(0x12);
         FalseCarrierSenseCounter.r16.setComponentOffset(0x13);
         LocalRemoteReceiverNotOkCounter.r16.setComponentOffset(0x14);
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_21[i].setComponentOffset(0x15 + (i * 2));
+        }
         AuxiliaryControl.r16.setComponentOffset(0x18);
         AuxiliaryStatusSummary.r16.setComponentOffset(0x19);
         InterruptStatus.r16.setComponentOffset(0x1a);
         InterruptMask.r16.setComponentOffset(0x1b);
         CabletronLed.r16.setComponentOffset(0x1c);
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_29[i].setComponentOffset(0x1d + (i * 2));
+        }
         Test1.r16.setComponentOffset(0x1e);
         BlockSelect.r16.setComponentOffset(0x1f);
+        for(int i = 0; i < 62; i++)
+        {
+            reserved_32[i].setComponentOffset(0x20 + (i * 2));
+        }
         _10baseT.r16.setComponentOffset(0x118);
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_281[i].setComponentOffset(0x119 + (i * 2));
+        }
         DllSelection.r16.setComponentOffset(0x11c);
+        for(int i = 0; i < 251; i++)
+        {
+            reserved_285[i].setComponentOffset(0x11d + (i * 2));
+        }
         PowerAndMiiControl.r16.setComponentOffset(0x218);
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_537[i].setComponentOffset(0x219 + (i * 2));
+        }
         SpareControl1.r16.setComponentOffset(0x21c);
+        for(int i = 0; i < 255; i++)
+        {
+            reserved_541[i].setComponentOffset(0x21d + (i * 2));
+        }
         ClockAlignmentControl.r16.setComponentOffset(0x31c);
+        for(int i = 0; i < 251; i++)
+        {
+            reserved_797[i].setComponentOffset(0x31d + (i * 2));
+        }
         MiscTest1.r16.setComponentOffset(0x418);
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_1049[i].setComponentOffset(0x419 + (i * 2));
+        }
         SpareControl2.r16.setComponentOffset(0x41c);
+        for(int i = 0; i < 251; i++)
+        {
+            reserved_1053[i].setComponentOffset(0x41d + (i * 2));
+        }
         MiscTest2.r16.setComponentOffset(0x518);
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_1305[i].setComponentOffset(0x519 + (i * 2));
+        }
         SpareControl3.r16.setComponentOffset(0x51c);
+        for(int i = 0; i < 507; i++)
+        {
+            reserved_1309[i].setComponentOffset(0x51d + (i * 2));
+        }
         MiscellaneousControl.r16.setComponentOffset(0x718);
     }
     void print()

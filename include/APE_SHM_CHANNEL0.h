@@ -1863,18 +1863,38 @@ typedef struct SHM_CHANNEL_t {
         NcsiChannelSetting1.r32.setComponentOffset(0x14);
         NcsiChannelSetting2.r32.setComponentOffset(0x18);
         NcsiChannelVlan.r32.setComponentOffset(0x1c);
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_32[i].setComponentOffset(0x20 + (i * 4));
+        }
         NcsiChannelAltHostMacHigh.r32.setComponentOffset(0x24);
         NcsiChannelAltHostMacMid.r32.setComponentOffset(0x28);
         NcsiChannelAltHostMacLow.r32.setComponentOffset(0x2c);
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_48[i].setComponentOffset(0x30 + (i * 4));
+        }
         NcsiChannelMac0High.r32.setComponentOffset(0x34);
         NcsiChannelMac0Mid.r32.setComponentOffset(0x38);
         NcsiChannelMac0Low.r32.setComponentOffset(0x3c);
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_64[i].setComponentOffset(0x40 + (i * 4));
+        }
         NcsiChannelMac1High.r32.setComponentOffset(0x44);
         NcsiChannelMac1Mid.r32.setComponentOffset(0x48);
         NcsiChannelMac1Low.r32.setComponentOffset(0x4c);
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_80[i].setComponentOffset(0x50 + (i * 4));
+        }
         NcsiChannelMac2High.r32.setComponentOffset(0x54);
         NcsiChannelMac2Mid.r32.setComponentOffset(0x58);
         NcsiChannelMac2Low.r32.setComponentOffset(0x5c);
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_96[i].setComponentOffset(0x60 + (i * 4));
+        }
         NcsiChannelMac3High.r32.setComponentOffset(0x64);
         NcsiChannelMac3Mid.r32.setComponentOffset(0x68);
         NcsiChannelMac3Low.r32.setComponentOffset(0x6c);
@@ -1887,7 +1907,15 @@ typedef struct SHM_CHANNEL_t {
         NcsiChannelPxe.r32.setComponentOffset(0x88);
         NcsiChannelDropfil.r32.setComponentOffset(0x8c);
         NcsiChannelSlink.r32.setComponentOffset(0x90);
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_148[i].setComponentOffset(0x94 + (i * 4));
+        }
         NcsiChannelDbg.r32.setComponentOffset(0xa0);
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_164[i].setComponentOffset(0xa4 + (i * 4));
+        }
         NcsiChannelCtrlstatRx.r32.setComponentOffset(0xb0);
         NcsiChannelCtrlstatDropped.r32.setComponentOffset(0xb4);
         NcsiChannelCtrlstatTypeErr.r32.setComponentOffset(0xb8);

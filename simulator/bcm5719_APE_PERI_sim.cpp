@@ -81,6 +81,11 @@ void init_bcm5719_APE_PERI_sim(void *base)
     APE_PERI.mIndexWriteCallbackArgs = base;
 
     /** @brief Component Registers for @ref APE_PERI. */
+    for(int i = 0; i < 192; i++)
+    {
+        APE_PERI.reserved_0[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        APE_PERI.reserved_0[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
     /** @brief Bitmap for @ref APE_PERI_t.BmcToNcRxStatus. */
     APE_PERI.BmcToNcRxStatus.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     APE_PERI.BmcToNcRxStatus.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
@@ -169,6 +174,19 @@ void init_bcm5719_APE_PERI_sim(void *base)
     APE_PERI.BmcToNcRxControl.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     APE_PERI.BmcToNcRxControl.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    /** @brief Bitmap for @ref APE_PERI_t.BmcToNcRxStatus1. */
+    APE_PERI.BmcToNcRxStatus1.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE_PERI.BmcToNcRxStatus1.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref APE_PERI_t.BmcToNcRxStatus2. */
+    APE_PERI.BmcToNcRxStatus2.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE_PERI.BmcToNcRxStatus2.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    for(int i = 0; i < 4; i++)
+    {
+        APE_PERI.reserved_864[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        APE_PERI.reserved_864[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
     /** @brief Bitmap for @ref APE_PERI_t.BmcToNcTxStatus. */
     APE_PERI.BmcToNcTxStatus.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     APE_PERI.BmcToNcTxStatus.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
@@ -185,6 +203,15 @@ void init_bcm5719_APE_PERI_sim(void *base)
     APE_PERI.BmcToNcTxBufferLast.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     APE_PERI.BmcToNcTxBufferLast.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    /** @brief Bitmap for @ref APE_PERI_t.BmcToNcTxStatus1. */
+    APE_PERI.BmcToNcTxStatus1.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE_PERI.BmcToNcTxStatus1.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    for(int i = 0; i < 7; i++)
+    {
+        APE_PERI.reserved_900[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        APE_PERI.reserved_900[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
     /** @brief Bitmap for @ref APE_PERI_t.RmuControl. */
     APE_PERI.RmuControl.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     APE_PERI.RmuControl.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
@@ -193,6 +220,11 @@ void init_bcm5719_APE_PERI_sim(void *base)
     APE_PERI.ArbControl.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     APE_PERI.ArbControl.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    for(int i = 0; i < 22; i++)
+    {
+        APE_PERI.reserved_936[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        APE_PERI.reserved_936[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
     /** @brief Bitmap for @ref APE_PERI_t.PerLockRequestPhy0. */
     APE_PERI.PerLockRequestPhy0.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     APE_PERI.PerLockRequestPhy0.r32.installWriteCallback(write_to_ram, (uint8_t *)base);

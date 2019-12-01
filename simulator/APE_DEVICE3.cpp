@@ -69,6 +69,8 @@ void init_APE_DEVICE3(void)
 
     /** @brief Bitmap for @ref DEVICE3_t.ApeMemoryData. */
 
+    /** @brief Bitmap for @ref DEVICE3_t.160. */
+
     /** @brief Bitmap for @ref DEVICE3_t.EmacMode. */
 
     /** @brief Bitmap for @ref DEVICE3_t.EmacStatus. */
@@ -96,6 +98,8 @@ void init_APE_DEVICE3(void)
     /** @brief Bitmap for @ref DEVICE3_t.WolPatternPointer. */
 
     /** @brief Bitmap for @ref DEVICE3_t.WolPatternCfg. */
+
+    /** @brief Bitmap for @ref DEVICE3_t.438. */
 
     /** @brief Bitmap for @ref DEVICE3_t.MtuSize. */
 
@@ -131,6 +135,8 @@ void init_APE_DEVICE3(void)
 
     /** @brief Bitmap for @ref DEVICE3_t.CpmuControl. */
 
+    /** @brief Bitmap for @ref DEVICE3_t.NoLinkPowerModeClockPolicy. */
+
     /** @brief Bitmap for @ref DEVICE3_t.LinkAwarePowerModeClockPolicy. */
 
     /** @brief Bitmap for @ref DEVICE3_t.ClockSpeedOverridePolicy. */
@@ -149,6 +155,8 @@ void init_APE_DEVICE3(void)
 
     /** @brief Bitmap for @ref DEVICE3_t.GphyStrap. */
 
+    /** @brief Bitmap for @ref DEVICE3_t.FlashClockControlPolicy. */
+
     /** @brief Bitmap for @ref DEVICE3_t.TopLevelMiscellaneousControl1. */
 
     /** @brief Bitmap for @ref DEVICE3_t.EeeMode. */
@@ -160,6 +168,8 @@ void init_APE_DEVICE3(void)
     /** @brief Bitmap for @ref DEVICE3_t.GlobalMutexRequest. */
 
     /** @brief Bitmap for @ref DEVICE3_t.GlobalMutexGrant. */
+
+    /** @brief Bitmap for @ref DEVICE3_t.TemperatureMonitorControl. */
 
     /** @brief Bitmap for @ref DEVICE3_t.MemoryArbiterMode. */
 
@@ -258,6 +268,8 @@ void init_APE_DEVICE3(void)
     /** @brief Bitmap for @ref DEVICE3_t.PciClassCodeRevision. */
 
     /** @brief Bitmap for @ref DEVICE3_t.64c0. */
+
+    /** @brief Bitmap for @ref DEVICE3_t.64c4. */
 
     /** @brief Bitmap for @ref DEVICE3_t.64c8. */
 

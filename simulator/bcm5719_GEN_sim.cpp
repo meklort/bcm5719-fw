@@ -97,10 +97,20 @@ void init_bcm5719_GEN_sim(void *base)
     GEN.GenVersion.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     GEN.GenVersion.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    for(int i = 0; i < 5; i++)
+    {
+        GEN.reserved_16[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        GEN.reserved_16[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
     /** @brief Bitmap for @ref GEN_t.GenPhyId. */
     GEN.GenPhyId.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     GEN.GenPhyId.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    for(int i = 0; i < 34; i++)
+    {
+        GEN.reserved_40[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        GEN.reserved_40[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
     /** @brief Bitmap for @ref GEN_t.GenAsfStatusMbox. */
     GEN.GenAsfStatusMbox.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     GEN.GenAsfStatusMbox.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
@@ -117,6 +127,11 @@ void init_bcm5719_GEN_sim(void *base)
     GEN.GenBc.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     GEN.GenBc.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    for(int i = 0; i < 1; i++)
+    {
+        GEN.reserved_192[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        GEN.reserved_192[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
     /** @brief Bitmap for @ref GEN_t.GenMacAddrHighMbox. */
     GEN.GenMacAddrHighMbox.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     GEN.GenMacAddrHighMbox.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
@@ -125,10 +140,20 @@ void init_bcm5719_GEN_sim(void *base)
     GEN.GenMacAddrLowMbox.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     GEN.GenMacAddrLowMbox.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    for(int i = 0; i < 3; i++)
+    {
+        GEN.reserved_204[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        GEN.reserved_204[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
     /** @brief Bitmap for @ref GEN_t.GenD8. */
     GEN.GenD8.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     GEN.GenD8.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    for(int i = 0; i < 64; i++)
+    {
+        GEN.reserved_220[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        GEN.reserved_220[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
     /** @brief Bitmap for @ref GEN_t.Gen1dc. */
     GEN.Gen1dc.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     GEN.Gen1dc.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
@@ -149,22 +174,47 @@ void init_bcm5719_GEN_sim(void *base)
     GEN.GenCfgShared.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     GEN.GenCfgShared.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    for(int i = 0; i < 9; i++)
+    {
+        GEN.reserved_496[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        GEN.reserved_496[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
     /** @brief Bitmap for @ref GEN_t.GenFwVersion. */
     GEN.GenFwVersion.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     GEN.GenFwVersion.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    for(int i = 0; i < 36; i++)
+    {
+        GEN.reserved_536[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        GEN.reserved_536[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
     /** @brief Bitmap for @ref GEN_t.GenCfgHw2. */
     GEN.GenCfgHw2.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     GEN.GenCfgHw2.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    for(int i = 0; i < 1; i++)
+    {
+        GEN.reserved_684[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        GEN.reserved_684[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
     /** @brief Bitmap for @ref GEN_t.GenCpmuStatus. */
     GEN.GenCpmuStatus.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     GEN.GenCpmuStatus.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    for(int i = 0; i < 2; i++)
+    {
+        GEN.reserved_692[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        GEN.reserved_692[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
     /** @brief Bitmap for @ref GEN_t.GenCfg5. */
     GEN.GenCfg5.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     GEN.GenCfg5.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
+    for(int i = 0; i < 40; i++)
+    {
+        GEN.reserved_704[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        GEN.reserved_704[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
     /** @brief Bitmap for @ref GEN_t.GenDbgControlStatus. */
     GEN.GenDbgControlStatus.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     GEN.GenDbgControlStatus.r32.installWriteCallback(write_to_ram, (uint8_t *)base);

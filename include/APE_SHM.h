@@ -720,10 +720,35 @@ typedef register_container RegSHMRcpuCfgFeature_t {
 } RegSHMRcpuCfgFeature_t;
 
 #define REG_SHM_RCPU_PCI_VENDOR_DEVICE_ID ((volatile APE_SHM_H_uint32_t*)0x60220114) /* Set to PCI Vendor/Device ID by S2. */
+#define     SHM_RCPU_PCI_VENDOR_DEVICE_ID_DEVICE_ID_SHIFT 0u
+#define     SHM_RCPU_PCI_VENDOR_DEVICE_ID_DEVICE_ID_MASK  0xffffu
+#define GET_SHM_RCPU_PCI_VENDOR_DEVICE_ID_DEVICE_ID(__reg__)  (((__reg__) & 0xffff) >> 0u)
+#define SET_SHM_RCPU_PCI_VENDOR_DEVICE_ID_DEVICE_ID(__val__)  (((__val__) << 0u) & 0xffffu)
+#define     SHM_RCPU_PCI_VENDOR_DEVICE_ID_VENDOR_ID_SHIFT 16u
+#define     SHM_RCPU_PCI_VENDOR_DEVICE_ID_VENDOR_ID_MASK  0xffff0000u
+#define GET_SHM_RCPU_PCI_VENDOR_DEVICE_ID_VENDOR_ID(__reg__)  (((__reg__) & 0xffff0000) >> 16u)
+#define SET_SHM_RCPU_PCI_VENDOR_DEVICE_ID_VENDOR_ID(__val__)  (((__val__) << 16u) & 0xffff0000u)
+
 /** @brief Register definition for @ref SHM_t.RcpuPciVendorDeviceId. */
 typedef register_container RegSHMRcpuPciVendorDeviceId_t {
     /** @brief 32bit direct register access. */
     APE_SHM_H_uint32_t r32;
+
+    BITFIELD_BEGIN(APE_SHM_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_SHM_H_uint32_t, DeviceID, 0, 16)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_SHM_H_uint32_t, VendorID, 16, 16)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_SHM_H_uint32_t, VendorID, 16, 16)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_SHM_H_uint32_t, DeviceID, 0, 16)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(APE_SHM_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "RcpuPciVendorDeviceId"; }
@@ -735,6 +760,10 @@ typedef register_container RegSHMRcpuPciVendorDeviceId_t {
     {
         /** @brief constructor for @ref SHM_t.RcpuPciVendorDeviceId. */
         r32.setName("RcpuPciVendorDeviceId");
+        bits.DeviceID.setBaseRegister(&r32);
+        bits.DeviceID.setName("DeviceID");
+        bits.VendorID.setBaseRegister(&r32);
+        bits.VendorID.setName("VendorID");
     }
     RegSHMRcpuPciVendorDeviceId_t& operator=(const RegSHMRcpuPciVendorDeviceId_t& other)
     {
@@ -745,10 +774,35 @@ typedef register_container RegSHMRcpuPciVendorDeviceId_t {
 } RegSHMRcpuPciVendorDeviceId_t;
 
 #define REG_SHM_RCPU_PCI_SUBSYSTEM_ID ((volatile APE_SHM_H_uint32_t*)0x60220118) /* Set to PCI Subsystem Vendor/Subsystem ID by S2. */
+#define     SHM_RCPU_PCI_SUBSYSTEM_ID_SUBSYSTEM_VENDOR_ID_SHIFT 0u
+#define     SHM_RCPU_PCI_SUBSYSTEM_ID_SUBSYSTEM_VENDOR_ID_MASK  0xffffu
+#define GET_SHM_RCPU_PCI_SUBSYSTEM_ID_SUBSYSTEM_VENDOR_ID(__reg__)  (((__reg__) & 0xffff) >> 0u)
+#define SET_SHM_RCPU_PCI_SUBSYSTEM_ID_SUBSYSTEM_VENDOR_ID(__val__)  (((__val__) << 0u) & 0xffffu)
+#define     SHM_RCPU_PCI_SUBSYSTEM_ID_SUBSYSTEM_ID_SHIFT 16u
+#define     SHM_RCPU_PCI_SUBSYSTEM_ID_SUBSYSTEM_ID_MASK  0xffff0000u
+#define GET_SHM_RCPU_PCI_SUBSYSTEM_ID_SUBSYSTEM_ID(__reg__)  (((__reg__) & 0xffff0000) >> 16u)
+#define SET_SHM_RCPU_PCI_SUBSYSTEM_ID_SUBSYSTEM_ID(__val__)  (((__val__) << 16u) & 0xffff0000u)
+
 /** @brief Register definition for @ref SHM_t.RcpuPciSubsystemId. */
 typedef register_container RegSHMRcpuPciSubsystemId_t {
     /** @brief 32bit direct register access. */
     APE_SHM_H_uint32_t r32;
+
+    BITFIELD_BEGIN(APE_SHM_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_SHM_H_uint32_t, SubsystemVendorID, 0, 16)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_SHM_H_uint32_t, SubsystemID, 16, 16)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_SHM_H_uint32_t, SubsystemID, 16, 16)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_SHM_H_uint32_t, SubsystemVendorID, 0, 16)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(APE_SHM_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "RcpuPciSubsystemId"; }
@@ -760,6 +814,10 @@ typedef register_container RegSHMRcpuPciSubsystemId_t {
     {
         /** @brief constructor for @ref SHM_t.RcpuPciSubsystemId. */
         r32.setName("RcpuPciSubsystemId");
+        bits.SubsystemVendorID.setBaseRegister(&r32);
+        bits.SubsystemVendorID.setName("SubsystemVendorID");
+        bits.SubsystemID.setBaseRegister(&r32);
+        bits.SubsystemID.setName("SubsystemID");
     }
     RegSHMRcpuPciSubsystemId_t& operator=(const RegSHMRcpuPciSubsystemId_t& other)
     {
@@ -1760,6 +1818,10 @@ typedef struct SHM_t {
     {
         SegSig.r32.setComponentOffset(0x0);
         ApeSegLength.r32.setComponentOffset(0x4);
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_8[i].setComponentOffset(0x8 + (i * 4));
+        }
         FwStatus.r32.setComponentOffset(0xc);
         FwFeatures.r32.setComponentOffset(0x10);
         _4014.r32.setComponentOffset(0x14);
@@ -1768,9 +1830,17 @@ typedef struct SHM_t {
         SegMessageBufferLength.r32.setComponentOffset(0x20);
         _4024.r32.setComponentOffset(0x24);
         _4028.r32.setComponentOffset(0x28);
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_44[i].setComponentOffset(0x2c + (i * 4));
+        }
         LoaderCommand.r32.setComponentOffset(0x38);
         LoaderArg0.r32.setComponentOffset(0x3c);
         LoaderArg1.r32.setComponentOffset(0x40);
+        for(int i = 0; i < 47; i++)
+        {
+            reserved_68[i].setComponentOffset(0x44 + (i * 4));
+        }
         RcpuSegSig.r32.setComponentOffset(0x100);
         RcpuSegLength.r32.setComponentOffset(0x104);
         RcpuInitCount.r32.setComponentOffset(0x108);
@@ -1784,6 +1854,10 @@ typedef struct SHM_t {
         RcpuCfgHw.r32.setComponentOffset(0x128);
         RcpuCfgHw2.r32.setComponentOffset(0x12c);
         RcpuCpmuStatus.r32.setComponentOffset(0x130);
+        for(int i = 0; i < 51; i++)
+        {
+            reserved_308[i].setComponentOffset(0x134 + (i * 4));
+        }
         HostSegSig.r32.setComponentOffset(0x200);
         HostSegLen.r32.setComponentOffset(0x204);
         HostInitCount.r32.setComponentOffset(0x208);
@@ -1792,18 +1866,46 @@ typedef struct SHM_t {
         HeartbeatInterval.r32.setComponentOffset(0x214);
         HeartbeatCount.r32.setComponentOffset(0x218);
         HostDriverState.r32.setComponentOffset(0x21c);
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_544[i].setComponentOffset(0x220 + (i * 4));
+        }
         WolSpeed.r32.setComponentOffset(0x224);
+        for(int i = 0; i < 54; i++)
+        {
+            reserved_552[i].setComponentOffset(0x228 + (i * 4));
+        }
         EventStatus.r32.setComponentOffset(0x300);
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_772[i].setComponentOffset(0x304 + (i * 4));
+        }
         ProtMagic.r32.setComponentOffset(0x308);
+        for(int i = 0; i < 2; i++)
+        {
+            reserved_780[i].setComponentOffset(0x30c + (i * 4));
+        }
         ProtMac0High.r32.setComponentOffset(0x314);
         ProtMac0Low.r32.setComponentOffset(0x318);
+        for(int i = 0; i < 313; i++)
+        {
+            reserved_796[i].setComponentOffset(0x31c + (i * 4));
+        }
         NcsiSig.r32.setComponentOffset(0x800);
+        for(int i = 0; i < 3; i++)
+        {
+            reserved_2052[i].setComponentOffset(0x804 + (i * 4));
+        }
         NcsiBuildTime.r32.setComponentOffset(0x810);
         NcsiBuildTime2.r32.setComponentOffset(0x814);
         NcsiBuildTime3.r32.setComponentOffset(0x818);
         NcsiBuildDate.r32.setComponentOffset(0x81c);
         NcsiBuildDate2.r32.setComponentOffset(0x820);
         NcsiBuildDate3.r32.setComponentOffset(0x824);
+        for(int i = 0; i < 26; i++)
+        {
+            reserved_2088[i].setComponentOffset(0x828 + (i * 4));
+        }
         ChipId.r32.setComponentOffset(0x890);
     }
     void print()
