@@ -45,6 +45,13 @@
 #ifndef STAGE1_H
 #define STAGE1_H
 
+#include <em100_putchar.h>
+#ifndef CXX_SIMULATOR
+#include <printf.h>
+#else
+#include <stdio.h>
+#endif
+
 #include <bcm5719_GEN.h>
 #include <bcm5719_eeprom.h>
 #if CXX_SIMULATOR
@@ -63,9 +70,6 @@ void init_hw(volatile DEVICE_t* device, NVRAMContents_t *nvram);
 #define STATUS_NVM_CONFIG   (0x8234900u)
 #define STATUS_INIT_HW      (0x8234A00u)
 
-static inline void reportStatus(uint32_t code, uint8_t step)
-{
-    GEN.GenDataSig.r32 = (code | step);
-}
+void reportStatus(uint32_t code, uint8_t step);
 
 #endif /* STAGE1_H */

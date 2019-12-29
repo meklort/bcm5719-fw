@@ -102,10 +102,14 @@ void NVRAM_EM100_send_byte(uint8_t byte)
     NVM.Write.r32 = nvm_write.r32;
 }
 
-void NVRam_EM100_writeBytes(uint8_t bytes[], size_t num_bytes)
+bool NVRam_EM100_writeBytes(uint8_t bytes[], size_t num_bytes)
 {
     // Aquire the lock
-    NVRam_acquireLock();
+    if(!NVRam_acquireLock())
+    {
+        // Unable to lock.
+        return false;
+    }
     NVRam_enable();
 
     // Save defaults and set sane values
@@ -139,6 +143,8 @@ void NVRam_EM100_writeBytes(uint8_t bytes[], size_t num_bytes)
 
     NVRam_disable();
     NVRam_releaseLock();
+
+    return true;
 }
 
 void NVRam_EM100_putchar(char c)
@@ -154,9 +160,19 @@ void NVRam_EM100_putchar(char c)
 #if ENABLE_CONSOLE
         NVRam_EM100_enableConsole();
 #endif
-        NVRam_EM100_writeBytes(gEM100Packet, EM100_PACKET_BUFFER_OFFSET + used_buffer);
-        // Mark buffer as empty
-        gEM100Packet[EM100_PACKET_MSG_LEN] = 0;
+        if(NVRam_EM100_writeBytes(gEM100Packet, EM100_PACKET_BUFFER_OFFSET + used_buffer))
+        {
+            // Mark buffer as empty
+            gEM100Packet[EM100_PACKET_MSG_LEN] = 0;
+        }
+        else
+        {
+            if(used_buffer >= EM100_MAX_BUFFER_LEN)
+            {
+                // Don't output any more chars
+                gEM100Packet[EM100_PACKET_MSG_LEN] = used_buffer - 1;;
+            }
+        }
 #if ENABLE_CONSOLE
         NVRam_EM100_disableConsole();
 #endif

@@ -68,12 +68,42 @@
 
 NVRAMContents_t gNVMContents;
 
+void __attribute__((noinline)) reportStatus(uint32_t code, uint8_t step)
+{
+    // const char report[] = "C_ S_\n";
+    GEN.GenDataSig.r32 = (code | step);
+    // report[1] = (code >> 8) + '0';
+    // report[4] = step + '0';
+    // em100_puts(report);
+    em100_puts("Stage 1: ");
+    switch(code)
+    {
+        case STATUS_MAIN:       em100_puts("main "); break;
+        case STATUS_EARLY_INIT: em100_puts("ealry init "); break;
+        case STATUS_NVM_CONFIG: em100_puts("nvm "); break;
+        case STATUS_INIT_HW:    em100_puts("init "); break;
+        default:                em100_puts("unk "); break;
+    }
+
+    if(step < 10)
+    {
+        em100_putchar('0' + step);
+    }
+    else
+    {
+        em100_putchar('A' + step - 10);
+    }
+    em100_putchar('\n');
+}
+
 int main()
 {
-    reportStatus(STATUS_MAIN, 0);
 #if CXX_SIMULATOR
     initHAL(NULL);
 #endif
+
+    em100_puts("\nStage 1\n");
+    reportStatus(STATUS_MAIN, 0);
 
 #if !CXX_SIMULATOR
     // Perform early initialization
@@ -134,6 +164,7 @@ int main()
     APE_releaseAllLocks();
 
     DEVICE.RxCpuEventEnable.bits.VPDAttention = 1;
+    em100_puts("Stage 1: main loop\n");
     for (;;)
     {
         // APE heartbeat.

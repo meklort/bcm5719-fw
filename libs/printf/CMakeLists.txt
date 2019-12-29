@@ -46,6 +46,7 @@ project(printf)
 
 SET(SOURCES
     printf.c
+    em100_putchar.c
 #     include/NCSI.h
 #     include/Ethernet.h
 )
@@ -54,7 +55,7 @@ add_definitions(-DPRINTF_DISABLE_SUPPORT_FLOAT -DPRINTF_DISABLE_SUPPORT_LONG_LON
 
 # Host Simulation library
 simulator_add_library(${PROJECT_NAME} STATIC ${SOURCES})
-target_link_libraries(${PROJECT_NAME} PRIVATE simulator Network MII APE)
+target_link_libraries(${PROJECT_NAME} PRIVATE simulator Network MII APE NVRam)
 target_include_directories(${PROJECT_NAME} PUBLIC ../../include)
 target_include_directories(${PROJECT_NAME} PUBLIC .)
 
@@ -63,6 +64,12 @@ arm_add_library(${PROJECT_NAME}-arm STATIC ${SOURCES} ape_putchar.c)
 target_link_libraries(${PROJECT_NAME}-arm PRIVATE Network-arm MII-arm APE-arm NVRam-arm)
 target_include_directories(${PROJECT_NAME}-arm PUBLIC ../../include)
 target_include_directories(${PROJECT_NAME}-arm PUBLIC .)
+
+# MIPS Library
+mips_add_library(${PROJECT_NAME}-mips STATIC em100_putchar.c mips_putchar.c)
+target_link_libraries(${PROJECT_NAME}-mips PRIVATE NVRam-mips)
+target_include_directories(${PROJECT_NAME}-mips PUBLIC ../../include)
+target_include_directories(${PROJECT_NAME}-mips PUBLIC .)
 
 format_target_sources(${PROJECT_NAME})
 

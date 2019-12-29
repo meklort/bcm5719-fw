@@ -1,10 +1,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @file       ape_purchar.c
+/// @file       mips_purchar.c
 ///
 /// @project
 ///
-/// @brief      APE printf support Routines
+/// @brief      RX CPU printf support Routines
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
@@ -44,27 +44,8 @@
 
 #include <printf.h>
 #include <em100_putchar.h>
-#include <APE_DEBUG.h>
-#include <APE_SHM.h>
 
 void _putchar(char character)
 {
-    uint32_t write_pointer = DEBUG.WritePointer.r32;
-    uint32_t word_pointer = write_pointer / 4;
-    uint32_t byte_index = write_pointer % 4;
-    uint32_t byte_mask = 0xFF << (byte_index * 8);
-
-    uint32_t new_word = DEBUG.Buffer[word_pointer].r32 & ~byte_mask;
-    new_word |= character << (byte_index * 8);
-    DEBUG.Buffer[word_pointer].r32 = new_word;
-    write_pointer++;
-
-    if(write_pointer >= sizeof(DEBUG.Buffer))
-    {
-        write_pointer = 0;
-    }
-
-    DEBUG.WritePointer.r32 = write_pointer;
-
     em100_putchar(character);
 }

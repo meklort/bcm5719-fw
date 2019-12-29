@@ -20,9 +20,9 @@ SECTIONS
         *(.rodata*)
     }
 
-    _fbss = .;
     .bss . : ALIGN(4) SUBALIGN(4)
     {
+        _fbss = .;
         *(.bss*)
     }
     _ebss = .;
