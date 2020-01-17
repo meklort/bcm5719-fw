@@ -146,7 +146,7 @@ int main(int argc, char const *argv[])
         }
 
         // Output a hex byte...
-        outfile << "0x" << std::setw(2) << std::setfill('0') << std::hex << (int)byte << ",";
+        outfile << "0x" << std::setw(2) << std::setfill('0') << std::hex << (int)((uint8_t)byte) << ",";
         count = (count + 1) % 8;
 
         if (!count)
