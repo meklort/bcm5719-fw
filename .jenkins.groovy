@@ -101,6 +101,7 @@ try
     parallel(
         "fedora": { build('master') },
         "debian": { build('debian') },
+        "ubuntu-18.04": { build('ubuntu-18.04') },
     )
 }
 catch(e)
