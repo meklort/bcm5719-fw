@@ -142,7 +142,7 @@ bool is_pci_function(const char *pci_path, int wanted_function)
     int bus = 0;
     int slot = 0;
     int function = 0;
-    if (4 == sscanf(pci_path, "%d:%d:%d.%d\n", &sys, &bus, &slot, &function))
+    if (4 == sscanf(pci_path, "%x:%x:%x.%d\n", &sys, &bus, &slot, &function))
     {
         if (wanted_function == function)
         {
@@ -223,6 +223,7 @@ bool initHAL(const char *pci_path, int wanted_function)
         pci_path = located_pci_path;
         if(!located_pci_path)
         {
+            fprintf(stderr, "Unable to find supported PCI device\n");
             return false;
         }
     }
