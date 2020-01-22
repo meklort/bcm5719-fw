@@ -72,27 +72,27 @@ uint8_t MII_getPhy(volatile DEVICE_t* device);
 /**
  * @fn uint16_t MII_readRegister(uint8_t PHY, uint8_t reg);
  */
-uint16_t MII_readRegister(volatile DEVICE_t* device, uint8_t phy, mii_reg_t reg);
+int32_t MII_readRegister(volatile DEVICE_t* device, uint8_t phy, mii_reg_t reg);
 
 /**
  * @fn void MII_writeRegister(uint8_t PHY, uint8_t reg, uint16_t data);
  */
-void MII_writeRegister(volatile DEVICE_t* device, uint8_t phy, mii_reg_t reg, uint16_t data);
+bool MII_writeRegister(volatile DEVICE_t* device, uint8_t phy, mii_reg_t reg, uint16_t data);
 
 /**
  * @fn void MII_selectBlock(uint8_t phy, uint16_t block);
  */
-void MII_selectBlock(volatile DEVICE_t* device, uint8_t phy, uint16_t block);
+bool MII_selectBlock(volatile DEVICE_t* device, uint8_t phy, uint16_t block);
 
 /**
  * @fn uint16_t MII_getBlock(uint8_t phy);
  */
-uint16_t MII_getBlock(volatile DEVICE_t* device, uint8_t phy);
+int32_t MII_getBlock(volatile DEVICE_t* device, uint8_t phy);
 
 /**
  * @fn void MII_reset(uint8_t phy);
  */
-void MII_reset(volatile DEVICE_t* device, uint8_t phy);
+bool MII_reset(volatile DEVICE_t* device, uint8_t phy);
 
 #ifdef CXX_SIMULATOR
 #undef volatile

@@ -45,7 +45,6 @@
 #include <printf.h>
 #include <em100_putchar.h>
 #include <APE_DEBUG.h>
-#include <APE_SHM.h>
 
 void _putchar(char character)
 {
