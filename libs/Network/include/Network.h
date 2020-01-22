@@ -77,7 +77,7 @@ typedef struct
     /* Port Registers */
     VOLATILE DEVICE_t *device;
     VOLATILE FILTERS_t *filters;
-    VOLATILE SHM_CHANNEL_t* shm;
+    VOLATILE SHM_CHANNEL_t* shm_channel;
 } NetworkPort_t;
 
 typedef union

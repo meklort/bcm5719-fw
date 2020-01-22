@@ -51,6 +51,10 @@
 #include <APE_RX_PORT1.h>
 #include <APE_RX_PORT2.h>
 #include <APE_RX_PORT3.h>
+#include <APE_SHM_CHANNEL0.h>
+#include <APE_SHM_CHANNEL1.h>
+#include <APE_SHM_CHANNEL2.h>
+#include <APE_SHM_CHANNEL3.h>
 #include <APE_TX_PORT1.h>
 #include <APE_TX_PORT2.h>
 #include <APE_TX_PORT3.h>
@@ -59,6 +63,7 @@
 NetworkPort_t gPort0 = {
     .device = &DEVICE,
     .filters = &FILTERS0,
+    .shm_channel = &SHM_CHANNEL0,
 
     .tx_port = &TX_PORT0,
     .tx_allocator = &APE.TxToNetBufferAllocator0,
@@ -74,6 +79,7 @@ NetworkPort_t gPort0 = {
 NetworkPort_t gPort1 = {
     .device = &DEVICE1,
     .filters = &FILTERS1,
+    .shm_channel = &SHM_CHANNEL1,
 
     .tx_port = &TX_PORT1,
     .tx_allocator = &APE.TxToNetBufferAllocator1,
@@ -89,6 +95,7 @@ NetworkPort_t gPort1 = {
 NetworkPort_t gPort2 = {
     .device = &DEVICE2,
     .filters = &FILTERS2,
+    .shm_channel = &SHM_CHANNEL2,
 
     .tx_port = &TX_PORT2,
     .tx_allocator = &APE.TxToNetBufferAllocator2,
@@ -104,6 +111,7 @@ NetworkPort_t gPort2 = {
 NetworkPort_t gPort3 = {
     .device = &DEVICE3,
     .filters = &FILTERS3,
+    .shm_channel = &SHM_CHANNEL3,
 
     .tx_port = &TX_PORT3,
     .tx_allocator = &APE.TxToNetBufferAllocator3,
