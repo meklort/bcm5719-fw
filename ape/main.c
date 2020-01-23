@@ -44,14 +44,14 @@
 
 #include "ape.h"
 
-#include <APE_DEBUG.h>
-
-
+#include <APE.h>
 #include <APE_APE.h>
 #include <APE_APE_PERI.h>
+#include <APE_DEBUG.h>
 #include <APE_SHM.h>
 #include <Ethernet.h>
 #include <NCSI.h>
+#include <NVRam.h>
 #include <Network.h>
 #include <types.h>
 
@@ -129,6 +129,7 @@ void handleBMCPacket(void)
                 if (words > ARRAY_ELEMENTS(buffer))
                 {
                     // This should never happen...
+                    printf("Dropping NCSI packet\n");
                     while (words--)
                     {
                         // Read out the packet, but drop it.
@@ -155,14 +156,39 @@ void handleBMCPacket(void)
             {
                 // Pass through to network
                 NetworkPort_t *port = &gPort0;
-                if(!Network_TX_transmitPassthroughPacket(bytes, port))
+                if (port->shm_channel->NcsiChannelInfo.bits.Enabled)
                 {
-                    printf("Resetting TX...\n");
-                    // Reset TX, as it's likely locked up now.
-                    Network_resetTX(port);
+                    if (!Network_TX_transmitPassthroughPacket(bytes, port))
+                    {
+                        printf("Resetting TX...\n");
+                        // Reset TX, as it's likely locked up now.
+                        // Network_resetTX(port);
+                        Network_InitPort(port);
+                    }
+                }
+                else
+                {
+                    printf("Dropping PT\n");
+                    int32_t words = DIVIDE_RND_UP(bytes, sizeof(uint32_t));
+                    while (words--)
+                    {
+                        // Read out the packet, but drop it.
+                        uint32_t word = APE_PERI.BmcToNcReadBuffer.r32;
+                        (void)word;
+                    }
                 }
             }
         }
+    }
+}
+
+void checkSupply(bool alwaysReport)
+{
+    static int gVMainOn;
+    if (alwaysReport || (gVMainOn != DEVICE.Status.bits.VMAINPowerStatus))
+    {
+        gVMainOn = DEVICE.Status.bits.VMAINPowerStatus;
+        printf("VMAINPowerStatus: %d\n", gVMainOn);
     }
 }
 
@@ -178,26 +204,30 @@ void __attribute__((noreturn)) loaderLoop(void)
         handleBMCPacket();
         NCSI_handlePassthrough();
         handleCommand();
+        checkSupply(false);
     }
 }
 
 void __attribute__((noreturn)) __start()
 {
-    if(DEBUG.WritePointer.r32 >= sizeof(DEBUG.Buffer) ||
-       DEBUG.ReadPointer.r32 >= sizeof(DEBUG.Buffer))
+    printf("----------------\n");
+    APE_releaseAllLocks();
+    NVRam_releaseAllLocks();
+
+    if (DEBUG.WritePointer.r32 >= sizeof(DEBUG.Buffer) || DEBUG.ReadPointer.r32 >= sizeof(DEBUG.Buffer))
     {
-        // Appears to be a full chip reset. Initialize the pointers so everybody is happy.
         DEBUG.WritePointer.r32 = 0;
         DEBUG.ReadPointer.r32 = 0;
+        printf("Chip Reset\n");
+    }
+    else
+    {
+        printf("APE Reload.\n");
     }
 
-    // Wait for the MIPS / RX CPU to start up and finish initializing.
-    uint32_t numLoops = 0;
-    do {
-        numLoops++;
-        // Spin
-    } while(SHM_RCPU_SEG_SIG_SIG_RCPU_MAGIC != SHM.RcpuSegSig.bits.Sig);
-    printf("Begin APE: %d.\n", numLoops);
+    checkSupply(true);
+
+    printf("Begin APE.\n");
 
     NCSI_init();
     Network_InitTxRx();
