@@ -10,7 +10,7 @@
 ###
 ################################################################################
 ###
-### @copyright Copyright (c) 2018, Evan Lojewski
+### @copyright Copyright (c) 2018-2020, Evan Lojewski
 ### @cond
 ###
 ### All rights reserved.
@@ -46,6 +46,7 @@ project(NVRam)
 
 SET(SOURCES
     nvm.c
+    bitbang.c
     EM100.c
     crc.c
     include/NVRam.h

@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2019, Evan Lojewski
+/// @copyright Copyright (c) 2019-2020, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -79,74 +79,6 @@ uint8_t gEM100Packet[64] = {
 #define EM100_PACKET_BUFFER_OFFSET (9u)
 #define EM100_MAX_BUFFER_LEN (sizeof(gEM100Packet) - EM100_PACKET_BUFFER_OFFSET)
 
-void NVRAM_EM100_send_byte(uint8_t byte)
-{
-    RegNVMWrite_t nvm_write;
-    nvm_write.r32 = 0;
-
-    for (int i = 7; i >= 0; i--)
-    {
-        // Setup the SI value
-        nvm_write.bits.SCLKOutputValue = 0;
-        nvm_write.bits.SIOutputValue = (byte & (1 << i)) ? 1 : 0;
-        NVM.Write.r32 = nvm_write.r32;
-
-        // Clock data out.
-        nvm_write.bits.SCLKOutputValue = 1;
-        NVM.Write.r32 = nvm_write.r32;
-    }
-
-    // Final clock edge
-    nvm_write.bits.SCLKOutputValue = 0;
-    nvm_write.bits.SIOutputValue = 0;
-    NVM.Write.r32 = nvm_write.r32;
-}
-
-bool NVRam_EM100_writeBytes(uint8_t bytes[], size_t num_bytes)
-{
-    // Aquire the lock
-    if(!NVRam_acquireLock())
-    {
-        // Unable to lock.
-        return false;
-    }
-    NVRam_enable();
-
-    // Save defaults and set sane values
-    RegNVMNvmCfg1_t cfg1_orig;
-    RegNVMNvmCfg1_t cfg1_bitbang;
-    cfg1_orig.r32 = NVM.NvmCfg1.r32;
-    cfg1_bitbang.r32 = cfg1_orig.r32;
-    cfg1_bitbang.bits.BitbangMode = 1;
-
-    // Drive the SCLK, CSb and MOSI lines
-    RegNVMAddr_t nvm_od;
-    nvm_od.r32 = 0xffffff;             // All Input
-    nvm_od.bits.SCLKOutputDisable = 0; // Drive SCLK
-    nvm_od.bits.CSbOutputDisable = 0;  // Drive CSb
-    nvm_od.bits.SIOutputDisable = 0;   // Drive MOSI
-
-    RegNVMWrite_t nvm_write;
-
-    NVM.Addr.r32 = nvm_od.r32;
-    NVM.Write.r32 = nvm_write.r32;
-    // Enable Bitbang mode
-    NVM.NvmCfg1.r32 = cfg1_bitbang.r32;
-
-    for (int i = 0; i < num_bytes; i++)
-    {
-        NVRAM_EM100_send_byte(bytes[i]);
-    }
-
-    // Restore Cfg1.
-    NVM.NvmCfg1.r32 = cfg1_orig.r32;
-
-    NVRam_disable();
-    NVRam_releaseLock();
-
-    return true;
-}
-
 void NVRam_EM100_putchar(char c)
 {
     int used_buffer = gEM100Packet[EM100_PACKET_MSG_LEN] + 1;
@@ -160,17 +92,18 @@ void NVRam_EM100_putchar(char c)
 #if ENABLE_CONSOLE
         NVRam_EM100_enableConsole();
 #endif
-        if(NVRam_EM100_writeBytes(gEM100Packet, EM100_PACKET_BUFFER_OFFSET + used_buffer))
+        if (NVRam_sendBytes(gEM100Packet, EM100_PACKET_BUFFER_OFFSET + used_buffer))
         {
             // Mark buffer as empty
             gEM100Packet[EM100_PACKET_MSG_LEN] = 0;
         }
         else
         {
-            if(used_buffer >= EM100_MAX_BUFFER_LEN)
+            if (used_buffer >= EM100_MAX_BUFFER_LEN)
             {
                 // Don't output any more chars
-                gEM100Packet[EM100_PACKET_MSG_LEN] = used_buffer - 1;;
+                gEM100Packet[EM100_PACKET_MSG_LEN] = used_buffer - 1;
+                ;
             }
         }
 #if ENABLE_CONSOLE
@@ -185,9 +118,9 @@ void NVRam_EM100_enableConsole(void)
     uint8_t packet_AA[] = { EM100_CONSOLE_WRITE_COMMAND, 0x00, 0xAA, 0xAA, 0x00 };
     uint8_t packet_55[] = { EM100_CONSOLE_WRITE_COMMAND, 0x00, 0x55, 0x55, 0x00 };
 
-    NVRam_EM100_writeBytes(packet_AA, sizeof(packet_AA));
-    NVRam_EM100_writeBytes(packet_55, sizeof(packet_AA));
-    NVRam_EM100_writeBytes(packet_AA, sizeof(packet_AA));
+    NVRam_sendBytes(packet_AA, sizeof(packet_AA));
+    NVRam_sendBytes(packet_55, sizeof(packet_AA));
+    NVRam_sendBytes(packet_AA, sizeof(packet_AA));
 }
 
 void NVRam_EM100_disableConsole(void)
@@ -198,6 +131,6 @@ void NVRam_EM100_disableConsole(void)
         EM100_CMD_EXIT_CONSOLE,
         0x00,
     };
-    NVRam_EM100_writeBytes(packet_exit_console, sizeof(packet_exit_console));
+    NVRam_sendBytes(packet_exit_console, sizeof(packet_exit_console));
 }
 #endif /* ENABLE_CONSOLE */
