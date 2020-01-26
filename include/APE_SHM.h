@@ -577,6 +577,8 @@ typedef register_container RegSHMLoaderArg1_t {
 #define GET_SHM_RCPU_SEG_SIG_SIG(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
 #define SET_SHM_RCPU_SEG_SIG_SIG(__val__)  (((__val__) << 0u) & 0xffffffffu)
 #define     SHM_RCPU_SEG_SIG_SIG_RCPU_MAGIC 0x52435055u
+#define     SHM_RCPU_SEG_SIG_SIG_RCPU_STAGE1_CONTINUE 0x52a3ccccu
+#define     SHM_RCPU_SEG_SIG_SIG_RCPU_STAGE1_STARTED 0x52a3e001u
 
 
 /** @brief Register definition for @ref SHM_t.RcpuSegSig. */
@@ -609,6 +611,8 @@ typedef register_container RegSHMRcpuSegSig_t {
         bits.Sig.setBaseRegister(&r32);
         bits.Sig.setName("Sig");
         bits.Sig.addEnum("RCPU_MAGIC", 0x52435055);
+        bits.Sig.addEnum("RCPU_STAGE1_CONTINUE", 0x52a3cccc);
+        bits.Sig.addEnum("RCPU_STAGE1_STARTED", 0x52a3e001);
 
     }
     RegSHMRcpuSegSig_t& operator=(const RegSHMRcpuSegSig_t& other)

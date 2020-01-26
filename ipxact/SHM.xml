@@ -233,6 +233,14 @@
                                 <ipxact:name>RCPU_MAGIC</ipxact:name>
                                 <ipxact:value>0x52435055</ipxact:value>
                             </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>RCPU_STAGE1_STARTED</ipxact:name>
+                                <ipxact:value>0x52A3E001</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>RCPU_STAGE1_CONTINUE</ipxact:name>
+                                <ipxact:value>0x52A3CCCC</ipxact:value>
+                            </ipxact:enumeratedValue>
                         </ipxact:enumeratedValues>
                     </ipxact:field>
                 </ipxact:register>
