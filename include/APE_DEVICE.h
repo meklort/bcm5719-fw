@@ -2318,6 +2318,94 @@ typedef register_container RegDEVICETransmitMacStatus_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICETransmitMacStatus_t;
 
+#define REG_DEVICE_TRANSMIT_MAC_LENGTHS ((volatile APE_DEVICE_H_uint32_t*)0xa0040464) /*  */
+#define     DEVICE_TRANSMIT_MAC_LENGTHS_SLOT_TIME_LENGTH_SHIFT 0u
+#define     DEVICE_TRANSMIT_MAC_LENGTHS_SLOT_TIME_LENGTH_MASK  0xffu
+#define GET_DEVICE_TRANSMIT_MAC_LENGTHS_SLOT_TIME_LENGTH(__reg__)  (((__reg__) & 0xff) >> 0u)
+#define SET_DEVICE_TRANSMIT_MAC_LENGTHS_SLOT_TIME_LENGTH(__val__)  (((__val__) << 0u) & 0xffu)
+#define     DEVICE_TRANSMIT_MAC_LENGTHS_IPG_LENGTH_SHIFT 8u
+#define     DEVICE_TRANSMIT_MAC_LENGTHS_IPG_LENGTH_MASK  0xf00u
+#define GET_DEVICE_TRANSMIT_MAC_LENGTHS_IPG_LENGTH(__reg__)  (((__reg__) & 0xf00) >> 8u)
+#define SET_DEVICE_TRANSMIT_MAC_LENGTHS_IPG_LENGTH(__val__)  (((__val__) << 8u) & 0xf00u)
+#define     DEVICE_TRANSMIT_MAC_LENGTHS_IPG_CRS_LENGTH_SHIFT 12u
+#define     DEVICE_TRANSMIT_MAC_LENGTHS_IPG_CRS_LENGTH_MASK  0x3000u
+#define GET_DEVICE_TRANSMIT_MAC_LENGTHS_IPG_CRS_LENGTH(__reg__)  (((__reg__) & 0x3000) >> 12u)
+#define SET_DEVICE_TRANSMIT_MAC_LENGTHS_IPG_CRS_LENGTH(__val__)  (((__val__) << 12u) & 0x3000u)
+#define     DEVICE_TRANSMIT_MAC_LENGTHS_HTX2B_JUMBO_FRAME_LENGTH_SHIFT 16u
+#define     DEVICE_TRANSMIT_MAC_LENGTHS_HTX2B_JUMBO_FRAME_LENGTH_MASK  0xff0000u
+#define GET_DEVICE_TRANSMIT_MAC_LENGTHS_HTX2B_JUMBO_FRAME_LENGTH(__reg__)  (((__reg__) & 0xff0000) >> 16u)
+#define SET_DEVICE_TRANSMIT_MAC_LENGTHS_HTX2B_JUMBO_FRAME_LENGTH(__val__)  (((__val__) << 16u) & 0xff0000u)
+#define     DEVICE_TRANSMIT_MAC_LENGTHS_HTX2B_COUNT_DOWN_VALUE_SHIFT 24u
+#define     DEVICE_TRANSMIT_MAC_LENGTHS_HTX2B_COUNT_DOWN_VALUE_MASK  0xff000000u
+#define GET_DEVICE_TRANSMIT_MAC_LENGTHS_HTX2B_COUNT_DOWN_VALUE(__reg__)  (((__reg__) & 0xff000000) >> 24u)
+#define SET_DEVICE_TRANSMIT_MAC_LENGTHS_HTX2B_COUNT_DOWN_VALUE(__val__)  (((__val__) << 24u) & 0xff000000u)
+
+/** @brief Register definition for @ref DEVICE_t.TransmitMacLengths. */
+typedef register_container RegDEVICETransmitMacLengths_t {
+    /** @brief 32bit direct register access. */
+    APE_DEVICE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief When multiplied by 2, this field indicates the number of bytes in the slot time. */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, SlotTimeLength, 0, 8)
+        /** @brief When multiplied by 2, this field indicates the number of bytes in the entire IPG. */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, IPGLength, 8, 4)
+        /** @brief When multiplied by 2, this field indicates the number of bytes from the end of the interpacket gap (IPG) during which incoming carrier is ignored. */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, IPGCRSLength, 12, 2)
+        /** @brief Padding */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_15_14, 14, 2)
+        /** @brief This value + 1500 is used by hardware as the maximum standard frame length for HTX2B. A frame with a length larger than that is a jumbo frame for HTX2B. The length is the effective length of a composed L2 frame as seen from the wire, including the L2 header, L2 payload, and the FCS (CRC) field. */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, HTX2BJumboFrameLength, 16, 8)
+        /** @brief HT2XB Count Down Value */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, HTX2BCountDownValue, 24, 8)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief HT2XB Count Down Value */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, HTX2BCountDownValue, 24, 8)
+        /** @brief This value + 1500 is used by hardware as the maximum standard frame length for HTX2B. A frame with a length larger than that is a jumbo frame for HTX2B. The length is the effective length of a composed L2 frame as seen from the wire, including the L2 header, L2 payload, and the FCS (CRC) field. */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, HTX2BJumboFrameLength, 16, 8)
+        /** @brief Padding */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_15_14, 14, 2)
+        /** @brief When multiplied by 2, this field indicates the number of bytes from the end of the interpacket gap (IPG) during which incoming carrier is ignored. */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, IPGCRSLength, 12, 2)
+        /** @brief When multiplied by 2, this field indicates the number of bytes in the entire IPG. */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, IPGLength, 8, 4)
+        /** @brief When multiplied by 2, this field indicates the number of bytes in the slot time. */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, SlotTimeLength, 0, 8)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "TransmitMacLengths"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICETransmitMacLengths_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.TransmitMacLengths. */
+        r32.setName("TransmitMacLengths");
+        bits.SlotTimeLength.setBaseRegister(&r32);
+        bits.SlotTimeLength.setName("SlotTimeLength");
+        bits.IPGLength.setBaseRegister(&r32);
+        bits.IPGLength.setName("IPGLength");
+        bits.IPGCRSLength.setBaseRegister(&r32);
+        bits.IPGCRSLength.setName("IPGCRSLength");
+        bits.HTX2BJumboFrameLength.setBaseRegister(&r32);
+        bits.HTX2BJumboFrameLength.setName("HTX2BJumboFrameLength");
+        bits.HTX2BCountDownValue.setBaseRegister(&r32);
+        bits.HTX2BCountDownValue.setName("HTX2BCountDownValue");
+    }
+    RegDEVICETransmitMacLengths_t& operator=(const RegDEVICETransmitMacLengths_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegDEVICETransmitMacLengths_t;
+
 #define REG_DEVICE_RECEIVE_MAC_MODE ((volatile APE_DEVICE_H_uint32_t*)0xa0040468) /*  */
 #define     DEVICE_RECEIVE_MAC_MODE_RESET_SHIFT 0u
 #define     DEVICE_RECEIVE_MAC_MODE_RESET_MASK  0x1u
@@ -3004,6 +3092,166 @@ typedef register_container RegDEVICESgmiiStatus_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICESgmiiStatus_t;
 
+#define REG_DEVICE_RECEIVE_LIST_PLACEMENT_MODE ((volatile APE_DEVICE_H_uint32_t*)0xa0042000) /*  */
+#define     DEVICE_RECEIVE_LIST_PLACEMENT_MODE_RESET_SHIFT 0u
+#define     DEVICE_RECEIVE_LIST_PLACEMENT_MODE_RESET_MASK  0x1u
+#define GET_DEVICE_RECEIVE_LIST_PLACEMENT_MODE_RESET(__reg__)  (((__reg__) & 0x1) >> 0u)
+#define SET_DEVICE_RECEIVE_LIST_PLACEMENT_MODE_RESET(__val__)  (((__val__) << 0u) & 0x1u)
+#define     DEVICE_RECEIVE_LIST_PLACEMENT_MODE_ENABLE_SHIFT 1u
+#define     DEVICE_RECEIVE_LIST_PLACEMENT_MODE_ENABLE_MASK  0x2u
+#define GET_DEVICE_RECEIVE_LIST_PLACEMENT_MODE_ENABLE(__reg__)  (((__reg__) & 0x2) >> 1u)
+#define SET_DEVICE_RECEIVE_LIST_PLACEMENT_MODE_ENABLE(__val__)  (((__val__) << 1u) & 0x2u)
+#define     DEVICE_RECEIVE_LIST_PLACEMENT_MODE_CLASS_ZERO_ATTENTION_ENABLE_SHIFT 2u
+#define     DEVICE_RECEIVE_LIST_PLACEMENT_MODE_CLASS_ZERO_ATTENTION_ENABLE_MASK  0x4u
+#define GET_DEVICE_RECEIVE_LIST_PLACEMENT_MODE_CLASS_ZERO_ATTENTION_ENABLE(__reg__)  (((__reg__) & 0x4) >> 2u)
+#define SET_DEVICE_RECEIVE_LIST_PLACEMENT_MODE_CLASS_ZERO_ATTENTION_ENABLE(__val__)  (((__val__) << 2u) & 0x4u)
+#define     DEVICE_RECEIVE_LIST_PLACEMENT_MODE_MAPPING_OUT_OF_RANGE_ATTENTION_ENABLE_SHIFT 3u
+#define     DEVICE_RECEIVE_LIST_PLACEMENT_MODE_MAPPING_OUT_OF_RANGE_ATTENTION_ENABLE_MASK  0x8u
+#define GET_DEVICE_RECEIVE_LIST_PLACEMENT_MODE_MAPPING_OUT_OF_RANGE_ATTENTION_ENABLE(__reg__)  (((__reg__) & 0x8) >> 3u)
+#define SET_DEVICE_RECEIVE_LIST_PLACEMENT_MODE_MAPPING_OUT_OF_RANGE_ATTENTION_ENABLE(__val__)  (((__val__) << 3u) & 0x8u)
+#define     DEVICE_RECEIVE_LIST_PLACEMENT_MODE_STATS_OVERFLOW_ATTENTION_ENABLE_SHIFT 4u
+#define     DEVICE_RECEIVE_LIST_PLACEMENT_MODE_STATS_OVERFLOW_ATTENTION_ENABLE_MASK  0x10u
+#define GET_DEVICE_RECEIVE_LIST_PLACEMENT_MODE_STATS_OVERFLOW_ATTENTION_ENABLE(__reg__)  (((__reg__) & 0x10) >> 4u)
+#define SET_DEVICE_RECEIVE_LIST_PLACEMENT_MODE_STATS_OVERFLOW_ATTENTION_ENABLE(__val__)  (((__val__) << 4u) & 0x10u)
+
+/** @brief Register definition for @ref DEVICE_t.ReceiveListPlacementMode. */
+typedef register_container RegDEVICEReceiveListPlacementMode_t {
+    /** @brief 32bit direct register access. */
+    APE_DEVICE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief When this bit is set to 1, the Receive List Placement state machine is reset. This is a self clearing bit. */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Reset, 0, 1)
+        /** @brief This bit controls whether the Receive List Placement state machine is active or not. When set to 0, it completes the current operation and cleanly halts. Until it is completely halted, it remains one when read. */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Enable, 1, 1)
+        /** @brief Enable attention for zero class field. */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, ClassZeroAttentionEnable, 2, 1)
+        /** @brief Enable attention for mapping out of range error. */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, MappingoutofRangeAttentionEnable, 3, 1)
+        /** @brief Enable attention for statistics overflow. */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, StatsOverflowAttentionEnable, 4, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_5, 5, 27)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_5, 5, 27)
+        /** @brief Enable attention for statistics overflow. */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, StatsOverflowAttentionEnable, 4, 1)
+        /** @brief Enable attention for mapping out of range error. */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, MappingoutofRangeAttentionEnable, 3, 1)
+        /** @brief Enable attention for zero class field. */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, ClassZeroAttentionEnable, 2, 1)
+        /** @brief This bit controls whether the Receive List Placement state machine is active or not. When set to 0, it completes the current operation and cleanly halts. Until it is completely halted, it remains one when read. */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Enable, 1, 1)
+        /** @brief When this bit is set to 1, the Receive List Placement state machine is reset. This is a self clearing bit. */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, Reset, 0, 1)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "ReceiveListPlacementMode"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICEReceiveListPlacementMode_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.ReceiveListPlacementMode. */
+        r32.setName("ReceiveListPlacementMode");
+        bits.Reset.setBaseRegister(&r32);
+        bits.Reset.setName("Reset");
+        bits.Enable.setBaseRegister(&r32);
+        bits.Enable.setName("Enable");
+        bits.ClassZeroAttentionEnable.setBaseRegister(&r32);
+        bits.ClassZeroAttentionEnable.setName("ClassZeroAttentionEnable");
+        bits.MappingoutofRangeAttentionEnable.setBaseRegister(&r32);
+        bits.MappingoutofRangeAttentionEnable.setName("MappingoutofRangeAttentionEnable");
+        bits.StatsOverflowAttentionEnable.setBaseRegister(&r32);
+        bits.StatsOverflowAttentionEnable.setName("StatsOverflowAttentionEnable");
+    }
+    RegDEVICEReceiveListPlacementMode_t& operator=(const RegDEVICEReceiveListPlacementMode_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegDEVICEReceiveListPlacementMode_t;
+
+#define REG_DEVICE_RECEIVE_LIST_PLACEMENT_STATUS ((volatile APE_DEVICE_H_uint32_t*)0xa0042004) /*  */
+#define     DEVICE_RECEIVE_LIST_PLACEMENT_STATUS_CLASS_ZERO_ATTENTION_SHIFT 2u
+#define     DEVICE_RECEIVE_LIST_PLACEMENT_STATUS_CLASS_ZERO_ATTENTION_MASK  0x4u
+#define GET_DEVICE_RECEIVE_LIST_PLACEMENT_STATUS_CLASS_ZERO_ATTENTION(__reg__)  (((__reg__) & 0x4) >> 2u)
+#define SET_DEVICE_RECEIVE_LIST_PLACEMENT_STATUS_CLASS_ZERO_ATTENTION(__val__)  (((__val__) << 2u) & 0x4u)
+#define     DEVICE_RECEIVE_LIST_PLACEMENT_STATUS_MAPPING_OUT_OF_RANGE_ATTENTION_SHIFT 3u
+#define     DEVICE_RECEIVE_LIST_PLACEMENT_STATUS_MAPPING_OUT_OF_RANGE_ATTENTION_MASK  0x8u
+#define GET_DEVICE_RECEIVE_LIST_PLACEMENT_STATUS_MAPPING_OUT_OF_RANGE_ATTENTION(__reg__)  (((__reg__) & 0x8) >> 3u)
+#define SET_DEVICE_RECEIVE_LIST_PLACEMENT_STATUS_MAPPING_OUT_OF_RANGE_ATTENTION(__val__)  (((__val__) << 3u) & 0x8u)
+#define     DEVICE_RECEIVE_LIST_PLACEMENT_STATUS_STATS_OVERFLOW_ATTENTION_SHIFT 4u
+#define     DEVICE_RECEIVE_LIST_PLACEMENT_STATUS_STATS_OVERFLOW_ATTENTION_MASK  0x10u
+#define GET_DEVICE_RECEIVE_LIST_PLACEMENT_STATUS_STATS_OVERFLOW_ATTENTION(__reg__)  (((__reg__) & 0x10) >> 4u)
+#define SET_DEVICE_RECEIVE_LIST_PLACEMENT_STATUS_STATS_OVERFLOW_ATTENTION(__val__)  (((__val__) << 4u) & 0x10u)
+
+/** @brief Register definition for @ref DEVICE_t.ReceiveListPlacementStatus. */
+typedef register_container RegDEVICEReceiveListPlacementStatus_t {
+    /** @brief 32bit direct register access. */
+    APE_DEVICE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_1_0, 0, 2)
+        /** @brief Class field extracted from frame descriptor is zero. */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, ClassZeroAttention, 2, 1)
+        /** @brief Class of service mapping is out of the range of the active queue number. */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, MappingoutofRangeAttention, 3, 1)
+        /** @brief A statistics managed by Receive List Placement has overflowed. */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, StatsOverflowAttention, 4, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_5, 5, 27)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_5, 5, 27)
+        /** @brief A statistics managed by Receive List Placement has overflowed. */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, StatsOverflowAttention, 4, 1)
+        /** @brief Class of service mapping is out of the range of the active queue number. */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, MappingoutofRangeAttention, 3, 1)
+        /** @brief Class field extracted from frame descriptor is zero. */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, ClassZeroAttention, 2, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_1_0, 0, 2)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "ReceiveListPlacementStatus"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICEReceiveListPlacementStatus_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.ReceiveListPlacementStatus. */
+        r32.setName("ReceiveListPlacementStatus");
+        bits.ClassZeroAttention.setBaseRegister(&r32);
+        bits.ClassZeroAttention.setName("ClassZeroAttention");
+        bits.MappingoutofRangeAttention.setBaseRegister(&r32);
+        bits.MappingoutofRangeAttention.setName("MappingoutofRangeAttention");
+        bits.StatsOverflowAttention.setBaseRegister(&r32);
+        bits.StatsOverflowAttention.setName("StatsOverflowAttention");
+    }
+    RegDEVICEReceiveListPlacementStatus_t& operator=(const RegDEVICEReceiveListPlacementStatus_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegDEVICEReceiveListPlacementStatus_t;
+
 #define REG_DEVICE_CPMU_CONTROL ((volatile APE_DEVICE_H_uint32_t*)0xa0043600) /*  */
 #define     DEVICE_CPMU_CONTROL_CPMU_SOFTWARE_RESET_SHIFT 0u
 #define     DEVICE_CPMU_CONTROL_CPMU_SOFTWARE_RESET_MASK  0x1u
@@ -3337,6 +3585,78 @@ typedef register_container RegDEVICELinkAwarePowerModeClockPolicy_t {
     }
 #endif /* CXX_SIMULATOR */
 } RegDEVICELinkAwarePowerModeClockPolicy_t;
+
+#define REG_DEVICE_APE_SLEEP_STATE_CLOCK_POLICY ((volatile APE_DEVICE_H_uint32_t*)0xa0043620) /*  */
+#define     DEVICE_APE_SLEEP_STATE_CLOCK_POLICY_APE_SLEEP_FCLK_SWITCH_SHIFT 0u
+#define     DEVICE_APE_SLEEP_STATE_CLOCK_POLICY_APE_SLEEP_FCLK_SWITCH_MASK  0x1fu
+#define GET_DEVICE_APE_SLEEP_STATE_CLOCK_POLICY_APE_SLEEP_FCLK_SWITCH(__reg__)  (((__reg__) & 0x1f) >> 0u)
+#define SET_DEVICE_APE_SLEEP_STATE_CLOCK_POLICY_APE_SLEEP_FCLK_SWITCH(__val__)  (((__val__) << 0u) & 0x1fu)
+#define     DEVICE_APE_SLEEP_STATE_CLOCK_POLICY_APE_DEEP_SLEEP_FCLK_SWITCH_SHIFT 16u
+#define     DEVICE_APE_SLEEP_STATE_CLOCK_POLICY_APE_DEEP_SLEEP_FCLK_SWITCH_MASK  0x1f0000u
+#define GET_DEVICE_APE_SLEEP_STATE_CLOCK_POLICY_APE_DEEP_SLEEP_FCLK_SWITCH(__reg__)  (((__reg__) & 0x1f0000) >> 16u)
+#define SET_DEVICE_APE_SLEEP_STATE_CLOCK_POLICY_APE_DEEP_SLEEP_FCLK_SWITCH(__val__)  (((__val__) << 16u) & 0x1f0000u)
+#define     DEVICE_APE_SLEEP_STATE_CLOCK_POLICY_APE_SLEEP_HCLK_DISABLE_SHIFT 31u
+#define     DEVICE_APE_SLEEP_STATE_CLOCK_POLICY_APE_SLEEP_HCLK_DISABLE_MASK  0x80000000u
+#define GET_DEVICE_APE_SLEEP_STATE_CLOCK_POLICY_APE_SLEEP_HCLK_DISABLE(__reg__)  (((__reg__) & 0x80000000) >> 31u)
+#define SET_DEVICE_APE_SLEEP_STATE_CLOCK_POLICY_APE_SLEEP_HCLK_DISABLE(__val__)  (((__val__) << 31u) & 0x80000000u)
+
+/** @brief Register definition for @ref DEVICE_t.ApeSleepStateClockPolicy. */
+typedef register_container RegDEVICEApeSleepStateClockPolicy_t {
+    /** @brief 32bit direct register access. */
+    APE_DEVICE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief Software Controlled APE Clock Speed Select */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, APESleepFCLKSwitch, 0, 5)
+        /** @brief Padding */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_15_5, 5, 11)
+        /** @brief Software Controlled APE Clock Speed Select */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, APEDeepSleepFCLKSwitch, 16, 5)
+        /** @brief Padding */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_30_21, 21, 10)
+        /** @brief Software Controlled APE HCLK shutoff in sleep and deep sleep state */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, APESleepHCLKDisable, 31, 1)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Software Controlled APE HCLK shutoff in sleep and deep sleep state */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, APESleepHCLKDisable, 31, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_30_21, 21, 10)
+        /** @brief Software Controlled APE Clock Speed Select */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, APEDeepSleepFCLKSwitch, 16, 5)
+        /** @brief Padding */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_15_5, 5, 11)
+        /** @brief Software Controlled APE Clock Speed Select */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, APESleepFCLKSwitch, 0, 5)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "ApeSleepStateClockPolicy"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICEApeSleepStateClockPolicy_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.ApeSleepStateClockPolicy. */
+        r32.setName("ApeSleepStateClockPolicy");
+        bits.APESleepFCLKSwitch.setBaseRegister(&r32);
+        bits.APESleepFCLKSwitch.setName("APESleepFCLKSwitch");
+        bits.APEDeepSleepFCLKSwitch.setBaseRegister(&r32);
+        bits.APEDeepSleepFCLKSwitch.setName("APEDeepSleepFCLKSwitch");
+        bits.APESleepHCLKDisable.setBaseRegister(&r32);
+        bits.APESleepHCLKDisable.setName("APESleepHCLKDisable");
+    }
+    RegDEVICEApeSleepStateClockPolicy_t& operator=(const RegDEVICEApeSleepStateClockPolicy_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegDEVICEApeSleepStateClockPolicy_t;
 
 #define REG_DEVICE_CLOCK_SPEED_OVERRIDE_POLICY ((volatile APE_DEVICE_H_uint32_t*)0xa0043624) /*  */
 #define     DEVICE_CLOCK_SPEED_OVERRIDE_POLICY_MAC_CLOCK_SWITCH_SHIFT 16u
@@ -8829,8 +9149,8 @@ typedef struct DEVICE_t {
     /** @brief  */
     RegDEVICETransmitMacStatus_t TransmitMacStatus;
 
-    /** @brief Reserved bytes to pad out data structure. */
-    APE_DEVICE_H_uint32_t reserved_1124[1];
+    /** @brief  */
+    RegDEVICETransmitMacLengths_t TransmitMacLengths;
 
     /** @brief  */
     RegDEVICEReceiveMacMode_t ReceiveMacMode;
@@ -8872,7 +9192,16 @@ typedef struct DEVICE_t {
     RegDEVICESgmiiStatus_t SgmiiStatus;
 
     /** @brief Reserved bytes to pad out data structure. */
-    APE_DEVICE_H_uint32_t reserved_1464[3090];
+    APE_DEVICE_H_uint32_t reserved_1464[1682];
+
+    /** @brief  */
+    RegDEVICEReceiveListPlacementMode_t ReceiveListPlacementMode;
+
+    /** @brief  */
+    RegDEVICEReceiveListPlacementStatus_t ReceiveListPlacementStatus;
+
+    /** @brief Reserved bytes to pad out data structure. */
+    APE_DEVICE_H_uint32_t reserved_8200[1406];
 
     /** @brief  */
     RegDEVICECpmuControl_t CpmuControl;
@@ -8887,7 +9216,10 @@ typedef struct DEVICE_t {
     RegDEVICELinkAwarePowerModeClockPolicy_t LinkAwarePowerModeClockPolicy;
 
     /** @brief Reserved bytes to pad out data structure. */
-    APE_DEVICE_H_uint32_t reserved_13844[4];
+    APE_DEVICE_H_uint32_t reserved_13844[3];
+
+    /** @brief  */
+    RegDEVICEApeSleepStateClockPolicy_t ApeSleepStateClockPolicy;
 
     /** @brief  */
     RegDEVICEClockSpeedOverridePolicy_t ClockSpeedOverridePolicy;
@@ -9351,10 +9683,7 @@ typedef struct DEVICE_t {
         }
         TransmitMacMode.r32.setComponentOffset(0x45c);
         TransmitMacStatus.r32.setComponentOffset(0x460);
-        for(int i = 0; i < 1; i++)
-        {
-            reserved_1124[i].setComponentOffset(0x464 + (i * 4));
-        }
+        TransmitMacLengths.r32.setComponentOffset(0x464);
         ReceiveMacMode.r32.setComponentOffset(0x468);
         ReceiveMacStatus.r32.setComponentOffset(0x46c);
         for(int i = 0; i < 52; i++)
@@ -9374,9 +9703,15 @@ typedef struct DEVICE_t {
             reserved_1376[i].setComponentOffset(0x560 + (i * 4));
         }
         SgmiiStatus.r32.setComponentOffset(0x5b4);
-        for(int i = 0; i < 3090; i++)
+        for(int i = 0; i < 1682; i++)
         {
             reserved_1464[i].setComponentOffset(0x5b8 + (i * 4));
+        }
+        ReceiveListPlacementMode.r32.setComponentOffset(0x2000);
+        ReceiveListPlacementStatus.r32.setComponentOffset(0x2004);
+        for(int i = 0; i < 1406; i++)
+        {
+            reserved_8200[i].setComponentOffset(0x2008 + (i * 4));
         }
         CpmuControl.r32.setComponentOffset(0x3600);
         NoLinkPowerModeClockPolicy.r32.setComponentOffset(0x3604);
@@ -9385,10 +9720,11 @@ typedef struct DEVICE_t {
             reserved_13832[i].setComponentOffset(0x3608 + (i * 4));
         }
         LinkAwarePowerModeClockPolicy.r32.setComponentOffset(0x3610);
-        for(int i = 0; i < 4; i++)
+        for(int i = 0; i < 3; i++)
         {
             reserved_13844[i].setComponentOffset(0x3614 + (i * 4));
         }
+        ApeSleepStateClockPolicy.r32.setComponentOffset(0x3620);
         ClockSpeedOverridePolicy.r32.setComponentOffset(0x3624);
         for(int i = 0; i < 1; i++)
         {
@@ -9697,10 +10033,7 @@ typedef struct DEVICE_t {
         }
         TransmitMacMode.print();
         TransmitMacStatus.print();
-        for(int i = 0; i < 1; i++)
-        {
-            reserved_1124[i].print();
-        }
+        TransmitMacLengths.print();
         ReceiveMacMode.print();
         ReceiveMacStatus.print();
         for(int i = 0; i < 52; i++)
@@ -9720,9 +10053,15 @@ typedef struct DEVICE_t {
             reserved_1376[i].print();
         }
         SgmiiStatus.print();
-        for(int i = 0; i < 3090; i++)
+        for(int i = 0; i < 1682; i++)
         {
             reserved_1464[i].print();
+        }
+        ReceiveListPlacementMode.print();
+        ReceiveListPlacementStatus.print();
+        for(int i = 0; i < 1406; i++)
+        {
+            reserved_8200[i].print();
         }
         CpmuControl.print();
         NoLinkPowerModeClockPolicy.print();
@@ -9731,10 +10070,11 @@ typedef struct DEVICE_t {
             reserved_13832[i].print();
         }
         LinkAwarePowerModeClockPolicy.print();
-        for(int i = 0; i < 4; i++)
+        for(int i = 0; i < 3; i++)
         {
             reserved_13844[i].print();
         }
+        ApeSleepStateClockPolicy.print();
         ClockSpeedOverridePolicy.print();
         for(int i = 0; i < 1; i++)
         {

@@ -111,6 +111,8 @@ void init_APE_DEVICE(void)
 
     /** @brief Bitmap for @ref DEVICE_t.TransmitMacStatus. */
 
+    /** @brief Bitmap for @ref DEVICE_t.TransmitMacLengths. */
+
     /** @brief Bitmap for @ref DEVICE_t.ReceiveMacMode. */
 
     /** @brief Bitmap for @ref DEVICE_t.ReceiveMacStatus. */
@@ -133,11 +135,17 @@ void init_APE_DEVICE(void)
 
     /** @brief Bitmap for @ref DEVICE_t.SgmiiStatus. */
 
+    /** @brief Bitmap for @ref DEVICE_t.ReceiveListPlacementMode. */
+
+    /** @brief Bitmap for @ref DEVICE_t.ReceiveListPlacementStatus. */
+
     /** @brief Bitmap for @ref DEVICE_t.CpmuControl. */
 
     /** @brief Bitmap for @ref DEVICE_t.NoLinkPowerModeClockPolicy. */
 
     /** @brief Bitmap for @ref DEVICE_t.LinkAwarePowerModeClockPolicy. */
+
+    /** @brief Bitmap for @ref DEVICE_t.ApeSleepStateClockPolicy. */
 
     /** @brief Bitmap for @ref DEVICE_t.ClockSpeedOverridePolicy. */
 

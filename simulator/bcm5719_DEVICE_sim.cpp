@@ -260,11 +260,10 @@ void init_bcm5719_DEVICE_sim(void *base)
     DEVICE.TransmitMacStatus.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     DEVICE.TransmitMacStatus.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
-    for(int i = 0; i < 1; i++)
-    {
-        DEVICE.reserved_1124[i].installReadCallback(read_from_ram, (uint8_t *)base);
-        DEVICE.reserved_1124[i].installWriteCallback(write_to_ram, (uint8_t *)base);
-    }
+    /** @brief Bitmap for @ref DEVICE_t.TransmitMacLengths. */
+    DEVICE.TransmitMacLengths.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    DEVICE.TransmitMacLengths.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
     /** @brief Bitmap for @ref DEVICE_t.ReceiveMacMode. */
     DEVICE.ReceiveMacMode.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     DEVICE.ReceiveMacMode.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
@@ -319,10 +318,23 @@ void init_bcm5719_DEVICE_sim(void *base)
     DEVICE.SgmiiStatus.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     DEVICE.SgmiiStatus.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
-    for(int i = 0; i < 3090; i++)
+    for(int i = 0; i < 1682; i++)
     {
         DEVICE.reserved_1464[i].installReadCallback(read_from_ram, (uint8_t *)base);
         DEVICE.reserved_1464[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
+    /** @brief Bitmap for @ref DEVICE_t.ReceiveListPlacementMode. */
+    DEVICE.ReceiveListPlacementMode.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    DEVICE.ReceiveListPlacementMode.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref DEVICE_t.ReceiveListPlacementStatus. */
+    DEVICE.ReceiveListPlacementStatus.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    DEVICE.ReceiveListPlacementStatus.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    for(int i = 0; i < 1406; i++)
+    {
+        DEVICE.reserved_8200[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        DEVICE.reserved_8200[i].installWriteCallback(write_to_ram, (uint8_t *)base);
     }
     /** @brief Bitmap for @ref DEVICE_t.CpmuControl. */
     DEVICE.CpmuControl.r32.installReadCallback(read_from_ram, (uint8_t *)base);
@@ -341,11 +353,15 @@ void init_bcm5719_DEVICE_sim(void *base)
     DEVICE.LinkAwarePowerModeClockPolicy.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     DEVICE.LinkAwarePowerModeClockPolicy.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
-    for(int i = 0; i < 4; i++)
+    for(int i = 0; i < 3; i++)
     {
         DEVICE.reserved_13844[i].installReadCallback(read_from_ram, (uint8_t *)base);
         DEVICE.reserved_13844[i].installWriteCallback(write_to_ram, (uint8_t *)base);
     }
+    /** @brief Bitmap for @ref DEVICE_t.ApeSleepStateClockPolicy. */
+    DEVICE.ApeSleepStateClockPolicy.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    DEVICE.ApeSleepStateClockPolicy.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
     /** @brief Bitmap for @ref DEVICE_t.ClockSpeedOverridePolicy. */
     DEVICE.ClockSpeedOverridePolicy.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     DEVICE.ClockSpeedOverridePolicy.r32.installWriteCallback(write_to_ram, (uint8_t *)base);

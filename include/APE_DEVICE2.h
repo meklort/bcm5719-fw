@@ -113,6 +113,7 @@ typedef uint32_t APE_DEVICE2_H_uint32_t;
 #define REG_DEVICE2_MII_MODE ((volatile APE_DEVICE2_H_uint32_t*)0xa0060454) /*  */
 #define REG_DEVICE2_TRANSMIT_MAC_MODE ((volatile APE_DEVICE2_H_uint32_t*)0xa006045c) /*  */
 #define REG_DEVICE2_TRANSMIT_MAC_STATUS ((volatile APE_DEVICE2_H_uint32_t*)0xa0060460) /*  */
+#define REG_DEVICE2_TRANSMIT_MAC_LENGTHS ((volatile APE_DEVICE2_H_uint32_t*)0xa0060464) /*  */
 #define REG_DEVICE2_RECEIVE_MAC_MODE ((volatile APE_DEVICE2_H_uint32_t*)0xa0060468) /*  */
 #define REG_DEVICE2_RECEIVE_MAC_STATUS ((volatile APE_DEVICE2_H_uint32_t*)0xa006046c) /*  */
 #define REG_DEVICE2_PERFECT_MATCH1_HIGH ((volatile APE_DEVICE2_H_uint32_t*)0xa0060540) /*  */
@@ -124,9 +125,12 @@ typedef uint32_t APE_DEVICE2_H_uint32_t;
 #define REG_DEVICE2_PERFECT_MATCH4_HIGH ((volatile APE_DEVICE2_H_uint32_t*)0xa0060558) /*  */
 #define REG_DEVICE2_PERFECT_MATCH4_LOW ((volatile APE_DEVICE2_H_uint32_t*)0xa006055c) /*  */
 #define REG_DEVICE2_SGMII_STATUS ((volatile APE_DEVICE2_H_uint32_t*)0xa00605b4) /* This register reflects various status of the respective SGMII port when enabled. */
+#define REG_DEVICE2_RECEIVE_LIST_PLACEMENT_MODE ((volatile APE_DEVICE2_H_uint32_t*)0xa0062000) /*  */
+#define REG_DEVICE2_RECEIVE_LIST_PLACEMENT_STATUS ((volatile APE_DEVICE2_H_uint32_t*)0xa0062004) /*  */
 #define REG_DEVICE2_CPMU_CONTROL ((volatile APE_DEVICE2_H_uint32_t*)0xa0063600) /*  */
 #define REG_DEVICE2_NO_LINK_POWER_MODE_CLOCK_POLICY ((volatile APE_DEVICE2_H_uint32_t*)0xa0063604) /*  */
 #define REG_DEVICE2_LINK_AWARE_POWER_MODE_CLOCK_POLICY ((volatile APE_DEVICE2_H_uint32_t*)0xa0063610) /*  */
+#define REG_DEVICE2_APE_SLEEP_STATE_CLOCK_POLICY ((volatile APE_DEVICE2_H_uint32_t*)0xa0063620) /*  */
 #define REG_DEVICE2_CLOCK_SPEED_OVERRIDE_POLICY ((volatile APE_DEVICE2_H_uint32_t*)0xa0063624) /*  */
 #define REG_DEVICE2_STATUS ((volatile APE_DEVICE2_H_uint32_t*)0xa006362c) /*  */
 #define REG_DEVICE2_CLOCK_STATUS ((volatile APE_DEVICE2_H_uint32_t*)0xa0063630) /*  */
