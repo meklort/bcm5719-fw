@@ -3761,6 +3761,10 @@ extern volatile APE_PERI_t APE_PERI;
 #undef BITFIELD_MEMBER
 #undef BITFIELD_END
 
+#ifndef CXX_SIMULATOR
+_Static_assert(sizeof(APE_PERI_t) == 1088, "sizeof(APE_PERI_t) must be 1088");
+#endif
+
 #endif /* !BCM5719_APE_PERI_H */
 
 /** @} */

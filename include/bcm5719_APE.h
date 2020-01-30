@@ -2472,6 +2472,10 @@ extern volatile APE_t APE;
 #undef BITFIELD_MEMBER
 #undef BITFIELD_END
 
+#ifndef CXX_SIMULATOR
+_Static_assert(sizeof(APE_t) == 816, "sizeof(APE_t) must be 816");
+#endif
+
 #endif /* !BCM5719_APE_H */
 
 /** @} */

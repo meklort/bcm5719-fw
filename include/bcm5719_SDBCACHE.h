@@ -116,6 +116,10 @@ extern volatile SDBCACHE_t SDBCACHE;
 #undef BITFIELD_MEMBER
 #undef BITFIELD_END
 
+#ifndef CXX_SIMULATOR
+_Static_assert(sizeof(SDBCACHE_t) == 51200, "sizeof(SDBCACHE_t) must be 51200");
+#endif
+
 #endif /* !BCM5719_SDBCACHE_H */
 
 /** @} */

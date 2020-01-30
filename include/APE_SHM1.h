@@ -143,6 +143,10 @@ extern volatile SHM_t SHM1;
 #undef BITFIELD_MEMBER
 #undef BITFIELD_END
 
+#ifndef CXX_SIMULATOR
+_Static_assert(sizeof(SHM_t) == 2196, "sizeof(SHM_t) must be 2196");
+#endif
+
 #endif /* !APE_SHM1_H */
 
 /** @} */

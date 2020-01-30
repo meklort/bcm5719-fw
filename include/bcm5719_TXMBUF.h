@@ -116,6 +116,10 @@ extern volatile TXMBUF_t TXMBUF;
 #undef BITFIELD_MEMBER
 #undef BITFIELD_END
 
+#ifndef CXX_SIMULATOR
+_Static_assert(sizeof(TXMBUF_t) == 29696, "sizeof(TXMBUF_t) must be 29696");
+#endif
+
 #endif /* !BCM5719_TXMBUF_H */
 
 /** @} */

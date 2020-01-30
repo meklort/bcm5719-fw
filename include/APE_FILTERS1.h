@@ -101,6 +101,10 @@ extern volatile FILTERS_t FILTERS1;
 #undef BITFIELD_MEMBER
 #undef BITFIELD_END
 
+#ifndef CXX_SIMULATOR
+_Static_assert(sizeof(FILTERS_t) == 512, "sizeof(FILTERS_t) must be 512");
+#endif
+
 #endif /* !APE_FILTERS1_H */
 
 /** @} */
