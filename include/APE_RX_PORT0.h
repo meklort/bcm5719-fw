@@ -183,6 +183,10 @@ extern volatile RX_PORT_t RX_PORT0;
 #undef BITFIELD_MEMBER
 #undef BITFIELD_END
 
+#ifndef CXX_SIMULATOR
+_Static_assert(sizeof(RX_PORT_t) == 16384, "sizeof(RX_PORT_t) must be 16384");
+#endif
+
 #endif /* !APE_RX_PORT0_H */
 
 /** @} */

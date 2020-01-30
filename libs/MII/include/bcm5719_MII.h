@@ -486,6 +486,12 @@ typedef register_container RegMIIPhyIdHigh_t {
 #define     MII_PHY_ID_LOW_MODEL_MASK  0x3f0u
 #define GET_MII_PHY_ID_LOW_MODEL(__reg__)  (((__reg__) & 0x3f0) >> 4u)
 #define SET_MII_PHY_ID_LOW_MODEL(__val__)  (((__val__) << 4u) & 0x3f0u)
+#define     MII_PHY_ID_LOW_MODEL_5718 0x20u
+#define     MII_PHY_ID_LOW_MODEL_5719 0x22u
+#define     MII_PHY_ID_LOW_MODEL_5717B0 0x22u
+#define     MII_PHY_ID_LOW_MODEL_5720 0x36u
+#define     MII_PHY_ID_LOW_MODEL_5717C0 0x36u
+
 #define     MII_PHY_ID_LOW_OUI_LOW_SHIFT 10u
 #define     MII_PHY_ID_LOW_OUI_LOW_MASK  0xfc00u
 #define GET_MII_PHY_ID_LOW_OUI_LOW(__reg__)  (((__reg__) & 0xfc00) >> 10u)
@@ -498,18 +504,18 @@ typedef register_container RegMIIPhyIdLow_t {
 
     BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
 #if defined(__LITTLE_ENDIAN__)
-        /** @brief  */
+        /** @brief Device revision number */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, Revision, 0, 4)
-        /** @brief  */
+        /** @brief Device model number */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, Model, 4, 6)
         /** @brief Bits 19:24 of organizationally unique identifier. */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, OUILow, 10, 6)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Bits 19:24 of organizationally unique identifier. */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, OUILow, 10, 6)
-        /** @brief  */
+        /** @brief Device model number */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, Model, 4, 6)
-        /** @brief  */
+        /** @brief Device revision number */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, Revision, 0, 4)
 #else
 #error Unknown Endian
@@ -530,6 +536,12 @@ typedef register_container RegMIIPhyIdLow_t {
         bits.Revision.setName("Revision");
         bits.Model.setBaseRegister(&r16);
         bits.Model.setName("Model");
+        bits.Model.addEnum("5718", 0x20);
+        bits.Model.addEnum("5719", 0x22);
+        bits.Model.addEnum("5717B0", 0x22);
+        bits.Model.addEnum("5720", 0x36);
+        bits.Model.addEnum("5717C0", 0x36);
+
         bits.OUILow.setBaseRegister(&r16);
         bits.OUILow.setName("OUILow");
     }
@@ -891,13 +903,9 @@ typedef register_container RegMIIAutonegotiationExpansion_t {
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, NextPageReceiveLocationCapable, 6, 1)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_15_7, 7, 9)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_31_16, 16, 16)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_15_7, 7, 9)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_31_16, 16, 16)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, NextPageReceiveLocationCapable, 6, 1)
         /** @brief  */
@@ -1370,13 +1378,9 @@ typedef register_container RegMIIBroadreachLreAccess_t {
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, EnableLRERegisterAccessOverride, 2, 1)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_15_3, 3, 13)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_31_16, 16, 16)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_15_3, 3, 13)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_31_16, 16, 16)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, EnableLRERegisterAccessOverride, 2, 1)
         /** @brief  */
@@ -3093,13 +3097,9 @@ typedef register_container RegMIIPowerAndMiiControl_t {
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, SuperIsolate, 5, 1)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_15_6, 6, 10)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_31_16, 16, 16)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_15_6, 6, 10)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_31_16, 16, 16)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, SuperIsolate, 5, 1)
         /** @brief Padding */
@@ -3456,14 +3456,10 @@ typedef register_container RegMIIMiscTest1_t {
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, RemoteLoopbackTristate, 11, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_23_12, 12, 12)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_31_24, 24, 8)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_15_12, 12, 4)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_23_12, 12, 12)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_31_24, 24, 8)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_15_12, 12, 4)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, RemoteLoopbackTristate, 11, 1)
         /** @brief  */
@@ -4158,7 +4154,7 @@ typedef struct MII_t {
     RegMII1000baseTStatus_t _1000baseTStatus;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_MII_H_uint8_t reserved_11[3];
+    BCM5719_MII_H_uint16_t reserved_11[3];
 
     /** @brief WTH is this. */
     RegMIIBroadreachLreAccess_t BroadreachLreAccess;
@@ -4182,7 +4178,7 @@ typedef struct MII_t {
     RegMIILocalRemoteReceiverNotOkCounter_t LocalRemoteReceiverNotOkCounter;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_MII_H_uint8_t reserved_21[3];
+    BCM5719_MII_H_uint16_t reserved_21[3];
 
     /** @brief Note: Shadow Register Selector: 0 */
     RegMIIAuxiliaryControl_t AuxiliaryControl;
@@ -4200,7 +4196,7 @@ typedef struct MII_t {
     RegMIICabletronLed_t CabletronLed;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_MII_H_uint8_t reserved_29[1];
+    BCM5719_MII_H_uint16_t reserved_29[1];
 
     /** @brief  */
     RegMIITest1_t Test1;
@@ -4209,61 +4205,61 @@ typedef struct MII_t {
     RegMIIBlockSelect_t BlockSelect;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_MII_H_uint32_t reserved_32[62];
+    BCM5719_MII_H_uint32_t reserved_32[124];
 
     /** @brief Note: Shadow Register Selector: 1 */
     RegMII10baseT_t _10baseT;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_MII_H_uint8_t reserved_281[3];
+    BCM5719_MII_H_uint16_t reserved_281[3];
 
     /** @brief Note: Shadow Register Selector: 1 */
     RegMIIDllSelection_t DllSelection;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_MII_H_uint8_t reserved_285[251];
+    BCM5719_MII_H_uint16_t reserved_285[251];
 
     /** @brief Note: Shadow Register Selector: 2 */
     RegMIIPowerAndMiiControl_t PowerAndMiiControl;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_MII_H_uint8_t reserved_537[3];
+    BCM5719_MII_H_uint16_t reserved_537[3];
 
     /** @brief Note: Shadow Register Selector: 2 */
     RegMIISpareControl1_t SpareControl1;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_MII_H_uint8_t reserved_541[255];
+    BCM5719_MII_H_uint16_t reserved_541[255];
 
     /** @brief Note: Shadow Register Selector: 3 */
     RegMIIClockAlignmentControl_t ClockAlignmentControl;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_MII_H_uint8_t reserved_797[251];
+    BCM5719_MII_H_uint16_t reserved_797[251];
 
     /** @brief Note: Shadow Register Selector: 4 */
     RegMIIMiscTest1_t MiscTest1;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_MII_H_uint8_t reserved_1049[3];
+    BCM5719_MII_H_uint16_t reserved_1049[3];
 
     /** @brief Note: Shadow Register Selector: 4 */
     RegMIISpareControl2_t SpareControl2;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_MII_H_uint8_t reserved_1053[251];
+    BCM5719_MII_H_uint16_t reserved_1053[251];
 
     /** @brief Note: Shadow Register Selector: 5 */
     RegMIIMiscTest2_t MiscTest2;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_MII_H_uint8_t reserved_1305[3];
+    BCM5719_MII_H_uint16_t reserved_1305[3];
 
     /** @brief Note: Shadow Register Selector: 3 */
     RegMIISpareControl3_t SpareControl3;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_MII_H_uint8_t reserved_1309[507];
+    BCM5719_MII_H_uint16_t reserved_1309[507];
 
     /** @brief Note: Shadow Register Selector: 7 */
     RegMIIMiscellaneousControl_t MiscellaneousControl;
@@ -4474,6 +4470,10 @@ extern volatile MII_t MII;
 #undef BITFIELD_BEGIN
 #undef BITFIELD_MEMBER
 #undef BITFIELD_END
+
+#ifndef CXX_SIMULATOR
+_Static_assert(sizeof(MII_t) == 3636, "sizeof(MII_t) must be 3636");
+#endif
 
 #endif /* !BCM5719_MII_H */
 

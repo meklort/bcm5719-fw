@@ -116,6 +116,10 @@ extern volatile BOOTCODE_t BOOTCODE;
 #undef BITFIELD_MEMBER
 #undef BITFIELD_END
 
+#ifndef CXX_SIMULATOR
+_Static_assert(sizeof(BOOTCODE_t) == 28672, "sizeof(BOOTCODE_t) must be 28672");
+#endif
+
 #endif /* !BCM5719_BOOTCODE_H */
 
 /** @} */

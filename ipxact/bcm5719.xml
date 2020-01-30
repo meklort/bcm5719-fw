@@ -1085,17 +1085,40 @@
                     <ipxact:volatile>true</ipxact:volatile>
                     <ipxact:field>
                         <ipxact:name>Revision</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:description>Device revision number</ipxact:description>
                         <ipxact:bitOffset>0</ipxact:bitOffset>
                         <ipxact:bitWidth>4</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
                         <ipxact:name>Model</ipxact:name>
-                        <ipxact:description></ipxact:description>
+                        <ipxact:description>Device model number</ipxact:description>
                         <ipxact:bitOffset>4</ipxact:bitOffset>
                         <ipxact:bitWidth>6</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <!-- LINK: enumeratedValue: see 6.11.10, Enumeration values -->
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>5720</ipxact:name>
+                                <ipxact:value>0x36</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>5719</ipxact:name>
+                                <ipxact:value>0x22</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>5718</ipxact:name>
+                                <ipxact:value>0x20</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>5717C0</ipxact:name>
+                                <ipxact:value>0x36</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>5717B0</ipxact:name>
+                                <ipxact:value>0x22</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
                     </ipxact:field>
                     <ipxact:field>
                         <ipxact:name>OUI Low</ipxact:name>

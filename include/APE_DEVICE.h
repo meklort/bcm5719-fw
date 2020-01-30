@@ -4060,10 +4060,10 @@ typedef register_container RegDEVICEGphyStrap_t {
 #define     DEVICE_FLASH_CLOCK_CONTROL_POLICY_FORCE_FLASH_CLOCK_DISABLE_MASK  0x40000000u
 #define GET_DEVICE_FLASH_CLOCK_CONTROL_POLICY_FORCE_FLASH_CLOCK_DISABLE(__reg__)  (((__reg__) & 0x40000000) >> 30u)
 #define SET_DEVICE_FLASH_CLOCK_CONTROL_POLICY_FORCE_FLASH_CLOCK_DISABLE(__val__)  (((__val__) << 30u) & 0x40000000u)
-#define     DEVICE_FLASH_CLOCK_CONTROL_POLICY_FLASH_CLOCK_SPEED_OVERRIDE_SHIFT 30u
-#define     DEVICE_FLASH_CLOCK_CONTROL_POLICY_FLASH_CLOCK_SPEED_OVERRIDE_MASK  0x40000000u
-#define GET_DEVICE_FLASH_CLOCK_CONTROL_POLICY_FLASH_CLOCK_SPEED_OVERRIDE(__reg__)  (((__reg__) & 0x40000000) >> 30u)
-#define SET_DEVICE_FLASH_CLOCK_CONTROL_POLICY_FLASH_CLOCK_SPEED_OVERRIDE(__val__)  (((__val__) << 30u) & 0x40000000u)
+#define     DEVICE_FLASH_CLOCK_CONTROL_POLICY_FLASH_CLOCK_SPEED_OVERRIDE_SHIFT 31u
+#define     DEVICE_FLASH_CLOCK_CONTROL_POLICY_FLASH_CLOCK_SPEED_OVERRIDE_MASK  0x80000000u
+#define GET_DEVICE_FLASH_CLOCK_CONTROL_POLICY_FLASH_CLOCK_SPEED_OVERRIDE(__reg__)  (((__reg__) & 0x80000000) >> 31u)
+#define SET_DEVICE_FLASH_CLOCK_CONTROL_POLICY_FLASH_CLOCK_SPEED_OVERRIDE(__val__)  (((__val__) << 31u) & 0x80000000u)
 
 /** @brief Register definition for @ref DEVICE_t.FlashClockControlPolicy. */
 typedef register_container RegDEVICEFlashClockControlPolicy_t {
@@ -4095,14 +4095,10 @@ typedef register_container RegDEVICEFlashClockControlPolicy_t {
         /** @brief  */
         BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, ForceFlashClockDisable, 30, 1)
         /** @brief  */
-        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, FlashClockSpeedOverride, 30, 1)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_31, 31, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, FlashClockSpeedOverride, 31, 1)
 #elif defined(__BIG_ENDIAN__)
-        /** @brief Padding */
-        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_31, 31, 1)
         /** @brief  */
-        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, FlashClockSpeedOverride, 30, 1)
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, FlashClockSpeedOverride, 31, 1)
         /** @brief  */
         BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, ForceFlashClockDisable, 30, 1)
         /** @brief  */
@@ -8680,7 +8676,7 @@ typedef register_container RegDEVICEEavRefClockControl_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEEavRefClockControl_t;
 
-#define REG_DEVICE_7C04 ((volatile APE_DEVICE_H_uint32_t*)0xa0047c04) /* PCIe-related. tg3 driver calls this  */
+#define REG_DEVICE_7C04 ((volatile APE_DEVICE_H_uint32_t*)0xa0047c04) /* PCIe Transaction Cfg */
 /** @brief Register definition for @ref DEVICE_t.7c04. */
 typedef register_container RegDEVICE7c04_t {
     /** @brief 32bit direct register access. */
@@ -9274,7 +9270,7 @@ typedef struct DEVICE_t {
     /** @brief Reserved bytes to pad out data structure. */
     APE_DEVICE_H_uint32_t reserved_26892[1214];
 
-    /** @brief PCIe-related. tg3 driver calls this  */
+    /** @brief PCIe Transaction Cfg */
     RegDEVICE7c04_t _7c04;
 
 #ifdef CXX_SIMULATOR
@@ -9995,6 +9991,10 @@ extern volatile DEVICE_t DEVICE;
 #undef BITFIELD_BEGIN
 #undef BITFIELD_MEMBER
 #undef BITFIELD_END
+
+#ifndef CXX_SIMULATOR
+_Static_assert(sizeof(DEVICE_t) == 31752, "sizeof(DEVICE_t) must be 31752");
+#endif
 
 #endif /* !APE_DEVICE_H */
 

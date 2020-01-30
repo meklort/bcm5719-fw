@@ -187,6 +187,10 @@ extern volatile TX_PORT_t TX_PORT0;
 #undef BITFIELD_MEMBER
 #undef BITFIELD_END
 
+#ifndef CXX_SIMULATOR
+_Static_assert(sizeof(TX_PORT_t) == 8192, "sizeof(TX_PORT_t) must be 8192");
+#endif
+
 #endif /* !APE_TX_PORT0_H */
 
 /** @} */

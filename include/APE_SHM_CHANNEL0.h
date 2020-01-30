@@ -2021,6 +2021,10 @@ extern volatile SHM_CHANNEL_t SHM_CHANNEL0;
 #undef BITFIELD_MEMBER
 #undef BITFIELD_END
 
+#ifndef CXX_SIMULATOR
+_Static_assert(sizeof(SHM_CHANNEL_t) == 204, "sizeof(SHM_CHANNEL_t) must be 204");
+#endif
+
 #endif /* !APE_SHM_CHANNEL0_H */
 
 /** @} */

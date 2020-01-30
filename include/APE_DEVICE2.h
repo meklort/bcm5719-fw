@@ -220,7 +220,7 @@ typedef uint32_t APE_DEVICE2_H_uint32_t;
 #define REG_DEVICE2_EXPANSION_ROM_ADDR ((volatile APE_DEVICE2_H_uint32_t*)0xa00668ec) /* Expansion ROM base address, expect to be d- word aligned. */
 #define REG_DEVICE2_68F0 ((volatile APE_DEVICE2_H_uint32_t*)0xa00668f0) /*  */
 #define REG_DEVICE2_EAV_REF_CLOCK_CONTROL ((volatile APE_DEVICE2_H_uint32_t*)0xa0066908) /*  */
-#define REG_DEVICE2_7C04 ((volatile APE_DEVICE2_H_uint32_t*)0xa0067c04) /* PCIe-related. tg3 driver calls this  */
+#define REG_DEVICE2_7C04 ((volatile APE_DEVICE2_H_uint32_t*)0xa0067c04) /* PCIe Transaction Cfg */
 /** @brief Device Registers, function 2 */
 extern volatile DEVICE_t DEVICE2;
 
@@ -234,6 +234,10 @@ extern volatile DEVICE_t DEVICE2;
 #undef BITFIELD_BEGIN
 #undef BITFIELD_MEMBER
 #undef BITFIELD_END
+
+#ifndef CXX_SIMULATOR
+_Static_assert(sizeof(DEVICE_t) == 31752, "sizeof(DEVICE_t) must be 31752");
+#endif
 
 #endif /* !APE_DEVICE2_H */
 

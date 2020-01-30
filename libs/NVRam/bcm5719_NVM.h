@@ -1336,6 +1336,10 @@ extern volatile NVM_t NVM;
 #undef BITFIELD_MEMBER
 #undef BITFIELD_END
 
+#ifndef CXX_SIMULATOR
+_Static_assert(sizeof(NVM_t) == 60, "sizeof(NVM_t) must be 60");
+#endif
+
 #endif /* !BCM5719_NVM_H */
 
 /** @} */

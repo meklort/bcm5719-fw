@@ -1769,6 +1769,10 @@ extern volatile GEN_t GEN;
 #undef BITFIELD_MEMBER
 #undef BITFIELD_END
 
+#ifndef CXX_SIMULATOR
+_Static_assert(sizeof(GEN_t) == 872, "sizeof(GEN_t) must be 872");
+#endif
+
 #endif /* !BCM5719_GEN_H */
 
 /** @} */

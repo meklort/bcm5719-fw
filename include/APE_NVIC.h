@@ -2156,175 +2156,175 @@ typedef register_container RegNVICSoftwareTriggerInterrupt_t {
 /** @brief Component definition for @ref NVIC. */
 typedef struct NVIC_t {
     /** @brief Reserved bytes to pad out data structure. */
-    APE_NVIC_H_uint32_t reserved_0[1];
+    APE_NVIC_H_uint32_t reserved_0[4];
 
     /** @brief Read the Interrupt Controller Type Register to see the number of interrupt lines that the NVIC supports. */
     RegNVICInterruptControlType_t InterruptControlType;
 
     /** @brief Reserved bytes to pad out data structure. */
-    APE_NVIC_H_uint8_t reserved_5[11];
+    APE_NVIC_H_uint32_t reserved_5[11];
 
     /** @brief Use the SysTick Control and Status Register to enable the SysTick features. */
     RegNVICSystickControlAndStatus_t SystickControlAndStatus;
 
     /** @brief Reserved bytes to pad out data structure. */
-    APE_NVIC_H_uint8_t reserved_17[3];
+    APE_NVIC_H_uint32_t reserved_17[3];
 
     /** @brief Use the SysTick Reload Value Register to specify the start value to load into the current value register when the counter reaches 0. It can be any value between 1 and 0x00FFFFFF. A start value of 0 is possible, but has no effect because the SysTick interrupt and COUNTFLAG are activated when counting from 1 to 0. */
     RegNVICSystickReloadValue_t SystickReloadValue;
 
     /** @brief Reserved bytes to pad out data structure. */
-    APE_NVIC_H_uint8_t reserved_21[3];
+    APE_NVIC_H_uint32_t reserved_21[3];
 
     /** @brief Use the SysTick Current Value Register to find the current value in the register. */
     RegNVICSystickCurrentValue_t SystickCurrentValue;
 
     /** @brief Reserved bytes to pad out data structure. */
-    APE_NVIC_H_uint8_t reserved_25[3];
+    APE_NVIC_H_uint32_t reserved_25[3];
 
     /** @brief Use the SysTick Calibration Value Register to enable software to scale to any required speed using divide and multiply. */
     RegNVICSystickCalibrationValue_t SystickCalibrationValue;
 
     /** @brief Reserved bytes to pad out data structure. */
-    APE_NVIC_H_uint8_t reserved_29[227];
+    APE_NVIC_H_uint32_t reserved_29[227];
 
     /** @brief Each bit in the register corresponds to one of 32 interrupts. Setting a bit in the Interrupt Set-Enable Register enables the corresponding interrupt. When the enable bit of a pending interrupt is set, the processor activates the interrupt based on its priority. When the enable bit is clear, asserting its interrupt signal pends the interrupt, but it is not possible to activate the interrupt, regardless of its priority. Therefore, a disabled interrupt can serve as a latched general-purpose I/O bit. You can read it and clear it without invoking an interrupt. */
     RegNVICInterruptSetEnable_t InterruptSetEnable;
 
     /** @brief Reserved bytes to pad out data structure. */
-    APE_NVIC_H_uint8_t reserved_257[127];
+    APE_NVIC_H_uint32_t reserved_257[127];
 
     /** @brief Each bit in the register corresponds to one of the 32 interrupts. Setting an Interrupt Clear-Enable Register bit disables the corresponding interrupt. */
     RegNVICInterruptClearEnable_t InterruptClearEnable;
 
     /** @brief Reserved bytes to pad out data structure. */
-    APE_NVIC_H_uint8_t reserved_385[127];
+    APE_NVIC_H_uint32_t reserved_385[127];
 
     /** @brief Each bit in the register corresponds to one of the 32 interrupts. Setting an Interrupt Set-Pending Register bit pends the corresponding interrupt. */
     RegNVICInterruptSetPending_t InterruptSetPending;
 
     /** @brief Reserved bytes to pad out data structure. */
-    APE_NVIC_H_uint8_t reserved_513[127];
+    APE_NVIC_H_uint32_t reserved_513[127];
 
     /** @brief Each bit in the register corresponds to one of the 32 interrupts. Setting an Interrupt Clear-Pending Register bit puts the corresponding pending interrupt in the inactive state. */
     RegNVICInterruptClearPending_t InterruptClearPending;
 
     /** @brief Reserved bytes to pad out data structure. */
-    APE_NVIC_H_uint8_t reserved_641[127];
+    APE_NVIC_H_uint32_t reserved_641[127];
 
     /** @brief Read the Active Bit Register to determine which interrupts are active. Each flag in the register corresponds to one of the 32 interrupts. */
     RegNVICActiveBit_t ActiveBit;
 
     /** @brief Reserved bytes to pad out data structure. */
-    APE_NVIC_H_uint8_t reserved_769[255];
+    APE_NVIC_H_uint32_t reserved_769[255];
 
     /** @brief Use the Interrupt Priority Registers to assign a priority from 0 to 255 to each of the available interrupts. 0 is the highest priority, and 255 is the lowest. */
     RegNVICInterruptPriority0_t InterruptPriority0;
 
     /** @brief Reserved bytes to pad out data structure. */
-    APE_NVIC_H_uint8_t reserved_1025[3];
+    APE_NVIC_H_uint32_t reserved_1025[3];
 
     /** @brief Use the Interrupt Priority Registers to assign a priority from 0 to 255 to each of the available interrupts. 0 is the highest priority, and 255 is the lowest. */
     RegNVICInterruptPriority1_t InterruptPriority1;
 
     /** @brief Reserved bytes to pad out data structure. */
-    APE_NVIC_H_uint8_t reserved_1029[2299];
+    APE_NVIC_H_uint32_t reserved_1029[2299];
 
     /** @brief Read the CPU ID Base Register to determine: the ID number of the processor core, the version number of the processor core, the implementation details of the processor core. */
     RegNVICCpuId_t CpuId;
 
     /** @brief Reserved bytes to pad out data structure. */
-    APE_NVIC_H_uint8_t reserved_3329[3];
+    APE_NVIC_H_uint32_t reserved_3329[3];
 
     /** @brief Use the Interrupt Control State Register to: set a pending Non-Maskable Interrupt (NMI), set or clear a pending SVC, set or clear a pending SysTick, check for pending exceptions, check the vector number of the highest priority pended exception, check the vector number of the active exception. */
     RegNVICInterruptControlState_t InterruptControlState;
 
     /** @brief Reserved bytes to pad out data structure. */
-    APE_NVIC_H_uint8_t reserved_3333[3];
+    APE_NVIC_H_uint32_t reserved_3333[3];
 
     /** @brief Use the Vector Table Offset Register to determine: if the vector table is in RAM or code memory, the vector table offset. */
     RegNVICVectorTableOffset_t VectorTableOffset;
 
     /** @brief Reserved bytes to pad out data structure. */
-    APE_NVIC_H_uint8_t reserved_3337[3];
+    APE_NVIC_H_uint32_t reserved_3337[3];
 
     /** @brief the Application Interrupt and Reset Control Register to: determine data endianness, clear all active state information for debug or to recover from a hard failure, execute a system reset, alter the priority grouping position (binary point). */
     RegNVICApplicationInterruptAndResetControl_t ApplicationInterruptAndResetControl;
 
     /** @brief Reserved bytes to pad out data structure. */
-    APE_NVIC_H_uint8_t reserved_3341[3];
+    APE_NVIC_H_uint32_t reserved_3341[3];
 
     /** @brief Use the System Control Register for power-management functions: signal to the system when the processor can enter a low power state, control how the processor enters and exits low power states. */
     RegNVICSystemControl_t SystemControl;
 
     /** @brief Reserved bytes to pad out data structure. */
-    APE_NVIC_H_uint8_t reserved_3345[3];
+    APE_NVIC_H_uint32_t reserved_3345[3];
 
     /** @brief Use the Configuration Control Register to: enable NMI, Hard Fault and FAULTMASK to ignore bus fault, trap divide by zero, and unaligned accesses, enable user access to the Software Trigger Exception Register, control entry to Thread Mode. */
     RegNVICConfigurationControl_t ConfigurationControl;
 
     /** @brief Reserved bytes to pad out data structure. */
-    APE_NVIC_H_uint8_t reserved_3349[3];
+    APE_NVIC_H_uint32_t reserved_3349[3];
 
     /** @brief System handlers are a special class of exception handler that can have their priority set to any of the priority levels. Most can be masked on (enabled) or off (disabled). When disabled, the fault is always treated as a Hard Fault. */
     RegNVICSystemHandlerPriority4_t SystemHandlerPriority4;
 
     /** @brief Reserved bytes to pad out data structure. */
-    APE_NVIC_H_uint8_t reserved_3353[3];
+    APE_NVIC_H_uint32_t reserved_3353[3];
 
     /** @brief System handlers are a special class of exception handler that can have their priority set to any of the priority levels. Most can be masked on (enabled) or off (disabled). When disabled, the fault is always treated as a Hard Fault. */
     RegNVICSystemHandlerPriority8_t SystemHandlerPriority8;
 
     /** @brief Reserved bytes to pad out data structure. */
-    APE_NVIC_H_uint8_t reserved_3357[3];
+    APE_NVIC_H_uint32_t reserved_3357[3];
 
     /** @brief System handlers are a special class of exception handler that can have their priority set to any of the priority levels. Most can be masked on (enabled) or off (disabled). When disabled, the fault is always treated as a Hard Fault. */
     RegNVICSystemHandlerPriority12_t SystemHandlerPriority12;
 
     /** @brief Reserved bytes to pad out data structure. */
-    APE_NVIC_H_uint8_t reserved_3361[3];
+    APE_NVIC_H_uint32_t reserved_3361[3];
 
     /** @brief Use the System Handler Control and State Register to: enable or disable the system handlers, determine the pending status of bus fault, mem manage fault, and SVC, determine the active status of the system handlers. */
     RegNVICSystemHandlerControlAndState_t SystemHandlerControlAndState;
 
     /** @brief Reserved bytes to pad out data structure. */
-    APE_NVIC_H_uint8_t reserved_3365[3];
+    APE_NVIC_H_uint32_t reserved_3365[3];
 
     /** @brief The flags in these registers indicate the causes of local faults. Multiple flags can be set if more than one fault occurs. These register are read/write-clear. This means that they can be read normally, but writing a 1 to any bit clears that bit. */
     RegNVICFaultStatus_t FaultStatus;
 
     /** @brief Reserved bytes to pad out data structure. */
-    APE_NVIC_H_uint8_t reserved_3369[3];
+    APE_NVIC_H_uint32_t reserved_3369[3];
 
     /** @brief Use the Hard Fault Status Register (HFSR) to obtain information about events that activate the Hard Fault handler. */
     RegNVICHardFaultStatus_t HardFaultStatus;
 
     /** @brief Reserved bytes to pad out data structure. */
-    APE_NVIC_H_uint8_t reserved_3373[3];
+    APE_NVIC_H_uint32_t reserved_3373[3];
 
     /** @brief Use the Debug Fault Status Register to monitor: external debug requests, vector catches, data watchpoint match, BKPT instruction execution, halt requests. */
     RegNVICDebugFaultStatus_t DebugFaultStatus;
 
     /** @brief Reserved bytes to pad out data structure. */
-    APE_NVIC_H_uint8_t reserved_3377[3];
+    APE_NVIC_H_uint32_t reserved_3377[3];
 
     /** @brief Use the Memory Manage Fault Address Register to read the address of the location that caused a Memory Manage Fault. */
     RegNVICMemoryManageFaultAddress_t MemoryManageFaultAddress;
 
     /** @brief Reserved bytes to pad out data structure. */
-    APE_NVIC_H_uint8_t reserved_3381[3];
+    APE_NVIC_H_uint32_t reserved_3381[3];
 
     /** @brief Use the Bus Fault Address Register to read the address of the location that generated a Bus Fault. */
     RegNVICBusFaultAddress_t BusFaultAddress;
 
     /** @brief Reserved bytes to pad out data structure. */
-    APE_NVIC_H_uint8_t reserved_3385[3];
+    APE_NVIC_H_uint32_t reserved_3385[3];
 
     /** @brief Use the Auxiliary Fault Status Register (AFSR) to determine additional system fault information to software. The AFSR flags map directly onto the AUXFAULT inputs of the processor, and a single-cycle high level on an external pin causes the corresponding AFSR bit to become latched as one. The bit can only be cleared by writing a one to the corresponding AFSR bit. When an AFSR bit is written or latched as one, an exception does not occur. If you require an exception, you must use an interrupt. */
     RegNVICAuxiliaryFaultAddress_t AuxiliaryFaultAddress;
 
     /** @brief Reserved bytes to pad out data structure. */
-    APE_NVIC_H_uint8_t reserved_3389[451];
+    APE_NVIC_H_uint32_t reserved_3389[451];
 
     /** @brief Use the Software Trigger Interrupt Register to pend an interrupt to trigger. */
     RegNVICSoftwareTriggerInterrupt_t SoftwareTriggerInterrupt;
@@ -2651,6 +2651,10 @@ extern volatile NVIC_t NVIC;
 #undef BITFIELD_BEGIN
 #undef BITFIELD_MEMBER
 #undef BITFIELD_END
+
+#ifndef CXX_SIMULATOR
+_Static_assert(sizeof(NVIC_t) == 15376, "sizeof(NVIC_t) must be 15376");
+#endif
 
 #endif /* !APE_NVIC_H */
 
