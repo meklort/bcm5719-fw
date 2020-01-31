@@ -414,7 +414,7 @@ bool Network_TX_transmitPassthroughPacket(uint32_t length, NetworkPort_t *port)
 
     int32_t tail;
     int32_t first = tail = Network_TX_allocateBlock(port);
-    if(first < 0)
+    if (first < 0)
     {
         // Unable to allocate block.
         drainPassthroughBytes(length);
@@ -429,7 +429,7 @@ bool Network_TX_transmitPassthroughPacket(uint32_t length, NetworkPort_t *port)
     if (blocks > 1)
     {
         next_block = Network_TX_allocateBlock(port);
-        if(next_block < 0)
+        if (next_block < 0)
         {
             drainPassthroughBytes(length);
             return false;
@@ -446,7 +446,7 @@ bool Network_TX_transmitPassthroughPacket(uint32_t length, NetworkPort_t *port)
         if (blocks)
         {
             next_block = Network_TX_allocateBlock(port);
-            if(next_block < 0)
+            if (next_block < 0)
             {
                 drainPassthroughBytes(length);
                 return false;
