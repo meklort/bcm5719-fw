@@ -178,7 +178,8 @@ bool NVRam_sendAndGetBytes(uint8_t send_bytes[], uint8_t get_bytes[], int32_t nu
         get_bytes[i] = NVRAM_sendAndGetByte(send_bytes[i]);
     }
 
-    // Restore Cfg1.
+    // Restore Cfg1, ensuring bitbang mode is disabled.
+    cfg1_orig.bits.BitbangMode = 0;
     NVM.NvmCfg1.r32 = cfg1_orig.r32;
 
     NVRam_disable();
