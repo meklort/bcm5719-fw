@@ -212,6 +212,10 @@ void init_APE_DEVICE1_sim(void *arg0)
     DEVICE1.TransmitMacStatus.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
     DEVICE1.TransmitMacStatus.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
 
+    /** @brief Bitmap for @ref DEVICE1_t.TransmitMacLengths. */
+    DEVICE1.TransmitMacLengths.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
+    DEVICE1.TransmitMacLengths.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+
     /** @brief Bitmap for @ref DEVICE1_t.ReceiveMacMode. */
     DEVICE1.ReceiveMacMode.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
     DEVICE1.ReceiveMacMode.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
@@ -256,6 +260,14 @@ void init_APE_DEVICE1_sim(void *arg0)
     DEVICE1.SgmiiStatus.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
     DEVICE1.SgmiiStatus.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
 
+    /** @brief Bitmap for @ref DEVICE1_t.ReceiveListPlacementMode. */
+    DEVICE1.ReceiveListPlacementMode.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
+    DEVICE1.ReceiveListPlacementMode.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref DEVICE1_t.ReceiveListPlacementStatus. */
+    DEVICE1.ReceiveListPlacementStatus.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
+    DEVICE1.ReceiveListPlacementStatus.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+
     /** @brief Bitmap for @ref DEVICE1_t.CpmuControl. */
     DEVICE1.CpmuControl.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
     DEVICE1.CpmuControl.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
@@ -267,6 +279,10 @@ void init_APE_DEVICE1_sim(void *arg0)
     /** @brief Bitmap for @ref DEVICE1_t.LinkAwarePowerModeClockPolicy. */
     DEVICE1.LinkAwarePowerModeClockPolicy.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
     DEVICE1.LinkAwarePowerModeClockPolicy.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref DEVICE1_t.ApeSleepStateClockPolicy. */
+    DEVICE1.ApeSleepStateClockPolicy.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
+    DEVICE1.ApeSleepStateClockPolicy.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
 
     /** @brief Bitmap for @ref DEVICE1_t.ClockSpeedOverridePolicy. */
     DEVICE1.ClockSpeedOverridePolicy.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
