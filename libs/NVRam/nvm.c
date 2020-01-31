@@ -55,16 +55,19 @@
 
 #ifdef CXX_SIMULATOR
 #include <arpa/inet.h>
+/* Host */
 #define REQ ReqSet1
 #define CLR ReqClr1
 #define WON ArbWon1
-#elif __arm__                /* APE */
+#elif __arm__
+/* APE Firmware */
 #define ntohl(__x__) (__x__) /* Todo: swap */
 #define htonl(__x__) (__x__) /* Todo: swap */
-#define REQ ReqSet0
-#define CLR ReqClr0
-#define WON ArbWon0
-#else /* RX CPU Firmware */
+#define REQ ReqSet2
+#define CLR ReqClr2
+#define WON ArbWon2
+#else
+/* RX CPU Firmware */
 #define ntohl(__x__) (__x__)
 #define htonl(__x__) (__x__)
 #define REQ ReqSet0
