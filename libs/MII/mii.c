@@ -168,7 +168,7 @@ static int32_t MII_readShadowRegister18(volatile DEVICE_t *device, uint8_t phy, 
     shadow_select.r16 = 0;
     shadow_select.bits.ShadowRegisterReadSelector = shadow_reg;
     shadow_select.bits.ShadowRegisterSelector = 7;
-    if(MII_writeRegisterInternal(device, phy, (mii_reg_t)0x18, shadow_select.r16))
+    if (MII_writeRegisterInternal(device, phy, (mii_reg_t)0x18, shadow_select.r16))
     {
         return MII_readRegisterInternal(device, phy, (mii_reg_t)0x18);
     }
@@ -231,7 +231,7 @@ static bool MII_writeShadowRegister18(volatile DEVICE_t *device, uint8_t phy, mi
     shadow_select.r16 = 0;
     shadow_select.bits.ShadowRegisterReadSelector = shadow_reg;
     shadow_select.bits.ShadowRegisterSelector = 7;
-    if(MII_writeRegisterInternal(device, phy, (mii_reg_t)REG_MII_AUXILIARY_CONTROL, shadow_select.r16))
+    if (MII_writeRegisterInternal(device, phy, (mii_reg_t)REG_MII_AUXILIARY_CONTROL, shadow_select.r16))
     {
         RegMIIMiscellaneousControl_t write_data;
         write_data.r16 = data;
@@ -256,7 +256,7 @@ static bool MII_writeShadowRegister1C(volatile DEVICE_t *device, uint8_t phy, mi
     RegMIICabletronLed_t shadow_select;
     shadow_select.r16 = 0;
     shadow_select.bits.ShadowRegisterSelector = shadow_reg;
-    if(MII_writeRegisterInternal(device, phy, (mii_reg_t)REG_MII_CABLETRON_LED, shadow_select.r16))
+    if (MII_writeRegisterInternal(device, phy, (mii_reg_t)REG_MII_CABLETRON_LED, shadow_select.r16))
     {
         RegMIICabletronLed_t write_data;
         write_data.r16 = data;
@@ -300,7 +300,7 @@ int32_t MII_getBlock(volatile DEVICE_t *device, uint8_t phy)
 bool MII_reset(volatile DEVICE_t *device, uint8_t phy)
 {
     // Set MII_REG_CONTROL to RESET; wait until RESET bit clears.
-    if(MII_writeRegister(device, phy, (mii_reg_t)REG_MII_CONTROL, MII_CONTROL_RESET_MASK))
+    if (MII_writeRegister(device, phy, (mii_reg_t)REG_MII_CONTROL, MII_CONTROL_RESET_MASK))
     {
         do
         {

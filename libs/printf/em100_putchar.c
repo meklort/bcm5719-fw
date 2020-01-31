@@ -42,18 +42,18 @@
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
 
-#include <printf.h>
 #include <EM100.h>
+#include <printf.h>
 
 void em100_putchar(char character)
 {
     NVRam_EM100_putchar(character);
 }
 
-void em100_puts(const char* string)
+void em100_puts(const char *string)
 {
 
-    while(*string != 0)
+    while (*string != 0)
     {
         NVRam_EM100_putchar(*string);
         string++;

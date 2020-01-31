@@ -51,14 +51,12 @@
 #include <Network.h>
 #include <types.h>
 
-#include <MII.h>
-
 #ifdef CXX_SIMULATOR
 #include <stdio.h>
 #else
 #include <printf.h>
 #endif
-#define debug(...)  printf(__VA_ARGS__)
+#define debug(...) printf(__VA_ARGS__)
 
 #define NUM_CHANNELS 1
 #define MAX_CHANNELS 4
@@ -474,7 +472,7 @@ static void getVersionID(NetworkFrame_t *frame)
 {
     int ch = frame->controlPacket.ChannelID & CHANNEL_ID_MASK;
     NetworkPort_t *port = gPackageState.port[ch];
-    DEVICE_t* device = (DEVICE_t*)port->device;
+    DEVICE_t *device = (DEVICE_t *)port->device;
     uint32_t packetSize = MAX(sizeof(gVersionFrame.version), ETHERNET_FRAME_MIN - 4);
 
     gVersionFrame.version.ChannelID = ch;
@@ -490,7 +488,6 @@ static void getVersionID(NetworkFrame_t *frame)
 
     NCSI_TxPacket(gVersionFrame.words, packetSize);
 }
-
 
 static void enableVLANHandler(NetworkFrame_t *frame)
 {
@@ -516,7 +513,6 @@ static void setVLANFilter(NetworkFrame_t *frame)
 
     sendNCSIResponse(frame->controlPacket.InstanceID, frame->controlPacket.ChannelID, frame->controlPacket.ControlPacketType,
                      NCSI_RESPONSE_CODE_COMMAND_COMPLETE, NCSI_REASON_CODE_NONE);
-
 }
 
 static void setMACAddressHandler(NetworkFrame_t *frame)
@@ -591,7 +587,7 @@ ncsi_handler_t gNCSIHandlers[] = {
 void handleNCSIFrame(NetworkFrame_t *frame)
 {
     uint8_t package = frame->controlPacket.ChannelID >> PACKAGE_ID_SHIFT;
-    if(package != 0)
+    if (package != 0)
     {
         // debug("Ignoring command to package %d\n", package);
 
@@ -615,8 +611,8 @@ void handleNCSIFrame(NetworkFrame_t *frame)
             sendNCSIResponse(frame->controlPacket.InstanceID, frame->controlPacket.ChannelID, frame->controlPacket.ControlPacketType,
                              NCSI_RESPONSE_CODE_COMMAND_FAILED, NCSI_REASON_CODE_INVALID_PAYLOAD_LENGTH);
         }
-        else if((handler->packageCommand && ch == CHANNEL_ID_PACKAGE) || // Package commands are always accepted.
-           (handler->ignoreInit &&  ch < gPackageState.numChannels))
+        else if ((handler->packageCommand && ch == CHANNEL_ID_PACKAGE) || // Package commands are always accepted.
+                 (handler->ignoreInit && ch < gPackageState.numChannels))
         {
             // Package command. Must handle.
             debug("[%x] packageCommand/ignore init channel: %d\n", command, ch);
@@ -756,7 +752,7 @@ void NCSI_init(void)
     {
         resetChannel(i);
     }
-    SHM.SegSig.r32 = 0;// (1 << command);
+    SHM.SegSig.r32 = 0; // (1 << command);
 }
 
 void NCSI_handlePassthrough(void)
