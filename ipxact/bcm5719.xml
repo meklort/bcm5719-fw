@@ -1924,6 +1924,30 @@
                     </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>
+                    <ipxact:name>DSP Coefficient Read Write Port</ipxact:name>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0x15</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>16</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>DSP Control</ipxact:name>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0x16</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>16</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>DSP Coefficient Address</ipxact:name>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0x17</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>16</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
                     <ipxact:name>Auxiliary Control</ipxact:name>
                     <ipxact:description>Note: Shadow Register Selector: 0</ipxact:description>
                     <ipxact:addressOffset>0x18</ipxact:addressOffset>
@@ -2462,42 +2486,77 @@
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
-                        <ipxact:name>Autonegotiation HCD</ipxact:name>
+                        <ipxact:name>Auto Negotiation HCD</ipxact:name>
                         <ipxact:description></ipxact:description>
                         <ipxact:bitOffset>8</ipxact:bitOffset>
                         <ipxact:bitWidth>3</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <!-- LINK: enumeratedValue: see 6.11.10, Enumeration values -->
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>NO HCD</ipxact:name>
+                                <ipxact:value>0</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>10BASE-T Half Duplex</ipxact:name>
+                                <ipxact:value>1</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>10BASE-T Full Duplex</ipxact:name>
+                                <ipxact:value>2</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>100BASE-TX Half Duplex</ipxact:name>
+                                <ipxact:value>3</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>100BASE-T4</ipxact:name>
+                                <ipxact:value>4</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>100BASE-TX Full Duplex</ipxact:name>
+                                <ipxact:value>5</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>1000BASE-T Half Duplex</ipxact:name>
+                                <ipxact:value>6</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>1000BASE-T Full Duplex</ipxact:name>
+                                <ipxact:value>7</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
                     </ipxact:field>
                     <ipxact:field>
-                        <ipxact:name>Autonegotiation Next Page Wait</ipxact:name>
+                        <ipxact:name>Auto Negotiation Next Page Wait</ipxact:name>
                         <ipxact:description></ipxact:description>
                         <ipxact:bitOffset>11</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
-                        <ipxact:name>Autonegotiation Ability Detect</ipxact:name>
+                        <ipxact:name>Auto Negotiation Ability Detect</ipxact:name>
                         <ipxact:description></ipxact:description>
                         <ipxact:bitOffset>12</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
-                        <ipxact:name>Autonegotiation ACK Detect</ipxact:name>
+                        <ipxact:name>Auto Negotiation ACK Detect</ipxact:name>
                         <ipxact:description></ipxact:description>
                         <ipxact:bitOffset>13</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
-                        <ipxact:name>Autonegotiation Complete ACK</ipxact:name>
+                        <ipxact:name>Auto Negotiation Complete ACK</ipxact:name>
                         <ipxact:description></ipxact:description>
                         <ipxact:bitOffset>14</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
                     </ipxact:field>
                     <ipxact:field>
-                        <ipxact:name>Autonegotiation Complete</ipxact:name>
+                        <ipxact:name>Auto Negotiation Complete</ipxact:name>
                         <ipxact:description></ipxact:description>
                         <ipxact:bitOffset>15</ipxact:bitOffset>
                         <ipxact:bitWidth>1</ipxact:bitWidth>

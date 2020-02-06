@@ -158,11 +158,18 @@ void init_bcm5719_MII_sim(void *base)
     MII.LocalRemoteReceiverNotOkCounter.r16.installReadCallback(read_from_ram, (uint8_t *)base);
     MII.LocalRemoteReceiverNotOkCounter.r16.installWriteCallback(write_to_ram, (uint8_t *)base);
 
-    for(int i = 0; i < 3; i++)
-    {
-        MII.reserved_21[i].installReadCallback(read_from_ram, (uint8_t *)base);
-        MII.reserved_21[i].installWriteCallback(write_to_ram, (uint8_t *)base);
-    }
+    /** @brief Bitmap for @ref MII_t.DspCoefficientReadWritePort. */
+    MII.DspCoefficientReadWritePort.r16.installReadCallback(read_from_ram, (uint8_t *)base);
+    MII.DspCoefficientReadWritePort.r16.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref MII_t.DspControl. */
+    MII.DspControl.r16.installReadCallback(read_from_ram, (uint8_t *)base);
+    MII.DspControl.r16.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref MII_t.DspCoefficientAddress. */
+    MII.DspCoefficientAddress.r16.installReadCallback(read_from_ram, (uint8_t *)base);
+    MII.DspCoefficientAddress.r16.installWriteCallback(write_to_ram, (uint8_t *)base);
+
     /** @brief Bitmap for @ref MII_t.AuxiliaryControl. */
     MII.AuxiliaryControl.r16.installReadCallback(read_from_ram, (uint8_t *)base);
     MII.AuxiliaryControl.r16.installWriteCallback(write_to_ram, (uint8_t *)base);

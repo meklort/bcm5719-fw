@@ -2029,6 +2029,81 @@ typedef register_container RegMIILocalRemoteReceiverNotOkCounter_t {
 #endif /* CXX_SIMULATOR */
 } RegMIILocalRemoteReceiverNotOkCounter_t;
 
+#define REG_MII_DSP_COEFFICIENT_READ_WRITE_PORT ((volatile BCM5719_MII_H_uint16_t*)0x15) /*  */
+/** @brief Register definition for @ref MII_t.DspCoefficientReadWritePort. */
+typedef register_container RegMIIDspCoefficientReadWritePort_t {
+    /** @brief 16bit direct register access. */
+    BCM5719_MII_H_uint16_t r16;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "DspCoefficientReadWritePort"; }
+
+    /** @brief Print register value. */
+    void print(void) { r16.print(); }
+
+    RegMIIDspCoefficientReadWritePort_t()
+    {
+        /** @brief constructor for @ref MII_t.DspCoefficientReadWritePort. */
+        r16.setName("DspCoefficientReadWritePort");
+    }
+    RegMIIDspCoefficientReadWritePort_t& operator=(const RegMIIDspCoefficientReadWritePort_t& other)
+    {
+        r16 = other.r16;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegMIIDspCoefficientReadWritePort_t;
+
+#define REG_MII_DSP_CONTROL ((volatile BCM5719_MII_H_uint16_t*)0x16) /*  */
+/** @brief Register definition for @ref MII_t.DspControl. */
+typedef register_container RegMIIDspControl_t {
+    /** @brief 16bit direct register access. */
+    BCM5719_MII_H_uint16_t r16;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "DspControl"; }
+
+    /** @brief Print register value. */
+    void print(void) { r16.print(); }
+
+    RegMIIDspControl_t()
+    {
+        /** @brief constructor for @ref MII_t.DspControl. */
+        r16.setName("DspControl");
+    }
+    RegMIIDspControl_t& operator=(const RegMIIDspControl_t& other)
+    {
+        r16 = other.r16;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegMIIDspControl_t;
+
+#define REG_MII_DSP_COEFFICIENT_ADDRESS ((volatile BCM5719_MII_H_uint16_t*)0x17) /*  */
+/** @brief Register definition for @ref MII_t.DspCoefficientAddress. */
+typedef register_container RegMIIDspCoefficientAddress_t {
+    /** @brief 16bit direct register access. */
+    BCM5719_MII_H_uint16_t r16;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "DspCoefficientAddress"; }
+
+    /** @brief Print register value. */
+    void print(void) { r16.print(); }
+
+    RegMIIDspCoefficientAddress_t()
+    {
+        /** @brief constructor for @ref MII_t.DspCoefficientAddress. */
+        r16.setName("DspCoefficientAddress");
+    }
+    RegMIIDspCoefficientAddress_t& operator=(const RegMIIDspCoefficientAddress_t& other)
+    {
+        r16 = other.r16;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegMIIDspCoefficientAddress_t;
+
 #define REG_MII_AUXILIARY_CONTROL ((volatile BCM5719_MII_H_uint16_t*)0x18) /* Note: Shadow Register Selector: 0 */
 #define     MII_AUXILIARY_CONTROL_SHADOW_REGISTER_SELECTOR_SHIFT 0u
 #define     MII_AUXILIARY_CONTROL_SHADOW_REGISTER_SELECTOR_MASK  0x7u
@@ -2200,30 +2275,39 @@ typedef register_container RegMIIAuxiliaryControl_t {
 #define     MII_AUXILIARY_STATUS_SUMMARY_PARALLEL_DETECTION_FAULT_MASK  0x80u
 #define GET_MII_AUXILIARY_STATUS_SUMMARY_PARALLEL_DETECTION_FAULT(__reg__)  (((__reg__) & 0x80) >> 7u)
 #define SET_MII_AUXILIARY_STATUS_SUMMARY_PARALLEL_DETECTION_FAULT(__val__)  (((__val__) << 7u) & 0x80u)
-#define     MII_AUXILIARY_STATUS_SUMMARY_AUTONEGOTIATION_HCD_SHIFT 8u
-#define     MII_AUXILIARY_STATUS_SUMMARY_AUTONEGOTIATION_HCD_MASK  0x700u
-#define GET_MII_AUXILIARY_STATUS_SUMMARY_AUTONEGOTIATION_HCD(__reg__)  (((__reg__) & 0x700) >> 8u)
-#define SET_MII_AUXILIARY_STATUS_SUMMARY_AUTONEGOTIATION_HCD(__val__)  (((__val__) << 8u) & 0x700u)
-#define     MII_AUXILIARY_STATUS_SUMMARY_AUTONEGOTIATION_NEXT_PAGE_WAIT_SHIFT 11u
-#define     MII_AUXILIARY_STATUS_SUMMARY_AUTONEGOTIATION_NEXT_PAGE_WAIT_MASK  0x800u
-#define GET_MII_AUXILIARY_STATUS_SUMMARY_AUTONEGOTIATION_NEXT_PAGE_WAIT(__reg__)  (((__reg__) & 0x800) >> 11u)
-#define SET_MII_AUXILIARY_STATUS_SUMMARY_AUTONEGOTIATION_NEXT_PAGE_WAIT(__val__)  (((__val__) << 11u) & 0x800u)
-#define     MII_AUXILIARY_STATUS_SUMMARY_AUTONEGOTIATION_ABILITY_DETECT_SHIFT 12u
-#define     MII_AUXILIARY_STATUS_SUMMARY_AUTONEGOTIATION_ABILITY_DETECT_MASK  0x1000u
-#define GET_MII_AUXILIARY_STATUS_SUMMARY_AUTONEGOTIATION_ABILITY_DETECT(__reg__)  (((__reg__) & 0x1000) >> 12u)
-#define SET_MII_AUXILIARY_STATUS_SUMMARY_AUTONEGOTIATION_ABILITY_DETECT(__val__)  (((__val__) << 12u) & 0x1000u)
-#define     MII_AUXILIARY_STATUS_SUMMARY_AUTONEGOTIATION_ACK_DETECT_SHIFT 13u
-#define     MII_AUXILIARY_STATUS_SUMMARY_AUTONEGOTIATION_ACK_DETECT_MASK  0x2000u
-#define GET_MII_AUXILIARY_STATUS_SUMMARY_AUTONEGOTIATION_ACK_DETECT(__reg__)  (((__reg__) & 0x2000) >> 13u)
-#define SET_MII_AUXILIARY_STATUS_SUMMARY_AUTONEGOTIATION_ACK_DETECT(__val__)  (((__val__) << 13u) & 0x2000u)
-#define     MII_AUXILIARY_STATUS_SUMMARY_AUTONEGOTIATION_COMPLETE_ACK_SHIFT 14u
-#define     MII_AUXILIARY_STATUS_SUMMARY_AUTONEGOTIATION_COMPLETE_ACK_MASK  0x4000u
-#define GET_MII_AUXILIARY_STATUS_SUMMARY_AUTONEGOTIATION_COMPLETE_ACK(__reg__)  (((__reg__) & 0x4000) >> 14u)
-#define SET_MII_AUXILIARY_STATUS_SUMMARY_AUTONEGOTIATION_COMPLETE_ACK(__val__)  (((__val__) << 14u) & 0x4000u)
-#define     MII_AUXILIARY_STATUS_SUMMARY_AUTONEGOTIATION_COMPLETE_SHIFT 15u
-#define     MII_AUXILIARY_STATUS_SUMMARY_AUTONEGOTIATION_COMPLETE_MASK  0x8000u
-#define GET_MII_AUXILIARY_STATUS_SUMMARY_AUTONEGOTIATION_COMPLETE(__reg__)  (((__reg__) & 0x8000) >> 15u)
-#define SET_MII_AUXILIARY_STATUS_SUMMARY_AUTONEGOTIATION_COMPLETE(__val__)  (((__val__) << 15u) & 0x8000u)
+#define     MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_HCD_SHIFT 8u
+#define     MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_HCD_MASK  0x700u
+#define GET_MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_HCD(__reg__)  (((__reg__) & 0x700) >> 8u)
+#define SET_MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_HCD(__val__)  (((__val__) << 8u) & 0x700u)
+#define     MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_HCD_NO_HCD 0x0u
+#define     MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_HCD_10BASE_T_HALF_DUPLEX 0x1u
+#define     MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_HCD_10BASE_T_FULL_DUPLEX 0x2u
+#define     MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_HCD_100BASE_TX_HALF_DUPLEX 0x3u
+#define     MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_HCD_100BASE_T4 0x4u
+#define     MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_HCD_100BASE_TX_FULL_DUPLEX 0x5u
+#define     MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_HCD_1000BASE_T_HALF_DUPLEX 0x6u
+#define     MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_HCD_1000BASE_T_FULL_DUPLEX 0x7u
+
+#define     MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_NEXT_PAGE_WAIT_SHIFT 11u
+#define     MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_NEXT_PAGE_WAIT_MASK  0x800u
+#define GET_MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_NEXT_PAGE_WAIT(__reg__)  (((__reg__) & 0x800) >> 11u)
+#define SET_MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_NEXT_PAGE_WAIT(__val__)  (((__val__) << 11u) & 0x800u)
+#define     MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_ABILITY_DETECT_SHIFT 12u
+#define     MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_ABILITY_DETECT_MASK  0x1000u
+#define GET_MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_ABILITY_DETECT(__reg__)  (((__reg__) & 0x1000) >> 12u)
+#define SET_MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_ABILITY_DETECT(__val__)  (((__val__) << 12u) & 0x1000u)
+#define     MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_ACK_DETECT_SHIFT 13u
+#define     MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_ACK_DETECT_MASK  0x2000u
+#define GET_MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_ACK_DETECT(__reg__)  (((__reg__) & 0x2000) >> 13u)
+#define SET_MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_ACK_DETECT(__val__)  (((__val__) << 13u) & 0x2000u)
+#define     MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_COMPLETE_ACK_SHIFT 14u
+#define     MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_COMPLETE_ACK_MASK  0x4000u
+#define GET_MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_COMPLETE_ACK(__reg__)  (((__reg__) & 0x4000) >> 14u)
+#define SET_MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_COMPLETE_ACK(__val__)  (((__val__) << 14u) & 0x4000u)
+#define     MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_COMPLETE_SHIFT 15u
+#define     MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_COMPLETE_MASK  0x8000u
+#define GET_MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_COMPLETE(__reg__)  (((__reg__) & 0x8000) >> 15u)
+#define SET_MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_COMPLETE(__val__)  (((__val__) << 15u) & 0x8000u)
 
 /** @brief Register definition for @ref MII_t.AuxiliaryStatusSummary. */
 typedef register_container RegMIIAuxiliaryStatusSummary_t {
@@ -2249,30 +2333,30 @@ typedef register_container RegMIIAuxiliaryStatusSummary_t {
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ParallelDetectionFault, 7, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutonegotiationHCD, 8, 3)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutoNegotiationHCD, 8, 3)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutonegotiationNextPageWait, 11, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutoNegotiationNextPageWait, 11, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutonegotiationAbilityDetect, 12, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutoNegotiationAbilityDetect, 12, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutonegotiationACKDetect, 13, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutoNegotiationACKDetect, 13, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutonegotiationCompleteACK, 14, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutoNegotiationCompleteACK, 14, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutonegotiationComplete, 15, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutoNegotiationComplete, 15, 1)
 #elif defined(__BIG_ENDIAN__)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutonegotiationComplete, 15, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutoNegotiationComplete, 15, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutonegotiationCompleteACK, 14, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutoNegotiationCompleteACK, 14, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutonegotiationACKDetect, 13, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutoNegotiationACKDetect, 13, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutonegotiationAbilityDetect, 12, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutoNegotiationAbilityDetect, 12, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutonegotiationNextPageWait, 11, 1)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutoNegotiationNextPageWait, 11, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutonegotiationHCD, 8, 3)
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, AutoNegotiationHCD, 8, 3)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ParallelDetectionFault, 7, 1)
         /** @brief  */
@@ -2320,18 +2404,27 @@ typedef register_container RegMIIAuxiliaryStatusSummary_t {
         bits.RemoteFault.setName("RemoteFault");
         bits.ParallelDetectionFault.setBaseRegister(&r16);
         bits.ParallelDetectionFault.setName("ParallelDetectionFault");
-        bits.AutonegotiationHCD.setBaseRegister(&r16);
-        bits.AutonegotiationHCD.setName("AutonegotiationHCD");
-        bits.AutonegotiationNextPageWait.setBaseRegister(&r16);
-        bits.AutonegotiationNextPageWait.setName("AutonegotiationNextPageWait");
-        bits.AutonegotiationAbilityDetect.setBaseRegister(&r16);
-        bits.AutonegotiationAbilityDetect.setName("AutonegotiationAbilityDetect");
-        bits.AutonegotiationACKDetect.setBaseRegister(&r16);
-        bits.AutonegotiationACKDetect.setName("AutonegotiationACKDetect");
-        bits.AutonegotiationCompleteACK.setBaseRegister(&r16);
-        bits.AutonegotiationCompleteACK.setName("AutonegotiationCompleteACK");
-        bits.AutonegotiationComplete.setBaseRegister(&r16);
-        bits.AutonegotiationComplete.setName("AutonegotiationComplete");
+        bits.AutoNegotiationHCD.setBaseRegister(&r16);
+        bits.AutoNegotiationHCD.setName("AutoNegotiationHCD");
+        bits.AutoNegotiationHCD.addEnum("NO HCD", 0x0);
+        bits.AutoNegotiationHCD.addEnum("10BASE-T Half Duplex", 0x1);
+        bits.AutoNegotiationHCD.addEnum("10BASE-T Full Duplex", 0x2);
+        bits.AutoNegotiationHCD.addEnum("100BASE-TX Half Duplex", 0x3);
+        bits.AutoNegotiationHCD.addEnum("100BASE-T4", 0x4);
+        bits.AutoNegotiationHCD.addEnum("100BASE-TX Full Duplex", 0x5);
+        bits.AutoNegotiationHCD.addEnum("1000BASE-T Half Duplex", 0x6);
+        bits.AutoNegotiationHCD.addEnum("1000BASE-T Full Duplex", 0x7);
+
+        bits.AutoNegotiationNextPageWait.setBaseRegister(&r16);
+        bits.AutoNegotiationNextPageWait.setName("AutoNegotiationNextPageWait");
+        bits.AutoNegotiationAbilityDetect.setBaseRegister(&r16);
+        bits.AutoNegotiationAbilityDetect.setName("AutoNegotiationAbilityDetect");
+        bits.AutoNegotiationACKDetect.setBaseRegister(&r16);
+        bits.AutoNegotiationACKDetect.setName("AutoNegotiationACKDetect");
+        bits.AutoNegotiationCompleteACK.setBaseRegister(&r16);
+        bits.AutoNegotiationCompleteACK.setName("AutoNegotiationCompleteACK");
+        bits.AutoNegotiationComplete.setBaseRegister(&r16);
+        bits.AutoNegotiationComplete.setName("AutoNegotiationComplete");
     }
     RegMIIAuxiliaryStatusSummary_t& operator=(const RegMIIAuxiliaryStatusSummary_t& other)
     {
@@ -4177,8 +4270,14 @@ typedef struct MII_t {
     /** @brief  */
     RegMIILocalRemoteReceiverNotOkCounter_t LocalRemoteReceiverNotOkCounter;
 
-    /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_MII_H_uint16_t reserved_21[3];
+    /** @brief  */
+    RegMIIDspCoefficientReadWritePort_t DspCoefficientReadWritePort;
+
+    /** @brief  */
+    RegMIIDspControl_t DspControl;
+
+    /** @brief  */
+    RegMIIDspCoefficientAddress_t DspCoefficientAddress;
 
     /** @brief Note: Shadow Register Selector: 0 */
     RegMIIAuxiliaryControl_t AuxiliaryControl;
@@ -4289,10 +4388,9 @@ typedef struct MII_t {
         ReceiveErrorCounter.r16.setComponentOffset(0x12);
         FalseCarrierSenseCounter.r16.setComponentOffset(0x13);
         LocalRemoteReceiverNotOkCounter.r16.setComponentOffset(0x14);
-        for(int i = 0; i < 3; i++)
-        {
-            reserved_21[i].setComponentOffset(0x15 + (i * 2));
-        }
+        DspCoefficientReadWritePort.r16.setComponentOffset(0x15);
+        DspControl.r16.setComponentOffset(0x16);
+        DspCoefficientAddress.r16.setComponentOffset(0x17);
         AuxiliaryControl.r16.setComponentOffset(0x18);
         AuxiliaryStatusSummary.r16.setComponentOffset(0x19);
         InterruptStatus.r16.setComponentOffset(0x1a);
@@ -4379,10 +4477,9 @@ typedef struct MII_t {
         ReceiveErrorCounter.print();
         FalseCarrierSenseCounter.print();
         LocalRemoteReceiverNotOkCounter.print();
-        for(int i = 0; i < 3; i++)
-        {
-            reserved_21[i].print();
-        }
+        DspCoefficientReadWritePort.print();
+        DspControl.print();
+        DspCoefficientAddress.print();
         AuxiliaryControl.print();
         AuxiliaryStatusSummary.print();
         InterruptStatus.print();

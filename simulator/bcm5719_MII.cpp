@@ -85,6 +85,12 @@ void init_bcm5719_MII(void)
 
     /** @brief Bitmap for @ref MII_t.LocalRemoteReceiverNotOkCounter. */
 
+    /** @brief Bitmap for @ref MII_t.DspCoefficientReadWritePort. */
+
+    /** @brief Bitmap for @ref MII_t.DspControl. */
+
+    /** @brief Bitmap for @ref MII_t.DspCoefficientAddress. */
+
     /** @brief Bitmap for @ref MII_t.AuxiliaryControl. */
 
     /** @brief Bitmap for @ref MII_t.AuxiliaryStatusSummary. */
