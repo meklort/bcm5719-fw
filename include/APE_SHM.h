@@ -1209,10 +1209,31 @@ typedef register_container RegSHMHeartbeatCount_t {
 } RegSHMHeartbeatCount_t;
 
 #define REG_SHM_HOST_DRIVER_STATE ((volatile APE_SHM_H_uint32_t*)0x6022021c) /*  */
+#define     SHM_HOST_DRIVER_STATE_STATE_SHIFT 0u
+#define     SHM_HOST_DRIVER_STATE_STATE_MASK  0xffffffffu
+#define GET_SHM_HOST_DRIVER_STATE_STATE(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
+#define SET_SHM_HOST_DRIVER_STATE_STATE(__val__)  (((__val__) << 0u) & 0xffffffffu)
+#define     SHM_HOST_DRIVER_STATE_STATE_START 0x1u
+#define     SHM_HOST_DRIVER_STATE_STATE_UNLOAD 0x2u
+#define     SHM_HOST_DRIVER_STATE_STATE_WOL 0x3u
+
+
 /** @brief Register definition for @ref SHM_t.HostDriverState. */
 typedef register_container RegSHMHostDriverState_t {
     /** @brief 32bit direct register access. */
     APE_SHM_H_uint32_t r32;
+
+    BITFIELD_BEGIN(APE_SHM_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_SHM_H_uint32_t, State, 0, 32)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_SHM_H_uint32_t, State, 0, 32)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(APE_SHM_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "HostDriverState"; }
@@ -1224,6 +1245,12 @@ typedef register_container RegSHMHostDriverState_t {
     {
         /** @brief constructor for @ref SHM_t.HostDriverState. */
         r32.setName("HostDriverState");
+        bits.State.setBaseRegister(&r32);
+        bits.State.setName("State");
+        bits.State.addEnum("Start", 0x1);
+        bits.State.addEnum("Unload", 0x2);
+        bits.State.addEnum("WOL", 0x3);
+
     }
     RegSHMHostDriverState_t& operator=(const RegSHMHostDriverState_t& other)
     {

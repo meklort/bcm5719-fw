@@ -335,10 +335,34 @@ typedef register_container RegGENGenAsfStatusMbox_t {
 } RegGENGenAsfStatusMbox_t;
 
 #define REG_GEN_GEN_FW_DRIVER_STATE_MBOX ((volatile BCM5719_GEN_H_uint32_t*)0xc04) /*  */
+#define     GEN_GEN_FW_DRIVER_STATE_MBOX_STATE_SHIFT 0u
+#define     GEN_GEN_FW_DRIVER_STATE_MBOX_STATE_MASK  0xffffffffu
+#define GET_GEN_GEN_FW_DRIVER_STATE_MBOX_STATE(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
+#define SET_GEN_GEN_FW_DRIVER_STATE_MBOX_STATE(__val__)  (((__val__) << 0u) & 0xffffffffu)
+#define     GEN_GEN_FW_DRIVER_STATE_MBOX_STATE_START 0x1u
+#define     GEN_GEN_FW_DRIVER_STATE_MBOX_STATE_UNLOAD 0x2u
+#define     GEN_GEN_FW_DRIVER_STATE_MBOX_STATE_WOL 0x3u
+#define     GEN_GEN_FW_DRIVER_STATE_MBOX_STATE_SUSPEND 0x4u
+#define     GEN_GEN_FW_DRIVER_STATE_MBOX_STATE_START_DONE 0x80000001u
+#define     GEN_GEN_FW_DRIVER_STATE_MBOX_STATE_UNLOAD_DONE 0x80000002u
+
+
 /** @brief Register definition for @ref GEN_t.GenFwDriverStateMbox. */
 typedef register_container RegGENGenFwDriverStateMbox_t {
     /** @brief 32bit direct register access. */
     BCM5719_GEN_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_GEN_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, State, 0, 32)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, State, 0, 32)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_GEN_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "GenFwDriverStateMbox"; }
@@ -350,6 +374,15 @@ typedef register_container RegGENGenFwDriverStateMbox_t {
     {
         /** @brief constructor for @ref GEN_t.GenFwDriverStateMbox. */
         r32.setName("GenFwDriverStateMbox");
+        bits.State.setBaseRegister(&r32);
+        bits.State.setName("State");
+        bits.State.addEnum("Start", 0x1);
+        bits.State.addEnum("Unload", 0x2);
+        bits.State.addEnum("WOL", 0x3);
+        bits.State.addEnum("Suspend", 0x4);
+        bits.State.addEnum("Start Done", 0x80000001);
+        bits.State.addEnum("Unload Done", 0x80000002);
+
     }
     RegGENGenFwDriverStateMbox_t& operator=(const RegGENGenFwDriverStateMbox_t& other)
     {

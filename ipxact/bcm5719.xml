@@ -134,6 +134,40 @@
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>State</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>32</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <!-- LINK: enumeratedValue: see 6.11.10, Enumeration values -->
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Start</ipxact:name>
+                                <ipxact:value>1</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Start Done</ipxact:name>
+                                <ipxact:value>0x80000001</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Unload</ipxact:name>
+                                <ipxact:value>2</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Unload Done</ipxact:name>
+                                <ipxact:value>0x80000002</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>WOL</ipxact:name>
+                                <ipxact:value>3</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Suspend</ipxact:name>
+                                <ipxact:value>4</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
+                    </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>GEN_FW_RESET_TYPE_MBOX</ipxact:name>
