@@ -91,46 +91,49 @@ void init_mii_function0(volatile DEVICE_t* device)
 
         // MIIPORT 0 (0x8010):0x1A |= 0x4000
         MII_selectBlock(device, 0, 0x8010);
-        uint16_t r1Ah_value = MII_readRegister(device, 0, (mii_reg_t)0x1A);
-        r1Ah_value |= 0x4000;
-        MII_writeRegister(device, 0, (mii_reg_t)0x1A, r1Ah_value);
-
-        reportStatus(STATUS_INIT_HW, 0xf2);
-
-        // (Note: This is done in a retry loop which verifies the block select by
-        // reading 0x1F and confirming it reads 0x8610
-        do
+        if(0x8010 == MII_getBlock(device, 0))
         {
-            MII_selectBlock(device, 0, 0x8610);
-        } while (0x8610 != MII_getBlock(device, 0));
+            uint16_t r1Ah_value = MII_readRegister(device, 0, (mii_reg_t)0x1A);
+            r1Ah_value |= 0x4000;
+            MII_writeRegister(device, 0, (mii_reg_t)0x1A, r1Ah_value);
 
-        reportStatus(STATUS_INIT_HW, 0xf3);
+            reportStatus(STATUS_INIT_HW, 0xf2);
 
-        // MIIPORT 0 (0x8610):0x15, set bits 0:1 to 2.
-        uint16_t r15h_value = MII_readRegister(device, 0, (mii_reg_t)0x15);
-        r15h_value &= ~0x3;
-        r15h_value |= 0x2;
-        MII_writeRegister(device, 0, (mii_reg_t)0x15, r15h_value);
+            // (Note: This is done in a retry loop which verifies the block select by
+            // reading 0x1F and confirming it reads 0x8610
+            do
+            {
+                MII_selectBlock(device, 0, 0x8610);
+            } while (0x8610 != MII_getBlock(device, 0));
 
-        reportStatus(STATUS_INIT_HW, 0xf4);
+            reportStatus(STATUS_INIT_HW, 0xf3);
 
-        // and then verifies that bits 0:1 have been set to 2, and retries about a
-        // dozen times until the block select and write are both correct. Probably
-        // an attempt to work around some bug or weird asynchronous behaviour for
-        // these unknown MII registers.)
-        do
-        {
-            r15h_value = MII_readRegister(device, 0, (mii_reg_t)0x15);
-        } while (2 != (r15h_value & 0x3));
+            // MIIPORT 0 (0x8610):0x15, set bits 0:1 to 2.
+            uint16_t r15h_value = MII_readRegister(device, 0, (mii_reg_t)0x15);
+            r15h_value &= ~0x3;
+            r15h_value |= 0x2;
+            MII_writeRegister(device, 0, (mii_reg_t)0x15, r15h_value);
 
-        reportStatus(STATUS_INIT_HW, 0xf5);
+            reportStatus(STATUS_INIT_HW, 0xf4);
 
-        // (0x8010):0x1A, mask 0x4000.
-        MII_selectBlock(device, 0, 0x8010);
-        r1Ah_value &= ~0x4000;
-        MII_writeRegister(device, 0, (mii_reg_t)0x1A, r1Ah_value);
+            // and then verifies that bits 0:1 have been set to 2, and retries about a
+            // dozen times until the block select and write are both correct. Probably
+            // an attempt to work around some bug or weird asynchronous behaviour for
+            // these unknown MII registers.)
+            do
+            {
+                r15h_value = MII_readRegister(device, 0, (mii_reg_t)0x15);
+            } while (2 != (r15h_value & 0x3));
 
-        reportStatus(STATUS_INIT_HW, 0xf6);
+            reportStatus(STATUS_INIT_HW, 0xf5);
+
+            // (0x8010):0x1A, mask 0x4000.
+            MII_selectBlock(device, 0, 0x8010);
+            r1Ah_value &= ~0x4000;
+            MII_writeRegister(device, 0, (mii_reg_t)0x1A, r1Ah_value);
+
+            reportStatus(STATUS_INIT_HW, 0xf6);
+        }
 
         MII_selectBlock(device, 0, 0);
 
