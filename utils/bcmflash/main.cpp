@@ -72,6 +72,22 @@ using namespace std;
 using optparse::OptionParser;
 
 
+NVRAMStage2_t * get_stage2(uint32_t* stage2_wd)
+{
+    NVRAMStage2_t *stage2 = (NVRAMStage2_t*)stage2_wd;
+
+    uint32_t magic = be32toh(stage2->header.magic);
+
+    if(magic != BCM_NVRAM_MAGIC)
+    {
+        // Invalid magic.
+        return NULL;
+    }
+
+    return stage2;
+}
+
+
 bool save_to_file(const char* filename, void* buffer, size_t size)
 {
     cout << "Writing to " << filename << "." << endl;
@@ -86,6 +102,26 @@ bool save_to_file(const char* filename, void* buffer, size_t size)
     {
         cerr << "Unable to open " << filename << " for writing." << endl;
         return false;
+    }
+}
+
+void update_nvm(uint32_t *buffer, uint32_t num_words, bool bitbang)
+{
+    if(bitbang)
+    {
+        NVRam_bitbang_write(0, buffer, num_words);
+    }
+    else
+    {
+        NVRam_acquireLock();
+        NVRam_enable();
+        NVRam_enableWrites();
+
+        NVRam_write(0, buffer, num_words);
+
+        NVRam_disableWrites();
+        NVRam_disable();
+        NVRam_releaseLock();
     }
 }
 
@@ -127,6 +163,12 @@ int main(int argc, char const *argv[])
             .action("store_true")
             .set_default("0")
             .help("Recover form an incorrect NVM autodetection. Only valid with --target=hardware");
+
+    parser.add_option("-g", "--nvm-bitbang")
+            .dest("bitbang")
+            .action("store_true")
+            .set_default("0")
+            .help("Bitbang SPI instead of using the NVRAM hardware");
 
     parser.add_option("-i", "--file")
             .dest("filename")
@@ -206,6 +248,11 @@ int main(int argc, char const *argv[])
 
         printf("ChipId: %x\n", (uint32_t)DEVICE.ChipId.r32);
 
+
+        if(options.get("unlock"))
+        {
+            NVRam_releaseAllLocks();
+        }
         if(options.get("recovery"))
         {
             NVRam_acquireLock();
@@ -230,22 +277,21 @@ int main(int argc, char const *argv[])
         }
 
 
-        if(options.get("unlock"))
+        if(options.get("bitbang"))
         {
-            NVM.SoftwareArbitration.bits.ReqClr0 = 1;
-            NVM.SoftwareArbitration.bits.ReqClr1 = 1;
-            NVM.SoftwareArbitration.bits.ReqClr2 = 1;
-            NVM.SoftwareArbitration.bits.ReqClr3 = 1;
+            // NVRam_bitbang_writeWord(0, 0x44554433);
+            NVRam_bitbang_read(0, nvram.words, NVRAM_SIZE / 4);
         }
+        else
+        {
+            NVRam_acquireLock();
+            NVRam_enable();
 
+            NVRam_read(0, nvram.words, NVRAM_SIZE / 4);
 
-        NVRam_acquireLock();
-
-        NVRam_enable();
-
-        NVRam_read(0, nvram.words, NVRAM_SIZE / 4);
-
-        NVRam_releaseLock();
+            NVRam_disable();
+            NVRam_releaseLock();
+        }
     }
     else
     {
@@ -273,16 +319,7 @@ int main(int argc, char const *argv[])
         if("hardware" == options["target"])
         {
             cout << "Restoring from " << options["restore"] << " to hardware." << endl;
-            NVRam_acquireLock();
-
-            NVRam_enable();
-            NVRam_enableWrites();
-
-            NVRam_write(0, nvram.words, NVRAM_SIZE / 4);
-
-            NVRam_disableWrites();
-
-            NVRam_releaseLock();
+            update_nvm(nvram.words, NVRAM_SIZE / 4, options.get("bitbang"));
         }
         else
         {
@@ -319,13 +356,15 @@ int main(int argc, char const *argv[])
 
     uint32_t crc_word = stage1_length / 4;
 
-    uint32_t expected_crc = be32toh(~NVRam_crc(stage1, stage1_length, 0xffffffff));
     printf("=== stage1 ===\n");
     printf("Magic:               0x%08X\n", be32toh(nvram.contents.header.magic));
     printf("Bootstrap Phys Addr: 0x%08X\n",
            be32toh(nvram.contents.header.bootstrapPhysAddr));
     printf("Length (bytes):      0x%08zX\n", stage1_length);
     printf("Offset:              0x%08lX\n", ((stage1_wd - nvram.words) * 4));
+    stage1_length = MIN(NVRAM_SIZE / 4, stage1_length);
+    crc_word = MIN(NVRAM_SIZE / 4 - 1, crc_word);
+    uint32_t expected_crc = be32toh(~NVRam_crc(stage1, stage1_length, 0xffffffff));
     printf("Calculated CRC:      0x%08X\n", expected_crc);
     printf("CRC:                 0x%08X\n", be32toh(stage1_wd[crc_word]));
 
@@ -365,6 +404,7 @@ int main(int argc, char const *argv[])
 
             if(new_stage1_length > stage1_length)
             {
+                
                 cerr << "Length is longer than original, currently unable to update." << endl;
                 exit(-1);
             }
@@ -402,16 +442,7 @@ int main(int argc, char const *argv[])
 
             if("hardware" == options["target"])
             {
-                NVRam_acquireLock();
-
-                NVRam_enable();
-                NVRam_enableWrites();
-
-                NVRam_write(0, nvram.words, NVRAM_SIZE / 4);
-
-                NVRam_disableWrites();
-
-                NVRam_releaseLock();
+                update_nvm(nvram.words, NVRAM_SIZE / 4, options.get("bitbang"));
             }
         }
         else
@@ -422,38 +453,46 @@ int main(int argc, char const *argv[])
         exit(0);
     }
 
-    uint32_t* stage2_wd =  &stage1_wd[(crc_word + 1)]; // immediately after stage1 crc
-    NVRAMStage2_t *stage2 = (NVRAMStage2_t*)stage2_wd;
-
-    uint32_t stage2_length = be32toh(stage2->header.length); // second word is size (bytes).
-    stage2_length -= 4; // length includes crc.
-    uint32_t stage2_crc_word = stage2_length / 4;
-    printf("=== stage2 ===\n");
-    printf("Magic:               0x%08X\n", be32toh(stage2->header.magic));
-    printf("Length (bytes):      0x%08X\n", stage2_length);
-    printf("Offset:              0x%08lX\n", ((stage2_wd - nvram.words) * 4));
-    uint32_t stage2_expected_crc = be32toh(~NVRam_crc((uint8_t*)stage2->words, stage2_length, 0xffffffff));
-    printf("Calculated CRC:      0x%08X\n", stage2_expected_crc);
-    printf("CRC:                 0x%08X\n", be32toh(stage2->words[stage2_crc_word]));
-
-    if(be32toh(stage2->header.magic) != BCM_NVRAM_MAGIC)
+    NVRAMStage2_t *stage2 = get_stage2(&stage1_wd[(crc_word + 1)]);  // immediately after stage1 crc
+    if(stage2)
     {
-        fprintf(stderr, "Error: stage2 magic is invalid.\n");
-        exit(-1);
-    }
 
-    if(be32toh(stage2->words[stage2_crc_word]) != stage2_expected_crc)
-    {
-        fprintf(stderr, "Error: stage2 crc is invalid.\n");
-        exit(-1);
-    }
+        uint32_t stage2_length = be32toh(stage2->header.length); // second word is size (bytes).
+        stage2_length -= 4; // length includes crc.
+        uint32_t stage2_crc_word = stage2_length / 4;
+        printf("=== stage2 ===\n");
+        printf("Magic:               0x%08X\n", be32toh(stage2->header.magic));
+        printf("Length (bytes):      0x%08X\n", stage2_length);
+        printf("Offset:              0x%08lX\n", (((uint32_t*)stage2 - nvram.words) * 4));
+        uint32_t stage2_expected_crc = be32toh(~NVRam_crc((uint8_t*)stage2->words, stage2_length, 0xffffffff));
+        printf("Calculated CRC:      0x%08X\n", stage2_expected_crc);
+        printf("CRC:                 0x%08X\n", be32toh(stage2->words[stage2_crc_word]));
 
-    if(extract)
-    {
-        if(!save_to_file("stage2.bin", stage2->words, stage2_length))
+        if(be32toh(stage2->header.magic) != BCM_NVRAM_MAGIC)
         {
+            fprintf(stderr, "Error: stage2 magic is invalid.\n");
             exit(-1);
         }
+
+        if(be32toh(stage2->words[stage2_crc_word]) != stage2_expected_crc)
+        {
+            fprintf(stderr, "Error: stage2 crc is invalid.\n");
+            exit(-1);
+        }
+
+        if(extract)
+        {
+            if(!save_to_file("stage2.bin", stage2->words, stage2_length))
+            {
+                exit(-1);
+            }
+        }
+    }
+    else
+    {
+        printf("=== stage2 ===\n");
+        printf("not present\n");
+
     }
 
     for (int i = 0; i < ARRAY_ELEMENTS(nvram.contents.directory); i++)
@@ -557,16 +596,7 @@ int main(int argc, char const *argv[])
                     ape_wd[i] = be32toh(ape_wd[i]);
                 }
 
-                NVRam_acquireLock();
-
-                NVRam_enable();
-                NVRam_enableWrites();
-
-                NVRam_write(0, nvram.words, NVRAM_SIZE / 4);
-
-                NVRam_disableWrites();
-
-                NVRam_releaseLock();
+                update_nvm(nvram.words, NVRAM_SIZE / 4, options.get("bitbang"));
             }
         }
         else
