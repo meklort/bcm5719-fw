@@ -412,6 +412,12 @@ int main(int argc, char const *argv[])
             .action("store_true")
             .help("Print NVM registers");
 
+    parser.add_option("--unlock")
+            .dest("unlock")
+            .set_default("0")
+            .action("store_true")
+            .help("Unlock NVM and APE registers");
+
     parser.add_option("-apereset", "--apereset")
             .dest("apereset")
             .set_default("0")
@@ -801,6 +807,13 @@ int main(int argc, char const *argv[])
         exit(0);
     }
 
+    if(options.get("unlock"))
+    {
+        NVRam_releaseAllLocks();
+        APE_releaseAllLocks();
+
+        exit(0);
+    }
     if(options.get("nvm"))
     {
         NVM.print();
