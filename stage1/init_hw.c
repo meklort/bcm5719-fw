@@ -76,13 +76,6 @@ void *memset(void *s, int c, size_t n)
     return s;
 }
 
-static inline bool is_nic(void)
-{
-    // If DEVICE.Status.bits.VMAINPowerStatus is set we are in NIC mode,
-    // otherwise LoM mode.
-    return (1 == DEVICE.Status.bits.VMAINPowerStatus);
-}
-
 void init_mii_function0(volatile DEVICE_t* device)
 {
     if(0 == DEVICE.Status.bits.FunctionNumber)
@@ -165,34 +158,6 @@ void __attribute__((noinline)) zero_bss(void)
 
 void early_init_hw(void)
 {
-    // Enable memory arbitration
-    DEVICE.MemoryArbiterMode.bits.Enable = 1;
-
-    // Disable data cache.
-    DEVICE.RxRiscMode.bits.EnableDataCache = 0;
-
-    // Enable various ape bits.
-    RegDEVICEPciState_t pcistate = DEVICE.PciState;
-    pcistate.bits.APEControlRegisterWriteEnable = 1;
-    pcistate.bits.APESharedMemoryWriteEnable = 1;
-    pcistate.bits.APEProgramSpaceWriteEnable = 1;
-    DEVICE.PciState = pcistate;
-
-    // Configure GPHY
-    RegDEVICEGphyControlStatus_t gphystate = DEVICE.GphyControlStatus;
-    gphystate.bits.GPHYIDDQ = 0;               // Power on GPHY
-    gphystate.bits.BIASIDDQ = 0;               // Power on BIAS
-    gphystate.bits.SGMII_DIV_PCSPowerDown = 0; // Power on SGMII
-    gphystate.bits.TLPClockSource = 0;         // TLP Clock from PCIE SERDES
-
-    if (is_nic())
-    {
-        // VMAIN ON, NIC (not LoM)
-        gphystate.bits.TLPClockSource = 1;
-    }
-
-    DEVICE.GphyControlStatus = gphystate;
-
     zero_bss();
 
     // Zero out ram - gencom, db cache, tx/rx mbuf, others in mem map
