@@ -44,10 +44,12 @@
 
 #ifdef CXX_SIMULATOR
 #include <stdio.h>
-#endif /* CXX_SIMULATOR */
 #include <stdlib.h>
 #include <string.h>
+#endif /* CXX_SIMULATOR */
 #include <vpd.h>
+
+#ifdef CXX_SIMULATOR /* Host libraries required */
 
 typedef struct
 {
@@ -193,3 +195,5 @@ uint8_t *vpd_get_identifier(uint8_t *buffer, uint32_t *len)
 
     return get_tag_data(buffer, len);
 }
+
+#endif /* CXX_SIMULATOR */

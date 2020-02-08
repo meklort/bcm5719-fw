@@ -83,6 +83,7 @@ typedef union {
 #define VPD_VENDOR_SPECIFIC_0   "V0"
 #define VPD_CHECKSUM            "RV"
 
+#ifdef CXX_SIMULATOR /* Host libraries required */
 const char *vpd_get_field_name(uint16_t field);
 
 uint8_t *vpd_get_identifier(uint8_t *buffer, uint32_t *len);
@@ -92,3 +93,4 @@ uint8_t *vpd_get_resource_by_index(uint8_t *buffer, uint32_t *len, uint16_t *nam
 bool vpd_set_resource(uint8_t *buffer, uint32_t len, uint16_t resource,
                       uint8_t *add_data, uint32_t add_len);
 bool vpd_is_valid(uint8_t *buffer, uint32_t len);
+#endif
