@@ -58,8 +58,8 @@
 #include <APE_TX_PORT1.h>
 #include <APE_TX_PORT2.h>
 #include <APE_TX_PORT3.h>
-#include <Network.h>
 #include <MII.h>
+#include <Network.h>
 
 NetworkPort_t gPort0 = {
     .device = &DEVICE,
@@ -856,14 +856,14 @@ void Network_updatePortState(NetworkPort_t *port)
     RegMIIControl_t control;
 
     control.r16 = MII_readRegister(port->device, phy, (mii_reg_t)REG_MII_CONTROL);
-    if(control.bits.RestartAutonegotiation)
+    if (control.bits.RestartAutonegotiation)
     {
         // Link down, don't update mac mode.
     }
     else
     {
         status.r16 = MII_readRegister(port->device, phy, (mii_reg_t)REG_MII_AUXILIARY_STATUS_SUMMARY);
-        if(control.bits.AutoNegotiationEnable && !status.bits.AutoNegotiationComplete)
+        if (control.bits.AutoNegotiationEnable && !status.bits.AutoNegotiationComplete)
         {
             // Link down, don't update mac mode.
         }
@@ -874,7 +874,7 @@ void Network_updatePortState(NetworkPort_t *port)
             emacModeOrig = emacMode = port->device->EmacMode;
 
             // Select full/half duplex mode.
-            switch((uint8_t)status.bits.AutoNegotiationHCD)
+            switch ((uint8_t)status.bits.AutoNegotiationHCD)
             {
                 case MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_HCD_NO_HCD:
                     // Error
@@ -895,7 +895,7 @@ void Network_updatePortState(NetworkPort_t *port)
             }
 
             // Select Speed
-            switch((uint8_t)status.bits.AutoNegotiationHCD)
+            switch ((uint8_t)status.bits.AutoNegotiationHCD)
             {
                 case MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_HCD_NO_HCD:
                     // Error
@@ -915,12 +915,11 @@ void Network_updatePortState(NetworkPort_t *port)
                     break;
             }
 
-            if(emacMode.r32 != emacModeOrig.r32)
+            if (emacMode.r32 != emacModeOrig.r32)
             {
                 // Update emac mode to match current state.
                 port->device->EmacMode = emacMode;
             }
-
         }
     }
 }
