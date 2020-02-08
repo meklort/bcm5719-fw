@@ -103,6 +103,9 @@ void Network_InitTxRx(void);
 void Network_resetTX(NetworkPort_t *port);
 void Network_resetRX(NetworkPort_t *port);
 
+void Network_updatePortState(NetworkPort_t *port);
+
+
 uint32_t Network_TX_numBlocksNeeded(uint32_t frame_size);
 int32_t Network_TX_allocateBlock(NetworkPort_t *port);
 void Network_TX_releaseBlock(NetworkPort_t *port, int32_t block);

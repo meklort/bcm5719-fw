@@ -59,6 +59,7 @@
 #include <APE_TX_PORT2.h>
 #include <APE_TX_PORT3.h>
 #include <Network.h>
+#include <MII.h>
 
 NetworkPort_t gPort0 = {
     .device = &DEVICE,
@@ -781,8 +782,145 @@ void Network_InitPort(NetworkPort_t *port)
     RegDEVICEReceiveMacMode_t macMode;
     macMode = port->device->ReceiveMacMode;
     macMode.bits.Enable = 1;
-    macMode.bits.APEPromiscuousMode = 0;
+    macMode.bits.APEPromiscuousMode = 1; // When set, allows APE to RX without having to reset the network configuration after a power off
     port->device->ReceiveMacMode = macMode;
 
+    // Enable RX/TX
+    RegDEVICETransmitMacMode_t txMacMode;
+    txMacMode = port->device->TransmitMacMode;
+    txMacMode.bits.EnableTDE = 1;
+    // txMacMode.bits.EnableFlowControl = 1;
+    port->device->TransmitMacMode = txMacMode;
+
+    RegDEVICEEeeMode_t eeeMode;
+    eeeMode = port->device->EeeMode;
+    eeeMode.bits.APETXDetectionEnable = 1;
+    eeeMode.bits.EEELinkIdleDetectionEnable = 1;
+    eeeMode.bits.SendIndexDetectionEnable = 1;
+    eeeMode.bits.TXLPIEnable = 1;
+    eeeMode.bits.RXLPIEnable = 1;
+    port->device->EeeMode = eeeMode;
+
+    RegDEVICEBufferManagerMode_t bmm;
+    bmm.r32 = 0;
+    bmm.bits.Enable = 1;
+    bmm.bits.AttentionEnable = 1;
+    bmm.bits.ResetRXMBUFPointer = 1;
+    port->device->BufferManagerMode = bmm;
+
+    RegDEVICEEmacMode_t emacMode;
+    emacMode = port->device->EmacMode;
+    emacMode.bits.EnableAPERXPath = 1;
+    emacMode.bits.EnableAPETXPath = 1;
+
+    emacMode.bits.EnableFHDE = 1;
+    emacMode.bits.EnableTCE = 1; // Transmit DMA needed for APE to work properly
+    emacMode.bits.EnableRDE = 1;
+
+    emacMode.bits.KeepFrameInWOL = 1;
+    emacMode.bits.MACLoopbackModeControl = 0;
+    port->device->EmacMode = emacMode;
+
+    RegDEVICETransmitMacLengths_t txMacLengths;
+    txMacLengths = port->device->TransmitMacLengths;
+    txMacLengths.bits.SlotTimeLength = 0x21;
+    txMacLengths.bits.IPGLength = 0x6;
+    txMacLengths.bits.IPGCRSLength = 0x2;
+    port->device->TransmitMacLengths = txMacLengths;
+
+    port->device->MiscellaneousConfig.bits.DisableGRCReset = 1;
+    port->device->LinkAwarePowerModeClockPolicy.bits.MACClockSwitch = DEVICE_LINK_AWARE_POWER_MODE_CLOCK_POLICY_MAC_CLOCK_SWITCH_6_25MHZ;
+    port->device->ClockSpeedOverridePolicy.r32 = 0;
+
+    RegDEVICECpmuControl_t cmm;
+    cmm = port->device->CpmuControl;
+    cmm.bits.LinkIdlePowerModeEnable = 1;
+    cmm.bits.LinkAwarePowerModeEnable = 1;
+    cmm.bits.LinkSpeedPowerModeEnable = 1;
+    port->device->CpmuControl = cmm;
+
     Network_SetMACAddr(port, 0, 0, 1, true);
+
+    if (port->device->EmacMode.bits.EnableFHDE || port->device->EmacMode.bits.EnableRDE)
+    {
+        port->device->ReceiveListPlacementMode.bits.Enable = 1;
+    }
+
+    port->device->GrcModeControl.bits.HostStackUp = 1; // Enable packet RX
+}
+
+void Network_updatePortState(NetworkPort_t *port)
+{
+    uint8_t phy = MII_getPhy(port->device);
+    RegMIIAuxiliaryStatusSummary_t status;
+    RegMIIControl_t control;
+
+    control.r16 = MII_readRegister(port->device, phy, (mii_reg_t)REG_MII_CONTROL);
+    if(control.bits.RestartAutonegotiation)
+    {
+        // Link down, don't update mac mode.
+    }
+    else
+    {
+        status.r16 = MII_readRegister(port->device, phy, (mii_reg_t)REG_MII_AUXILIARY_STATUS_SUMMARY);
+        if(control.bits.AutoNegotiationEnable && !status.bits.AutoNegotiationComplete)
+        {
+            // Link down, don't update mac mode.
+        }
+        else
+        {
+            // Auto negotiation complete or mode forced.
+            RegDEVICEEmacMode_t emacMode, emacModeOrig;
+            emacModeOrig = emacMode = port->device->EmacMode;
+
+            // Select full/half duplex mode.
+            switch((uint8_t)status.bits.AutoNegotiationHCD)
+            {
+                case MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_HCD_NO_HCD:
+                    // Error
+                    break;
+
+                case MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_HCD_10BASE_T_HALF_DUPLEX:
+                case MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_HCD_100BASE_TX_HALF_DUPLEX:
+                case MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_HCD_1000BASE_T_HALF_DUPLEX:
+                    emacMode.bits.HalfDuplex = 1;
+                    break;
+
+                case MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_HCD_100BASE_T4:
+                case MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_HCD_10BASE_T_FULL_DUPLEX:
+                case MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_HCD_100BASE_TX_FULL_DUPLEX:
+                case MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_HCD_1000BASE_T_FULL_DUPLEX:
+                    emacMode.bits.HalfDuplex = 0;
+                    break;
+            }
+
+            // Select Speed
+            switch((uint8_t)status.bits.AutoNegotiationHCD)
+            {
+                case MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_HCD_NO_HCD:
+                    // Error
+                    break;
+
+                case MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_HCD_10BASE_T_HALF_DUPLEX:
+                case MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_HCD_10BASE_T_FULL_DUPLEX:
+                case MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_HCD_100BASE_T4:
+                case MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_HCD_100BASE_TX_HALF_DUPLEX:
+                case MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_HCD_100BASE_TX_FULL_DUPLEX:
+                    emacMode.bits.PortMode = DEVICE_EMAC_MODE_PORT_MODE_10_DIV_100;
+                    break;
+
+                case MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_HCD_1000BASE_T_HALF_DUPLEX:
+                case MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_HCD_1000BASE_T_FULL_DUPLEX:
+                    emacMode.bits.PortMode = DEVICE_EMAC_MODE_PORT_MODE_1000;
+                    break;
+            }
+
+            if(emacMode.r32 != emacModeOrig.r32)
+            {
+                // Update emac mode to match current state.
+                port->device->EmacMode = emacMode;
+            }
+
+        }
+    }
 }
