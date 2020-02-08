@@ -150,10 +150,6 @@ uint8_t *vpd_get_resource_by_index(uint8_t *buffer, uint32_t *len, uint16_t *nam
     {
         field = (vpd_field_t *)new_buf;
 
-        char *data = (char *)malloc(field->length + 1);
-        memcpy(data, &field->data, field->length);
-        data[field->length] = 0;
-
         new_buf += field->length;
         new_buf += 3;
 

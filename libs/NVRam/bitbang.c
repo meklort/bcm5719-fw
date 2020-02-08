@@ -122,6 +122,7 @@ bool NVRam_sendBytes(uint8_t bytes[], uint32_t num_bytes)
     nvm_od.bits.SIOutputDisable = 0;   // Drive MOSI
 
     RegNVMWrite_t nvm_write;
+    nvm_write.r32 = 0;
 
     NVM.Addr.r32 = nvm_od.r32;
     NVM.Write.r32 = nvm_write.r32;
@@ -167,6 +168,7 @@ bool NVRam_sendAndGetBytes(uint8_t send_bytes[], uint8_t get_bytes[], int32_t nu
     nvm_od.bits.SIOutputDisable = 0;   // Drive MOSI
 
     RegNVMWrite_t nvm_write;
+    nvm_write.r32 = 0;
 
     NVM.Addr.r32 = nvm_od.r32;
     NVM.Write.r32 = nvm_write.r32;
@@ -196,11 +198,17 @@ uint32_t NVRam_bitbang_readWord(uint32_t address)
     };
     uint8_t get_bytes[sizeof(send_bytes)];
     uint32_t num_bytes = sizeof(send_bytes);
-    NVRam_sendAndGetBytes(send_bytes, get_bytes, num_bytes);
+    if(NVRam_sendAndGetBytes(send_bytes, get_bytes, num_bytes))
+    {
+        uint32_t read_word = (get_bytes[4]) | (get_bytes[5] << 8) | (get_bytes[6] << 16) | (get_bytes[7] << 24);
 
-    uint32_t read_word = (get_bytes[4]) | (get_bytes[5] << 8) | (get_bytes[6] << 16) | (get_bytes[7] << 24);
-
-    return read_word;
+        return read_word;
+    }
+    else
+    {
+        // TOOD: return an error.
+        return 0;
+    }
 }
 
 void NVRam_bitbang_writeWord(uint32_t address, uint32_t word)

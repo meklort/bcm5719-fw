@@ -1,16 +1,16 @@
 ################################################################################
 ###
-### @file       CMakeLists.txt
+### @file       clang-analyzer.cmake
 ###
 ### @project    
 ###
-### @brief      Top level CMake file
+### @brief      clang-analyzer cmake support
 ###
 ################################################################################
 ###
 ################################################################################
 ###
-### @copyright Copyright (c) 2018, Evan Lojewski
+### @copyright Copyright (c) 2020, Evan Lojewski
 ### @cond
 ###
 ### All rights reserved.
@@ -42,25 +42,10 @@
 ### @endcond
 ################################################################################
 
-SET(COMPILER_BASE       $ENV{HOME}/llvm-bcm5719)
-SET(CMAKE_C_COMPILER    ${COMPILER_BASE}/bin/clang)
-SET(CMAKE_CXX_COMPILER  ${COMPILER_BASE}/bin/clang++)
-SET(CMAKE_ASM_COMPILER  ${COMPILER_BASE}/bin/clang)
-
-cmake_minimum_required(VERSION 3.5.1)
-project(bcm5719-top)
-
-include(cmake/clang-format.cmake)
-include(cmake/clang-analyzer.cmake)
-include(cmake/config.cmake)
-
-add_subdirectory(tests)
-
-add_subdirectory(libs)
-add_subdirectory(utils)
-
-
-add_subdirectory(simulator)
-add_subdirectory(stage1)
-
-add_subdirectory(ape)
+FIND_PROGRAM(SCAN_BUILD scan-build)
+IF(SCAN_BUILD)
+    SET(CMAKE_C_COMPILER_LAUNCHER   ${SCAN_BUILD} --status-bugs)
+    SET(CMAKE_CXX_COMPILER_LAUNCHER ${SCAN_BUILD} --status-bugs)
+ELSE()
+    MESSAGE(STATUS "Unable to locate clang-analyzer (scan-build). Disabling linting.")
+ENDIF()

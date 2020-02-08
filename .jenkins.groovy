@@ -79,15 +79,13 @@ def build(nodeName)
 
         stage('build')
         {
-            withEnv(['PATH+WHATEVER=/usr/local/bin']) {
-                sh '''#!/bin/bash
-                    rm -rf build
-                    mkdir build
-                    cd build
-                    cmake .. -G Ninja
-                    ninja
-                '''
-            }
+            sh '''#!/bin/bash
+                rm -rf build
+                mkdir build
+                cd build
+                cmake .. -G Ninja
+                cmake --build .
+            '''
             // archiveArtifacts 'release'
         }
 
@@ -100,7 +98,6 @@ try
     notify('PENDING', 'Build Pending ')
     parallel(
         "fedora": { build('master') },
-        "debian": { build('debian') },
         "ubuntu-18.04": { build('ubuntu-18.04') },
     )
 }
