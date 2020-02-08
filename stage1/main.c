@@ -73,6 +73,18 @@ void __attribute__((noinline)) reportStatus(uint32_t code, uint8_t step)
     GEN.GenDataSig.r32 = (code | step);
 }
 
+void init_once(void)
+{
+    SHM.RcpuInitCount.r32 = 0;
+    SHM.RcpuFwVersion.r32 = 0x0127;
+
+    SHM.RcpuApeResetCount.r32 = 0;
+    SHM.RcpuLastApeStatus.r32 = 0;
+    SHM.RcpuLastApeFwStatus.r32 = 0;
+
+    SHM.RcpuSegLength.r32 = 0x34;
+}
+
 int main()
 {
 #if CXX_SIMULATOR
@@ -87,24 +99,33 @@ int main()
 #endif
 
     reportStatus(STATUS_MAIN, 1);
-    // Read in the NVM header.
+
+    if(SHM.RcpuSegSig.bits.Sig != SHM_RCPU_SEG_SIG_SIG_RCPU_MAGIC)
+    {
+        init_once();
+    }
+
+
+    // Read out the NVM configuration.
     NVRam_acquireLock();
-
-    reportStatus(STATUS_MAIN, 2);
-
     NVRam_enable();
     NVRam_read(0, (uint32_t *)&gNVMContents, sizeof(NVRAMContents_t) / 4);
     NVRam_releaseLock();
+
+    reportStatus(STATUS_MAIN, 2);
+    // Read in the NVM header.
 
 #if !CXX_SIMULATOR
     load_nvm_config(&DEVICE, &gNVMContents);
 
     // Initialize the hardware.
-    init_hw(&DEVICE, &gNVMContents);
+    // init_hw(&DEVICE, &gNVMContents);
 #endif
 
+
+    SHM.RcpuInitCount.r32 = SHM.RcpuInitCount.r32 + 1;
+
     // Send configuration information to APE SHM.
-    SHM.RcpuFwVersion.r32 = 0x0127;
     SHM.RcpuCfgFeature.r32 = GEN.GenCfgFeature.r32;
     SHM.RcpuPciVendorDeviceId.r32 = DEVICE.PciVendorDeviceId.r32;
     SHM.RcpuPciSubsystemId.r32 = DEVICE.PciSubsystemId.r32;
@@ -113,21 +134,8 @@ int main()
     SHM.RcpuCpmuStatus.bits.Status = (DEVICE.Status.r32 & 0xFFFF0000) >> 16;
     SHM.RcpuCpmuStatus.bits.Address = SHM_RCPU_CPMU_STATUS_ADDRESS_ADDRESS;
 
-    if (SHM_RCPU_SEG_SIG_SIG_RCPU_MAGIC != SHM.RcpuSegSig.bits.Sig)
-    {
-        SHM.RcpuInitCount.r32 = 1;
-    }
-    else
-    {
-        SHM.RcpuInitCount.r32 = SHM.RcpuInitCount.r32 + 1;
-    }
-
-    SHM.RcpuApeResetCount.r32 = 0;
-    SHM.RcpuLastApeStatus.r32 = 0;
-    SHM.RcpuLastApeFwStatus.r32 = 0;
 
     // Mark it as valid.
-    SHM.RcpuSegLength.r32 = 0x34;
     SHM.RcpuSegSig.bits.Sig = SHM_RCPU_SEG_SIG_SIG_RCPU_MAGIC;
 
     // Set GEN_FIRMWARE_MBOX to BOOTCODE_READY_MAGIC.
@@ -136,9 +144,9 @@ int main()
     GEN.GenAsfStatusMbox.r32 = GEN_GEN_FW_MBOX_MBOX_BOOTCODE_READY;
     // Do main loop.
 
+#if 0
     // Ensure all APE locks are released.
-    APE_releaseAllLocks();
-
+    // APE_releaseAllLocks();
     DEVICE.RxCpuEventEnable.bits.VPDAttention = 1;
     for (;;)
     {
@@ -150,17 +158,30 @@ int main()
         // Spin
         if (DEVICE.RxCpuEvent.bits.VPDAttention)
         {
-            uint32_t vpd_offset = DEVICE.PciVpdRequest.bits.RequestedVPDOffset;
+            // uint32_t vpd_offset = DEVICE.PciVpdRequest.bits.RequestedVPDOffset;
 
             union {
                 uint8_t r8[4];
                 uint32_t r32;
             } vpd_data;
-            vpd_data.r8[0] = gNVMContents.vpd.bytes[vpd_offset];
-            vpd_data.r8[1] = gNVMContents.vpd.bytes[vpd_offset + 1];
-            vpd_data.r8[2] = gNVMContents.vpd.bytes[vpd_offset + 2];
-            vpd_data.r8[3] = gNVMContents.vpd.bytes[vpd_offset + 3];
+            // vpd_data.r8[0] = gNVMContents.vpd.bytes[vpd_offset];
+            // vpd_data.r8[1] = gNVMContents.vpd.bytes[vpd_offset + 1];
+            // vpd_data.r8[2] = gNVMContents.vpd.bytes[vpd_offset + 2];
+            // vpd_data.r8[3] = gNVMContents.vpd.bytes[vpd_offset + 3];
+            vpd_data.r32 = 0;
             DEVICE.PciVpdResponse.r32 = vpd_data.r32;
         }
     }
+
+
+#else
+    RegDEVICERxRiscMode_t mode;
+    mode.r32 = 0;
+    mode.bits.Halt = 1;
+    for(;;)
+    {
+        // Halt the CPU since we aren't doing anything.
+        DEVICE.RxRiscMode.r32 = mode.r32;;
+    }
+#endif
 }

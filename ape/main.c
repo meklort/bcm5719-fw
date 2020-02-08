@@ -48,7 +48,13 @@
 #include <APE_APE.h>
 #include <APE_APE_PERI.h>
 #include <APE_DEBUG.h>
+#include <APE_DEVICE1.h>
+#include <APE_DEVICE2.h>
+#include <APE_DEVICE3.h>
 #include <APE_SHM.h>
+#include <APE_SHM1.h>
+#include <APE_SHM2.h>
+#include <APE_SHM3.h>
 #include <Ethernet.h>
 #include <NCSI.h>
 #include <NVRam.h>
@@ -208,6 +214,25 @@ void __attribute__((noreturn)) loaderLoop(void)
     }
 }
 
+void wait_for_rx(volatile DEVICE_t *device, volatile SHM_t *shm)
+{
+    bool waiting = true;
+    do
+    {
+        if(device->RxRiscStatus.bits.Halted)
+        {
+            // If the RX CPU has halted, exit out.
+            waiting = false;
+        }
+
+        if(SHM_RCPU_SEG_SIG_SIG_RCPU_MAGIC == shm->RcpuSegSig.bits.Sig)
+        {
+            // Firmware has finished initialization
+            waiting = false;
+        }
+    } while (waiting);
+}
+
 void handle_reset(void)
 {
     uint32_t chip_id = DEVICE.ChipId.r32;
@@ -216,6 +241,10 @@ void handle_reset(void)
         printf("Resetting...\n");
         RegAPEGpio_t apegpio;
         apegpio.r32 = APE.Gpio.r32;
+
+        // Release all locks to ensure that the RX CPU will be able to boot up
+        NVRam_releaseAllLocks();
+        APE_releaseAllLocks();
 
         // Reset needed.
         // Configure the clock mux to be driving by the APE.
@@ -245,7 +274,11 @@ void handle_reset(void)
         apegpio.bits.PIN2UnknownOut = 0; // CLock Mux = PCIe clock
         APE.Gpio.r32 = apegpio.r32;
 
-        // The RX CPUs should not be executing and booting from NVRam
+        // Wait for the RX CPU to finish executing before continuing.
+        wait_for_rx(&DEVICE, &SHM);
+        wait_for_rx(&DEVICE1, &SHM1);
+        wait_for_rx(&DEVICE2, &SHM2);
+        wait_for_rx(&DEVICE3, &SHM3);
     }
 }
 
@@ -253,14 +286,11 @@ void __attribute__((noreturn)) __start()
 {
     handle_reset();
 
-    APE_releaseAllLocks();
-    NVRam_releaseAllLocks();
-
     if (DEBUG.WritePointer.r32 >= sizeof(DEBUG.Buffer) || DEBUG.ReadPointer.r32 >= sizeof(DEBUG.Buffer))
     {
         DEBUG.WritePointer.r32 = 0;
         DEBUG.ReadPointer.r32 = 0;
-        printf("Chip Reset\n");
+        printf("Chip Reset.\n");
     }
     else
     {
