@@ -213,6 +213,8 @@ uint32_t NVRam_bitbang_readWord(uint32_t address)
 
 void NVRam_bitbang_writeWord(uint32_t address, uint32_t word)
 {
+    // TODO: This must check that the previous write is complete before issuing a second write.
+
     // 0x82: write word for AT45DB021D
     uint8_t send_bytes[] = { 0x82,
                              (uint8_t)(address >> 16),
@@ -225,3 +227,33 @@ void NVRam_bitbang_writeWord(uint32_t address, uint32_t word)
     uint32_t num_bytes = sizeof(send_bytes);
     NVRam_sendBytes(send_bytes, num_bytes);
 }
+
+void NVRam_bitbang_read(uint32_t address, uint32_t *buffer, uint32_t words)
+{
+    if (!words)
+    {
+        // No data to read.
+        return;
+    }
+
+    while (words)
+    {
+        *buffer = NVRam_bitbang_readWord(address);
+        buffer++;
+        words--;
+        address += 4;
+    }
+}
+
+#if 0
+void NVRam_bitbang_write(uint32_t address, uint32_t *buffer, uint32_t words)
+{
+    while (words)
+    {
+        NVRam_bitbang_writeWord(address, *buffer);
+        buffer++;
+        words--;
+        address += 4;
+    }
+}
+#endif

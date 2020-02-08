@@ -74,5 +74,10 @@ bool NVRam_sendAndGetBytes(uint8_t send_bytes[], uint8_t get_bytes[], int32_t nu
 
 uint32_t NVRam_bitbang_readWord(uint32_t address);
 void NVRam_bitbang_writeWord(uint32_t address, uint32_t word);
+void NVRam_bitbang_read(uint32_t address, uint32_t *buffer, uint32_t words);
+#if 0
+void NVRam_bitbang_write(uint32_t address, uint32_t *buffer, uint32_t words);
+#endif
+
 
 #endif /* NVRAM_H */
