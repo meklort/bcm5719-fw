@@ -208,9 +208,51 @@ void __attribute__((noreturn)) loaderLoop(void)
     }
 }
 
+void handle_reset(void)
+{
+    uint32_t chip_id = DEVICE.ChipId.r32;
+    if (!chip_id)
+    {
+        printf("Resetting...\n");
+        RegAPEGpio_t apegpio;
+        apegpio.r32 = APE.Gpio.r32;
+
+        // Reset needed.
+        // Configure the clock mux to be driving by the APE.
+        apegpio.bits.PIN0ModeOutput = 1;
+        apegpio.bits.PIN1ModeOutput = 1;
+        apegpio.bits.PIN2ModeOutput = 1;
+        apegpio.bits.PIN0UnknownOut = 1; // Clock_P
+        apegpio.bits.PIN1UnknownOut = 0; // Clock_N
+        apegpio.bits.PIN2UnknownOut = 1; // CLock Mux = APE GPIO
+        APE.Gpio.r32 = apegpio.r32;
+
+        for (int i = 0; i < 38; i++)
+        {
+            // Clock it...
+            apegpio.bits.PIN0UnknownOut = ~apegpio.bits.PIN0UnknownOut; // Clock_P
+            apegpio.bits.PIN1UnknownOut = ~apegpio.bits.PIN1UnknownOut; // Clock_N
+            APE.Gpio.r32 = apegpio.r32;
+        }
+
+        do
+        {
+            // Wait for the ChipID register to be readable
+            chip_id = DEVICE.ChipId.r32;
+        } while (!chip_id);
+
+        // Restore the mux settings.
+        apegpio.bits.PIN2UnknownOut = 0; // CLock Mux = PCIe clock
+        APE.Gpio.r32 = apegpio.r32;
+
+        // The RX CPUs should not be executing and booting from NVRam
+    }
+}
+
 void __attribute__((noreturn)) __start()
 {
-    printf("----------------\n");
+    handle_reset();
+
     APE_releaseAllLocks();
     NVRam_releaseAllLocks();
 
