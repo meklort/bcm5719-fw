@@ -42,6 +42,7 @@
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
 
+#include <APE.h>
 #include <APE_DEVICE1.h>
 #include <APE_DEVICE2.h>
 #include <APE_DEVICE3.h>
@@ -777,6 +778,11 @@ void Network_resetRX(NetworkPort_t *port)
 
 void Network_InitPort(NetworkPort_t *port)
 {
+    RegMIIStatus_t stat;
+    RegMIIIeeeExtendedStatus_t ext_stat;
+    RegSHM_CHANNELNcsiChannelStatus_t linkStatus;
+    uint8_t phy;
+
     Network_InitFilters(port);
 
     Network_resetTX(port);
@@ -852,7 +858,35 @@ void Network_InitPort(NetworkPort_t *port)
 
     port->device->GrcModeControl.bits.HostStackUp = 1; // Enable packet RX
 
+    phy = MII_getPhy(port->device);
+
+    APE_aquireLock();
+
     Network_updatePortState(port);
+
+    uint16_t status_value = MII_readRegister(port->device, phy, (mii_reg_t)REG_MII_STATUS);
+    stat.r16 = status_value;
+    if (stat.bits.ExtendedStatusSupported)
+    {
+        uint16_t ext_status_value = MII_readRegister(port->device, phy, (mii_reg_t)REG_MII_IEEE_EXTENDED_STATUS);
+        ext_stat.r16 = ext_status_value;
+    }
+
+    APE_releaseLock();
+
+    // Set link status capabilities.
+    linkStatus.r32 = 0;
+
+    linkStatus.bits.LinkSpeed1000MFullDuplexCapable = ext_stat.bits._1000BASE_TFullDuplexCapable;
+    linkStatus.bits.LinkSpeed1000MHalfDuplexCapable = ext_stat.bits._1000BASE_THalfDuplexCapable;
+
+    linkStatus.bits.LinkSpeed100M_TXFullDuplexCapable = stat.bits._100BASE_XFullDuplexCapable;
+    linkStatus.bits.LinkSpeed100M_TXHalfDuplexCapable = stat.bits._100BASE_XHalfDuplexCapable;
+
+    linkStatus.bits.LinkSpeed10M_TFullDuplexCapable = stat.bits._10BASE_TFullDuplexCapable;
+    linkStatus.bits.LinkSpeed10M_THalfDuplexCapable = stat.bits._10BASE_THalfDuplexCapable;
+
+    port->shm_channel->NcsiChannelStatus = linkStatus;
 }
 
 void Network_checkPortState(NetworkPort_t *port)
