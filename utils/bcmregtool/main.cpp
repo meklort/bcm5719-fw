@@ -401,6 +401,12 @@ int main(int argc, char const *argv[])
             .metavar("APE_FILE")
             .help("File to boot on the APE.");
 
+    parser.add_option("--apehalt")
+            .dest("apehalt")
+            .set_default("0")
+            .action("store_true")
+            .help("Halt the APE.");
+
     parser.add_option("-n", "--network")
             .dest("network")
             .set_default("0")
@@ -705,6 +711,17 @@ int main(int argc, char const *argv[])
         exit(0);
     }
 
+    if(options.get("apehalt"))
+    {
+        // Halt
+        RegAPEMode_t mode;
+        mode.r32 = 0;
+        mode.bits.Halt = 1;
+        mode.bits.FastBoot = 0;
+        APE.Mode = mode;
+
+        exit(0);
+    }
     if(options.get("reset"))
     {
 
@@ -812,6 +829,11 @@ int main(int argc, char const *argv[])
     {
         NVRam_releaseAllLocks();
         APE_releaseAllLocks();
+
+        // Ensure we don't have bitbang mode enabled.
+        NVRam_acquireLock();
+        NVM.NvmCfg1.bits.BitbangMode = 0;
+        NVRam_releaseLock();
 
         exit(0);
     }
