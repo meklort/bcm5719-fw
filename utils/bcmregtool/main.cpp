@@ -103,6 +103,7 @@ void boot_ape_loader()
     extern unsigned char apeloader_bin[];
     extern unsigned int apeloader_bin_len;
 
+    int function = DEVICE.Status.bits.FunctionNumber;
     int numWords = apeloader_bin_len/4;
 
     RegAPEMode_t mode;
@@ -124,7 +125,7 @@ void boot_ape_loader()
     // Mark fw as not read.
     SHM.FwStatus.bits.Ready = 0;
     // Start the file
-    APE.GpioMessage.r32 = 0x60220B00|2;
+    APE.GpioMessage.r32 = 0x60220B00|2 + (0x1000 * function);
 
     mode.bits.Halt = 0;
     mode.bits.FastBoot = 1;
