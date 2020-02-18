@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2018, Evan Lojewski
+/// @copyright Copyright (c) 2020, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -127,21 +127,13 @@ void init_bcm5719_SHM(void)
 
     /** @brief Bitmap for @ref SHM_t.ProtMac0Low. */
 
-    /** @brief Bitmap for @ref SHM_t.NcsiSig. */
+    /** @brief Bitmap for @ref SHM_t.RcpuWritePointer. */
 
-    /** @brief Bitmap for @ref SHM_t.NcsiBuildTime. */
+    /** @brief Bitmap for @ref SHM_t.RcpuHostReadPointer. */
 
-    /** @brief Bitmap for @ref SHM_t.NcsiBuildTime2. */
+    /** @brief Bitmap for @ref SHM_t.RcpuReadPointer. */
 
-    /** @brief Bitmap for @ref SHM_t.NcsiBuildTime3. */
-
-    /** @brief Bitmap for @ref SHM_t.NcsiBuildDate. */
-
-    /** @brief Bitmap for @ref SHM_t.NcsiBuildDate2. */
-
-    /** @brief Bitmap for @ref SHM_t.NcsiBuildDate3. */
-
-    /** @brief Bitmap for @ref SHM_t.ChipId. */
+    /** @brief Bitmap for @ref SHM_t.RcpuPrintfBuffer. */
 
 
 }

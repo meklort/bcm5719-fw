@@ -10,7 +10,7 @@
 ###
 ################################################################################
 ###
-### @copyright Copyright (c) 2018, Evan Lojewski
+### @copyright Copyright (c) 2020, Evan Lojewski
 ### @cond
 ###
 ### All rights reserved.
@@ -52,7 +52,7 @@
 
 .global SHM
 .equ    SHM, 0xc0014000
-.size   SHM, 0x894
+.size   SHM, 0x900
 
 .global SHM_CHANNEL0
 .equ    SHM_CHANNEL0, 0xc0014900

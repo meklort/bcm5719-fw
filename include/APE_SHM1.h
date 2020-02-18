@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2018, Evan Lojewski
+/// @copyright Copyright (c) 2020, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -121,14 +121,10 @@ typedef uint32_t APE_SHM1_H_uint32_t;
 #define REG_SHM1_PROT_MAGIC ((volatile APE_SHM1_H_uint32_t*)0x60221308) /* This is set to APE_PROT_MAGIC ('PROT') on all functions.  If it is 'PROT', the following fields (MAC0_HIGH/LOW) are valid */
 #define REG_SHM1_PROT_MAC0_HIGH ((volatile APE_SHM1_H_uint32_t*)0x60221314) /* High 16 bits of MAC address 0. Only valid if  */
 #define REG_SHM1_PROT_MAC0_LOW ((volatile APE_SHM1_H_uint32_t*)0x60221318) /* Low 16 bits of MAC address 0. */
-#define REG_SHM1_NCSI_SIG ((volatile APE_SHM1_H_uint32_t*)0x60221800) /* Set to NCSI_MAGIC ('NCSI') by APE firmware. NOTE: all words in the NCSI section are available in the function 0 SHM area only. */
-#define REG_SHM1_NCSI_BUILD_TIME ((volatile APE_SHM1_H_uint32_t*)0x60221810) /* ASCII string spanning three 32-bit words. Unused trailing bytes   are set to zero. */
-#define REG_SHM1_NCSI_BUILD_TIME_2 ((volatile APE_SHM1_H_uint32_t*)0x60221814) /*  */
-#define REG_SHM1_NCSI_BUILD_TIME_3 ((volatile APE_SHM1_H_uint32_t*)0x60221818) /*  */
-#define REG_SHM1_NCSI_BUILD_DATE ((volatile APE_SHM1_H_uint32_t*)0x6022181c) /* ASCII string spanning three 32-bit words. Unused trailing bytes   are set to zero. */
-#define REG_SHM1_NCSI_BUILD_DATE_2 ((volatile APE_SHM1_H_uint32_t*)0x60221820) /*  */
-#define REG_SHM1_NCSI_BUILD_DATE_3 ((volatile APE_SHM1_H_uint32_t*)0x60221824) /*  */
-#define REG_SHM1_CHIP_ID ((volatile APE_SHM1_H_uint32_t*)0x60221890) /* The APE code copies the contents of Chip ID to this word */
+#define REG_SHM1_RCPU_WRITE_POINTER ((volatile APE_SHM1_H_uint32_t*)0x60221324) /* Index into the printf buffer for last valid byte. */
+#define REG_SHM1_RCPU_HOST_READ_POINTER ((volatile APE_SHM1_H_uint32_t*)0x60221328) /* Index into the printf buffer for last read byte. */
+#define REG_SHM1_RCPU_READ_POINTER ((volatile APE_SHM1_H_uint32_t*)0x6022132c) /* Index into the printf buffer for last read byte. */
+#define REG_SHM1_RCPU_PRINTF_BUFFER ((volatile APE_SHM1_H_uint32_t*)0x60221330) /* Printf buffer from the APE to the Rcpu for NVRAM printout or the host */
 /** @brief Device SHM Registers, function 1 */
 extern volatile SHM_t SHM1;
 
@@ -144,7 +140,7 @@ extern volatile SHM_t SHM1;
 #undef BITFIELD_END
 
 #ifndef CXX_SIMULATOR
-_Static_assert(sizeof(SHM_t) == 2196, "sizeof(SHM_t) must be 2196");
+_Static_assert(sizeof(SHM_t) == 2304, "sizeof(SHM_t) must be 2304");
 #endif
 
 #endif /* !APE_SHM1_H */

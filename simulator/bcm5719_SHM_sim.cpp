@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2018, Evan Lojewski
+/// @copyright Copyright (c) 2020, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -277,52 +277,29 @@ void init_bcm5719_SHM_sim(void *base)
     SHM.ProtMac0Low.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     SHM.ProtMac0Low.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
-    for(int i = 0; i < 313; i++)
+    for(int i = 0; i < 2; i++)
     {
         SHM.reserved_796[i].installReadCallback(read_from_ram, (uint8_t *)base);
         SHM.reserved_796[i].installWriteCallback(write_to_ram, (uint8_t *)base);
     }
-    /** @brief Bitmap for @ref SHM_t.NcsiSig. */
-    SHM.NcsiSig.r32.installReadCallback(read_from_ram, (uint8_t *)base);
-    SHM.NcsiSig.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+    /** @brief Bitmap for @ref SHM_t.RcpuWritePointer. */
+    SHM.RcpuWritePointer.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    SHM.RcpuWritePointer.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
-    for(int i = 0; i < 3; i++)
+    /** @brief Bitmap for @ref SHM_t.RcpuHostReadPointer. */
+    SHM.RcpuHostReadPointer.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    SHM.RcpuHostReadPointer.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref SHM_t.RcpuReadPointer. */
+    SHM.RcpuReadPointer.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    SHM.RcpuReadPointer.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref SHM_t.RcpuPrintfBuffer. */
+    for(int i = 0; i < 372; i++)
     {
-        SHM.reserved_2052[i].installReadCallback(read_from_ram, (uint8_t *)base);
-        SHM.reserved_2052[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+        SHM.RcpuPrintfBuffer[i].r32.installReadCallback(read_from_ram, (uint8_t *)base);
+        SHM.RcpuPrintfBuffer[i].r32.installWriteCallback(write_to_ram, (uint8_t *)base);
     }
-    /** @brief Bitmap for @ref SHM_t.NcsiBuildTime. */
-    SHM.NcsiBuildTime.r32.installReadCallback(read_from_ram, (uint8_t *)base);
-    SHM.NcsiBuildTime.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
-
-    /** @brief Bitmap for @ref SHM_t.NcsiBuildTime2. */
-    SHM.NcsiBuildTime2.r32.installReadCallback(read_from_ram, (uint8_t *)base);
-    SHM.NcsiBuildTime2.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
-
-    /** @brief Bitmap for @ref SHM_t.NcsiBuildTime3. */
-    SHM.NcsiBuildTime3.r32.installReadCallback(read_from_ram, (uint8_t *)base);
-    SHM.NcsiBuildTime3.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
-
-    /** @brief Bitmap for @ref SHM_t.NcsiBuildDate. */
-    SHM.NcsiBuildDate.r32.installReadCallback(read_from_ram, (uint8_t *)base);
-    SHM.NcsiBuildDate.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
-
-    /** @brief Bitmap for @ref SHM_t.NcsiBuildDate2. */
-    SHM.NcsiBuildDate2.r32.installReadCallback(read_from_ram, (uint8_t *)base);
-    SHM.NcsiBuildDate2.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
-
-    /** @brief Bitmap for @ref SHM_t.NcsiBuildDate3. */
-    SHM.NcsiBuildDate3.r32.installReadCallback(read_from_ram, (uint8_t *)base);
-    SHM.NcsiBuildDate3.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
-
-    for(int i = 0; i < 26; i++)
-    {
-        SHM.reserved_2088[i].installReadCallback(read_from_ram, (uint8_t *)base);
-        SHM.reserved_2088[i].installWriteCallback(write_to_ram, (uint8_t *)base);
-    }
-    /** @brief Bitmap for @ref SHM_t.ChipId. */
-    SHM.ChipId.r32.installReadCallback(read_from_ram, (uint8_t *)base);
-    SHM.ChipId.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
 
 }

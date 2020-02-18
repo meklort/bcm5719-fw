@@ -555,65 +555,34 @@
                     <ipxact:volatile>true</ipxact:volatile>
                 </ipxact:register>
                 <ipxact:register>
-                    <ipxact:name>NCSI_SIG</ipxact:name>
-                    <ipxact:description>Set to NCSI_MAGIC ('NCSI') by APE firmware. NOTE: all words in the NCSI section are available in the function 0 SHM area only.</ipxact:description>
-                    <ipxact:addressOffset>0x800</ipxact:addressOffset>
+                    <ipxact:name>RCPU Write Pointer</ipxact:name>
+                    <ipxact:description>Index into the printf buffer for last valid byte.</ipxact:description>
+                    <ipxact:addressOffset>0x324</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
                 </ipxact:register>
                 <ipxact:register>
-                    <ipxact:name>NCSI_BUILD_TIME</ipxact:name>
-                    <ipxact:description>ASCII string spanning three 32-bit words. Unused trailing bytes   are set to zero.</ipxact:description>
-                    <ipxact:addressOffset>0x810</ipxact:addressOffset>
+                    <ipxact:name>RCPU Host Read Pointer</ipxact:name>
+                    <ipxact:description>Index into the printf buffer for last read byte.</ipxact:description>
+                    <ipxact:addressOffset>0x328</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
                 </ipxact:register>
                 <ipxact:register>
-                    <ipxact:name>NCSI_BUILD_TIME_2</ipxact:name>
-                    <ipxact:description></ipxact:description>
-                    <ipxact:addressOffset>0x814</ipxact:addressOffset>
+                    <ipxact:name>RCPU Read Pointer</ipxact:name>
+                    <ipxact:description>Index into the printf buffer for last read byte.</ipxact:description>
+                    <ipxact:addressOffset>0x32C</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
                 </ipxact:register>
                 <ipxact:register>
-                    <ipxact:name>NCSI_BUILD_TIME_3</ipxact:name>
-                    <ipxact:description></ipxact:description>
-                    <ipxact:addressOffset>0x818</ipxact:addressOffset>
-                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
-                    <ipxact:size>32</ipxact:size>
-                    <ipxact:volatile>true</ipxact:volatile>
-                </ipxact:register>
-                <ipxact:register>
-                    <ipxact:name>NCSI_BUILD_DATE</ipxact:name>
-                    <ipxact:description>ASCII string spanning three 32-bit words. Unused trailing bytes   are set to zero.</ipxact:description>
-                    <ipxact:addressOffset>0x81c</ipxact:addressOffset>
-                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
-                    <ipxact:size>32</ipxact:size>
-                    <ipxact:volatile>true</ipxact:volatile>
-                </ipxact:register>
-                <ipxact:register>
-                    <ipxact:name>NCSI_BUILD_DATE_2</ipxact:name>
-                    <ipxact:description></ipxact:description>
-                    <ipxact:addressOffset>0x820</ipxact:addressOffset>
-                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
-                    <ipxact:size>32</ipxact:size>
-                    <ipxact:volatile>true</ipxact:volatile>
-                </ipxact:register>
-                <ipxact:register>
-                    <ipxact:name>NCSI_BUILD_DATE_3</ipxact:name>
-                    <ipxact:description></ipxact:description>
-                    <ipxact:addressOffset>0x824</ipxact:addressOffset>
-                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
-                    <ipxact:size>32</ipxact:size>
-                    <ipxact:volatile>true</ipxact:volatile>
-                </ipxact:register>
-                <ipxact:register>
-                    <ipxact:name>CHIP_ID</ipxact:name>
-                    <ipxact:description>The APE code copies the contents of Chip ID to this word</ipxact:description>
-                    <ipxact:addressOffset>0x890</ipxact:addressOffset>
+                    <ipxact:name>RCPU Printf Buffer</ipxact:name>
+                    <ipxact:description>Printf buffer from the APE to the Rcpu for NVRAM printout or the host</ipxact:description>
+                    <ipxact:addressOffset>0x330</ipxact:addressOffset>
+                    <ipxact:dim>372</ipxact:dim>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>

@@ -10,7 +10,7 @@
 ###
 ################################################################################
 ###
-### @copyright Copyright (c) 2018, Evan Lojewski
+### @copyright Copyright (c) 2020, Evan Lojewski
 ### @cond
 ###
 ### All rights reserved.
@@ -56,7 +56,7 @@
 
 .global SHM
 .equ    SHM, 0x60220000
-.size   SHM, 0x894
+.size   SHM, 0x900
 
 .global SHM_CHANNEL0
 .equ    SHM_CHANNEL0, 0x60220900
@@ -142,20 +142,16 @@
 .equ    FILTERS3, 0xa0078000
 .size   FILTERS3, 0x200
 
-.global DEBUG
-.equ    DEBUG, 0x60221000
-.size   DEBUG, 0x1000
-
 .global SHM1
 .equ    SHM1, 0x60221000
-.size   SHM1, 0x894
+.size   SHM1, 0x900
 
 .global SHM2
 .equ    SHM2, 0x60222000
-.size   SHM2, 0x894
+.size   SHM2, 0x900
 
 .global SHM3
 .equ    SHM3, 0x60223000
-.size   SHM3, 0x894
+.size   SHM3, 0x900
 
 

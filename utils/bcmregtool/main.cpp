@@ -943,9 +943,6 @@ int main(int argc, char const *argv[])
         exit(0);
     }
 
-
-    printf("APEChipId: %x\n", (uint32_t)SHM.ChipId.r32);
-
     printf("EmacMode.PortMode: %0x\n", (uint32_t)DEVICE.EmacMode.bits.PortMode);
     printf("RxRiscMode: %0x\n", (uint32_t)DEVICE.RxRiscMode.r32);
 
