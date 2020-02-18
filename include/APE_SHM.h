@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2018, Evan Lojewski
+/// @copyright Copyright (c) 2020, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -1437,205 +1437,105 @@ typedef register_container RegSHMProtMac0Low_t {
 #endif /* CXX_SIMULATOR */
 } RegSHMProtMac0Low_t;
 
-#define REG_SHM_NCSI_SIG ((volatile APE_SHM_H_uint32_t*)0x60220800) /* Set to NCSI_MAGIC ('NCSI') by APE firmware. NOTE: all words in the NCSI section are available in the function 0 SHM area only. */
-/** @brief Register definition for @ref SHM_t.NcsiSig. */
-typedef register_container RegSHMNcsiSig_t {
+#define REG_SHM_RCPU_WRITE_POINTER ((volatile APE_SHM_H_uint32_t*)0x60220324) /* Index into the printf buffer for last valid byte. */
+/** @brief Register definition for @ref SHM_t.RcpuWritePointer. */
+typedef register_container RegSHMRcpuWritePointer_t {
     /** @brief 32bit direct register access. */
     APE_SHM_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
-    const char* getName(void) { return "NcsiSig"; }
+    const char* getName(void) { return "RcpuWritePointer"; }
 
     /** @brief Print register value. */
     void print(void) { r32.print(); }
 
-    RegSHMNcsiSig_t()
+    RegSHMRcpuWritePointer_t()
     {
-        /** @brief constructor for @ref SHM_t.NcsiSig. */
-        r32.setName("NcsiSig");
+        /** @brief constructor for @ref SHM_t.RcpuWritePointer. */
+        r32.setName("RcpuWritePointer");
     }
-    RegSHMNcsiSig_t& operator=(const RegSHMNcsiSig_t& other)
+    RegSHMRcpuWritePointer_t& operator=(const RegSHMRcpuWritePointer_t& other)
     {
         r32 = other.r32;
         return *this;
     }
 #endif /* CXX_SIMULATOR */
-} RegSHMNcsiSig_t;
+} RegSHMRcpuWritePointer_t;
 
-#define REG_SHM_NCSI_BUILD_TIME ((volatile APE_SHM_H_uint32_t*)0x60220810) /* ASCII string spanning three 32-bit words. Unused trailing bytes   are set to zero. */
-/** @brief Register definition for @ref SHM_t.NcsiBuildTime. */
-typedef register_container RegSHMNcsiBuildTime_t {
+#define REG_SHM_RCPU_HOST_READ_POINTER ((volatile APE_SHM_H_uint32_t*)0x60220328) /* Index into the printf buffer for last read byte. */
+/** @brief Register definition for @ref SHM_t.RcpuHostReadPointer. */
+typedef register_container RegSHMRcpuHostReadPointer_t {
     /** @brief 32bit direct register access. */
     APE_SHM_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
-    const char* getName(void) { return "NcsiBuildTime"; }
+    const char* getName(void) { return "RcpuHostReadPointer"; }
 
     /** @brief Print register value. */
     void print(void) { r32.print(); }
 
-    RegSHMNcsiBuildTime_t()
+    RegSHMRcpuHostReadPointer_t()
     {
-        /** @brief constructor for @ref SHM_t.NcsiBuildTime. */
-        r32.setName("NcsiBuildTime");
+        /** @brief constructor for @ref SHM_t.RcpuHostReadPointer. */
+        r32.setName("RcpuHostReadPointer");
     }
-    RegSHMNcsiBuildTime_t& operator=(const RegSHMNcsiBuildTime_t& other)
+    RegSHMRcpuHostReadPointer_t& operator=(const RegSHMRcpuHostReadPointer_t& other)
     {
         r32 = other.r32;
         return *this;
     }
 #endif /* CXX_SIMULATOR */
-} RegSHMNcsiBuildTime_t;
+} RegSHMRcpuHostReadPointer_t;
 
-#define REG_SHM_NCSI_BUILD_TIME_2 ((volatile APE_SHM_H_uint32_t*)0x60220814) /*  */
-/** @brief Register definition for @ref SHM_t.NcsiBuildTime2. */
-typedef register_container RegSHMNcsiBuildTime2_t {
+#define REG_SHM_RCPU_READ_POINTER ((volatile APE_SHM_H_uint32_t*)0x6022032c) /* Index into the printf buffer for last read byte. */
+/** @brief Register definition for @ref SHM_t.RcpuReadPointer. */
+typedef register_container RegSHMRcpuReadPointer_t {
     /** @brief 32bit direct register access. */
     APE_SHM_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
-    const char* getName(void) { return "NcsiBuildTime2"; }
+    const char* getName(void) { return "RcpuReadPointer"; }
 
     /** @brief Print register value. */
     void print(void) { r32.print(); }
 
-    RegSHMNcsiBuildTime2_t()
+    RegSHMRcpuReadPointer_t()
     {
-        /** @brief constructor for @ref SHM_t.NcsiBuildTime2. */
-        r32.setName("NcsiBuildTime2");
+        /** @brief constructor for @ref SHM_t.RcpuReadPointer. */
+        r32.setName("RcpuReadPointer");
     }
-    RegSHMNcsiBuildTime2_t& operator=(const RegSHMNcsiBuildTime2_t& other)
+    RegSHMRcpuReadPointer_t& operator=(const RegSHMRcpuReadPointer_t& other)
     {
         r32 = other.r32;
         return *this;
     }
 #endif /* CXX_SIMULATOR */
-} RegSHMNcsiBuildTime2_t;
+} RegSHMRcpuReadPointer_t;
 
-#define REG_SHM_NCSI_BUILD_TIME_3 ((volatile APE_SHM_H_uint32_t*)0x60220818) /*  */
-/** @brief Register definition for @ref SHM_t.NcsiBuildTime3. */
-typedef register_container RegSHMNcsiBuildTime3_t {
+#define REG_SHM_RCPU_PRINTF_BUFFER ((volatile APE_SHM_H_uint32_t*)0x60220330) /* Printf buffer from the APE to the Rcpu for NVRAM printout or the host */
+/** @brief Register definition for @ref SHM_t.RcpuPrintfBuffer. */
+typedef register_container RegSHMRcpuPrintfBuffer_t {
     /** @brief 32bit direct register access. */
     APE_SHM_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
-    const char* getName(void) { return "NcsiBuildTime3"; }
+    const char* getName(void) { return "RcpuPrintfBuffer"; }
 
     /** @brief Print register value. */
     void print(void) { r32.print(); }
 
-    RegSHMNcsiBuildTime3_t()
+    RegSHMRcpuPrintfBuffer_t()
     {
-        /** @brief constructor for @ref SHM_t.NcsiBuildTime3. */
-        r32.setName("NcsiBuildTime3");
+        /** @brief constructor for @ref SHM_t.RcpuPrintfBuffer. */
+        r32.setName("RcpuPrintfBuffer");
     }
-    RegSHMNcsiBuildTime3_t& operator=(const RegSHMNcsiBuildTime3_t& other)
+    RegSHMRcpuPrintfBuffer_t& operator=(const RegSHMRcpuPrintfBuffer_t& other)
     {
         r32 = other.r32;
         return *this;
     }
 #endif /* CXX_SIMULATOR */
-} RegSHMNcsiBuildTime3_t;
-
-#define REG_SHM_NCSI_BUILD_DATE ((volatile APE_SHM_H_uint32_t*)0x6022081c) /* ASCII string spanning three 32-bit words. Unused trailing bytes   are set to zero. */
-/** @brief Register definition for @ref SHM_t.NcsiBuildDate. */
-typedef register_container RegSHMNcsiBuildDate_t {
-    /** @brief 32bit direct register access. */
-    APE_SHM_H_uint32_t r32;
-#ifdef CXX_SIMULATOR
-    /** @brief Register name for use with the simulator. */
-    const char* getName(void) { return "NcsiBuildDate"; }
-
-    /** @brief Print register value. */
-    void print(void) { r32.print(); }
-
-    RegSHMNcsiBuildDate_t()
-    {
-        /** @brief constructor for @ref SHM_t.NcsiBuildDate. */
-        r32.setName("NcsiBuildDate");
-    }
-    RegSHMNcsiBuildDate_t& operator=(const RegSHMNcsiBuildDate_t& other)
-    {
-        r32 = other.r32;
-        return *this;
-    }
-#endif /* CXX_SIMULATOR */
-} RegSHMNcsiBuildDate_t;
-
-#define REG_SHM_NCSI_BUILD_DATE_2 ((volatile APE_SHM_H_uint32_t*)0x60220820) /*  */
-/** @brief Register definition for @ref SHM_t.NcsiBuildDate2. */
-typedef register_container RegSHMNcsiBuildDate2_t {
-    /** @brief 32bit direct register access. */
-    APE_SHM_H_uint32_t r32;
-#ifdef CXX_SIMULATOR
-    /** @brief Register name for use with the simulator. */
-    const char* getName(void) { return "NcsiBuildDate2"; }
-
-    /** @brief Print register value. */
-    void print(void) { r32.print(); }
-
-    RegSHMNcsiBuildDate2_t()
-    {
-        /** @brief constructor for @ref SHM_t.NcsiBuildDate2. */
-        r32.setName("NcsiBuildDate2");
-    }
-    RegSHMNcsiBuildDate2_t& operator=(const RegSHMNcsiBuildDate2_t& other)
-    {
-        r32 = other.r32;
-        return *this;
-    }
-#endif /* CXX_SIMULATOR */
-} RegSHMNcsiBuildDate2_t;
-
-#define REG_SHM_NCSI_BUILD_DATE_3 ((volatile APE_SHM_H_uint32_t*)0x60220824) /*  */
-/** @brief Register definition for @ref SHM_t.NcsiBuildDate3. */
-typedef register_container RegSHMNcsiBuildDate3_t {
-    /** @brief 32bit direct register access. */
-    APE_SHM_H_uint32_t r32;
-#ifdef CXX_SIMULATOR
-    /** @brief Register name for use with the simulator. */
-    const char* getName(void) { return "NcsiBuildDate3"; }
-
-    /** @brief Print register value. */
-    void print(void) { r32.print(); }
-
-    RegSHMNcsiBuildDate3_t()
-    {
-        /** @brief constructor for @ref SHM_t.NcsiBuildDate3. */
-        r32.setName("NcsiBuildDate3");
-    }
-    RegSHMNcsiBuildDate3_t& operator=(const RegSHMNcsiBuildDate3_t& other)
-    {
-        r32 = other.r32;
-        return *this;
-    }
-#endif /* CXX_SIMULATOR */
-} RegSHMNcsiBuildDate3_t;
-
-#define REG_SHM_CHIP_ID ((volatile APE_SHM_H_uint32_t*)0x60220890) /* The APE code copies the contents of Chip ID to this word */
-/** @brief Register definition for @ref SHM_t.ChipId. */
-typedef register_container RegSHMChipId_t {
-    /** @brief 32bit direct register access. */
-    APE_SHM_H_uint32_t r32;
-#ifdef CXX_SIMULATOR
-    /** @brief Register name for use with the simulator. */
-    const char* getName(void) { return "ChipId"; }
-
-    /** @brief Print register value. */
-    void print(void) { r32.print(); }
-
-    RegSHMChipId_t()
-    {
-        /** @brief constructor for @ref SHM_t.ChipId. */
-        r32.setName("ChipId");
-    }
-    RegSHMChipId_t& operator=(const RegSHMChipId_t& other)
-    {
-        r32 = other.r32;
-        return *this;
-    }
-#endif /* CXX_SIMULATOR */
-} RegSHMChipId_t;
+} RegSHMRcpuPrintfBuffer_t;
 
 /** @brief Component definition for @ref SHM. */
 typedef struct SHM_t {
@@ -1781,37 +1681,19 @@ typedef struct SHM_t {
     RegSHMProtMac0Low_t ProtMac0Low;
 
     /** @brief Reserved bytes to pad out data structure. */
-    APE_SHM_H_uint32_t reserved_796[313];
+    APE_SHM_H_uint32_t reserved_796[2];
 
-    /** @brief Set to NCSI_MAGIC ('NCSI') by APE firmware. NOTE: all words in the NCSI section are available in the function 0 SHM area only. */
-    RegSHMNcsiSig_t NcsiSig;
+    /** @brief Index into the printf buffer for last valid byte. */
+    RegSHMRcpuWritePointer_t RcpuWritePointer;
 
-    /** @brief Reserved bytes to pad out data structure. */
-    APE_SHM_H_uint32_t reserved_2052[3];
+    /** @brief Index into the printf buffer for last read byte. */
+    RegSHMRcpuHostReadPointer_t RcpuHostReadPointer;
 
-    /** @brief ASCII string spanning three 32-bit words. Unused trailing bytes   are set to zero. */
-    RegSHMNcsiBuildTime_t NcsiBuildTime;
+    /** @brief Index into the printf buffer for last read byte. */
+    RegSHMRcpuReadPointer_t RcpuReadPointer;
 
-    /** @brief  */
-    RegSHMNcsiBuildTime2_t NcsiBuildTime2;
-
-    /** @brief  */
-    RegSHMNcsiBuildTime3_t NcsiBuildTime3;
-
-    /** @brief ASCII string spanning three 32-bit words. Unused trailing bytes   are set to zero. */
-    RegSHMNcsiBuildDate_t NcsiBuildDate;
-
-    /** @brief  */
-    RegSHMNcsiBuildDate2_t NcsiBuildDate2;
-
-    /** @brief  */
-    RegSHMNcsiBuildDate3_t NcsiBuildDate3;
-
-    /** @brief Reserved bytes to pad out data structure. */
-    APE_SHM_H_uint32_t reserved_2088[26];
-
-    /** @brief The APE code copies the contents of Chip ID to this word */
-    RegSHMChipId_t ChipId;
+    /** @brief Printf buffer from the APE to the Rcpu for NVRAM printout or the host */
+    RegSHMRcpuPrintfBuffer_t RcpuPrintfBuffer[372];
 
 #ifdef CXX_SIMULATOR
     SHM_t()
@@ -1887,26 +1769,17 @@ typedef struct SHM_t {
         }
         ProtMac0High.r32.setComponentOffset(0x314);
         ProtMac0Low.r32.setComponentOffset(0x318);
-        for(int i = 0; i < 313; i++)
+        for(int i = 0; i < 2; i++)
         {
             reserved_796[i].setComponentOffset(0x31c + (i * 4));
         }
-        NcsiSig.r32.setComponentOffset(0x800);
-        for(int i = 0; i < 3; i++)
+        RcpuWritePointer.r32.setComponentOffset(0x324);
+        RcpuHostReadPointer.r32.setComponentOffset(0x328);
+        RcpuReadPointer.r32.setComponentOffset(0x32c);
+        for(int i = 0; i < 372; i++)
         {
-            reserved_2052[i].setComponentOffset(0x804 + (i * 4));
+            RcpuPrintfBuffer[i].r32.setComponentOffset(0x330 + (i * 4));
         }
-        NcsiBuildTime.r32.setComponentOffset(0x810);
-        NcsiBuildTime2.r32.setComponentOffset(0x814);
-        NcsiBuildTime3.r32.setComponentOffset(0x818);
-        NcsiBuildDate.r32.setComponentOffset(0x81c);
-        NcsiBuildDate2.r32.setComponentOffset(0x820);
-        NcsiBuildDate3.r32.setComponentOffset(0x824);
-        for(int i = 0; i < 26; i++)
-        {
-            reserved_2088[i].setComponentOffset(0x828 + (i * 4));
-        }
-        ChipId.r32.setComponentOffset(0x890);
     }
     void print()
     {
@@ -1981,26 +1854,17 @@ typedef struct SHM_t {
         }
         ProtMac0High.print();
         ProtMac0Low.print();
-        for(int i = 0; i < 313; i++)
+        for(int i = 0; i < 2; i++)
         {
             reserved_796[i].print();
         }
-        NcsiSig.print();
-        for(int i = 0; i < 3; i++)
+        RcpuWritePointer.print();
+        RcpuHostReadPointer.print();
+        RcpuReadPointer.print();
+        for(int i = 0; i < 372; i++)
         {
-            reserved_2052[i].print();
+            RcpuPrintfBuffer[i].print();
         }
-        NcsiBuildTime.print();
-        NcsiBuildTime2.print();
-        NcsiBuildTime3.print();
-        NcsiBuildDate.print();
-        NcsiBuildDate2.print();
-        NcsiBuildDate3.print();
-        for(int i = 0; i < 26; i++)
-        {
-            reserved_2088[i].print();
-        }
-        ChipId.print();
     }
     typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);
     callback_t mIndexReadCallback;
@@ -2029,7 +1893,7 @@ extern volatile SHM_t SHM;
 #undef BITFIELD_END
 
 #ifndef CXX_SIMULATOR
-_Static_assert(sizeof(SHM_t) == 2196, "sizeof(SHM_t) must be 2196");
+_Static_assert(sizeof(SHM_t) == 2304, "sizeof(SHM_t) must be 2304");
 #endif
 
 #endif /* !APE_SHM_H */

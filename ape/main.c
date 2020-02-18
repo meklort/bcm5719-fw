@@ -47,7 +47,6 @@
 #include <APE.h>
 #include <APE_APE.h>
 #include <APE_APE_PERI.h>
-#include <APE_DEBUG.h>
 #include <APE_DEVICE1.h>
 #include <APE_DEVICE2.h>
 #include <APE_DEVICE3.h>
@@ -233,7 +232,7 @@ void wait_for_rx(volatile DEVICE_t *device, volatile SHM_t *shm)
     } while (waiting);
 }
 
-void handle_reset(void)
+bool handle_reset(void)
 {
     uint32_t chip_id = DEVICE.ChipId.r32;
     if (!chip_id)
@@ -279,23 +278,34 @@ void handle_reset(void)
         wait_for_rx(&DEVICE1, &SHM1);
         wait_for_rx(&DEVICE2, &SHM2);
         wait_for_rx(&DEVICE3, &SHM3);
+
+        return true;
+    }
+    else
+    {
+        // No reset
+        return false;
     }
 }
 
 void __attribute__((noreturn)) __start()
 {
-    handle_reset();
-
-    if (DEBUG.WritePointer.r32 >= sizeof(DEBUG.Buffer) || DEBUG.ReadPointer.r32 >= sizeof(DEBUG.Buffer))
+    if (handle_reset() ||
+        SHM.RcpuWritePointer.r32 > sizeof(SHM.RcpuPrintfBuffer) ||
+        SHM.RcpuReadPointer.r32 > sizeof(SHM.RcpuPrintfBuffer) ||
+        SHM.RcpuHostReadPointer.r32 > sizeof(SHM.RcpuPrintfBuffer)
+        )
     {
-        DEBUG.WritePointer.r32 = 0;
-        DEBUG.ReadPointer.r32 = 0;
+        SHM.RcpuWritePointer.r32 = 0;
+        SHM.RcpuReadPointer.r32 = 0;
+        SHM.RcpuHostReadPointer.r32 = 0;
         printf("Chip Reset.\n");
     }
     else
     {
         printf("APE Reload.\n");
     }
+
 
     checkSupply(true);
 

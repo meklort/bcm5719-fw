@@ -101,29 +101,39 @@ int main(int argc, char const *argv[])
         exit(-1);
     }
 
-    uint32_t* DEBUG = (uint32_t*)&gAPEBase[0x4000];
-    volatile uint32_t* write_pointer = &DEBUG[0];
-    volatile uint32_t* read_pointer = &DEBUG[1];
-    uint32_t  buffer_size = 0x1000 - 8;
-    volatile uint32_t*  buffer = &DEBUG[2];
+    uint32_t  buffer_size = sizeof(SHM.RcpuPrintfBuffer)/sizeof(SHM.RcpuPrintfBuffer[0]) * sizeof(uint32_t);
+
+    if (SHM.RcpuWritePointer.r32 > buffer_size ||
+        SHM.RcpuReadPointer.r32 > buffer_size ||
+        SHM.RcpuHostReadPointer.r32 > buffer_size)
+    {
+        // Print buffer has not been initialized or we are not function 0. Exit out.
+        cerr << "Unexpected value in SHM. exiting." << endl;
+        cerr << "Write Pointer: " << SHM.RcpuWritePointer.r32 << endl;
+        cerr << "Read Pointer: " << SHM.RcpuReadPointer.r32 << endl;
+        cerr << "Host Read Pointer: " << SHM.RcpuHostReadPointer.r32 << endl;
+        cerr << "Max Pointer: " << buffer_size << endl;
+        exit(-1);
+    }
 
     for(;;)
     {
         BARRIER();
-        uint32_t cached_pointer = *read_pointer;
-        if(cached_pointer != *write_pointer)
+        uint32_t cached_pointer = SHM.RcpuHostReadPointer.r32;
+        if(cached_pointer != SHM.RcpuWritePointer.r32)
         {
-            uint32_t word_pointer = cached_pointer / 4;
-            uint32_t byte_index = cached_pointer % 4;
-            char character = (uint8_t)(buffer[word_pointer] >> (byte_index * 8));
-            // printf("Buffer[%d] = %c\n", cached_pointer, character);
-            putchar(character);
-
-            if(cached_pointer++ >= buffer_size)
+            if(cached_pointer >= buffer_size)
             {
                 cached_pointer = 0;
             }
-            *read_pointer = cached_pointer;
+
+            uint32_t word_pointer = cached_pointer / 4;
+            uint32_t byte_index = cached_pointer % 4;
+            char character = (uint8_t)(SHM.RcpuPrintfBuffer[word_pointer].r32 >> (byte_index * 8));
+            // printf("Buffer[%d] = %c\n", cached_pointer, character);
+            putchar(character);
+
+            SHM.RcpuHostReadPointer.r32 = ++cached_pointer;
         }
     }
 

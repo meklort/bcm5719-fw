@@ -85,6 +85,41 @@ void init_once(void)
     SHM.RcpuSegLength.r32 = 0x34;
 }
 
+void handle_printf()
+{
+    uint32_t  buffer_size = sizeof(SHM.RcpuPrintfBuffer)/sizeof(SHM.RcpuPrintfBuffer[0]) * sizeof(uint32_t);
+
+    if (SHM.RcpuWritePointer.r32 > buffer_size ||
+        SHM.RcpuReadPointer.r32 > buffer_size ||
+        SHM.RcpuHostReadPointer.r32 > buffer_size)
+    {
+        // Print buffer has not been initialized. Exit out.
+        return;
+    }
+
+    for(;;)
+    {
+        uint32_t cached_pointer = SHM.RcpuReadPointer.r32;
+        if(cached_pointer != SHM.RcpuWritePointer.r32)
+        {
+            if(cached_pointer >= buffer_size)
+            {
+                cached_pointer = 0;
+            }
+
+            uint32_t word_pointer = cached_pointer / 4;
+            uint32_t byte_index = cached_pointer % 4;
+            char character = (uint8_t)(SHM.RcpuPrintfBuffer[word_pointer].r32 >> (byte_index * 8));
+
+            em100_putchar(character);
+
+            SHM.RcpuReadPointer.r32 = ++cached_pointer;
+        }
+    }
+
+}
+
+
 int main()
 {
 #if CXX_SIMULATOR
@@ -175,13 +210,25 @@ int main()
 
 
 #else
-    RegDEVICERxRiscMode_t mode;
-    mode.r32 = 0;
-    mode.bits.Halt = 1;
-    for(;;)
+    if(0 == DEVICE.Status.bits.FunctionNumber)
     {
-        // Halt the CPU since we aren't doing anything.
-        DEVICE.RxRiscMode.r32 = mode.r32;;
+        for(;;)
+        {
+            // Handle printf from the APE.
+            handle_printf();
+        }
+    }
+    else
+    {
+        RegDEVICERxRiscMode_t mode;
+        mode.r32 = 0;
+        mode.bits.Halt = 1;
+
+        for(;;)
+        {
+            // Halt the CPU since we aren't doing anything.
+            // DEVICE.RxRiscMode.r32 = mode.r32;;
+        }
     }
 #endif
 }
