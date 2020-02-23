@@ -128,6 +128,10 @@ int main()
 
     reportStatus(STATUS_MAIN, 0);
 
+    if(0 == DEVICE.Status.bits.FunctionNumber)
+    {
+        em100_puts("RX Reset\n");
+    }
 #if !CXX_SIMULATOR
     // Perform early initialization
     early_init_hw();
