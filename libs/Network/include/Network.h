@@ -103,7 +103,10 @@ void Network_InitTxRx(void);
 void Network_resetTX(NetworkPort_t *port);
 void Network_resetRX(NetworkPort_t *port);
 
-void Network_updatePortState(NetworkPort_t *port);
+void Network_checkPortState(NetworkPort_t *port);
+bool Network_updatePortState(NetworkPort_t *port);
+
+bool Network_isLinkUp(NetworkPort_t *port);
 
 
 uint32_t Network_TX_numBlocksNeeded(uint32_t frame_size);
