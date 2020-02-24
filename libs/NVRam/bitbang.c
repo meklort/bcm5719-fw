@@ -198,7 +198,7 @@ uint32_t NVRam_bitbang_readWord(uint32_t address)
     };
     uint8_t get_bytes[sizeof(send_bytes)];
     uint32_t num_bytes = sizeof(send_bytes);
-    if(NVRam_sendAndGetBytes(send_bytes, get_bytes, num_bytes))
+    if (NVRam_sendAndGetBytes(send_bytes, get_bytes, num_bytes))
     {
         uint32_t read_word = (get_bytes[4]) | (get_bytes[5] << 8) | (get_bytes[6] << 16) | (get_bytes[7] << 24);
 
