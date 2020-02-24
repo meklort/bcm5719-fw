@@ -131,7 +131,6 @@ bool Network_PassthroughRxPatcket(NetworkPort_t *port)
     rxbuf = *((RegAPERxbufoffset_t *)port->rx_offset);
     if ((int)rxbuf.bits.Valid)
     {
-        printf("***RX***\n");
 #if CXX_SIMULATOR
         rxbuf.print();
 #endif
@@ -213,6 +212,9 @@ bool Network_PassthroughRxPatcket(NetworkPort_t *port)
         // Mark the frame as read.
         rxbuf.bits.Finished = 1;
         *((RegAPERxbufoffset_t *)port->rx_offset) = rxbuf;
+
+        // Packet recieved.
+        ++port->shm_channel->NcsiChannelCtrlstatAllRx.r32;
 
         return true;
     }
