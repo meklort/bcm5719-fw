@@ -403,6 +403,12 @@ static void getLinkStatusHandler(NetworkFrame_t *frame)
     int ch = frame->controlPacket.ChannelID & CHANNEL_ID_MASK;
     NetworkPort_t *port = gPackageState.port[ch];
     uint8_t phy = MII_getPhy(port->device);
+
+    uint32_t rx = port->shm_channel->NcsiChannelCtrlstatAllRx.r32;
+    uint32_t tx = port->shm_channel->NcsiChannelCtrlstatAllRx.r32;
+
+    debug("Link Status [%d], TX %d, RX %d\n", frame->controlPacket.ChannelID, tx, rx);
+
     APE_aquireLock();
     uint16_t status_value = MII_readRegister(port->device, phy, (mii_reg_t)REG_MII_STATUS);
     stat.r16 = status_value;
@@ -435,7 +441,6 @@ static void getLinkStatusHandler(NetworkFrame_t *frame)
     uint32_t LinkStatus = linkStatus.r32;
     uint32_t OEMLinkStatus = 0;
     uint32_t OtherIndications = 0;
-    debug("Get Link Status: channel %x\n", frame->controlPacket.ChannelID);
 
     sendNCSILinkStatusResponse(frame->controlPacket.InstanceID, frame->controlPacket.ChannelID, LinkStatus, OEMLinkStatus, OtherIndications);
 }
@@ -674,6 +679,7 @@ void resetChannel(int ch)
     port->shm_channel->NcsiChannelInfo.r32 = 0;
     port->shm_channel->NcsiChannelCtrlstatRx.r32 = 0;
     port->shm_channel->NcsiChannelCtrlstatAllTx.r32 = 0;
+    port->shm_channel->NcsiChannelCtrlstatAllRx.r32 = 0;
     port->shm_channel->NcsiChannelInfo.bits.Ready = false;
 
     uint8_t phy = MII_getPhy(port->device);

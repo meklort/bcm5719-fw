@@ -424,8 +424,6 @@ bool Network_TX_transmitPassthroughPacket(uint32_t length, NetworkPort_t *port)
     uint32_t blocks = Network_TX_numBlocksNeeded(length);
     int total_blocks = blocks;
 
-    printf("Sending passhrough packet to Net. First block: %d (%d total).\n", first, blocks);
-
     if (blocks > 1)
     {
         next_block = Network_TX_allocateBlock(port);
@@ -472,6 +470,9 @@ bool Network_TX_transmitPassthroughPacket(uint32_t length, NetworkPort_t *port)
     // Read last RX word (FCS) to clear the buffer
     uint32_t data = APE_PERI.BmcToNcReadBuffer.r32;
     (void)data;
+
+    // Packet transmitted.
+    ++port->shm_channel->NcsiChannelCtrlstatAllTx.r32;
 
     return true;
 }
