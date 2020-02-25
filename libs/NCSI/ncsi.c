@@ -373,7 +373,7 @@ static void AENEnableHandler(NetworkFrame_t *frame)
     debug("AEN Enable: AENControl %x\n", AENControl);
 
     gPackageState.port[ch]->shm_channel->NcsiChannelMcid.r32 = frame->AENEnable.AEN_MC_ID;
-    gPackageState.port[ch]->shm_channel->NcsiChannelMcid.r32 = AENControl;
+    gPackageState.port[ch]->shm_channel->NcsiChannelAen.r32 = AENControl;
 
     sendNCSIResponse(frame->controlPacket.InstanceID, frame->controlPacket.ChannelID, frame->controlPacket.ControlPacketType,
                      NCSI_RESPONSE_CODE_COMMAND_COMPLETE, NCSI_REASON_CODE_NONE);
@@ -397,10 +397,7 @@ static void setLinkHandler(NetworkFrame_t *frame)
 
 static void getLinkStatusHandler(NetworkFrame_t *frame)
 {
-    // If not
-    RegMIIStatus_t stat;
-    RegMIIIeeeExtendedStatus_t ext_stat;
-    ext_stat.r16 = 0;
+    RegMIIAuxiliaryStatusSummary_t stat;
 
     int ch = frame->controlPacket.ChannelID & CHANNEL_ID_MASK;
     NetworkPort_t *port = gPackageState.port[ch];
@@ -412,31 +409,15 @@ static void getLinkStatusHandler(NetworkFrame_t *frame)
     debug("Link Status [%d], TX %d, RX %d\n", frame->controlPacket.ChannelID, tx, rx);
 
     APE_aquireLock();
-    uint16_t status_value = MII_readRegister(port->device, phy, (mii_reg_t)REG_MII_STATUS);
-    stat.r16 = status_value;
-    if (stat.bits.ExtendedStatusSupported)
-    {
-        uint16_t ext_status_value = MII_readRegister(port->device, phy, (mii_reg_t)REG_MII_IEEE_EXTENDED_STATUS);
-        ext_stat.r16 = ext_status_value;
-    }
-
+    stat.r16 = MII_readRegister(port->device, phy, (mii_reg_t)REG_MII_AUXILIARY_STATUS_SUMMARY);
     APE_releaseLock();
 
-    RegSHM_CHANNELNcsiChannelStatus_t linkStatus;
-    linkStatus.r32 = 0;
-    linkStatus.bits.Linkup = stat.bits.LinkOK;
-    linkStatus.bits.LinkStatus = SHM_CHANNEL_NCSI_CHANNEL_STATUS_LINK_STATUS_1000BASE_T_FULL_DUPLEX; // FIXME
+    RegSHM_CHANNELNcsiChannelStatus_t linkStatus = port->shm_channel->NcsiChannelStatus;
+
+    linkStatus.bits.Linkup = stat.bits.LinkStatus;
+    linkStatus.bits.LinkStatus = stat.bits.AutoNegotiationHCD;
     linkStatus.bits.AutonegotiationEnabled = 1;
     linkStatus.bits.AutonegotiationComplete = stat.bits.AutoNegotiationComplete;
-
-    linkStatus.bits.LinkSpeed1000MFullDuplexCapable = ext_stat.bits._1000BASE_TFullDuplexCapable;
-    linkStatus.bits.LinkSpeed1000MHalfDuplexCapable = ext_stat.bits._1000BASE_THalfDuplexCapable;
-
-    linkStatus.bits.LinkSpeed100M_TXFullDuplexCapable = stat.bits._100BASE_XFullDuplexCapable;
-    linkStatus.bits.LinkSpeed100M_TXHalfDuplexCapable = stat.bits._100BASE_XHalfDuplexCapable;
-
-    linkStatus.bits.LinkSpeed10M_TFullDuplexCapable = stat.bits._10BASE_TFullDuplexCapable;
-    linkStatus.bits.LinkSpeed10M_THalfDuplexCapable = stat.bits._10BASE_THalfDuplexCapable;
 
     port->shm_channel->NcsiChannelStatus = linkStatus;
 
