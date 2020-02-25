@@ -69,9 +69,4 @@ void Network_InitTxRx(void)
     mode.bits.Channel2Enable = 1;
     mode.bits.Channel3Enable = 1;
     APE.Mode = mode;
-
-    Network_InitPort(&gPort0);
-    Network_InitPort(&gPort1);
-    Network_InitPort(&gPort2);
-    Network_InitPort(&gPort3);
 }

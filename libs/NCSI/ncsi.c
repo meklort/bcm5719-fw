@@ -315,6 +315,8 @@ static void enableChannelHandler(NetworkFrame_t *frame)
     debug("Enable Channel: %x\n", ch);
     gPackageState.port[ch]->shm_channel->NcsiChannelInfo.bits.Enabled = true;
 
+    Network_InitPort(gPackageState.port[ch]);
+
     sendNCSIResponse(frame->controlPacket.InstanceID, frame->controlPacket.ChannelID, frame->controlPacket.ControlPacketType,
                      NCSI_RESPONSE_CODE_COMMAND_COMPLETE, NCSI_REASON_CODE_NONE);
 }
