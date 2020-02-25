@@ -61,6 +61,12 @@
 #include <MII.h>
 #include <Network.h>
 
+#ifdef CXX_SIMULATOR
+#include <stdio.h>
+#else
+#include <printf.h>
+#endif
+
 NetworkPort_t gPort0 = {
     .device = &DEVICE,
     .filters = &FILTERS0,
@@ -839,21 +845,42 @@ void Network_InitPort(NetworkPort_t *port)
     cmm.bits.LinkSpeedPowerModeEnable = 1;
     port->device->CpmuControl = cmm;
 
-    Network_SetMACAddr(port, 0, 0, 1, true);
-
     if (port->device->EmacMode.bits.EnableFHDE || port->device->EmacMode.bits.EnableRDE)
     {
         port->device->ReceiveListPlacementMode.bits.Enable = 1;
     }
 
     port->device->GrcModeControl.bits.HostStackUp = 1; // Enable packet RX
+
+    Network_updatePortState(port);
 }
 
-void Network_updatePortState(NetworkPort_t *port)
+void Network_checkPortState(NetworkPort_t *port)
+{
+    if (port->device->EmacStatus.bits.LinkStateChanged)
+    {
+        printf("LinkStatusChanged\n");
+
+        // Update state to match latest.
+        if (Network_updatePortState(port))
+        {
+            RegDEVICEEmacStatus_t clearState;
+            clearState.r32 = 0;
+            clearState.bits.LinkStateChanged = 1;
+            clearState.bits.ConfigurationChanged = 1;
+            clearState.bits.SyncChanged = 1;
+            clearState.bits.MICompletion = 1;
+            port->device->EmacStatus.r32 = clearState.r32;
+        }
+    }
+}
+
+bool Network_updatePortState(NetworkPort_t *port)
 {
     uint8_t phy = MII_getPhy(port->device);
     RegMIIAuxiliaryStatusSummary_t status;
     RegMIIControl_t control;
+    bool updated = false;
 
     control.r16 = MII_readRegister(port->device, phy, (mii_reg_t)REG_MII_CONTROL);
     if (control.bits.RestartAutonegotiation)
@@ -920,6 +947,49 @@ void Network_updatePortState(NetworkPort_t *port)
                 // Update emac mode to match current state.
                 port->device->EmacMode = emacMode;
             }
+
+            updated = true;
         }
     }
+
+    return updated;
+}
+
+bool Network_isLinkUp(NetworkPort_t *port)
+{
+    uint8_t phy = MII_getPhy(port->device);
+    RegMIIAuxiliaryStatusSummary_t status;
+    RegMIIControl_t control;
+    bool linkup;
+
+    control.r16 = MII_readRegister(port->device, phy, (mii_reg_t)REG_MII_CONTROL);
+    if (control.bits.RestartAutonegotiation)
+    {
+        // Renegotiating, link not yet up.
+        linkup = false;
+    }
+    else
+    {
+        status.r16 = MII_readRegister(port->device, phy, (mii_reg_t)REG_MII_AUXILIARY_STATUS_SUMMARY);
+        if (control.bits.AutoNegotiationEnable && !status.bits.AutoNegotiationComplete)
+        {
+            // Renegotiating, link not yet up.
+            linkup = false;
+        }
+        else
+        {
+            if (MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_HCD_NO_HCD == status.bits.AutoNegotiationHCD)
+            {
+                // Autoneg failed, link not up.
+                linkup = false;
+            }
+            else
+            {
+                // Autoneg passed.
+                linkup = true;
+            }
+        }
+    }
+
+    return linkup;
 }
