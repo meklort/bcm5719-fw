@@ -50,7 +50,7 @@ void Network_SetMACAddr(NetworkPort_t *port, uint16_t high, uint32_t low, uint32
     uint32_t match_high = (high << 16) | (low >> 16);
     uint16_t match_low = (low << 16);
 
-    switch(index)
+    switch (index)
     {
         case 0:
             APE_PERI.BmcToNcSourceMacMatch0High.r32 = match_high;
