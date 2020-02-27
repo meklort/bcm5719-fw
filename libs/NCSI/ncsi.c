@@ -518,11 +518,10 @@ static void setMACAddressHandler(NetworkFrame_t *frame)
     // TODO: Handle AT.
 
     // NC-SI has the mac starting at 1, reindex based at 0.
-    if(frame->setMACAddr.MACNumber > 0)
+    if (frame->setMACAddr.MACNumber > 0)
     {
         frame->setMACAddr.MACNumber--;
     }
-
 
     uint32_t low = (frame->setMACAddr.MAC32 << 16) | frame->setMACAddr.MAC10;
     Network_SetMACAddr(port, frame->setMACAddr.MAC54, low, frame->setMACAddr.MACNumber, frame->setMACAddr.Enable);
