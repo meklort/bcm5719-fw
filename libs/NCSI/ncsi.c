@@ -678,6 +678,44 @@ void resetChannel(int ch)
     APE_releaseLock();
 }
 
+void reloadChannel(int ch, reload_type_t reset_phy)
+{
+    NetworkPort_t *port = gPackageState.port[ch];
+
+    uint32_t low = port->shm_channel->NcsiChannelMac0Mid.r32 << 16 | port->shm_channel->NcsiChannelMac0Low.r32;
+    uint16_t high = port->shm_channel->NcsiChannelMac0High.r32;
+    Network_SetMACAddr(port, high, low, /* TBD */ 0, 1);
+
+    if (gPackageState.port[ch]->shm_channel->NcsiChannelInfo.bits.Enabled)
+    {
+        printf("[ch %d] Reusing MAC: 0x%02X%04X\n", ch, high, low);
+
+        bool reset;
+        switch (reset_phy)
+        {
+            case NEVER_RESET:
+                reset = false;
+                break;
+            case AS_NEEDED:
+                reset = !Network_isLinkUp(port);
+                break;
+            case ALWAYS_RESET:
+                reset = true;
+                break;
+        }
+
+        if (reset)
+        {
+            uint8_t phy = MII_getPhy(port->device);
+            APE_aquireLock();
+            MII_writeRegister(port->device, phy, (mii_reg_t)REG_MII_CONTROL, MII_CONTROL_RESET_MASK);
+            APE_releaseLock();
+        }
+
+        Network_InitPort(gPackageState.port[ch]);
+    }
+}
+
 void NCSI_TxPacket(uint32_t *packet, uint32_t packet_len)
 {
     uint32_t packetWords = DIVIDE_RND_UP(packet_len, sizeof(uint32_t));
@@ -749,6 +787,14 @@ void NCSI_init(void)
         resetChannel(i);
     }
     SHM.SegSig.r32 = 0; // (1 << command);
+}
+
+void NCSI_reload(reload_type_t reset_phy)
+{
+    for (int i = 0; i < ARRAY_ELEMENTS(gPackageState.port); i++)
+    {
+        reloadChannel(i, reset_phy);
+    }
 }
 
 void NCSI_handlePassthrough(void)
