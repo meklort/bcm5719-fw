@@ -107,6 +107,33 @@ void handleCommand(void)
     SHM.LoaderCommand.bits.Command = 0;
 }
 
+void wait_for_rx(volatile DEVICE_t *device, volatile SHM_t *shm)
+{
+    bool waiting = true;
+    do
+    {
+        if (device->RxRiscStatus.bits.Halted)
+        {
+            // If the RX CPU has halted, exit out.
+            waiting = false;
+        }
+
+        if (SHM_RCPU_SEG_SIG_SIG_RCPU_MAGIC == shm->RcpuSegSig.bits.Sig)
+        {
+            // Firmware has finished initialization.
+            waiting = false;
+        }
+    } while (waiting);
+}
+
+void wait_for_all_rx()
+{
+    wait_for_rx(&DEVICE, &SHM);
+    wait_for_rx(&DEVICE1, &SHM1);
+    wait_for_rx(&DEVICE2, &SHM2);
+    wait_for_rx(&DEVICE3, &SHM3);
+}
+
 void handleBMCPacket(void)
 {
     uint32_t buffer[1024];
@@ -199,6 +226,7 @@ void checkSupply(bool alwaysReport)
 
 void __attribute__((noreturn)) loaderLoop(void)
 {
+    uint32_t host_state = SHM.HostDriverState.bits.State;
     // Update SHM.Sig to signal ready.
     SHM.SegSig.bits.Sig = SHM_SEG_SIG_SIG_LOADER;
     SHM.FwStatus.bits.Ready = 1;
@@ -210,26 +238,48 @@ void __attribute__((noreturn)) loaderLoop(void)
         NCSI_handlePassthrough();
         handleCommand();
         checkSupply(false);
+
+        // Make sure we haven't locked up the RMU state machine.
+        if (APE_PERI.BmcToNcRxStatus.bits.InProgress)
+        {
+            printf("BMC in prog, initRMU\n");
+            initRMU();
+            APE_PERI.BmcToNcRxControl.bits.ResetBad = 1;
+            while (APE_PERI.BmcToNcRxControl.bits.ResetBad)
+            {
+                // Wait
+            }
+        }
+
+        if (host_state != SHM.HostDriverState.bits.State)
+        {
+            host_state = SHM.HostDriverState.bits.State;
+            if (SHM_HOST_DRIVER_STATE_STATE_UNLOAD == host_state)
+            {
+                printf("host unloaded.\n");
+                wait_for_all_rx();
+                NCSI_reload(ALWAYS_RESET);
+            }
+            else if (SHM_HOST_DRIVER_STATE_STATE_START == host_state)
+            {
+                printf("host started\n");
+            }
+            else
+            {
+                printf("wol?\n");
+            }
+        }
+        else if (0 == APE.Mode.bits.Channel0Enable)
+        {
+            // This will trigger any time the host is unloaded.
+            printf("Channel0Enable == 0. Reset TX/RX\n");
+            wait_for_all_rx();
+            // Channel enable was cleared.
+            NCSI_reload(SHM_HOST_DRIVER_STATE_STATE_START != SHM.HostDriverState.bits.State ? ALWAYS_RESET : NEVER_RESET);
+            Network_InitTxRx();
+            initRMU();
+        }
     }
-}
-
-void wait_for_rx(volatile DEVICE_t *device, volatile SHM_t *shm)
-{
-    bool waiting = true;
-    do
-    {
-        if(device->RxRiscStatus.bits.Halted)
-        {
-            // If the RX CPU has halted, exit out.
-            waiting = false;
-        }
-
-        if(SHM_RCPU_SEG_SIG_SIG_RCPU_MAGIC == shm->RcpuSegSig.bits.Sig)
-        {
-            // Firmware has finished initialization
-            waiting = false;
-        }
-    } while (waiting);
 }
 
 bool handle_reset(void)
@@ -274,10 +324,7 @@ bool handle_reset(void)
         APE.Gpio.r32 = apegpio.r32;
 
         // Wait for the RX CPU to finish executing before continuing.
-        wait_for_rx(&DEVICE, &SHM);
-        wait_for_rx(&DEVICE1, &SHM1);
-        wait_for_rx(&DEVICE2, &SHM2);
-        wait_for_rx(&DEVICE3, &SHM3);
+        wait_for_all_rx();
 
         return true;
     }
@@ -290,30 +337,29 @@ bool handle_reset(void)
 
 void __attribute__((noreturn)) __start()
 {
-    if (handle_reset() ||
-        SHM.RcpuWritePointer.r32 > sizeof(SHM.RcpuPrintfBuffer) ||
-        SHM.RcpuReadPointer.r32 > sizeof(SHM.RcpuPrintfBuffer) ||
-        SHM.RcpuHostReadPointer.r32 > sizeof(SHM.RcpuPrintfBuffer)
-        )
+    if (handle_reset() || SHM.RcpuWritePointer.r32 > sizeof(SHM.RcpuPrintfBuffer) || SHM.RcpuReadPointer.r32 > sizeof(SHM.RcpuPrintfBuffer) ||
+        SHM.RcpuHostReadPointer.r32 > sizeof(SHM.RcpuPrintfBuffer))
     {
         SHM.RcpuWritePointer.r32 = 0;
         SHM.RcpuReadPointer.r32 = 0;
         SHM.RcpuHostReadPointer.r32 = 0;
         printf("Chip Reset.\n");
+        Network_InitTxRx();
+        initRMU();
+
+        NCSI_init();
     }
     else
     {
         printf("APE Reload.\n");
+        Network_InitTxRx();
+        initRMU();
+        NCSI_reload(SHM_HOST_DRIVER_STATE_STATE_START != SHM.HostDriverState.bits.State ? AS_NEEDED : NEVER_RESET);
     }
-
 
     checkSupply(true);
 
     printf("Begin APE.\n");
-
-    NCSI_init();
-    Network_InitTxRx();
-    initRMU();
 
     loaderLoop();
 }
