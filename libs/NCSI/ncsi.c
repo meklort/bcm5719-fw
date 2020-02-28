@@ -408,6 +408,8 @@ static void getLinkStatusHandler(NetworkFrame_t *frame)
 
     debug("Link Status [%d], TX %d, RX %d\n", frame->controlPacket.ChannelID, tx, rx);
 
+    Network_checkPortState(port);
+
     APE_aquireLock();
     stat.r16 = MII_readRegister(port->device, phy, (mii_reg_t)REG_MII_AUXILIARY_STATUS_SUMMARY);
     APE_releaseLock();
