@@ -315,7 +315,7 @@ static void enableChannelHandler(NetworkFrame_t *frame)
     debug("Enable Channel: %x\n", ch);
     gPackageState.port[ch]->shm_channel->NcsiChannelInfo.bits.Enabled = true;
 
-    Network_InitPort(gPackageState.port[ch]);
+    Network_InitPort(gPackageState.port[ch], AS_NEEDED);
 
     sendNCSIResponse(frame->controlPacket.InstanceID, frame->controlPacket.ChannelID, frame->controlPacket.ControlPacketType,
                      NCSI_RESPONSE_CODE_COMMAND_COMPLETE, NCSI_REASON_CODE_NONE);
@@ -406,8 +406,6 @@ static void getLinkStatusHandler(NetworkFrame_t *frame)
     uint32_t rx = port->shm_channel->NcsiChannelCtrlstatAllRx.r32;
     uint32_t tx = port->shm_channel->NcsiChannelCtrlstatAllRx.r32;
 
-    debug("Link Status [%d], TX %d, RX %d\n", frame->controlPacket.ChannelID, tx, rx);
-
     Network_checkPortState(port);
 
     APE_aquireLock();
@@ -415,6 +413,17 @@ static void getLinkStatusHandler(NetworkFrame_t *frame)
     APE_releaseLock();
 
     RegSHM_CHANNELNcsiChannelStatus_t linkStatus = port->shm_channel->NcsiChannelStatus;
+
+    debug("Link Status [%d] %s, TX %d, RX %d\n", frame->controlPacket.ChannelID, stat.bits.LinkStatus ? "up" : "down", tx, rx);
+
+    if (!stat.bits.LinkStatus)
+    {
+        if (!Network_isLinkUp(port))
+        {
+            printf("Resetting link.\n");
+            Network_resetLink(port);
+        }
+    }
 
     linkStatus.bits.Linkup = stat.bits.LinkStatus;
     linkStatus.bits.LinkStatus = stat.bits.AutoNegotiationHCD;
@@ -691,29 +700,7 @@ void reloadChannel(int ch, reload_type_t reset_phy)
     {
         printf("[ch %d] Reusing MAC: 0x%02X%04X\n", ch, high, low);
 
-        bool reset;
-        switch (reset_phy)
-        {
-            case NEVER_RESET:
-                reset = false;
-                break;
-            case AS_NEEDED:
-                reset = !Network_isLinkUp(port);
-                break;
-            case ALWAYS_RESET:
-                reset = true;
-                break;
-        }
-
-        if (reset)
-        {
-            uint8_t phy = MII_getPhy(port->device);
-            APE_aquireLock();
-            MII_writeRegister(port->device, phy, (mii_reg_t)REG_MII_CONTROL, MII_CONTROL_RESET_MASK);
-            APE_releaseLock();
-        }
-
-        Network_InitPort(gPackageState.port[ch]);
+        Network_InitPort(gPackageState.port[ch], reset_phy);
     }
 }
 

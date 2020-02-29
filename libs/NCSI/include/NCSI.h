@@ -47,6 +47,7 @@
 
 #include <types.h>
 #include <Ethernet.h>
+#include <Network.h>
 
 void handleNCSIFrame(NetworkFrame_t* frame);
 
@@ -70,12 +71,6 @@ void NCSI_handlePassthrough(void);
 
 void NCSI_init(void);
 
-
-typedef enum {
-    NEVER_RESET, /* Host up, do not reset the PHY */
-    AS_NEEDED,   /* Reset the phy if no link */
-    ALWAYS_RESET /* Host was just turned off, reset phy */
-} reload_type_t;
 void NCSI_reload(reload_type_t reset_phy);
 
 #endif /* NCSI_H */
