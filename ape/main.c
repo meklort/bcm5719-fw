@@ -195,7 +195,7 @@ void handleBMCPacket(void)
                         printf("Resetting TX...\n");
                         // Reset TX, as it's likely locked up now.
                         // Network_resetTX(port);
-                        Network_InitPort(port);
+                        Network_InitPort(port, AS_NEEDED);
                     }
                 }
                 else
@@ -217,10 +217,19 @@ void handleBMCPacket(void)
 void checkSupply(bool alwaysReport)
 {
     static int gVMainOn;
-    if (alwaysReport || (gVMainOn != DEVICE.Status.bits.VMAINPowerStatus))
+    int status = DEVICE.Status.bits.VMAINPowerStatus;
+    if (alwaysReport || gVMainOn != status)
     {
-        gVMainOn = DEVICE.Status.bits.VMAINPowerStatus;
-        printf("VMAINPowerStatus: %d\n", gVMainOn);
+        printf("VMAINPowerStatus: %d\n", status);
+        if (0 == status && !alwaysReport)
+        {
+            printf("Powered off, resetting\n");
+            wait_for_all_rx();
+            initRMU();
+            NCSI_reload(ALWAYS_RESET);
+        }
+
+        gVMainOn = status;
     }
 }
 
@@ -239,45 +248,30 @@ void __attribute__((noreturn)) loaderLoop(void)
         handleCommand();
         checkSupply(false);
 
-        // Make sure we haven't locked up the RMU state machine.
-        if (APE_PERI.BmcToNcRxStatus.bits.InProgress)
-        {
-            printf("BMC in prog, initRMU\n");
-            initRMU();
-            APE_PERI.BmcToNcRxControl.bits.ResetBad = 1;
-            while (APE_PERI.BmcToNcRxControl.bits.ResetBad)
-            {
-                // Wait
-            }
-        }
-
         if (host_state != SHM.HostDriverState.bits.State)
         {
             host_state = SHM.HostDriverState.bits.State;
-            if (SHM_HOST_DRIVER_STATE_STATE_UNLOAD == host_state)
-            {
-                printf("host unloaded.\n");
-                wait_for_all_rx();
-                NCSI_reload(ALWAYS_RESET);
-            }
-            else if (SHM_HOST_DRIVER_STATE_STATE_START == host_state)
+            if (SHM_HOST_DRIVER_STATE_STATE_START == host_state)
             {
                 printf("host started\n");
+                wait_for_all_rx();
                 initRMU();
+                NCSI_reload(NEVER_RESET);
             }
             else
             {
-                printf("wol?\n");
+                if (SHM_HOST_DRIVER_STATE_STATE_UNLOAD == host_state)
+                {
+                    printf("host unloaded.\n");
+                }
+                else
+                {
+                    printf("wol?\n");
+                }
+                wait_for_all_rx();
+                initRMU();
+                NCSI_reload(AS_NEEDED);
             }
-        }
-        else if (0 == APE.Mode.bits.Channel0Enable)
-        {
-            // This will trigger any time the host is unloaded.
-            printf("Channel0Enable == 0. Reset TX/RX\n");
-            wait_for_all_rx();
-            // Channel enable was cleared.
-            NCSI_reload(SHM_HOST_DRIVER_STATE_STATE_START != SHM.HostDriverState.bits.State ? ALWAYS_RESET : NEVER_RESET);
-            initRMU();
         }
     }
 }

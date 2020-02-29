@@ -95,12 +95,18 @@ typedef union
     } bits;
 } network_control_t;
 
+typedef enum {
+    NEVER_RESET, /* Host up, do not reset the PHY */
+    AS_NEEDED,   /* Reset the phy if no link */
+    ALWAYS_RESET /* Host was just turned off, reset phy */
+} reload_type_t;
+
 extern NetworkPort_t gPort0;
 extern NetworkPort_t gPort1;
 extern NetworkPort_t gPort2;
 extern NetworkPort_t gPort3;
 
-void Network_InitPort(NetworkPort_t *port);
+void Network_InitPort(NetworkPort_t *port, reload_type_t force_reset);
 
 void Network_resetTX(NetworkPort_t *port);
 void Network_resetRX(NetworkPort_t *port);
@@ -109,6 +115,7 @@ void Network_checkPortState(NetworkPort_t *port);
 bool Network_updatePortState(NetworkPort_t *port);
 
 bool Network_isLinkUp(NetworkPort_t *port);
+void Network_resetLink(NetworkPort_t *port);
 
 
 uint32_t Network_TX_numBlocksNeeded(uint32_t frame_size);

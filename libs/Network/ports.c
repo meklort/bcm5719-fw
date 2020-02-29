@@ -800,12 +800,19 @@ void Network_resetRX(NetworkPort_t *port)
     *(port->rx_mode) = rxMode;
 }
 
-void Network_InitPort(NetworkPort_t *port)
+void Network_InitPort(NetworkPort_t *port, reload_type_t reset_phy)
 {
     RegMIIStatus_t stat;
     RegMIIIeeeExtendedStatus_t ext_stat;
     RegSHM_CHANNELNcsiChannelStatus_t linkStatus;
-    uint8_t phy;
+    uint8_t phy = MII_getPhy(port->device);
+
+    if ((ALWAYS_RESET == reset_phy) || (AS_NEEDED == reset_phy && !Network_isLinkUp(port)))
+    {
+        APE_aquireLock();
+        MII_writeRegister(port->device, phy, (mii_reg_t)REG_MII_CONTROL, MII_CONTROL_RESET_MASK);
+        APE_releaseLock();
+    }
 
     Network_InitFilters(port);
 
@@ -883,8 +890,6 @@ void Network_InitPort(NetworkPort_t *port)
     }
 
     port->device->GrcModeControl.bits.HostStackUp = 1; // Enable packet RX
-
-    phy = MII_getPhy(port->device);
 
     APE_aquireLock();
 
@@ -1015,6 +1020,14 @@ bool Network_updatePortState(NetworkPort_t *port)
     return updated;
 }
 
+void Network_resetLink(NetworkPort_t *port)
+{
+    uint8_t phy = MII_getPhy(port->device);
+    APE_aquireLock();
+    MII_writeRegister(port->device, phy, (mii_reg_t)REG_MII_CONTROL, MII_CONTROL_RESET_MASK);
+    APE_releaseLock();
+}
+
 bool Network_isLinkUp(NetworkPort_t *port)
 {
     uint8_t phy = MII_getPhy(port->device);
@@ -1025,16 +1038,16 @@ bool Network_isLinkUp(NetworkPort_t *port)
     control.r16 = MII_readRegister(port->device, phy, (mii_reg_t)REG_MII_CONTROL);
     if (control.bits.RestartAutonegotiation)
     {
-        // Renegotiating, link not yet up.
-        linkup = false;
+        // Renegotiating, link not yet up, but in progress
+        linkup = true;
     }
     else
     {
         status.r16 = MII_readRegister(port->device, phy, (mii_reg_t)REG_MII_AUXILIARY_STATUS_SUMMARY);
         if (control.bits.AutoNegotiationEnable && !status.bits.AutoNegotiationComplete)
         {
-            // Renegotiating, link not yet up.
-            linkup = false;
+            // Renegotiating, link not yet up, but in progress
+            linkup = true;
         }
         else
         {

@@ -103,4 +103,10 @@ void initRMU(void)
     arbControl.bits.Start = 1;
     arbControl.bits.TKNREL = 0x14;
     APE_PERI.ArbControl = arbControl;
+
+    APE_PERI.BmcToNcRxControl.bits.ResetBad = 1;
+    while (APE_PERI.BmcToNcRxControl.bits.ResetBad)
+    {
+        // Wait
+    }
 }
