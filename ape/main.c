@@ -263,6 +263,7 @@ void __attribute__((noreturn)) loaderLoop(void)
             else if (SHM_HOST_DRIVER_STATE_STATE_START == host_state)
             {
                 printf("host started\n");
+                initRMU();
             }
             else
             {
@@ -276,7 +277,6 @@ void __attribute__((noreturn)) loaderLoop(void)
             wait_for_all_rx();
             // Channel enable was cleared.
             NCSI_reload(SHM_HOST_DRIVER_STATE_STATE_START != SHM.HostDriverState.bits.State ? ALWAYS_RESET : NEVER_RESET);
-            Network_InitTxRx();
             initRMU();
         }
     }
@@ -344,7 +344,6 @@ void __attribute__((noreturn)) __start()
         SHM.RcpuReadPointer.r32 = 0;
         SHM.RcpuHostReadPointer.r32 = 0;
         printf("Chip Reset.\n");
-        Network_InitTxRx();
         initRMU();
 
         NCSI_init();
@@ -352,7 +351,6 @@ void __attribute__((noreturn)) __start()
     else
     {
         printf("APE Reload.\n");
-        Network_InitTxRx();
         initRMU();
         NCSI_reload(SHM_HOST_DRIVER_STATE_STATE_START != SHM.HostDriverState.bits.State ? AS_NEEDED : NEVER_RESET);
     }

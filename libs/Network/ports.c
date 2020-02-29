@@ -82,6 +82,12 @@ NetworkPort_t gPort0 = {
     .rx_offset = &APE.RxbufoffsetFunc0,
     .rx_retire = &APE.RxPoolRetire0,
     .rx_mode = &APE.RxPoolModeStatus0,
+
+#ifndef CXX_SIMULATOR
+    .APEModeEnable = {
+        .r32 = APE_MODE_CHANNEL_0_ENABLE_MASK | APE_MODE_CHANNEL_2_ENABLE_MASK,
+    }
+#endif
 };
 
 NetworkPort_t gPort1 = {
@@ -98,6 +104,12 @@ NetworkPort_t gPort1 = {
     .rx_offset = &APE.RxbufoffsetFunc1,
     .rx_retire = &APE.RxPoolRetire1,
     .rx_mode = &APE.RxPoolModeStatus1,
+
+#ifndef CXX_SIMULATOR
+    .APEModeEnable = {
+        .r32 = APE_MODE_CHANNEL_1_ENABLE_MASK | APE_MODE_CHANNEL_3_ENABLE_MASK,
+    }
+#endif
 };
 
 NetworkPort_t gPort2 = {
@@ -114,6 +126,12 @@ NetworkPort_t gPort2 = {
     .rx_offset = &APE.RxbufoffsetFunc2,
     .rx_retire = &APE.RxPoolRetire2,
     .rx_mode = &APE.RxPoolModeStatus2,
+
+#ifndef CXX_SIMULATOR
+    .APEModeEnable = {
+        .r32 = APE_MODE_CHANNEL_0_ENABLE_MASK | APE_MODE_CHANNEL_2_ENABLE_MASK,
+    }
+#endif
 };
 
 NetworkPort_t gPort3 = {
@@ -130,6 +148,12 @@ NetworkPort_t gPort3 = {
     .rx_offset = &APE.RxbufoffsetFunc3,
     .rx_retire = &APE.RxPoolRetire3,
     .rx_mode = &APE.RxPoolModeStatus3,
+
+#ifndef CXX_SIMULATOR
+    .APEModeEnable = {
+        .r32 = APE_MODE_CHANNEL_1_ENABLE_MASK | APE_MODE_CHANNEL_3_ENABLE_MASK,
+    }
+#endif
 };
 
 #ifndef CXX_SIMULATOR
@@ -787,6 +811,8 @@ void Network_InitPort(NetworkPort_t *port)
 
     Network_resetTX(port);
     Network_resetRX(port);
+
+    APE.Mode.r32 |= port->APEModeEnable.r32;
 
     // Ensure REG_RECEIVE_MAC_MODE has ENABLE set.
     // I recommend also setting APE_PROMISCUOUS_MODE and PROMISCUOUS_MODE,
