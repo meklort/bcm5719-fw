@@ -260,19 +260,23 @@ void __attribute__((noreturn)) loaderLoop(void)
             }
             else
             {
+                wait_for_all_rx();
+                initRMU();
                 if (SHM_HOST_DRIVER_STATE_STATE_UNLOAD == host_state)
                 {
                     printf("host unloaded.\n");
+                    NCSI_reload(ALWAYS_RESET);
                 }
                 else
                 {
                     printf("wol?\n");
+                    NCSI_reload(AS_NEEDED);
                 }
-                wait_for_all_rx();
-                initRMU();
-                NCSI_reload(AS_NEEDED);
             }
         }
+
+        NetworkPort_t *port = &gPort0;
+        Network_checkPortState(port);
     }
 }
 
