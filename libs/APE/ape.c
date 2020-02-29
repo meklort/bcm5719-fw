@@ -96,7 +96,11 @@ void APE_releaseLock(void)
 {
     RegAPE_PERIPerLockGrantPhy0_t lock_release;
     lock_release.r32 = 0;
+#ifdef __arm__ /* APE */
+    lock_release.bits.APE = 1;
+#else
     lock_release.bits.Bootcode = 1;
+#endif
 
     uint8_t function = DEVICE.Status.bits.FunctionNumber;
     switch (function)
