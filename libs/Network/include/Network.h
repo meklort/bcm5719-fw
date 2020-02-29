@@ -78,6 +78,9 @@ typedef struct
     VOLATILE DEVICE_t *device;
     VOLATILE FILTERS_t *filters;
     VOLATILE SHM_CHANNEL_t* shm_channel;
+
+    /* APE Registers */
+    VOLATILE RegAPEMode_t APEModeEnable;
 } NetworkPort_t;
 
 typedef union
@@ -98,7 +101,6 @@ extern NetworkPort_t gPort2;
 extern NetworkPort_t gPort3;
 
 void Network_InitPort(NetworkPort_t *port);
-void Network_InitTxRx(void);
 
 void Network_resetTX(NetworkPort_t *port);
 void Network_resetRX(NetworkPort_t *port);

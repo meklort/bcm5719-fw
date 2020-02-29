@@ -57,6 +57,7 @@ void initRMU(void)
     mode.bits.SwapATBdword = 1;
     mode.bits.SwapARBdword = 1;
     mode.bits.ICodePIPRdDisable = 1;
+    mode.bits.Event1 = 1;
     APE.Mode = mode;
 
     // Optionally, set REG_APE__RMU_CONTROL to RST_RX|RST_TX. This can help

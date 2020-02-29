@@ -45,7 +45,6 @@
 project(Network)
 
 SET(SOURCES
-    init.c
     ports.c
     tx.c
     rx.c
