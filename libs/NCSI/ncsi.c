@@ -406,8 +406,6 @@ static void getLinkStatusHandler(NetworkFrame_t *frame)
     uint32_t rx = port->shm_channel->NcsiChannelCtrlstatAllRx.r32;
     uint32_t tx = port->shm_channel->NcsiChannelCtrlstatAllRx.r32;
 
-    Network_checkPortState(port);
-
     APE_aquireLock();
     stat.r16 = MII_readRegister(port->device, phy, (mii_reg_t)REG_MII_AUXILIARY_STATUS_SUMMARY);
     APE_releaseLock();
