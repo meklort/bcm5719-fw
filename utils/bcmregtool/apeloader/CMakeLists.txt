@@ -54,6 +54,10 @@ arm_linker_script(${PROJECT_NAME} ${LINKER_SCRIPT})
 
 target_link_libraries(${PROJECT_NAME} APE-arm)
 target_link_libraries(${PROJECT_NAME} bcm5719-arm)
+target_link_libraries(${PROJECT_NAME}
+    --defsym=VERSION_MAJOR=${VERSION_MAJOR}
+    --defsym=VERSION_MINOR=${VERSION_MINOR}
+    --defsym=VERSION_PATCH=${VERSION_PATCH})
 target_compile_options(${PROJECT_NAME} PRIVATE -nodefaultlibs)
 
 

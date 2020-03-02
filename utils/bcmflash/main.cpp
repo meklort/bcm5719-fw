@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2018, Evan Lojewski
+/// @copyright Copyright (c) 2018-2020, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -68,6 +68,8 @@
 
 #include "../NVRam/bcm5719_NVM.h"
 
+#define VERSION_STRING  STRINGIFY(VERSION_MAJOR) "." STRINGIFY(VERSION_MINOR) "." STRINGIFY(VERSION_PATCH)
+
 using namespace std;
 using optparse::OptionParser;
 
@@ -106,7 +108,9 @@ int main(int argc, char const *argv[])
     uint8_t* stage1 = NULL;
     uint32_t* stage1_wd = NULL;
 
-    OptionParser parser = OptionParser().description("BCM Flash Utility");
+    OptionParser parser = OptionParser().description("BCM Flash Utility v" VERSION_STRING);
+
+    parser.version(VERSION_STRING);
 
     parser.add_option("-t", "--target")
             .choices({"hardware", "file"})

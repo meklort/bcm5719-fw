@@ -10,7 +10,7 @@
 ###
 ################################################################################
 ###
-### @copyright Copyright (c) 2018, Evan Lojewski
+### @copyright Copyright (c) 2018-2020, Evan Lojewski
 ### @cond
 ###
 ### All rights reserved.
@@ -56,6 +56,10 @@ arm_linker_script(${PROJECT_NAME} ${LINKER_SCRIPT})
 
 target_link_libraries(${PROJECT_NAME} NVRam-arm MII-arm APE-arm Network-arm NCSI-arm printf-arm)
 target_link_libraries(${PROJECT_NAME} bcm5719-arm)
+target_link_libraries(${PROJECT_NAME}
+    --defsym=VERSION_MAJOR=${VERSION_MAJOR}
+    --defsym=VERSION_MINOR=${VERSION_MINOR}
+    --defsym=VERSION_PATCH=${VERSION_PATCH})
 target_compile_options(${PROJECT_NAME} PRIVATE -nodefaultlibs)
 
 format_target_sources(${PROJECT_NAME})

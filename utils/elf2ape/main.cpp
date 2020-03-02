@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2018, Evan Lojewski
+/// @copyright Copyright (c) 2018-2020, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -47,6 +47,9 @@
 #include <OptionParser.h>
 #include <bcm5719_eeprom.h>
 #include <elfio/elfio.hpp>
+#include <types.h>
+
+#define VERSION_STRING  STRINGIFY(VERSION_MAJOR) "." STRINGIFY(VERSION_MINOR) "." STRINGIFY(VERSION_PATCH)
 
 using namespace ELFIO;
 
@@ -127,7 +130,9 @@ int main(int argc, char const *argv[])
         APEHeader_t header;
     } ape;
 
-    OptionParser parser = OptionParser().description("BCM elf 2 APE Utility");
+    OptionParser parser = OptionParser().description("BCM ELF 2 APE Utility v" VERSION_STRING);
+
+    parser.version(VERSION_STRING);
 
     parser.add_option("-i", "--input")
         .dest("input")
@@ -275,7 +280,10 @@ int main(int argc, char const *argv[])
         strncpy((char*)ape.header.name, name.c_str(), sizeof(ape.header.name));
     }
 
-    ape.header.version = get_symbol_value("VERSION", reader);
+    uint8_t version_major = get_symbol_value("VERSION_MAJOR", reader);
+    uint8_t version_minor = get_symbol_value("VERSION_MINOR", reader);
+    uint16_t version_patch = get_symbol_value("VERSION_PATCH", reader);
+    ape.header.version = version_major << 24 | version_minor << 16 | version_patch;
     ape.header.entrypoint = get_symbol_value("__start", reader);
     ape.header.unk1 = APE_HEADER_UNK1;
     ape.header.words =

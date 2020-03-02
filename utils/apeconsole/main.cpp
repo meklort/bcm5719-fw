@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2018, Evan Lojewski
+/// @copyright Copyright (c) 2018-2020, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -70,6 +70,8 @@
 
 #include "../NVRam/bcm5719_NVM.h"
 
+#define VERSION_STRING  STRINGIFY(VERSION_MAJOR) "." STRINGIFY(VERSION_MINOR) "." STRINGIFY(VERSION_PATCH)
+
 using namespace std;
 using namespace ELFIO;
 using optparse::OptionParser;
@@ -82,7 +84,9 @@ using optparse::OptionParser;
 
 int main(int argc, char const *argv[])
 {
-    OptionParser parser = OptionParser().description("BCM Register Utility");
+    OptionParser parser = OptionParser().description("BCM Console Utility v" VERSION_STRING);
+
+    parser.version(VERSION_STRING);
 
     parser.add_option("-f", "--function")
             .dest("function")

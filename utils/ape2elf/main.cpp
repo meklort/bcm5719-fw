@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2018, Evan Lojewski
+/// @copyright Copyright (c) 2018-2020, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -48,10 +48,12 @@
 #include <bcm5719_eeprom.h>
 #include <elfio/elfio.hpp>
 
-#define ENTRYPOINT_SYMBOL   "__start"
-#define VERSION_SYMBOL      "VERSION"
-#define STACK_END_SYMBOL    "_estack"
-#define THUMB_CODE_SYMBOL   "$t"
+#define ENTRYPOINT_SYMBOL       "__start"
+#define VERSION_MAJOR_SYMBOL    "VERSION_MAJOR"
+#define VERSION_MINOR_SYMBOL    "VERSION_MINOR"
+#define VERSION_PATCH_SYMBOL    "VERSION_PATCH"
+#define STACK_END_SYMBOL        "_estack"
+#define THUMB_CODE_SYMBOL       "$t"
 
 using namespace std;
 using namespace ELFIO;
@@ -275,7 +277,13 @@ int main(int argc, char const *argv[])
         // Add label name
         Elf32_Word _start = stra.add_string(ENTRYPOINT_SYMBOL);
         Elf32_Word _thumb = stra.add_string(THUMB_CODE_SYMBOL);
-        Elf32_Word _version = stra.add_string(VERSION_SYMBOL);
+        Elf32_Word _version_major = stra.add_string(VERSION_MAJOR_SYMBOL);
+        Elf32_Word _version_minor = stra.add_string(VERSION_MINOR_SYMBOL);
+        Elf32_Word _version_patch = stra.add_string(VERSION_PATCH_SYMBOL);
+
+        uint8_t version_major = (ape.header.version >> 24) & 0xFF;
+        uint8_t version_minor = (ape.header.version >> 16) & 0xFF;
+        uint8_t version_patch = ape.header.version & 0xFFFF;
 
         // Add symbol entry
         syma.add_symbol(_start, ape.header.entrypoint, 0, STB_GLOBAL, STT_FUNC,
@@ -284,8 +292,13 @@ int main(int argc, char const *argv[])
         syma.add_symbol(_thumb, ape.header.entrypoint & 0xfffffffe, 0,
                         STB_LOCAL, STT_OBJECT, 0, text_sec->get_index());
 
-        syma.add_symbol(_version, ape.header.version, 0, STB_GLOBAL, STT_OBJECT,
+        syma.add_symbol(_version_major, version_major, 0, STB_GLOBAL, STT_OBJECT,
                         0, text_sec->get_index());
+        syma.add_symbol(_version_minor, version_minor, 0, STB_GLOBAL, STT_OBJECT,
+                        0, text_sec->get_index());
+        syma.add_symbol(_version_patch, version_patch, 0, STB_GLOBAL, STT_OBJECT,
+                        0, text_sec->get_index());
+
 
         uint32_t *vectors = (uint32_t *)text_sec->get_data();
         Elf32_Word index = stra.add_string(STACK_END_SYMBOL);

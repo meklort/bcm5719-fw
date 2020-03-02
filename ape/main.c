@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2018, Evan Lojewski
+/// @copyright Copyright (c) 2018-2020, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -240,7 +240,6 @@ void __attribute__((noreturn)) loaderLoop(void)
     SHM.SegSig.bits.Sig = SHM_SEG_SIG_SIG_LOADER;
     SHM.FwStatus.bits.Ready = 1;
 
-    printf("APE Ready\n");
     for (;;)
     {
         handleBMCPacket();
@@ -355,7 +354,7 @@ void __attribute__((noreturn)) __start()
 
     checkSupply(true);
 
-    printf("Begin APE.\n");
+    printf("APE v" STRINGIFY(VERSION_MAJOR) "." STRINGIFY(VERSION_MINOR) "." STRINGIFY(VERSION_PATCH) "\n");
 
     loaderLoop();
 }

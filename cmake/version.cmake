@@ -1,16 +1,16 @@
 ################################################################################
 ###
-### @file       CMakeLists.txt
+### @file       version.cmake
 ###
 ### @project    
 ###
-### @brief      Top level CMake file
+### @brief      Version configuration
 ###
 ################################################################################
 ###
 ################################################################################
 ###
-### @copyright Copyright (c) 2018-2020, Evan Lojewski
+### @copyright Copyright (c) 2020, Evan Lojewski
 ### @cond
 ###
 ### All rights reserved.
@@ -42,27 +42,35 @@
 ### @endcond
 ################################################################################
 
-SET(COMPILER_BASE       $ENV{HOME}/llvm-bcm5719)
-SET(CMAKE_C_COMPILER    ${COMPILER_BASE}/bin/clang)
-SET(CMAKE_CXX_COMPILER  ${COMPILER_BASE}/bin/clang++)
-SET(CMAKE_ASM_COMPILER  ${COMPILER_BASE}/bin/clang)
+SET(VERSION_MAJOR 0)
+SET(VERSION_MINOR 1)
+SET(VERSION_PATCH )
 
-include(cmake/version.cmake)
+SET(VERSION_FILE ${CMAKE_SOURCE_DIR}/version)
+IF(EXISTS ${VERSION_FILE})
+    # Release package including a version file.
+    FILE(STRINGS ${VERSION_FILE} lines)
+    LIST(GET lines 0 FULL_VERSION)
+    STRING(REPLACE "." ";" FULL_VERSION ${FULL_VERSION})
 
-cmake_minimum_required(VERSION 3.5.1)
-project(bcm5719-fw VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH})
+    LIST(GET FULL_VERSION 0 VERSION_MAJOR)
+    LIST(GET FULL_VERSION 1 VERSION_MINOR)
+    LIST(GET FULL_VERSION 2 VERSION_PATCH)
+ELSE()
+    # Within a git repository
+    EXECUTE_PROCESS(COMMAND git rev-list --count HEAD 
+                    OUTPUT_VARIABLE VERSION_PATCH
+                    OUTPUT_STRIP_TRAILING_WHITESPACE)
+ENDIF()
 
-include(cmake/clang-format.cmake)
-include(cmake/clang-analyzer.cmake)
-include(cmake/config.cmake)
+SET(VERSION_STRING "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 
-add_subdirectory(tests)
+add_definitions(
+    -DVERSION_MAJOR=${VERSION_MAJOR}
+    -DVERSION_MINOR=${VERSION_MINOR}
+    -DVERSION_PATCH=${VERSION_PATCH}
+)
 
-add_subdirectory(libs)
-add_subdirectory(utils)
+FILE(WRITE ${CMAKE_BINARY_DIR}/version ${VERSION_STRING})
 
-
-add_subdirectory(simulator)
-add_subdirectory(stage1)
-
-add_subdirectory(ape)
+INSTALL(FILES ${CMAKE_BINARY_DIR}/version DESTINATION .)

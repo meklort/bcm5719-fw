@@ -51,5 +51,6 @@ set(SOURCES
 
 simulator_add_executable(${PROJECT_NAME} ${SOURCES})
 target_link_libraries(${PROJECT_NAME} PRIVATE OptParse)
+include_directories(${CMAKE_SOURCE_DIR}/include)
 
 INSTALL(TARGETS ${PROJECT_NAME} DESTINATION .)
