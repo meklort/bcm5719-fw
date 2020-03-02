@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2018, Evan Lojewski
+/// @copyright Copyright (c) 2018-2020, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -76,7 +76,7 @@ void __attribute__((noinline)) reportStatus(uint32_t code, uint8_t step)
 void init_once(void)
 {
     SHM.RcpuInitCount.r32 = 0;
-    SHM.RcpuFwVersion.r32 = 0x0127;
+    SHM.RcpuFwVersion.r32 = (VERSION_MAJOR << 24) | (VERSION_MINOR << 16) | VERSION_PATCH;
 
     SHM.RcpuApeResetCount.r32 = 0;
     SHM.RcpuLastApeStatus.r32 = 0;
@@ -130,8 +130,10 @@ int main()
 
     if(0 == DEVICE.Status.bits.FunctionNumber)
     {
-        em100_puts("RX Reset\n");
+        em100_puts("RX Firmware v"
+                    STRINGIFY(VERSION_MAJOR) "." STRINGIFY(VERSION_MINOR) "." STRINGIFY(VERSION_PATCH) "\n");
     }
+
 #if !CXX_SIMULATOR
     // Perform early initialization
     early_init_hw();

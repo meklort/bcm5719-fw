@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2019, Evan Lojewski
+/// @copyright Copyright (c) 2019-2020, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -47,6 +47,10 @@
 #include <cstring>
 #include <fstream>
 #include <iomanip>
+#include <types.h>
+
+#define VERSION_STRING  STRINGIFY(VERSION_MAJOR) "." STRINGIFY(VERSION_MINOR) "." STRINGIFY(VERSION_PATCH)
+
 
 using namespace std;
 using optparse::OptionParser;
@@ -83,7 +87,9 @@ int main(int argc, char const *argv[])
 {
     ofstream outfile;
     ifstream infile;
-    OptionParser parser = OptionParser().description("Binary to C Header utility");
+    OptionParser parser = OptionParser().description("Binary to C Header utility v" VERSION_STRING);
+
+    parser.version(VERSION_STRING);
 
     parser.add_option("-i", "--input")
         .dest("input")
