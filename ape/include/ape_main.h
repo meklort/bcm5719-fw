@@ -42,11 +42,36 @@
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef APE_H
-#define APE_H
+#ifndef APE_MAIN_H
+#define APE_MAIN_H
 
+#include <types.h>
+
+////////////////////////////////////////////////////////////////////////////////
+// RMU
+////////////////////////////////////////////////////////////////////////////////
 void RMU_init(void);
 
 void RMU_resetBadPacket(void);
 
-#endif /* APE_H */
+////////////////////////////////////////////////////////////////////////////////
+// ISR
+////////////////////////////////////////////////////////////////////////////////
+typedef void (*vector_t)(void) __attribute__((interrupt));
+
+/**
+ *  Vector table format
+ */
+typedef struct
+{
+    uint32_t *sp;         /**< The stack pointer */
+    vector_t *__start;    /**< The reset vector */
+    vector_t vectors[46]; /**< Exception and interrupt vectors */
+} vector_table_t;
+
+/**
+ *  Default vector table
+ */
+extern vector_table_t gVectors;
+
+#endif /* APE_MAIN_H */
