@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2018, Evan Lojewski
+/// @copyright Copyright (c) 2018-2020, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -57,7 +57,7 @@ void Network_SetMACAddr(NetworkPort_t *port, uint16_t high, uint32_t low, uint32
             APE_PERI.BmcToNcSourceMacMatch0Low.r32 = match_low;
             port->shm_channel->NcsiChannelMac0High.r32 = high;
             port->shm_channel->NcsiChannelMac0Mid.r32 = low >> 16;
-            port->shm_channel->NcsiChannelMac0Low.r32 = low & 0xff;
+            port->shm_channel->NcsiChannelMac0Low.r32 = low & 0xffff;
             break;
 
         case 1:
@@ -65,7 +65,7 @@ void Network_SetMACAddr(NetworkPort_t *port, uint16_t high, uint32_t low, uint32
             APE_PERI.BmcToNcSourceMacMatch1Low.r32 = match_low;
             port->shm_channel->NcsiChannelMac1High.r32 = high;
             port->shm_channel->NcsiChannelMac1Mid.r32 = low >> 16;
-            port->shm_channel->NcsiChannelMac1Low.r32 = low & 0xff;
+            port->shm_channel->NcsiChannelMac1Low.r32 = low & 0xffff;
             break;
 
         case 2:
@@ -73,7 +73,7 @@ void Network_SetMACAddr(NetworkPort_t *port, uint16_t high, uint32_t low, uint32
             APE_PERI.BmcToNcSourceMacMatch2Low.r32 = match_low;
             port->shm_channel->NcsiChannelMac2High.r32 = high;
             port->shm_channel->NcsiChannelMac2Mid.r32 = low >> 16;
-            port->shm_channel->NcsiChannelMac2Low.r32 = low & 0xff;
+            port->shm_channel->NcsiChannelMac2Low.r32 = low & 0xffff;
             break;
 
         case 3:
@@ -81,7 +81,7 @@ void Network_SetMACAddr(NetworkPort_t *port, uint16_t high, uint32_t low, uint32
             APE_PERI.BmcToNcSourceMacMatch3Low.r32 = match_low;
             port->shm_channel->NcsiChannelMac3High.r32 = high;
             port->shm_channel->NcsiChannelMac3Mid.r32 = low >> 16;
-            port->shm_channel->NcsiChannelMac3Low.r32 = low & 0xff;
+            port->shm_channel->NcsiChannelMac3Low.r32 = low & 0xffff;
             break;
     }
 
