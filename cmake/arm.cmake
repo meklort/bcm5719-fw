@@ -10,7 +10,7 @@
 ###
 ################################################################################
 ###
-### @copyright Copyright (c) 2018, Evan Lojewski
+### @copyright Copyright (c) 2018-2020, Evan Lojewski
 ### @cond
 ###
 ### All rights reserved.
@@ -74,6 +74,8 @@ function(arm_add_executable target)
         COMMAND bin2c --input ${target}.bin --output ${target}.c
         DEPENDS ${target} bin2c
         VERBATIM)
+
+    set_target_properties(${target} PROPERTIES RESOURCE ${CMAKE_CURRENT_BINARY_DIR}/${target}.bin)
 
     # Add host binary
     add_library(${target}-binary EXCLUDE_FROM_ALL ${target}.c)

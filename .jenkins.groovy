@@ -79,13 +79,7 @@ def build(nodeName)
 
         stage('build')
         {
-            sh '''#!/bin/bash
-                rm -rf build
-                mkdir build
-                cd build
-                cmake .. -G Ninja
-                cmake --build .
-            '''
+            sh './build.sh'
             // archiveArtifacts 'release'
         }
 

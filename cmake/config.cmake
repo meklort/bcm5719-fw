@@ -10,7 +10,7 @@
 ###
 ################################################################################
 ###
-### @copyright Copyright (c) 2018, Evan Lojewski
+### @copyright Copyright (c) 2018-2020, Evan Lojewski
 ### @cond
 ###
 ### All rights reserved.
@@ -57,3 +57,6 @@ include(${CMAKE_CURRENT_LIST_DIR}/mips.cmake)
 
 # Settings and build rules for arm targets
 include(${CMAKE_CURRENT_LIST_DIR}/arm.cmake)
+
+# Settings for generating release packages
+include(${CMAKE_CURRENT_LIST_DIR}/cpack.cmake)

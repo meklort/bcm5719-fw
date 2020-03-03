@@ -10,7 +10,7 @@
 ###
 ################################################################################
 ###
-### @copyright Copyright (c) 2018, Evan Lojewski
+### @copyright Copyright (c) 2018-2020, Evan Lojewski
 ### @cond
 ###
 ### All rights reserved.
@@ -64,6 +64,9 @@ function(mips_add_executable target)
         TARGET ${target} POST_BUILD
         COMMAND ${COMPILER_BASE}/bin/llvm-objcopy -O binary ${target} ${target}.bin
         BYPRODUCTS ${target}.bin)
+
+    set_target_properties(${target} PROPERTIES RESOURCE ${CMAKE_CURRENT_BINARY_DIR}/${target}.bin)
+
 endfunction(mips_add_executable)
 
 # MIPS-specific libraries

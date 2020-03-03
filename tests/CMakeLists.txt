@@ -42,5 +42,6 @@
 ### @endcond
 ################################################################################
 
-
+SET(INSTALL_GTEST OFF CACHE BOOL "")
+SET(INSTALL_GMOCK OFF CACHE BOOL "")
 add_subdirectory(googletest)
