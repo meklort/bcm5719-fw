@@ -1,16 +1,17 @@
+#!/bin/sh
 ################################################################################
 ###
-### @file       utils/ape2elf/CMakeLists.txt
+### @file       build.sh
 ###
 ### @project    
 ###
-### @brief      Utilities CMake file
+### @brief      Top level build script.
 ###
 ################################################################################
 ###
 ################################################################################
 ###
-### @copyright Copyright (c) 2018, Evan Lojewski
+### @copyright Copyright (c) 2020, Evan Lojewski
 ### @cond
 ###
 ### All rights reserved.
@@ -42,16 +43,11 @@
 ### @endcond
 ################################################################################
 
-project(ape2elf)
+rm -rf build
+mkdir build
 
-add_definitions(-Wall -Werror)
-set(SOURCES
-    main.cpp
-)
+cd build
 
-include_directories(elfio)
-
-simulator_add_executable(${PROJECT_NAME} ${SOURCES})
-target_link_libraries(${PROJECT_NAME} PRIVATE NVRam VPD simulator OptParse Compress elfio)
-
-INSTALL(TARGETS ${PROJECT_NAME} DESTINATION bin)
+cmake .. -G Ninja
+cmake --build .
+cpack

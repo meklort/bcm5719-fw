@@ -64,6 +64,8 @@ target_compile_options(${PROJECT_NAME} PRIVATE -nodefaultlibs)
 
 format_target_sources(${PROJECT_NAME})
 
+install(TARGETS ${PROJECT_NAME} DESTINATION fw RESOURCE)
+
 # Simulator add_executable
 # simulator_add_executable(sim-${PROJECT_NAME}
             # init_hw.c

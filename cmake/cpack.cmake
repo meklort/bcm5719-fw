@@ -1,16 +1,16 @@
 ################################################################################
 ###
-### @file       utils/ape2elf/CMakeLists.txt
+### @file       cpack.cmake
 ###
 ### @project    
 ###
-### @brief      Utilities CMake file
+### @brief      Release Pacakge configurations
 ###
 ################################################################################
 ###
 ################################################################################
 ###
-### @copyright Copyright (c) 2018, Evan Lojewski
+### @copyright Copyright (c) 2020, Evan Lojewski
 ### @cond
 ###
 ### All rights reserved.
@@ -42,16 +42,23 @@
 ### @endcond
 ################################################################################
 
-project(ape2elf)
+# Packaging support
+set(CPACK_PACKAGE_VENDOR "Evan Lojewski")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "bcm5719-fw")
+set(CPACK_PACKAGE_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
+set(CPACK_PACKAGE_VERSION_MINOR ${PROJECT_VERSION_MINOR})
+set(CPACK_PACKAGE_VERSION_PATCH ${PROJECT_VERSION_PATCH})
+set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/LICENSE")
+set(CPACK_RESOURCE_FILE_README "${CMAKE_SOURCE_DIR}/README.md")
 
-add_definitions(-Wall -Werror)
-set(SOURCES
-    main.cpp
+set(CPACK_GENERATOR "TGZ;ZIP")
+
+set(CPACK_SOURCE_GENERATOR "TGZ;ZIP")
+set(CPACK_SOURCE_IGNORE_FILES
+    /.git
+    /dist
+    /.*build.*
+    /\\\\.DS_Store
 )
 
-include_directories(elfio)
-
-simulator_add_executable(${PROJECT_NAME} ${SOURCES})
-target_link_libraries(${PROJECT_NAME} PRIVATE NVRam VPD simulator OptParse Compress elfio)
-
-INSTALL(TARGETS ${PROJECT_NAME} DESTINATION bin)
+include(CPack)

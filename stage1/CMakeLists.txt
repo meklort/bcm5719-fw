@@ -10,7 +10,7 @@
 ###
 ################################################################################
 ###
-### @copyright Copyright (c) 2018, Evan Lojewski
+### @copyright Copyright (c) 2018-2020, Evan Lojewski
 ### @cond
 ###
 ### All rights reserved.
@@ -66,3 +66,5 @@ simulator_add_executable(sim-${PROJECT_NAME}
 
 target_link_libraries(sim-${PROJECT_NAME} simulator)
 target_link_libraries(sim-${PROJECT_NAME} NVRam MII VPD APE printf)
+
+install(TARGETS ${PROJECT_NAME} DESTINATION fw RESOURCE)
