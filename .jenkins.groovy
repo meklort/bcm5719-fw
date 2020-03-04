@@ -80,7 +80,11 @@ def build(nodeName)
         stage('build')
         {
             sh './build.sh'
-            // archiveArtifacts 'release'
+            dir('build')
+            {
+                archiveArtifacts artifacts: '*.zip', fingerprint: true
+                archiveArtifacts artifacts: '*.tar.gz', fingerprint: true
+            }
         }
 
         cleanWs()

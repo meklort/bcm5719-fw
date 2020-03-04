@@ -50,4 +50,5 @@ cd build
 
 cmake .. -G Ninja
 cmake --build .
-cpack
+cmake --build . --target package
+cmake --build . --target package_source
