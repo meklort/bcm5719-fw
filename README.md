@@ -12,8 +12,6 @@ This repository depends on a number of external tools
 - Customized LLVM/Clang compiler for MIPS firmware
 - CMake 3.5.1+
 - Linux (utilities)
-- Clang Format (optional)
-- Flexelint/PCLint+ (optional)
 - IPXact generator (optional)
 
 ### Required Compiler
@@ -30,6 +28,7 @@ ninja install
 ```
 
 ## Status
+The current version of teh code is functional and is able to handle network traffic over NC-SI
   - Libraries:
     - MII Library: Done
     - NVRAM Library: Done   
@@ -39,41 +38,14 @@ ninja install
     - VPD: Started, not functional
     - WOL: Not started
   - APE
-    - NCSI Handler: In Progress (functional for TX/RX passthrough)
-      - Clear Initial State: Done
-      - Select Package: Partial
-      - Deselect Package: Partial
-      - Enable Channel: Partial
-      - Disable Channel: Partial
-      - Reset Channel: Partial
-      - Enable Channel TX: Partial
-      - Disable Channel TX: Partial
-      - AEN Enable: Partial
-      - Set Link: Partial
-      - Get Link Status: Stubbed
-      - Set VLAN Filter: Not Implemented
-      - Enable VLAN: Not Implemented
-      - Disable VLAN: Stubbed
-      - Set MAC Address: Initial implementation
-      - Enable Broadcast Filter: Stubbed
-      - Disable Bradcast Filter: Not Implemented
-      - Enable Global Multicast Filtering: Not Implemented
-      - Disable Global Multicast Filtering: Not Implemented
-      - Set NCSI Flow Control: Not Implemented
+    - NC-SI Handler: Functional
       - Get Version ID: Not Implemented
-      - Get Capabilities: Not Implemented
-      - Get Parameters: Not Implemented
-      - Get Controller Packet Stats: Not Implemented
-      - Get NCSI Stats: Not Implemented
-      - Get NCSI Passthrough Stats: Not Implemented
       - OEM Command: Not Implemented
-    - BMC <-> Network Communication: Functional
-      - TX Passthrough: Working
-      - RX Passthrough: Working
+    - BMC <-> Network Communication: Working
   - Utilities
     - Firmware tool: Functional
     - Register tool: Functional
-    - APE Tool: In progress
+  - Tests: To be written
 
 ## Compiling
 To compile the firmware, the following command sequence can be used:
@@ -106,9 +78,20 @@ cd build
 sudo ./utils/bcmflash/bcmflash -t hardware -1 stage1/stage1.bin
 ```
 
-### APE Firmware (BMC/NCSI communication)
-The APE firmware can be tested by loading it into ram using the following sequence:
-```base
+### APE Firmware (BMC/NC-SI communication)
+The APE firmware can be tested by loading it into ram using the following sequence (Note: this may fail unless if stage1 has been loaded):
+```bash
 cd build
 sudo ./utils/bcmregtool/bcmregtool --apeboot=ape/ape.bin
 ```
+
+Once tested, the APe firmware can be loaded into the device using the following command:
+```bash
+cd build
+sudo ./utils/bcmflash/bcmflash -t hardware -a ape/ape.bin
+```
+
+### Firmware Log
+The APE and Stage1 firmwarw are able to print status messages to a log. This can be accessed in one of two ways:
+ * The ./utils/apeconsole/apeconsole utility can be used if no driver is loaded by the host.
+ * The EM100Pro console can be used if wired to the SPI bus on the BCM5719. This allows for printouts even when the host is off.
