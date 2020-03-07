@@ -3,7 +3,7 @@
 ###
 ### @file       build.sh
 ###
-### @project    
+### @project    bcm5719
 ###
 ### @brief      Top level build script.
 ###
@@ -43,12 +43,51 @@
 ### @endcond
 ################################################################################
 
-rm -rf build
-mkdir build
+GENERATOR=
+BUILD_DIR=build
 
-cd build
+if [ ! -x "$CMAKE" ]
+then
+    CMAKE=`which cmake3`
+    if [ ! -x "$CMAKE" ]
+    then
+        CMAKE=`which cmake`
+        if [ ! -x "$CMAKE" ]
+        then
+            echo "ERROR: Unable to locate cmake."
+            exit -1
+        fi
+    fi
+fi
 
-cmake .. -G Ninja
-cmake --build .
-cmake --build . --target package
-cmake --build . --target package_source
+NINJA=`which ninja-build`
+if [ -x "$NINJA" ]
+then
+    GENERATOR=-GNinja
+else
+    NINJA=`which ninja`
+    if [ -x "$NINJA" ]
+    then
+        GENERATOR=-GNinja
+    else
+        echo "WARNING: Unable to locate ninja."
+    fi
+fi
+
+echo "Using cmake: $CMAKE $GENERATOR"
+
+set -e
+
+# Clean out the build folder.
+"$CMAKE" -E remove_directory "$BUILD_DIR"
+"$CMAKE" -E make_directory "$BUILD_DIR"
+
+cd "$BUILD_DIR"
+
+# Do the build
+"$CMAKE" .. $GENERATOR
+"$CMAKE" --build .
+
+# Generate release packages.
+"$CMAKE" --build . --target package
+"$CMAKE" --build . --target package_source
