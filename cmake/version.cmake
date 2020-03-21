@@ -2,7 +2,7 @@
 ###
 ### @file       version.cmake
 ###
-### @project    
+### @project    bcm5719
 ###
 ### @brief      Version configuration
 ###
@@ -43,7 +43,7 @@
 ################################################################################
 
 SET(VERSION_MAJOR 0)
-SET(VERSION_MINOR 1)
+SET(VERSION_MINOR 2)
 SET(VERSION_PATCH )
 
 SET(VERSION_FILE ${CMAKE_SOURCE_DIR}/version)
