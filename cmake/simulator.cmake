@@ -48,15 +48,14 @@ SET(SIMULATOR_LINK_OPTIONS )
 # MIPS-specific executables
 function(simulator_add_executable target)
     add_executable(${target} ${ARGN})
-    
+
     target_compile_options(${target} PRIVATE ${SIMULATOR_COMPILE_OPTIONS})
     set_property(TARGET ${target} APPEND PROPERTY LINK_OPTIONS ${SIMULATOR_LINK_OPTIONS})
-    set_property(TARGET ${target} APPEND PROPERTY CXX_EXTENSIONS c)
 endfunction(simulator_add_executable)
 
 # MIPS-specific libraries
 function(simulator_add_library target)
     add_library(${target} ${ARGN})
-    
+
     target_compile_options(${target} PRIVATE ${SIMULATOR_COMPILE_OPTIONS})
 endfunction(simulator_add_library)

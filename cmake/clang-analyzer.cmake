@@ -42,7 +42,7 @@
 ### @endcond
 ################################################################################
 
-FIND_PROGRAM(SCAN_BUILD scan-build)
+SET(SCAN_BUILD ${COMPILER_BASE}/bin/scan-build)
 IF(SCAN_BUILD)
     SET(CMAKE_C_COMPILER_LAUNCHER   ${SCAN_BUILD} --status-bugs)
     SET(CMAKE_CXX_COMPILER_LAUNCHER ${SCAN_BUILD} --status-bugs)
