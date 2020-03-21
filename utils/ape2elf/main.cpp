@@ -47,6 +47,7 @@
 #include <OptionParser.h>
 #include <bcm5719_eeprom.h>
 #include <elfio/elfio.hpp>
+#include <arpa/inet.h>
 
 #define ENTRYPOINT_SYMBOL       "__start"
 #define VERSION_MAJOR_SYMBOL    "VERSION_MAJOR"
@@ -140,6 +141,10 @@ int main(int argc, char const *argv[])
     data_sec->set_flags(SHF_ALLOC | SHF_WRITE);
     data_sec->set_addr_align(0x4);
 
+    uint8_t version_major = (ape.header.version >> 24) & 0xFF;
+    uint8_t version_minor = (ape.header.version >> 16) & 0xFF;
+    uint16_t version_patch = ntohs(ape.header.version & 0xFFFF);
+
     printf("=== Header ===\n");
     printf("Magic:              0x%08X\n", ape.header.magic);
     printf("UNK0:               0x%08X\n", ape.header.unk0);
@@ -147,7 +152,7 @@ int main(int argc, char const *argv[])
     char name[sizeof(ape.header.name) + 1] = {0};
     strncpy(name, (char *)ape.header.name, sizeof(ape.header.name));
     printf("Name:               %s\n", name);
-    printf("Version:            0x%08X\n", ape.header.version);
+    printf("Version:            0x%08X (%d.%d.%d)\n", ape.header.version, version_major, version_minor, version_patch);
     printf("Start:              0x%08X\n", ape.header.entrypoint);
 
     printf("UNK1:               0x%02X\n", ape.header.unk1);
@@ -280,10 +285,6 @@ int main(int argc, char const *argv[])
         Elf32_Word _version_major = stra.add_string(VERSION_MAJOR_SYMBOL);
         Elf32_Word _version_minor = stra.add_string(VERSION_MINOR_SYMBOL);
         Elf32_Word _version_patch = stra.add_string(VERSION_PATCH_SYMBOL);
-
-        uint8_t version_major = (ape.header.version >> 24) & 0xFF;
-        uint8_t version_minor = (ape.header.version >> 16) & 0xFF;
-        uint8_t version_patch = ape.header.version & 0xFFFF;
 
         // Add symbol entry
         syma.add_symbol(_start, ape.header.entrypoint, 0, STB_GLOBAL, STT_FUNC,

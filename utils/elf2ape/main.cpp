@@ -48,6 +48,8 @@
 #include <bcm5719_eeprom.h>
 #include <elfio/elfio.hpp>
 #include <types.h>
+#include <arpa/inet.h>
+
 
 #define VERSION_STRING  STRINGIFY(VERSION_MAJOR) "." STRINGIFY(VERSION_MINOR) "." STRINGIFY(VERSION_PATCH)
 
@@ -283,7 +285,7 @@ int main(int argc, char const *argv[])
     uint8_t version_major = get_symbol_value("VERSION_MAJOR", reader);
     uint8_t version_minor = get_symbol_value("VERSION_MINOR", reader);
     uint16_t version_patch = get_symbol_value("VERSION_PATCH", reader);
-    ape.header.version = version_major << 24 | version_minor << 16 | version_patch;
+    ape.header.version = version_major << 24 | version_minor << 16 | htons(version_patch);
     ape.header.entrypoint = get_symbol_value("__start", reader);
     ape.header.unk1 = APE_HEADER_UNK1;
     ape.header.words =
@@ -299,7 +301,7 @@ int main(int argc, char const *argv[])
     char name[sizeof(ape.header.name) + 1] = {0};
     strncpy(name, (char *)ape.header.name, sizeof(ape.header.name));
     printf("Name:               %s\n", name);
-    printf("Version:            0x%08X\n", ape.header.version);
+    printf("Version:            0x%08X (%d.%d.%d)\n", ape.header.version, version_major, version_minor, version_patch);
     printf("Start:              0x%08X\n", ape.header.entrypoint);
 
     printf("UNK1:               0x%02X\n", ape.header.unk1);
