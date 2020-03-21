@@ -47,15 +47,14 @@
 #include <APE_SHM2.h>
 #include <APE_SHM3.h>
 
-void init_shm(volatile SHM_t* shm)
+void init_shm(volatile SHM_t *shm)
 {
     // Update shm->Sig to signal ready.
     shm->SegSig.bits.Sig = SHM_SEG_SIG_SIG_LOADER;
     shm->FwStatus.bits.Ready = 1;
-
 }
 
-void handle_command(volatile SHM_t* shm)
+void handle_command(volatile SHM_t *shm)
 {
     uint32_t command = shm->LoaderCommand.bits.Command;
     if (!command)
@@ -97,7 +96,6 @@ void handle_command(volatile SHM_t* shm)
     // Mark command as handled.
     shm->LoaderCommand.bits.Command = 0;
 }
-
 
 int __start()
 {

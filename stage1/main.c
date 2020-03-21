@@ -50,9 +50,7 @@
 #define crc_swap(__x__) (__x__) /* No swapping needed on the host */
 #else
 #define be32toh(__x__) (__x__)
-#define crc_swap(__x__)                                                        \
-    ((((__x__)&0x000000FF) << 24) | (((__x__)&0x0000FF00) << 8) |              \
-     (((__x__)&0x00FF0000) >> 8) | (((__x__)&0xFF000000) >> 24))
+#define crc_swap(__x__) ((((__x__)&0x000000FF) << 24) | (((__x__)&0x0000FF00) << 8) | (((__x__)&0x00FF0000) >> 8) | (((__x__)&0xFF000000) >> 24))
 #endif
 #include <APE.h>
 #include <NVRam.h>
@@ -87,22 +85,20 @@ void init_once(void)
 
 void handle_printf()
 {
-    uint32_t  buffer_size = sizeof(SHM.RcpuPrintfBuffer)/sizeof(SHM.RcpuPrintfBuffer[0]) * sizeof(uint32_t);
+    uint32_t buffer_size = sizeof(SHM.RcpuPrintfBuffer) / sizeof(SHM.RcpuPrintfBuffer[0]) * sizeof(uint32_t);
 
-    if (SHM.RcpuWritePointer.r32 > buffer_size ||
-        SHM.RcpuReadPointer.r32 > buffer_size ||
-        SHM.RcpuHostReadPointer.r32 > buffer_size)
+    if (SHM.RcpuWritePointer.r32 > buffer_size || SHM.RcpuReadPointer.r32 > buffer_size || SHM.RcpuHostReadPointer.r32 > buffer_size)
     {
         // Print buffer has not been initialized. Exit out.
         return;
     }
 
-    for(;;)
+    for (;;)
     {
         uint32_t cached_pointer = SHM.RcpuReadPointer.r32;
-        if(cached_pointer != SHM.RcpuWritePointer.r32)
+        if (cached_pointer != SHM.RcpuWritePointer.r32)
         {
-            if(cached_pointer >= buffer_size)
+            if (cached_pointer >= buffer_size)
             {
                 cached_pointer = 0;
             }
@@ -116,9 +112,7 @@ void handle_printf()
             SHM.RcpuReadPointer.r32 = ++cached_pointer;
         }
     }
-
 }
-
 
 int main()
 {
@@ -128,10 +122,9 @@ int main()
 
     reportStatus(STATUS_MAIN, 0);
 
-    if(0 == DEVICE.Status.bits.FunctionNumber)
+    if (0 == DEVICE.Status.bits.FunctionNumber)
     {
-        em100_puts("RX Firmware v"
-                    STRINGIFY(VERSION_MAJOR) "." STRINGIFY(VERSION_MINOR) "." STRINGIFY(VERSION_PATCH) "\n");
+        em100_puts("RX Firmware v" STRINGIFY(VERSION_MAJOR) "." STRINGIFY(VERSION_MINOR) "." STRINGIFY(VERSION_PATCH) "\n");
     }
 
 #if !CXX_SIMULATOR
@@ -141,11 +134,10 @@ int main()
 
     reportStatus(STATUS_MAIN, 1);
 
-    if(SHM.RcpuSegSig.bits.Sig != SHM_RCPU_SEG_SIG_SIG_RCPU_MAGIC)
+    if (SHM.RcpuSegSig.bits.Sig != SHM_RCPU_SEG_SIG_SIG_RCPU_MAGIC)
     {
         init_once();
     }
-
 
     // Read out the NVM configuration.
     NVRam_acquireLock();
@@ -163,7 +155,6 @@ int main()
     // init_hw(&DEVICE, &gNVMContents);
 #endif
 
-
     SHM.RcpuInitCount.r32 = SHM.RcpuInitCount.r32 + 1;
 
     // Send configuration information to APE SHM.
@@ -174,7 +165,6 @@ int main()
     SHM.RcpuCfgHw2.r32 = GEN.GenCfgHw2.r32;
     SHM.RcpuCpmuStatus.bits.Status = (DEVICE.Status.r32 & 0xFFFF0000) >> 16;
     SHM.RcpuCpmuStatus.bits.Address = SHM_RCPU_CPMU_STATUS_ADDRESS_ADDRESS;
-
 
     // Mark it as valid.
     SHM.RcpuSegSig.bits.Sig = SHM_RCPU_SEG_SIG_SIG_RCPU_MAGIC;
@@ -214,11 +204,10 @@ int main()
         }
     }
 
-
 #else
-    if(0 == DEVICE.Status.bits.FunctionNumber)
+    if (0 == DEVICE.Status.bits.FunctionNumber)
     {
-        for(;;)
+        for (;;)
         {
             // Handle printf from the APE.
             handle_printf();
@@ -230,7 +219,7 @@ int main()
         mode.r32 = 0;
         mode.bits.Halt = 1;
 
-        for(;;)
+        for (;;)
         {
             // Halt the CPU since we aren't doing anything.
             // DEVICE.RxRiscMode.r32 = mode.r32;;

@@ -45,16 +45,16 @@
 #include <Compress.h>
 #include <NVRam.h>
 #include <OptionParser.h>
+#include <arpa/inet.h>
 #include <bcm5719_eeprom.h>
 #include <elfio/elfio.hpp>
-#include <arpa/inet.h>
 
-#define ENTRYPOINT_SYMBOL       "__start"
-#define VERSION_MAJOR_SYMBOL    "VERSION_MAJOR"
-#define VERSION_MINOR_SYMBOL    "VERSION_MINOR"
-#define VERSION_PATCH_SYMBOL    "VERSION_PATCH"
-#define STACK_END_SYMBOL        "_estack"
-#define THUMB_CODE_SYMBOL       "$t"
+#define ENTRYPOINT_SYMBOL "__start"
+#define VERSION_MAJOR_SYMBOL "VERSION_MAJOR"
+#define VERSION_MINOR_SYMBOL "VERSION_MINOR"
+#define VERSION_PATCH_SYMBOL "VERSION_PATCH"
+#define STACK_END_SYMBOL "_estack"
+#define THUMB_CODE_SYMBOL "$t"
 
 using namespace std;
 using namespace ELFIO;
@@ -63,23 +63,18 @@ using optparse::OptionParser;
 #define MAX_SIZE (1024u * 256u) /* 256KB - max NVRAM */
 int main(int argc, char const *argv[])
 {
-    union {
-        uint8_t     bytes[MAX_SIZE];
-        uint32_t    words[MAX_SIZE / 4];
+    union
+    {
+        uint8_t bytes[MAX_SIZE];
+        uint32_t words[MAX_SIZE / 4];
         APEHeader_t header;
     } ape;
 
     OptionParser parser = OptionParser().description("BCM APE to elf Utility");
 
-    parser.add_option("-i", "--input")
-        .dest("input")
-        .help("Read from the input ape binary")
-        .metavar("FILE");
+    parser.add_option("-i", "--input").dest("input").help("Read from the input ape binary").metavar("FILE");
 
-    parser.add_option("-o", "--output")
-        .dest("output")
-        .help("Save to the specified output elf file")
-        .metavar("FILE");
+    parser.add_option("-o", "--output").dest("output").help("Save to the specified output elf file").metavar("FILE");
 
     optparse::Values options = parser.parse_args(argc, argv);
     vector<string> args = parser.args();
@@ -149,7 +144,7 @@ int main(int argc, char const *argv[])
     printf("Magic:              0x%08X\n", ape.header.magic);
     printf("UNK0:               0x%08X\n", ape.header.unk0);
 
-    char name[sizeof(ape.header.name) + 1] = {0};
+    char name[sizeof(ape.header.name) + 1] = { 0 };
     strncpy(name, (char *)ape.header.name, sizeof(ape.header.name));
     printf("Name:               %s\n", name);
     printf("Version:            0x%08X (%d.%d.%d)\n", ape.header.version, version_major, version_minor, version_patch);
@@ -189,8 +184,7 @@ int main(int argc, char const *argv[])
         {
             printf("    crc32\n");
         }
-        printf("    %s\n",
-               section->flags & APE_SECTION_FLAG_CODE ? "code" : "data");
+        printf("    %s\n", section->flags & APE_SECTION_FLAG_CODE ? "code" : "data");
         if (section->flags & APE_SECTION_FLAG_UNK0)
         {
             printf("    unknown\n");
@@ -207,8 +201,7 @@ int main(int argc, char const *argv[])
         inBufferSize = section->compressedSize;
         outBufferPtr = (uint8_t *)malloc(section->decompressedSize);
         outBufferSize = section->decompressedSize;
-        out_length =
-            decompress(outBufferPtr, outBufferSize, inBufferPtr, inBufferSize);
+        out_length = decompress(outBufferPtr, outBufferSize, inBufferPtr, inBufferSize);
         calculated_crc = NVRam_crc(outBufferPtr, outBufferSize, 0);
         printf("out_length:                0x%08zX\n", out_length);
         printf("out CRC:                 0x%08X\n", calculated_crc);
@@ -225,8 +218,7 @@ int main(int argc, char const *argv[])
             bss_seg->set_align(0x4);
 
             // Add data section into data segment
-            bss_seg->add_section_index(bss_sec->get_index(),
-                                       bss_sec->get_addr_align());
+            bss_seg->add_section_index(bss_sec->get_index(), bss_sec->get_addr_align());
         }
         else if (!(section->flags & APE_SECTION_FLAG_CODE))
         {
@@ -238,8 +230,7 @@ int main(int argc, char const *argv[])
             data_seg->set_align(0x4);
 
             // Add data section into data segment
-            data_seg->add_section_index(data_sec->get_index(),
-                                        data_sec->get_addr_align());
+            data_seg->add_section_index(data_sec->get_index(), data_sec->get_addr_align());
         }
         else
         {
@@ -251,8 +242,7 @@ int main(int argc, char const *argv[])
             text_seg->set_align(0x4);
 
             // Add code section into program segment
-            text_seg->add_section_index(text_sec->get_index(),
-                                        text_sec->get_addr_align());
+            text_seg->add_section_index(text_sec->get_index(), text_sec->get_addr_align());
         }
     }
 
@@ -287,24 +277,17 @@ int main(int argc, char const *argv[])
         Elf32_Word _version_patch = stra.add_string(VERSION_PATCH_SYMBOL);
 
         // Add symbol entry
-        syma.add_symbol(_start, ape.header.entrypoint, 0, STB_GLOBAL, STT_FUNC,
-                        0, text_sec->get_index());
+        syma.add_symbol(_start, ape.header.entrypoint, 0, STB_GLOBAL, STT_FUNC, 0, text_sec->get_index());
 
-        syma.add_symbol(_thumb, ape.header.entrypoint & 0xfffffffe, 0,
-                        STB_LOCAL, STT_OBJECT, 0, text_sec->get_index());
+        syma.add_symbol(_thumb, ape.header.entrypoint & 0xfffffffe, 0, STB_LOCAL, STT_OBJECT, 0, text_sec->get_index());
 
-        syma.add_symbol(_version_major, version_major, 0, STB_GLOBAL, STT_OBJECT,
-                        0, text_sec->get_index());
-        syma.add_symbol(_version_minor, version_minor, 0, STB_GLOBAL, STT_OBJECT,
-                        0, text_sec->get_index());
-        syma.add_symbol(_version_patch, version_patch, 0, STB_GLOBAL, STT_OBJECT,
-                        0, text_sec->get_index());
-
+        syma.add_symbol(_version_major, version_major, 0, STB_GLOBAL, STT_OBJECT, 0, text_sec->get_index());
+        syma.add_symbol(_version_minor, version_minor, 0, STB_GLOBAL, STT_OBJECT, 0, text_sec->get_index());
+        syma.add_symbol(_version_patch, version_patch, 0, STB_GLOBAL, STT_OBJECT, 0, text_sec->get_index());
 
         uint32_t *vectors = (uint32_t *)text_sec->get_data();
         Elf32_Word index = stra.add_string(STACK_END_SYMBOL);
-        syma.add_symbol(index, vectors[0], 0, STB_GLOBAL, STT_OBJECT, 0,
-                        data_sec->get_index());
+        syma.add_symbol(index, vectors[0], 0, STB_GLOBAL, STT_OBJECT, 0, data_sec->get_index());
 
         // Create ELF file
         writer.save(options["output"]);

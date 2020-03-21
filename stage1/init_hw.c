@@ -44,8 +44,8 @@
 
 #include "stage1.h"
 
-#include <MII.h>
 #include <APE.h>
+#include <MII.h>
 #if CXX_SIMULATOR
 #include <APE_DEVICE.h>
 #else
@@ -53,8 +53,8 @@
 #endif
 #include <bcm5719_GEN.h>
 #include <bcm5719_RXMBUF.h>
-#include <bcm5719_TXMBUF.h>
 #include <bcm5719_SDBCACHE.h>
+#include <bcm5719_TXMBUF.h>
 #include <types.h>
 
 #if CXX_SIMULATOR
@@ -67,8 +67,8 @@ void *memset(void *s, int c, size_t n)
     // TODO: Use the memory window to set everything.
 #else
     // We assume things are aligned here...
-    uint32_t* buffer = s;
-    for(int i = 0; i < n/4; i++)
+    uint32_t *buffer = s;
+    for (int i = 0; i < n / 4; i++)
     {
         buffer[i] = c;
     }
@@ -76,15 +76,15 @@ void *memset(void *s, int c, size_t n)
     return s;
 }
 
-void init_mii_function0(volatile DEVICE_t* device)
+void init_mii_function0(volatile DEVICE_t *device)
 {
-    if(0 == DEVICE.Status.bits.FunctionNumber)
+    if (0 == DEVICE.Status.bits.FunctionNumber)
     {
         reportStatus(STATUS_INIT_HW, 0xf1);
 
         // MIIPORT 0 (0x8010):0x1A |= 0x4000
         MII_selectBlock(device, 0, 0x8010);
-        if(0x8010 == MII_getBlock(device, 0))
+        if (0x8010 == MII_getBlock(device, 0))
         {
             uint16_t r1Ah_value = MII_readRegister(device, 0, (mii_reg_t)0x1A);
             r1Ah_value |= 0x4000;
@@ -134,7 +134,7 @@ void init_mii_function0(volatile DEVICE_t* device)
     }
 }
 
-void init_mii(volatile DEVICE_t* device)
+void init_mii(volatile DEVICE_t *device)
 {
     //     MII init for all functions (MIIPORT determined by function/PHY type):
     // Set MII_REG_CONTROL to AUTO_NEGOTIATION_ENABLE.
@@ -152,7 +152,7 @@ void __attribute__((noinline)) zero_bss(void)
     extern uint32_t _fbss[];
     extern uint32_t _ebss[];
 
-    memset(_fbss, 0, (_ebss - _fbss) *  4);
+    memset(_fbss, 0, (_ebss - _fbss) * 4);
 #endif
 }
 
@@ -161,12 +161,11 @@ void early_init_hw(void)
     zero_bss();
 
     // Zero out ram - gencom, db cache, tx/rx mbuf, others in mem map
-    memset((void*)&GEN, 0, REG_GEN_SIZE);
-    memset((void*)&RXMBUF, 0, REG_RXMBUF_SIZE);
-    memset((void*)&TXMBUF, 0, REG_TXMBUF_SIZE);
-    memset((void*)&SDBCACHE, 0, REG_SDBCACHE_SIZE);
+    memset((void *)&GEN, 0, REG_GEN_SIZE);
+    memset((void *)&RXMBUF, 0, REG_RXMBUF_SIZE);
+    memset((void *)&TXMBUF, 0, REG_TXMBUF_SIZE);
+    memset((void *)&SDBCACHE, 0, REG_SDBCACHE_SIZE);
 }
-
 
 void init_mac(NVRAMContents_t *nvram)
 {
@@ -174,37 +173,37 @@ void init_mac(NVRAMContents_t *nvram)
     uint32_t *mac0 = nvram->info.macAddr0;
     uint32_t *my_mac = mac0; // default.
     DEVICE.EmacMacAddresses0High.r32 = mac0[0];
-    DEVICE.EmacMacAddresses0Low.r32  = mac0[1];
+    DEVICE.EmacMacAddresses0Low.r32 = mac0[1];
 
     uint32_t *mac1 = nvram->info.macAddr1;
-    if(1 == function)
+    if (1 == function)
     {
         my_mac = mac1;
     }
     DEVICE.EmacMacAddresses1High.r32 = mac1[0];
-    DEVICE.EmacMacAddresses1Low.r32  = mac1[1];
+    DEVICE.EmacMacAddresses1Low.r32 = mac1[1];
 
     uint32_t *mac2 = nvram->info2.macAddr2;
-    if(2 == function)
+    if (2 == function)
     {
         my_mac = mac2;
     }
     DEVICE.EmacMacAddresses2High.r32 = mac2[0];
-    DEVICE.EmacMacAddresses2Low.r32  = mac2[1];
+    DEVICE.EmacMacAddresses2Low.r32 = mac2[1];
 
     uint32_t *mac3 = nvram->info2.macAddr3;
-    if(3 == function)
+    if (3 == function)
     {
         my_mac = mac3;
     }
     DEVICE.EmacMacAddresses3High.r32 = mac3[0];
-    DEVICE.EmacMacAddresses3Low.r32  = mac3[1];
+    DEVICE.EmacMacAddresses3Low.r32 = mac3[1];
 
     // Store mac / serial number.
     DEVICE.PciSerialNumberHigh.r32 = my_mac[0];
     GEN.GenMacAddrHighMbox.r32 = my_mac[0];
 
-    DEVICE.PciSerialNumberLow.r32  = my_mac[1];
+    DEVICE.PciSerialNumberLow.r32 = my_mac[1];
     GEN.GenMacAddrLowMbox.r32 = my_mac[1];
 }
 
@@ -212,13 +211,13 @@ uint32_t translate_power_budget(uint16_t raw)
 {
     RegDEVICEPciPowerBudget0_t translator;
     translator.r32 = 0;
-    if(raw)
+    if (raw)
     {
-        translator.bits.BasePower = (raw) & 0xFF;
+        translator.bits.BasePower = (raw)&0xFF;
         translator.bits.DataScale = DEVICE_PCI_POWER_BUDGET_0_DATA_SCALE_0_1X;
-        translator.bits.PMState   = ((raw) & 0x0300) >> 8;
-        translator.bits.Type      = ((raw) & 0x1C00) >> 10;
-        translator.bits.PowerRail = ((raw) & 0xE000) >> 13;
+        translator.bits.PMState = ((raw)&0x0300) >> 8;
+        translator.bits.Type = ((raw)&0x1C00) >> 10;
+        translator.bits.PowerRail = ((raw)&0xE000) >> 13;
     }
 
     return translator.r32;
@@ -228,7 +227,7 @@ void init_power(NVRAMContents_t *nvram)
 {
     // PCI power dissipated / consumed
     DEVICE.PciPowerConsumptionInfo.r32 = nvram->info.powerConsumed;
-    DEVICE.PciPowerDissipatedInfo.r32  = nvram->info.powerDissipated;
+    DEVICE.PciPowerDissipatedInfo.r32 = nvram->info.powerDissipated;
 
     // Power Budget
     uint32_t pb_raw0 = (nvram->info.powerBudget0) & 0xffff;
@@ -250,9 +249,9 @@ void init_power(NVRAMContents_t *nvram)
     DEVICE.PciPowerBudget7.r32 = translate_power_budget(pb_raw7);
 }
 
-uint16_t nvm_get_subsystem_device(volatile DEVICE_t *device, NVRAMContents_t* nvram)
+uint16_t nvm_get_subsystem_device(volatile DEVICE_t *device, NVRAMContents_t *nvram)
 {
-    switch(MII_getPhy(device))
+    switch (MII_getPhy(device))
     {
         /* SERDES */
         case DEVICE_MII_COMMUNICATION_PHY_ADDRESS_SGMII_0:
@@ -280,7 +279,7 @@ uint16_t nvm_get_subsystem_device(volatile DEVICE_t *device, NVRAMContents_t* nv
     }
 }
 
-void init_pci(volatile DEVICE_t *device, NVRAMContents_t* nvram)
+void init_pci(volatile DEVICE_t *device, NVRAMContents_t *nvram)
 {
     // PCI Device / Vendor ID.
     RegDEVICEPciVendorDeviceId_t vendor_device;
@@ -299,38 +298,38 @@ void init_pci(volatile DEVICE_t *device, NVRAMContents_t* nvram)
     // RegDEVICEPciClassCodeRevision_t partially from REG_CHIP_ID
 }
 
-void init_gen(NVRAMContents_t* nvram)
+void init_gen(NVRAMContents_t *nvram)
 {
     int function = DEVICE.Status.bits.FunctionNumber;
     uint32_t cfg_feature;
     uint32_t cfg_hw;
     uint32_t cfg_hw2;
 
-    switch(function)
+    switch (function)
     {
         default:
         case 0:
             cfg_feature = nvram->info.func0CfgFeature;
-            cfg_hw      = nvram->info.func0CfgHW;
-            cfg_hw2     = nvram->info2.func0CfgHW2;
+            cfg_hw = nvram->info.func0CfgHW;
+            cfg_hw2 = nvram->info2.func0CfgHW2;
             break;
 
         case 1:
             cfg_feature = nvram->info.func1CfgFeature;
-            cfg_hw      = nvram->info.func1CfgHW;
-            cfg_hw2     = nvram->info2.func1CfgHW2;
+            cfg_hw = nvram->info.func1CfgHW;
+            cfg_hw2 = nvram->info2.func1CfgHW2;
             break;
 
         case 2:
             cfg_feature = nvram->info2.func2CfgFeature;
-            cfg_hw      = nvram->info2.func2CfgHW;
-            cfg_hw2     = nvram->info2.func2CfgHW2;
+            cfg_hw = nvram->info2.func2CfgHW;
+            cfg_hw2 = nvram->info2.func2CfgHW2;
             break;
 
         case 3:
             cfg_feature = nvram->info2.func3CfgFeature;
-            cfg_hw      = nvram->info2.func3CfgHW;
-            cfg_hw2     = nvram->info2.func3CfgHW2;
+            cfg_hw = nvram->info2.func3CfgHW;
+            cfg_hw2 = nvram->info2.func3CfgHW2;
             break;
     }
 
@@ -341,7 +340,7 @@ void init_gen(NVRAMContents_t* nvram)
     GEN.GenCfg5.r32 = nvram->info2.cfg5;
 }
 
-void load_nvm_config(volatile DEVICE_t* device, NVRAMContents_t *nvram)
+void load_nvm_config(volatile DEVICE_t *device, NVRAMContents_t *nvram)
 {
     // Load information from NVM, set various registers + mem
 
@@ -350,7 +349,6 @@ void load_nvm_config(volatile DEVICE_t* device, NVRAMContents_t *nvram)
 
     // firmware revision
     // mfrDate
-
 
     // Power
     init_power(nvram);
@@ -361,7 +359,7 @@ void load_nvm_config(volatile DEVICE_t* device, NVRAMContents_t *nvram)
     init_gen(nvram);
 }
 
-void init_hw(volatile DEVICE_t* device, NVRAMContents_t *nvram)
+void init_hw(volatile DEVICE_t *device, NVRAMContents_t *nvram)
 {
     reportStatus(STATUS_INIT_HW, 0);
     // Misc regs init
@@ -388,12 +386,12 @@ void init_hw(volatile DEVICE_t* device, NVRAMContents_t *nvram)
     // Unknown stuff involving REG 0x6530, REG 0x65F4, depends on config, TODO
     // Value from Talos:0x6530z 0x6530 -> 0x00000000, 0x65F4 -> 0x00000109.
 
-
     // REG_LSO_NONLSO_BD_READ_DMA_CORRUPTION_ENABLE_CONTROL: Set BD and NonLSO
     // fields to 4K.
     RegDEVICELsoNonlsoBdReadDmaCorruptionEnableControl_t reglso = DEVICE.LsoNonlsoBdReadDmaCorruptionEnableControl;
     reglso.bits.PCIRequestBurstLengthforBDRDMAEngine = DEVICE_LSO_NONLSO_BD_READ_DMA_CORRUPTION_ENABLE_CONTROL_PCI_REQUEST_BURST_LENGTH_FOR_BD_RDMA_ENGINE_4K;
-    reglso.bits.PCIRequestBurstLengthforNonLSORDMAEngine = DEVICE_LSO_NONLSO_BD_READ_DMA_CORRUPTION_ENABLE_CONTROL_PCI_REQUEST_BURST_LENGTH_FOR_NONLSO_RDMA_ENGINE_4K;
+    reglso.bits.PCIRequestBurstLengthforNonLSORDMAEngine =
+        DEVICE_LSO_NONLSO_BD_READ_DMA_CORRUPTION_ENABLE_CONTROL_PCI_REQUEST_BURST_LENGTH_FOR_NONLSO_RDMA_ENGINE_4K;
     DEVICE.LsoNonlsoBdReadDmaCorruptionEnableControl = reglso;
 
     // Disable ECC.
@@ -456,14 +454,12 @@ void init_hw(volatile DEVICE_t* device, NVRAMContents_t *nvram)
     init_mii(device);
     APE_releaseLock();
 
-
     RegDEVICEBufferManagerMode_t bmm;
     bmm.r32 = 0;
     bmm.bits.Enable = 1;
     bmm.bits.AttentionEnable = 1;
     bmm.bits.ResetRXMBUFPointer = 1;
     DEVICE.BufferManagerMode = bmm;
-
 
     // Set REG_MISCELLANEOUS_LOCAL_CONTROL to AUTO_SEEPROM_ACCESS|GPIO_2_OUTPUT_ENABLE.
     DEVICE.MiscellaneousLocalControl.bits.AutoSEEPROMAccess = 1;
@@ -472,7 +468,7 @@ void init_hw(volatile DEVICE_t* device, NVRAMContents_t *nvram)
     // Setup link-aware power mode.
     // The following must be performed while holding REG_MUTEX_{REQUEST,GRANT}; use bit 4.
     DEVICE.MutexRequest.r32 |= (1 << 4);
-    while(0 == (DEVICE.MutexGrant.r32 & (1 << 4)))
+    while (0 == (DEVICE.MutexGrant.r32 & (1 << 4)))
     {
         // Wait for grant.
     }
@@ -482,16 +478,16 @@ void init_hw(volatile DEVICE_t* device, NVRAMContents_t *nvram)
     lapmcp.r32 = 0;
     lapmcp.bits.MACClockSwitch = DEVICE_LINK_AWARE_POWER_MODE_CLOCK_POLICY_MAC_CLOCK_SWITCH_6_25MHZ;
     DEVICE.LinkAwarePowerModeClockPolicy = lapmcp;
-    // Set REG_CPMU_CONTROL to zero or more of LINK_AWARE_POWER_MODE_ENABLE, LINK_IDLE_POWER_MODE_ENABLE, LINK_SPEED_POWER_MODE_ENABLE as desired (see NVM CfgFeature).
+    // Set REG_CPMU_CONTROL to zero or more of LINK_AWARE_POWER_MODE_ENABLE, LINK_IDLE_POWER_MODE_ENABLE, LINK_SPEED_POWER_MODE_ENABLE as desired (see NVM
+    // CfgFeature).
     RegDEVICECpmuControl_t cpmu_control;
     cpmu_control.r32 = 0;
-    cpmu_control.bits.LinkIdlePowerModeEnable  = GEN.GenCfgFeature.bits.LinkIdle;
+    cpmu_control.bits.LinkIdlePowerModeEnable = GEN.GenCfgFeature.bits.LinkIdle;
     cpmu_control.bits.LinkAwarePowerModeEnable = GEN.GenCfgFeature.bits.LinkAwarePowerMode;
     cpmu_control.bits.LinkSpeedPowerModeEnable = GEN.GenCfgFeature.bits.LinkSpeedPowerMode;
     DEVICE.CpmuControl = cpmu_control;
     // Release grant.
     DEVICE.MutexGrant.r32 = (1 << 4);
-
 
     // Mask REG_CLOCK_SPEED_OVERRIDE_POLICY__MAC_CLOCK_SPEED_OVERRIDE_ENABLE.
     DEVICE.ClockSpeedOverridePolicy.bits.MACClockSpeedOverrideEnabled = 0;

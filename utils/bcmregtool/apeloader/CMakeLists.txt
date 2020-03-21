@@ -60,11 +60,4 @@ target_link_libraries(${PROJECT_NAME}
     --defsym=VERSION_PATCH=${VERSION_PATCH})
 target_compile_options(${PROJECT_NAME} PRIVATE -nodefaultlibs)
 
-
-# Simulator add_executable
-# simulator_add_executable(sim-${PROJECT_NAME}
-            # init_hw.c
-            # main.c)
-
-# target_link_libraries(sim-${PROJECT_NAME} simulator)
-# target_link_libraries(sim-${PROJECT_NAME} NVRam MII VPD APE)
+format_target_sources(${PROJECT_NAME})
