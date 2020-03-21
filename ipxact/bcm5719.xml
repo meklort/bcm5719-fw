@@ -751,6 +751,15 @@
                 <ipxact:description>RX MBuf</ipxact:description>
                 <ipxact:baseAddress>0x10000</ipxact:baseAddress>
                 <ipxact:range>0xC800</ipxact:range>
+                <ipxact:register>
+                    <ipxact:name>Word</ipxact:name>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0</ipxact:addressOffset>
+                    <ipxact:dim>12800</ipxact:dim>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
             </ipxact:addressBlock>
 
             <ipxact:usage>register</ipxact:usage>
@@ -766,6 +775,15 @@
                 <ipxact:description>SBD Cache</ipxact:description>
                 <ipxact:baseAddress>0x20000</ipxact:baseAddress>
                 <ipxact:range>0xC800</ipxact:range>
+                <ipxact:register>
+                    <ipxact:name>Word</ipxact:name>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0</ipxact:addressOffset>
+                    <ipxact:dim>12800</ipxact:dim>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
             </ipxact:addressBlock>
 
             <ipxact:usage>register</ipxact:usage>
@@ -781,6 +799,15 @@
                 <ipxact:description>TX MBuf</ipxact:description>
                 <ipxact:baseAddress>0x2C800</ipxact:baseAddress>
                 <ipxact:range>0x7400</ipxact:range>
+                <ipxact:register>
+                    <ipxact:name>Word</ipxact:name>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0</ipxact:addressOffset>
+                    <ipxact:dim>7424</ipxact:dim>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
             </ipxact:addressBlock>
 
             <ipxact:usage>register</ipxact:usage>

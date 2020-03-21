@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2018, Evan Lojewski
+/// @copyright Copyright (c) 2020, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -81,14 +81,50 @@ typedef uint32_t BCM5719_SDBCACHE_H_uint32_t;
 #define REG_SDBCACHE_BASE ((volatile void*)0x20000) /* SBD Cache */
 #define REG_SDBCACHE_SIZE (0xc800)
 
+#define REG_SDBCACHE_WORD ((volatile BCM5719_SDBCACHE_H_uint32_t*)0x20000) /*  */
+/** @brief Register definition for @ref SDBCACHE_t.Word. */
+typedef register_container RegSDBCACHEWord_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_SDBCACHE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "Word"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSDBCACHEWord_t()
+    {
+        /** @brief constructor for @ref SDBCACHE_t.Word. */
+        r32.setName("Word");
+    }
+    RegSDBCACHEWord_t& operator=(const RegSDBCACHEWord_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegSDBCACHEWord_t;
+
 /** @brief Component definition for @ref SDBCACHE. */
 typedef struct SDBCACHE_t {
+    /** @brief  */
+    RegSDBCACHEWord_t Word[12800];
+
 #ifdef CXX_SIMULATOR
     SDBCACHE_t()
     {
+        for(int i = 0; i < 12800; i++)
+        {
+            Word[i].r32.setComponentOffset(0x0 + (i * 4));
+        }
     }
     void print()
     {
+        for(int i = 0; i < 12800; i++)
+        {
+            Word[i].print();
+        }
     }
     typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);
     callback_t mIndexReadCallback;

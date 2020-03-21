@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2018, Evan Lojewski
+/// @copyright Copyright (c) 2020, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -81,14 +81,50 @@ typedef uint32_t BCM5719_RXMBUF_H_uint32_t;
 #define REG_RXMBUF_BASE ((volatile void*)0x10000) /* RX MBuf */
 #define REG_RXMBUF_SIZE (0xc800)
 
+#define REG_RXMBUF_WORD ((volatile BCM5719_RXMBUF_H_uint32_t*)0x10000) /*  */
+/** @brief Register definition for @ref RXMBUF_t.Word. */
+typedef register_container RegRXMBUFWord_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_RXMBUF_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "Word"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegRXMBUFWord_t()
+    {
+        /** @brief constructor for @ref RXMBUF_t.Word. */
+        r32.setName("Word");
+    }
+    RegRXMBUFWord_t& operator=(const RegRXMBUFWord_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegRXMBUFWord_t;
+
 /** @brief Component definition for @ref RXMBUF. */
 typedef struct RXMBUF_t {
+    /** @brief  */
+    RegRXMBUFWord_t Word[12800];
+
 #ifdef CXX_SIMULATOR
     RXMBUF_t()
     {
+        for(int i = 0; i < 12800; i++)
+        {
+            Word[i].r32.setComponentOffset(0x0 + (i * 4));
+        }
     }
     void print()
     {
+        for(int i = 0; i < 12800; i++)
+        {
+            Word[i].print();
+        }
     }
     typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);
     callback_t mIndexReadCallback;
