@@ -68,3 +68,5 @@ target_link_libraries(sim-${PROJECT_NAME} simulator)
 target_link_libraries(sim-${PROJECT_NAME} NVRam MII VPD APE printf)
 
 install(TARGETS ${PROJECT_NAME} DESTINATION fw RESOURCE)
+
+format_target_sources(${PROJECT_NAME})

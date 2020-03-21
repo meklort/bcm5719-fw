@@ -41,44 +41,42 @@
 /// POSSIBILITY OF SUCH DAMAGE.
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
+#include "../NVRam/bcm5719_NVM.h"
 #include "HAL.hpp"
 
-#include <NVRam.h>
+#include <APE.h>
+#include <APE_APE_PERI.h>
+#include <APE_DEVICE.h>
+#include <APE_NVIC.h>
 #include <MII.h>
+#include <NVRam.h>
+#include <OptionParser.h>
+#include <bcm5719_APE.h>
+#include <bcm5719_GEN.h>
+#include <bcm5719_SHM.h>
+#include <bcm5719_SHM_CHANNEL0.h>
+#include <bcm5719_SHM_CHANNEL1.h>
 #include <bcm5719_eeprom.h>
 #include <dirent.h>
+#include <elfio/elfio.hpp>
 #include <endian.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <iostream>
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <string>
 #include <sys/mman.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-#include <unistd.h>
-#include <OptionParser.h>
-#include <vector>
-#include <string>
-#include <iostream>
-#include <bcm5719_GEN.h>
-#include <APE.h>
-#include <bcm5719_SHM.h>
-#include <bcm5719_SHM_CHANNEL0.h>
-#include <bcm5719_SHM_CHANNEL1.h>
-#include <elfio/elfio.hpp>
-
 #include <types.h>
-#include <APE_DEVICE.h>
-#include <bcm5719_APE.h>
-#include <APE_APE_PERI.h>
-#include <APE_NVIC.h>
+#include <unistd.h>
+#include <vector>
 
-#include "../NVRam/bcm5719_NVM.h"
-
-#define VERSION_STRING  STRINGIFY(VERSION_MAJOR) "." STRINGIFY(VERSION_MINOR) "." STRINGIFY(VERSION_PATCH)
+#define VERSION_STRING STRINGIFY(VERSION_MAJOR) "." STRINGIFY(VERSION_MINOR) "." STRINGIFY(VERSION_PATCH)
 
 using namespace std;
 using namespace ELFIO;
@@ -86,19 +84,18 @@ using optparse::OptionParser;
 
 elfio gELFIOReader;
 
-const char* regnames[32] = {
-    "$zero", /* Zero register - always 0 */
-    "$at",   /* Assembler register */
-    "$v0", "$v1",             /* Results */
-    "$a0", "$a1", "$a2", "$a3", /* Aguments */
-    "$t0", "$t1", "$t2", "$t3", "$t4", "$t5", "$t6", "$t7", /* Temp, not saved */
-    "$s0", "$s1", "$s2", "$s3", "$s4", "$s5", "$s6", "$s7", /* Saved registers */
-    "$t8", "$t9", /* Temp, not saved */
-    "$k0", "$k1", /* Kernel / OS */
-    "$gp", "$sp", "$fp", /* Pointers */
-    "$ra", /* return address */
+const char *regnames[32] = {
+    "$zero",                                                  /* Zero register - always 0 */
+    "$at",                                                    /* Assembler register */
+    "$v0",   "$v1",                                           /* Results */
+    "$a0",   "$a1", "$a2", "$a3",                             /* Aguments */
+    "$t0",   "$t1", "$t2", "$t3", "$t4", "$t5", "$t6", "$t7", /* Temp, not saved */
+    "$s0",   "$s1", "$s2", "$s3", "$s4", "$s5", "$s6", "$s7", /* Saved registers */
+    "$t8",   "$t9",                                           /* Temp, not saved */
+    "$k0",   "$k1",                                           /* Kernel / OS */
+    "$gp",   "$sp", "$fp",                                    /* Pointers */
+    "$ra",                                                    /* return address */
 };
-
 
 void boot_ape_loader()
 {
@@ -106,7 +103,7 @@ void boot_ape_loader()
     extern unsigned int apeloader_bin_len;
 
     int function = DEVICE.Status.bits.FunctionNumber;
-    int numWords = apeloader_bin_len/4;
+    int numWords = apeloader_bin_len / 4;
 
     RegAPEMode_t mode;
     mode.r32 = 0;
@@ -116,18 +113,16 @@ void boot_ape_loader()
 
     // We hijack the complete SHM here.
 
-
     // load file.
-    for(int i = 0; i < numWords; i++)
+    for (int i = 0; i < numWords; i++)
     {
-        SHM.write(0x0B00 + i*4, ((uint32_t*)apeloader_bin)[i]);
+        SHM.write(0x0B00 + i * 4, ((uint32_t *)apeloader_bin)[i]);
     }
-
 
     // Mark fw as not read.
     SHM.FwStatus.bits.Ready = 0;
     // Start the file
-    APE.GpioMessage.r32 = 0x60220B00|2 + (0x1000 * function);
+    APE.GpioMessage.r32 = 0x60220B00 | 2 + (0x1000 * function);
 
     mode.bits.Halt = 0;
     mode.bits.FastBoot = 1;
@@ -135,7 +130,8 @@ void boot_ape_loader()
     APE.Mode = mode;
 
     // Wait for ready.
-    while(0 == SHM.FwStatus.bits.Ready);
+    while (0 == SHM.FwStatus.bits.Ready)
+        ;
 }
 
 uint32_t loader_read_mem(uint32_t addr)
@@ -144,7 +140,8 @@ uint32_t loader_read_mem(uint32_t addr)
     SHM.LoaderCommand.bits.Command = SHM_LOADER_COMMAND_COMMAND_READ_MEM;
 
     // Wait for command to be handled.
-    while(0 != SHM.LoaderCommand.bits.Command);
+    while (0 != SHM.LoaderCommand.bits.Command)
+        ;
 
     return (uint32_t)SHM.LoaderArg0.r32;
 }
@@ -156,33 +153,35 @@ void loader_write_mem(uint32_t addr, uint32_t value)
     SHM.LoaderCommand.bits.Command = SHM_LOADER_COMMAND_COMMAND_WRITE_MEM;
 
     // Wait for command to be handled.
-    while(0 != SHM.LoaderCommand.bits.Command);
+    while (0 != SHM.LoaderCommand.bits.Command)
+        ;
 }
 
 const string symbol_for_address(uint32_t address, uint32_t &offset)
 {
     Elf_Half sec_num = gELFIOReader.sections.size();
 
-    for ( int i = 0; i < sec_num; ++i ) {
-        section* psec = gELFIOReader.sections[i];
+    for (int i = 0; i < sec_num; ++i)
+    {
+        section *psec = gELFIOReader.sections[i];
         // Check section type
-        if ( psec->get_type() == SHT_SYMTAB ) {
-            const symbol_section_accessor symbols( gELFIOReader, psec );
-            for ( unsigned int j = 0; j < symbols.get_symbols_num(); ++j ) {
-                std::string   name;
-                Elf64_Addr    value;
-                Elf_Xword     size;
+        if (psec->get_type() == SHT_SYMTAB)
+        {
+            const symbol_section_accessor symbols(gELFIOReader, psec);
+            for (unsigned int j = 0; j < symbols.get_symbols_num(); ++j)
+            {
+                std::string name;
+                Elf64_Addr value;
+                Elf_Xword size;
                 unsigned char bind;
                 unsigned char type;
-                Elf_Half      section_index;
+                Elf_Half section_index;
                 unsigned char other;
 
                 // Read symbol properties
-                if(symbols.get_symbol( j, name, value, size, bind,
-                                       type, section_index, other ))
+                if (symbols.get_symbol(j, name, value, size, bind, type, section_index, other))
                 {
-                    if(value <= address &&
-                        value + size > address)
+                    if (value <= address && value + size > address)
                     {
                         offset = address - value;
                         return name;
@@ -243,11 +242,11 @@ void print_context(void)
     printf("   pc: 0x%08X (%s+%d)   opcode: 0x%08X \n", pc, symbol.c_str(), sym_offset, opcode);
     int numCols = 4;
     int offset = 32 / numCols;
-    for(int i = 0; i < ARRAY_ELEMENTS(r)/4; i++)
+    for (int i = 0; i < ARRAY_ELEMENTS(r) / 4; i++)
     {
-        for(int j = 0; j < numCols; j++)
+        for (int j = 0; j < numCols; j++)
         {
-            printf("$%d(%5s): 0x%08X    ", i + j*offset, regnames[i + j*offset], r[i + j*offset]);
+            printf("$%d(%5s): 0x%08X    ", i + j * offset, regnames[i + j * offset], r[i + j * offset]);
         }
         printf("\n");
     }
@@ -272,7 +271,6 @@ void writeMemory(uint32_t rxAddr, uint32_t value)
     // Check that the instructions we are expecting to use are correct. This will
     // break if the ROM is different.
     DEVICE.RxRiscProgramCounter.r32 = 0x40000038;
-
 
     cout << "PC is now " << (uint32_t)DEVICE.RxRiscProgramCounter.r32 << endl;
     uint32_t iw = DEVICE.RxRiscCurrentInstruction.r32;
@@ -318,7 +316,7 @@ void step(void)
     // Force a re-load of the next word.
     uint32_t newPC = DEVICE.RxRiscProgramCounter.r32;
 
-    if(oldPC + 4 != newPC)
+    if (oldPC + 4 != newPC)
     {
         // branched. Re-read PC to re-read opcode
         DEVICE.RxRiscProgramCounter.r32 = DEVICE.RxRiscProgramCounter.r32;
@@ -331,175 +329,98 @@ int main(int argc, char const *argv[])
 
     parser.version(VERSION_STRING);
 
-    parser.add_option("--elf")
-            .dest("debugfile")
-            .metavar("DEBUG_FILE")
-            .help("Elf file used for improved context decoding.");
+    parser.add_option("--elf").dest("debugfile").metavar("DEBUG_FILE").help("Elf file used for improved context decoding.");
 
     parser.add_option("-f", "--function")
-            .dest("function")
-            .type("int")
-            .set_default("0")
-            .metavar("FUNCTION")
-            .help("Read registers from the specified pci function.");
+        .dest("function")
+        .type("int")
+        .set_default("0")
+        .metavar("FUNCTION")
+        .help("Read registers from the specified pci function.");
 
-    parser.add_option("-s", "--step")
-            .dest("step")
-            .set_default("0")
-            .action("store_true")
-            .help("Single step the CPU.");
+    parser.add_option("-s", "--step").dest("step").set_default("0").action("store_true").help("Single step the CPU.");
 
-    parser.add_option("-t", "--stepto")
-            .dest("stepto")
-            .metavar("ADDR")
-            .help("Single step the CPU.");
+    parser.add_option("-t", "--stepto").dest("stepto").metavar("ADDR").help("Single step the CPU.");
 
-    parser.add_option("--halt")
-            .dest("halt")
-            .set_default("0")
-            .action("store_true")
-            .help("Halt the CPU.");
+    parser.add_option("--halt").dest("halt").set_default("0").action("store_true").help("Halt the CPU.");
 
-    parser.add_option("-pc", "--pc")
-            .dest("pc")
-            .help("Force the PC to the specified value.");
+    parser.add_option("-pc", "--pc").dest("pc").help("Force the PC to the specified value.");
 
-    parser.add_option("-c", "--context")
-            .dest("context")
-            .set_default("0")
-            .action("store_true")
-            .help("Print the current CPU context.");
+    parser.add_option("-c", "--context").dest("context").set_default("0").action("store_true").help("Print the current CPU context.");
 
-    parser.add_option("-g", "--run")
-            .dest("run")
-            .set_default("0")
-            .action("store_true")
-            .help("Continue CPU execution.");
+    parser.add_option("-g", "--run").dest("run").set_default("0").action("store_true").help("Continue CPU execution.");
 
-    parser.add_option("-i", "--info")
-            .dest("info")
-            .set_default("0")
-            .action("store_true")
-            .help("Print device information registers.");
+    parser.add_option("-i", "--info").dest("info").set_default("0").action("store_true").help("Print device information registers.");
 
-    parser.add_option("-a", "--ape")
-            .dest("ape")
-            .set_default("0")
-            .action("store_true")
-            .help("Print ape information registers.");
+    parser.add_option("-a", "--ape").dest("ape").set_default("0").action("store_true").help("Print ape information registers.");
 
-    parser.add_option("-rx", "--rx")
-            .dest("rx")
-            .set_default("0")
-            .action("store_true")
-            .help("Print rx information registers.");
+    parser.add_option("-rx", "--rx").dest("rx").set_default("0").action("store_true").help("Print rx information registers.");
 
-    parser.add_option("-tx", "--tx")
-            .dest("tx")
-            .set_default("0")
-            .action("store_true")
-            .help("Print tx information registers.");
+    parser.add_option("-tx", "--tx").dest("tx").set_default("0").action("store_true").help("Print tx information registers.");
 
-    parser.add_option("-p", "--apeboot")
-            .dest("apeboot")
-            .metavar("APE_FILE")
-            .help("File to boot on the APE.");
+    parser.add_option("-p", "--apeboot").dest("apeboot").metavar("APE_FILE").help("File to boot on the APE.");
 
-    parser.add_option("--apehalt")
-            .dest("apehalt")
-            .set_default("0")
-            .action("store_true")
-            .help("Halt the APE.");
+    parser.add_option("--apehalt").dest("apehalt").set_default("0").action("store_true").help("Halt the APE.");
 
-    parser.add_option("-n", "--network")
-            .dest("network")
-            .set_default("0")
-            .action("store_true")
-            .help("Print network information / status.");
+    parser.add_option("-n", "--network").dest("network").set_default("0").action("store_true").help("Print network information / status.");
 
-    parser.add_option("--nvm")
-            .dest("nvm")
-            .set_default("0")
-            .action("store_true")
-            .help("Print NVM registers");
+    parser.add_option("--nvm").dest("nvm").set_default("0").action("store_true").help("Print NVM registers");
 
-    parser.add_option("--unlock")
-            .dest("unlock")
-            .set_default("0")
-            .action("store_true")
-            .help("Unlock NVM and APE registers");
+    parser.add_option("--unlock").dest("unlock").set_default("0").action("store_true").help("Unlock NVM and APE registers");
 
-    parser.add_option("-apereset", "--apereset")
-            .dest("apereset")
-            .set_default("0")
-            .action("store_true")
-            .help("File to boot on the APE.");
+    parser.add_option("-apereset", "--apereset").dest("apereset").set_default("0").action("store_true").help("File to boot on the APE.");
 
-    parser.add_option("-reset", "--reset")
-            .dest("reset")
-            .set_default("0")
-            .action("store_true")
-            .help("File to boot on the APE.");
+    parser.add_option("-reset", "--reset").dest("reset").set_default("0").action("store_true").help("File to boot on the APE.");
 
-    parser.add_option("-m", "--mii")
-            .dest("mii")
-            .set_default("0")
-            .action("store_true")
-            .help("Print MII information registers.");
+    parser.add_option("-m", "--mii").dest("mii").set_default("0").action("store_true").help("Print MII information registers.");
 
-    parser.add_option("-d", "--dumpregs")
-            .dest("dumpregs")
-            .set_default("0")
-            .action("store_true")
-            .help("Dump main device and APE registers.");
+    parser.add_option("-d", "--dumpregs").dest("dumpregs").set_default("0").action("store_true").help("Dump main device and APE registers.");
 
     optparse::Values options = parser.parse_args(argc, argv);
     vector<string> args = parser.args();
 
-
-    if(!initHAL(NULL, options.get("function")))
+    if (!initHAL(NULL, options.get("function")))
     {
         cerr << "Unable to locate pci device with function " << (int)options.get("function") << endl;
         exit(-1);
     }
 
-    if(options.is_set("debugfile"))
+    if (options.is_set("debugfile"))
     {
-        if(!gELFIOReader.load(options["debugfile"]))
+        if (!gELFIOReader.load(options["debugfile"]))
         {
             cerr << "Unablt to read elf file " << options["debugfile"] << endl;
             exit(-1);
         }
     }
 
-    if(options.get("step"))
+    if (options.get("step"))
     {
-        do {
+        do
+        {
             cout << "Stepping...\n";
             step();
             print_context();
 
-        } while(DEVICE.RxRiscProgramCounter.r32 > 0x40000000);
+        } while (DEVICE.RxRiscProgramCounter.r32 > 0x40000000);
         exit(0);
     }
 
-    if(options.is_set("stepto"))
+    if (options.is_set("stepto"))
     {
         uint32_t addr = stoi(options["stepto"], nullptr, 0);
-        do {
+        do
+        {
             cout << "Stepping...\n";
 
             step();
             print_context();
 
-        } while(DEVICE.RxRiscProgramCounter.r32 != addr);
+        } while (DEVICE.RxRiscProgramCounter.r32 != addr);
         exit(0);
-
     }
 
-
-
-    if(options.get("halt"))
+    if (options.get("halt"))
     {
         cout << "Halting...\n";
         RegDEVICERxRiscMode_t mode;
@@ -511,7 +432,7 @@ int main(int argc, char const *argv[])
         exit(0);
     }
 
-    if(options.is_set("pc"))
+    if (options.is_set("pc"))
     {
         uint32_t pc = stoi(options["pc"], nullptr, 0);
         cout << "Updating PC to " << std::hex << pc << endl;
@@ -525,13 +446,13 @@ int main(int argc, char const *argv[])
         exit(0);
     }
 
-    if(options.get("context"))
+    if (options.get("context"))
     {
         print_context();
         exit(0);
     }
 
-    if(options.get("run"))
+    if (options.get("run"))
     {
         cout << "Running...\n";
         RegDEVICERxRiscMode_t mode;
@@ -540,14 +461,13 @@ int main(int argc, char const *argv[])
         exit(0);
     }
 
-    if(options.get("mii"))
+    if (options.get("mii"))
     {
         uint8_t phy = MII_getPhy(&DEVICE);
 
         printf("MII Phy:          %d\n", phy);
         printf("MII PHY ID[high]: 0x%04X\n", MII_readRegister(&DEVICE, phy, (mii_reg_t)REG_MII_PHY_ID_HIGH));
         printf("MII PHY ID[low]:  0x%04X\n", MII_readRegister(&DEVICE, phy, (mii_reg_t)REG_MII_PHY_ID_LOW));
-
 
         RegMIIControl_t control;
         control.r16 = MII_readRegister(&DEVICE, phy, (mii_reg_t)REG_MII_CONTROL);
@@ -620,24 +540,25 @@ int main(int argc, char const *argv[])
         exit(0);
     }
 
-    if(options.is_set("apeboot"))
+    if (options.is_set("apeboot"))
     {
         boot_ape_loader();
 
         int fileLength = 0;
         int fileWords = 0;
-        #define NVRAM_SIZE      (1024u * 256u) /* 256KB */
+#define NVRAM_SIZE (1024u * 256u) /* 256KB */
 
-        union {
-            uint8_t         bytes[NVRAM_SIZE];
-            uint32_t        words[NVRAM_SIZE/4];
+        union
+        {
+            uint8_t bytes[NVRAM_SIZE];
+            uint32_t words[NVRAM_SIZE / 4];
         } ape;
 
         string &file = options["apeboot"];
 
         fstream infile;
         infile.open(file, fstream::in | fstream::binary);
-        if(infile.is_open())
+        if (infile.is_open())
         {
             // get length of file:
             infile.seekg(0, infile.end);
@@ -646,7 +567,7 @@ int main(int argc, char const *argv[])
             infile.seekg(0, infile.beg);
 
             // Read in file
-            infile.read((char*)ape.bytes, fileLength);
+            infile.read((char *)ape.bytes, fileLength);
 
             infile.close();
         }
@@ -656,23 +577,21 @@ int main(int argc, char const *argv[])
             exit(-1);
         }
 
-        if(ape.words[0] == be32toh(APE_HEADER_MAGIC))
+        if (ape.words[0] == be32toh(APE_HEADER_MAGIC))
         {
             // The file is swapped... fix it.
-            for(int i = 0; i < sizeof(ape)/sizeof(ape.words[0]); i++)
+            for (int i = 0; i < sizeof(ape) / sizeof(ape.words[0]); i++)
             {
                 ape.words[i] = be32toh(ape.words[i]);
             }
         }
 
-
         // load file.
-        for(int i = 0; i < fileWords; i++)
+        for (int i = 0; i < fileWords; i++)
         {
-            uint32_t addr = 0x10D800 + i*4;
+            uint32_t addr = 0x10D800 + i * 4;
             loader_write_mem(addr, ape.words[i]);
         }
-
 
         RegAPEMode_t mode;
         mode.r32 = 0;
@@ -680,9 +599,8 @@ int main(int argc, char const *argv[])
         mode.bits.FastBoot = 1;
         APE.Mode = mode;
 
-
         // Set the payload address
-        APE.GpioMessage.r32 = 0x10D800|2;
+        APE.GpioMessage.r32 = 0x10D800 | 2;
 
         // Clear the signature.
         SHM.SegSig.r32 = 0xBAD0C0DE;
@@ -696,7 +614,7 @@ int main(int argc, char const *argv[])
         exit(0);
     }
 
-    if(options.get("apereset"))
+    if (options.get("apereset"))
     {
 
         // Halt
@@ -715,7 +633,7 @@ int main(int argc, char const *argv[])
         exit(0);
     }
 
-    if(options.get("apehalt"))
+    if (options.get("apehalt"))
     {
         // Halt
         RegAPEMode_t mode;
@@ -726,16 +644,14 @@ int main(int argc, char const *argv[])
 
         exit(0);
     }
-    if(options.get("reset"))
+    if (options.get("reset"))
     {
 
         DEVICE.MiscellaneousConfig.bits.GRCReset = 1;
         exit(0);
     }
 
-
-
-    if(options.get("rx"))
+    if (options.get("rx"))
     {
         DEVICE.ReceiveMacMode.print();
         DEVICE.EmacMode.print();
@@ -745,7 +661,7 @@ int main(int argc, char const *argv[])
         exit(0);
     }
 
-    if(options.get("tx"))
+    if (options.get("tx"))
     {
         DEVICE.GrcModeControl.print();
         DEVICE.EmacMode.print();
@@ -757,7 +673,7 @@ int main(int argc, char const *argv[])
         APE.TxToNetBufferRing0.print();
         APE.TxToNetBufferReturn0.print();
         APE.TxToNetDoorbellFunc0.print();
-        if(APE.TxToNetDoorbellFunc0.bits.TXQueueFull)
+        if (APE.TxToNetDoorbellFunc0.bits.TXQueueFull)
         {
             fprintf(stderr, "TX Queue Full\n");
         }
@@ -765,7 +681,7 @@ int main(int argc, char const *argv[])
         exit(0);
     }
 
-    if(options.get("ape"))
+    if (options.get("ape"))
     {
         APE.Mode.print();
         APE.Status.print();
@@ -786,7 +702,6 @@ int main(int argc, char const *argv[])
         printf("APE RCPU CfgFeature: 0x%08X\n", (uint32_t)SHM.RcpuCfgFeature.r32);
         printf("APE RCPU PCI Vendor/Device ID: 0x%08X\n", (uint32_t)SHM.RcpuPciVendorDeviceId.r32);
         printf("APE RCPU PCI Subsystem ID: 0x%08X\n", (uint32_t)SHM.RcpuPciSubsystemId.r32);
-
 
         DEVICE.PerfectMatch1High.print();
         DEVICE.PerfectMatch1Low.print();
@@ -820,7 +735,7 @@ int main(int argc, char const *argv[])
         exit(0);
     }
 
-    if(options.get("dumpregs"))
+    if (options.get("dumpregs"))
     {
         DEVICE.print();
         APE.print();
@@ -829,7 +744,7 @@ int main(int argc, char const *argv[])
         exit(0);
     }
 
-    if(options.get("unlock"))
+    if (options.get("unlock"))
     {
         NVRam_releaseAllLocks();
         APE_releaseAllLocks();
@@ -841,14 +756,14 @@ int main(int argc, char const *argv[])
 
         exit(0);
     }
-    if(options.get("nvm"))
+    if (options.get("nvm"))
     {
         NVM.print();
 
         exit(0);
     }
 
-    if(options.get("network"))
+    if (options.get("network"))
     {
         RegMIIStatus_t stat;
 
@@ -857,7 +772,7 @@ int main(int argc, char const *argv[])
         uint16_t status_value = MII_readRegister(&DEVICE, phy, (mii_reg_t)REG_MII_STATUS);
         stat.r16 = status_value;
         stat.print();
-        if(stat.bits.ExtendedStatusSupported)
+        if (stat.bits.ExtendedStatusSupported)
         {
             RegMIIIeeeExtendedStatus_t ext_stat;
             uint16_t ext_status_value = MII_readRegister(&DEVICE, phy, (mii_reg_t)REG_MII_IEEE_EXTENDED_STATUS);
@@ -870,8 +785,7 @@ int main(int argc, char const *argv[])
         exit(0);
     }
 
-
-    if(options.get("info"))
+    if (options.get("info"))
     {
         GEN.GenDataSig.print();
         GEN.GenFwMbox.print();
@@ -882,7 +796,6 @@ int main(int argc, char const *argv[])
         DEVICE.PciSubsystemId.print();
         DEVICE.PciClassCodeRevision.print();
         DEVICE.Status.print();
-
 
         // GenCfgFeature
         // GenCfgHw

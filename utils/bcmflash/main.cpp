@@ -42,43 +42,40 @@
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
 
+#include "../NVRam/bcm5719_NVM.h"
 #include "HAL.hpp"
 
 #include <NVRam.h>
+#include <OptionParser.h>
+#include <bcm5719_DEVICE.h>
 #include <bcm5719_eeprom.h>
 #include <dirent.h>
 #include <endian.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <fstream>
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <string>
 #include <sys/mman.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
-#include <OptionParser.h>
 #include <vector>
-#include <string>
-#include <fstream>
 
-#include <bcm5719_DEVICE.h>
-
-#include "../NVRam/bcm5719_NVM.h"
-
-#define VERSION_STRING  STRINGIFY(VERSION_MAJOR) "." STRINGIFY(VERSION_MINOR) "." STRINGIFY(VERSION_PATCH)
+#define VERSION_STRING STRINGIFY(VERSION_MAJOR) "." STRINGIFY(VERSION_MINOR) "." STRINGIFY(VERSION_PATCH)
 
 using namespace std;
 using optparse::OptionParser;
 
-
-bool save_to_file(const char* filename, void* buffer, size_t size)
+bool save_to_file(const char *filename, void *buffer, size_t size)
 {
     cout << "Writing to " << filename << "." << endl;
-    FILE* out = fopen(filename, "w+");
-    if(out)
+    FILE *out = fopen(filename, "w+");
+    if (out)
     {
         fwrite(buffer, size, 1, out);
         fclose(out);
@@ -91,106 +88,84 @@ bool save_to_file(const char* filename, void* buffer, size_t size)
     }
 }
 
-#define NVRAM_SIZE      (1024u * 256u) /* 256KB */
+#define NVRAM_SIZE (1024u * 256u) /* 256KB */
 int main(int argc, char const *argv[])
 {
     bool extract = false;
-    union {
-        uint8_t         bytes[NVRAM_SIZE];
-        uint32_t        words[NVRAM_SIZE/4];
+    union
+    {
+        uint8_t bytes[NVRAM_SIZE];
+        uint32_t words[NVRAM_SIZE / 4];
         NVRAMContents_t contents;
     } nvram;
 
     uint32_t ape_length = 0;
-    uint8_t* ape = NULL;
-    uint32_t* ape_wd = NULL;
+    uint8_t *ape = NULL;
+    uint32_t *ape_wd = NULL;
 
-    uint8_t* stage1 = NULL;
-    uint32_t* stage1_wd = NULL;
+    uint8_t *stage1 = NULL;
+    uint32_t *stage1_wd = NULL;
 
     OptionParser parser = OptionParser().description("BCM Flash Utility v" VERSION_STRING);
 
     parser.version(VERSION_STRING);
 
     parser.add_option("-t", "--target")
-            .choices({"hardware", "file"})
-            .dest("target")
-            // .set_default("hardware")
-            .help(  "hardware: Use the attached physical device.\n"
-                    "file: Use the file specified with -i, --file\n");
+        .choices({ "hardware", "file" })
+        .dest("target")
+        // .set_default("hardware")
+        .help("hardware: Use the attached physical device.\n"
+              "file: Use the file specified with -i, --file\n");
 
     parser.add_option("-f", "--function")
-            .dest("function")
-            .type("int")
-            .set_default("1")
-            .metavar("FUNCTION")
-            .help("Read registers from the specified pci function.");
+        .dest("function")
+        .type("int")
+        .set_default("1")
+        .metavar("FUNCTION")
+        .help("Read registers from the specified pci function.");
 
     parser.add_option("--nvm-recovery")
-            .dest("recovery")
-            .action("store_true")
-            .set_default("0")
-            .help("Recover form an incorrect NVM autodetection. Only valid with --target=hardware");
+        .dest("recovery")
+        .action("store_true")
+        .set_default("0")
+        .help("Recover form an incorrect NVM autodetection. Only valid with --target=hardware");
 
-    parser.add_option("-i", "--file")
-            .dest("filename")
-            .help("Read from the specified file")
-            .metavar("FILE");
+    parser.add_option("-i", "--file").dest("filename").help("Read from the specified file").metavar("FILE");
 
     parser.add_option("-b", "--backup")
-            .dest("backup")
-            .metavar("TYPE")
-            .help(  "Backup the firmware to the specified file.\n"
-                    "binary:  Save a raw binary copy of the firmware to firmware.fw.\n"
-                    "extract: Save each individual stage to <stage>.fw.\n");
+        .dest("backup")
+        .metavar("TYPE")
+        .help("Backup the firmware to the specified file.\n"
+              "binary:  Save a raw binary copy of the firmware to firmware.fw.\n"
+              "extract: Save each individual stage to <stage>.fw.\n");
 
-    parser.add_option("-r", "restore")
-            .dest("restore")
-            .help("Update the target device to match the specified file.")
-            .metavar("FILE");
+    parser.add_option("-r", "restore").dest("restore").help("Update the target device to match the specified file.").metavar("FILE");
 
+    parser.add_option("-1", "--stage1").dest("stage1").help("Update the target with the specified stage1 image, if possible.").metavar("STAGE1");
 
-    parser.add_option("-1", "--stage1")
-            .dest("stage1")
-            .help("Update the target with the specified stage1 image, if possible.")
-            .metavar("STAGE1");
+    parser.add_option("-a", "--ape").dest("ape").help("Update the target with the specified ape image, if possible.").metavar("APE");
 
-    parser.add_option("-a", "--ape")
-            .dest("ape")
-            .help("Update the target with the specified ape image, if possible.")
-            .metavar("APE");
+    parser.add_option("-u", "--unlock").dest("unlock").action("store_true").set_default("0").help("Clear all NVM locks.").metavar("UNLOCK");
 
-    parser.add_option("-u", "--unlock")
-            .dest("unlock")
-            .action("store_true")
-            .set_default("0")
-            .help("Clear all NVM locks.")
-            .metavar("UNLOCK");
-
-    parser.add_option("-q", "--quiet")
-            .action("store_false")
-            .dest("verbose")
-            .set_default("1")
-            .help("don't print status messages to stdout");
+    parser.add_option("-q", "--quiet").action("store_false").dest("verbose").set_default("1").help("don't print status messages to stdout");
 
     optparse::Values options = parser.parse_args(argc, argv);
     vector<string> args = parser.args();
 
-    if("file" == options["target"])
+    if ("file" == options["target"])
     {
-        if(!options.is_set("filename"))
+        if (!options.is_set("filename"))
         {
             cerr << "Please specify a file to use." << endl;
             parser.print_help();
             exit(-1);
         }
 
-
         fstream infile;
         infile.open(options["filename"], fstream::in | fstream::binary);
-        if(infile.is_open())
+        if (infile.is_open())
         {
-            infile.read((char*)nvram.bytes, NVRAM_SIZE);
+            infile.read((char *)nvram.bytes, NVRAM_SIZE);
 
             infile.close();
         }
@@ -200,9 +175,9 @@ int main(int argc, char const *argv[])
             exit(-1);
         }
     }
-    else if("hardware" == options["target"])
+    else if ("hardware" == options["target"])
     {
-        if(!initHAL(NULL, options.get("function")))
+        if (!initHAL(NULL, options.get("function")))
         {
             cerr << "Unable to locate pci device with function " << options["function"] << " for the debug console." << endl;
             exit(-1);
@@ -210,7 +185,7 @@ int main(int argc, char const *argv[])
 
         printf("ChipId: %x\n", (uint32_t)DEVICE.ChipId.r32);
 
-        if(options.get("recovery"))
+        if (options.get("recovery"))
         {
             NVRam_acquireLock();
             NVRam_disable();
@@ -233,15 +208,13 @@ int main(int argc, char const *argv[])
             exit(0);
         }
 
-
-        if(options.get("unlock"))
+        if (options.get("unlock"))
         {
             NVM.SoftwareArbitration.bits.ReqClr0 = 1;
             NVM.SoftwareArbitration.bits.ReqClr1 = 1;
             NVM.SoftwareArbitration.bits.ReqClr2 = 1;
             NVM.SoftwareArbitration.bits.ReqClr3 = 1;
         }
-
 
         NVRam_acquireLock();
 
@@ -258,13 +231,13 @@ int main(int argc, char const *argv[])
         exit(-1);
     }
 
-    if(options.is_set("restore"))
+    if (options.is_set("restore"))
     {
         fstream restoreFile;
         restoreFile.open(options["restore"], fstream::in | fstream::binary);
-        if(restoreFile.is_open())
+        if (restoreFile.is_open())
         {
-            restoreFile.read((char*)nvram.bytes, NVRAM_SIZE);
+            restoreFile.read((char *)nvram.bytes, NVRAM_SIZE);
 
             restoreFile.close();
         }
@@ -274,7 +247,7 @@ int main(int argc, char const *argv[])
             exit(-1);
         }
 
-        if("hardware" == options["target"])
+        if ("hardware" == options["target"])
         {
             cout << "Restoring from " << options["restore"] << " to hardware." << endl;
             NVRam_acquireLock();
@@ -294,18 +267,17 @@ int main(int argc, char const *argv[])
         }
     }
 
-
-    if(options.is_set("backup"))
+    if (options.is_set("backup"))
     {
-        if("binary" ==  options["backup"])
+        if ("binary" == options["backup"])
         {
             // Save to file.
-            if(!save_to_file("firmware.fw", nvram.bytes, NVRAM_SIZE))
+            if (!save_to_file("firmware.fw", nvram.bytes, NVRAM_SIZE))
             {
                 exit(-1);
             }
         }
-        else if ("extract" ==  options["backup"])
+        else if ("extract" == options["backup"])
         {
             extract = true;
         }
@@ -318,7 +290,7 @@ int main(int argc, char const *argv[])
     }
 
     stage1 = &nvram.bytes[be32toh(nvram.contents.header.bootstrapOffset)];
-    stage1_wd = &nvram.words[be32toh(nvram.contents.header.bootstrapOffset)/4];
+    stage1_wd = &nvram.words[be32toh(nvram.contents.header.bootstrapOffset) / 4];
     size_t stage1_length = (be32toh(nvram.contents.header.bootstrapWords) * 4) - 4; // last word is CRC
 
     uint32_t crc_word = stage1_length / 4;
@@ -326,48 +298,47 @@ int main(int argc, char const *argv[])
     uint32_t expected_crc = be32toh(~NVRam_crc(stage1, stage1_length, 0xffffffff));
     printf("=== stage1 ===\n");
     printf("Magic:               0x%08X\n", be32toh(nvram.contents.header.magic));
-    printf("Bootstrap Phys Addr: 0x%08X\n",
-           be32toh(nvram.contents.header.bootstrapPhysAddr));
+    printf("Bootstrap Phys Addr: 0x%08X\n", be32toh(nvram.contents.header.bootstrapPhysAddr));
     printf("Length (bytes):      0x%08zX\n", stage1_length);
     printf("Offset:              0x%08lX\n", ((stage1_wd - nvram.words) * 4));
     printf("Calculated CRC:      0x%08X\n", expected_crc);
     printf("CRC:                 0x%08X\n", be32toh(stage1_wd[crc_word]));
 
-    if(be32toh(nvram.contents.header.magic) != BCM_NVRAM_MAGIC)
+    if (be32toh(nvram.contents.header.magic) != BCM_NVRAM_MAGIC)
     {
         fprintf(stderr, "Error: stage1 magic is invalid.\n");
         exit(-1);
     }
 
-    if(be32toh(stage1_wd[crc_word]) != expected_crc)
+    if (be32toh(stage1_wd[crc_word]) != expected_crc)
     {
         fprintf(stderr, "Error: stage1 crc is invalid.\n");
         // exit(-1);
     }
 
-    if(extract)
+    if (extract)
     {
 
-        if(!save_to_file("stage1.bin", stage1, stage1_length))
+        if (!save_to_file("stage1.bin", stage1, stage1_length))
         {
             exit(-1);
         }
     }
 
-    if(options.is_set("stage1"))
+    if (options.is_set("stage1"))
     {
-        const char* stage1_file = options["stage1"].c_str();
+        const char *stage1_file = options["stage1"].c_str();
         printf("Updating stage1 with contents of file %s\n", stage1_file);
 
         fstream infile;
         infile.open(stage1_file, fstream::in | fstream::binary | fstream::ate);
 
-        if(infile.is_open())
+        if (infile.is_open())
         {
             uint32_t new_stage1_length = infile.tellg();
             infile.seekg(0);
 
-            if(new_stage1_length > stage1_length)
+            if (new_stage1_length > stage1_length)
             {
                 cerr << "Length is longer than original, currently unable to update." << endl;
                 exit(-1);
@@ -375,10 +346,10 @@ int main(int argc, char const *argv[])
             else
             {
                 // Overwrite position
-                infile.read((char*)stage1, new_stage1_length);
+                infile.read((char *)stage1, new_stage1_length);
                 infile.close();
 
-                while(new_stage1_length < stage1_length)
+                while (new_stage1_length < stage1_length)
                 {
                     // erase remaining bytes.
                     stage1[new_stage1_length] = 0xFF;
@@ -395,16 +366,16 @@ int main(int argc, char const *argv[])
 
             // TODO: update length (if changed);
 
-            if("file" == options["target"])
+            if ("file" == options["target"])
             {
                 // write update file.
-                if(!save_to_file(options["filename"].c_str(), (char*)nvram.bytes, NVRAM_SIZE))
+                if (!save_to_file(options["filename"].c_str(), (char *)nvram.bytes, NVRAM_SIZE))
                 {
                     exit(-1);
                 }
             }
 
-            if("hardware" == options["target"])
+            if ("hardware" == options["target"])
             {
                 NVRam_acquireLock();
 
@@ -426,35 +397,35 @@ int main(int argc, char const *argv[])
         exit(0);
     }
 
-    uint32_t* stage2_wd =  &stage1_wd[(crc_word + 1)]; // immediately after stage1 crc
-    NVRAMStage2_t *stage2 = (NVRAMStage2_t*)stage2_wd;
+    uint32_t *stage2_wd = &stage1_wd[(crc_word + 1)]; // immediately after stage1 crc
+    NVRAMStage2_t *stage2 = (NVRAMStage2_t *)stage2_wd;
 
     uint32_t stage2_length = be32toh(stage2->header.length); // second word is size (bytes).
-    stage2_length -= 4; // length includes crc.
+    stage2_length -= 4;                                      // length includes crc.
     uint32_t stage2_crc_word = stage2_length / 4;
     printf("=== stage2 ===\n");
     printf("Magic:               0x%08X\n", be32toh(stage2->header.magic));
     printf("Length (bytes):      0x%08X\n", stage2_length);
     printf("Offset:              0x%08lX\n", ((stage2_wd - nvram.words) * 4));
-    uint32_t stage2_expected_crc = be32toh(~NVRam_crc((uint8_t*)stage2->words, stage2_length, 0xffffffff));
+    uint32_t stage2_expected_crc = be32toh(~NVRam_crc((uint8_t *)stage2->words, stage2_length, 0xffffffff));
     printf("Calculated CRC:      0x%08X\n", stage2_expected_crc);
     printf("CRC:                 0x%08X\n", be32toh(stage2->words[stage2_crc_word]));
 
-    if(be32toh(stage2->header.magic) != BCM_NVRAM_MAGIC)
+    if (be32toh(stage2->header.magic) != BCM_NVRAM_MAGIC)
     {
         fprintf(stderr, "Error: stage2 magic is invalid.\n");
         exit(-1);
     }
 
-    if(be32toh(stage2->words[stage2_crc_word]) != stage2_expected_crc)
+    if (be32toh(stage2->words[stage2_crc_word]) != stage2_expected_crc)
     {
         fprintf(stderr, "Error: stage2 crc is invalid.\n");
         exit(-1);
     }
 
-    if(extract)
+    if (extract)
     {
-        if(!save_to_file("stage2.bin", stage2->words, stage2_length))
+        if (!save_to_file("stage2.bin", stage2->words, stage2_length))
         {
             exit(-1);
         }
@@ -472,26 +443,24 @@ int main(int argc, char const *argv[])
             uint32_t type = BCM_CODE_DIRECTORY_GET_TYPE(info);
             printf("Code Address:   0x%08X\n", addr);
             printf("Code Words:     0x%08X (%ld bytes)\n", length, length * sizeof(uint32_t));
-            printf("Code Offset:    0x%08X\n",
-                   be32toh(nvram.contents.directory[i].directoryOffset));
+            printf("Code Offset:    0x%08X\n", be32toh(nvram.contents.directory[i].directoryOffset));
             printf("Code CPU:       0x%02X\n", cpu);
             printf("Code Type:      0x%02X\n", type);
             printf("\n");
 
-            if(BCM_CODE_DIRECTORY_ADDR_APE == addr &&
-                BCM_CODE_DIRECTORY_CPU_APE == cpu) /* APE */
+            if (BCM_CODE_DIRECTORY_ADDR_APE == addr && BCM_CODE_DIRECTORY_CPU_APE == cpu) /* APE */
             {
                 ape = &nvram.bytes[be32toh(nvram.contents.directory[i].directoryOffset)];
-                ape_wd = &nvram.words[be32toh(nvram.contents.directory[i].directoryOffset)/4];
+                ape_wd = &nvram.words[be32toh(nvram.contents.directory[i].directoryOffset) / 4];
                 ape_length = length * sizeof(uint32_t);
             }
 
-            if(extract)
+            if (extract)
             {
-                uint8_t* cd_loc = &nvram.bytes[be32toh(nvram.contents.directory[i].directoryOffset)];
-                char* cd_name = strdup("cdN.bin");
+                uint8_t *cd_loc = &nvram.bytes[be32toh(nvram.contents.directory[i].directoryOffset)];
+                char *cd_name = strdup("cdN.bin");
                 cd_name[2] = '0' + i;
-                if(!save_to_file(cd_name, cd_loc, length * sizeof(uint32_t)))
+                if (!save_to_file(cd_name, cd_loc, length * sizeof(uint32_t)))
                 {
                     exit(-1);
                 }
@@ -500,25 +469,25 @@ int main(int argc, char const *argv[])
         }
     }
 
-    if(options.is_set("ape"))
+    if (options.is_set("ape"))
     {
-        if(NULL == ape)
+        if (NULL == ape)
         {
             fprintf(stderr, "Original APE entry was not found in firmware header.");
             exit(-1);
         }
-        const char* ape_file = options["ape"].c_str();
+        const char *ape_file = options["ape"].c_str();
         printf("Updating ape with contents of file %s\n", ape_file);
 
         fstream infile;
         infile.open(ape_file, fstream::in | fstream::binary | fstream::ate);
 
-        if(infile.is_open())
+        if (infile.is_open())
         {
             uint32_t new_ape_length = infile.tellg();
             infile.seekg(0);
 
-            if(new_ape_length > ape_length)
+            if (new_ape_length > ape_length)
             {
                 cerr << "Length is longer than original, currently unable to update." << endl;
                 exit(-1);
@@ -526,7 +495,7 @@ int main(int argc, char const *argv[])
             else
             {
                 // Overwrite position
-                infile.read((char*)ape, new_ape_length);
+                infile.read((char *)ape, new_ape_length);
                 infile.close();
 
 #if 0
@@ -544,19 +513,19 @@ int main(int argc, char const *argv[])
 
             // TODO: update length (if changed);
 
-            if("file" == options["target"])
+            if ("file" == options["target"])
             {
                 // write update file.
-                if(!save_to_file(options["filename"].c_str(), (char*)nvram.bytes, NVRAM_SIZE))
+                if (!save_to_file(options["filename"].c_str(), (char *)nvram.bytes, NVRAM_SIZE))
                 {
                     exit(-1);
                 }
             }
 
-            if("hardware" == options["target"])
+            if ("hardware" == options["target"])
             {
                 // Ensure everything is in the correct endianness.
-                for(int i = 0; i < new_ape_length/4; i++)
+                for (int i = 0; i < new_ape_length / 4; i++)
                 {
                     ape_wd[i] = be32toh(ape_wd[i]);
                 }
@@ -581,23 +550,17 @@ int main(int argc, char const *argv[])
         exit(0);
     }
 
-
     printf("\n=== Info ===\n");
-    printf("Firmware Revision: 0x%04X\n",
-           be16toh(nvram.contents.info.firmwareRevision));
+    printf("Firmware Revision: 0x%04X\n", be16toh(nvram.contents.info.firmwareRevision));
 
     printf("Part Number: %s\n", nvram.contents.info.partNumber);
-    printf("Part Revision: %c%c\n", nvram.contents.info.partRevision[0],
-           nvram.contents.info.partRevision[1]);
+    printf("Part Revision: %c%c\n", nvram.contents.info.partRevision[0], nvram.contents.info.partRevision[1]);
 
     printf("Vendor ID: 0x%04X\n", be16toh(nvram.contents.info.vendorID));
     printf("Device ID: 0x%04X\n", be16toh(nvram.contents.info.deviceID));
-    printf("Subsystem Vendor ID: 0x%04X\n",
-           be16toh(nvram.contents.info.subsystemVendorID));
-    printf("Subsystem Device ID: 0x%04X\n",
-           be16toh(nvram.contents.info.subsystemDeviceID));
-    printf("Subsystem ID: 0x%04X\n",
-           be16toh(nvram.contents.info.subsystemDeviceID));
+    printf("Subsystem Vendor ID: 0x%04X\n", be16toh(nvram.contents.info.subsystemVendorID));
+    printf("Subsystem Device ID: 0x%04X\n", be16toh(nvram.contents.info.subsystemDeviceID));
+    printf("Subsystem ID: 0x%04X\n", be16toh(nvram.contents.info.subsystemDeviceID));
 
     printf("Function 0S Subsystem ID 0x%04X\n", be16toh(nvram.contents.info2.pciSubsystemF0SERDES));
     printf("Function 1S Subsystem ID 0x%04X\n", be16toh(nvram.contents.info2.pciSubsystemF1SERDES));
@@ -608,15 +571,12 @@ int main(int argc, char const *argv[])
     printf("Function 2G Subsystem ID 0x%04X\n", be16toh(nvram.contents.info2.pciSubsystemF2GPHY));
     printf("Function 3G Subsystem ID 0x%04X\n", be16toh(nvram.contents.info2.pciSubsystemF3GPHY));
 
-
     printf("Shared Cfg:     0x%08X\n", be32toh(nvram.contents.info.cfgShared));
 
-    printf("Power Dissipated: 0x%02X 0x%02X 0x%02X 0x%02X\n",
-           nvram.contents.info.powerDissipatedD3, nvram.contents.info.powerDissipatedD2,
+    printf("Power Dissipated: 0x%02X 0x%02X 0x%02X 0x%02X\n", nvram.contents.info.powerDissipatedD3, nvram.contents.info.powerDissipatedD2,
            nvram.contents.info.powerDissipatedD1, nvram.contents.info.powerDissipatedD0);
 
-    printf("Power Consumed:   0x%02X 0x%02X 0x%02X 0x%02X\n",
-           nvram.contents.info.powerConsumedD3, nvram.contents.info.powerConsumedD2,
+    printf("Power Consumed:   0x%02X 0x%02X 0x%02X 0x%02X\n", nvram.contents.info.powerConsumedD3, nvram.contents.info.powerConsumedD2,
            nvram.contents.info.powerConsumedD1, nvram.contents.info.powerConsumedD0);
 
     // Print out power budget (and translated values).
@@ -634,23 +594,22 @@ int main(int argc, char const *argv[])
     printf("Power Budget2:    0x%04X%04X\n", pb_raw[5], pb_raw[4]);
     printf("Power Budget3:    0x%04X%04X\n", pb_raw[7], pb_raw[6]);
 
-    for(int i = 0; i < ARRAY_ELEMENTS(pb_raw); i++)
+    for (int i = 0; i < ARRAY_ELEMENTS(pb_raw); i++)
     {
         uint32_t raw = pb_raw[i];
         RegDEVICEPciPowerBudget0_t pb0;
         pb0.r32 = 0;
-        if(raw)
+        if (raw)
         {
             pb0.bits.BasePower = raw & 0xFF;
             pb0.bits.DataScale = DEVICE_PCI_POWER_BUDGET_0_DATA_SCALE_0_1X;
-            pb0.bits.PMState   = (raw & 0x0300) >> 8;
-            pb0.bits.Type      = (raw & 0x1C00) >> 10;
+            pb0.bits.PMState = (raw & 0x0300) >> 8;
+            pb0.bits.Type = (raw & 0x1C00) >> 10;
             pb0.bits.PowerRail = (raw & 0xE000) >> 13;
         }
 
         printf("Translated Power Budget[%d]:    0x%08X\n", i, (uint32_t)pb0.r32);
     }
-
 
     printf("\n=== Port 0 ===\n");
     printf("Subsystem ID: 0x%04X\n", be16toh(nvram.contents.info2.pciSubsystemF0GPHY));
@@ -684,8 +643,7 @@ int main(int argc, char const *argv[])
     if (vpd_is_valid(nvram.contents.vpd.bytes, sizeof(nvram.contents.vpd)))
     {
         uint32_t vpd_len = sizeof(nvram.contents.vpd);
-        printf("Identifier: %s\n",
-               vpd_get_identifier(nvram.contents.vpd.bytes, &vpd_len));
+        printf("Identifier: %s\n", vpd_get_identifier(nvram.contents.vpd.bytes, &vpd_len));
 
         uint8_t *resource;
         int index = 0;
@@ -693,15 +651,13 @@ int main(int argc, char const *argv[])
         {
             vpd_len = sizeof(nvram.contents.vpd);
             uint16_t name;
-            resource = vpd_get_resource_by_index(nvram.contents.vpd.bytes, &vpd_len,
-                                                 &name, index);
+            resource = vpd_get_resource_by_index(nvram.contents.vpd.bytes, &vpd_len, &name, index);
             if (resource)
             {
                 char *data = (char *)malloc(vpd_len + 1);
                 memcpy(data, resource, vpd_len);
                 data[vpd_len] = 0;
-                printf("[%c%c] %24s: %s\n", name & 0xff, name >> 8, vpd_get_field_name(name),
-                       data);
+                printf("[%c%c] %24s: %s\n", name & 0xff, name >> 8, vpd_get_field_name(name), data);
                 free(data);
             }
             index++;

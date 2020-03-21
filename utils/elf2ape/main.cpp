@@ -45,13 +45,12 @@
 #include <Compress.h>
 #include <NVRam.h>
 #include <OptionParser.h>
+#include <arpa/inet.h>
 #include <bcm5719_eeprom.h>
 #include <elfio/elfio.hpp>
 #include <types.h>
-#include <arpa/inet.h>
 
-
-#define VERSION_STRING  STRINGIFY(VERSION_MAJOR) "." STRINGIFY(VERSION_MINOR) "." STRINGIFY(VERSION_PATCH)
+#define VERSION_STRING STRINGIFY(VERSION_MAJOR) "." STRINGIFY(VERSION_MINOR) "." STRINGIFY(VERSION_PATCH)
 
 using namespace ELFIO;
 
@@ -87,8 +86,7 @@ uint64_t get_symbol_value(const char *search, elfio &reader)
             unsigned char other;
 
             // Read symbol properties
-            if(psyms->get_symbol(j, name, value, size, bind, type, section_index,
-                              other))
+            if (psyms->get_symbol(j, name, value, size, bind, type, section_index, other))
             {
                 if (name == search)
                 {
@@ -126,7 +124,8 @@ int main(int argc, char const *argv[])
 {
     uint32_t byteOffset = 0;
     int numSections = 0;
-    union {
+    union
+    {
         uint8_t bytes[MAX_SIZE];
         uint32_t words[MAX_SIZE / 4];
         APEHeader_t header;
@@ -136,21 +135,11 @@ int main(int argc, char const *argv[])
 
     parser.version(VERSION_STRING);
 
-    parser.add_option("-i", "--input")
-        .dest("input")
-        .help("Input elf file to convert")
-        .metavar("FILE");
+    parser.add_option("-i", "--input").dest("input").help("Input elf file to convert").metavar("FILE");
 
-    parser.add_option("-o", "--output")
-        .dest("output")
-        .help("Output ape binary")
-        .metavar("FILE");
+    parser.add_option("-o", "--output").dest("output").help("Output ape binary").metavar("FILE");
 
-    parser.add_option("-n", "--name")
-        .dest("name")
-        .help("Output ape binary")
-        .metavar("FILE");
-
+    parser.add_option("-n", "--name").dest("name").help("Output ape binary").metavar("FILE");
 
     optparse::Values options = parser.parse_args(argc, argv);
     vector<string> args = parser.args();
@@ -182,9 +171,7 @@ int main(int argc, char const *argv[])
     // writer.set_machine( EM_ARM );
 
     // Ensure that this is the correct elf type.
-    if (reader.get_class() != ELFCLASS32 ||
-        reader.get_encoding() != ELFDATA2LSB ||
-        reader.get_machine() != EM_ARM || reader.get_type() != ET_EXEC)
+    if (reader.get_class() != ELFCLASS32 || reader.get_encoding() != ELFDATA2LSB || reader.get_machine() != EM_ARM || reader.get_type() != ET_EXEC)
     {
         printf("Only 32-bit little-endian arm binaries are supported\n");
         return 1;
@@ -213,11 +200,8 @@ int main(int argc, char const *argv[])
     for (int i = 0; i < seg_num; ++i)
     {
         const segment *pseg = reader.segments[i];
-        std::cout << "  [" << i << "] 0x" << std::hex << pseg->get_flags()
-                  << "\tVirt: 0x" << pseg->get_virtual_address()
-                  << "\tFileSize: 0x" << pseg->get_file_size() << "\tSize: 0x"
-                  << pseg->get_memory_size() << "\tFlags: 0x"
-                  << pseg->get_flags() << std::endl;
+        std::cout << "  [" << i << "] 0x" << std::hex << pseg->get_flags() << "\tVirt: 0x" << pseg->get_virtual_address() << "\tFileSize: 0x"
+                  << pseg->get_file_size() << "\tSize: 0x" << pseg->get_memory_size() << "\tFlags: 0x" << pseg->get_flags() << std::endl;
 
         for (int j = 0; j < pseg->get_sections_num(); j++)
         {
@@ -225,11 +209,8 @@ int main(int argc, char const *argv[])
             section *psec = reader.sections[idx];
             if (psec->get_flags() & SHF_ALLOC)
             {
-                std::cout << "    [" << j << "] " << psec->get_name() << "\t"
-                          << psec->get_size() << "\tType: 0x"
-                          << psec->get_type() << "\tFlags: 0x"
-                          << psec->get_flags() << "\tAddr: 0x"
-                          << psec->get_address() << std::endl;
+                std::cout << "    [" << j << "] " << psec->get_name() << "\t" << psec->get_size() << "\tType: 0x" << psec->get_type() << "\tFlags: 0x"
+                          << psec->get_flags() << "\tAddr: 0x" << psec->get_address() << std::endl;
 
                 APESection_t *section = &ape.header.section[numSections++];
                 section->flags = 0;
@@ -238,11 +219,10 @@ int main(int argc, char const *argv[])
                 const char *data = psec->get_data();
                 if (data)
                 {
-                    uint32_t compressedSize =
-                        compress((uint8_t *)&ape.bytes[byteOffset],
-                                 psec->get_size() * 2, // Output, compressed
-                                 (const uint8_t *)data,
-                                 psec->get_size()); // input, uncompressed
+                    uint32_t compressedSize = compress((uint8_t *)&ape.bytes[byteOffset],
+                                                       psec->get_size() * 2, // Output, compressed
+                                                       (const uint8_t *)data,
+                                                       psec->get_size()); // input, uncompressed
                     // ROund up to nearest word.
                     compressedSize = ((compressedSize + 3) / 4) * 4;
 
@@ -251,10 +231,8 @@ int main(int argc, char const *argv[])
                     // memcpy(&ape.bytes[byteOffset], compressed,
                     // section->compressedSize); byteOffset +=
                     // section->compressedSize;
-                    section->crc =
-                        NVRam_crc((const uint8_t *)data, psec->get_size(), 0);
-                    section->flags |= APE_SECTION_FLAG_CHECKSUM_IS_CRC32 |
-                                      APE_SECTION_FLAG_COMPRESSED;
+                    section->crc = NVRam_crc((const uint8_t *)data, psec->get_size(), 0);
+                    section->flags |= APE_SECTION_FLAG_CHECKSUM_IS_CRC32 | APE_SECTION_FLAG_COMPRESSED;
                 }
                 else
                 {
@@ -279,7 +257,7 @@ int main(int argc, char const *argv[])
     if (options.is_set("name"))
     {
         string name = options["name"];
-        strncpy((char*)ape.header.name, name.c_str(), sizeof(ape.header.name));
+        strncpy((char *)ape.header.name, name.c_str(), sizeof(ape.header.name));
     }
 
     uint8_t version_major = get_symbol_value("VERSION_MAJOR", reader);
@@ -288,8 +266,7 @@ int main(int argc, char const *argv[])
     ape.header.version = version_major << 24 | version_minor << 16 | htons(version_patch);
     ape.header.entrypoint = get_symbol_value("__start", reader);
     ape.header.unk1 = APE_HEADER_UNK1;
-    ape.header.words =
-        (sizeof(ape.header) + sizeof(APESection_t) * numSections) / 4;
+    ape.header.words = (sizeof(ape.header) + sizeof(APESection_t) * numSections) / 4;
     ape.header.unk2 = APE_HEADER_UNK2;
     ape.header.sections = numSections;
     ape.header.crc = 0;
@@ -298,7 +275,7 @@ int main(int argc, char const *argv[])
     printf("Magic:              0x%08X\n", ape.header.magic);
     printf("UNK0:               0x%08X\n", ape.header.unk0);
 
-    char name[sizeof(ape.header.name) + 1] = {0};
+    char name[sizeof(ape.header.name) + 1] = { 0 };
     strncpy(name, (char *)ape.header.name, sizeof(ape.header.name));
     printf("Name:               %s\n", name);
     printf("Version:            0x%08X (%d.%d.%d)\n", ape.header.version, version_major, version_minor, version_patch);

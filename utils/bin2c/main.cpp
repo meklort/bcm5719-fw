@@ -49,13 +49,12 @@
 #include <iomanip>
 #include <types.h>
 
-#define VERSION_STRING  STRINGIFY(VERSION_MAJOR) "." STRINGIFY(VERSION_MINOR) "." STRINGIFY(VERSION_PATCH)
-
+#define VERSION_STRING STRINGIFY(VERSION_MAJOR) "." STRINGIFY(VERSION_MINOR) "." STRINGIFY(VERSION_PATCH)
 
 using namespace std;
 using optparse::OptionParser;
 
-string& escape(std::string& str)
+string &escape(std::string &str)
 {
     std::replace(str.begin(), str.end(), ' ', '_'); // No spaces allowed
     std::replace(str.begin(), str.end(), '-', '_'); // Replace -'s with _'s
@@ -65,17 +64,17 @@ string& escape(std::string& str)
     std::replace(str.begin(), str.end(), '[', '_'); // Replace ['s with _'s
     std::replace(str.begin(), str.end(), ']', '_'); // Replace ]'s with _'s
 
-    while(str.find("—") != std::string::npos)
+    while (str.find("—") != std::string::npos)
     {
         str.replace(str.find("—"), strlen("—"), "_"); // Replace @'s with _AT_'s.
     }
 
-    while(str.find("@") != std::string::npos)
-        {
+    while (str.find("@") != std::string::npos)
+    {
         str.replace(str.find("@"), 1, "_AT_"); // Replace @'s with _AT_'s.
     }
 
-    while(str.find("/") != std::string::npos)
+    while (str.find("/") != std::string::npos)
     {
         str.replace(str.find("/"), 1, "_DIV_"); // Replace /'s with _DIV_'s.
     }
@@ -91,15 +90,9 @@ int main(int argc, char const *argv[])
 
     parser.version(VERSION_STRING);
 
-    parser.add_option("-i", "--input")
-        .dest("input")
-        .help("Input binary file to convert")
-        .metavar("INPUT");
+    parser.add_option("-i", "--input").dest("input").help("Input binary file to convert").metavar("INPUT");
 
-    parser.add_option("-o", "--output")
-        .dest("output")
-        .help("Output header file")
-        .metavar("OUTPUT");
+    parser.add_option("-o", "--output").dest("output").help("Output header file").metavar("OUTPUT");
 
     optparse::Values options = parser.parse_args(argc, argv);
     vector<string> args = parser.args();

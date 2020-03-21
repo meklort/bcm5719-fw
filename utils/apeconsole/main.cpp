@@ -41,45 +41,51 @@
 /// POSSIBILITY OF SUCH DAMAGE.
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
+#include "../NVRam/bcm5719_NVM.h"
 #include "HAL.hpp"
 
+#include <APE.h>
+#include <APE_APE_PERI.h>
+#include <APE_NVIC.h>
+#include <OptionParser.h>
+#include <bcm5719_DEVICE.h>
+#include <bcm5719_SHM.h>
+#include <elfio/elfio.hpp>
 #include <endian.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <iostream>
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <string>
 #include <sys/mman.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-#include <unistd.h>
-#include <OptionParser.h>
-#include <vector>
-#include <string>
-#include <iostream>
-#include <APE.h>
-#include <bcm5719_SHM.h>
-#include <elfio/elfio.hpp>
-
 #include <types.h>
-#include <bcm5719_DEVICE.h>
-#include <APE_APE_PERI.h>
-#include <APE_NVIC.h>
+#include <unistd.h>
+#include <vector>
 
-#include "../NVRam/bcm5719_NVM.h"
-
-#define VERSION_STRING  STRINGIFY(VERSION_MAJOR) "." STRINGIFY(VERSION_MINOR) "." STRINGIFY(VERSION_PATCH)
+#define VERSION_STRING STRINGIFY(VERSION_MAJOR) "." STRINGIFY(VERSION_MINOR) "." STRINGIFY(VERSION_PATCH)
 
 using namespace std;
 using namespace ELFIO;
 using optparse::OptionParser;
 
 #ifdef __ppc64__
-#define BARRIER()    do { asm volatile ("sync 0\neieio\n" ::: "memory"); } while(0)
+#define BARRIER()                                                                                                                                              \
+    do                                                                                                                                                         \
+    {                                                                                                                                                          \
+        asm volatile("sync 0\neieio\n" ::: "memory");                                                                                                          \
+    } while (0)
 #else
-#define BARRIER()    do { asm volatile ("" ::: "memory"); } while(0)
+#define BARRIER()                                                                                                                                              \
+    do                                                                                                                                                         \
+    {                                                                                                                                                          \
+        asm volatile("" ::: "memory");                                                                                                                         \
+    } while (0)
 #endif
 
 int main(int argc, char const *argv[])
@@ -89,27 +95,24 @@ int main(int argc, char const *argv[])
     parser.version(VERSION_STRING);
 
     parser.add_option("-f", "--function")
-            .dest("function")
-            .type("int")
-            .set_default("1")
-            .metavar("FUNCTION")
-            .help("Read registers from the specified pci function.");
+        .dest("function")
+        .type("int")
+        .set_default("1")
+        .metavar("FUNCTION")
+        .help("Read registers from the specified pci function.");
 
     optparse::Values options = parser.parse_args(argc, argv);
     vector<string> args = parser.args();
 
-
-    if(!initHAL(NULL, options.get("function")))
+    if (!initHAL(NULL, options.get("function")))
     {
         cerr << "Unable to locate pci device with function " << options["function"] << " for the debug console." << endl;
         exit(-1);
     }
 
-    uint32_t  buffer_size = sizeof(SHM.RcpuPrintfBuffer)/sizeof(SHM.RcpuPrintfBuffer[0]) * sizeof(uint32_t);
+    uint32_t buffer_size = sizeof(SHM.RcpuPrintfBuffer) / sizeof(SHM.RcpuPrintfBuffer[0]) * sizeof(uint32_t);
 
-    if (SHM.RcpuWritePointer.r32 > buffer_size ||
-        SHM.RcpuReadPointer.r32 > buffer_size ||
-        SHM.RcpuHostReadPointer.r32 > buffer_size)
+    if (SHM.RcpuWritePointer.r32 > buffer_size || SHM.RcpuReadPointer.r32 > buffer_size || SHM.RcpuHostReadPointer.r32 > buffer_size)
     {
         // Print buffer has not been initialized or we are not function 0. Exit out.
         cerr << "Unexpected value in SHM. exiting." << endl;
@@ -120,13 +123,13 @@ int main(int argc, char const *argv[])
         exit(-1);
     }
 
-    for(;;)
+    for (;;)
     {
         BARRIER();
         uint32_t cached_pointer = SHM.RcpuHostReadPointer.r32;
-        if(cached_pointer != SHM.RcpuWritePointer.r32)
+        if (cached_pointer != SHM.RcpuWritePointer.r32)
         {
-            if(cached_pointer >= buffer_size)
+            if (cached_pointer >= buffer_size)
             {
                 cached_pointer = 0;
             }
