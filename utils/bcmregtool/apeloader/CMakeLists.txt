@@ -4,7 +4,7 @@
 ###
 ### @project    bcm5719
 ###
-### @brief      First binary stage for the bcm5719
+### @brief      APE loader utlity firmware for the bcm5719
 ###
 ################################################################################
 ###
