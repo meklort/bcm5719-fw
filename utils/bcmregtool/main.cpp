@@ -709,7 +709,6 @@ int main(int argc, char const *argv[])
         printf("\n======= Port 0 =======\n");
         APE.TxToNetPoolModeStatus0.print();
         APE.TxToNetBufferAllocator0.print();
-        APE.TxToNetBufferAllocator0.print();
         APE.TxToNetBufferRing0.print();
         DEVICE.EmacMode.print();
         // DEVICE.ReceiveMacMode.bits.APEPromiscuousMode = 1;
@@ -728,6 +727,7 @@ int main(int argc, char const *argv[])
 
         APE.RxbufoffsetFunc0.print();
         APE.RxPoolRetire0.print();
+        APE.RxPoolFreePointer0.print();
         APE.RxPoolModeStatus0.print();
 
         APE.Gpio.print();
