@@ -412,7 +412,9 @@ static void getLinkStatusHandler(NetworkFrame_t *frame)
 
     RegSHM_CHANNELNcsiChannelStatus_t linkStatus = port->shm_channel->NcsiChannelStatus;
 
-    debug("Link Status [%d] %s, TX %d, RX %d\n", frame->controlPacket.ChannelID, stat.bits.LinkStatus ? "up" : "down", tx, rx);
+    uint32_t tx_used = APE_TX_TO_NET_BUFFER_RING_FREE_MAX - port->tx_ring->bits.Free;
+    uint32_t rx_avail = APE_RX_POOL_FREE_POINTER_FREE_COUNT_MAX - port->rx_ring->bits.FreeCount;
+    debug("Link Status [%d] %s, TX %d [%d used], RX %d [%d avail]\n", frame->controlPacket.ChannelID, stat.bits.LinkStatus ? "up" : "down", tx, tx_used, rx, rx_avail);
 
     if (!stat.bits.LinkStatus)
     {

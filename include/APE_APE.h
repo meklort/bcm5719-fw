@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2018, Evan Lojewski
+/// @copyright Copyright (c) 2020, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -1099,9 +1099,11 @@ typedef register_container RegAPERxPoolRetire_t {
 #define GET_APE_RX_POOL_FREE_POINTER_0_HEAD(__reg__)  (((__reg__) & 0xfff000) >> 12u)
 #define SET_APE_RX_POOL_FREE_POINTER_0_HEAD(__val__)  (((__val__) << 12u) & 0xfff000u)
 #define     APE_RX_POOL_FREE_POINTER_0_FREE_COUNT_SHIFT 24u
-#define     APE_RX_POOL_FREE_POINTER_0_FREE_COUNT_MASK  0x3f000000u
-#define GET_APE_RX_POOL_FREE_POINTER_0_FREE_COUNT(__reg__)  (((__reg__) & 0x3f000000) >> 24u)
-#define SET_APE_RX_POOL_FREE_POINTER_0_FREE_COUNT(__val__)  (((__val__) << 24u) & 0x3f000000u)
+#define     APE_RX_POOL_FREE_POINTER_0_FREE_COUNT_MASK  0x7f000000u
+#define GET_APE_RX_POOL_FREE_POINTER_0_FREE_COUNT(__reg__)  (((__reg__) & 0x7f000000) >> 24u)
+#define SET_APE_RX_POOL_FREE_POINTER_0_FREE_COUNT(__val__)  (((__val__) << 24u) & 0x7f000000u)
+#define     APE_RX_POOL_FREE_POINTER_FREE_COUNT_MAX 0x7fu
+
 
 /** @brief Register definition for @ref APE_t.RxPoolFreePointer0. */
 typedef register_container RegAPERxPoolFreePointer_t {
@@ -1115,14 +1117,14 @@ typedef register_container RegAPERxPoolFreePointer_t {
         /** @brief  */
         BITFIELD_MEMBER(APE_APE_H_uint32_t, Head, 12, 12)
         /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, FreeCount, 24, 6)
+        BITFIELD_MEMBER(APE_APE_H_uint32_t, FreeCount, 24, 7)
         /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_31_30, 30, 2)
+        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_31_31, 31, 1)
 #elif defined(__BIG_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_31_30, 30, 2)
+        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_31_31, 31, 1)
         /** @brief  */
-        BITFIELD_MEMBER(APE_APE_H_uint32_t, FreeCount, 24, 6)
+        BITFIELD_MEMBER(APE_APE_H_uint32_t, FreeCount, 24, 7)
         /** @brief  */
         BITFIELD_MEMBER(APE_APE_H_uint32_t, Head, 12, 12)
         /** @brief  */
@@ -1148,6 +1150,8 @@ typedef register_container RegAPERxPoolFreePointer_t {
         bits.Head.setName("Head");
         bits.FreeCount.setBaseRegister(&r32);
         bits.FreeCount.setName("FreeCount");
+        bits.FreeCount.addEnum("Max", 0x7f);
+
     }
     RegAPERxPoolFreePointer_t& operator=(const RegAPERxPoolFreePointer_t& other)
     {
@@ -1382,10 +1386,49 @@ typedef register_container RegAPETxToNetBufferReturn_t {
 } RegAPETxToNetBufferReturn_t;
 
 #define REG_APE_TX_TO_NET_BUFFER_RING_0 ((volatile APE_APE_H_uint32_t*)0x60200098) /*  */
+#define     APE_TX_TO_NET_BUFFER_RING_0_TAIL_SHIFT 0u
+#define     APE_TX_TO_NET_BUFFER_RING_0_TAIL_MASK  0xfffu
+#define GET_APE_TX_TO_NET_BUFFER_RING_0_TAIL(__reg__)  (((__reg__) & 0xfff) >> 0u)
+#define SET_APE_TX_TO_NET_BUFFER_RING_0_TAIL(__val__)  (((__val__) << 0u) & 0xfffu)
+#define     APE_TX_TO_NET_BUFFER_RING_0_HEAD_SHIFT 12u
+#define     APE_TX_TO_NET_BUFFER_RING_0_HEAD_MASK  0xfff000u
+#define GET_APE_TX_TO_NET_BUFFER_RING_0_HEAD(__reg__)  (((__reg__) & 0xfff000) >> 12u)
+#define SET_APE_TX_TO_NET_BUFFER_RING_0_HEAD(__val__)  (((__val__) << 12u) & 0xfff000u)
+#define     APE_TX_TO_NET_BUFFER_RING_0_FREE_SHIFT 24u
+#define     APE_TX_TO_NET_BUFFER_RING_0_FREE_MASK  0x3f000000u
+#define GET_APE_TX_TO_NET_BUFFER_RING_0_FREE(__reg__)  (((__reg__) & 0x3f000000) >> 24u)
+#define SET_APE_TX_TO_NET_BUFFER_RING_0_FREE(__val__)  (((__val__) << 24u) & 0x3f000000u)
+#define     APE_TX_TO_NET_BUFFER_RING_FREE_MAX 0x3fu
+
+
 /** @brief Register definition for @ref APE_t.TxToNetBufferRing0. */
 typedef register_container RegAPETxToNetBufferRing_t {
     /** @brief 32bit direct register access. */
     APE_APE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(APE_APE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_APE_H_uint32_t, Tail, 0, 12)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_APE_H_uint32_t, Head, 12, 12)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_APE_H_uint32_t, Free, 24, 6)
+        /** @brief Padding */
+        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_31_30, 30, 2)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_31_30, 30, 2)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_APE_H_uint32_t, Free, 24, 6)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_APE_H_uint32_t, Head, 12, 12)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_APE_H_uint32_t, Tail, 0, 12)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(APE_APE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "TxToNetBufferRing0"; }
@@ -1397,6 +1440,14 @@ typedef register_container RegAPETxToNetBufferRing_t {
     {
         /** @brief constructor for @ref APE_t.TxToNetBufferRing0. */
         r32.setName("TxToNetBufferRing0");
+        bits.Tail.setBaseRegister(&r32);
+        bits.Tail.setName("Tail");
+        bits.Head.setBaseRegister(&r32);
+        bits.Head.setName("Head");
+        bits.Free.setBaseRegister(&r32);
+        bits.Free.setName("Free");
+        bits.Free.addEnum("Max", 0x3f);
+
     }
     RegAPETxToNetBufferRing_t& operator=(const RegAPETxToNetBufferRing_t& other)
     {

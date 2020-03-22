@@ -76,11 +76,13 @@ NetworkPort_t gPort0 = {
     .tx_port = &TX_PORT0,
     .tx_allocator = &APE.TxToNetBufferAllocator0,
     .tx_doorbell = &APE.TxToNetDoorbellFunc0,
+    .tx_ring = &APE.TxToNetBufferRing0,
     .tx_mode = &APE.TxToNetPoolModeStatus0,
 
     .rx_port = &RX_PORT0,
     .rx_offset = &APE.RxbufoffsetFunc0,
     .rx_retire = &APE.RxPoolRetire0,
+    .rx_ring = &APE.RxPoolFreePointer0,
     .rx_mode = &APE.RxPoolModeStatus0,
 
 #ifndef CXX_SIMULATOR
@@ -98,11 +100,13 @@ NetworkPort_t gPort1 = {
     .tx_port = &TX_PORT1,
     .tx_allocator = &APE.TxToNetBufferAllocator1,
     .tx_doorbell = &APE.TxToNetDoorbellFunc1,
+    .tx_ring = &APE.TxToNetBufferRing1,
     .tx_mode = &APE.TxToNetPoolModeStatus1,
 
     .rx_port = &RX_PORT1,
     .rx_offset = &APE.RxbufoffsetFunc1,
     .rx_retire = &APE.RxPoolRetire1,
+    .rx_ring = &APE.RxPoolFreePointer1,
     .rx_mode = &APE.RxPoolModeStatus1,
 
 #ifndef CXX_SIMULATOR
@@ -120,11 +124,13 @@ NetworkPort_t gPort2 = {
     .tx_port = &TX_PORT2,
     .tx_allocator = &APE.TxToNetBufferAllocator2,
     .tx_doorbell = &APE.TxToNetDoorbellFunc2,
+    .tx_ring = &APE.TxToNetBufferRing2,
     .tx_mode = &APE.TxToNetPoolModeStatus2,
 
     .rx_port = &RX_PORT2,
     .rx_offset = &APE.RxbufoffsetFunc2,
     .rx_retire = &APE.RxPoolRetire2,
+    .rx_ring = &APE.RxPoolFreePointer2,
     .rx_mode = &APE.RxPoolModeStatus2,
 
 #ifndef CXX_SIMULATOR
@@ -142,11 +148,13 @@ NetworkPort_t gPort3 = {
     .tx_port = &TX_PORT3,
     .tx_allocator = &APE.TxToNetBufferAllocator3,
     .tx_doorbell = &APE.TxToNetDoorbellFunc3,
+    .tx_ring = &APE.TxToNetBufferRing3,
     .tx_mode = &APE.TxToNetPoolModeStatus3,
 
     .rx_port = &RX_PORT3,
     .rx_offset = &APE.RxbufoffsetFunc3,
     .rx_retire = &APE.RxPoolRetire3,
+    .rx_ring = &APE.RxPoolFreePointer3,
     .rx_mode = &APE.RxPoolModeStatus3,
 
 #ifndef CXX_SIMULATOR

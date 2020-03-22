@@ -67,12 +67,14 @@ typedef struct
     VOLATILE TX_PORT_t *tx_port;
     VOLATILE RegAPETxToNetBufferAllocator_t *tx_allocator;
     VOLATILE RegAPETxToNetDoorbell_t *tx_doorbell;
+    VOLATILE RegAPETxToNetBufferRing_t *tx_ring;
 
     /* RX Registers */
     VOLATILE RegAPERxPoolModeStatus_t *rx_mode;
     VOLATILE RX_PORT_t *rx_port;
     VOLATILE RegAPERxbufoffset_t *rx_offset;
     VOLATILE RegAPERxPoolRetire_t *rx_retire;
+    VOLATILE RegAPERxPoolFreePointer_t *rx_ring;
 
     /* Port Registers */
     VOLATILE DEVICE_t *device;
