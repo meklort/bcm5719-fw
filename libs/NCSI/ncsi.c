@@ -213,8 +213,8 @@ NetworkFrame_t gVersionFrame =
         .name_0 = 'I',
 
         // Firmware Version
-        .FWVersion_High = 0x0102,
-        .FWVersion_Low = 0x01A0,
+        .FWVersion_High = (VERSION_MAJOR << 8) | (VERSION_MINOR),
+        .FWVersion_Low = (VERSION_PATCH),
 
         // Populated based on NVM
         .PCIVendor = 0xFFFF,
@@ -790,10 +790,11 @@ void NCSI_handlePassthrough(void)
     for (int ch = 0; ch < ARRAY_ELEMENTS(gPackageState.port); ch++)
     {
         NetworkPort_t *port = gPackageState.port[ch];
-        if (port->shm_channel->NcsiChannelInfo.bits.Ready)
+        VOLATILE SHM_CHANNEL_t *shm_ch = port->shm_channel;
+        if (shm_ch->NcsiChannelInfo.bits.Ready)
         {
             Network_PassthroughRxPatcket(port);
-            ++port->shm_channel->NcsiChannelCtrlstatAllTx.r32;
+            ++shm_ch->NcsiChannelCtrlstatAllTx.r32;
         }
     }
 }
