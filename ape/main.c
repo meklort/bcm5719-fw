@@ -187,7 +187,7 @@ void handleBMCPacket(void)
             else
             {
                 // Pass through to network
-                NetworkPort_t *port = &gPort0;
+                NetworkPort_t *port = &gPort;
                 if (port->shm_channel->NcsiChannelInfo.bits.Enabled)
                 {
                     if (!Network_TX_transmitPassthroughPacket(bytes, port))
@@ -274,7 +274,7 @@ void __attribute__((noreturn)) loaderLoop(void)
             }
         }
 
-        NetworkPort_t *port = &gPort0;
+        NetworkPort_t *port = &gPort;
         Network_checkPortState(port);
     }
 }
@@ -334,27 +334,33 @@ bool handle_reset(void)
 
 void __attribute__((noreturn)) __start()
 {
+    bool full_init = false;
     if (handle_reset() || SHM.RcpuWritePointer.r32 > sizeof(SHM.RcpuPrintfBuffer) || SHM.RcpuReadPointer.r32 > sizeof(SHM.RcpuPrintfBuffer) ||
         SHM.RcpuHostReadPointer.r32 > sizeof(SHM.RcpuPrintfBuffer))
     {
+        full_init = true;
+
         SHM.RcpuWritePointer.r32 = 0;
         SHM.RcpuReadPointer.r32 = 0;
         SHM.RcpuHostReadPointer.r32 = 0;
-        printf("Chip Reset.\n");
-        initRMU();
+    }
 
+    printf("APE v" STRINGIFY(VERSION_MAJOR) "." STRINGIFY(VERSION_MINOR) "." STRINGIFY(VERSION_PATCH) " NCSI Port " STRINGIFY(NETWORK_PORT) "\n");
+
+    checkSupply(true);
+
+    initRMU();
+
+    if (full_init)
+    {
+        printf("Chip Reset.\n");
         NCSI_init();
     }
     else
     {
         printf("APE Reload.\n");
-        initRMU();
         NCSI_reload(SHM_HOST_DRIVER_STATE_STATE_START != SHM.HostDriverState.bits.State ? AS_NEEDED : NEVER_RESET);
     }
-
-    checkSupply(true);
-
-    printf("APE v" STRINGIFY(VERSION_MAJOR) "." STRINGIFY(VERSION_MINOR) "." STRINGIFY(VERSION_PATCH) "\n");
 
     loaderLoop();
 }
