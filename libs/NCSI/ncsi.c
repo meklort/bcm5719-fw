@@ -239,8 +239,8 @@ typedef struct
 } package_state_t;
 
 package_state_t gPackageState = {
-    .numChannels = NUM_CHANNELS,
     .selected = false,
+    .numChannels = NUM_CHANNELS,
     .port = {
         [0] = &gPort0,
         [1] = &gPort1,
@@ -556,37 +556,36 @@ static void enableBroadcastFilteringHandler(NetworkFrame_t *frame)
 
 // CLEAR INITIAL STATE, SELECT PACKAGE, DESELECT PACKAGE, ENABLE CHANNEL, DISABLE CHANNEL, RESET CHANNEL, ENABLE CHANNEL NETWORK TX, DISABLE CHANNEL NETWORK TX,
 // AEN ENABLE, SET LINK;   then you need GET LINK STATUS
-
 ncsi_handler_t gNCSIHandlers[] = {
     /* Package / Initialization commands */
-    [0x00] = { .payloadLength = 0, .ignoreInit = true, .packageCommand = false, .fn = clearInitialStateHandler },
-    [0x01] = { .payloadLength = 4, .ignoreInit = false, .packageCommand = true, .fn = selectPackageHandler },
-    [0x02] = { .payloadLength = 0, .ignoreInit = false, .packageCommand = true, .fn = deselectPackageHandler },
+    [0x00] = { .ignoreInit = true,  .packageCommand = false, .payloadLength = 0, .fn = clearInitialStateHandler },
+    [0x01] = { .ignoreInit = false, .packageCommand = true,  .payloadLength = 4, .fn = selectPackageHandler },
+    [0x02] = { .ignoreInit = false, .packageCommand = true,  .payloadLength = 0, .fn = deselectPackageHandler },
 
     /* Channel Specific commands */
-    [0x03] = { .payloadLength = 0, .ignoreInit = false, .packageCommand = false, .fn = enableChannelHandler },
-    [0x04] = { .payloadLength = 4, .ignoreInit = false, .packageCommand = false, .fn = disableChannelHandler },
-    [0x05] = { .payloadLength = 4, .ignoreInit = false, .packageCommand = false, .fn = resetChannelHandler },
-    [0x06] = { .payloadLength = 0, .ignoreInit = false, .packageCommand = false, .fn = enableChannelNetworkTXHandler },
-    [0x07] = { .payloadLength = 0, .ignoreInit = false, .packageCommand = false, .fn = disableChannelNetworkTXHandler },
-    [0x08] = { .payloadLength = 8, .ignoreInit = false, .packageCommand = false, .fn = AENEnableHandler }, // Conditional
-    [0x09] = { .payloadLength = 8, .ignoreInit = false, .packageCommand = false, .fn = setLinkHandler },
-    [0x0A] = { .payloadLength = 0, .ignoreInit = false, .packageCommand = false, .fn = getLinkStatusHandler },
-    [0x0B] = { .payloadLength = 8, .ignoreInit = false, .packageCommand = false, .fn = setVLANFilter },
-    [0x0C] = { .payloadLength = 4, .ignoreInit = false, .packageCommand = false, .fn = enableVLANHandler },
-    [0x0D] = { .payloadLength = 0, .ignoreInit = false, .packageCommand = false, .fn = disableVLANHandler },
-    [0x0E] = { .payloadLength = 8, .ignoreInit = false, .packageCommand = false, .fn = setMACAddressHandler },
-    [0x10] = { .payloadLength = 4, .ignoreInit = false, .packageCommand = false, .fn = enableBroadcastFilteringHandler },
-    [0x11] = { .payloadLength = 0, .ignoreInit = false, .packageCommand = false, .fn = unknownHandler },
-    [0x12] = { .payloadLength = 4, .ignoreInit = false, .packageCommand = false, .fn = unknownHandler },
-    [0x13] = { .payloadLength = 0, .ignoreInit = false, .packageCommand = false, .fn = unknownHandler },
-    [0x14] = { .payloadLength = 4, .ignoreInit = false, .packageCommand = false, .fn = unknownHandler }, // Optional
-    [0x15] = { .payloadLength = 0, .ignoreInit = false, .packageCommand = false, .fn = getVersionID },
-    [0x16] = { .payloadLength = 0, .ignoreInit = false, .packageCommand = false, .fn = getCapabilities },
-    [0x17] = { .payloadLength = 0, .ignoreInit = false, .packageCommand = false, .fn = unknownHandler },
-    [0x18] = { .payloadLength = 0, .ignoreInit = false, .packageCommand = false, .fn = unknownHandler }, // Optional
-    [0x19] = { .payloadLength = 0, .ignoreInit = false, .packageCommand = false, .fn = unknownHandler }, // Optional
-    [0x1A] = { .payloadLength = 0, .ignoreInit = false, .packageCommand = false, .fn = unknownHandler }, // Optional
+    [0x03] = { .ignoreInit = false, .packageCommand = false, .payloadLength = 0, .fn = enableChannelHandler },
+    [0x04] = { .ignoreInit = false, .packageCommand = false, .payloadLength = 4, .fn = disableChannelHandler },
+    [0x05] = { .ignoreInit = false, .packageCommand = false, .payloadLength = 4, .fn = resetChannelHandler },
+    [0x06] = { .ignoreInit = false, .packageCommand = false, .payloadLength = 0, .fn = enableChannelNetworkTXHandler },
+    [0x07] = { .ignoreInit = false, .packageCommand = false, .payloadLength = 0, .fn = disableChannelNetworkTXHandler },
+    [0x08] = { .ignoreInit = false, .packageCommand = false, .payloadLength = 8, .fn = AENEnableHandler }, // Conditional
+    [0x09] = { .ignoreInit = false, .packageCommand = false, .payloadLength = 8, .fn = setLinkHandler },
+    [0x0A] = { .ignoreInit = false, .packageCommand = false, .payloadLength = 0, .fn = getLinkStatusHandler },
+    [0x0B] = { .ignoreInit = false, .packageCommand = false, .payloadLength = 8, .fn = setVLANFilter },
+    [0x0C] = { .ignoreInit = false, .packageCommand = false, .payloadLength = 4, .fn = enableVLANHandler },
+    [0x0D] = { .ignoreInit = false, .packageCommand = false, .payloadLength = 0, .fn = disableVLANHandler },
+    [0x0E] = { .ignoreInit = false, .packageCommand = false, .payloadLength = 8, .fn = setMACAddressHandler },
+    [0x10] = { .ignoreInit = false, .packageCommand = false, .payloadLength = 4, .fn = enableBroadcastFilteringHandler },
+    [0x11] = { .ignoreInit = false, .packageCommand = false, .payloadLength = 0, .fn = unknownHandler },
+    [0x12] = { .ignoreInit = false, .packageCommand = false, .payloadLength = 4, .fn = unknownHandler },
+    [0x13] = { .ignoreInit = false, .packageCommand = false, .payloadLength = 0, .fn = unknownHandler },
+    [0x14] = { .ignoreInit = false, .packageCommand = false, .payloadLength = 4, .fn = unknownHandler }, // Optional
+    [0x15] = { .ignoreInit = false, .packageCommand = false, .payloadLength = 0, .fn = getVersionID },
+    [0x16] = { .ignoreInit = false, .packageCommand = false, .payloadLength = 0, .fn = getCapabilities },
+    [0x17] = { .ignoreInit = false, .packageCommand = false, .payloadLength = 0, .fn = unknownHandler },
+    [0x18] = { .ignoreInit = false, .packageCommand = false, .payloadLength = 0, .fn = unknownHandler }, // Optional
+    [0x19] = { .ignoreInit = false, .packageCommand = false, .payloadLength = 0, .fn = unknownHandler }, // Optional
+    [0x1A] = { .ignoreInit = false, .packageCommand = false, .payloadLength = 0, .fn = unknownHandler }, // Optional
 };
 
 void handleNCSIFrame(NetworkFrame_t *frame)

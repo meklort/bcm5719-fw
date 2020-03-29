@@ -57,6 +57,11 @@ target_link_libraries(${PROJECT_NAME} PUBLIC Network)
 target_include_directories(${PROJECT_NAME} PUBLIC ../../include)
 target_include_directories(${PROJECT_NAME} PUBLIC include)
 
+IF("${CMAKE_C_COMPILER_VERSION}" VERSION_GREATER_EQUAL "10.0.0")
+# Note: Ignore a few warnings from compiling c as c++ files on llvm 10.
+target_compile_options(${PROJECT_NAME} PRIVATE -Wno-c99-designator -Wno-reorder-init-list)
+ENDIF()
+
 # ARM Library
 arm_add_library(${PROJECT_NAME}-arm STATIC ${SOURCES})
 target_link_libraries(${PROJECT_NAME}-arm PRIVATE MII-arm APE-arm printf-arm)
