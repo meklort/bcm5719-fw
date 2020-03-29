@@ -247,7 +247,7 @@ int32_t compress(uint8_t *outBuffer, int32_t outBytes, const uint8_t *inBuffer,
     // Read F bytes into the last F bytes of the buffer.
     for (len = 0; len < F && inBuffer < inEnd; ++len)
     {
-        st.dict[r + len] = c = *inBuffer++;
+        st.dict[r + len] = *inBuffer++;
     }
 
     // Insert the F strings, each of which begins with one or more 'space'
