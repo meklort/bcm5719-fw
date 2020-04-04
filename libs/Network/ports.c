@@ -932,7 +932,11 @@ void Network_checkPortState(NetworkPort_t *port)
 {
     if (port->device->EmacStatus.bits.LinkStateChanged)
     {
-        printf("LinkStatusChanged\n");
+        if (!port->link_state_printed)
+        {
+            printf("Link Status Changed\n");
+            port->link_state_printed = true;
+        }
 
         // Update state to match latest.
         if (Network_updatePortState(port))
@@ -944,6 +948,9 @@ void Network_checkPortState(NetworkPort_t *port)
             clearState.bits.SyncChanged = 1;
             clearState.bits.MICompletion = 1;
             port->device->EmacStatus.r32 = clearState.r32;
+
+            printf("Link Status Updated\n");
+            port->link_state_printed = false;
         }
     }
 }
@@ -958,14 +965,14 @@ bool Network_updatePortState(NetworkPort_t *port)
     control.r16 = MII_readRegister(port->device, phy, (mii_reg_t)REG_MII_CONTROL);
     if (control.bits.RestartAutonegotiation)
     {
-        // Link down, don't update mac mode.
+        // Link down, negotiation restarting, don't update mac mode.
     }
     else
     {
         status.r16 = MII_readRegister(port->device, phy, (mii_reg_t)REG_MII_AUXILIARY_STATUS_SUMMARY);
         if (control.bits.AutoNegotiationEnable && !status.bits.AutoNegotiationComplete)
         {
-            // Link down, don't update mac mode.
+            // Link down, attempting to negotiate, don't update mac mode.
         }
         else
         {

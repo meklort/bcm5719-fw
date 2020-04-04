@@ -83,6 +83,9 @@ typedef struct
 
     /* APE Registers */
     VOLATILE RegAPEMode_t APEModeEnable;
+
+    /* State Trackking */
+    bool link_state_printed;
 } NetworkPort_t;
 
 typedef union
