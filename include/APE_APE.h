@@ -800,10 +800,59 @@ typedef register_container RegAPETxState0_t {
 } RegAPETxState0_t;
 
 #define REG_APE_MODE_2 ((volatile APE_APE_H_uint32_t*)0x6020002c) /* Expansion for MODE */
+#define     APE_MODE_2_CHANNEL_0_ENABLE_SHIFT 14u
+#define     APE_MODE_2_CHANNEL_0_ENABLE_MASK  0x4000u
+#define GET_APE_MODE_2_CHANNEL_0_ENABLE(__reg__)  (((__reg__) & 0x4000) >> 14u)
+#define SET_APE_MODE_2_CHANNEL_0_ENABLE(__val__)  (((__val__) << 14u) & 0x4000u)
+#define     APE_MODE_2_CHANNEL_2_ENABLE_SHIFT 15u
+#define     APE_MODE_2_CHANNEL_2_ENABLE_MASK  0x8000u
+#define GET_APE_MODE_2_CHANNEL_2_ENABLE(__reg__)  (((__reg__) & 0x8000) >> 15u)
+#define SET_APE_MODE_2_CHANNEL_2_ENABLE(__val__)  (((__val__) << 15u) & 0x8000u)
+#define     APE_MODE_2_CHANNEL_1_ENABLE_SHIFT 30u
+#define     APE_MODE_2_CHANNEL_1_ENABLE_MASK  0x40000000u
+#define GET_APE_MODE_2_CHANNEL_1_ENABLE(__reg__)  (((__reg__) & 0x40000000) >> 30u)
+#define SET_APE_MODE_2_CHANNEL_1_ENABLE(__val__)  (((__val__) << 30u) & 0x40000000u)
+#define     APE_MODE_2_CHANNEL_3_ENABLE_SHIFT 31u
+#define     APE_MODE_2_CHANNEL_3_ENABLE_MASK  0x80000000u
+#define GET_APE_MODE_2_CHANNEL_3_ENABLE(__reg__)  (((__reg__) & 0x80000000) >> 31u)
+#define SET_APE_MODE_2_CHANNEL_3_ENABLE(__val__)  (((__val__) << 31u) & 0x80000000u)
+
 /** @brief Register definition for @ref APE_t.Mode2. */
 typedef register_container RegAPEMode2_t {
     /** @brief 32bit direct register access. */
     APE_APE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(APE_APE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_13_0, 0, 14)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_APE_H_uint32_t, Channel0Enable, 14, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_APE_H_uint32_t, Channel2Enable, 15, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_29_16, 16, 14)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_APE_H_uint32_t, Channel1Enable, 30, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_APE_H_uint32_t, Channel3Enable, 31, 1)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_APE_H_uint32_t, Channel3Enable, 31, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_APE_H_uint32_t, Channel1Enable, 30, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_29_16, 16, 14)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_APE_H_uint32_t, Channel2Enable, 15, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_APE_H_uint32_t, Channel0Enable, 14, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(APE_APE_H_uint32_t, reserved_13_0, 0, 14)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(APE_APE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "Mode2"; }
@@ -815,6 +864,14 @@ typedef register_container RegAPEMode2_t {
     {
         /** @brief constructor for @ref APE_t.Mode2. */
         r32.setName("Mode2");
+        bits.Channel0Enable.setBaseRegister(&r32);
+        bits.Channel0Enable.setName("Channel0Enable");
+        bits.Channel2Enable.setBaseRegister(&r32);
+        bits.Channel2Enable.setName("Channel2Enable");
+        bits.Channel1Enable.setBaseRegister(&r32);
+        bits.Channel1Enable.setName("Channel1Enable");
+        bits.Channel3Enable.setBaseRegister(&r32);
+        bits.Channel3Enable.setName("Channel3Enable");
     }
     RegAPEMode2_t& operator=(const RegAPEMode2_t& other)
     {

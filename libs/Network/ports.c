@@ -88,7 +88,10 @@ NetworkPort_t gPort0 = {
 #ifndef CXX_SIMULATOR
     .APEModeEnable = {
         .r32 = APE_MODE_CHANNEL_0_ENABLE_MASK | APE_MODE_CHANNEL_2_ENABLE_MASK,
-    }
+    },
+    .APEMode2Enable = {
+        .r32 = 0,
+    },
 #endif
 };
 
@@ -112,7 +115,10 @@ NetworkPort_t gPort1 = {
 #ifndef CXX_SIMULATOR
     .APEModeEnable = {
         .r32 = APE_MODE_CHANNEL_1_ENABLE_MASK | APE_MODE_CHANNEL_3_ENABLE_MASK,
-    }
+    },
+    .APEMode2Enable = {
+        .r32 = 0,
+    },
 #endif
 };
 
@@ -136,7 +142,10 @@ NetworkPort_t gPort2 = {
 #ifndef CXX_SIMULATOR
     .APEModeEnable = {
         .r32 = APE_MODE_CHANNEL_0_ENABLE_MASK | APE_MODE_CHANNEL_2_ENABLE_MASK,
-    }
+    },
+    .APEMode2Enable = {
+        .r32 = APE_MODE_2_CHANNEL_0_ENABLE_MASK | APE_MODE_2_CHANNEL_2_ENABLE_MASK,
+    },
 #endif
 };
 
@@ -160,7 +169,10 @@ NetworkPort_t gPort3 = {
 #ifndef CXX_SIMULATOR
     .APEModeEnable = {
         .r32 = APE_MODE_CHANNEL_1_ENABLE_MASK | APE_MODE_CHANNEL_3_ENABLE_MASK,
-    }
+    },
+    .APEMode2Enable = {
+        .r32 = APE_MODE_2_CHANNEL_1_ENABLE_MASK | APE_MODE_2_CHANNEL_3_ENABLE_MASK,
+    },
 #endif
 };
 
@@ -828,6 +840,7 @@ void Network_InitPort(NetworkPort_t *port, reload_type_t reset_phy)
     Network_resetRX(port);
 
     APE.Mode.r32 |= port->APEModeEnable.r32;
+    APE.Mode2.r32 |= port->APEMode2Enable.r32;
 
     // Ensure REG_RECEIVE_MAC_MODE has ENABLE set.
     // I recommend also setting APE_PROMISCUOUS_MODE and PROMISCUOUS_MODE,
