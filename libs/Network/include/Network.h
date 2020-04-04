@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2019, Evan Lojewski
+/// @copyright Copyright (c) 2019-2020, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -107,7 +107,7 @@ typedef enum {
     ALWAYS_RESET /* Host was just turned off, reset phy */
 } reload_type_t;
 
-extern NetworkPort_t gPort;
+NetworkPort_t *Network_getPort(int i);
 
 void Network_InitPort(NetworkPort_t *port, reload_type_t force_reset);
 

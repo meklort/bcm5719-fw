@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2018, Evan Lojewski
+/// @copyright Copyright (c) 2018-2020 Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -68,12 +68,7 @@
 #include <printf.h>
 #endif
 
-#ifndef NETWORK_PORT
-#define NETWORK_PORT 0
-#endif
-
-#if NETWORK_PORT == 0
-NetworkPort_t gPort = {
+NetworkPort_t gPort0 = {
     .device = &DEVICE,
     .filters = &FILTERS0,
     .shm_channel = &SHM_CHANNEL0,
@@ -99,8 +94,8 @@ NetworkPort_t gPort = {
     },
 #endif
 };
-#elif NETWORK_PORT == 1
-NetworkPort_t gPort = {
+
+NetworkPort_t gPort1 = {
     .device = &DEVICE1,
     .filters = &FILTERS1,
     .shm_channel = &SHM_CHANNEL1,
@@ -126,8 +121,8 @@ NetworkPort_t gPort = {
     },
 #endif
 };
-#elif NETWORK_PORT == 2
-NetworkPort_t gPort = {
+
+NetworkPort_t gPort2 = {
     .device = &DEVICE2,
     .filters = &FILTERS2,
     .shm_channel = &SHM_CHANNEL2,
@@ -153,8 +148,8 @@ NetworkPort_t gPort = {
     },
 #endif
 };
-#elif NETWORK_PORT == 3
-NetworkPort_t gPort = {
+
+NetworkPort_t gPort3 = {
     .device = &DEVICE3,
     .filters = &FILTERS3,
     .shm_channel = &SHM_CHANNEL3,
@@ -180,8 +175,18 @@ NetworkPort_t gPort = {
     },
 #endif
 };
-#endif
 
+NetworkPort_t *Network_getPort(int i)
+{
+    switch(i)
+    {
+        default: return &gPort0;
+        case 0: return &gPort0;
+        case 1: return &gPort1;
+        case 2: return &gPort2;
+        case 3: return &gPort3;
+    }
+}
 #ifndef CXX_SIMULATOR
 typedef struct
 {
