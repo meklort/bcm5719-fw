@@ -51,6 +51,8 @@
 
 #ifdef CXX_SIMULATOR
 #include <stdio.h>
+#else
+#include <printf.h>
 #endif
 
 bool Network_RxLePatcket(uint32_t *buffer, uint32_t *bytes, NetworkPort_t *port)
@@ -124,7 +126,7 @@ bool Network_RxLePatcket(uint32_t *buffer, uint32_t *bytes, NetworkPort_t *port)
         return false;
     }
 }
-#include <printf.h>
+
 bool Network_PassthroughRxPatcket(NetworkPort_t *port)
 {
     RegAPERxbufoffset_t rxbuf;
@@ -134,15 +136,21 @@ bool Network_PassthroughRxPatcket(NetworkPort_t *port)
 #if CXX_SIMULATOR
         rxbuf.print();
 #endif
+
+        VOLATILE RX_PORT_t *rx_port = port->rx_port;
         network_control_t control;
         int count = rxbuf.bits.Count;
         // int tailid = rxbuf.bits.Tail;
         int blockid = rxbuf.bits.Head;
 
+        RegAPERxPoolRetire_t retire;
+        retire.r32 = (1 << 24);
+        retire.bits.Count = 1;
+
         while (count--)
         {
             // printf("Block at %x\n", blockid);
-            RegRX_PORTIn_t *block = (RegRX_PORTIn_t *)&port->rx_port->In[RX_PORT_IN_ALL_BLOCK_WORDS * blockid];
+            RegRX_PORTIn_t *block = (RegRX_PORTIn_t *)&rx_port->In[RX_PORT_IN_ALL_BLOCK_WORDS * blockid];
             // printf("Control %x\n", (uint32_t)block[0].r32);
             control.r32 = block[0].r32;
             // printf(" Payload Len %d\n", control.bits.payload_length);
@@ -152,8 +160,10 @@ bool Network_PassthroughRxPatcket(NetworkPort_t *port)
 #if CXX_SIMULATOR
             printf("%d bytes in block.\n", control.bits.payload_length);
 #endif
-            int32_t words = DIVIDE_RND_UP(control.bits.payload_length, sizeof(uint32_t));
+            int i;
             int32_t offset;
+            int32_t words = DIVIDE_RND_UP(control.bits.payload_length, sizeof(uint32_t));
+
             if (control.bits.first)
             {
                 offset = RX_PORT_IN_ALL_FIRST_PAYLOAD_WORD;
@@ -163,35 +173,33 @@ bool Network_PassthroughRxPatcket(NetworkPort_t *port)
                 offset = RX_PORT_IN_ALL_ADDITIONAL_PAYLOAD_WORD;
             }
 
-            // Wait for enough free space.
-            while (APE_PERI.BmcToNcTxStatus.bits.InFifo < words)
-                ;
-
-            int i;
-            uint32_t data;
             if (!control.bits.not_last)
             {
                 // Ignore last word - drop the FCS
                 words--;
             }
 
-            for (i = 0; i < words - 1; i++)
-            {
-                data = block[i + offset].r32;
-                APE_PERI.BmcToNcTxBuffer.r32 = data;
-            }
+            // Wait for enough free space.
+            while (APE_PERI.BmcToNcTxStatus.bits.InFifo < words)
+                ;
 
-            data = block[i + offset].r32;
             if (control.bits.not_last)
             {
-                APE_PERI.BmcToNcTxBuffer.r32 = data;
+                for (i = 0; i < words; i++)
+                {
+                    APE_PERI.BmcToNcTxBuffer.r32 = block[i + offset].r32;
+                }
             }
             else
             {
-                // data = block[i + offset].r32;
+                for (i = 0; i < words - 1; i++)
+                {
+                    APE_PERI.BmcToNcTxBuffer.r32 = block[i + offset].r32;
+                }
+
                 // Last word to send.
                 APE_PERI.BmcToNcTxControl.r32 = control.bits.payload_length % sizeof(uint32_t);
-                APE_PERI.BmcToNcTxBufferLast.r32 = data;
+                APE_PERI.BmcToNcTxBufferLast.r32 = block[i + offset].r32;
 
                 // Ignore last word - drop the FCS.
                 // data = block[i + offset + 1].r32;
@@ -199,11 +207,8 @@ bool Network_PassthroughRxPatcket(NetworkPort_t *port)
             }
 
             // Retire this block.
-            RegAPERxPoolRetire_t retire;
-            retire.r32 = (1 << 24);
             retire.bits.Head = blockid;
             retire.bits.Tail = blockid;
-            retire.bits.Count = 1;
             *((RegAPERxPoolRetire_t *)port->rx_retire) = retire;
 
             blockid = control.bits.next_block;

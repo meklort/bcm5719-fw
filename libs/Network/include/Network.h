@@ -107,10 +107,7 @@ typedef enum {
     ALWAYS_RESET /* Host was just turned off, reset phy */
 } reload_type_t;
 
-extern NetworkPort_t gPort0;
-extern NetworkPort_t gPort1;
-extern NetworkPort_t gPort2;
-extern NetworkPort_t gPort3;
+extern NetworkPort_t gPort;
 
 void Network_InitPort(NetworkPort_t *port, reload_type_t force_reset);
 

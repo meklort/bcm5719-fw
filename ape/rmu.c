@@ -46,7 +46,6 @@
 
 #include <APE_APE.h>
 #include <APE_APE_PERI.h>
-#include <APE_DEVICE.h>
 #include <Network.h>
 
 void initRMU(void)
