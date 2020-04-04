@@ -64,6 +64,8 @@
 #include <printf.h>
 #endif
 
+static NetworkPort_t *gPort;
+
 void handleCommand(void)
 {
     uint32_t command = SHM.LoaderCommand.bits.Command;
@@ -187,7 +189,7 @@ void handleBMCPacket(void)
             else
             {
                 // Pass through to network
-                NetworkPort_t *port = &gPort;
+                NetworkPort_t *port = gPort;
                 if (port->shm_channel->NcsiChannelInfo.bits.Enabled)
                 {
                     if (!Network_TX_transmitPassthroughPacket(bytes, port))
@@ -274,8 +276,7 @@ void __attribute__((noreturn)) loaderLoop(void)
             }
         }
 
-        NetworkPort_t *port = &gPort;
-        Network_checkPortState(port);
+        Network_checkPortState(gPort);
     }
 }
 
@@ -346,6 +347,9 @@ void __attribute__((noreturn)) __start()
     }
 
     printf("APE v" STRINGIFY(VERSION_MAJOR) "." STRINGIFY(VERSION_MINOR) "." STRINGIFY(VERSION_PATCH) " NCSI Port " STRINGIFY(NETWORK_PORT) "\n");
+    gPort = Network_getPort(NETWORK_PORT);
+
+    NCSI_usePort(gPort);
 
     checkSupply(true);
 

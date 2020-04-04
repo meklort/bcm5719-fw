@@ -242,9 +242,14 @@ package_state_t gPackageState = {
     .selected = false,
     .numChannels = NUM_CHANNELS,
     .port = {
-        [0] = &gPort,
+        [0] = NULL,
     },
 };
+
+void NCSI_usePort(NetworkPort_t *port)
+{
+    gPackageState.port[0] = port;
+}
 
 void sendNCSIResponse(uint8_t InstanceID, uint8_t channelID, uint16_t controlID, uint16_t response_code, uint16_t reasons_code);
 void sendNCSILinkStatusResponse(uint8_t InstanceID, uint8_t channelID, uint32_t LinkStatus, uint32_t OEMLinkStatus, uint32_t OtherIndications);

@@ -46,25 +46,33 @@
 project(ape)
 
 # Firmware
-set(LINKER_SCRIPT "${CMAKE_CURRENT_SOURCE_DIR}/ape.ld")
-arm_add_executable(${PROJECT_NAME}
-            main.c
-            vectors.c
-            rmu.c
-            )
-arm_linker_script(${PROJECT_NAME} ${LINKER_SCRIPT})
+function(ape_firmware PORT)
+    SET(TARGET ${PROJECT_NAME}-port${PORT})
+    arm_add_executable(${TARGET}
+                main.c
+                vectors.c
+                rmu.c
+                )
+    arm_linker_script(${TARGET} "${CMAKE_CURRENT_SOURCE_DIR}/ape.ld")
 
-target_link_libraries(${PROJECT_NAME} NVRam-arm MII-arm APE-arm Network-arm NCSI-arm printf-arm)
-target_link_libraries(${PROJECT_NAME} bcm5719-arm)
-target_link_libraries(${PROJECT_NAME}
-    --defsym=VERSION_MAJOR=${VERSION_MAJOR}
-    --defsym=VERSION_MINOR=${VERSION_MINOR}
-    --defsym=VERSION_PATCH=${VERSION_PATCH})
-target_compile_options(${PROJECT_NAME} PRIVATE -nodefaultlibs)
+    target_link_libraries(${TARGET} NVRam-arm MII-arm APE-arm Network-arm NCSI-arm printf-arm)
+    target_link_libraries(${TARGET} bcm5719-arm)
+    target_link_libraries(${TARGET}
+        --defsym=NETWORK_PORT=${PORT}
+        --defsym=VERSION_MAJOR=${VERSION_MAJOR}
+        --defsym=VERSION_MINOR=${VERSION_MINOR}
+        --defsym=VERSION_PATCH=${VERSION_PATCH})
+    target_compile_options(${TARGET} PRIVATE -nodefaultlibs)
+    target_compile_definitions(${TARGET} PRIVATE NETWORK_PORT=${PORT})
 
-format_target_sources(${PROJECT_NAME})
+    install(TARGETS ${TARGET} DESTINATION fw RESOURCE)
 
-install(TARGETS ${PROJECT_NAME} DESTINATION fw RESOURCE)
+endfunction()
+
+ape_firmware(0)
+ape_firmware(2)
+
+format_target_sources(${PROJECT_NAME}-port0)
 
 # Simulator add_executable
 # simulator_add_executable(sim-${PROJECT_NAME}

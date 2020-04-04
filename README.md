@@ -3,7 +3,7 @@
 ## Introduction
 This library contains a clean-room reimplementation of the BCM5719 firmware based on the [Ortega](https://github.com/hlandau/ortega/blob/master/rtg-spec.md) specification.
 
-The firmware has been tested on the [Talos II](https://wiki.raptorcs.com/wiki/Talos_II) by [Raptor Computer Systems](https://www.raptorcs.com/).
+The firmware has been tested on the [Talos II](https://wiki.raptorcs.com/wiki/Talos_II) and [Blackbird](https://wiki.raptorcs.com/wiki/Blackbird) made by [Raptor Computer Systems](https://www.raptorcs.com/).
 
 **Note: This firmware is currently in development. Flashing the firmware to a network card can result in a bricked device when either an external programmer is required, or the external flash must be temporarily disabled during boot-up.**
 
@@ -16,7 +16,7 @@ This repository depends on a number of external tools
 
 ### Required Compiler
 Due to limitations in the MIPS CPU, this firmware requires a custom compiler to function properly.
-The custom compuler can be built using the following steps:
+The custom compiler can be built using the following steps:
 ```bash
 git clone https://github.com/meklort/llvm-project.git -b meklort-10.0.0
 cd llvm-project
@@ -80,18 +80,38 @@ sudo ./utils/bcmflash/bcmflash -t hardware -1 stage1/stage1.bin
 
 ### APE Firmware (BMC/NC-SI communication)
 The APE firmware can be tested by loading it into ram using the following sequence (Note: this may fail unless if stage1 has been loaded):
+
+#### Testing on the Talos II with port 0 for BMC traffic
+<details>
+
 ```bash
 cd build
-sudo ./utils/bcmregtool/bcmregtool --apeboot=ape/ape.bin
+sudo ./utils/bcmregtool/bcmregtool --apeboot=ape/ape-port0.bin
 ```
 
-Once tested, the APe firmware can be loaded into the device using the following command:
+Once tested, the APE firmware can be loaded into the device using the following command:
 ```bash
 cd build
-sudo ./utils/bcmflash/bcmflash -t hardware -a ape/ape.bin
+sudo ./utils/bcmflash/bcmflash -t hardware -a ape/ape-port0.bin
 ```
+</details>
+
+#### Testing on the Blackbird with port 2 for BMC traffic
+<details>
+
+```bash
+cd build
+sudo ./utils/bcmregtool/bcmregtool --apeboot=ape/ape-port2.bin
+```
+
+Once tested, the APE firmware can be loaded into the device using the following command:
+```bash
+cd build
+sudo ./utils/bcmflash/bcmflash -t hardware -a ape/ape-port2.bin
+```
+</details>
 
 ### Firmware Log
-The APE and Stage1 firmwarw are able to print status messages to a log. This can be accessed in one of two ways:
+The APE and Stage1 firmware are able to print status messages to a log. This can be accessed in one of two ways:
  * The ./utils/apeconsole/apeconsole utility can be used if no driver is loaded by the host.
  * The EM100Pro console can be used if wired to the SPI bus on the BCM5719. This allows for printouts even when the host is off.

@@ -73,4 +73,6 @@ void NCSI_init(void);
 
 void NCSI_reload(reload_type_t reset_phy);
 
+void NCSI_usePort(NetworkPort_t *port);
+
 #endif /* NCSI_H */
