@@ -83,6 +83,7 @@ typedef struct
 
     /* APE Registers */
     VOLATILE RegAPEMode_t APEModeEnable;
+    VOLATILE RegAPEMode2_t APEMode2Enable;
 
     /* State Trackking */
     bool link_state_printed;

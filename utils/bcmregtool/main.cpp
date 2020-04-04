@@ -684,6 +684,7 @@ int main(int argc, char const *argv[])
     if (options.get("ape"))
     {
         APE.Mode.print();
+        APE.Mode2.print();
         APE.Status.print();
         APE.Gpio.print();
         SHM.FwStatus.print();
