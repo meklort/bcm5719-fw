@@ -233,7 +233,6 @@ NetworkFrame_t gVersionFrame =
 typedef struct
 {
     bool selected;
-    int numChannels;
     NetworkPort_t *port;
 } package_state_t;
 
@@ -597,7 +596,7 @@ void handleNCSIFrame(NetworkFrame_t *frame)
                              NCSI_RESPONSE_CODE_COMMAND_FAILED, NCSI_REASON_CODE_INVALID_PAYLOAD_LENGTH);
         }
         else if ((handler->packageCommand && ch == CHANNEL_ID_PACKAGE) || // Package commands are always accepted.
-                 (handler->ignoreInit && ch < gPackageState.numChannels))
+                 (handler->ignoreInit && ch < NUM_CHANNELS))
         {
             // Package command. Must handle.
             debug("[%x] packageCommand/ignore init channel: %d\n", command, ch);
