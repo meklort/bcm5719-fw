@@ -4,13 +4,13 @@
 ###
 ### @project    
 ###
-### @brief      Ethernet CMake file
+### @brief      NCSI CMake file
 ###
 ################################################################################
 ###
 ################################################################################
 ###
-### @copyright Copyright (c) 2019, Evan Lojewski
+### @copyright Copyright (c) 2019-2020, Evan Lojewski
 ### @cond
 ###
 ### All rights reserved.
@@ -46,8 +46,8 @@ project(NCSI)
 
 SET(SOURCES
     ncsi.c
-#     include/NCSI.h
-#     include/Ethernet.h
+    include/NCSI.h
+    include/Ethernet.h
 )
 
 # Host Simulation library

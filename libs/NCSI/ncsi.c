@@ -416,7 +416,8 @@ static void getLinkStatusHandler(NetworkFrame_t *frame)
 
     uint32_t tx_used = APE_TX_TO_NET_BUFFER_RING_FREE_MAX - port->tx_ring->bits.Free;
     uint32_t rx_avail = APE_RX_POOL_FREE_POINTER_FREE_COUNT_MAX - port->rx_ring->bits.FreeCount;
-    debug("Link Status [%d] %s, TX %d [%d used], RX %d [%d avail]\n", frame->controlPacket.ChannelID, stat.bits.LinkStatus ? "up" : "down", tx, tx_used, rx, rx_avail);
+    debug("Link Status [%d] %s, TX %d [%d used], RX %d [%d avail]\n", frame->controlPacket.ChannelID, stat.bits.LinkStatus ? "up" : "down", tx, tx_used, rx,
+          rx_avail);
 
     if (!stat.bits.LinkStatus)
     {
@@ -560,9 +561,9 @@ static void enableBroadcastFilteringHandler(NetworkFrame_t *frame)
 // AEN ENABLE, SET LINK;   then you need GET LINK STATUS
 ncsi_handler_t gNCSIHandlers[] = {
     /* Package / Initialization commands */
-    [0x00] = { .ignoreInit = true,  .packageCommand = false, .payloadLength = 0, .fn = clearInitialStateHandler },
-    [0x01] = { .ignoreInit = false, .packageCommand = true,  .payloadLength = 4, .fn = selectPackageHandler },
-    [0x02] = { .ignoreInit = false, .packageCommand = true,  .payloadLength = 0, .fn = deselectPackageHandler },
+    [0x00] = { .ignoreInit = true, .packageCommand = false, .payloadLength = 0, .fn = clearInitialStateHandler },
+    [0x01] = { .ignoreInit = false, .packageCommand = true, .payloadLength = 4, .fn = selectPackageHandler },
+    [0x02] = { .ignoreInit = false, .packageCommand = true, .payloadLength = 0, .fn = deselectPackageHandler },
 
     /* Channel Specific commands */
     [0x03] = { .ignoreInit = false, .packageCommand = false, .payloadLength = 0, .fn = enableChannelHandler },

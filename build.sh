@@ -88,6 +88,9 @@ cd "$BUILD_DIR"
 "$CMAKE" .. $GENERATOR
 "$CMAKE" --build .
 
+# Ensure formatting is correct
+"$CMAKE" --build . --target check-format
+
 # Generate release packages.
 "$CMAKE" --build . --target package
 "$CMAKE" --build . --target package_source
