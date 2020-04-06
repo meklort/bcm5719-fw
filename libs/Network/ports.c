@@ -178,13 +178,18 @@ NetworkPort_t gPort3 = {
 
 NetworkPort_t *Network_getPort(int i)
 {
-    switch(i)
+    switch (i)
     {
-        default: return &gPort0;
-        case 0: return &gPort0;
-        case 1: return &gPort1;
-        case 2: return &gPort2;
-        case 3: return &gPort3;
+        default:
+            return &gPort0;
+        case 0:
+            return &gPort0;
+        case 1:
+            return &gPort1;
+        case 2:
+            return &gPort2;
+        case 3:
+            return &gPort3;
     }
 }
 #ifndef CXX_SIMULATOR

@@ -10,7 +10,7 @@
 ###
 ################################################################################
 ###
-### @copyright Copyright (c) 2018, Evan Lojewski
+### @copyright Copyright (c) 2018-2020, Evan Lojewski
 ### @cond
 ###
 ### All rights reserved.
@@ -42,41 +42,66 @@
 ### @endcond
 ################################################################################
 
-if(CMAKE_SCRIPT_MODE_FILE)
-	SET(ARGUMENTS )
-	SET(CLANG_FORMAT ${CMAKE_ARGV3})
-	SET(FILES ${CMAKE_ARGV4})
+IF(CMAKE_SCRIPT_MODE_FILE)
+    SET(ARGUMENTS )
+    SET(CLANG_FORMAT ${CMAKE_ARGV4})
+    SET(FILES ${CMAKE_ARGV5})
 
-	FOREACH(FILE ${FILES})
-		MESSAGE("Formatting ${FILE}")
-		EXECUTE_PROCESS(COMMAND ${CLANG_FORMAT} -style=file -i "${FILE}")
-		LIST(APPEND ARGUMENTS ${FILE})
-	ENDFOREACH() 
-else()
+    IF(CHECK)
+        SET(ERROR_FILES )
+        FOREACH(FILE ${FILES})
+            MESSAGE("Checking ${FILE}")
+            EXECUTE_PROCESS(COMMAND ${CLANG_FORMAT} -style=file --output-replacements-xml "${FILE}" 
+                            OUTPUT_VARIABLE OUT RESULT_VARIABLE RES)
+            STRING(REGEX MATCH "<replacement " MATCHES ${OUT})
+            IF(MATCHES)
+                LIST(APPEND ERROR_FILES ${FILE})
+            ENDIF()
+        ENDFOREACH()
 
-	SET(CLANG_FORMAT ${COMPILER_BASE}/bin/clang-format)
-	add_custom_target(clang-format cmake -P ${CMAKE_CURRENT_LIST_FILE}
-						${CLANG_FORMAT} $<TARGET_PROPERTY:clang-format,FORMAT_SOURCES>
-						WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-						VERBATIM)
+        IF(ERROR_FILES)
+            FOREACH(FILE ${ERROR_FILES})
+                MESSAGE("Invalid formatting: ${FILE}")
+            ENDFOREACH()
+            MESSAGE(FATAL_ERROR "Invalid formatting detected. Please run check-format")
+        ENDIF()
+    ELSE()
+        FOREACH(FILE ${FILES})
+            MESSAGE("Formatting ${FILE}")
+            EXECUTE_PROCESS(COMMAND ${CLANG_FORMAT} -style=file -i "${FILE}")
+        ENDFOREACH()
+    ENDIF()
+ELSE()
 
-	function(format_sources)
-		MESSAGE("Formatting sources ${ARGN}")
+    SET(CLANG_FORMAT ${COMPILER_BASE}/bin/clang-format)
+    ADD_CUSTOM_TARGET(clang-format cmake -DCHECK=False -P ${CMAKE_CURRENT_LIST_FILE}
+                        ${CLANG_FORMAT} $<TARGET_PROPERTY:clang-format,FORMAT_SOURCES>
+                        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+                        VERBATIM)
 
-		set_property(TARGET clang-format APPEND PROPERTY FORMAT_SOURCES ${ARGN})
-	endfunction(format_sources)
+    ADD_CUSTOM_TARGET(check-format cmake -DCHECK=True -P ${CMAKE_CURRENT_LIST_FILE}
+                        ${CLANG_FORMAT} $<TARGET_PROPERTY:clang-format,FORMAT_SOURCES>
+                        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+                        VERBATIM)
 
-	function(format_target_sources target)
-		set(paths )
-		get_target_property(sources ${target} SOURCES)
-		foreach(source ${sources})
-			get_source_file_property(type ${source} LANGUAGE)
-			IF("${type}" STREQUAL "C" OR "${type}" STREQUAL "CXX")
-				get_source_file_property(path ${source} LOCATION)
-				LIST(APPEND paths ${path})
-			ENDIF()
-		endforeach()
+    FUNCTION(format_sources)
+        MESSAGE("Formatting sources ${ARGN}")
 
-		format_sources(${paths})
-	endfunction(format_target_sources)
-endif()
+        SET_PROPERTY(TARGET clang-format APPEND PROPERTY FORMAT_SOURCES ${ARGN})
+    ENDFUNCTION(format_sources)
+
+    FUNCTION(format_target_sources target)
+        SET(paths )
+        GET_TARGET_PROPERTY(sources ${target} SOURCES)
+        FOREACH(source ${sources})
+            GET_SOURCE_FILE_PROPERTY(type ${source} LANGUAGE)
+            GET_SOURCE_FILE_PROPERTY(path ${source} LOCATION)
+            GET_FILENAME_COMPONENT(ext ${path} EXT)
+            IF("${type}" STREQUAL "C" OR "${type}" STREQUAL "CXX" OR "${ext}" STREQUAL ".h")
+                LIST(APPEND paths ${path})
+            ENDIF()
+        ENDFOREACH()
+
+        format_sources(${paths})
+    ENDFUNCTION(format_target_sources)
+ENDIF()
