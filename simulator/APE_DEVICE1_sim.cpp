@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2018, Evan Lojewski
+/// @copyright Copyright (c) 2020, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -368,6 +368,10 @@ void init_APE_DEVICE1_sim(void *arg0)
     DEVICE1.RxRiscStatus.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
     DEVICE1.RxRiscStatus.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
 
+    /** @brief Bitmap for @ref DEVICE1_t.RxRiscEventMask. */
+    DEVICE1.RxRiscEventMask.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
+    DEVICE1.RxRiscEventMask.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+
     /** @brief Bitmap for @ref DEVICE1_t.RxRiscProgramCounter. */
     DEVICE1.RxRiscProgramCounter.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
     DEVICE1.RxRiscProgramCounter.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
@@ -376,9 +380,21 @@ void init_APE_DEVICE1_sim(void *arg0)
     DEVICE1.RxRiscCurrentInstruction.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
     DEVICE1.RxRiscCurrentInstruction.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
 
+    /** @brief Bitmap for @ref DEVICE1_t.RxRiscInterruptEnable. */
+    DEVICE1.RxRiscInterruptEnable.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
+    DEVICE1.RxRiscInterruptEnable.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref DEVICE1_t.RxRiscInterruptVector. */
+    DEVICE1.RxRiscInterruptVector.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
+    DEVICE1.RxRiscInterruptVector.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+
     /** @brief Bitmap for @ref DEVICE1_t.RxRiscHardwareBreakpoint. */
     DEVICE1.RxRiscHardwareBreakpoint.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
     DEVICE1.RxRiscHardwareBreakpoint.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref DEVICE1_t.RxRiscLastBranchAddress. */
+    DEVICE1.RxRiscLastBranchAddress.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
+    DEVICE1.RxRiscLastBranchAddress.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
 
     /** @brief Bitmap for @ref DEVICE1_t.RxRiscRegister0. */
     DEVICE1.RxRiscRegister0.r32.installReadCallback(loader_read_mem, (uint8_t *)base);

@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2018, Evan Lojewski
+/// @copyright Copyright (c) 2020, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -516,10 +516,14 @@ void init_bcm5719_DEVICE_sim(void *base)
     DEVICE.RxRiscStatus.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     DEVICE.RxRiscStatus.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
-    for(int i = 0; i < 5; i++)
+    /** @brief Bitmap for @ref DEVICE_t.RxRiscEventMask. */
+    DEVICE.RxRiscEventMask.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    DEVICE.RxRiscEventMask.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    for(int i = 0; i < 4; i++)
     {
-        DEVICE.reserved_20488[i].installReadCallback(read_from_ram, (uint8_t *)base);
-        DEVICE.reserved_20488[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+        DEVICE.reserved_20492[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        DEVICE.reserved_20492[i].installWriteCallback(write_to_ram, (uint8_t *)base);
     }
     /** @brief Bitmap for @ref DEVICE_t.RxRiscProgramCounter. */
     DEVICE.RxRiscProgramCounter.r32.installReadCallback(read_from_ram, (uint8_t *)base);
@@ -529,19 +533,41 @@ void init_bcm5719_DEVICE_sim(void *base)
     DEVICE.RxRiscCurrentInstruction.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     DEVICE.RxRiscCurrentInstruction.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
-    for(int i = 0; i < 4; i++)
+    for(int i = 0; i < 1; i++)
     {
         DEVICE.reserved_20516[i].installReadCallback(read_from_ram, (uint8_t *)base);
         DEVICE.reserved_20516[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
+    /** @brief Bitmap for @ref DEVICE_t.RxRiscInterruptEnable. */
+    DEVICE.RxRiscInterruptEnable.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    DEVICE.RxRiscInterruptEnable.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref DEVICE_t.RxRiscInterruptVector. */
+    DEVICE.RxRiscInterruptVector.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    DEVICE.RxRiscInterruptVector.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    for(int i = 0; i < 1; i++)
+    {
+        DEVICE.reserved_20528[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        DEVICE.reserved_20528[i].installWriteCallback(write_to_ram, (uint8_t *)base);
     }
     /** @brief Bitmap for @ref DEVICE_t.RxRiscHardwareBreakpoint. */
     DEVICE.RxRiscHardwareBreakpoint.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     DEVICE.RxRiscHardwareBreakpoint.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
-    for(int i = 0; i < 114; i++)
+    for(int i = 0; i < 4; i++)
     {
         DEVICE.reserved_20536[i].installReadCallback(read_from_ram, (uint8_t *)base);
         DEVICE.reserved_20536[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
+    /** @brief Bitmap for @ref DEVICE_t.RxRiscLastBranchAddress. */
+    DEVICE.RxRiscLastBranchAddress.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    DEVICE.RxRiscLastBranchAddress.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    for(int i = 0; i < 109; i++)
+    {
+        DEVICE.reserved_20556[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        DEVICE.reserved_20556[i].installWriteCallback(write_to_ram, (uint8_t *)base);
     }
     /** @brief Bitmap for @ref DEVICE_t.RxRiscRegister0. */
     DEVICE.RxRiscRegister0.r32.installReadCallback(read_from_ram, (uint8_t *)base);

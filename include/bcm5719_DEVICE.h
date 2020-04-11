@@ -5602,6 +5602,31 @@ typedef register_container RegDEVICERxRiscStatus_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscStatus_t;
 
+#define REG_DEVICE_RX_RISC_EVENT_MASK ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005008) /*  */
+/** @brief Register definition for @ref DEVICE_t.RxRiscEventMask. */
+typedef register_container RegDEVICERxRiscEventMask_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RxRiscEventMask"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICERxRiscEventMask_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.RxRiscEventMask. */
+        r32.setName("RxRiscEventMask");
+    }
+    RegDEVICERxRiscEventMask_t& operator=(const RegDEVICERxRiscEventMask_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegDEVICERxRiscEventMask_t;
+
 #define REG_DEVICE_RX_RISC_PROGRAM_COUNTER ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000501c) /* The program counter register can be used to read or write the current Program Counter of the each CPU. Reads can occur at any time, however writes can only be performed when the CPU is halted. Writes will also clear any pending instruction in the decode stage of the pipeline. Bits 31-2 are implemented. 1s written to bits 1-0 are ignored. */
 /** @brief Register definition for @ref DEVICE_t.RxRiscProgramCounter. */
 typedef register_container RegDEVICERxRiscProgramCounter_t {
@@ -5627,7 +5652,7 @@ typedef register_container RegDEVICERxRiscProgramCounter_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscProgramCounter_t;
 
-#define REG_DEVICE_RX_RISC_CURRENT_INSTRUCTION ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005020) /* This undocumented register contains the current word located at the program counter address loaded in  */
+#define REG_DEVICE_RX_RISC_CURRENT_INSTRUCTION ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005020) /* This register allows access instruction in the decode sate of the pipeline while the processor is halted. This register is only intended for debugging use. This register may be used to replace a halt instruction with some other instruction after the halt has been executed. */
 /** @brief Register definition for @ref DEVICE_t.RxRiscCurrentInstruction. */
 typedef register_container RegDEVICERxRiscCurrentInstruction_t {
     /** @brief 32bit direct register access. */
@@ -5651,6 +5676,56 @@ typedef register_container RegDEVICERxRiscCurrentInstruction_t {
     }
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscCurrentInstruction_t;
+
+#define REG_DEVICE_RX_RISC_INTERRUPT_ENABLE ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005028) /* Any write to this register will enable CPU Interrupts (set bit 7 in mode register). This register is intended to allow a way to return from an interrupt service routine (ISR) using only 2 general purpose registers. MIPS conventions reserve registers 26 and 27 (k0 and k1) for use by an interrupt handler. At the end of an ISR, k0 should be loaded with the return address from the CPU Interrupt Saved PC register. Then k1 should be loaded with the address of the CPU Interrupt Enable register. The last 2 instructions in the ISR should be a jump register (jr) to k0 followed immediately by a store word (sw) to k1. This ensures that we can’t respond to another interrupt until we are safely out of the ISR. Interrupts can also be enabled through the CPU Mode Register. They can be disabled only through the CPU Mode Register. Each time this register is written, bit 7 of the mode register is set. The data value of the write is not used. The read value of this register is always zero. */
+/** @brief Register definition for @ref DEVICE_t.RxRiscInterruptEnable. */
+typedef register_container RegDEVICERxRiscInterruptEnable_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RxRiscInterruptEnable"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICERxRiscInterruptEnable_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.RxRiscInterruptEnable. */
+        r32.setName("RxRiscInterruptEnable");
+    }
+    RegDEVICERxRiscInterruptEnable_t& operator=(const RegDEVICERxRiscInterruptEnable_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegDEVICERxRiscInterruptEnable_t;
+
+#define REG_DEVICE_RX_RISC_INTERRUPT_VECTOR ((volatile BCM5719_DEVICE_H_uint32_t*)0xc000502c) /* This register sets the program counter value that will be loaded when an interrupt is performed due to the interrupt input. */
+/** @brief Register definition for @ref DEVICE_t.RxRiscInterruptVector. */
+typedef register_container RegDEVICERxRiscInterruptVector_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_DEVICE_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RxRiscInterruptVector"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICERxRiscInterruptVector_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.RxRiscInterruptVector. */
+        r32.setName("RxRiscInterruptVector");
+    }
+    RegDEVICERxRiscInterruptVector_t& operator=(const RegDEVICERxRiscInterruptVector_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegDEVICERxRiscInterruptVector_t;
 
 #define REG_DEVICE_RX_RISC_HARDWARE_BREAKPOINT ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005034) /* This register is used to set a hardware breakpoint based on the RISC's program counter (PC). If the PC equals the value in this register, and the hardware breakpoint is enabled, the RISC is halted and the appropriate stopping condition is indicated in the RISC State Register. To enable the hardware breakpoint, simply write the byte address of the instruction to break on and clear the Disable Hardware Breakpoint bit. */
 /** @brief Register definition for @ref DEVICE_t.RxRiscHardwareBreakpoint. */
@@ -5676,6 +5751,70 @@ typedef register_container RegDEVICERxRiscHardwareBreakpoint_t {
     }
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscHardwareBreakpoint_t;
+
+#define REG_DEVICE_RX_RISC_LAST_BRANCH_ADDRESS ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005048) /* This register indicates that address and branch type of the last branch that was taken. This register is for debug use only. */
+#define     DEVICE_RX_RISC_LAST_BRANCH_ADDRESS_TYPE_SHIFT 1u
+#define     DEVICE_RX_RISC_LAST_BRANCH_ADDRESS_TYPE_MASK  0x2u
+#define GET_DEVICE_RX_RISC_LAST_BRANCH_ADDRESS_TYPE(__reg__)  (((__reg__) & 0x2) >> 1u)
+#define SET_DEVICE_RX_RISC_LAST_BRANCH_ADDRESS_TYPE(__val__)  (((__val__) << 1u) & 0x2u)
+#define     DEVICE_RX_RISC_LAST_BRANCH_ADDRESS_TYPE_JUMP 0x0u
+#define     DEVICE_RX_RISC_LAST_BRANCH_ADDRESS_TYPE_BRANCH 0x1u
+
+#define     DEVICE_RX_RISC_LAST_BRANCH_ADDRESS_LAST_BRANCH_ADDRESS_SHIFT 2u
+#define     DEVICE_RX_RISC_LAST_BRANCH_ADDRESS_LAST_BRANCH_ADDRESS_MASK  0xfffffffcu
+#define GET_DEVICE_RX_RISC_LAST_BRANCH_ADDRESS_LAST_BRANCH_ADDRESS(__reg__)  (((__reg__) & 0xfffffffc) >> 2u)
+#define SET_DEVICE_RX_RISC_LAST_BRANCH_ADDRESS_LAST_BRANCH_ADDRESS(__val__)  (((__val__) << 2u) & 0xfffffffcu)
+
+/** @brief Register definition for @ref DEVICE_t.RxRiscLastBranchAddress. */
+typedef register_container RegDEVICERxRiscLastBranchAddress_t {
+    /** @brief 32bit direct register access. */
+    BCM5719_DEVICE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_0_0, 0, 1)
+        /** @brief This indicates the jump or branch type. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Type, 1, 1)
+        /** @brief This value indicates the address of the last branch that was taken. An offset as indicated by the type field must be subtracted from this value. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LastBranchAddress, 2, 30)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief This value indicates the address of the last branch that was taken. An offset as indicated by the type field must be subtracted from this value. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, LastBranchAddress, 2, 30)
+        /** @brief This indicates the jump or branch type. */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, Type, 1, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_DEVICE_H_uint32_t, reserved_0_0, 0, 1)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_DEVICE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "RxRiscLastBranchAddress"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICERxRiscLastBranchAddress_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.RxRiscLastBranchAddress. */
+        r32.setName("RxRiscLastBranchAddress");
+        bits.Type.setBaseRegister(&r32);
+        bits.Type.setName("Type");
+        bits.Type.addEnum("Jump", 0x0);
+        bits.Type.addEnum("Branch", 0x1);
+
+        bits.LastBranchAddress.setBaseRegister(&r32);
+        bits.LastBranchAddress.setName("LastBranchAddress");
+    }
+    RegDEVICERxRiscLastBranchAddress_t& operator=(const RegDEVICERxRiscLastBranchAddress_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegDEVICERxRiscLastBranchAddress_t;
 
 #define REG_DEVICE_RX_RISC_REGISTER_0 ((volatile BCM5719_DEVICE_H_uint32_t*)0xc0005200) /* $zero (R0) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister0. */
@@ -9326,23 +9465,41 @@ typedef struct DEVICE_t {
     /** @brief  */
     RegDEVICERxRiscStatus_t RxRiscStatus;
 
+    /** @brief  */
+    RegDEVICERxRiscEventMask_t RxRiscEventMask;
+
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_20488[5];
+    BCM5719_DEVICE_H_uint32_t reserved_20492[4];
 
     /** @brief The program counter register can be used to read or write the current Program Counter of the each CPU. Reads can occur at any time, however writes can only be performed when the CPU is halted. Writes will also clear any pending instruction in the decode stage of the pipeline. Bits 31-2 are implemented. 1s written to bits 1-0 are ignored. */
     RegDEVICERxRiscProgramCounter_t RxRiscProgramCounter;
 
-    /** @brief This undocumented register contains the current word located at the program counter address loaded in  */
+    /** @brief This register allows access instruction in the decode sate of the pipeline while the processor is halted. This register is only intended for debugging use. This register may be used to replace a halt instruction with some other instruction after the halt has been executed. */
     RegDEVICERxRiscCurrentInstruction_t RxRiscCurrentInstruction;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_20516[4];
+    BCM5719_DEVICE_H_uint32_t reserved_20516[1];
+
+    /** @brief Any write to this register will enable CPU Interrupts (set bit 7 in mode register). This register is intended to allow a way to return from an interrupt service routine (ISR) using only 2 general purpose registers. MIPS conventions reserve registers 26 and 27 (k0 and k1) for use by an interrupt handler. At the end of an ISR, k0 should be loaded with the return address from the CPU Interrupt Saved PC register. Then k1 should be loaded with the address of the CPU Interrupt Enable register. The last 2 instructions in the ISR should be a jump register (jr) to k0 followed immediately by a store word (sw) to k1. This ensures that we can’t respond to another interrupt until we are safely out of the ISR. Interrupts can also be enabled through the CPU Mode Register. They can be disabled only through the CPU Mode Register. Each time this register is written, bit 7 of the mode register is set. The data value of the write is not used. The read value of this register is always zero. */
+    RegDEVICERxRiscInterruptEnable_t RxRiscInterruptEnable;
+
+    /** @brief This register sets the program counter value that will be loaded when an interrupt is performed due to the interrupt input. */
+    RegDEVICERxRiscInterruptVector_t RxRiscInterruptVector;
+
+    /** @brief Reserved bytes to pad out data structure. */
+    BCM5719_DEVICE_H_uint32_t reserved_20528[1];
 
     /** @brief This register is used to set a hardware breakpoint based on the RISC's program counter (PC). If the PC equals the value in this register, and the hardware breakpoint is enabled, the RISC is halted and the appropriate stopping condition is indicated in the RISC State Register. To enable the hardware breakpoint, simply write the byte address of the instruction to break on and clear the Disable Hardware Breakpoint bit. */
     RegDEVICERxRiscHardwareBreakpoint_t RxRiscHardwareBreakpoint;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_DEVICE_H_uint32_t reserved_20536[114];
+    BCM5719_DEVICE_H_uint32_t reserved_20536[4];
+
+    /** @brief This register indicates that address and branch type of the last branch that was taken. This register is for debug use only. */
+    RegDEVICERxRiscLastBranchAddress_t RxRiscLastBranchAddress;
+
+    /** @brief Reserved bytes to pad out data structure. */
+    BCM5719_DEVICE_H_uint32_t reserved_20556[109];
 
     /** @brief $zero (R0) */
     RegDEVICERxRiscRegister0_t RxRiscRegister0;
@@ -9802,20 +9959,32 @@ typedef struct DEVICE_t {
         }
         RxRiscMode.r32.setComponentOffset(0x5000);
         RxRiscStatus.r32.setComponentOffset(0x5004);
-        for(int i = 0; i < 5; i++)
+        RxRiscEventMask.r32.setComponentOffset(0x5008);
+        for(int i = 0; i < 4; i++)
         {
-            reserved_20488[i].setComponentOffset(0x5008 + (i * 4));
+            reserved_20492[i].setComponentOffset(0x500c + (i * 4));
         }
         RxRiscProgramCounter.r32.setComponentOffset(0x501c);
         RxRiscCurrentInstruction.r32.setComponentOffset(0x5020);
-        for(int i = 0; i < 4; i++)
+        for(int i = 0; i < 1; i++)
         {
             reserved_20516[i].setComponentOffset(0x5024 + (i * 4));
         }
+        RxRiscInterruptEnable.r32.setComponentOffset(0x5028);
+        RxRiscInterruptVector.r32.setComponentOffset(0x502c);
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_20528[i].setComponentOffset(0x5030 + (i * 4));
+        }
         RxRiscHardwareBreakpoint.r32.setComponentOffset(0x5034);
-        for(int i = 0; i < 114; i++)
+        for(int i = 0; i < 4; i++)
         {
             reserved_20536[i].setComponentOffset(0x5038 + (i * 4));
+        }
+        RxRiscLastBranchAddress.r32.setComponentOffset(0x5048);
+        for(int i = 0; i < 109; i++)
+        {
+            reserved_20556[i].setComponentOffset(0x504c + (i * 4));
         }
         RxRiscRegister0.r32.setComponentOffset(0x5200);
         RxRiscRegister1.r32.setComponentOffset(0x5204);
@@ -10152,20 +10321,32 @@ typedef struct DEVICE_t {
         }
         RxRiscMode.print();
         RxRiscStatus.print();
-        for(int i = 0; i < 5; i++)
+        RxRiscEventMask.print();
+        for(int i = 0; i < 4; i++)
         {
-            reserved_20488[i].print();
+            reserved_20492[i].print();
         }
         RxRiscProgramCounter.print();
         RxRiscCurrentInstruction.print();
-        for(int i = 0; i < 4; i++)
+        for(int i = 0; i < 1; i++)
         {
             reserved_20516[i].print();
         }
+        RxRiscInterruptEnable.print();
+        RxRiscInterruptVector.print();
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_20528[i].print();
+        }
         RxRiscHardwareBreakpoint.print();
-        for(int i = 0; i < 114; i++)
+        for(int i = 0; i < 4; i++)
         {
             reserved_20536[i].print();
+        }
+        RxRiscLastBranchAddress.print();
+        for(int i = 0; i < 109; i++)
+        {
+            reserved_20556[i].print();
         }
         RxRiscRegister0.print();
         RxRiscRegister1.print();

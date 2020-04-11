@@ -2911,6 +2911,14 @@
                     </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>
+                    <ipxact:name>RX_RISC_EVENT_MASK</ipxact:name>
+                    <ipxact:description></ipxact:description>
+                    <ipxact:addressOffset>0x5008</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
                     <ipxact:name>RX_RISC_PROGRAM_COUNTER</ipxact:name>
                     <ipxact:description>The program counter register can be used to read or write the current Program Counter of the each CPU. Reads can occur at any time, however writes can only be performed when the CPU is halted. Writes will also clear any pending instruction in the decode stage of the pipeline. Bits 31-2 are implemented. 1s written to bits 1-0 are ignored.</ipxact:description>
                     <ipxact:addressOffset>0x501c</ipxact:addressOffset>
@@ -2920,8 +2928,24 @@
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>RX_RISC_CURRENT_INSTRUCTION</ipxact:name>
-                    <ipxact:description>This undocumented register contains the current word located at the program counter address loaded in </ipxact:description>
+                    <ipxact:description>This register allows access instruction in the decode sate of the pipeline while the processor is halted. This register is only intended for debugging use. This register may be used to replace a halt instruction with some other instruction after the halt has been executed.</ipxact:description>
                     <ipxact:addressOffset>0x5020</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>RX_RISC_INTERRUPT_ENABLE</ipxact:name>
+                    <ipxact:description>Any write to this register will enable CPU Interrupts (set bit 7 in mode register). This register is intended to allow a way to return from an interrupt service routine (ISR) using only 2 general purpose registers. MIPS conventions reserve registers 26 and 27 (k0 and k1) for use by an interrupt handler. At the end of an ISR, k0 should be loaded with the return address from the CPU Interrupt Saved PC register. Then k1 should be loaded with the address of the CPU Interrupt Enable register. The last 2 instructions in the ISR should be a jump register (jr) to k0 followed immediately by a store word (sw) to k1. This ensures that we can’t respond to another interrupt until we are safely out of the ISR. Interrupts can also be enabled through the CPU Mode Register. They can be disabled only through the CPU Mode Register. Each time this register is written, bit 7 of the mode register is set. The data value of the write is not used. The read value of this register is always zero.</ipxact:description>
+                    <ipxact:addressOffset>0x5028</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>RX_RISC_INTERRUPT_VECTOR</ipxact:name>
+                    <ipxact:description>This register sets the program counter value that will be loaded when an interrupt is performed due to the interrupt input.</ipxact:description>
+                    <ipxact:addressOffset>0x502c</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
@@ -2933,6 +2957,40 @@
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>RX_RISC_LAST_BRANCH_ADDRESS</ipxact:name>
+                    <ipxact:description>This register indicates that address and branch type of the last branch that was taken. This register is for debug use only.</ipxact:description>
+                    <ipxact:addressOffset>0x5048</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>Type</ipxact:name>
+                        <ipxact:description>This indicates the jump or branch type.</ipxact:description>
+                        <ipxact:bitOffset>1</ipxact:bitOffset>
+                        <ipxact:bitWidth>1</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Jump</ipxact:name>
+                                <ipxact:description>4 bytes must be subtracted from the LBA value to determine the actual address of the branch instruction that caused this register to load.</ipxact:description>
+                                <ipxact:value>0</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Branch</ipxact:name>
+                                <ipxact:value>1</ipxact:value>
+                                <ipxact:description>8 bytes must be subtracted from the LBA value to determine the actual address of the branch instruction that caused this register to load.</ipxact:description>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Last Branch Address</ipxact:name>
+                        <ipxact:description>This value indicates the address of the last branch that was taken. An offset as indicated by the type field must be subtracted from this value.</ipxact:description>
+                        <ipxact:bitOffset>2</ipxact:bitOffset>
+                        <ipxact:bitWidth>30</ipxact:bitWidth>
+                        <ipxact:access>read-write</ipxact:access>
+                    </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>RX_RISC_REGISTER_0</ipxact:name>

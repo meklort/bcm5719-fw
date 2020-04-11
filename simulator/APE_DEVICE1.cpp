@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2018, Evan Lojewski
+/// @copyright Copyright (c) 2020, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -189,11 +189,19 @@ void init_APE_DEVICE1(void)
 
     /** @brief Bitmap for @ref DEVICE1_t.RxRiscStatus. */
 
+    /** @brief Bitmap for @ref DEVICE1_t.RxRiscEventMask. */
+
     /** @brief Bitmap for @ref DEVICE1_t.RxRiscProgramCounter. */
 
     /** @brief Bitmap for @ref DEVICE1_t.RxRiscCurrentInstruction. */
 
+    /** @brief Bitmap for @ref DEVICE1_t.RxRiscInterruptEnable. */
+
+    /** @brief Bitmap for @ref DEVICE1_t.RxRiscInterruptVector. */
+
     /** @brief Bitmap for @ref DEVICE1_t.RxRiscHardwareBreakpoint. */
+
+    /** @brief Bitmap for @ref DEVICE1_t.RxRiscLastBranchAddress. */
 
     /** @brief Bitmap for @ref DEVICE1_t.RxRiscRegister0. */
 
