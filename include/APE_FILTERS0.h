@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2018, Evan Lojewski
+/// @copyright Copyright (c) 2020, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -476,7 +476,14 @@ typedef struct FILTERS_t {
     RegFILTERSRuleMask_t RuleMask[31];
 
 #ifdef CXX_SIMULATOR
-    FILTERS_t()
+    typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);
+    callback_t mIndexReadCallback;
+    void* mIndexReadCallbackArgs;
+
+    callback_t mIndexWriteCallback;
+    void* mIndexWriteCallbackArgs;
+
+    FILTERS_t() : mIndexReadCallback(0), mIndexReadCallbackArgs(0), mIndexWriteCallback(0), mIndexWriteCallbackArgs(0)
     {
         for(int i = 0; i < 32; i++)
         {
@@ -524,13 +531,6 @@ typedef struct FILTERS_t {
             RuleMask[i].print();
         }
     }
-    typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);
-    callback_t mIndexReadCallback;
-    void* mIndexReadCallbackArgs;
-
-    callback_t mIndexWriteCallback;
-    void* mIndexWriteCallbackArgs;
-
     uint32_t read(int offset) { return mIndexReadCallback(0, offset, mIndexReadCallbackArgs); }
     void write(int offset, uint32_t value) { (void)mIndexWriteCallback(value, offset, mIndexWriteCallbackArgs); }
 #endif /* CXX_SIMULATOR */

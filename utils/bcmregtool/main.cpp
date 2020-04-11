@@ -435,7 +435,7 @@ int main(int argc, char const *argv[])
     if (options.is_set("pc"))
     {
         uint32_t pc = stoi(options["pc"], nullptr, 0);
-        cout << "Updating PC to " << std::hex << pc << endl;
+        cout << "Updating PC to 0x" << std::hex << pc << std::setbase(0) << endl;
         RegDEVICERxRiscMode_t mode;
         mode.r32 = 0;
         mode.bits.Halt = 1;

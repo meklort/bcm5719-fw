@@ -164,7 +164,11 @@ bool NVRam_releaseAllLocks(void)
     return true;
 }
 
+#ifdef CXX_SIMULATOR
+static uint32_t NVRam_readWordInternal(uint32_t address, RegNVMCommand_t &cmd)
+#else
 static uint32_t NVRam_readWordInternal(uint32_t address, RegNVMCommand_t cmd)
+#endif
 {
     address = NVRam_translate(address);
 
@@ -181,7 +185,12 @@ static uint32_t NVRam_readWordInternal(uint32_t address, RegNVMCommand_t cmd)
 
     return ntohl(NVM.Read.r32);
 }
+
+#ifdef CXX_SIMULATOR
+static void NVRam_writeWordInternal(uint32_t address, uint32_t data, RegNVMCommand_t &cmd)
+#else
 static void NVRam_writeWordInternal(uint32_t address, uint32_t data, RegNVMCommand_t cmd)
+#endif
 {
     address = NVRam_translate(address);
 

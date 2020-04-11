@@ -57,7 +57,7 @@
 #define volatile
 typedef uint64_t    mii_reg_t;
 #else
-typedef uint8_t     mii_reg_t;
+typedef uint16_t    mii_reg_t;
 #endif
 
 /**

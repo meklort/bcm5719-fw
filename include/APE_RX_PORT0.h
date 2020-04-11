@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2018, Evan Lojewski
+/// @copyright Copyright (c) 2020, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -143,7 +143,14 @@ typedef struct RX_PORT_t {
     RegRX_PORTIn_t In[4096];
 
 #ifdef CXX_SIMULATOR
-    RX_PORT_t()
+    typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);
+    callback_t mIndexReadCallback;
+    void* mIndexReadCallbackArgs;
+
+    callback_t mIndexWriteCallback;
+    void* mIndexWriteCallbackArgs;
+
+    RX_PORT_t() : mIndexReadCallback(0), mIndexReadCallbackArgs(0), mIndexWriteCallback(0), mIndexWriteCallbackArgs(0)
     {
         for(int i = 0; i < 4096; i++)
         {
@@ -157,13 +164,6 @@ typedef struct RX_PORT_t {
             In[i].print();
         }
     }
-    typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);
-    callback_t mIndexReadCallback;
-    void* mIndexReadCallbackArgs;
-
-    callback_t mIndexWriteCallback;
-    void* mIndexWriteCallbackArgs;
-
     uint32_t read(int offset) { return mIndexReadCallback(0, offset, mIndexReadCallbackArgs); }
     void write(int offset, uint32_t value) { (void)mIndexWriteCallback(value, offset, mIndexWriteCallbackArgs); }
 #endif /* CXX_SIMULATOR */

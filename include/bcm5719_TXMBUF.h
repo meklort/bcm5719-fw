@@ -112,7 +112,14 @@ typedef struct TXMBUF_t {
     RegTXMBUFWord_t Word[7424];
 
 #ifdef CXX_SIMULATOR
-    TXMBUF_t()
+    typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);
+    callback_t mIndexReadCallback;
+    void* mIndexReadCallbackArgs;
+
+    callback_t mIndexWriteCallback;
+    void* mIndexWriteCallbackArgs;
+
+    TXMBUF_t() : mIndexReadCallback(0), mIndexReadCallbackArgs(0), mIndexWriteCallback(0), mIndexWriteCallbackArgs(0)
     {
         for(int i = 0; i < 7424; i++)
         {
@@ -126,13 +133,6 @@ typedef struct TXMBUF_t {
             Word[i].print();
         }
     }
-    typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);
-    callback_t mIndexReadCallback;
-    void* mIndexReadCallbackArgs;
-
-    callback_t mIndexWriteCallback;
-    void* mIndexWriteCallbackArgs;
-
     uint32_t read(int offset) { return mIndexReadCallback(0, offset, mIndexReadCallbackArgs); }
     void write(int offset, uint32_t value) { (void)mIndexWriteCallback(value, offset, mIndexWriteCallbackArgs); }
 #endif /* CXX_SIMULATOR */

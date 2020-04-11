@@ -234,13 +234,11 @@ NetworkFrame_t gVersionFrame =
 typedef struct
 {
     bool selected;
-    int numChannels;
     NetworkPort_t *port[MAX_CHANNELS];
 } package_state_t;
 
 package_state_t gPackageState = {
     .selected = false,
-    .numChannels = NUM_CHANNELS,
     .port = {
         [0] = NULL,
     },
@@ -605,7 +603,7 @@ void handleNCSIFrame(NetworkFrame_t *frame)
     uint8_t command = frame->controlPacket.ControlPacketType;
     uint16_t payloadLength = frame->controlPacket.PayloadLength;
     ncsi_handler_t *handler = &gNCSIHandlers[command];
-    NetworkPort_t *port = ((ch >= gPackageState.numChannels) ? 0 : gPackageState.port[ch]);
+    NetworkPort_t *port = ((ch >= NUM_CHANNELS) ? 0 : gPackageState.port[ch]);
 
     if (handler->fn)
     {
@@ -634,7 +632,7 @@ void handleNCSIFrame(NetworkFrame_t *frame)
         }
         else
         {
-            if (ch >= gPackageState.numChannels)
+            if (ch >= NUM_CHANNELS)
             {
 
                 debug("[%x] Invalid channel: %d\n", command, ch);

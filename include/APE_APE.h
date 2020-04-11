@@ -2292,7 +2292,14 @@ typedef struct APE_t {
     RegAPETxToNetBufferRing_t TxToNetBufferRing3;
 
 #ifdef CXX_SIMULATOR
-    APE_t()
+    typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);
+    callback_t mIndexReadCallback;
+    void* mIndexReadCallbackArgs;
+
+    callback_t mIndexWriteCallback;
+    void* mIndexWriteCallbackArgs;
+
+    APE_t() : mIndexReadCallback(0), mIndexReadCallbackArgs(0), mIndexWriteCallback(0), mIndexWriteCallbackArgs(0)
     {
         Mode.r32.setComponentOffset(0x0);
         Status.r32.setComponentOffset(0x4);
@@ -2554,13 +2561,6 @@ typedef struct APE_t {
         TxToNetBufferReturn3.print();
         TxToNetBufferRing3.print();
     }
-    typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);
-    callback_t mIndexReadCallback;
-    void* mIndexReadCallbackArgs;
-
-    callback_t mIndexWriteCallback;
-    void* mIndexWriteCallbackArgs;
-
     uint32_t read(int offset) { return mIndexReadCallback(0, offset, mIndexReadCallbackArgs); }
     void write(int offset, uint32_t value) { (void)mIndexWriteCallback(value, offset, mIndexWriteCallbackArgs); }
 #endif /* CXX_SIMULATOR */

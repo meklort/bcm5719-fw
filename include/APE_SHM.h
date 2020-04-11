@@ -1723,7 +1723,14 @@ typedef struct SHM_t {
     RegSHMRcpuPrintfBuffer_t RcpuPrintfBuffer[372];
 
 #ifdef CXX_SIMULATOR
-    SHM_t()
+    typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);
+    callback_t mIndexReadCallback;
+    void* mIndexReadCallbackArgs;
+
+    callback_t mIndexWriteCallback;
+    void* mIndexWriteCallbackArgs;
+
+    SHM_t() : mIndexReadCallback(0), mIndexReadCallbackArgs(0), mIndexWriteCallback(0), mIndexWriteCallbackArgs(0)
     {
         SegSig.r32.setComponentOffset(0x0);
         ApeSegLength.r32.setComponentOffset(0x4);
@@ -1893,13 +1900,6 @@ typedef struct SHM_t {
             RcpuPrintfBuffer[i].print();
         }
     }
-    typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);
-    callback_t mIndexReadCallback;
-    void* mIndexReadCallbackArgs;
-
-    callback_t mIndexWriteCallback;
-    void* mIndexWriteCallbackArgs;
-
     uint32_t read(int offset) { return mIndexReadCallback(0, offset, mIndexReadCallbackArgs); }
     void write(int offset, uint32_t value) { (void)mIndexWriteCallback(value, offset, mIndexWriteCallbackArgs); }
 #endif /* CXX_SIMULATOR */
