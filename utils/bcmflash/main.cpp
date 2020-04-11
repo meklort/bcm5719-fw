@@ -42,9 +42,9 @@
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
 
-#include "../NVRam/bcm5719_NVM.h"
 #include "HAL.hpp"
 
+#include <../bcm5719_NVM.h>
 #include <NVRam.h>
 #include <OptionParser.h>
 #include <bcm5719_DEVICE.h>

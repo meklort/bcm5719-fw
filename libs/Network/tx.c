@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2019, Evan Lojewski
+/// @copyright Copyright (c) 2019-2020, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -242,7 +242,7 @@ static inline bool Network_TX_transmitPacket_internal(uint8_t *packet, uint32_t 
     // First block
     int32_t tail;
     int32_t first = tail = Network_TX_allocateBlock(port);
-    if (first <= 0)
+    if (first < 0)
     {
         // Error
         return false;
@@ -251,6 +251,11 @@ static inline bool Network_TX_transmitPacket_internal(uint8_t *packet, uint32_t 
     if (blocks > 1)
     {
         next_block = Network_TX_allocateBlock(port);
+        if (next_block < 0)
+        {
+            // TODO: Cleanup allocated blocks.
+            return false;
+        }
     }
     RegTX_PORTOut_t *block = (RegTX_PORTOut_t *)&port->tx_port->Out[TX_PORT_OUT_ALL_BLOCK_WORDS * first];
 
