@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2018, Evan Lojewski
+/// @copyright Copyright (c) 2020, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -189,11 +189,19 @@ void init_bcm5719_DEVICE(void)
 
     /** @brief Bitmap for @ref DEVICE_t.RxRiscStatus. */
 
+    /** @brief Bitmap for @ref DEVICE_t.RxRiscEventMask. */
+
     /** @brief Bitmap for @ref DEVICE_t.RxRiscProgramCounter. */
 
     /** @brief Bitmap for @ref DEVICE_t.RxRiscCurrentInstruction. */
 
+    /** @brief Bitmap for @ref DEVICE_t.RxRiscInterruptEnable. */
+
+    /** @brief Bitmap for @ref DEVICE_t.RxRiscInterruptVector. */
+
     /** @brief Bitmap for @ref DEVICE_t.RxRiscHardwareBreakpoint. */
+
+    /** @brief Bitmap for @ref DEVICE_t.RxRiscLastBranchAddress. */
 
     /** @brief Bitmap for @ref DEVICE_t.RxRiscRegister0. */
 
