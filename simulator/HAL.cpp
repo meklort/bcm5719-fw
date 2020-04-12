@@ -184,7 +184,7 @@ static char* locate_pci_path(int wanted_function)
             {
                 pci_config_t config;
 
-                if (fread(&config, sizeof(config), 1, pConfigFile))
+                if (1 == fread(&config, sizeof(config), 1, pConfigFile))
                 {
                     if (is_supported(config.vendor_id, config.device_id))
                     {
@@ -240,8 +240,11 @@ bool initHAL(const char *pci_path, int wanted_function)
     }
 
     pci_config_t config;
+    size_t read_count = fread(&config, sizeof(config), 1, pConfigFile);
 
-    if (fread(&config, sizeof(config), 1, pConfigFile))
+    fclose(pConfigFile);
+
+    if (1 == read_count)
     {
         if (is_supported(config.vendor_id, config.device_id))
         {
@@ -255,7 +258,7 @@ bool initHAL(const char *pci_path, int wanted_function)
                 if ((memfd = open(pBARPath, O_RDWR | O_SYNC)) < 0)
                 {
                     printf("Error opening %s file. \n", pBARPath);
-                    close(memfd);
+
                     if(located_pci_path)
                     {
                         free(located_pci_path);
@@ -274,6 +277,9 @@ bool initHAL(const char *pci_path, int wanted_function)
                     {
                         free(located_pci_path);
                     }
+
+                    close(memfd);
+
                     return false;
                 }
 
@@ -287,6 +293,9 @@ bool initHAL(const char *pci_path, int wanted_function)
                     {
                         free(located_pci_path);
                     }
+
+                    close(memfd);
+
                     return false;
                 }
 
@@ -296,6 +305,16 @@ bool initHAL(const char *pci_path, int wanted_function)
                 }
             }
         }
+    }
+    else
+    {
+        // Unable to read configuration. Exit.
+        if(located_pci_path)
+        {
+            free(located_pci_path);
+        }
+
+        return false;
     }
 
     if(located_pci_path)

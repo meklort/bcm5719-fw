@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2018, Evan Lojewski
+/// @copyright Copyright (c) 2020, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -1644,7 +1644,14 @@ typedef struct GEN_t {
     RegGENGenDbgData_t GenDbgData;
 
 #ifdef CXX_SIMULATOR
-    GEN_t()
+    typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);
+    callback_t mIndexReadCallback;
+    void* mIndexReadCallbackArgs;
+
+    callback_t mIndexWriteCallback;
+    void* mIndexWriteCallbackArgs;
+
+    GEN_t() : mIndexReadCallback(0), mIndexReadCallbackArgs(0), mIndexWriteCallback(0), mIndexWriteCallbackArgs(0)
     {
         GenFwMbox.r32.setComponentOffset(0x0);
         GenDataSig.r32.setComponentOffset(0x4);
@@ -1776,13 +1783,6 @@ typedef struct GEN_t {
         GenDbgControlStatus.print();
         GenDbgData.print();
     }
-    typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);
-    callback_t mIndexReadCallback;
-    void* mIndexReadCallbackArgs;
-
-    callback_t mIndexWriteCallback;
-    void* mIndexWriteCallbackArgs;
-
     uint32_t read(int offset) { return mIndexReadCallback(0, offset, mIndexReadCallbackArgs); }
     void write(int offset, uint32_t value) { (void)mIndexWriteCallback(value, offset, mIndexWriteCallbackArgs); }
 #endif /* CXX_SIMULATOR */

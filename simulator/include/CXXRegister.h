@@ -134,13 +134,17 @@ public:
     {
         const char* name = mName;
         char addr_str[16];
+
         if(!name)
         {
             snprintf(addr_str, sizeof(addr_str), "0x%X", mComponentOffset);
             name = addr_str;
         }
+
         unsigned int masked = (value & mMask) >> mBitPosition;
         const char* enumstr = getEnum(masked);
+        std::ios::fmtflags fmt(std::cout.flags());
+
         if (indent)
         {
             std::cout << std::right << std::setw(35) << name << ": 0x"
@@ -152,10 +156,14 @@ public:
                       << std::left << std::setw(36) << name << " 0x"
                       << std::hex << masked;
         }
+
+        std::cout.flags(fmt);
+
         if(enumstr)
         {
             std::cout << " (" << enumstr << ")";
         }
+
         std::cout << std::endl;
     }
 
@@ -359,15 +367,13 @@ private:
     }
 
 public:
-    CXXRegister() : CXXRegisterBase(OFFSET, WIDTH)
+    CXXRegister() : CXXRegisterBase(OFFSET, WIDTH), mValue(0), mTempValue(0)
     {
-        mValue = 0;
     }
 
-    CXXRegister(T val) : CXXRegisterBase(OFFSET, WIDTH)
+    CXXRegister(T val) : CXXRegisterBase(OFFSET, WIDTH), mValue(val), mTempValue(0)
     {
         // Manually instantiated. FIXME.
-        mValue = val;
     }
 
     void installReadCallback(callback_t callback, void *args)

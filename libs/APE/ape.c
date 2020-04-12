@@ -57,7 +57,7 @@ void APE_aquireLock(void)
     uint8_t function = DEVICE.Status.bits.FunctionNumber;
     switch (function)
     {
-        default:
+        default: /* fallthrough */
         case 0:
             APE_PERI.PerLockRequestPhy0.r32 = lock_req.r32;
             do
@@ -105,18 +105,22 @@ void APE_releaseLock(void)
     uint8_t function = DEVICE.Status.bits.FunctionNumber;
     switch (function)
     {
-        default:
+        default: /* fallthrough */
         case 0:
             APE_PERI.PerLockGrantPhy0.r32 = lock_release.r32;
+            break;
 
         case 1:
             APE_PERI.PerLockGrantPhy1.r32 = lock_release.r32;
+            break;
 
         case 2:
             APE_PERI.PerLockGrantPhy2.r32 = lock_release.r32;
+            break;
 
         case 3:
             APE_PERI.PerLockGrantPhy3.r32 = lock_release.r32;
+            break;
     }
 }
 

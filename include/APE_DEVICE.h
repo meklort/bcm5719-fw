@@ -9763,7 +9763,14 @@ typedef struct DEVICE_t {
     RegDEVICE7c04_t _7c04;
 
 #ifdef CXX_SIMULATOR
-    DEVICE_t()
+    typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);
+    callback_t mIndexReadCallback;
+    void* mIndexReadCallbackArgs;
+
+    callback_t mIndexWriteCallback;
+    void* mIndexWriteCallbackArgs;
+
+    DEVICE_t() : mIndexReadCallback(0), mIndexReadCallbackArgs(0), mIndexWriteCallback(0), mIndexWriteCallbackArgs(0)
     {
         for(int i = 0; i < 26; i++)
         {
@@ -10487,13 +10494,6 @@ typedef struct DEVICE_t {
         }
         _7c04.print();
     }
-    typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);
-    callback_t mIndexReadCallback;
-    void* mIndexReadCallbackArgs;
-
-    callback_t mIndexWriteCallback;
-    void* mIndexWriteCallbackArgs;
-
     uint32_t read(int offset) { return mIndexReadCallback(0, offset, mIndexReadCallbackArgs); }
     void write(int offset, uint32_t value) { (void)mIndexWriteCallback(value, offset, mIndexWriteCallbackArgs); }
 #endif /* CXX_SIMULATOR */
