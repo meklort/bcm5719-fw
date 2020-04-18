@@ -127,7 +127,22 @@ uint32_t get_bar_addr(uint32_t bar)
 }
 
 #define MAX_NUM_BARS 8
-uint8_t *bar[MAX_NUM_BARS] = {0};
+static uint8_t *bar[MAX_NUM_BARS] = {0};
+static size_t  barlen[MAX_NUM_BARS];
+
+
+static void unmap_bars()
+{
+    for(int i = 0; i < ARRAY_ELEMENTS(bar); i++)
+    {
+        if(bar[i] && barlen[i])
+        {
+            munmap(bar[i], barlen[i]);
+            bar[i] = 0;
+            barlen[i] = 0;
+        }
+    }
+}
 
 uint32_t read_device_chipid(uint32_t)
 {
@@ -153,9 +168,8 @@ bool is_pci_function(const char *pci_path, int wanted_function)
     return false;
 }
 
-static char* locate_pci_path(int wanted_function)
+static void locate_pci_path(int wanted_function, string &pci_path)
 {
-    char* pci_path = NULL;
     struct dirent *pDirent;
     DIR *pDir;
 
@@ -163,17 +177,19 @@ static char* locate_pci_path(int wanted_function)
     if (pDir == NULL)
     {
         printf("Cannot open directory '%s'\n", DEVICE_ROOT);
-        return NULL;
+        return;
     }
 
-    while ((pDirent = readdir(pDir)) != NULL && NULL == pci_path)
+    while ((pDirent = readdir(pDir)) != NULL && pci_path.empty())
     {
         const char *pPCIPath = pDirent->d_name;
+
         if (is_pci_function(pDirent->d_name, wanted_function))
         {
             string configPath;
             configPath = string(DEVICE_ROOT) + pPCIPath + "/" + DEVICE_CONFIG;
             const char* pConfigPath = configPath.c_str();
+
             // This is the primary function of a device.
             // Read the configuration and see if it matches a supported
             // vendor/device.
@@ -188,27 +204,24 @@ static char* locate_pci_path(int wanted_function)
                 {
                     if (is_supported(config.vendor_id, config.device_id))
                     {
-                        pci_path = (char *)malloc(
-                            strlen(DEVICE_ROOT "%s/") + strlen(pPCIPath) + 1);
-                        sprintf(pci_path, DEVICE_ROOT "%s/", pPCIPath);
+                        pci_path = string(DEVICE_ROOT) + "/" + pPCIPath;
                     }
                 }
+
                 fclose(pConfigFile);
             }
 
         }
     }
-    closedir(pDir);
 
-    return pci_path;
+    closedir(pDir);
 }
 
 
 bool initHAL(const char *pci_path, int wanted_function)
 {
-    char* located_pci_path = NULL;
     struct stat st;
-    int memfd;
+    string located_pci_path;
 
     if(RUNNING_ON_VALGRIND)
     {
@@ -218,17 +231,20 @@ bool initHAL(const char *pci_path, int wanted_function)
 
     if(!pci_path)
     {
-        // Let's 
-        located_pci_path = locate_pci_path(wanted_function);
-        pci_path = located_pci_path;
-        if(!located_pci_path)
+        // Locate the first PCI device.
+        locate_pci_path(wanted_function, located_pci_path);
+        if(located_pci_path.empty())
         {
             fprintf(stderr, "Unable to find supported PCI device\n");
             return false;
         }
     }
+    else
+    {
+        located_pci_path  = pci_path;
+    }
 
-    string configPath = string(pci_path) + string("/") + string(DEVICE_CONFIG);
+    string configPath = located_pci_path + "/" + DEVICE_CONFIG;
     const char* pConfigPath = configPath.c_str();
 
     FILE *pConfigFile = fopen(pConfigPath, "rb");
@@ -236,7 +252,8 @@ bool initHAL(const char *pci_path, int wanted_function)
     if(!pConfigFile)
     {
         fprintf(stderr, "Unable to open PCI configuration %p\n", pConfigPath);
-        exit(-1);
+
+        return false;
     }
 
     pci_config_t config;
@@ -244,82 +261,65 @@ bool initHAL(const char *pci_path, int wanted_function)
 
     fclose(pConfigFile);
 
-    if (1 == read_count)
+    if (1 != read_count)
     {
-        if (is_supported(config.vendor_id, config.device_id))
-        {
-            printf("Found supported device %x:%x at %s\n", config.vendor_id,
-                   config.device_id, configPath.c_str());
-            for (unsigned int i = 0; i < ARRAY_ELEMENTS(config.BAR); i++)
-            {
-                string BARPath = string(pci_path) + "/" BAR_STR + to_string(i);
-                const char* pBARPath = BARPath.c_str();
-
-                if ((memfd = open(pBARPath, O_RDWR | O_SYNC)) < 0)
-                {
-                    printf("Error opening %s file. \n", pBARPath);
-
-                    if(located_pci_path)
-                    {
-                        free(located_pci_path);
-                    }
-                    return false;
-                }
-                else
-                {
-                    printf("mmaping BAR[%d]: %s\n", i, pBARPath);
-                }
-
-                if (fstat(memfd, &st) < 0)
-                {
-                    fprintf(stderr, "error: couldn't stat file\n");
-                    if(located_pci_path)
-                    {
-                        free(located_pci_path);
-                    }
-
-                    close(memfd);
-
-                    return false;
-                }
-
-                bar[i] = (uint8_t *)mmap(0, st.st_size, PROT_READ | PROT_WRITE,
-                                         MAP_SHARED, memfd, 0); // PROT_WRITE
-                if (bar[i] == MAP_FAILED)
-                {
-                    printf("Unable to mmap %s: %s\n", pBARPath,
-                           strerror(errno));
-                    if(located_pci_path)
-                    {
-                        free(located_pci_path);
-                    }
-
-                    close(memfd);
-
-                    return false;
-                }
-
-                if (is_bar_64bit(config.BAR[i]))
-                {
-                    i++;
-                }
-            }
-        }
-    }
-    else
-    {
-        // Unable to read configuration. Exit.
-        if(located_pci_path)
-        {
-            free(located_pci_path);
-        }
-
         return false;
     }
 
-    if(located_pci_path)
+    if (is_supported(config.vendor_id, config.device_id))
     {
-        free(located_pci_path);
+        printf("Found supported device %x:%x at %s\n", config.vendor_id,
+                config.device_id, configPath.c_str());
+
+        for (unsigned int i = 0; i < ARRAY_ELEMENTS(config.BAR); i++)
+        {
+            int memfd;
+            string BARPath = string(located_pci_path) + "/" BAR_STR + to_string(i);
+            const char* pBARPath = BARPath.c_str();
+
+            if ((memfd = open(pBARPath, O_RDWR | O_SYNC)) < 0)
+            {
+                printf("Error opening %s file. \n", pBARPath);
+
+                unmap_bars();
+
+                return false;
+            }
+            else
+            {
+                printf("mmaping BAR[%d]: %s\n", i, pBARPath);
+            }
+
+            if (fstat(memfd, &st) < 0)
+            {
+                fprintf(stderr, "error: couldn't stat file\n");
+
+                unmap_bars();
+                close(memfd);
+
+                return false;
+            }
+
+            bar[i] = (uint8_t *)mmap(0, st.st_size, PROT_READ | PROT_WRITE,
+                                        MAP_SHARED, memfd, 0); // PROT_WRITE
+            barlen[i] = st.st_size;
+            close(memfd);
+
+            if (bar[i] == MAP_FAILED)
+            {
+                printf("Unable to mmap %s: %s\n", pBARPath,
+                        strerror(errno));
+
+                unmap_bars();
+
+                return false;
+            }
+
+            if (is_bar_64bit(config.BAR[i]))
+            {
+                i++;
+            }
+        }
     }
 
     uint8_t *DEVICEBase = gDEVICEBase = (uint8_t *)bar[0];
