@@ -179,27 +179,42 @@ bool Network_PassthroughRxPatcket(NetworkPort_t *port)
                 words--;
             }
 
-            // Wait for enough free space.
-            while (APE_PERI.BmcToNcTxStatus.bits.InFifo < words)
-                ;
-
             if (control.bits.not_last)
             {
                 for (i = 0; i < words; i++)
                 {
+                    while (0 == APE_PERI.BmcToNcTxStatus.bits.InFifo)
+                        ;
                     APE_PERI.BmcToNcTxBuffer.r32 = block[i + offset].r32;
                 }
             }
             else
             {
+                RegAPE_PERIBmcToNcTxControl_t ctrl;
+                ctrl.r32 = 0;
+                ctrl.bits.LastByteCount = control.bits.payload_length % sizeof(uint32_t);
+                APE_PERI.BmcToNcTxControl.r32 = ctrl.r32;
+
                 for (i = 0; i < words - 1; i++)
                 {
+                    while (0 == APE_PERI.BmcToNcTxStatus.bits.InFifo)
+                        ;
                     APE_PERI.BmcToNcTxBuffer.r32 = block[i + offset].r32;
                 }
 
                 // Last word to send.
-                APE_PERI.BmcToNcTxControl.r32 = control.bits.payload_length % sizeof(uint32_t);
-                APE_PERI.BmcToNcTxBufferLast.r32 = block[i + offset].r32;
+                while (0 == APE_PERI.BmcToNcTxStatus.bits.InFifo)
+                    ;
+                if (0 == control.bits.payload_length % sizeof(uint32_t))
+                {
+                    // Last word
+                    APE_PERI.BmcToNcTxBuffer.r32 = block[i + offset].r32;
+                    APE_PERI.BmcToNcTxBufferLast.r32 = 0;
+                }
+                else
+                {
+                    APE_PERI.BmcToNcTxBufferLast.r32 = block[i + offset].r32;
+                }
 
                 // Ignore last word - drop the FCS.
                 // data = block[i + offset + 1].r32;
