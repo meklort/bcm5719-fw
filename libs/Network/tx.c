@@ -94,7 +94,7 @@ int32_t __attribute__((noinline)) Network_TX_allocateBlock(NetworkPort_t *port)
     RegAPETxToNetBufferAllocator_t status;
     do
     {
-        status = *((RegAPETxToNetBufferAllocator_t *)port->tx_allocator);
+        status = *port->tx_allocator;
     } while (APE_TX_TO_NET_BUFFER_ALLOCATOR_STATE_PROCESSING == status.bits.State);
 
     if (APE_TX_TO_NET_BUFFER_ALLOCATOR_STATE_ALLOCATION_OK != status.bits.State)
