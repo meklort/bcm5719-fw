@@ -179,12 +179,13 @@ bool Network_PassthroughRxPatcket(NetworkPort_t *port)
                 words--;
             }
 
+            while (APE_PERI.BmcToNcTxStatus.bits.InFifo < words)
+                ;
+
             if (control.bits.not_last)
             {
                 for (i = 0; i < words; i++)
                 {
-                    while (0 == APE_PERI.BmcToNcTxStatus.bits.InFifo)
-                        ;
                     APE_PERI.BmcToNcTxBuffer.r32 = block[i + offset].r32;
                 }
             }
@@ -197,14 +198,10 @@ bool Network_PassthroughRxPatcket(NetworkPort_t *port)
 
                 for (i = 0; i < words - 1; i++)
                 {
-                    while (0 == APE_PERI.BmcToNcTxStatus.bits.InFifo)
-                        ;
                     APE_PERI.BmcToNcTxBuffer.r32 = block[i + offset].r32;
                 }
 
                 // Last word to send.
-                while (0 == APE_PERI.BmcToNcTxStatus.bits.InFifo)
-                    ;
                 if (0 == control.bits.payload_length % sizeof(uint32_t))
                 {
                     // Last word
