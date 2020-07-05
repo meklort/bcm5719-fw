@@ -285,11 +285,15 @@ static void clearInitialStateHandler(NetworkFrame_t *frame)
 {
     int ch = frame->controlPacket.ChannelID & CHANNEL_ID_MASK;
 
-    gPackageState.port[ch]->shm_channel->NcsiChannelInfo.bits.Ready = true;
-    debug("Clear initial state: channel %x\n", ch);
+    // Only send a response if this channel exists.
+    if (ch < NUM_CHANNELS)
+    {
+        gPackageState.port[ch]->shm_channel->NcsiChannelInfo.bits.Ready = true;
+        debug("Clear initial state: channel %x\n", ch);
 
-    sendNCSIResponse(frame->controlPacket.InstanceID, frame->controlPacket.ChannelID, frame->controlPacket.ControlPacketType,
-                     NCSI_RESPONSE_CODE_COMMAND_COMPLETE, NCSI_REASON_CODE_NONE);
+        sendNCSIResponse(frame->controlPacket.InstanceID, frame->controlPacket.ChannelID, frame->controlPacket.ControlPacketType,
+                         NCSI_RESPONSE_CODE_COMMAND_COMPLETE, NCSI_REASON_CODE_NONE);
+    }
 }
 
 static void selectPackageHandler(NetworkFrame_t *frame)
@@ -617,7 +621,7 @@ void handleNCSIFrame(NetworkFrame_t *frame)
                              NCSI_RESPONSE_CODE_COMMAND_FAILED, NCSI_REASON_CODE_INVALID_PAYLOAD_LENGTH);
         }
         else if ((handler->packageCommand && ch == CHANNEL_ID_PACKAGE) || // Package commands are always accepted.
-                 (handler->ignoreInit && ch < NUM_CHANNELS))
+                 (handler->ignoreInit))
         {
             // Package command. Must handle.
             debug("[%x] packageCommand/ignore init channel: %d\n", command, ch);
