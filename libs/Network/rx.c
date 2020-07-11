@@ -179,8 +179,34 @@ bool Network_PassthroughRxPatcket(NetworkPort_t *port)
                 words--;
             }
 
-            while (APE_PERI.BmcToNcTxStatus.bits.InFifo < words)
-                ;
+            if (control.bits.first && APE_PERI.BmcToNcTxStatus.bits.InFifo < words)
+            {
+                // Not enough space in the fifo.
+                // Exit and check back next loop - after the network has been reset if needed.
+                return false;
+            }
+            else
+            {
+                // This can hang durning network reconfiguration events.
+                // Timeout if no packets are draining - recovery code outside of this block will handle it.
+                int max_loops = 0x10000;
+                while (APE_PERI.BmcToNcTxStatus.bits.InFifo < words && --max_loops)
+                {
+                    // TODO: This should check for a network problem and exit if that is the case.
+                }
+
+                if (!max_loops)
+                {
+                    printf("Error waiting for fifo space. Network may be down.");
+                    // Drop all packets that remain and exit.
+                    retire.bits.Head = blockid;
+                    retire.bits.Tail = rxbuf.bits.Tail;
+                    *((RegAPERxPoolRetire_t *)port->rx_retire) = retire;
+
+                    // Tell the hardware that there are no more bytes to send.
+                    APE_PERI.BmcToNcTxBufferLast.r32 = 0;
+                }
+            }
 
             if (control.bits.not_last)
             {
