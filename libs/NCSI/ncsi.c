@@ -69,7 +69,7 @@
 uint8_t gPackageID = ((0 << PACKAGE_ID_SHIFT) | CHANNEL_ID_PACKAGE);
 
 // Response frame - global and usable by one thread at a time only.
-NetworkFrame_t gResponseFrame = 
+NetworkFrame_t gResponseFrame =
 {
     .responsePacket = {
         .DestinationAddress = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF},
@@ -717,8 +717,14 @@ void NCSI_TxPacket(uint32_t *packet, uint32_t packet_len)
     txControl.bits.LastByteCount = packet_len; /* 2 bits - automatically rounded. */
 
     // Wait for enough free space.
-    while (APE_PERI.BmcToNcTxStatus.bits.InFifo < packetWords)
+    int max_loops = 0x10000;
+    while (APE_PERI.BmcToNcTxStatus.bits.InFifo < packetWords && --max_loops)
+        ;
+
+    if (!max_loops)
     {
+        printf("Error waiting for fifo space. Dropping NCSI packet.");
+        return;
     }
 
     // Transmit.
