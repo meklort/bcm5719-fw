@@ -54,12 +54,6 @@
 #include <APE_SHM_CHANNEL0.h>
 #include <types.h>
 
-#ifdef CXX_SIMULATOR
-#define VOLATILE
-#else
-#define VOLATILE volatile
-#endif
-
 typedef struct
 {
     /* Port Registers */
