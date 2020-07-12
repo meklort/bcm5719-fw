@@ -28,7 +28,7 @@ ninja install
 ```
 
 ## Status
-The current version of teh code is functional and is able to handle network traffic over NC-SI
+The current version of the code is functional and is able to handle network traffic over NC-SI
   - Libraries:
     - MII Library: Done
     - NVRAM Library: Done   
