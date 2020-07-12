@@ -69,7 +69,7 @@ Before proceeding, the original firmware should be backed up.
 cd build
 sudo ./utils/bcmflash/bcmflash -t hardware -b binary
 ```
-This will result in a firmware image, firmware.fw, bing stored in the current directory.
+This will result in a firmware image, firmware.fw, being stored in the current directory.
 
 ### Stage 1 - MIPS Firmware
 After compilation, the MIPS firmware is ready to be uploaded to the NIC.
