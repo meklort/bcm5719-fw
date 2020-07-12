@@ -59,12 +59,37 @@ def build(nodeName)
 {
     node(nodeName)
     {
+        cleanWs()
+        def URL = ''
+        def REFSPEC = '+refs/heads/*:refs/remotes/origin/*'
+        try {
+            URL = GITHUB_REPO_GIT_URL
+        }
+        catch (exc)
+        {
+            URL = 'git://github.com/meklort/bcm5719-fw.git'
+        }
+        def HASH = ''
+        try {
+            HASH = GITHUB_BRANCH_HEAD_SHA
+        }
+        catch (exc)
+        {
+            try {
+                HASH = GITHUB_PR_HEAD_SHA
+                REFSPEC = '+refs/pull/*:refs/remotes/origin/pr/*'
+            }
+            catch (exc2)
+            {
+                HASH = '**'
+            }
+        }
         stage('checkout')
         {
             checkout(
-                [$class: 'GitSCM', branches: [[name: '**']],
+                [$class: 'GitSCM', branches: [[name: HASH]],
                                 browser: [$class: 'GithubWeb',
-                                repoUrl: 'https://github.com/'],
+                                repoUrl: 'https://github.com/meklort/bcm5719-fw/'],
                                 doGenerateSubmoduleConfigurations: false,
                                 extensions: [
                                     [$class: 'SubmoduleOption',
@@ -74,7 +99,11 @@ def build(nodeName)
                                             reference: '',
                                             trackingSubmodules: false]],
                                 submoduleCfg: [],
-                                userRemoteConfigs: [[url: 'https://github.com/meklort/bcm5719-fw.git']]])
+                                userRemoteConfigs: [[
+                                    url: URL,
+                                    refspec: REFSPEC
+                                ]]
+            ])
         }
 
         stage('build')
