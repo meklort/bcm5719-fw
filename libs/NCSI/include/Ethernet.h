@@ -47,7 +47,7 @@
 
 #include <types.h>
 
-#define ETHERNET_FRAME_MIN      64
+#define ETHERNET_FRAME_MIN      (64 - 4) /* Hardware automatically adds FCS (last 4 bytes) */
 
 typedef struct
 {

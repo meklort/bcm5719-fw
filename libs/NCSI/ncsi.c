@@ -461,7 +461,7 @@ static void getCapabilities(NetworkFrame_t *frame)
 {
     int ch = frame->controlPacket.ChannelID & CHANNEL_ID_MASK;
     // NetworkPort_t *port = gPackageState.port[ch];
-    uint32_t packetSize = MAX(sizeof(gCapabilitiesFrame.capabilities), ETHERNET_FRAME_MIN - 4);
+    uint32_t packetSize = MAX(sizeof(gCapabilitiesFrame.capabilities), ETHERNET_FRAME_MIN);
 
     gCapabilitiesFrame.capabilities.ChannelID = ch;
     gCapabilitiesFrame.capabilities.ControlPacketType = frame->controlPacket.ControlPacketType | CONTROL_PACKET_TYPE_RESPONSE;
@@ -477,7 +477,7 @@ static void getVersionID(NetworkFrame_t *frame)
     int ch = frame->controlPacket.ChannelID & CHANNEL_ID_MASK;
     NetworkPort_t *port = gPackageState.port[ch];
     DEVICE_t *device = (DEVICE_t *)port->device;
-    uint32_t packetSize = MAX(sizeof(gVersionFrame.version), ETHERNET_FRAME_MIN - 4);
+    uint32_t packetSize = MAX(sizeof(gVersionFrame.version), ETHERNET_FRAME_MIN);
 
     gVersionFrame.version.ChannelID = ch;
     gVersionFrame.version.ControlPacketType = frame->controlPacket.ControlPacketType | CONTROL_PACKET_TYPE_RESPONSE;
@@ -746,7 +746,7 @@ void NCSI_TxPacket(uint32_t *packet, uint32_t packet_len)
 }
 void sendNCSILinkStatusResponse(uint8_t InstanceID, uint8_t channelID, uint32_t LinkStatus, uint32_t OEMLinkStatus, uint32_t OtherIndications)
 {
-    uint32_t packetSize = MAX(sizeof(gLinkStatusResponseFrame.linkStatusResponse), ETHERNET_FRAME_MIN - 4);
+    uint32_t packetSize = MAX(sizeof(gLinkStatusResponseFrame.linkStatusResponse), ETHERNET_FRAME_MIN);
 
     gLinkStatusResponseFrame.linkStatusResponse.ChannelID = channelID;
     gLinkStatusResponseFrame.linkStatusResponse.InstanceID = InstanceID;
@@ -765,7 +765,7 @@ void sendNCSILinkStatusResponse(uint8_t InstanceID, uint8_t channelID, uint32_t 
 
 void sendNCSIResponse(uint8_t InstanceID, uint8_t channelID, uint16_t controlID, uint16_t response_code, uint16_t reasons_code)
 {
-    uint32_t packetSize = MAX(sizeof(gResponseFrame.responsePacket), ETHERNET_FRAME_MIN - 4);
+    uint32_t packetSize = MAX(sizeof(gResponseFrame.responsePacket), ETHERNET_FRAME_MIN);
 
     gResponseFrame.responsePacket.ChannelID = channelID;
     gResponseFrame.responsePacket.ControlPacketType = controlID | CONTROL_PACKET_TYPE_RESPONSE;
