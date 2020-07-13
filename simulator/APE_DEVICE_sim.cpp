@@ -280,6 +280,10 @@ void init_APE_DEVICE_sim(void *arg0)
     DEVICE.LinkAwarePowerModeClockPolicy.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
     DEVICE.LinkAwarePowerModeClockPolicy.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
 
+    /** @brief Bitmap for @ref DEVICE_t.ApeClkPolicy. */
+    DEVICE.ApeClkPolicy.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
+    DEVICE.ApeClkPolicy.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+
     /** @brief Bitmap for @ref DEVICE_t.ApeSleepStateClockPolicy. */
     DEVICE.ApeSleepStateClockPolicy.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
     DEVICE.ApeSleepStateClockPolicy.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);

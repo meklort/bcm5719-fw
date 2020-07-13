@@ -353,11 +353,15 @@ void init_bcm5719_DEVICE_sim(void *base)
     DEVICE.LinkAwarePowerModeClockPolicy.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     DEVICE.LinkAwarePowerModeClockPolicy.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
-    for(int i = 0; i < 3; i++)
+    for(int i = 0; i < 2; i++)
     {
         DEVICE.reserved_13844[i].installReadCallback(read_from_ram, (uint8_t *)base);
         DEVICE.reserved_13844[i].installWriteCallback(write_to_ram, (uint8_t *)base);
     }
+    /** @brief Bitmap for @ref DEVICE_t.ApeClkPolicy. */
+    DEVICE.ApeClkPolicy.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    DEVICE.ApeClkPolicy.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
     /** @brief Bitmap for @ref DEVICE_t.ApeSleepStateClockPolicy. */
     DEVICE.ApeSleepStateClockPolicy.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     DEVICE.ApeSleepStateClockPolicy.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
