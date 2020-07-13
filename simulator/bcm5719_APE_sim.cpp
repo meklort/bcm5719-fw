@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2018, Evan Lojewski
+/// @copyright Copyright (c) 2020, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -118,10 +118,14 @@ void init_bcm5719_APE_sim(void *base)
     APE.TxState0.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     APE.TxState0.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
-    for(int i = 0; i < 2; i++)
+    /** @brief Bitmap for @ref APE_t.TxState1. */
+    APE.TxState1.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.TxState1.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    for(int i = 0; i < 1; i++)
     {
-        APE.reserved_36[i].installReadCallback(read_from_ram, (uint8_t *)base);
-        APE.reserved_36[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+        APE.reserved_40[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        APE.reserved_40[i].installWriteCallback(write_to_ram, (uint8_t *)base);
     }
     /** @brief Bitmap for @ref APE_t.Mode2. */
     APE.Mode2.r32.installReadCallback(read_from_ram, (uint8_t *)base);
@@ -288,10 +292,14 @@ void init_bcm5719_APE_sim(void *base)
     APE.TxToNetDoorbellFunc2.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     APE.TxToNetDoorbellFunc2.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
-    for(int i = 0; i < 3; i++)
+    /** @brief Bitmap for @ref APE_t.TxState2. */
+    APE.TxState2.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.TxState2.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    for(int i = 0; i < 2; i++)
     {
-        APE.reserved_520[i].installReadCallback(read_from_ram, (uint8_t *)base);
-        APE.reserved_520[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+        APE.reserved_524[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        APE.reserved_524[i].installWriteCallback(write_to_ram, (uint8_t *)base);
     }
     /** @brief Bitmap for @ref APE_t.RxPoolModeStatus2. */
     APE.RxPoolModeStatus2.r32.installReadCallback(read_from_ram, (uint8_t *)base);
@@ -334,10 +342,14 @@ void init_bcm5719_APE_sim(void *base)
     APE.TxToNetDoorbellFunc3.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     APE.TxToNetDoorbellFunc3.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
-    for(int i = 0; i < 3; i++)
+    /** @brief Bitmap for @ref APE_t.TxState3. */
+    APE.TxState3.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    APE.TxState3.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    for(int i = 0; i < 2; i++)
     {
-        APE.reserved_776[i].installReadCallback(read_from_ram, (uint8_t *)base);
-        APE.reserved_776[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+        APE.reserved_780[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        APE.reserved_780[i].installWriteCallback(write_to_ram, (uint8_t *)base);
     }
     /** @brief Bitmap for @ref APE_t.RxPoolModeStatus3. */
     APE.RxPoolModeStatus3.r32.installReadCallback(read_from_ram, (uint8_t *)base);

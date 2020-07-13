@@ -420,7 +420,8 @@
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>TX State0</ipxact:name>
-                    <ipxact:description>APE TX Status.</ipxact:description>
+                    <ipxact:typeIdentifier>TX State</ipxact:typeIdentifier>
+                    <ipxact:description>APE TX Status Port0</ipxact:description>
                     <ipxact:addressOffset>0x20</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
@@ -448,7 +449,24 @@
                         <ipxact:bitOffset>25</ipxact:bitOffset>
                         <ipxact:bitWidth>3</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <!-- LINK: enumeratedValue: see 6.11.10, Enumeration values -->
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Frame Length Mismatch</ipxact:name>
+                                <ipxact:value>1</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>MBuf Count Mismatch</ipxact:name>
+                                <ipxact:value>2</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
                     </ipxact:field>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>TX State1</ipxact:name>
+                    <ipxact:typeIdentifier>TX State</ipxact:typeIdentifier>
+                    <ipxact:description>APE TX State Port1</ipxact:description>
+                    <ipxact:addressOffset>0x24</ipxact:addressOffset>
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>MODE_2</ipxact:name>
@@ -1137,6 +1155,12 @@
                     <ipxact:addressOffset>0x204</ipxact:addressOffset>
                 </ipxact:register>
                 <ipxact:register>
+                    <ipxact:name>TX State2</ipxact:name>
+                    <ipxact:typeIdentifier>TX State</ipxact:typeIdentifier>
+                    <ipxact:description>APE TX State Port2</ipxact:description>
+                    <ipxact:addressOffset>0x208</ipxact:addressOffset>
+                </ipxact:register>
+                <ipxact:register>
                     <ipxact:name>RX Pool Mode Status 2</ipxact:name>
                     <ipxact:description></ipxact:description>
                     <ipxact:addressOffset>0x214</ipxact:addressOffset>
@@ -1189,6 +1213,12 @@
                     <ipxact:typeIdentifier>TX To Net Doorbell</ipxact:typeIdentifier>
                     <ipxact:description>Written on APE TX to network after filling 0xA002 buffer with packet.</ipxact:description>
                     <ipxact:addressOffset>0x304</ipxact:addressOffset>
+                </ipxact:register>
+                <ipxact:register>
+                    <ipxact:name>TX State3</ipxact:name>
+                    <ipxact:typeIdentifier>TX State</ipxact:typeIdentifier>
+                    <ipxact:description>APE TX State Port3</ipxact:description>
+                    <ipxact:addressOffset>0x308</ipxact:addressOffset>
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>RX Pool Mode Status 3</ipxact:name>
