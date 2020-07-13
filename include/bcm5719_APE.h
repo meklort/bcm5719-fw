@@ -721,7 +721,7 @@ typedef register_container RegAPETxToNetDoorbell_t {
 #endif /* CXX_SIMULATOR */
 } RegAPETxToNetDoorbell_t;
 
-#define REG_APE_TX_STATE0 ((volatile BCM5719_APE_H_uint32_t*)0xc0010020) /* APE TX Status. */
+#define REG_APE_TX_STATE0 ((volatile BCM5719_APE_H_uint32_t*)0xc0010020) /* APE TX Status Port0 */
 #define     APE_TX_STATE0_TAIL_SHIFT 0u
 #define     APE_TX_STATE0_TAIL_MASK  0xfffu
 #define GET_APE_TX_STATE0_TAIL(__reg__)  (((__reg__) & 0xfff) >> 0u)
@@ -738,9 +738,12 @@ typedef register_container RegAPETxToNetDoorbell_t {
 #define     APE_TX_STATE0_ERROR_CODE_MASK  0xe000000u
 #define GET_APE_TX_STATE0_ERROR_CODE(__reg__)  (((__reg__) & 0xe000000) >> 25u)
 #define SET_APE_TX_STATE0_ERROR_CODE(__val__)  (((__val__) << 25u) & 0xe000000u)
+#define     APE_TX_STATE_ERROR_CODE_FRAME_LENGTH_MISMATCH 0x1u
+#define     APE_TX_STATE_ERROR_CODE_MBUF_COUNT_MISMATCH 0x2u
+
 
 /** @brief Register definition for @ref APE_t.TxState0. */
-typedef register_container RegAPETxState0_t {
+typedef register_container RegAPETxState_t {
     /** @brief 32bit direct register access. */
     BCM5719_APE_H_uint32_t r32;
 
@@ -778,7 +781,7 @@ typedef register_container RegAPETxState0_t {
     /** @brief Print register value. */
     void print(void) { r32.print(); }
 
-    RegAPETxState0_t()
+    RegAPETxState_t()
     {
         /** @brief constructor for @ref APE_t.TxState0. */
         r32.setName("TxState0");
@@ -790,15 +793,19 @@ typedef register_container RegAPETxState0_t {
         bits.TXError.setName("TXError");
         bits.ErrorCode.setBaseRegister(&r32);
         bits.ErrorCode.setName("ErrorCode");
+        bits.ErrorCode.addEnum("Frame Length Mismatch", 0x1);
+        bits.ErrorCode.addEnum("MBuf Count Mismatch", 0x2);
+
     }
-    RegAPETxState0_t& operator=(const RegAPETxState0_t& other)
+    RegAPETxState_t& operator=(const RegAPETxState_t& other)
     {
         r32 = other.r32;
         return *this;
     }
 #endif /* CXX_SIMULATOR */
-} RegAPETxState0_t;
+} RegAPETxState_t;
 
+#define REG_APE_TX_STATE1 ((volatile BCM5719_APE_H_uint32_t*)0xc0010024) /* APE TX State Port1 */
 #define REG_APE_MODE_2 ((volatile BCM5719_APE_H_uint32_t*)0xc001002c) /* Expansion for MODE */
 #define     APE_MODE_2_CHANNEL_0_ENABLE_SHIFT 14u
 #define     APE_MODE_2_CHANNEL_0_ENABLE_MASK  0x4000u
@@ -2069,6 +2076,7 @@ typedef register_container RegAPECpuStatus_t {
 #define REG_APE_TX_TO_NET_DOORBELL_FUNC1 ((volatile BCM5719_APE_H_uint32_t*)0xc0010120) /* Written on APE TX to network after filling 0xA002 buffer with packet. */
 #define REG_APE_RXBUFOFFSET_FUNC2 ((volatile BCM5719_APE_H_uint32_t*)0xc0010200) /* This is examined on the APE Packet RX interrupt, and indicates the offset of an incoming (from-network) frame within the APE memory space, which provides access to the from-network RX buffer. */
 #define REG_APE_TX_TO_NET_DOORBELL_FUNC2 ((volatile BCM5719_APE_H_uint32_t*)0xc0010204) /* Written on APE TX to network after filling 0xA002 buffer with packet. */
+#define REG_APE_TX_STATE2 ((volatile BCM5719_APE_H_uint32_t*)0xc0010208) /* APE TX State Port2 */
 #define REG_APE_RX_POOL_MODE_STATUS_2 ((volatile BCM5719_APE_H_uint32_t*)0xc0010214) /*  */
 #define REG_APE_RX_POOL_RETIRE_2 ((volatile BCM5719_APE_H_uint32_t*)0xc0010218) /* Used to indicate when the APE is done with a region of the 0xA000_0000 RX pool buffer so that it can be used to receive another frame. */
 #define REG_APE_RX_POOL_FREE_POINTER_2 ((volatile BCM5719_APE_H_uint32_t*)0xc001021c) /*  */
@@ -2078,6 +2086,7 @@ typedef register_container RegAPECpuStatus_t {
 #define REG_APE_TX_TO_NET_BUFFER_RING_2 ((volatile BCM5719_APE_H_uint32_t*)0xc001022c) /*  */
 #define REG_APE_RXBUFOFFSET_FUNC3 ((volatile BCM5719_APE_H_uint32_t*)0xc0010300) /* This is examined on the APE Packet RX interrupt, and indicates the offset of an incoming (from-network) frame within the APE memory space, which provides access to the from-network RX buffer. */
 #define REG_APE_TX_TO_NET_DOORBELL_FUNC3 ((volatile BCM5719_APE_H_uint32_t*)0xc0010304) /* Written on APE TX to network after filling 0xA002 buffer with packet. */
+#define REG_APE_TX_STATE3 ((volatile BCM5719_APE_H_uint32_t*)0xc0010308) /* APE TX State Port3 */
 #define REG_APE_RX_POOL_MODE_STATUS_3 ((volatile BCM5719_APE_H_uint32_t*)0xc0010314) /*  */
 #define REG_APE_RX_POOL_RETIRE_3 ((volatile BCM5719_APE_H_uint32_t*)0xc0010318) /* Used to indicate when the APE is done with a region of the 0xA000_0000 RX pool buffer so that it can be used to receive another frame. */
 #define REG_APE_RX_POOL_FREE_POINTER_3 ((volatile BCM5719_APE_H_uint32_t*)0xc001031c) /*  */
@@ -2111,11 +2120,14 @@ typedef struct APE_t {
     /** @brief Written on APE TX to network after filling 0xA002 buffer with packet. */
     RegAPETxToNetDoorbell_t TxToNetDoorbellFunc0;
 
-    /** @brief APE TX Status. */
-    RegAPETxState0_t TxState0;
+    /** @brief APE TX Status Port0 */
+    RegAPETxState_t TxState0;
+
+    /** @brief APE TX State Port1 */
+    RegAPETxState_t TxState1;
 
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_APE_H_uint32_t reserved_36[2];
+    BCM5719_APE_H_uint32_t reserved_40[1];
 
     /** @brief Expansion for MODE */
     RegAPEMode2_t Mode2;
@@ -2234,8 +2246,11 @@ typedef struct APE_t {
     /** @brief Written on APE TX to network after filling 0xA002 buffer with packet. */
     RegAPETxToNetDoorbell_t TxToNetDoorbellFunc2;
 
+    /** @brief APE TX State Port2 */
+    RegAPETxState_t TxState2;
+
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_APE_H_uint32_t reserved_520[3];
+    BCM5719_APE_H_uint32_t reserved_524[2];
 
     /** @brief  */
     RegAPERxPoolModeStatus_t RxPoolModeStatus2;
@@ -2267,8 +2282,11 @@ typedef struct APE_t {
     /** @brief Written on APE TX to network after filling 0xA002 buffer with packet. */
     RegAPETxToNetDoorbell_t TxToNetDoorbellFunc3;
 
+    /** @brief APE TX State Port3 */
+    RegAPETxState_t TxState3;
+
     /** @brief Reserved bytes to pad out data structure. */
-    BCM5719_APE_H_uint32_t reserved_776[3];
+    BCM5719_APE_H_uint32_t reserved_780[2];
 
     /** @brief  */
     RegAPERxPoolModeStatus_t RxPoolModeStatus3;
@@ -2315,10 +2333,13 @@ typedef struct APE_t {
         RxbufoffsetFunc1.r32.setComponentOffset(0x18);
         TxToNetDoorbellFunc0.r32.setName("TxToNetDoorbellFunc0");
         TxToNetDoorbellFunc0.r32.setComponentOffset(0x1c);
+        TxState0.r32.setName("TxState0");
         TxState0.r32.setComponentOffset(0x20);
-        for(int i = 0; i < 2; i++)
+        TxState1.r32.setName("TxState1");
+        TxState1.r32.setComponentOffset(0x24);
+        for(int i = 0; i < 1; i++)
         {
-            reserved_36[i].setComponentOffset(0x24 + (i * 4));
+            reserved_40[i].setComponentOffset(0x28 + (i * 4));
         }
         Mode2.r32.setComponentOffset(0x2c);
         Status2.r32.setComponentOffset(0x30);
@@ -2403,9 +2424,11 @@ typedef struct APE_t {
         RxbufoffsetFunc2.r32.setComponentOffset(0x200);
         TxToNetDoorbellFunc2.r32.setName("TxToNetDoorbellFunc2");
         TxToNetDoorbellFunc2.r32.setComponentOffset(0x204);
-        for(int i = 0; i < 3; i++)
+        TxState2.r32.setName("TxState2");
+        TxState2.r32.setComponentOffset(0x208);
+        for(int i = 0; i < 2; i++)
         {
-            reserved_520[i].setComponentOffset(0x208 + (i * 4));
+            reserved_524[i].setComponentOffset(0x20c + (i * 4));
         }
         RxPoolModeStatus2.r32.setName("RxPoolModeStatus2");
         RxPoolModeStatus2.r32.setComponentOffset(0x214);
@@ -2429,9 +2452,11 @@ typedef struct APE_t {
         RxbufoffsetFunc3.r32.setComponentOffset(0x300);
         TxToNetDoorbellFunc3.r32.setName("TxToNetDoorbellFunc3");
         TxToNetDoorbellFunc3.r32.setComponentOffset(0x304);
-        for(int i = 0; i < 3; i++)
+        TxState3.r32.setName("TxState3");
+        TxState3.r32.setComponentOffset(0x308);
+        for(int i = 0; i < 2; i++)
         {
-            reserved_776[i].setComponentOffset(0x308 + (i * 4));
+            reserved_780[i].setComponentOffset(0x30c + (i * 4));
         }
         RxPoolModeStatus3.r32.setName("RxPoolModeStatus3");
         RxPoolModeStatus3.r32.setComponentOffset(0x314);
@@ -2462,9 +2487,10 @@ typedef struct APE_t {
         RxbufoffsetFunc1.print();
         TxToNetDoorbellFunc0.print();
         TxState0.print();
-        for(int i = 0; i < 2; i++)
+        TxState1.print();
+        for(int i = 0; i < 1; i++)
         {
-            reserved_36[i].print();
+            reserved_40[i].print();
         }
         Mode2.print();
         Status2.print();
@@ -2532,9 +2558,10 @@ typedef struct APE_t {
         }
         RxbufoffsetFunc2.print();
         TxToNetDoorbellFunc2.print();
-        for(int i = 0; i < 3; i++)
+        TxState2.print();
+        for(int i = 0; i < 2; i++)
         {
-            reserved_520[i].print();
+            reserved_524[i].print();
         }
         RxPoolModeStatus2.print();
         RxPoolRetire2.print();
@@ -2549,9 +2576,10 @@ typedef struct APE_t {
         }
         RxbufoffsetFunc3.print();
         TxToNetDoorbellFunc3.print();
-        for(int i = 0; i < 3; i++)
+        TxState3.print();
+        for(int i = 0; i < 2; i++)
         {
-            reserved_776[i].print();
+            reserved_780[i].print();
         }
         RxPoolModeStatus3.print();
         RxPoolRetire3.print();

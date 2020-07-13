@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2018, Evan Lojewski
+/// @copyright Copyright (c) 2020, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -64,6 +64,8 @@ void init_bcm5719_APE(void)
     /** @brief Bitmap for @ref APE_t.TxToNetDoorbellFunc0. */
 
     /** @brief Bitmap for @ref APE_t.TxState0. */
+
+    /** @brief Bitmap for @ref APE_t.TxState1. */
 
     /** @brief Bitmap for @ref APE_t.Mode2. */
 
@@ -125,6 +127,8 @@ void init_bcm5719_APE(void)
 
     /** @brief Bitmap for @ref APE_t.TxToNetDoorbellFunc2. */
 
+    /** @brief Bitmap for @ref APE_t.TxState2. */
+
     /** @brief Bitmap for @ref APE_t.RxPoolModeStatus2. */
 
     /** @brief Bitmap for @ref APE_t.RxPoolRetire2. */
@@ -142,6 +146,8 @@ void init_bcm5719_APE(void)
     /** @brief Bitmap for @ref APE_t.RxbufoffsetFunc3. */
 
     /** @brief Bitmap for @ref APE_t.TxToNetDoorbellFunc3. */
+
+    /** @brief Bitmap for @ref APE_t.TxState3. */
 
     /** @brief Bitmap for @ref APE_t.RxPoolModeStatus3. */
 
