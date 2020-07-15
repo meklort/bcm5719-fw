@@ -130,6 +130,7 @@ typedef uint32_t APE_DEVICE2_H_uint32_t;
 #define REG_DEVICE2_CPMU_CONTROL ((volatile APE_DEVICE2_H_uint32_t*)0xa0063600) /*  */
 #define REG_DEVICE2_NO_LINK_POWER_MODE_CLOCK_POLICY ((volatile APE_DEVICE2_H_uint32_t*)0xa0063604) /*  */
 #define REG_DEVICE2_LINK_AWARE_POWER_MODE_CLOCK_POLICY ((volatile APE_DEVICE2_H_uint32_t*)0xa0063610) /*  */
+#define REG_DEVICE2_APE_CLK_POLICY ((volatile APE_DEVICE2_H_uint32_t*)0xa006361c) /*  */
 #define REG_DEVICE2_APE_SLEEP_STATE_CLOCK_POLICY ((volatile APE_DEVICE2_H_uint32_t*)0xa0063620) /*  */
 #define REG_DEVICE2_CLOCK_SPEED_OVERRIDE_POLICY ((volatile APE_DEVICE2_H_uint32_t*)0xa0063624) /*  */
 #define REG_DEVICE2_STATUS ((volatile APE_DEVICE2_H_uint32_t*)0xa006362c) /*  */

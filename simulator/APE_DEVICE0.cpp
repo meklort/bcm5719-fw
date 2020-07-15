@@ -1,16 +1,16 @@
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @file       bcm5719_DEVICE.cpp
+/// @file       APE_DEVICE.cpp
 ///
-/// @project    bcm5719
+/// @project    ape
 ///
-/// @brief      bcm5719_DEVICE
-///
-////////////////////////////////////////////////////////////////////////////////
+/// @brief      APE_DEVICE
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2020, Evan Lojewski
+////////////////////////////////////////////////////////////////////////////////
+///
+/// @copyright Copyright (c) 2018, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -42,11 +42,11 @@
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
 
-#include <bcm5719_DEVICE.h>
+#include <APE_DEVICE.h>
 
-DEVICE_t DEVICE;
+DEVICE_t DEVICE0;
 
-void init_bcm5719_DEVICE(void)
+void init_APE_DEVICE0(void)
 {
     /** @brief Component Registers for @ref DEVICE. */
     /** @brief Bitmap for @ref DEVICE_t.MiscellaneousHostControl. */
@@ -111,8 +111,6 @@ void init_bcm5719_DEVICE(void)
 
     /** @brief Bitmap for @ref DEVICE_t.TransmitMacStatus. */
 
-    /** @brief Bitmap for @ref DEVICE_t.TransmitMacLengths. */
-
     /** @brief Bitmap for @ref DEVICE_t.ReceiveMacMode. */
 
     /** @brief Bitmap for @ref DEVICE_t.ReceiveMacStatus. */
@@ -135,19 +133,11 @@ void init_bcm5719_DEVICE(void)
 
     /** @brief Bitmap for @ref DEVICE_t.SgmiiStatus. */
 
-    /** @brief Bitmap for @ref DEVICE_t.ReceiveListPlacementMode. */
-
-    /** @brief Bitmap for @ref DEVICE_t.ReceiveListPlacementStatus. */
-
     /** @brief Bitmap for @ref DEVICE_t.CpmuControl. */
 
     /** @brief Bitmap for @ref DEVICE_t.NoLinkPowerModeClockPolicy. */
 
     /** @brief Bitmap for @ref DEVICE_t.LinkAwarePowerModeClockPolicy. */
-
-    /** @brief Bitmap for @ref DEVICE_t.ApeClkPolicy. */
-
-    /** @brief Bitmap for @ref DEVICE_t.ApeSleepStateClockPolicy. */
 
     /** @brief Bitmap for @ref DEVICE_t.ClockSpeedOverridePolicy. */
 
@@ -191,19 +181,11 @@ void init_bcm5719_DEVICE(void)
 
     /** @brief Bitmap for @ref DEVICE_t.RxRiscStatus. */
 
-    /** @brief Bitmap for @ref DEVICE_t.RxRiscEventMask. */
-
     /** @brief Bitmap for @ref DEVICE_t.RxRiscProgramCounter. */
 
     /** @brief Bitmap for @ref DEVICE_t.RxRiscCurrentInstruction. */
 
-    /** @brief Bitmap for @ref DEVICE_t.RxRiscInterruptEnable. */
-
-    /** @brief Bitmap for @ref DEVICE_t.RxRiscInterruptVector. */
-
     /** @brief Bitmap for @ref DEVICE_t.RxRiscHardwareBreakpoint. */
-
-    /** @brief Bitmap for @ref DEVICE_t.RxRiscLastBranchAddress. */
 
     /** @brief Bitmap for @ref DEVICE_t.RxRiscRegister0. */
 
