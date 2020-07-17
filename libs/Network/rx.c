@@ -133,6 +133,8 @@ bool Network_PassthroughRxPatcket(NetworkPort_t *port)
     rxbuf = *((RegAPERxbufoffset_t *)port->rx_offset);
     if ((int)rxbuf.bits.Valid)
     {
+        port->network_resetting = false;
+
 #if CXX_SIMULATOR
         rxbuf.print();
 #endif
@@ -197,7 +199,7 @@ bool Network_PassthroughRxPatcket(NetworkPort_t *port)
 
                 if (!max_loops)
                 {
-                    printf("Error waiting for fifo space. Network may be down.");
+                    printf("Error waiting for fifo space. Network may be down.\n");
                     // Drop all packets that remain and exit.
                     retire.bits.Head = blockid;
                     retire.bits.Tail = rxbuf.bits.Tail;
@@ -261,8 +263,21 @@ bool Network_PassthroughRxPatcket(NetworkPort_t *port)
 
         return true;
     }
-    else
+    else if (!port->network_resetting)
     {
-        return false;
+        RegAPERxPoolModeStatus_t rxmode;
+        rxmode = *((RegAPERxPoolModeStatus_t *)port->rx_mode);
+        if (rxmode.bits.Error)
+        {
+            printf("RX Error, resetting\n");
+            // Note: If we set port->rx_mode->bits.Reset to 1 here
+            //       we run the risk of causing packet loss on the host,
+            //       potentially resulting in a complete driver hang.
+            //       Instead, we just flag this as a problem spot and wait.
+            //       for the system to recover on its own.
+            port->network_resetting = true;
+        }
     }
+
+    return false;
 }
