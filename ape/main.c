@@ -337,7 +337,10 @@ bool handle_reset(void)
 void __attribute__((noreturn)) __start()
 {
     bool full_init = handle_reset();
-    full_init = full_init || reset_ape_console();
+    if (reset_ape_console())
+    {
+        full_init = true;
+    }
 
     printf("APE v" STRINGIFY(VERSION_MAJOR) "." STRINGIFY(VERSION_MINOR) "." STRINGIFY(VERSION_PATCH) " NCSI Port " STRINGIFY(NETWORK_PORT) "\n");
     gPort = Network_getPort(NETWORK_PORT);

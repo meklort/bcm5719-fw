@@ -53,9 +53,9 @@ static bool reset_ape_console_internal(VOLATILE SHM_t *port)
         port->RcpuReadPointer.r32 > sizeof(port->RcpuPrintfBuffer) ||
         port->RcpuHostReadPointer.r32 > sizeof(port->RcpuPrintfBuffer))
     {
-        port->RcpuWritePointer.r32 = 0;
         port->RcpuReadPointer.r32 = 0;
         port->RcpuHostReadPointer.r32 = 0;
+        port->RcpuWritePointer.r32 = 0;
 
         return true;
     }
@@ -66,8 +66,16 @@ static bool reset_ape_console_internal(VOLATILE SHM_t *port)
 bool reset_ape_console(void)
 {
     bool was_reset = false;
-    was_reset = was_reset || reset_ape_console_internal(&SHM);
-    was_reset = was_reset || reset_ape_console_internal(&SHM1);
+
+    if(reset_ape_console_internal(&SHM))
+    {
+        was_reset = true;
+    }
+
+    if (reset_ape_console_internal(&SHM1))
+    {
+        was_reset = true;
+    }
 
     return was_reset;
 }
