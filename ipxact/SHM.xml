@@ -947,6 +947,7 @@
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>NCSI_CHANNEL_MAC0_HIGH</ipxact:name>
+                    <ipxact:typeIdentifier>MAC_HIGH</ipxact:typeIdentifier>>
                     <ipxact:description>Lower 16 bits of this word contains upper 16 bits of the MAC.</ipxact:description>
                     <ipxact:addressOffset>0x34</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
@@ -955,6 +956,7 @@
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>NCSI_CHANNEL_MAC0_MID</ipxact:name>
+                    <ipxact:typeIdentifier>MAC_MID</ipxact:typeIdentifier>>
                     <ipxact:description>Lower 16 bits of this word contains mid 16 bits of the MAC.</ipxact:description>
                     <ipxact:addressOffset>0x38</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
@@ -963,6 +965,7 @@
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>NCSI_CHANNEL_MAC0_LOW</ipxact:name>
+                    <ipxact:typeIdentifier>MAC_LOW</ipxact:typeIdentifier>>
                     <ipxact:description>Lower 16 bits of this word contains low 16 bits of the MAC.</ipxact:description>
                     <ipxact:addressOffset>0x3c</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
@@ -971,6 +974,7 @@
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>NCSI_CHANNEL_MAC1_HIGH</ipxact:name>
+                    <ipxact:typeIdentifier>MAC_HIGH</ipxact:typeIdentifier>>
                     <ipxact:description>Lower 16 bits of this word contains upper 16 bits of the MAC.</ipxact:description>
                     <ipxact:addressOffset>0x44</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
@@ -979,6 +983,7 @@
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>NCSI_CHANNEL_MAC1_MID</ipxact:name>
+                    <ipxact:typeIdentifier>MAC_MID</ipxact:typeIdentifier>>
                     <ipxact:description>Lower 16 bits of this word contains mid 16 bits of the MAC.</ipxact:description>
                     <ipxact:addressOffset>0x48</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
@@ -987,6 +992,7 @@
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>NCSI_CHANNEL_MAC1_LOW</ipxact:name>
+                    <ipxact:typeIdentifier>MAC_LOW</ipxact:typeIdentifier>>
                     <ipxact:description>Lower 16 bits of this word contains low 16 bits of the MAC.</ipxact:description>
                     <ipxact:addressOffset>0x4c</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
@@ -995,6 +1001,7 @@
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>NCSI_CHANNEL_MAC2_HIGH</ipxact:name>
+                    <ipxact:typeIdentifier>MAC_HIGH</ipxact:typeIdentifier>>
                     <ipxact:description>Lower 16 bits of this word contains upper 16 bits of the MAC.</ipxact:description>
                     <ipxact:addressOffset>0x54</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
@@ -1003,6 +1010,7 @@
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>NCSI_CHANNEL_MAC2_MID</ipxact:name>
+                    <ipxact:typeIdentifier>MAC_MID</ipxact:typeIdentifier>>
                     <ipxact:description>Lower 16 bits of this word contains mid 16 bits of the MAC.</ipxact:description>
                     <ipxact:addressOffset>0x58</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
@@ -1011,6 +1019,7 @@
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>NCSI_CHANNEL_MAC2_LOW</ipxact:name>
+                    <ipxact:typeIdentifier>MAC_LOW</ipxact:typeIdentifier>>
                     <ipxact:description>Lower 16 bits of this word contains low 16 bits of the MAC.</ipxact:description>
                     <ipxact:addressOffset>0x5c</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
@@ -1019,6 +1028,7 @@
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>NCSI_CHANNEL_MAC3_HIGH</ipxact:name>
+                    <ipxact:typeIdentifier>MAC_HIGH</ipxact:typeIdentifier>>
                     <ipxact:description>Lower 16 bits of this word contains upper 16 bits of the MAC.</ipxact:description>
                     <ipxact:addressOffset>0x64</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
@@ -1027,6 +1037,7 @@
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>NCSI_CHANNEL_MAC3_MID</ipxact:name>
+                    <ipxact:typeIdentifier>MAC_MID</ipxact:typeIdentifier>>
                     <ipxact:description>Lower 16 bits of this word contains mid 16 bits of the MAC.</ipxact:description>
                     <ipxact:addressOffset>0x68</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
@@ -1035,6 +1046,7 @@
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>NCSI_CHANNEL_MAC3_LOW</ipxact:name>
+                    <ipxact:typeIdentifier>MAC_LOW</ipxact:typeIdentifier>>
                     <ipxact:description>Lower 16 bits of this word contains low 16 bits of the MAC.</ipxact:description>
                     <ipxact:addressOffset>0x6c</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
@@ -1297,58 +1309,58 @@
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
-                </ipxact:register>                
+                </ipxact:register>
                 <ipxact:register>
-                    <ipxact:name>NCSI_CHANNEL_CTRLSTAT_RX</ipxact:name>
-                    <ipxact:description></ipxact:description>
+                    <ipxact:name>NCSI_CHANNEL_NETWORK_RX</ipxact:name>
+                    <ipxact:description>Number of packets received from the external network interface</ipxact:description>
                     <ipxact:addressOffset>0xb0</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
                 </ipxact:register>
                 <ipxact:register>
-                    <ipxact:name>NCSI_CHANNEL_CTRLSTAT_DROPPED</ipxact:name>
-                    <ipxact:description></ipxact:description>
+                    <ipxact:name>NCSI_CHANNEL_NETWORK_TX</ipxact:name>
+                    <ipxact:description>Number of packets transmited from the BCM5719 to external network interface</ipxact:description>
                     <ipxact:addressOffset>0xb4</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
                 </ipxact:register>
                 <ipxact:register>
-                    <ipxact:name>NCSI_CHANNEL_CTRLSTAT_TYPE_ERR</ipxact:name>
-                    <ipxact:description></ipxact:description>
+                    <ipxact:name>NCSI_CHANNEL_NCSI_RX</ipxact:name>
+                    <ipxact:description>Number of packets received from the BMC via NCSI</ipxact:description>
                     <ipxact:addressOffset>0xb8</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
                 </ipxact:register>
                 <ipxact:register>
-                    <ipxact:name>NCSI_CHANNEL_CTRLSTAT_BAD_CSUM</ipxact:name>
-                    <ipxact:description></ipxact:description>
+                    <ipxact:name>NCSI_CHANNEL_NCSI_TX</ipxact:name>
+                    <ipxact:description>Number of packets transmitted from the BCM5719 to the BMC via NCSI</ipxact:description>
                     <ipxact:addressOffset>0xbc</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
                 </ipxact:register>
                 <ipxact:register>
-                    <ipxact:name>NCSI_CHANNEL_CTRLSTAT_ALL_RX</ipxact:name>
-                    <ipxact:description></ipxact:description>
+                    <ipxact:name>NCSI_CHANNEL_NCSI_DROPPED</ipxact:name>
+                    <ipxact:description>Number of packets dropped on the NCSI interface.</ipxact:description>
                     <ipxact:addressOffset>0xc0</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
                 </ipxact:register>
                 <ipxact:register>
-                    <ipxact:name>NCSI_CHANNEL_CTRLSTAT_ALL_TX</ipxact:name>
-                    <ipxact:description></ipxact:description>
+                    <ipxact:name>NCSI_CHANNEL_NETWORK_DROPPED</ipxact:name>
+                    <ipxact:description>Number of packets dropped on the external network interface.</ipxact:description>
                     <ipxact:addressOffset>0xc4</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
                 </ipxact:register>
                 <ipxact:register>
-                    <ipxact:name>NCSI_CHANNEL_CTRLSTAT_ALL_AEN</ipxact:name>
-                    <ipxact:description></ipxact:description>
+                    <ipxact:name>NCSI_CHANNEL_AEN</ipxact:name>
+                    <ipxact:description>Number of AEN packets sent via NCSI</ipxact:description>
                     <ipxact:addressOffset>0xc8</ipxact:addressOffset>
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>

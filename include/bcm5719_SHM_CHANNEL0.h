@@ -286,74 +286,6 @@ typedef register_container RegSHM_CHANNELNcsiChannelMcid_t {
 #endif /* CXX_SIMULATOR */
 } RegSHM_CHANNELNcsiChannelMcid_t;
 
-#define REG_SHM_CHANNEL0_NCSI_CHANNEL_AEN ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014908) /* Set via NCSI ENABLE AEN. */
-#define     SHM_CHANNEL0_NCSI_CHANNEL_AEN_ENABLE_LINK_STATUS_CHANGE_AEN_SHIFT 0u
-#define     SHM_CHANNEL0_NCSI_CHANNEL_AEN_ENABLE_LINK_STATUS_CHANGE_AEN_MASK  0x1u
-#define GET_SHM_CHANNEL0_NCSI_CHANNEL_AEN_ENABLE_LINK_STATUS_CHANGE_AEN(__reg__)  (((__reg__) & 0x1) >> 0u)
-#define SET_SHM_CHANNEL0_NCSI_CHANNEL_AEN_ENABLE_LINK_STATUS_CHANGE_AEN(__val__)  (((__val__) << 0u) & 0x1u)
-#define     SHM_CHANNEL0_NCSI_CHANNEL_AEN_ENABLE_CONFIGURATION_REQUIRED_AEN_SHIFT 1u
-#define     SHM_CHANNEL0_NCSI_CHANNEL_AEN_ENABLE_CONFIGURATION_REQUIRED_AEN_MASK  0x2u
-#define GET_SHM_CHANNEL0_NCSI_CHANNEL_AEN_ENABLE_CONFIGURATION_REQUIRED_AEN(__reg__)  (((__reg__) & 0x2) >> 1u)
-#define SET_SHM_CHANNEL0_NCSI_CHANNEL_AEN_ENABLE_CONFIGURATION_REQUIRED_AEN(__val__)  (((__val__) << 1u) & 0x2u)
-#define     SHM_CHANNEL0_NCSI_CHANNEL_AEN_ENABLE_HOST_NC_DRIVER_STATUS_CHANGE_AEN_SHIFT 2u
-#define     SHM_CHANNEL0_NCSI_CHANNEL_AEN_ENABLE_HOST_NC_DRIVER_STATUS_CHANGE_AEN_MASK  0x4u
-#define GET_SHM_CHANNEL0_NCSI_CHANNEL_AEN_ENABLE_HOST_NC_DRIVER_STATUS_CHANGE_AEN(__reg__)  (((__reg__) & 0x4) >> 2u)
-#define SET_SHM_CHANNEL0_NCSI_CHANNEL_AEN_ENABLE_HOST_NC_DRIVER_STATUS_CHANGE_AEN(__val__)  (((__val__) << 2u) & 0x4u)
-
-/** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelAen. */
-typedef register_container RegSHM_CHANNELNcsiChannelAen_t {
-    /** @brief 32bit direct register access. */
-    BCM5719_SHM_CHANNEL0_H_uint32_t r32;
-
-    BITFIELD_BEGIN(BCM5719_SHM_CHANNEL0_H_uint32_t, bits)
-#if defined(__LITTLE_ENDIAN__)
-        /** @brief  */
-        BITFIELD_MEMBER(BCM5719_SHM_CHANNEL0_H_uint32_t, EnableLinkStatusChangeAEN, 0, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(BCM5719_SHM_CHANNEL0_H_uint32_t, EnableConfigurationRequiredAEN, 1, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(BCM5719_SHM_CHANNEL0_H_uint32_t, EnableHostNCDriverStatusChangeAEN, 2, 1)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_SHM_CHANNEL0_H_uint32_t, reserved_31_3, 3, 29)
-#elif defined(__BIG_ENDIAN__)
-        /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_SHM_CHANNEL0_H_uint32_t, reserved_31_3, 3, 29)
-        /** @brief  */
-        BITFIELD_MEMBER(BCM5719_SHM_CHANNEL0_H_uint32_t, EnableHostNCDriverStatusChangeAEN, 2, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(BCM5719_SHM_CHANNEL0_H_uint32_t, EnableConfigurationRequiredAEN, 1, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(BCM5719_SHM_CHANNEL0_H_uint32_t, EnableLinkStatusChangeAEN, 0, 1)
-#else
-#error Unknown Endian
-#endif
-    BITFIELD_END(BCM5719_SHM_CHANNEL0_H_uint32_t, bits)
-#ifdef CXX_SIMULATOR
-    /** @brief Register name for use with the simulator. */
-    const char* getName(void) { return "NcsiChannelAen"; }
-
-    /** @brief Print register value. */
-    void print(void) { r32.print(); }
-
-    RegSHM_CHANNELNcsiChannelAen_t()
-    {
-        /** @brief constructor for @ref SHM_CHANNEL_t.NcsiChannelAen. */
-        r32.setName("NcsiChannelAen");
-        bits.EnableLinkStatusChangeAEN.setBaseRegister(&r32);
-        bits.EnableLinkStatusChangeAEN.setName("EnableLinkStatusChangeAEN");
-        bits.EnableConfigurationRequiredAEN.setBaseRegister(&r32);
-        bits.EnableConfigurationRequiredAEN.setName("EnableConfigurationRequiredAEN");
-        bits.EnableHostNCDriverStatusChangeAEN.setBaseRegister(&r32);
-        bits.EnableHostNCDriverStatusChangeAEN.setName("EnableHostNCDriverStatusChangeAEN");
-    }
-    RegSHM_CHANNELNcsiChannelAen_t& operator=(const RegSHM_CHANNELNcsiChannelAen_t& other)
-    {
-        r32 = other.r32;
-        return *this;
-    }
-#endif /* CXX_SIMULATOR */
-} RegSHM_CHANNELNcsiChannelAen_t;
-
 #define REG_SHM_CHANNEL0_NCSI_CHANNEL_BFILT ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc001490c) /*  */
 #define     SHM_CHANNEL0_NCSI_CHANNEL_BFILT_ARP_PACKET_SHIFT 0u
 #define     SHM_CHANNEL0_NCSI_CHANNEL_BFILT_ARP_PACKET_MASK  0x1u
@@ -769,7 +701,7 @@ typedef register_container RegSHM_CHANNELNcsiChannelAltHostMacLow_t {
 
 #define REG_SHM_CHANNEL0_NCSI_CHANNEL_MAC0_HIGH ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014934) /* Lower 16 bits of this word contains upper 16 bits of the MAC. */
 /** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelMac0High. */
-typedef register_container RegSHM_CHANNELNcsiChannelMac0High_t {
+typedef register_container RegSHM_CHANNELMacHigh_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_CHANNEL0_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
@@ -779,22 +711,22 @@ typedef register_container RegSHM_CHANNELNcsiChannelMac0High_t {
     /** @brief Print register value. */
     void print(void) { r32.print(); }
 
-    RegSHM_CHANNELNcsiChannelMac0High_t()
+    RegSHM_CHANNELMacHigh_t()
     {
         /** @brief constructor for @ref SHM_CHANNEL_t.NcsiChannelMac0High. */
         r32.setName("NcsiChannelMac0High");
     }
-    RegSHM_CHANNELNcsiChannelMac0High_t& operator=(const RegSHM_CHANNELNcsiChannelMac0High_t& other)
+    RegSHM_CHANNELMacHigh_t& operator=(const RegSHM_CHANNELMacHigh_t& other)
     {
         r32 = other.r32;
         return *this;
     }
 #endif /* CXX_SIMULATOR */
-} RegSHM_CHANNELNcsiChannelMac0High_t;
+} RegSHM_CHANNELMacHigh_t;
 
 #define REG_SHM_CHANNEL0_NCSI_CHANNEL_MAC0_MID ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014938) /* Lower 16 bits of this word contains mid 16 bits of the MAC. */
 /** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelMac0Mid. */
-typedef register_container RegSHM_CHANNELNcsiChannelMac0Mid_t {
+typedef register_container RegSHM_CHANNELMacMid_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_CHANNEL0_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
@@ -804,22 +736,22 @@ typedef register_container RegSHM_CHANNELNcsiChannelMac0Mid_t {
     /** @brief Print register value. */
     void print(void) { r32.print(); }
 
-    RegSHM_CHANNELNcsiChannelMac0Mid_t()
+    RegSHM_CHANNELMacMid_t()
     {
         /** @brief constructor for @ref SHM_CHANNEL_t.NcsiChannelMac0Mid. */
         r32.setName("NcsiChannelMac0Mid");
     }
-    RegSHM_CHANNELNcsiChannelMac0Mid_t& operator=(const RegSHM_CHANNELNcsiChannelMac0Mid_t& other)
+    RegSHM_CHANNELMacMid_t& operator=(const RegSHM_CHANNELMacMid_t& other)
     {
         r32 = other.r32;
         return *this;
     }
 #endif /* CXX_SIMULATOR */
-} RegSHM_CHANNELNcsiChannelMac0Mid_t;
+} RegSHM_CHANNELMacMid_t;
 
 #define REG_SHM_CHANNEL0_NCSI_CHANNEL_MAC0_LOW ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc001493c) /* Lower 16 bits of this word contains low 16 bits of the MAC. */
 /** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelMac0Low. */
-typedef register_container RegSHM_CHANNELNcsiChannelMac0Low_t {
+typedef register_container RegSHM_CHANNELMacLow_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_CHANNEL0_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
@@ -829,244 +761,28 @@ typedef register_container RegSHM_CHANNELNcsiChannelMac0Low_t {
     /** @brief Print register value. */
     void print(void) { r32.print(); }
 
-    RegSHM_CHANNELNcsiChannelMac0Low_t()
+    RegSHM_CHANNELMacLow_t()
     {
         /** @brief constructor for @ref SHM_CHANNEL_t.NcsiChannelMac0Low. */
         r32.setName("NcsiChannelMac0Low");
     }
-    RegSHM_CHANNELNcsiChannelMac0Low_t& operator=(const RegSHM_CHANNELNcsiChannelMac0Low_t& other)
+    RegSHM_CHANNELMacLow_t& operator=(const RegSHM_CHANNELMacLow_t& other)
     {
         r32 = other.r32;
         return *this;
     }
 #endif /* CXX_SIMULATOR */
-} RegSHM_CHANNELNcsiChannelMac0Low_t;
+} RegSHM_CHANNELMacLow_t;
 
 #define REG_SHM_CHANNEL0_NCSI_CHANNEL_MAC1_HIGH ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014944) /* Lower 16 bits of this word contains upper 16 bits of the MAC. */
-/** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelMac1High. */
-typedef register_container RegSHM_CHANNELNcsiChannelMac1High_t {
-    /** @brief 32bit direct register access. */
-    BCM5719_SHM_CHANNEL0_H_uint32_t r32;
-#ifdef CXX_SIMULATOR
-    /** @brief Register name for use with the simulator. */
-    const char* getName(void) { return "NcsiChannelMac1High"; }
-
-    /** @brief Print register value. */
-    void print(void) { r32.print(); }
-
-    RegSHM_CHANNELNcsiChannelMac1High_t()
-    {
-        /** @brief constructor for @ref SHM_CHANNEL_t.NcsiChannelMac1High. */
-        r32.setName("NcsiChannelMac1High");
-    }
-    RegSHM_CHANNELNcsiChannelMac1High_t& operator=(const RegSHM_CHANNELNcsiChannelMac1High_t& other)
-    {
-        r32 = other.r32;
-        return *this;
-    }
-#endif /* CXX_SIMULATOR */
-} RegSHM_CHANNELNcsiChannelMac1High_t;
-
 #define REG_SHM_CHANNEL0_NCSI_CHANNEL_MAC1_MID ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014948) /* Lower 16 bits of this word contains mid 16 bits of the MAC. */
-/** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelMac1Mid. */
-typedef register_container RegSHM_CHANNELNcsiChannelMac1Mid_t {
-    /** @brief 32bit direct register access. */
-    BCM5719_SHM_CHANNEL0_H_uint32_t r32;
-#ifdef CXX_SIMULATOR
-    /** @brief Register name for use with the simulator. */
-    const char* getName(void) { return "NcsiChannelMac1Mid"; }
-
-    /** @brief Print register value. */
-    void print(void) { r32.print(); }
-
-    RegSHM_CHANNELNcsiChannelMac1Mid_t()
-    {
-        /** @brief constructor for @ref SHM_CHANNEL_t.NcsiChannelMac1Mid. */
-        r32.setName("NcsiChannelMac1Mid");
-    }
-    RegSHM_CHANNELNcsiChannelMac1Mid_t& operator=(const RegSHM_CHANNELNcsiChannelMac1Mid_t& other)
-    {
-        r32 = other.r32;
-        return *this;
-    }
-#endif /* CXX_SIMULATOR */
-} RegSHM_CHANNELNcsiChannelMac1Mid_t;
-
 #define REG_SHM_CHANNEL0_NCSI_CHANNEL_MAC1_LOW ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc001494c) /* Lower 16 bits of this word contains low 16 bits of the MAC. */
-/** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelMac1Low. */
-typedef register_container RegSHM_CHANNELNcsiChannelMac1Low_t {
-    /** @brief 32bit direct register access. */
-    BCM5719_SHM_CHANNEL0_H_uint32_t r32;
-#ifdef CXX_SIMULATOR
-    /** @brief Register name for use with the simulator. */
-    const char* getName(void) { return "NcsiChannelMac1Low"; }
-
-    /** @brief Print register value. */
-    void print(void) { r32.print(); }
-
-    RegSHM_CHANNELNcsiChannelMac1Low_t()
-    {
-        /** @brief constructor for @ref SHM_CHANNEL_t.NcsiChannelMac1Low. */
-        r32.setName("NcsiChannelMac1Low");
-    }
-    RegSHM_CHANNELNcsiChannelMac1Low_t& operator=(const RegSHM_CHANNELNcsiChannelMac1Low_t& other)
-    {
-        r32 = other.r32;
-        return *this;
-    }
-#endif /* CXX_SIMULATOR */
-} RegSHM_CHANNELNcsiChannelMac1Low_t;
-
 #define REG_SHM_CHANNEL0_NCSI_CHANNEL_MAC2_HIGH ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014954) /* Lower 16 bits of this word contains upper 16 bits of the MAC. */
-/** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelMac2High. */
-typedef register_container RegSHM_CHANNELNcsiChannelMac2High_t {
-    /** @brief 32bit direct register access. */
-    BCM5719_SHM_CHANNEL0_H_uint32_t r32;
-#ifdef CXX_SIMULATOR
-    /** @brief Register name for use with the simulator. */
-    const char* getName(void) { return "NcsiChannelMac2High"; }
-
-    /** @brief Print register value. */
-    void print(void) { r32.print(); }
-
-    RegSHM_CHANNELNcsiChannelMac2High_t()
-    {
-        /** @brief constructor for @ref SHM_CHANNEL_t.NcsiChannelMac2High. */
-        r32.setName("NcsiChannelMac2High");
-    }
-    RegSHM_CHANNELNcsiChannelMac2High_t& operator=(const RegSHM_CHANNELNcsiChannelMac2High_t& other)
-    {
-        r32 = other.r32;
-        return *this;
-    }
-#endif /* CXX_SIMULATOR */
-} RegSHM_CHANNELNcsiChannelMac2High_t;
-
 #define REG_SHM_CHANNEL0_NCSI_CHANNEL_MAC2_MID ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014958) /* Lower 16 bits of this word contains mid 16 bits of the MAC. */
-/** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelMac2Mid. */
-typedef register_container RegSHM_CHANNELNcsiChannelMac2Mid_t {
-    /** @brief 32bit direct register access. */
-    BCM5719_SHM_CHANNEL0_H_uint32_t r32;
-#ifdef CXX_SIMULATOR
-    /** @brief Register name for use with the simulator. */
-    const char* getName(void) { return "NcsiChannelMac2Mid"; }
-
-    /** @brief Print register value. */
-    void print(void) { r32.print(); }
-
-    RegSHM_CHANNELNcsiChannelMac2Mid_t()
-    {
-        /** @brief constructor for @ref SHM_CHANNEL_t.NcsiChannelMac2Mid. */
-        r32.setName("NcsiChannelMac2Mid");
-    }
-    RegSHM_CHANNELNcsiChannelMac2Mid_t& operator=(const RegSHM_CHANNELNcsiChannelMac2Mid_t& other)
-    {
-        r32 = other.r32;
-        return *this;
-    }
-#endif /* CXX_SIMULATOR */
-} RegSHM_CHANNELNcsiChannelMac2Mid_t;
-
 #define REG_SHM_CHANNEL0_NCSI_CHANNEL_MAC2_LOW ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc001495c) /* Lower 16 bits of this word contains low 16 bits of the MAC. */
-/** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelMac2Low. */
-typedef register_container RegSHM_CHANNELNcsiChannelMac2Low_t {
-    /** @brief 32bit direct register access. */
-    BCM5719_SHM_CHANNEL0_H_uint32_t r32;
-#ifdef CXX_SIMULATOR
-    /** @brief Register name for use with the simulator. */
-    const char* getName(void) { return "NcsiChannelMac2Low"; }
-
-    /** @brief Print register value. */
-    void print(void) { r32.print(); }
-
-    RegSHM_CHANNELNcsiChannelMac2Low_t()
-    {
-        /** @brief constructor for @ref SHM_CHANNEL_t.NcsiChannelMac2Low. */
-        r32.setName("NcsiChannelMac2Low");
-    }
-    RegSHM_CHANNELNcsiChannelMac2Low_t& operator=(const RegSHM_CHANNELNcsiChannelMac2Low_t& other)
-    {
-        r32 = other.r32;
-        return *this;
-    }
-#endif /* CXX_SIMULATOR */
-} RegSHM_CHANNELNcsiChannelMac2Low_t;
-
 #define REG_SHM_CHANNEL0_NCSI_CHANNEL_MAC3_HIGH ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014964) /* Lower 16 bits of this word contains upper 16 bits of the MAC. */
-/** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelMac3High. */
-typedef register_container RegSHM_CHANNELNcsiChannelMac3High_t {
-    /** @brief 32bit direct register access. */
-    BCM5719_SHM_CHANNEL0_H_uint32_t r32;
-#ifdef CXX_SIMULATOR
-    /** @brief Register name for use with the simulator. */
-    const char* getName(void) { return "NcsiChannelMac3High"; }
-
-    /** @brief Print register value. */
-    void print(void) { r32.print(); }
-
-    RegSHM_CHANNELNcsiChannelMac3High_t()
-    {
-        /** @brief constructor for @ref SHM_CHANNEL_t.NcsiChannelMac3High. */
-        r32.setName("NcsiChannelMac3High");
-    }
-    RegSHM_CHANNELNcsiChannelMac3High_t& operator=(const RegSHM_CHANNELNcsiChannelMac3High_t& other)
-    {
-        r32 = other.r32;
-        return *this;
-    }
-#endif /* CXX_SIMULATOR */
-} RegSHM_CHANNELNcsiChannelMac3High_t;
-
 #define REG_SHM_CHANNEL0_NCSI_CHANNEL_MAC3_MID ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014968) /* Lower 16 bits of this word contains mid 16 bits of the MAC. */
-/** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelMac3Mid. */
-typedef register_container RegSHM_CHANNELNcsiChannelMac3Mid_t {
-    /** @brief 32bit direct register access. */
-    BCM5719_SHM_CHANNEL0_H_uint32_t r32;
-#ifdef CXX_SIMULATOR
-    /** @brief Register name for use with the simulator. */
-    const char* getName(void) { return "NcsiChannelMac3Mid"; }
-
-    /** @brief Print register value. */
-    void print(void) { r32.print(); }
-
-    RegSHM_CHANNELNcsiChannelMac3Mid_t()
-    {
-        /** @brief constructor for @ref SHM_CHANNEL_t.NcsiChannelMac3Mid. */
-        r32.setName("NcsiChannelMac3Mid");
-    }
-    RegSHM_CHANNELNcsiChannelMac3Mid_t& operator=(const RegSHM_CHANNELNcsiChannelMac3Mid_t& other)
-    {
-        r32 = other.r32;
-        return *this;
-    }
-#endif /* CXX_SIMULATOR */
-} RegSHM_CHANNELNcsiChannelMac3Mid_t;
-
 #define REG_SHM_CHANNEL0_NCSI_CHANNEL_MAC3_LOW ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc001496c) /* Lower 16 bits of this word contains low 16 bits of the MAC. */
-/** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelMac3Low. */
-typedef register_container RegSHM_CHANNELNcsiChannelMac3Low_t {
-    /** @brief 32bit direct register access. */
-    BCM5719_SHM_CHANNEL0_H_uint32_t r32;
-#ifdef CXX_SIMULATOR
-    /** @brief Register name for use with the simulator. */
-    const char* getName(void) { return "NcsiChannelMac3Low"; }
-
-    /** @brief Print register value. */
-    void print(void) { r32.print(); }
-
-    RegSHM_CHANNELNcsiChannelMac3Low_t()
-    {
-        /** @brief constructor for @ref SHM_CHANNEL_t.NcsiChannelMac3Low. */
-        r32.setName("NcsiChannelMac3Low");
-    }
-    RegSHM_CHANNELNcsiChannelMac3Low_t& operator=(const RegSHM_CHANNELNcsiChannelMac3Low_t& other)
-    {
-        r32 = other.r32;
-        return *this;
-    }
-#endif /* CXX_SIMULATOR */
-} RegSHM_CHANNELNcsiChannelMac3Low_t;
-
 #define REG_SHM_CHANNEL0_NCSI_CHANNEL_MAC0_VLAN_VALID ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014970) /* Nonzero indicates VLAN field is valid */
 /** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelMac0VlanValid. */
 typedef register_container RegSHM_CHANNELNcsiChannelMac0VlanValid_t {
@@ -1534,180 +1250,223 @@ typedef register_container RegSHM_CHANNELNcsiChannelDbg_t {
 #endif /* CXX_SIMULATOR */
 } RegSHM_CHANNELNcsiChannelDbg_t;
 
-#define REG_SHM_CHANNEL0_NCSI_CHANNEL_CTRLSTAT_RX ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc00149b0) /*  */
-/** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelCtrlstatRx. */
-typedef register_container RegSHM_CHANNELNcsiChannelCtrlstatRx_t {
+#define REG_SHM_CHANNEL0_NCSI_CHANNEL_NETWORK_RX ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc00149b0) /* Number of packets received from the external network interface */
+/** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelNetworkRx. */
+typedef register_container RegSHM_CHANNELNcsiChannelNetworkRx_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_CHANNEL0_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
-    const char* getName(void) { return "NcsiChannelCtrlstatRx"; }
+    const char* getName(void) { return "NcsiChannelNetworkRx"; }
 
     /** @brief Print register value. */
     void print(void) { r32.print(); }
 
-    RegSHM_CHANNELNcsiChannelCtrlstatRx_t()
+    RegSHM_CHANNELNcsiChannelNetworkRx_t()
     {
-        /** @brief constructor for @ref SHM_CHANNEL_t.NcsiChannelCtrlstatRx. */
-        r32.setName("NcsiChannelCtrlstatRx");
+        /** @brief constructor for @ref SHM_CHANNEL_t.NcsiChannelNetworkRx. */
+        r32.setName("NcsiChannelNetworkRx");
     }
-    RegSHM_CHANNELNcsiChannelCtrlstatRx_t& operator=(const RegSHM_CHANNELNcsiChannelCtrlstatRx_t& other)
+    RegSHM_CHANNELNcsiChannelNetworkRx_t& operator=(const RegSHM_CHANNELNcsiChannelNetworkRx_t& other)
     {
         r32 = other.r32;
         return *this;
     }
 #endif /* CXX_SIMULATOR */
-} RegSHM_CHANNELNcsiChannelCtrlstatRx_t;
+} RegSHM_CHANNELNcsiChannelNetworkRx_t;
 
-#define REG_SHM_CHANNEL0_NCSI_CHANNEL_CTRLSTAT_DROPPED ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc00149b4) /*  */
-/** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelCtrlstatDropped. */
-typedef register_container RegSHM_CHANNELNcsiChannelCtrlstatDropped_t {
+#define REG_SHM_CHANNEL0_NCSI_CHANNEL_NETWORK_TX ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc00149b4) /* Number of packets transmited from the BCM5719 to external network interface */
+/** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelNetworkTx. */
+typedef register_container RegSHM_CHANNELNcsiChannelNetworkTx_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_CHANNEL0_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
-    const char* getName(void) { return "NcsiChannelCtrlstatDropped"; }
+    const char* getName(void) { return "NcsiChannelNetworkTx"; }
 
     /** @brief Print register value. */
     void print(void) { r32.print(); }
 
-    RegSHM_CHANNELNcsiChannelCtrlstatDropped_t()
+    RegSHM_CHANNELNcsiChannelNetworkTx_t()
     {
-        /** @brief constructor for @ref SHM_CHANNEL_t.NcsiChannelCtrlstatDropped. */
-        r32.setName("NcsiChannelCtrlstatDropped");
+        /** @brief constructor for @ref SHM_CHANNEL_t.NcsiChannelNetworkTx. */
+        r32.setName("NcsiChannelNetworkTx");
     }
-    RegSHM_CHANNELNcsiChannelCtrlstatDropped_t& operator=(const RegSHM_CHANNELNcsiChannelCtrlstatDropped_t& other)
+    RegSHM_CHANNELNcsiChannelNetworkTx_t& operator=(const RegSHM_CHANNELNcsiChannelNetworkTx_t& other)
     {
         r32 = other.r32;
         return *this;
     }
 #endif /* CXX_SIMULATOR */
-} RegSHM_CHANNELNcsiChannelCtrlstatDropped_t;
+} RegSHM_CHANNELNcsiChannelNetworkTx_t;
 
-#define REG_SHM_CHANNEL0_NCSI_CHANNEL_CTRLSTAT_TYPE_ERR ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc00149b8) /*  */
-/** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelCtrlstatTypeErr. */
-typedef register_container RegSHM_CHANNELNcsiChannelCtrlstatTypeErr_t {
+#define REG_SHM_CHANNEL0_NCSI_CHANNEL_NCSI_RX ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc00149b8) /* Number of packets received from the BMC via NCSI */
+/** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelNcsiRx. */
+typedef register_container RegSHM_CHANNELNcsiChannelNcsiRx_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_CHANNEL0_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
-    const char* getName(void) { return "NcsiChannelCtrlstatTypeErr"; }
+    const char* getName(void) { return "NcsiChannelNcsiRx"; }
 
     /** @brief Print register value. */
     void print(void) { r32.print(); }
 
-    RegSHM_CHANNELNcsiChannelCtrlstatTypeErr_t()
+    RegSHM_CHANNELNcsiChannelNcsiRx_t()
     {
-        /** @brief constructor for @ref SHM_CHANNEL_t.NcsiChannelCtrlstatTypeErr. */
-        r32.setName("NcsiChannelCtrlstatTypeErr");
+        /** @brief constructor for @ref SHM_CHANNEL_t.NcsiChannelNcsiRx. */
+        r32.setName("NcsiChannelNcsiRx");
     }
-    RegSHM_CHANNELNcsiChannelCtrlstatTypeErr_t& operator=(const RegSHM_CHANNELNcsiChannelCtrlstatTypeErr_t& other)
+    RegSHM_CHANNELNcsiChannelNcsiRx_t& operator=(const RegSHM_CHANNELNcsiChannelNcsiRx_t& other)
     {
         r32 = other.r32;
         return *this;
     }
 #endif /* CXX_SIMULATOR */
-} RegSHM_CHANNELNcsiChannelCtrlstatTypeErr_t;
+} RegSHM_CHANNELNcsiChannelNcsiRx_t;
 
-#define REG_SHM_CHANNEL0_NCSI_CHANNEL_CTRLSTAT_BAD_CSUM ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc00149bc) /*  */
-/** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelCtrlstatBadCsum. */
-typedef register_container RegSHM_CHANNELNcsiChannelCtrlstatBadCsum_t {
+#define REG_SHM_CHANNEL0_NCSI_CHANNEL_NCSI_TX ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc00149bc) /* Number of packets transmitted from the BCM5719 to the BMC via NCSI */
+/** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelNcsiTx. */
+typedef register_container RegSHM_CHANNELNcsiChannelNcsiTx_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_CHANNEL0_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
-    const char* getName(void) { return "NcsiChannelCtrlstatBadCsum"; }
+    const char* getName(void) { return "NcsiChannelNcsiTx"; }
 
     /** @brief Print register value. */
     void print(void) { r32.print(); }
 
-    RegSHM_CHANNELNcsiChannelCtrlstatBadCsum_t()
+    RegSHM_CHANNELNcsiChannelNcsiTx_t()
     {
-        /** @brief constructor for @ref SHM_CHANNEL_t.NcsiChannelCtrlstatBadCsum. */
-        r32.setName("NcsiChannelCtrlstatBadCsum");
+        /** @brief constructor for @ref SHM_CHANNEL_t.NcsiChannelNcsiTx. */
+        r32.setName("NcsiChannelNcsiTx");
     }
-    RegSHM_CHANNELNcsiChannelCtrlstatBadCsum_t& operator=(const RegSHM_CHANNELNcsiChannelCtrlstatBadCsum_t& other)
+    RegSHM_CHANNELNcsiChannelNcsiTx_t& operator=(const RegSHM_CHANNELNcsiChannelNcsiTx_t& other)
     {
         r32 = other.r32;
         return *this;
     }
 #endif /* CXX_SIMULATOR */
-} RegSHM_CHANNELNcsiChannelCtrlstatBadCsum_t;
+} RegSHM_CHANNELNcsiChannelNcsiTx_t;
 
-#define REG_SHM_CHANNEL0_NCSI_CHANNEL_CTRLSTAT_ALL_RX ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc00149c0) /*  */
-/** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelCtrlstatAllRx. */
-typedef register_container RegSHM_CHANNELNcsiChannelCtrlstatAllRx_t {
+#define REG_SHM_CHANNEL0_NCSI_CHANNEL_NCSI_DROPPED ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc00149c0) /* Number of packets dropped on the NCSI interface. */
+/** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelNcsiDropped. */
+typedef register_container RegSHM_CHANNELNcsiChannelNcsiDropped_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_CHANNEL0_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
-    const char* getName(void) { return "NcsiChannelCtrlstatAllRx"; }
+    const char* getName(void) { return "NcsiChannelNcsiDropped"; }
 
     /** @brief Print register value. */
     void print(void) { r32.print(); }
 
-    RegSHM_CHANNELNcsiChannelCtrlstatAllRx_t()
+    RegSHM_CHANNELNcsiChannelNcsiDropped_t()
     {
-        /** @brief constructor for @ref SHM_CHANNEL_t.NcsiChannelCtrlstatAllRx. */
-        r32.setName("NcsiChannelCtrlstatAllRx");
+        /** @brief constructor for @ref SHM_CHANNEL_t.NcsiChannelNcsiDropped. */
+        r32.setName("NcsiChannelNcsiDropped");
     }
-    RegSHM_CHANNELNcsiChannelCtrlstatAllRx_t& operator=(const RegSHM_CHANNELNcsiChannelCtrlstatAllRx_t& other)
+    RegSHM_CHANNELNcsiChannelNcsiDropped_t& operator=(const RegSHM_CHANNELNcsiChannelNcsiDropped_t& other)
     {
         r32 = other.r32;
         return *this;
     }
 #endif /* CXX_SIMULATOR */
-} RegSHM_CHANNELNcsiChannelCtrlstatAllRx_t;
+} RegSHM_CHANNELNcsiChannelNcsiDropped_t;
 
-#define REG_SHM_CHANNEL0_NCSI_CHANNEL_CTRLSTAT_ALL_TX ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc00149c4) /*  */
-/** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelCtrlstatAllTx. */
-typedef register_container RegSHM_CHANNELNcsiChannelCtrlstatAllTx_t {
+#define REG_SHM_CHANNEL0_NCSI_CHANNEL_NETWORK_DROPPED ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc00149c4) /* Number of packets dropped on the external network interface. */
+/** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelNetworkDropped. */
+typedef register_container RegSHM_CHANNELNcsiChannelNetworkDropped_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_CHANNEL0_H_uint32_t r32;
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
-    const char* getName(void) { return "NcsiChannelCtrlstatAllTx"; }
+    const char* getName(void) { return "NcsiChannelNetworkDropped"; }
 
     /** @brief Print register value. */
     void print(void) { r32.print(); }
 
-    RegSHM_CHANNELNcsiChannelCtrlstatAllTx_t()
+    RegSHM_CHANNELNcsiChannelNetworkDropped_t()
     {
-        /** @brief constructor for @ref SHM_CHANNEL_t.NcsiChannelCtrlstatAllTx. */
-        r32.setName("NcsiChannelCtrlstatAllTx");
+        /** @brief constructor for @ref SHM_CHANNEL_t.NcsiChannelNetworkDropped. */
+        r32.setName("NcsiChannelNetworkDropped");
     }
-    RegSHM_CHANNELNcsiChannelCtrlstatAllTx_t& operator=(const RegSHM_CHANNELNcsiChannelCtrlstatAllTx_t& other)
+    RegSHM_CHANNELNcsiChannelNetworkDropped_t& operator=(const RegSHM_CHANNELNcsiChannelNetworkDropped_t& other)
     {
         r32 = other.r32;
         return *this;
     }
 #endif /* CXX_SIMULATOR */
-} RegSHM_CHANNELNcsiChannelCtrlstatAllTx_t;
+} RegSHM_CHANNELNcsiChannelNetworkDropped_t;
 
-#define REG_SHM_CHANNEL0_NCSI_CHANNEL_CTRLSTAT_ALL_AEN ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc00149c8) /*  */
-/** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelCtrlstatAllAen. */
-typedef register_container RegSHM_CHANNELNcsiChannelCtrlstatAllAen_t {
+#define REG_SHM_CHANNEL0_NCSI_CHANNEL_AEN ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc00149c8) /* Number of AEN packets sent via NCSI */
+#define     SHM_CHANNEL0_NCSI_CHANNEL_AEN_ENABLE_LINK_STATUS_CHANGE_AEN_SHIFT 0u
+#define     SHM_CHANNEL0_NCSI_CHANNEL_AEN_ENABLE_LINK_STATUS_CHANGE_AEN_MASK  0x1u
+#define GET_SHM_CHANNEL0_NCSI_CHANNEL_AEN_ENABLE_LINK_STATUS_CHANGE_AEN(__reg__)  (((__reg__) & 0x1) >> 0u)
+#define SET_SHM_CHANNEL0_NCSI_CHANNEL_AEN_ENABLE_LINK_STATUS_CHANGE_AEN(__val__)  (((__val__) << 0u) & 0x1u)
+#define     SHM_CHANNEL0_NCSI_CHANNEL_AEN_ENABLE_CONFIGURATION_REQUIRED_AEN_SHIFT 1u
+#define     SHM_CHANNEL0_NCSI_CHANNEL_AEN_ENABLE_CONFIGURATION_REQUIRED_AEN_MASK  0x2u
+#define GET_SHM_CHANNEL0_NCSI_CHANNEL_AEN_ENABLE_CONFIGURATION_REQUIRED_AEN(__reg__)  (((__reg__) & 0x2) >> 1u)
+#define SET_SHM_CHANNEL0_NCSI_CHANNEL_AEN_ENABLE_CONFIGURATION_REQUIRED_AEN(__val__)  (((__val__) << 1u) & 0x2u)
+#define     SHM_CHANNEL0_NCSI_CHANNEL_AEN_ENABLE_HOST_NC_DRIVER_STATUS_CHANGE_AEN_SHIFT 2u
+#define     SHM_CHANNEL0_NCSI_CHANNEL_AEN_ENABLE_HOST_NC_DRIVER_STATUS_CHANGE_AEN_MASK  0x4u
+#define GET_SHM_CHANNEL0_NCSI_CHANNEL_AEN_ENABLE_HOST_NC_DRIVER_STATUS_CHANGE_AEN(__reg__)  (((__reg__) & 0x4) >> 2u)
+#define SET_SHM_CHANNEL0_NCSI_CHANNEL_AEN_ENABLE_HOST_NC_DRIVER_STATUS_CHANGE_AEN(__val__)  (((__val__) << 2u) & 0x4u)
+
+/** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelAen. */
+typedef register_container RegSHM_CHANNELNcsiChannelAen_t {
     /** @brief 32bit direct register access. */
     BCM5719_SHM_CHANNEL0_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_SHM_CHANNEL0_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_SHM_CHANNEL0_H_uint32_t, EnableLinkStatusChangeAEN, 0, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_SHM_CHANNEL0_H_uint32_t, EnableConfigurationRequiredAEN, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_SHM_CHANNEL0_H_uint32_t, EnableHostNCDriverStatusChangeAEN, 2, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_SHM_CHANNEL0_H_uint32_t, reserved_31_3, 3, 29)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_SHM_CHANNEL0_H_uint32_t, reserved_31_3, 3, 29)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_SHM_CHANNEL0_H_uint32_t, EnableHostNCDriverStatusChangeAEN, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_SHM_CHANNEL0_H_uint32_t, EnableConfigurationRequiredAEN, 1, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_SHM_CHANNEL0_H_uint32_t, EnableLinkStatusChangeAEN, 0, 1)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_SHM_CHANNEL0_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
-    const char* getName(void) { return "NcsiChannelCtrlstatAllAen"; }
+    const char* getName(void) { return "NcsiChannelAen"; }
 
     /** @brief Print register value. */
     void print(void) { r32.print(); }
 
-    RegSHM_CHANNELNcsiChannelCtrlstatAllAen_t()
+    RegSHM_CHANNELNcsiChannelAen_t()
     {
-        /** @brief constructor for @ref SHM_CHANNEL_t.NcsiChannelCtrlstatAllAen. */
-        r32.setName("NcsiChannelCtrlstatAllAen");
+        /** @brief constructor for @ref SHM_CHANNEL_t.NcsiChannelAen. */
+        r32.setName("NcsiChannelAen");
+        bits.EnableLinkStatusChangeAEN.setBaseRegister(&r32);
+        bits.EnableLinkStatusChangeAEN.setName("EnableLinkStatusChangeAEN");
+        bits.EnableConfigurationRequiredAEN.setBaseRegister(&r32);
+        bits.EnableConfigurationRequiredAEN.setName("EnableConfigurationRequiredAEN");
+        bits.EnableHostNCDriverStatusChangeAEN.setBaseRegister(&r32);
+        bits.EnableHostNCDriverStatusChangeAEN.setName("EnableHostNCDriverStatusChangeAEN");
     }
-    RegSHM_CHANNELNcsiChannelCtrlstatAllAen_t& operator=(const RegSHM_CHANNELNcsiChannelCtrlstatAllAen_t& other)
+    RegSHM_CHANNELNcsiChannelAen_t& operator=(const RegSHM_CHANNELNcsiChannelAen_t& other)
     {
         r32 = other.r32;
         return *this;
     }
 #endif /* CXX_SIMULATOR */
-} RegSHM_CHANNELNcsiChannelCtrlstatAllAen_t;
+} RegSHM_CHANNELNcsiChannelAen_t;
 
 /** @brief Component definition for @ref SHM_CHANNEL0. */
 typedef struct SHM_CHANNEL_t {
@@ -1717,8 +1476,8 @@ typedef struct SHM_CHANNEL_t {
     /** @brief AEN Management Controller ID, set by BMC when sending AEN ENABLE command and used when sending AENs. */
     RegSHM_CHANNELNcsiChannelMcid_t NcsiChannelMcid;
 
-    /** @brief Set via NCSI ENABLE AEN. */
-    RegSHM_CHANNELNcsiChannelAen_t NcsiChannelAen;
+    /** @brief Reserved bytes to pad out data structure. */
+    BCM5719_SHM_CHANNEL0_H_uint32_t reserved_8[1];
 
     /** @brief  */
     RegSHM_CHANNELNcsiChannelBfilt_t NcsiChannelBfilt;
@@ -1751,49 +1510,49 @@ typedef struct SHM_CHANNEL_t {
     BCM5719_SHM_CHANNEL0_H_uint32_t reserved_48[1];
 
     /** @brief Lower 16 bits of this word contains upper 16 bits of the MAC. */
-    RegSHM_CHANNELNcsiChannelMac0High_t NcsiChannelMac0High;
+    RegSHM_CHANNELMacHigh_t NcsiChannelMac0High;
 
     /** @brief Lower 16 bits of this word contains mid 16 bits of the MAC. */
-    RegSHM_CHANNELNcsiChannelMac0Mid_t NcsiChannelMac0Mid;
+    RegSHM_CHANNELMacMid_t NcsiChannelMac0Mid;
 
     /** @brief Lower 16 bits of this word contains low 16 bits of the MAC. */
-    RegSHM_CHANNELNcsiChannelMac0Low_t NcsiChannelMac0Low;
+    RegSHM_CHANNELMacLow_t NcsiChannelMac0Low;
 
     /** @brief Reserved bytes to pad out data structure. */
     BCM5719_SHM_CHANNEL0_H_uint32_t reserved_64[1];
 
     /** @brief Lower 16 bits of this word contains upper 16 bits of the MAC. */
-    RegSHM_CHANNELNcsiChannelMac1High_t NcsiChannelMac1High;
+    RegSHM_CHANNELMacHigh_t NcsiChannelMac1High;
 
     /** @brief Lower 16 bits of this word contains mid 16 bits of the MAC. */
-    RegSHM_CHANNELNcsiChannelMac1Mid_t NcsiChannelMac1Mid;
+    RegSHM_CHANNELMacMid_t NcsiChannelMac1Mid;
 
     /** @brief Lower 16 bits of this word contains low 16 bits of the MAC. */
-    RegSHM_CHANNELNcsiChannelMac1Low_t NcsiChannelMac1Low;
+    RegSHM_CHANNELMacLow_t NcsiChannelMac1Low;
 
     /** @brief Reserved bytes to pad out data structure. */
     BCM5719_SHM_CHANNEL0_H_uint32_t reserved_80[1];
 
     /** @brief Lower 16 bits of this word contains upper 16 bits of the MAC. */
-    RegSHM_CHANNELNcsiChannelMac2High_t NcsiChannelMac2High;
+    RegSHM_CHANNELMacHigh_t NcsiChannelMac2High;
 
     /** @brief Lower 16 bits of this word contains mid 16 bits of the MAC. */
-    RegSHM_CHANNELNcsiChannelMac2Mid_t NcsiChannelMac2Mid;
+    RegSHM_CHANNELMacMid_t NcsiChannelMac2Mid;
 
     /** @brief Lower 16 bits of this word contains low 16 bits of the MAC. */
-    RegSHM_CHANNELNcsiChannelMac2Low_t NcsiChannelMac2Low;
+    RegSHM_CHANNELMacLow_t NcsiChannelMac2Low;
 
     /** @brief Reserved bytes to pad out data structure. */
     BCM5719_SHM_CHANNEL0_H_uint32_t reserved_96[1];
 
     /** @brief Lower 16 bits of this word contains upper 16 bits of the MAC. */
-    RegSHM_CHANNELNcsiChannelMac3High_t NcsiChannelMac3High;
+    RegSHM_CHANNELMacHigh_t NcsiChannelMac3High;
 
     /** @brief Lower 16 bits of this word contains mid 16 bits of the MAC. */
-    RegSHM_CHANNELNcsiChannelMac3Mid_t NcsiChannelMac3Mid;
+    RegSHM_CHANNELMacMid_t NcsiChannelMac3Mid;
 
     /** @brief Lower 16 bits of this word contains low 16 bits of the MAC. */
-    RegSHM_CHANNELNcsiChannelMac3Low_t NcsiChannelMac3Low;
+    RegSHM_CHANNELMacLow_t NcsiChannelMac3Low;
 
     /** @brief Nonzero indicates VLAN field is valid */
     RegSHM_CHANNELNcsiChannelMac0VlanValid_t NcsiChannelMac0VlanValid;
@@ -1831,26 +1590,26 @@ typedef struct SHM_CHANNEL_t {
     /** @brief Reserved bytes to pad out data structure. */
     BCM5719_SHM_CHANNEL0_H_uint32_t reserved_164[3];
 
-    /** @brief  */
-    RegSHM_CHANNELNcsiChannelCtrlstatRx_t NcsiChannelCtrlstatRx;
+    /** @brief Number of packets received from the external network interface */
+    RegSHM_CHANNELNcsiChannelNetworkRx_t NcsiChannelNetworkRx;
 
-    /** @brief  */
-    RegSHM_CHANNELNcsiChannelCtrlstatDropped_t NcsiChannelCtrlstatDropped;
+    /** @brief Number of packets transmited from the BCM5719 to external network interface */
+    RegSHM_CHANNELNcsiChannelNetworkTx_t NcsiChannelNetworkTx;
 
-    /** @brief  */
-    RegSHM_CHANNELNcsiChannelCtrlstatTypeErr_t NcsiChannelCtrlstatTypeErr;
+    /** @brief Number of packets received from the BMC via NCSI */
+    RegSHM_CHANNELNcsiChannelNcsiRx_t NcsiChannelNcsiRx;
 
-    /** @brief  */
-    RegSHM_CHANNELNcsiChannelCtrlstatBadCsum_t NcsiChannelCtrlstatBadCsum;
+    /** @brief Number of packets transmitted from the BCM5719 to the BMC via NCSI */
+    RegSHM_CHANNELNcsiChannelNcsiTx_t NcsiChannelNcsiTx;
 
-    /** @brief  */
-    RegSHM_CHANNELNcsiChannelCtrlstatAllRx_t NcsiChannelCtrlstatAllRx;
+    /** @brief Number of packets dropped on the NCSI interface. */
+    RegSHM_CHANNELNcsiChannelNcsiDropped_t NcsiChannelNcsiDropped;
 
-    /** @brief  */
-    RegSHM_CHANNELNcsiChannelCtrlstatAllTx_t NcsiChannelCtrlstatAllTx;
+    /** @brief Number of packets dropped on the external network interface. */
+    RegSHM_CHANNELNcsiChannelNetworkDropped_t NcsiChannelNetworkDropped;
 
-    /** @brief  */
-    RegSHM_CHANNELNcsiChannelCtrlstatAllAen_t NcsiChannelCtrlstatAllAen;
+    /** @brief Number of AEN packets sent via NCSI */
+    RegSHM_CHANNELNcsiChannelAen_t NcsiChannelAen;
 
 #ifdef CXX_SIMULATOR
     typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);
@@ -1864,7 +1623,10 @@ typedef struct SHM_CHANNEL_t {
     {
         NcsiChannelInfo.r32.setComponentOffset(0x0);
         NcsiChannelMcid.r32.setComponentOffset(0x4);
-        NcsiChannelAen.r32.setComponentOffset(0x8);
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_8[i].setComponentOffset(0x8 + (i * 4));
+        }
         NcsiChannelBfilt.r32.setComponentOffset(0xc);
         NcsiChannelMfilt.r32.setComponentOffset(0x10);
         NcsiChannelSetting1.r32.setComponentOffset(0x14);
@@ -1881,29 +1643,41 @@ typedef struct SHM_CHANNEL_t {
         {
             reserved_48[i].setComponentOffset(0x30 + (i * 4));
         }
+        NcsiChannelMac0High.r32.setName("NcsiChannelMac0High");
         NcsiChannelMac0High.r32.setComponentOffset(0x34);
+        NcsiChannelMac0Mid.r32.setName("NcsiChannelMac0Mid");
         NcsiChannelMac0Mid.r32.setComponentOffset(0x38);
+        NcsiChannelMac0Low.r32.setName("NcsiChannelMac0Low");
         NcsiChannelMac0Low.r32.setComponentOffset(0x3c);
         for(int i = 0; i < 1; i++)
         {
             reserved_64[i].setComponentOffset(0x40 + (i * 4));
         }
+        NcsiChannelMac1High.r32.setName("NcsiChannelMac1High");
         NcsiChannelMac1High.r32.setComponentOffset(0x44);
+        NcsiChannelMac1Mid.r32.setName("NcsiChannelMac1Mid");
         NcsiChannelMac1Mid.r32.setComponentOffset(0x48);
+        NcsiChannelMac1Low.r32.setName("NcsiChannelMac1Low");
         NcsiChannelMac1Low.r32.setComponentOffset(0x4c);
         for(int i = 0; i < 1; i++)
         {
             reserved_80[i].setComponentOffset(0x50 + (i * 4));
         }
+        NcsiChannelMac2High.r32.setName("NcsiChannelMac2High");
         NcsiChannelMac2High.r32.setComponentOffset(0x54);
+        NcsiChannelMac2Mid.r32.setName("NcsiChannelMac2Mid");
         NcsiChannelMac2Mid.r32.setComponentOffset(0x58);
+        NcsiChannelMac2Low.r32.setName("NcsiChannelMac2Low");
         NcsiChannelMac2Low.r32.setComponentOffset(0x5c);
         for(int i = 0; i < 1; i++)
         {
             reserved_96[i].setComponentOffset(0x60 + (i * 4));
         }
+        NcsiChannelMac3High.r32.setName("NcsiChannelMac3High");
         NcsiChannelMac3High.r32.setComponentOffset(0x64);
+        NcsiChannelMac3Mid.r32.setName("NcsiChannelMac3Mid");
         NcsiChannelMac3Mid.r32.setComponentOffset(0x68);
+        NcsiChannelMac3Low.r32.setName("NcsiChannelMac3Low");
         NcsiChannelMac3Low.r32.setComponentOffset(0x6c);
         NcsiChannelMac0VlanValid.r32.setComponentOffset(0x70);
         NcsiChannelMac0Vlan.r32.setComponentOffset(0x74);
@@ -1923,19 +1697,22 @@ typedef struct SHM_CHANNEL_t {
         {
             reserved_164[i].setComponentOffset(0xa4 + (i * 4));
         }
-        NcsiChannelCtrlstatRx.r32.setComponentOffset(0xb0);
-        NcsiChannelCtrlstatDropped.r32.setComponentOffset(0xb4);
-        NcsiChannelCtrlstatTypeErr.r32.setComponentOffset(0xb8);
-        NcsiChannelCtrlstatBadCsum.r32.setComponentOffset(0xbc);
-        NcsiChannelCtrlstatAllRx.r32.setComponentOffset(0xc0);
-        NcsiChannelCtrlstatAllTx.r32.setComponentOffset(0xc4);
-        NcsiChannelCtrlstatAllAen.r32.setComponentOffset(0xc8);
+        NcsiChannelNetworkRx.r32.setComponentOffset(0xb0);
+        NcsiChannelNetworkTx.r32.setComponentOffset(0xb4);
+        NcsiChannelNcsiRx.r32.setComponentOffset(0xb8);
+        NcsiChannelNcsiTx.r32.setComponentOffset(0xbc);
+        NcsiChannelNcsiDropped.r32.setComponentOffset(0xc0);
+        NcsiChannelNetworkDropped.r32.setComponentOffset(0xc4);
+        NcsiChannelAen.r32.setComponentOffset(0xc8);
     }
     void print()
     {
         NcsiChannelInfo.print();
         NcsiChannelMcid.print();
-        NcsiChannelAen.print();
+        for(int i = 0; i < 1; i++)
+        {
+            reserved_8[i].print();
+        }
         NcsiChannelBfilt.print();
         NcsiChannelMfilt.print();
         NcsiChannelSetting1.print();
@@ -1994,13 +1771,13 @@ typedef struct SHM_CHANNEL_t {
         {
             reserved_164[i].print();
         }
-        NcsiChannelCtrlstatRx.print();
-        NcsiChannelCtrlstatDropped.print();
-        NcsiChannelCtrlstatTypeErr.print();
-        NcsiChannelCtrlstatBadCsum.print();
-        NcsiChannelCtrlstatAllRx.print();
-        NcsiChannelCtrlstatAllTx.print();
-        NcsiChannelCtrlstatAllAen.print();
+        NcsiChannelNetworkRx.print();
+        NcsiChannelNetworkTx.print();
+        NcsiChannelNcsiRx.print();
+        NcsiChannelNcsiTx.print();
+        NcsiChannelNcsiDropped.print();
+        NcsiChannelNetworkDropped.print();
+        NcsiChannelAen.print();
     }
     uint32_t read(int offset) { return mIndexReadCallback(0, offset, mIndexReadCallbackArgs); }
     void write(int offset, uint32_t value) { (void)mIndexWriteCallback(value, offset, mIndexWriteCallbackArgs); }

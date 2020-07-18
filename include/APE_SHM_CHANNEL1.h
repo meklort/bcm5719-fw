@@ -84,7 +84,6 @@ typedef uint32_t APE_SHM_CHANNEL1_H_uint32_t;
 
 #define REG_SHM_CHANNEL1_NCSI_CHANNEL_INFO ((volatile APE_SHM_CHANNEL1_H_uint32_t*)0x60220a00) /*  */
 #define REG_SHM_CHANNEL1_NCSI_CHANNEL_MCID ((volatile APE_SHM_CHANNEL1_H_uint32_t*)0x60220a04) /* AEN Management Controller ID, set by BMC when sending AEN ENABLE command and used when sending AENs. */
-#define REG_SHM_CHANNEL1_NCSI_CHANNEL_AEN ((volatile APE_SHM_CHANNEL1_H_uint32_t*)0x60220a08) /* Set via NCSI ENABLE AEN. */
 #define REG_SHM_CHANNEL1_NCSI_CHANNEL_BFILT ((volatile APE_SHM_CHANNEL1_H_uint32_t*)0x60220a0c) /*  */
 #define REG_SHM_CHANNEL1_NCSI_CHANNEL_MFILT ((volatile APE_SHM_CHANNEL1_H_uint32_t*)0x60220a10) /*  */
 #define REG_SHM_CHANNEL1_NCSI_CHANNEL_SETTING_1 ((volatile APE_SHM_CHANNEL1_H_uint32_t*)0x60220a14) /* This is the "Link Settings" value from NCSI Set Link. */
@@ -115,13 +114,13 @@ typedef uint32_t APE_SHM_CHANNEL1_H_uint32_t;
 #define REG_SHM_CHANNEL1_NCSI_CHANNEL_DROPFIL ((volatile APE_SHM_CHANNEL1_H_uint32_t*)0x60220a8c) /*  */
 #define REG_SHM_CHANNEL1_NCSI_CHANNEL_SLINK ((volatile APE_SHM_CHANNEL1_H_uint32_t*)0x60220a90) /*  */
 #define REG_SHM_CHANNEL1_NCSI_CHANNEL_DBG ((volatile APE_SHM_CHANNEL1_H_uint32_t*)0x60220aa0) /*  */
-#define REG_SHM_CHANNEL1_NCSI_CHANNEL_CTRLSTAT_RX ((volatile APE_SHM_CHANNEL1_H_uint32_t*)0x60220ab0) /*  */
-#define REG_SHM_CHANNEL1_NCSI_CHANNEL_CTRLSTAT_DROPPED ((volatile APE_SHM_CHANNEL1_H_uint32_t*)0x60220ab4) /*  */
-#define REG_SHM_CHANNEL1_NCSI_CHANNEL_CTRLSTAT_TYPE_ERR ((volatile APE_SHM_CHANNEL1_H_uint32_t*)0x60220ab8) /*  */
-#define REG_SHM_CHANNEL1_NCSI_CHANNEL_CTRLSTAT_BAD_CSUM ((volatile APE_SHM_CHANNEL1_H_uint32_t*)0x60220abc) /*  */
-#define REG_SHM_CHANNEL1_NCSI_CHANNEL_CTRLSTAT_ALL_RX ((volatile APE_SHM_CHANNEL1_H_uint32_t*)0x60220ac0) /*  */
-#define REG_SHM_CHANNEL1_NCSI_CHANNEL_CTRLSTAT_ALL_TX ((volatile APE_SHM_CHANNEL1_H_uint32_t*)0x60220ac4) /*  */
-#define REG_SHM_CHANNEL1_NCSI_CHANNEL_CTRLSTAT_ALL_AEN ((volatile APE_SHM_CHANNEL1_H_uint32_t*)0x60220ac8) /*  */
+#define REG_SHM_CHANNEL1_NCSI_CHANNEL_NETWORK_RX ((volatile APE_SHM_CHANNEL1_H_uint32_t*)0x60220ab0) /* Number of packets received from the external network interface */
+#define REG_SHM_CHANNEL1_NCSI_CHANNEL_NETWORK_TX ((volatile APE_SHM_CHANNEL1_H_uint32_t*)0x60220ab4) /* Number of packets transmited from the BCM5719 to external network interface */
+#define REG_SHM_CHANNEL1_NCSI_CHANNEL_NCSI_RX ((volatile APE_SHM_CHANNEL1_H_uint32_t*)0x60220ab8) /* Number of packets received from the BMC via NCSI */
+#define REG_SHM_CHANNEL1_NCSI_CHANNEL_NCSI_TX ((volatile APE_SHM_CHANNEL1_H_uint32_t*)0x60220abc) /* Number of packets transmitted from the BCM5719 to the BMC via NCSI */
+#define REG_SHM_CHANNEL1_NCSI_CHANNEL_NCSI_DROPPED ((volatile APE_SHM_CHANNEL1_H_uint32_t*)0x60220ac0) /* Number of packets dropped on the NCSI interface. */
+#define REG_SHM_CHANNEL1_NCSI_CHANNEL_NETWORK_DROPPED ((volatile APE_SHM_CHANNEL1_H_uint32_t*)0x60220ac4) /* Number of packets dropped on the external network interface. */
+#define REG_SHM_CHANNEL1_NCSI_CHANNEL_AEN ((volatile APE_SHM_CHANNEL1_H_uint32_t*)0x60220ac8) /* Number of AEN packets sent via NCSI */
 /** @brief Device SHM Registers, function 0 */
 extern volatile SHM_CHANNEL_t SHM_CHANNEL1;
 
