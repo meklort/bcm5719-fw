@@ -690,7 +690,6 @@ int main(int argc, char const *argv[])
         APE.Mode.print();
         APE.Mode2.print();
         APE.Status.print();
-        APE.Gpio.print();
         SHM.FwStatus.print();
         SHM.FwFeatures.print();
         SHM.FwVersion.print();
@@ -711,31 +710,37 @@ int main(int argc, char const *argv[])
         DEVICE.PerfectMatch1High.print();
         DEVICE.PerfectMatch1Low.print();
 
+        printf("\n======= NCSI =======\n");
+        APE_PERI.RmuControl.print();
+        APE_PERI.BmcToNcTxStatus.print();
+        APE_PERI.BmcToNcTxControl.print();
+        APE_PERI.BmcToNcRxStatus.print();
+        APE_PERI.BmcToNcRxControl.print();
+        SHM_CHANNEL0.NcsiChannelCtrlstatAllTx.print();
+        SHM_CHANNEL0.NcsiChannelCtrlstatRx.print();
+
         printf("\n======= Port 0 =======\n");
+        APE_PERI.BmcToNcSourceMacHigh.print();
+        APE_PERI.BmcToNcSourceMacMatch0High.print();
+        APE_PERI.BmcToNcSourceMacMatch0Low.print();
+        APE_PERI.BmcToNcSourceMacMatch1High.print();
+        APE_PERI.BmcToNcSourceMacMatch1Low.print();
+        APE_PERI.BmcToNcSourceMacMatch2High.print();
+        APE_PERI.BmcToNcSourceMacMatch2Low.print();
+        APE_PERI.BmcToNcSourceMacMatch3High.print();
+        APE_PERI.BmcToNcSourceMacMatch3Low.print();
+        APE_PERI.ArbControl.print();
+
+        printf("\n** TX ** \n");
         APE.TxToNetPoolModeStatus0.print();
         APE.TxToNetBufferAllocator0.print();
         APE.TxToNetBufferRing0.print();
-        DEVICE.EmacMode.print();
-        // DEVICE.ReceiveMacMode.bits.APEPromiscuousMode = 1;
-        // DEVICE.ReceiveMacMode.bits.PromiscuousMode = 1;
-        DEVICE.ReceiveMacMode.print();
 
-        SHM_CHANNEL0.NcsiChannelCtrlstatRx.print();
-        SHM_CHANNEL0.NcsiChannelCtrlstatAllTx.print();
-
-        APE_PERI.BmcToNcSourceMacHigh.print();
-        APE_PERI.BmcToNcSourceMacMatch0High.print();
-        APE_PERI.RmuControl.print();
-        APE_PERI.ArbControl.print();
-        APE_PERI.BmcToNcRxStatus.print();
-        APE_PERI.BmcToNcRxControl.print();
-
+        printf("\n** RX ** \n");
         APE.RxbufoffsetFunc0.print();
         APE.RxPoolRetire0.print();
         APE.RxPoolFreePointer0.print();
         APE.RxPoolModeStatus0.print();
-
-        APE.Gpio.print();
 
         exit(0);
     }
