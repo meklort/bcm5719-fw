@@ -874,7 +874,9 @@ void Network_InitPort(NetworkPort_t *port, reload_type_t reset_phy)
     RegDEVICEReceiveMacMode_t macMode;
     macMode = port->device->ReceiveMacMode;
     macMode.bits.Enable = 1;
-    macMode.bits.APEPromiscuousMode = 1; // When set, allows APE to RX without having to reset the network configuration after a power off
+    // When set, allows APE to RX without having to reset the network configuration after a power off
+    // When set, can cause the network to APE hardware blocks to lock up when the host is activly using the interface, so set to 0.
+    macMode.bits.APEPromiscuousMode = 0;
     if (port->device->ReceiveMacMode.r32 != macMode.r32)
     {
         port->device->ReceiveMacMode = macMode;
