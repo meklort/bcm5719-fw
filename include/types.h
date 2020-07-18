@@ -100,4 +100,10 @@ typedef union {
 #define _STRINGIFY(__STR__)   #__STR__
 #define STRINGIFY(__STR__)    _STRINGIFY(__STR__)
 
+#ifdef CXX_SIMULATOR
+#define VOLATILE
+#else
+#define VOLATILE volatile
+#endif
+
 #endif /* !TYPES_H */
