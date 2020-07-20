@@ -810,30 +810,40 @@ void Network_InitFilters(NetworkPort_t *port)
 #endif
 }
 
-void Network_resetTX(NetworkPort_t *port)
+void Network_resetTX(NetworkPort_t *port, reload_type_t reset_phy)
 {
     // Enable TX
-    RegAPETxToNetPoolModeStatus_t txMode;
-    txMode.r32 = 0;
-    txMode.bits.Reset = 1;
-    *(port->tx_mode) = txMode;
+    RegAPETxToNetPoolModeStatus_t txMode = *port->tx_mode;
+    if ((ALWAYS_RESET == reset_phy) || txMode.bits.Error)
+    {
+        txMode.bits.Reset = 1;
+        *(port->tx_mode) = txMode;
+    }
 
-    txMode.bits.Reset = 0;
-    txMode.bits.Enable = 1;
-    *(port->tx_mode) = txMode;
+    if (!txMode.bits.Enable)
+    {
+        txMode.bits.Reset = 0;
+        txMode.bits.Enable = 1;
+        *(port->tx_mode) = txMode;
+    }
 }
 
-void Network_resetRX(NetworkPort_t *port)
+void Network_resetRX(NetworkPort_t *port, reload_type_t reset_phy)
 {
-    // Enable RX
-    RegAPERxPoolModeStatus_t rxMode;
-    rxMode.r32 = 0;
-    rxMode.bits.Reset = 1;
-    *(port->rx_mode) = rxMode;
+    RegAPERxPoolModeStatus_t rxMode = *port->rx_mode;
+    if ((ALWAYS_RESET == reset_phy) || rxMode.bits.Error)
+    {
+        // Enable RX
+        rxMode.bits.Reset = 1;
+        *(port->rx_mode) = rxMode;
+    }
 
-    rxMode.bits.Reset = 0;
-    rxMode.bits.Enable = 1;
-    *(port->rx_mode) = rxMode;
+    if (!rxMode.bits.Enable)
+    {
+        rxMode.bits.Reset = 0;
+        rxMode.bits.Enable = 1;
+        *(port->rx_mode) = rxMode;
+    }
 }
 
 void Network_InitPort(NetworkPort_t *port, reload_type_t reset_phy)
@@ -852,8 +862,8 @@ void Network_InitPort(NetworkPort_t *port, reload_type_t reset_phy)
 
     Network_InitFilters(port);
 
-    Network_resetTX(port);
-    Network_resetRX(port);
+    Network_resetTX(port, reset_phy);
+    Network_resetRX(port, reset_phy);
 
     APE.Mode.r32 |= port->APEModeEnable.r32;
     APE.Mode2.r32 |= port->APEMode2Enable.r32;
@@ -865,14 +875,20 @@ void Network_InitPort(NetworkPort_t *port, reload_type_t reset_phy)
     macMode = port->device->ReceiveMacMode;
     macMode.bits.Enable = 1;
     macMode.bits.APEPromiscuousMode = 1; // When set, allows APE to RX without having to reset the network configuration after a power off
-    port->device->ReceiveMacMode = macMode;
+    if (port->device->ReceiveMacMode.r32 != macMode.r32)
+    {
+        port->device->ReceiveMacMode = macMode;
+    }
 
     // Enable RX/TX
     RegDEVICETransmitMacMode_t txMacMode;
     txMacMode = port->device->TransmitMacMode;
     txMacMode.bits.EnableTDE = 1;
     // txMacMode.bits.EnableFlowControl = 1;
-    port->device->TransmitMacMode = txMacMode;
+    if (port->device->TransmitMacMode.r32 != txMacMode.r32)
+    {
+        port->device->TransmitMacMode = txMacMode;
+    }
 
     RegDEVICEEeeMode_t eeeMode;
     eeeMode = port->device->EeeMode;
@@ -881,14 +897,20 @@ void Network_InitPort(NetworkPort_t *port, reload_type_t reset_phy)
     eeeMode.bits.SendIndexDetectionEnable = 1;
     eeeMode.bits.TXLPIEnable = 1;
     eeeMode.bits.RXLPIEnable = 1;
-    port->device->EeeMode = eeeMode;
+    if (port->device->EeeMode.r32 != eeeMode.r32)
+    {
+        port->device->EeeMode = eeeMode;
+    }
 
     RegDEVICEBufferManagerMode_t bmm;
     bmm.r32 = 0;
     bmm.bits.Enable = 1;
     bmm.bits.AttentionEnable = 1;
     bmm.bits.ResetRXMBUFPointer = 1;
-    port->device->BufferManagerMode = bmm;
+    if (port->device->BufferManagerMode.r32 != bmm.r32)
+    {
+        port->device->BufferManagerMode = bmm;
+    }
 
     RegDEVICEEmacMode_t emacMode;
     emacMode = port->device->EmacMode;
@@ -901,7 +923,10 @@ void Network_InitPort(NetworkPort_t *port, reload_type_t reset_phy)
 
     emacMode.bits.KeepFrameInWOL = 1;
     emacMode.bits.MACLoopbackModeControl = 0;
-    port->device->EmacMode = emacMode;
+    if (port->device->EmacMode.r32 != emacMode.r32)
+    {
+        port->device->EmacMode = emacMode;
+    }
 
     RegDEVICETransmitMacLengths_t txMacLengths;
     txMacLengths = port->device->TransmitMacLengths;
@@ -919,7 +944,10 @@ void Network_InitPort(NetworkPort_t *port, reload_type_t reset_phy)
     cmm.bits.LinkIdlePowerModeEnable = 1;
     cmm.bits.LinkAwarePowerModeEnable = 1;
     cmm.bits.LinkSpeedPowerModeEnable = 1;
-    port->device->CpmuControl = cmm;
+    if (port->device->CpmuControl.r32 != cmm.r32)
+    {
+        port->device->CpmuControl = cmm;
+    }
 
     if (port->device->EmacMode.bits.EnableFHDE || port->device->EmacMode.bits.EnableRDE)
     {
