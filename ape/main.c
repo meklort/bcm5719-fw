@@ -65,6 +65,8 @@
 #include <printf.h>
 #endif
 
+#define RMU_WATCHDOG_TIMEOUT_MS (10)
+
 static NetworkPort_t *gPort;
 
 void handleCommand(void)
@@ -139,6 +141,8 @@ void wait_for_all_rx()
 
 void handleBMCPacket(void)
 {
+    static bool packetInProgress;
+    static int inProgressStartTime;
     uint32_t buffer[1024];
 
     RegAPE_PERIBmcToNcRxStatus_t stat;
@@ -146,6 +150,7 @@ void handleBMCPacket(void)
 
     if (stat.bits.New)
     {
+        packetInProgress = false;
         if (stat.bits.Bad)
         {
             // ACK bad packet.
@@ -213,6 +218,27 @@ void handleBMCPacket(void)
                     }
                 }
             }
+        }
+    }
+    else if (stat.bits.InProgress)
+    {
+        if (packetInProgress)
+        {
+            // In some cases (RMU reset during startup w/ active communication)
+            // the RMU state machine can enter a stuck state.
+            // This can be seen as an InProgress for an unreasonable amount of time.
+            // In such a case, reset the RMU to recover.
+            if (APE.Tick1khz.r32 - inProgressStartTime > RMU_WATCHDOG_TIMEOUT_MS)
+            {
+                printf("RMU Hang detected, resetting.\n");
+                initRMU();
+                packetInProgress = false;
+            }
+        }
+        else
+        {
+            packetInProgress = true;
+            inProgressStartTime = APE.Tick1khz.r32;
         }
     }
 }
