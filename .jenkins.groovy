@@ -55,7 +55,7 @@ def notify(status, description)
         targetUrl: BUILD_URL
 }
 
-def build(nodeName)
+def build(nodeName, archive = false, analyze = true)
 {
     node(nodeName)
     {
@@ -108,11 +108,22 @@ def build(nodeName)
 
         stage('build')
         {
-            sh './build.sh'
-            dir('build')
+            if (analyze)
             {
-                archiveArtifacts artifacts: '*.zip', fingerprint: true
-                archiveArtifacts artifacts: '*.tar.gz', fingerprint: true
+                sh './build.sh'
+            }
+            else
+            {
+                sh './build.sh -DDISABLE_CLANG_ANALYZER=True'
+            }
+
+            if (archive)
+            {
+                dir('build')
+                {
+                    archiveArtifacts artifacts: '*.zip', fingerprint: true
+                    archiveArtifacts artifacts: '*.tar.gz', fingerprint: true
+                }
             }
         }
 
@@ -124,8 +135,9 @@ try
 {
     notify('PENDING', 'Build Pending ')
     parallel(
-        "fedora": { build('master') },
-        "ubuntu-18.04": { build('ubuntu-18.04') },
+        "fedora": { build('master', true, true) },
+        "ubuntu-18.04": { build('ubuntu-18.04', false, false) },
+        "ubuntu-20.04": { build('ubuntu-20.04', true, false) },
     )
 }
 catch(e)

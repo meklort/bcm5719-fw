@@ -45,6 +45,7 @@
 
 GENERATOR=
 BUILD_DIR=build
+ARGS="$@"
 
 if [ ! -x "$CMAKE" ]
 then
@@ -85,7 +86,7 @@ set -e
 cd "$BUILD_DIR"
 
 # Do the build
-"$CMAKE" .. $GENERATOR
+"$CMAKE" .. $GENERATOR $ARGS
 "$CMAKE" --build .
 
 # Ensure formatting is correct
