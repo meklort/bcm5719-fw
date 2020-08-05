@@ -3586,6 +3586,176 @@ typedef register_container RegDEVICELinkAwarePowerModeClockPolicy_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICELinkAwarePowerModeClockPolicy_t;
 
+#define REG_DEVICE_APE_CLK_POLICY ((volatile APE_DEVICE_H_uint32_t*)0xa004361c) /*  */
+#define     DEVICE_APE_CLK_POLICY_LAPM_APE_CLOCK_SWITCH_SHIFT 0u
+#define     DEVICE_APE_CLK_POLICY_LAPM_APE_CLOCK_SWITCH_MASK  0x1fu
+#define GET_DEVICE_APE_CLK_POLICY_LAPM_APE_CLOCK_SWITCH(__reg__)  (((__reg__) & 0x1f) >> 0u)
+#define SET_DEVICE_APE_CLK_POLICY_LAPM_APE_CLOCK_SWITCH(__val__)  (((__val__) << 0u) & 0x1fu)
+#define     DEVICE_APE_CLK_POLICY_LAPM_APE_CLOCK_SWITCH_25_MHZ 0x11u
+#define     DEVICE_APE_CLK_POLICY_LAPM_APE_CLOCK_SWITCH_12_5_MHZ 0x13u
+#define     DEVICE_APE_CLK_POLICY_LAPM_APE_CLOCK_SWITCH_6_25_MHZ 0x15u
+#define     DEVICE_APE_CLK_POLICY_LAPM_APE_CLOCK_SWITCH_3_125_MHZ 0x17u
+#define     DEVICE_APE_CLK_POLICY_LAPM_APE_CLOCK_SWITCH_1_563_MHZ 0x19u
+
+#define     DEVICE_APE_CLK_POLICY_APE_CLOCK_SWITCH_SHIFT 8u
+#define     DEVICE_APE_CLK_POLICY_APE_CLOCK_SWITCH_MASK  0x1f00u
+#define GET_DEVICE_APE_CLK_POLICY_APE_CLOCK_SWITCH(__reg__)  (((__reg__) & 0x1f00) >> 8u)
+#define SET_DEVICE_APE_CLK_POLICY_APE_CLOCK_SWITCH(__val__)  (((__val__) << 8u) & 0x1f00u)
+#define     DEVICE_APE_CLK_POLICY_APE_CLOCK_SWITCH_62_5_MHZ 0x0u
+#define     DEVICE_APE_CLK_POLICY_APE_CLOCK_SWITCH_25_MHZ 0x9u
+#define     DEVICE_APE_CLK_POLICY_APE_CLOCK_SWITCH_12_5_MHZ 0x13u
+#define     DEVICE_APE_CLK_POLICY_APE_CLOCK_SWITCH_6_25_MHZ 0x15u
+#define     DEVICE_APE_CLK_POLICY_APE_CLOCK_SWITCH_3_125_MHZ 0x17u
+#define     DEVICE_APE_CLK_POLICY_APE_CLOCK_SWITCH_1_563_MHZ 0x19u
+#define     DEVICE_APE_CLK_POLICY_APE_CLOCK_SWITCH_125_MHZ 0x1eu
+
+#define     DEVICE_APE_CLK_POLICY_CLOCK_OVERRIDE_APE_CLOCK_SWITCH_SHIFT 16u
+#define     DEVICE_APE_CLK_POLICY_CLOCK_OVERRIDE_APE_CLOCK_SWITCH_MASK  0x1f0000u
+#define GET_DEVICE_APE_CLK_POLICY_CLOCK_OVERRIDE_APE_CLOCK_SWITCH(__reg__)  (((__reg__) & 0x1f0000) >> 16u)
+#define SET_DEVICE_APE_CLK_POLICY_CLOCK_OVERRIDE_APE_CLOCK_SWITCH(__val__)  (((__val__) << 16u) & 0x1f0000u)
+#define     DEVICE_APE_CLK_POLICY_CLOCK_OVERRIDE_APE_CLOCK_SWITCH_62_5_MHZ 0x0u
+#define     DEVICE_APE_CLK_POLICY_CLOCK_OVERRIDE_APE_CLOCK_SWITCH_25_MHZ 0x9u
+#define     DEVICE_APE_CLK_POLICY_CLOCK_OVERRIDE_APE_CLOCK_SWITCH_12_5_MHZ 0x13u
+#define     DEVICE_APE_CLK_POLICY_CLOCK_OVERRIDE_APE_CLOCK_SWITCH_6_25_MHZ 0x15u
+#define     DEVICE_APE_CLK_POLICY_CLOCK_OVERRIDE_APE_CLOCK_SWITCH_3_125_MHZ 0x17u
+#define     DEVICE_APE_CLK_POLICY_CLOCK_OVERRIDE_APE_CLOCK_SWITCH_1_563_MHZ 0x19u
+#define     DEVICE_APE_CLK_POLICY_CLOCK_OVERRIDE_APE_CLOCK_SWITCH_125_MHZ 0x1eu
+
+#define     DEVICE_APE_CLK_POLICY_FORCE_APE_HCLK_DISABLE_SHIFT 27u
+#define     DEVICE_APE_CLK_POLICY_FORCE_APE_HCLK_DISABLE_MASK  0x8000000u
+#define GET_DEVICE_APE_CLK_POLICY_FORCE_APE_HCLK_DISABLE(__reg__)  (((__reg__) & 0x8000000) >> 27u)
+#define SET_DEVICE_APE_CLK_POLICY_FORCE_APE_HCLK_DISABLE(__val__)  (((__val__) << 27u) & 0x8000000u)
+#define     DEVICE_APE_CLK_POLICY_FORCE_APE_FCLK_DISABLE_SHIFT 28u
+#define     DEVICE_APE_CLK_POLICY_FORCE_APE_FCLK_DISABLE_MASK  0x10000000u
+#define GET_DEVICE_APE_CLK_POLICY_FORCE_APE_FCLK_DISABLE(__reg__)  (((__reg__) & 0x10000000) >> 28u)
+#define SET_DEVICE_APE_CLK_POLICY_FORCE_APE_FCLK_DISABLE(__val__)  (((__val__) << 28u) & 0x10000000u)
+#define     DEVICE_APE_CLK_POLICY_APE_CLOCK_SPEED_OVERRIDE_ENABLE_SHIFT 29u
+#define     DEVICE_APE_CLK_POLICY_APE_CLOCK_SPEED_OVERRIDE_ENABLE_MASK  0x20000000u
+#define GET_DEVICE_APE_CLK_POLICY_APE_CLOCK_SPEED_OVERRIDE_ENABLE(__reg__)  (((__reg__) & 0x20000000) >> 29u)
+#define SET_DEVICE_APE_CLK_POLICY_APE_CLOCK_SPEED_OVERRIDE_ENABLE(__val__)  (((__val__) << 29u) & 0x20000000u)
+#define     DEVICE_APE_CLK_POLICY_APE_DEEP_SLEEP_MODE_ENABLE_SHIFT 30u
+#define     DEVICE_APE_CLK_POLICY_APE_DEEP_SLEEP_MODE_ENABLE_MASK  0x40000000u
+#define GET_DEVICE_APE_CLK_POLICY_APE_DEEP_SLEEP_MODE_ENABLE(__reg__)  (((__reg__) & 0x40000000) >> 30u)
+#define SET_DEVICE_APE_CLK_POLICY_APE_DEEP_SLEEP_MODE_ENABLE(__val__)  (((__val__) << 30u) & 0x40000000u)
+#define     DEVICE_APE_CLK_POLICY_APE_SLEEP_MODE_ENABLE_SHIFT 31u
+#define     DEVICE_APE_CLK_POLICY_APE_SLEEP_MODE_ENABLE_MASK  0x80000000u
+#define GET_DEVICE_APE_CLK_POLICY_APE_SLEEP_MODE_ENABLE(__reg__)  (((__reg__) & 0x80000000) >> 31u)
+#define SET_DEVICE_APE_CLK_POLICY_APE_SLEEP_MODE_ENABLE(__val__)  (((__val__) << 31u) & 0x80000000u)
+
+/** @brief Register definition for @ref DEVICE_t.ApeClkPolicy. */
+typedef register_container RegDEVICEApeClkPolicy_t {
+    /** @brief 32bit direct register access. */
+    APE_DEVICE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief Software Controlled APE Clock Speed Select inLink Aware Power mode */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, LAPMAPEClockSwitch, 0, 5)
+        /** @brief Padding */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_7_5, 5, 3)
+        /** @brief Software Controlled APE Clock Speed Select */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, APEClockSwitch, 8, 5)
+        /** @brief Padding */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_15_13, 13, 3)
+        /** @brief Software Controlled APE Clock Speed Select for Clock Override. */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, ClockOverrideAPEClockSwitch, 16, 5)
+        /** @brief Padding */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_26_21, 21, 6)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, ForceAPEHCLKDisable, 27, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, ForceAPEFCLKDisable, 28, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, APEClockSpeedOverrideEnable, 29, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, APEDeepSleepmodeEnable, 30, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, APESleepmodeEnable, 31, 1)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, APESleepmodeEnable, 31, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, APEDeepSleepmodeEnable, 30, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, APEClockSpeedOverrideEnable, 29, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, ForceAPEFCLKDisable, 28, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, ForceAPEHCLKDisable, 27, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_26_21, 21, 6)
+        /** @brief Software Controlled APE Clock Speed Select for Clock Override. */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, ClockOverrideAPEClockSwitch, 16, 5)
+        /** @brief Padding */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_15_13, 13, 3)
+        /** @brief Software Controlled APE Clock Speed Select */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, APEClockSwitch, 8, 5)
+        /** @brief Padding */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_7_5, 5, 3)
+        /** @brief Software Controlled APE Clock Speed Select inLink Aware Power mode */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, LAPMAPEClockSwitch, 0, 5)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "ApeClkPolicy"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICEApeClkPolicy_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.ApeClkPolicy. */
+        r32.setName("ApeClkPolicy");
+        bits.LAPMAPEClockSwitch.setBaseRegister(&r32);
+        bits.LAPMAPEClockSwitch.setName("LAPMAPEClockSwitch");
+        bits.LAPMAPEClockSwitch.addEnum("25 MHz", 0x11);
+        bits.LAPMAPEClockSwitch.addEnum("12.5 MHz", 0x13);
+        bits.LAPMAPEClockSwitch.addEnum("6.25 MHz", 0x15);
+        bits.LAPMAPEClockSwitch.addEnum("3.125 MHz", 0x17);
+        bits.LAPMAPEClockSwitch.addEnum("1.563 MHz", 0x19);
+
+        bits.APEClockSwitch.setBaseRegister(&r32);
+        bits.APEClockSwitch.setName("APEClockSwitch");
+        bits.APEClockSwitch.addEnum("62.5 MHz", 0x0);
+        bits.APEClockSwitch.addEnum("25 MHz", 0x9);
+        bits.APEClockSwitch.addEnum("12.5 MHz", 0x13);
+        bits.APEClockSwitch.addEnum("6.25 MHz", 0x15);
+        bits.APEClockSwitch.addEnum("3.125 MHz", 0x17);
+        bits.APEClockSwitch.addEnum("1.563 MHz", 0x19);
+        bits.APEClockSwitch.addEnum("125 MHz", 0x1e);
+
+        bits.ClockOverrideAPEClockSwitch.setBaseRegister(&r32);
+        bits.ClockOverrideAPEClockSwitch.setName("ClockOverrideAPEClockSwitch");
+        bits.ClockOverrideAPEClockSwitch.addEnum("62.5 MHz", 0x0);
+        bits.ClockOverrideAPEClockSwitch.addEnum("25 MHz", 0x9);
+        bits.ClockOverrideAPEClockSwitch.addEnum("12.5 MHz", 0x13);
+        bits.ClockOverrideAPEClockSwitch.addEnum("6.25 MHz", 0x15);
+        bits.ClockOverrideAPEClockSwitch.addEnum("3.125 MHz", 0x17);
+        bits.ClockOverrideAPEClockSwitch.addEnum("1.563 MHz", 0x19);
+        bits.ClockOverrideAPEClockSwitch.addEnum("125 MHz", 0x1e);
+
+        bits.ForceAPEHCLKDisable.setBaseRegister(&r32);
+        bits.ForceAPEHCLKDisable.setName("ForceAPEHCLKDisable");
+        bits.ForceAPEFCLKDisable.setBaseRegister(&r32);
+        bits.ForceAPEFCLKDisable.setName("ForceAPEFCLKDisable");
+        bits.APEClockSpeedOverrideEnable.setBaseRegister(&r32);
+        bits.APEClockSpeedOverrideEnable.setName("APEClockSpeedOverrideEnable");
+        bits.APEDeepSleepmodeEnable.setBaseRegister(&r32);
+        bits.APEDeepSleepmodeEnable.setName("APEDeepSleepmodeEnable");
+        bits.APESleepmodeEnable.setBaseRegister(&r32);
+        bits.APESleepmodeEnable.setName("APESleepmodeEnable");
+    }
+    RegDEVICEApeClkPolicy_t& operator=(const RegDEVICEApeClkPolicy_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegDEVICEApeClkPolicy_t;
+
 #define REG_DEVICE_APE_SLEEP_STATE_CLOCK_POLICY ((volatile APE_DEVICE_H_uint32_t*)0xa0043620) /*  */
 #define     DEVICE_APE_SLEEP_STATE_CLOCK_POLICY_APE_SLEEP_FCLK_SWITCH_SHIFT 0u
 #define     DEVICE_APE_SLEEP_STATE_CLOCK_POLICY_APE_SLEEP_FCLK_SWITCH_MASK  0x1fu
@@ -9355,7 +9525,10 @@ typedef struct DEVICE_t {
     RegDEVICELinkAwarePowerModeClockPolicy_t LinkAwarePowerModeClockPolicy;
 
     /** @brief Reserved bytes to pad out data structure. */
-    APE_DEVICE_H_uint32_t reserved_13844[3];
+    APE_DEVICE_H_uint32_t reserved_13844[2];
+
+    /** @brief  */
+    RegDEVICEApeClkPolicy_t ApeClkPolicy;
 
     /** @brief  */
     RegDEVICEApeSleepStateClockPolicy_t ApeSleepStateClockPolicy;
@@ -9884,10 +10057,11 @@ typedef struct DEVICE_t {
             reserved_13832[i].setComponentOffset(0x3608 + (i * 4));
         }
         LinkAwarePowerModeClockPolicy.r32.setComponentOffset(0x3610);
-        for(int i = 0; i < 3; i++)
+        for(int i = 0; i < 2; i++)
         {
             reserved_13844[i].setComponentOffset(0x3614 + (i * 4));
         }
+        ApeClkPolicy.r32.setComponentOffset(0x361c);
         ApeSleepStateClockPolicy.r32.setComponentOffset(0x3620);
         ClockSpeedOverridePolicy.r32.setComponentOffset(0x3624);
         for(int i = 0; i < 1; i++)
@@ -10246,10 +10420,11 @@ typedef struct DEVICE_t {
             reserved_13832[i].print();
         }
         LinkAwarePowerModeClockPolicy.print();
-        for(int i = 0; i < 3; i++)
+        for(int i = 0; i < 2; i++)
         {
             reserved_13844[i].print();
         }
+        ApeClkPolicy.print();
         ApeSleepStateClockPolicy.print();
         ClockSpeedOverridePolicy.print();
         for(int i = 0; i < 1; i++)

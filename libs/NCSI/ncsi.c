@@ -523,7 +523,6 @@ static void setMACAddressHandler(NetworkFrame_t *frame)
 {
     int ch = frame->controlPacket.ChannelID & CHANNEL_ID_MASK;
     NetworkPort_t *port = gPackageState.port[ch];
-    // port->shm_channel->NcsiChannelInfo.bits.Enabled = false;
 
     debug("Set MAC: channel %x\n", ch);
     debug("  MAC: 0x%04x%04x%04x\n", frame->setMACAddr.MAC54, frame->setMACAddr.MAC32, frame->setMACAddr.MAC10);
@@ -700,12 +699,9 @@ void reloadChannel(int ch, reload_type_t reset_phy)
     uint16_t high = port->shm_channel->NcsiChannelMac0High.r32;
     Network_SetMACAddr(port, high, low, /* TBD */ 0, 1);
 
-    if (gPackageState.port[ch]->shm_channel->NcsiChannelInfo.bits.Enabled)
-    {
-        printf("[ch %d] Reusing MAC: 0x%02X%04X\n", ch, high, low);
+    printf("[ch %d] Reusing MAC: 0x%02X%04X\n", ch, high, low);
 
-        Network_InitPort(gPackageState.port[ch], reset_phy);
-    }
+    Network_InitPort(gPackageState.port[ch], reset_phy);
 }
 
 void NCSI_TxPacket(uint32_t *packet, uint32_t packet_len)

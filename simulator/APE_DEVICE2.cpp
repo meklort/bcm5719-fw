@@ -145,6 +145,8 @@ void init_APE_DEVICE2(void)
 
     /** @brief Bitmap for @ref DEVICE2_t.LinkAwarePowerModeClockPolicy. */
 
+    /** @brief Bitmap for @ref DEVICE2_t.ApeClkPolicy. */
+
     /** @brief Bitmap for @ref DEVICE2_t.ApeSleepStateClockPolicy. */
 
     /** @brief Bitmap for @ref DEVICE2_t.ClockSpeedOverridePolicy. */

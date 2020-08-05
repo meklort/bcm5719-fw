@@ -42,10 +42,14 @@
 ### @endcond
 ################################################################################
 
-SET(SCAN_BUILD ${COMPILER_BASE}/bin/scan-build)
-IF(SCAN_BUILD)
-    SET(CMAKE_C_COMPILER_LAUNCHER   ${SCAN_BUILD} --status-bugs)
-    SET(CMAKE_CXX_COMPILER_LAUNCHER ${SCAN_BUILD} --status-bugs)
+IF(NOT DISABLE_CLANG_ANALYZER)
+    SET(SCAN_BUILD ${COMPILER_BASE}/bin/scan-build)
+    IF(SCAN_BUILD)
+        SET(CMAKE_C_COMPILER_LAUNCHER   ${SCAN_BUILD} --status-bugs)
+        SET(CMAKE_CXX_COMPILER_LAUNCHER ${SCAN_BUILD} --status-bugs)
+    ELSE()
+        MESSAGE(STATUS "Unable to locate clang-analyzer (scan-build). Disabling linting.")
+    ENDIF()
 ELSE()
-    MESSAGE(STATUS "Unable to locate clang-analyzer (scan-build). Disabling linting.")
+    MESSAGE(STATUS "Disabling linting.")
 ENDIF()

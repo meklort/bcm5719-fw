@@ -54,12 +54,6 @@
 #include <APE_SHM_CHANNEL0.h>
 #include <types.h>
 
-#ifdef CXX_SIMULATOR
-#define VOLATILE
-#else
-#define VOLATILE volatile
-#endif
-
 typedef struct
 {
     /* Port Registers */
@@ -111,8 +105,8 @@ NetworkPort_t *Network_getPort(int i);
 
 void Network_InitPort(NetworkPort_t *port, reload_type_t force_reset);
 
-void Network_resetTX(NetworkPort_t *port);
-void Network_resetRX(NetworkPort_t *port);
+void Network_resetTX(NetworkPort_t *port, reload_type_t reset_phy);
+void Network_resetRX(NetworkPort_t *port, reload_type_t reset_phy);
 
 void Network_checkPortState(NetworkPort_t *port);
 bool Network_updatePortState(NetworkPort_t *port);

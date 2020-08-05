@@ -61,8 +61,11 @@
 #include <types.h>
 
 #ifndef CXX_SIMULATOR
+#include <ape_console.h>
 #include <printf.h>
 #endif
+
+#define RMU_WATCHDOG_TIMEOUT_MS (10)
 
 static NetworkPort_t *gPort;
 
@@ -138,6 +141,8 @@ void wait_for_all_rx()
 
 void handleBMCPacket(void)
 {
+    static bool packetInProgress;
+    static int inProgressStartTime;
     uint32_t buffer[1024];
 
     RegAPE_PERIBmcToNcRxStatus_t stat;
@@ -145,6 +150,7 @@ void handleBMCPacket(void)
 
     if (stat.bits.New)
     {
+        packetInProgress = false;
         if (stat.bits.Bad)
         {
             // ACK bad packet.
@@ -212,6 +218,27 @@ void handleBMCPacket(void)
                     }
                 }
             }
+        }
+    }
+    else if (stat.bits.InProgress)
+    {
+        if (packetInProgress)
+        {
+            // In some cases (RMU reset during startup w/ active communication)
+            // the RMU state machine can enter a stuck state.
+            // This can be seen as an InProgress for an unreasonable amount of time.
+            // In such a case, reset the RMU to recover.
+            if (APE.Tick1khz.r32 - inProgressStartTime > RMU_WATCHDOG_TIMEOUT_MS)
+            {
+                printf("RMU Hang detected, resetting.\n");
+                initRMU();
+                packetInProgress = false;
+            }
+        }
+        else
+        {
+            packetInProgress = true;
+            inProgressStartTime = APE.Tick1khz.r32;
         }
     }
 }
@@ -335,15 +362,10 @@ bool handle_reset(void)
 
 void __attribute__((noreturn)) __start()
 {
-    bool full_init = false;
-    if (handle_reset() || SHM.RcpuWritePointer.r32 > sizeof(SHM.RcpuPrintfBuffer) || SHM.RcpuReadPointer.r32 > sizeof(SHM.RcpuPrintfBuffer) ||
-        SHM.RcpuHostReadPointer.r32 > sizeof(SHM.RcpuPrintfBuffer))
+    bool full_init = handle_reset();
+    if (reset_ape_console())
     {
         full_init = true;
-
-        SHM.RcpuWritePointer.r32 = 0;
-        SHM.RcpuReadPointer.r32 = 0;
-        SHM.RcpuHostReadPointer.r32 = 0;
     }
 
     printf("APE v" STRINGIFY(VERSION_MAJOR) "." STRINGIFY(VERSION_MINOR) "." STRINGIFY(VERSION_PATCH) " NCSI Port " STRINGIFY(NETWORK_PORT) "\n");

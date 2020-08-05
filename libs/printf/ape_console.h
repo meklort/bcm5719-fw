@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @file       ape_purchar.c
+/// @file       ape_console.h
 ///
 /// @project
 ///
@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2019, Evan Lojewski
+/// @copyright Copyright (c) 2020, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -42,68 +42,11 @@
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
 
-#include <printf.h>
-#include <ape_console.h>
-#include <APE_SHM.h>
-#include <APE_SHM1.h>
+#ifndef APE_CONSOLE_H
+#define APE_CONSOLE_H
 
-static bool reset_ape_console_internal(VOLATILE SHM_t *port)
-{
-    if (port->RcpuWritePointer.r32 > sizeof(port->RcpuPrintfBuffer) ||
-        port->RcpuReadPointer.r32 > sizeof(port->RcpuPrintfBuffer) ||
-        port->RcpuHostReadPointer.r32 > sizeof(port->RcpuPrintfBuffer))
-    {
-        port->RcpuReadPointer.r32 = 0;
-        port->RcpuHostReadPointer.r32 = 0;
-        port->RcpuWritePointer.r32 = 0;
+#include <types.h>
 
-        return true;
-    }
+bool reset_ape_console(void);
 
-    return false;
-}
-
-bool reset_ape_console(void)
-{
-    bool was_reset = false;
-
-    if(reset_ape_console_internal(&SHM))
-    {
-        was_reset = true;
-    }
-
-    if (reset_ape_console_internal(&SHM1))
-    {
-        was_reset = true;
-    }
-
-    return was_reset;
-}
-
-
-static void ape_putchar(char character, VOLATILE SHM_t *port)
-{
-    uint32_t write_pointer = port->RcpuWritePointer.r32;
-    uint32_t word_pointer = write_pointer / 4;
-    uint32_t byte_index = write_pointer % 4;
-    uint32_t byte_mask = 0xFF << (byte_index * 8);
-
-    uint32_t new_word = port->RcpuPrintfBuffer[word_pointer].r32 & ~byte_mask;
-    new_word |= character << (byte_index * 8);
-    port->RcpuPrintfBuffer[word_pointer].r32 = new_word;
-    write_pointer++;
-
-    if(write_pointer >= sizeof(port->RcpuPrintfBuffer))
-    {
-        write_pointer = 0;
-    }
-
-    port->RcpuWritePointer.r32 = write_pointer;
-}
-
-
-void _putchar(char character)
-{
-    ape_putchar(character, &SHM);
-    ape_putchar(character, &SHM1);
-}
+#endif /* APE_CONSOLE_H */
