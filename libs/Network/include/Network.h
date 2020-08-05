@@ -81,6 +81,7 @@ typedef struct
 
     /* State Trackking */
     bool link_state_printed;
+    bool network_resetting;
 } NetworkPort_t;
 
 typedef union
