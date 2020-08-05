@@ -407,8 +407,10 @@ static void getLinkStatusHandler(NetworkFrame_t *frame)
     NetworkPort_t *port = gPackageState.port[ch];
     uint8_t phy = MII_getPhy(port->device);
 
-    uint32_t rx = port->shm_channel->NcsiChannelCtrlstatAllRx.r32;
-    uint32_t tx = port->shm_channel->NcsiChannelCtrlstatAllTx.r32;
+    uint32_t rx_net = port->shm_channel->NcsiChannelNetworkRx.r32;
+    uint32_t tx_net = port->shm_channel->NcsiChannelNetworkTx.r32;
+    uint32_t rx_ncsi = port->shm_channel->NcsiChannelNcsiRx.r32;
+    uint32_t tx_ncsi = port->shm_channel->NcsiChannelNcsiTx.r32;
 
     APE_aquireLock();
     stat.r16 = MII_readRegister(port->device, phy, (mii_reg_t)REG_MII_AUXILIARY_STATUS_SUMMARY);
@@ -416,10 +418,8 @@ static void getLinkStatusHandler(NetworkFrame_t *frame)
 
     RegSHM_CHANNELNcsiChannelStatus_t linkStatus = port->shm_channel->NcsiChannelStatus;
 
-    uint32_t tx_used = APE_TX_TO_NET_BUFFER_RING_FREE_MAX - port->tx_ring->bits.Free;
-    uint32_t rx_avail = APE_RX_POOL_FREE_POINTER_FREE_COUNT_MAX - port->rx_ring->bits.FreeCount;
-    debug("Link Status [%d] %s, TX %d [%d used], RX %d [%d avail]\n", frame->controlPacket.ChannelID, stat.bits.LinkStatus ? "up" : "down", tx, tx_used, rx,
-          rx_avail);
+    debug("Link Status [%d] %s, NCSI TX/RX 0x%08X/0x%08X Net TX/RX 0x%08X/0x%08X\n", frame->controlPacket.ChannelID, stat.bits.LinkStatus ? "up" : "down",
+          tx_ncsi, rx_ncsi, tx_net, rx_net);
 
     if (!stat.bits.LinkStatus)
     {
@@ -627,7 +627,7 @@ void handleNCSIFrame(NetworkFrame_t *frame)
 
             if (port)
             {
-                ++port->shm_channel->NcsiChannelCtrlstatRx.r32;
+                ++port->shm_channel->NcsiChannelNcsiRx.r32;
             }
             gPackageState.selected = true;
             SHM.SegSig.r32 |= (1 << command);
@@ -657,7 +657,7 @@ void handleNCSIFrame(NetworkFrame_t *frame)
                 {
                     if (port)
                     {
-                        ++port->shm_channel->NcsiChannelCtrlstatRx.r32;
+                        ++port->shm_channel->NcsiChannelNcsiRx.r32;
                     }
                     SHM.SegSig.r32 |= (1 << command);
                     handler->fn(frame);
@@ -680,9 +680,10 @@ void resetChannel(int ch)
     NetworkPort_t *port = gPackageState.port[ch];
 
     port->shm_channel->NcsiChannelInfo.r32 = 0;
-    port->shm_channel->NcsiChannelCtrlstatRx.r32 = 0;
-    port->shm_channel->NcsiChannelCtrlstatAllTx.r32 = 0;
-    port->shm_channel->NcsiChannelCtrlstatAllRx.r32 = 0;
+    port->shm_channel->NcsiChannelNcsiRx.r32 = 0;
+    port->shm_channel->NcsiChannelNcsiTx.r32 = 0;
+    port->shm_channel->NcsiChannelNetworkRx.r32 = 0;
+    port->shm_channel->NcsiChannelNetworkTx.r32 = 0;
     port->shm_channel->NcsiChannelInfo.bits.Ready = false;
 
     uint8_t phy = MII_getPhy(port->device);
@@ -694,6 +695,10 @@ void resetChannel(int ch)
 void reloadChannel(int ch, reload_type_t reset_phy)
 {
     NetworkPort_t *port = gPackageState.port[ch];
+    port->shm_channel->NcsiChannelNcsiRx.r32 = 0;
+    port->shm_channel->NcsiChannelNcsiTx.r32 = 0;
+    port->shm_channel->NcsiChannelNetworkRx.r32 = 0;
+    port->shm_channel->NcsiChannelNetworkTx.r32 = 0;
 
     uint32_t low = port->shm_channel->NcsiChannelMac0Mid.r32 << 16 | port->shm_channel->NcsiChannelMac0Low.r32;
     uint16_t high = port->shm_channel->NcsiChannelMac0High.r32;
@@ -739,6 +744,9 @@ void NCSI_TxPacket(uint32_t *packet, uint32_t packet_len)
     debug("Transmitting last word %d: 0x%08x\n", packetWords - 1, packet[packetWords - 1]);
 #endif
     APE_PERI.BmcToNcTxBufferLast.r32 = packet[packetWords - 1];
+
+    NetworkPort_t *port = gPackageState.port[0];
+    ++port->shm_channel->NcsiChannelNcsiTx.r32;
 }
 void sendNCSILinkStatusResponse(uint8_t InstanceID, uint8_t channelID, uint32_t LinkStatus, uint32_t OEMLinkStatus, uint32_t OtherIndications)
 {
@@ -800,7 +808,6 @@ void NCSI_handlePassthrough(void)
         if (shm_ch->NcsiChannelInfo.bits.Ready)
         {
             Network_PassthroughRxPatcket(port);
-            ++shm_ch->NcsiChannelCtrlstatAllTx.r32;
         }
     }
 }

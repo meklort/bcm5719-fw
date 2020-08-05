@@ -196,6 +196,7 @@ void handleBMCPacket(void)
             {
                 // Pass through to network
                 NetworkPort_t *port = gPort;
+                ++port->shm_channel->NcsiChannelNcsiRx.r32;
                 if (port->shm_channel->NcsiChannelInfo.bits.Enabled)
                 {
                     if (!Network_TX_transmitPassthroughPacket(bytes, port))

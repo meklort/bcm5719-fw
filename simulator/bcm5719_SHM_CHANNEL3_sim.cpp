@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2018, Evan Lojewski
+/// @copyright Copyright (c) 2020, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -89,10 +89,11 @@ void init_bcm5719_SHM_CHANNEL3_sim(void *base)
     SHM_CHANNEL3.NcsiChannelMcid.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     SHM_CHANNEL3.NcsiChannelMcid.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
-    /** @brief Bitmap for @ref SHM_CHANNEL_t.NcsiChannelAen. */
-    SHM_CHANNEL3.NcsiChannelAen.r32.installReadCallback(read_from_ram, (uint8_t *)base);
-    SHM_CHANNEL3.NcsiChannelAen.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
-
+    for(int i = 0; i < 1; i++)
+    {
+        SHM_CHANNEL3.reserved_8[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        SHM_CHANNEL3.reserved_8[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
     /** @brief Bitmap for @ref SHM_CHANNEL_t.NcsiChannelBfilt. */
     SHM_CHANNEL3.NcsiChannelBfilt.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     SHM_CHANNEL3.NcsiChannelBfilt.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
@@ -248,33 +249,33 @@ void init_bcm5719_SHM_CHANNEL3_sim(void *base)
         SHM_CHANNEL3.reserved_164[i].installReadCallback(read_from_ram, (uint8_t *)base);
         SHM_CHANNEL3.reserved_164[i].installWriteCallback(write_to_ram, (uint8_t *)base);
     }
-    /** @brief Bitmap for @ref SHM_CHANNEL_t.NcsiChannelCtrlstatRx. */
-    SHM_CHANNEL3.NcsiChannelCtrlstatRx.r32.installReadCallback(read_from_ram, (uint8_t *)base);
-    SHM_CHANNEL3.NcsiChannelCtrlstatRx.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+    /** @brief Bitmap for @ref SHM_CHANNEL_t.NcsiChannelNetworkRx. */
+    SHM_CHANNEL3.NcsiChannelNetworkRx.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    SHM_CHANNEL3.NcsiChannelNetworkRx.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
-    /** @brief Bitmap for @ref SHM_CHANNEL_t.NcsiChannelCtrlstatDropped. */
-    SHM_CHANNEL3.NcsiChannelCtrlstatDropped.r32.installReadCallback(read_from_ram, (uint8_t *)base);
-    SHM_CHANNEL3.NcsiChannelCtrlstatDropped.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+    /** @brief Bitmap for @ref SHM_CHANNEL_t.NcsiChannelNetworkTx. */
+    SHM_CHANNEL3.NcsiChannelNetworkTx.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    SHM_CHANNEL3.NcsiChannelNetworkTx.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
-    /** @brief Bitmap for @ref SHM_CHANNEL_t.NcsiChannelCtrlstatTypeErr. */
-    SHM_CHANNEL3.NcsiChannelCtrlstatTypeErr.r32.installReadCallback(read_from_ram, (uint8_t *)base);
-    SHM_CHANNEL3.NcsiChannelCtrlstatTypeErr.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+    /** @brief Bitmap for @ref SHM_CHANNEL_t.NcsiChannelNcsiRx. */
+    SHM_CHANNEL3.NcsiChannelNcsiRx.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    SHM_CHANNEL3.NcsiChannelNcsiRx.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
-    /** @brief Bitmap for @ref SHM_CHANNEL_t.NcsiChannelCtrlstatBadCsum. */
-    SHM_CHANNEL3.NcsiChannelCtrlstatBadCsum.r32.installReadCallback(read_from_ram, (uint8_t *)base);
-    SHM_CHANNEL3.NcsiChannelCtrlstatBadCsum.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+    /** @brief Bitmap for @ref SHM_CHANNEL_t.NcsiChannelNcsiTx. */
+    SHM_CHANNEL3.NcsiChannelNcsiTx.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    SHM_CHANNEL3.NcsiChannelNcsiTx.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
-    /** @brief Bitmap for @ref SHM_CHANNEL_t.NcsiChannelCtrlstatAllRx. */
-    SHM_CHANNEL3.NcsiChannelCtrlstatAllRx.r32.installReadCallback(read_from_ram, (uint8_t *)base);
-    SHM_CHANNEL3.NcsiChannelCtrlstatAllRx.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+    /** @brief Bitmap for @ref SHM_CHANNEL_t.NcsiChannelNcsiDropped. */
+    SHM_CHANNEL3.NcsiChannelNcsiDropped.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    SHM_CHANNEL3.NcsiChannelNcsiDropped.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
-    /** @brief Bitmap for @ref SHM_CHANNEL_t.NcsiChannelCtrlstatAllTx. */
-    SHM_CHANNEL3.NcsiChannelCtrlstatAllTx.r32.installReadCallback(read_from_ram, (uint8_t *)base);
-    SHM_CHANNEL3.NcsiChannelCtrlstatAllTx.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+    /** @brief Bitmap for @ref SHM_CHANNEL_t.NcsiChannelNetworkDropped. */
+    SHM_CHANNEL3.NcsiChannelNetworkDropped.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    SHM_CHANNEL3.NcsiChannelNetworkDropped.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
-    /** @brief Bitmap for @ref SHM_CHANNEL_t.NcsiChannelCtrlstatAllAen. */
-    SHM_CHANNEL3.NcsiChannelCtrlstatAllAen.r32.installReadCallback(read_from_ram, (uint8_t *)base);
-    SHM_CHANNEL3.NcsiChannelCtrlstatAllAen.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+    /** @brief Bitmap for @ref SHM_CHANNEL_t.NcsiChannelAen. */
+    SHM_CHANNEL3.NcsiChannelAen.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    SHM_CHANNEL3.NcsiChannelAen.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
 
 }

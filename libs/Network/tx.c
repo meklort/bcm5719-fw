@@ -286,6 +286,9 @@ static inline bool Network_TX_transmitPacket_internal(uint8_t *packet, uint32_t 
 
     *((RegAPETxToNetDoorbell_t *)port->tx_doorbell) = doorbell;
 
+    // Packet Transmitted.
+    ++port->shm_channel->NcsiChannelNetworkTx.r32;
+
     return true;
 }
 
@@ -477,7 +480,7 @@ bool Network_TX_transmitPassthroughPacket(uint32_t length, NetworkPort_t *port)
     (void)data;
 
     // Packet transmitted.
-    ++port->shm_channel->NcsiChannelCtrlstatAllTx.r32;
+    ++port->shm_channel->NcsiChannelNetworkTx.r32;
 
     return true;
 }

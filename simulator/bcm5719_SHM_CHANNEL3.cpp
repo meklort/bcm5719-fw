@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2018, Evan Lojewski
+/// @copyright Copyright (c) 2020, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -52,8 +52,6 @@ void init_bcm5719_SHM_CHANNEL3(void)
     /** @brief Bitmap for @ref SHM_CHANNEL_t.NcsiChannelInfo. */
 
     /** @brief Bitmap for @ref SHM_CHANNEL_t.NcsiChannelMcid. */
-
-    /** @brief Bitmap for @ref SHM_CHANNEL_t.NcsiChannelAen. */
 
     /** @brief Bitmap for @ref SHM_CHANNEL_t.NcsiChannelBfilt. */
 
@@ -115,19 +113,19 @@ void init_bcm5719_SHM_CHANNEL3(void)
 
     /** @brief Bitmap for @ref SHM_CHANNEL_t.NcsiChannelDbg. */
 
-    /** @brief Bitmap for @ref SHM_CHANNEL_t.NcsiChannelCtrlstatRx. */
+    /** @brief Bitmap for @ref SHM_CHANNEL_t.NcsiChannelNetworkRx. */
 
-    /** @brief Bitmap for @ref SHM_CHANNEL_t.NcsiChannelCtrlstatDropped. */
+    /** @brief Bitmap for @ref SHM_CHANNEL_t.NcsiChannelNetworkTx. */
 
-    /** @brief Bitmap for @ref SHM_CHANNEL_t.NcsiChannelCtrlstatTypeErr. */
+    /** @brief Bitmap for @ref SHM_CHANNEL_t.NcsiChannelNcsiRx. */
 
-    /** @brief Bitmap for @ref SHM_CHANNEL_t.NcsiChannelCtrlstatBadCsum. */
+    /** @brief Bitmap for @ref SHM_CHANNEL_t.NcsiChannelNcsiTx. */
 
-    /** @brief Bitmap for @ref SHM_CHANNEL_t.NcsiChannelCtrlstatAllRx. */
+    /** @brief Bitmap for @ref SHM_CHANNEL_t.NcsiChannelNcsiDropped. */
 
-    /** @brief Bitmap for @ref SHM_CHANNEL_t.NcsiChannelCtrlstatAllTx. */
+    /** @brief Bitmap for @ref SHM_CHANNEL_t.NcsiChannelNetworkDropped. */
 
-    /** @brief Bitmap for @ref SHM_CHANNEL_t.NcsiChannelCtrlstatAllAen. */
+    /** @brief Bitmap for @ref SHM_CHANNEL_t.NcsiChannelAen. */
 
 
 }

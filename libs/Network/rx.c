@@ -119,6 +119,8 @@ bool Network_RxLePatcket(uint32_t *buffer, uint32_t *bytes, NetworkPort_t *port)
 
         *bytes = rx_bytes;
 
+        ++port->shm_channel->NcsiChannelNetworkRx.r32;
+
         return true;
     }
     else
@@ -258,8 +260,9 @@ bool Network_PassthroughRxPatcket(NetworkPort_t *port)
         rxbuf.bits.Finished = 1;
         *((RegAPERxbufoffset_t *)port->rx_offset) = rxbuf;
 
-        // Packet recieved.
-        ++port->shm_channel->NcsiChannelCtrlstatAllRx.r32;
+        // Packet recieved (RX via Network and transmitted via NCSI).
+        ++port->shm_channel->NcsiChannelNetworkRx.r32;
+        ++port->shm_channel->NcsiChannelNcsiTx.r32;
 
         return true;
     }

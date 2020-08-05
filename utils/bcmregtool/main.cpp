@@ -716,10 +716,12 @@ int main(int argc, char const *argv[])
         APE_PERI.BmcToNcTxControl.print();
         APE_PERI.BmcToNcRxStatus.print();
         APE_PERI.BmcToNcRxControl.print();
-        SHM_CHANNEL0.NcsiChannelCtrlstatAllTx.print();
-        SHM_CHANNEL0.NcsiChannelCtrlstatRx.print();
+        SHM_CHANNEL0.NcsiChannelNcsiTx.print();
+        SHM_CHANNEL0.NcsiChannelNcsiRx.print();
 
         printf("\n======= Port 0 =======\n");
+        SHM_CHANNEL0.NcsiChannelNetworkTx.print();
+        SHM_CHANNEL0.NcsiChannelNetworkRx.print();
         APE_PERI.BmcToNcSourceMacHigh.print();
         APE_PERI.BmcToNcSourceMacMatch0High.print();
         APE_PERI.BmcToNcSourceMacMatch0Low.print();
