@@ -546,8 +546,6 @@ int main(int argc, char const *argv[])
 
     if (options.is_set("apeboot"))
     {
-        boot_ape_loader();
-
         int fileLength = 0;
         int fileWords = 0;
 #define NVRAM_SIZE (1024u * 256u) /* 256KB */
@@ -580,6 +578,8 @@ int main(int argc, char const *argv[])
             cerr << " Unable to open file '" << file << "'" << endl;
             exit(-1);
         }
+
+        boot_ape_loader();
 
         if (ape.words[0] == be32toh(APE_HEADER_MAGIC))
         {
