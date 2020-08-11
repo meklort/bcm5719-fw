@@ -42,6 +42,9 @@
 ### @endcond
 ################################################################################
 
+enable_testing()
+include(GoogleTest)
+
 SET(COMPILER_BASE       $ENV{HOME}/llvm-bcm5719)
 SET(CMAKE_C_COMPILER    ${COMPILER_BASE}/bin/clang)
 SET(CMAKE_CXX_COMPILER  ${COMPILER_BASE}/bin/clang++)

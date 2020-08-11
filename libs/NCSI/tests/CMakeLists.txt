@@ -48,3 +48,4 @@ set(SOURCES valid_commands.c tests.cpp)
 
 simulator_add_executable(ncsi-tests ${SOURCES})
 target_link_libraries(ncsi-tests NCSI simulator gtest gtest_main)
+gtest_discover_tests(ncsi-tests)
