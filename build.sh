@@ -61,6 +61,20 @@ then
     fi
 fi
 
+if [ ! -x "$CPACK" ]
+then
+    CPACK=`which cpack3`
+    if [ ! -x "$CPACK" ]
+    then
+        CPACK=`which cpack`
+        if [ ! -x "$CPACK" ]
+        then
+            echo "ERROR: Unable to locate cpack."
+            exit -1
+        fi
+    fi
+fi
+
 NINJA=`which ninja-build`
 if [ -x "$NINJA" ]
 then
@@ -94,4 +108,5 @@ cd "$BUILD_DIR"
 
 # Generate release packages.
 "$CMAKE" --build . --target package
-"$CMAKE" --build . --target package_source
+# Work around an issue with --target package_source that fails due to ('s in the path
+"$CPACK" --config ./CPackSourceConfig.cmake
