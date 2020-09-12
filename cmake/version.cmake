@@ -43,7 +43,7 @@
 ################################################################################
 
 SET(VERSION_MAJOR 0)
-SET(VERSION_MINOR 3)
+SET(VERSION_MINOR 4)
 SET(VERSION_PATCH )
 
 SET(VERSION_FILE ${CMAKE_SOURCE_DIR}/version)
