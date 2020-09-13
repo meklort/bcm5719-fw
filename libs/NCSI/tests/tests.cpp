@@ -259,6 +259,7 @@ namespace
 
 TEST(Packet, SelectPackage)
 {
+    NCSI_usePort(Network_getPort(0));
     APE_PERI.BmcToNcRxStatus.r32.installReadCallback(read_rx_status, NULL);
     APE_PERI.BmcToNcReadBuffer.r32.installReadCallback(read_packet, NULL);
     APE_PERI.BmcToNcTxStatus.r32.installReadCallback(read_tx_status, NULL);

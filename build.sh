@@ -106,6 +106,9 @@ cd "$BUILD_DIR"
 # Ensure formatting is correct
 "$CMAKE" --build . --target check-format
 
+# Run the tests
+"$CMAKE" --build . --target test
+
 # Generate release packages.
 "$CMAKE" --build . --target package
 # Work around an issue with --target package_source that fails due to ('s in the path
