@@ -79,6 +79,14 @@ def do_build(nodeName, archive = false, archiveCab = false, analyze = true, test
                 {
                     archiveArtifacts artifacts: '*.zip', fingerprint: true
                     archiveArtifacts artifacts: '*.tar.gz', fingerprint: true
+                    publishHTML(target: [
+                        allowMissing: false,
+                        alwaysLinkToLastBuild: false,
+                        keepAll: true,
+                        reportDir: 'coverage',
+                        reportFiles: 'index.html',
+                        reportName: "Coverage Report"
+                    ])
                 }
 
                 if (archiveCab)

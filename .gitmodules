@@ -8,3 +8,6 @@
 [submodule "utils/python-uswid"]
 	path = utils/python-uswid
 	url = https://github.com/hughsie/python-uswid.git
+[submodule "tests/lcov"]
+	path = tests/lcov
+	url = https://github.com/linux-test-project/lcov.git

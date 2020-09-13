@@ -107,6 +107,7 @@ cd "$BUILD_DIR"
 
 # Run the tests
 "$CMAKE" --build . --target test
+"$CMAKE" --build . --target coverage-html
 
 # Generate release packages.
 "$CMAKE" --build . --target package

@@ -45,3 +45,11 @@
 SET(INSTALL_GTEST OFF CACHE BOOL "")
 SET(INSTALL_GMOCK OFF CACHE BOOL "")
 add_subdirectory(googletest)
+
+add_custom_target(coverage-info
+                  "${CMAKE_SOURCE_DIR}/tests/lcov/bin/lcov" -c --gcov-tool "${CMAKE_SOURCE_DIR}/tests/llvm-gcov.sh" --directory "${CMAKE_BINARY_DIR}" -o "${CMAKE_BINARY_DIR}/coverage.info"
+                  VERBATIM)
+add_custom_target(coverage-html
+                  "${CMAKE_SOURCE_DIR}/tests/lcov/bin/genhtml" "${CMAKE_BINARY_DIR}/coverage.info" -o "${CMAKE_BINARY_DIR}/coverage"
+                  DEPENDS coverage-info
+                  VERBATIM)
