@@ -88,7 +88,7 @@ bool save_to_file(const char *filename, void *buffer, size_t size)
     }
 }
 
-#define NVRAM_SIZE (1024u * 256u) /* 256KB */
+#define NVRAM_SIZE (2048u * 256u) /* 256KB */
 int main(int argc, char const *argv[])
 {
     bool extract = false;
