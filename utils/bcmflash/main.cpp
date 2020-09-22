@@ -179,7 +179,7 @@ int main(int argc, char const *argv[])
     {
         if (!initHAL(NULL, options.get("function")))
         {
-            cerr << "Unable to locate pci device with function " << options["function"] << " for the debug console." << endl;
+            cerr << "Unable to locate pci device with function " << options["function"] << endl;
             exit(-1);
         }
 
