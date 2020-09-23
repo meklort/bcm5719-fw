@@ -441,11 +441,18 @@ int main(int argc, char const *argv[])
             uint32_t length = BCM_CODE_DIRECTORY_GET_LENGTH(info);
             uint32_t cpu = BCM_CODE_DIRECTORY_GET_CPU(info);
             uint32_t type = BCM_CODE_DIRECTORY_GET_TYPE(info);
+
+            uint8_t *cd_loc = &nvram.bytes[be32toh(nvram.contents.directory[i].directoryOffset)];
+            uint32_t crc_calc = be32toh(~NVRam_crc(cd_loc, (length - 1) * sizeof(uint32_t), 0xffffffff));
+            uint32_t crc_expect = be32toh(((uint32_t *)cd_loc)[length - 1]);
+
             printf("Code Address:   0x%08X\n", addr);
             printf("Code Words:     0x%08X (%ld bytes)\n", length, length * sizeof(uint32_t));
             printf("Code Offset:    0x%08X\n", be32toh(nvram.contents.directory[i].directoryOffset));
             printf("Code CPU:       0x%02X\n", cpu);
             printf("Code Type:      0x%02X\n", type);
+            printf("Calculated CRC: 0x%08X\n", crc_calc);
+            printf("Expected CRC:   0x%08X\n", crc_expect);
             printf("\n");
 
             if (BCM_CODE_DIRECTORY_ADDR_APE == addr && BCM_CODE_DIRECTORY_CPU_APE == cpu) /* APE */
@@ -460,7 +467,7 @@ int main(int argc, char const *argv[])
                 uint8_t *cd_loc = &nvram.bytes[be32toh(nvram.contents.directory[i].directoryOffset)];
                 char *cd_name = strdup("cdN.bin");
                 cd_name[2] = '0' + i;
-                if (!save_to_file(cd_name, cd_loc, length * sizeof(uint32_t)))
+                if (!save_to_file(cd_name, cd_loc, (length - 1) * sizeof(uint32_t)))
                 {
                     exit(-1);
                 }
@@ -485,6 +492,7 @@ int main(int argc, char const *argv[])
         if (infile.is_open())
         {
             uint32_t new_ape_length = infile.tellg();
+            new_ape_length += sizeof(uint32_t); /* CRC */
             infile.seekg(0);
 
             if (new_ape_length > ape_length)
@@ -509,7 +517,12 @@ int main(int argc, char const *argv[])
 #endif
             }
 
+            uint32_t new_ape_crc = be32toh(~NVRam_crc(ape, ape_length - sizeof(uint32_t), 0xffffffff));
+
             printf("New Length (bytes):  0x%08X\n", new_ape_length);
+            printf("New CRC:  0x%08X\n", new_ape_crc);
+            uint32_t *crc_loc = (uint32_t *)&ape[ape_length - sizeof(uint32_t)];
+            *crc_loc = htobe32(new_ape_crc);
 
             // TODO: update length (if changed);
 
