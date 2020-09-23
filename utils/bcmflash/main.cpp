@@ -92,6 +92,8 @@ bool save_to_file(const char *filename, void *buffer, size_t size)
 int main(int argc, char const *argv[])
 {
     bool extract = false;
+    bool should_write = false;
+
     union
     {
         uint8_t bytes[NVRAM_SIZE];
@@ -366,35 +368,13 @@ int main(int argc, char const *argv[])
 
             // TODO: update length (if changed);
 
-            if ("file" == options["target"])
-            {
-                // write update file.
-                if (!save_to_file(options["filename"].c_str(), (char *)nvram.bytes, NVRAM_SIZE))
-                {
-                    exit(-1);
-                }
-            }
-
-            if ("hardware" == options["target"])
-            {
-                NVRam_acquireLock();
-
-                NVRam_enable();
-                NVRam_enableWrites();
-
-                NVRam_write(0, nvram.words, NVRAM_SIZE / 4);
-
-                NVRam_disableWrites();
-
-                NVRam_releaseLock();
-            }
+            should_write = true;
         }
         else
         {
             cerr << " Unable to open file '" << options["stage1"] << "'" << endl;
             exit(-1);
         }
-        exit(0);
     }
 
     uint32_t *stage2_wd = &stage1_wd[(crc_word + 1)]; // immediately after stage1 crc
@@ -517,6 +497,12 @@ int main(int argc, char const *argv[])
 #endif
             }
 
+            // Ensure everything is in the correct endianness.
+            for (int i = 0; i < (new_ape_length - 4) / 4; i++)
+            {
+                ape_wd[i] = be32toh(ape_wd[i]);
+            }
+
             uint32_t new_ape_crc = be32toh(~NVRam_crc(ape, ape_length - sizeof(uint32_t), 0xffffffff));
 
             printf("New Length (bytes):  0x%08X\n", new_ape_length);
@@ -526,40 +512,39 @@ int main(int argc, char const *argv[])
 
             // TODO: update length (if changed);
 
-            if ("file" == options["target"])
-            {
-                // write update file.
-                if (!save_to_file(options["filename"].c_str(), (char *)nvram.bytes, NVRAM_SIZE))
-                {
-                    exit(-1);
-                }
-            }
-
-            if ("hardware" == options["target"])
-            {
-                // Ensure everything is in the correct endianness.
-                for (int i = 0; i < new_ape_length / 4; i++)
-                {
-                    ape_wd[i] = be32toh(ape_wd[i]);
-                }
-
-                NVRam_acquireLock();
-
-                NVRam_enable();
-                NVRam_enableWrites();
-
-                NVRam_write(0, nvram.words, NVRAM_SIZE / 4);
-
-                NVRam_disableWrites();
-
-                NVRam_releaseLock();
-            }
+            should_write = true;
         }
         else
         {
             cerr << " Unable to open file '" << options["ape"] << "'" << endl;
             exit(-1);
         }
+    }
+
+    if (should_write)
+    {
+        if ("file" == options["target"])
+        {
+            // write update file.
+            if (!save_to_file(options["filename"].c_str(), (char *)nvram.bytes, NVRAM_SIZE))
+            {
+                exit(-1);
+            }
+        }
+        else if ("hardware" == options["target"])
+        {
+            NVRam_acquireLock();
+
+            NVRam_enable();
+            NVRam_enableWrites();
+
+            NVRam_write(0, nvram.words, NVRAM_SIZE / 4);
+
+            NVRam_disableWrites();
+
+            NVRam_releaseLock();
+        }
+
         exit(0);
     }
 
