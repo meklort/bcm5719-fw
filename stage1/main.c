@@ -48,9 +48,11 @@
 #include <HAL.hpp>
 #include <endian.h>
 #define crc_swap(__x__) (__x__) /* No swapping needed on the host */
+#define vpd_swap(__x__) (__x__) /* No swapping needed on the host */
 #else
 #define be32toh(__x__) (__x__)
 #define crc_swap(__x__) ((((__x__)&0x000000FF) << 24) | (((__x__)&0x0000FF00) << 8) | (((__x__)&0x00FF0000) >> 8) | (((__x__)&0xFF000000) >> 24))
+#define vpd_swap(__x__) ((((__x__)&0x000000FF) << 24) | (((__x__)&0x0000FF00) << 8) | (((__x__)&0x00FF0000) >> 8) | (((__x__)&0xFF000000) >> 24))
 #endif
 #include <APE.h>
 #include <NVRam.h>
@@ -93,24 +95,37 @@ void handle_printf()
         return;
     }
 
-    for (;;)
+    uint32_t cached_pointer = SHM.RcpuReadPointer.r32;
+    if (cached_pointer != SHM.RcpuWritePointer.r32)
     {
-        uint32_t cached_pointer = SHM.RcpuReadPointer.r32;
-        if (cached_pointer != SHM.RcpuWritePointer.r32)
+        if (cached_pointer >= buffer_size)
         {
-            if (cached_pointer >= buffer_size)
-            {
-                cached_pointer = 0;
-            }
-
-            uint32_t word_pointer = cached_pointer / 4;
-            uint32_t byte_index = cached_pointer % 4;
-            char character = (uint8_t)(SHM.RcpuPrintfBuffer[word_pointer].r32 >> (byte_index * 8));
-
-            em100_putchar(character);
-
-            SHM.RcpuReadPointer.r32 = ++cached_pointer;
+            cached_pointer = 0;
         }
+
+        uint32_t word_pointer = cached_pointer / 4;
+        uint32_t byte_index = cached_pointer % 4;
+        char character = (uint8_t)(SHM.RcpuPrintfBuffer[word_pointer].r32 >> (byte_index * 8));
+
+        em100_putchar(character);
+
+        SHM.RcpuReadPointer.r32 = ++cached_pointer;
+    }
+}
+
+void handle_vpd()
+{
+    if (DEVICE.RxCpuEvent.bits.VPDAttention)
+    {
+        uint32_t vpd_offset = DEVICE.PciVpdRequest.bits.RequestedVPDOffset;
+
+        uint32_t vpd_data = 0;
+        if (vpd_offset < sizeof(gNVMContents.vpd.bytes))
+        {
+            vpd_data = ((uint32_t *)gNVMContents.vpd.bytes)[vpd_offset / 4];
+        }
+
+        DEVICE.PciVpdResponse.r32 = vpd_swap(vpd_data);
     }
 }
 
@@ -175,55 +190,23 @@ int main()
     GEN.GenAsfStatusMbox.r32 = GEN_GEN_FW_MBOX_MBOX_BOOTCODE_READY;
     // Do main loop.
 
-#if 0
-    // Ensure all APE locks are released.
-    // APE_releaseAllLocks();
-    DEVICE.RxCpuEventEnable.bits.VPDAttention = 1;
-    for (;;)
-    {
-        // APE heartbeat.
-        // APE.RcpuApeResetCount.r32 = APE.RcpuApeResetCount.r32 + 1;
-        // APE.RcpuLastApeStatus.r32 = APE.Status.r32;
-        // APE.RcpuLastApeFwStatus.r32 = APE.FwStatus.r32;
-
-        // Spin
-        if (DEVICE.RxCpuEvent.bits.VPDAttention)
-        {
-            // uint32_t vpd_offset = DEVICE.PciVpdRequest.bits.RequestedVPDOffset;
-
-            union {
-                uint8_t r8[4];
-                uint32_t r32;
-            } vpd_data;
-            // vpd_data.r8[0] = gNVMContents.vpd.bytes[vpd_offset];
-            // vpd_data.r8[1] = gNVMContents.vpd.bytes[vpd_offset + 1];
-            // vpd_data.r8[2] = gNVMContents.vpd.bytes[vpd_offset + 2];
-            // vpd_data.r8[3] = gNVMContents.vpd.bytes[vpd_offset + 3];
-            vpd_data.r32 = 0;
-            DEVICE.PciVpdResponse.r32 = vpd_data.r32;
-        }
-    }
-
-#else
     if (0 == DEVICE.Status.bits.FunctionNumber)
     {
         for (;;)
         {
             // Handle printf from the APE.
             handle_printf();
+
+            // Handle VPD requests from the host.
+            handle_vpd();
         }
     }
     else
     {
-        RegDEVICERxRiscMode_t mode;
-        mode.r32 = 0;
-        mode.bits.Halt = 1;
-
         for (;;)
         {
-            // Halt the CPU since we aren't doing anything.
-            // DEVICE.RxRiscMode.r32 = mode.r32;;
+            // Handle VPD requests from the host.
+            handle_vpd();
         }
     }
-#endif
 }
