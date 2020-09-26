@@ -497,10 +497,13 @@ int main(int argc, char const *argv[])
 #endif
             }
 
-            // Ensure everything is in the correct endianness.
-            for (int i = 0; i < (new_ape_length - 4) / 4; i++)
+            if (ape_wd[0] == APE_HEADER_MAGIC)
             {
-                ape_wd[i] = be32toh(ape_wd[i]);
+                // Ensure everything is in the correct endianness.
+                for (int i = 0; i < (new_ape_length - 4) / 4; i++)
+                {
+                    ape_wd[i] = be32toh(ape_wd[i]);
+                }
             }
 
             uint32_t new_ape_crc = be32toh(~NVRam_crc(ape, ape_length - sizeof(uint32_t), 0xffffffff));

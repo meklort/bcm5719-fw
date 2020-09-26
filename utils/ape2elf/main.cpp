@@ -101,6 +101,12 @@ int main(int argc, char const *argv[])
             }
         }
 
+        if (ape.words[0] != APE_HEADER_MAGIC)
+        {
+            printf("Unexpected APE magic\n");
+            exit(-1);
+        }
+
         infile.close();
     }
     else

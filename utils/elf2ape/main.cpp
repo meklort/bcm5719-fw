@@ -104,6 +104,37 @@ uint64_t get_symbol_value(const char *search, elfio &reader)
 
 bool save_to_file(const char *filename, void *buffer, size_t size)
 {
+    union caster
+    {
+        void *pv;
+        uint32_t *p32;
+    } caster;
+    caster.pv = buffer;
+    uint32_t *words = caster.p32;
+
+    if (size % sizeof(uint32_t))
+    {
+        printf("Unexpected output size - must be a multiple of %lu\n", sizeof(uint32_t));
+    }
+
+    if (words[0] == htobe32(APE_HEADER_MAGIC))
+    {
+        // Expected BE image format
+    }
+    else if (words[0] == APE_HEADER_MAGIC)
+    {
+        // Image is stored BE in the non-volatile memeory. Swap it.
+        for (size_t i = 0; i < (size / sizeof(uint32_t)); i++)
+        {
+            words[i] = htobe32(words[i]);
+        }
+    }
+    else
+    {
+        printf("Unknown header 0x%08X\n", words[0]);
+        return false;
+    }
+
     cout << "Writing to " << filename << "." << endl;
     FILE *out = fopen(filename, "w+");
     if (out)
@@ -294,7 +325,10 @@ int main(int argc, char const *argv[])
     ape.header.crc = calculated_crc;
     printf("Calculated CRC:     0x%08X\n", calculated_crc);
 
-    save_to_file(options["output"].c_str(), ape.bytes, byteOffset);
+    if (!save_to_file(options["output"].c_str(), ape.bytes, byteOffset))
+    {
+        exit(-1);
+    }
 
     // fstream infile;
     // infile.open(options["input"], fstream::in | fstream::binary);
