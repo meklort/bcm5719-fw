@@ -63,17 +63,6 @@ int printf_(const char* format, ...);
 
 
 /**
- * Tiny sprintf implementation
- * Due to security reasons (buffer overflow) YOU SHOULD CONSIDER USING (V)SNPRINTF INSTEAD!
- * \param buffer A pointer to the buffer where to store the formatted string. MUST be big enough to store the output!
- * \param format A string that specifies the format of the output
- * \return The number of characters that are WRITTEN into the buffer, not counting the terminating null character
- */
-#define sprintf sprintf_ //lint !e828
-int sprintf_(char* buffer, const char* format, ...);
-
-
-/**
  * Tiny snprintf/vsnprintf implementation
  * \param buffer A pointer to the buffer where to store the formatted string
  * \param count The maximum number of characters to store in the buffer, including a terminating null character

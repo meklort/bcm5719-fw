@@ -42,7 +42,12 @@
 ### @endcond
 ################################################################################
 
-SET(MIPS_COMPILE_OPTIONS -nostdlib -nodefaultlibs -fomit-frame-pointer -target mips -mcpu=mips2 )
+SET(MIPS_COMPILE_OPTIONS
+    -nostdlib -nodefaultlibs
+    $<$<NOT:$<COMPILE_LANGUAGE:ASM>>:-fomit-frame-pointer>  # Don't include for ASM sources
+    -target mips -mcpu=mips2
+    $<$<NOT:$<COMPILE_LANGUAGE:ASM>>:-include "${CMAKE_SOURCE_DIR}/include/banned.h">
+)
 SET(MIPS_LINK_OPTIONS --gc-sections)
 # SET(CMAKE_EXE_LINKER_FLAGS -static)
 
