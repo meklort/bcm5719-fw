@@ -66,6 +66,8 @@
 #include <bcm5719_GEN.h>
 #include <bcm5719_SHM.h>
 
+const char gStage1Version[] = "stage1-" STRINGIFY(VERSION_MAJOR) "." STRINGIFY(VERSION_MINOR) "." STRINGIFY(VERSION_PATCH);
+
 NVRAMContents_t gNVMContents;
 
 void __attribute__((noinline)) reportStatus(uint32_t code, uint8_t step)
@@ -139,7 +141,9 @@ int main()
 
     if (0 == DEVICE.Status.bits.FunctionNumber)
     {
-        em100_puts("RX Firmware v" STRINGIFY(VERSION_MAJOR) "." STRINGIFY(VERSION_MINOR) "." STRINGIFY(VERSION_PATCH) "\n");
+        em100_puts("RX Firmware ");
+        em100_puts(gStage1Version);
+        em100_puts("\n");
     }
 
 #if !CXX_SIMULATOR
