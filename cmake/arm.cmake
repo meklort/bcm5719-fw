@@ -43,15 +43,15 @@
 ################################################################################
 
 SET(ARM_COMPILE_OPTIONS -nostdlib -nodefaultlibs
-    $<$<NOT:$<COMPILE_LANGUAGE:ASM>>:-fomit-frame-pointer>  # Don't include for ASM sources
-    $<$<NOT:$<COMPILE_LANGUAGE:ASM>>:-fno-builtin>          # Don't include for ASM sources
+    -fomit-frame-pointer
+    -fno-builtin
     -target thumbv7-none-eabi -mcpu=cortex-m3 -mfloat-abi=soft)
 SET(ARM_LINK_OPTIONS --gc-sections)
 # SET(CMAKE_EXE_LINKER_FLAGS -static)
 
 # ASM files
 SET(CMAKE_INCLUDE_FLAG_ASM "-I")
-SET(CMAKE_ASM_COMPILE_OBJECT "<CMAKE_ASM_COMPILER> <DEFINES> <INCLUDES> <FLAGS> -o <OBJECT> -c <SOURCE>")
+SET(CMAKE_ASM_COMPILE_OBJECT "<CMAKE_ASM_COMPILER> -x assembler-with-cpp <DEFINES> <INCLUDES> <FLAGS> -o <OBJECT> -c <SOURCE>")
 
 SET(CMAKE_arm_LINK_EXECUTABLE "${COMPILER_BASE}/bin/ld.lld  <OBJECTS> <LINK_LIBRARIES> <CMAKE_C_LINK_FLAGS> <LINK_FLAGS> -Bstatic -o <TARGET>")
 
