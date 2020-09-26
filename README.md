@@ -50,6 +50,8 @@ The current version of the code is functional and is able to handle network traf
 ## Compiling
 To compile the firmware, the following command sequence can be used:
 ```bash
+git submodule init
+git submodule update
 mkdir build
 cd build
 cmake .. -G Ninja
