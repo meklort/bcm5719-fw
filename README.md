@@ -31,11 +31,11 @@ ninja install
 The current version of the code is functional and is able to handle network traffic over NC-SI
   - Libraries:
     - MII Library: Done
-    - NVRAM Library: Done   
+    - NVRAM Library: Done
   - Stage1/Stage2
     - Implementation: Functional
     - Testing: Minimal, WIP
-    - VPD: Started, not functional
+    - VPD: Functional
     - WOL: Not started
   - APE
     - NC-SI Handler: Functional
