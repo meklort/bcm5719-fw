@@ -52,6 +52,10 @@ mips_add_executable(${PROJECT_NAME}
             main.c
             crt.s)
 mips_linker_script(${PROJECT_NAME} ${LINKER_SCRIPT})
+target_link_libraries(${PROJECT_NAME}
+    --defsym=VERSION_MAJOR=${VERSION_MAJOR}
+    --defsym=VERSION_MINOR=${VERSION_MINOR}
+    --defsym=VERSION_PATCH=${VERSION_PATCH})
 
 target_link_libraries(${PROJECT_NAME} NVRam-mips MII-mips APE-mips printf-mips)
 target_link_libraries(${PROJECT_NAME} bcm5719)
