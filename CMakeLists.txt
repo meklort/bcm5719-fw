@@ -2,7 +2,7 @@
 ###
 ### @file       CMakeLists.txt
 ###
-### @project    
+### @project
 ###
 ### @brief      Top level CMake file
 ###
@@ -71,3 +71,5 @@ add_subdirectory(simulator)
 add_subdirectory(stage1)
 
 add_subdirectory(ape)
+
+add_subdirectory(fwupd)

@@ -389,11 +389,18 @@ int main(int argc, char const *argv[])
 
         memcpy(nvram.contents.info.partNumber, "BCM95719", sizeof("BCM95719"));
         memcpy(nvram.contents.info.partRevision, "A0", sizeof("A0"));
+        nvram.contents.info.vendorID = htobe16(0x14E4);
+        nvram.contents.info.deviceID = htobe16(0x1657);
 
         nvram.contents.header.magic = htobe32(BCM_NVRAM_MAGIC);
         nvram.contents.header.bootstrapPhysAddr = htobe32(0x08003800);
         nvram.contents.header.bootstrapOffset = htobe32(sizeof(NVRAMContents_t));
         nvram.contents.header.bootstrapWords = 0;
+        nvram.contents.header.crc = 0;
+
+        // FIXME
+        nvram.contents.header.crc = htobe32(~NVRam_crc((uint8_t*)&nvram.contents.header, sizeof(nvram.contents.header), 0xffffffff));
+        printf("CRC: %x\n", nvram.contents.header.crc);
 
         if(options.is_set("stage1"))
         {
@@ -414,8 +421,6 @@ int main(int argc, char const *argv[])
 
         uint32_t crc_word = stage1_length / 4;
         stage1_wd = &nvram.words[be32toh(nvram.contents.header.bootstrapOffset) / 4];
-        stage1 = &nvram.bytes[be32toh(nvram.contents.header.bootstrapOffset)];
-        printf("Reserving stage1 at %p with %zu bytes\n", stage1, stage1_length);
 
         uint32_t *stage2_wd = &stage1_wd[(crc_word + 1)]; // immediately after stage1 crc
         NVRAMStage2_t *stage2 = (NVRAMStage2_t *)stage2_wd;
@@ -445,7 +450,6 @@ int main(int argc, char const *argv[])
         }
 
         memset(&nvram.contents.vpd, 0, sizeof(nvram.contents.vpd));
-
     }
     else if ("file" == options["target"])
     {

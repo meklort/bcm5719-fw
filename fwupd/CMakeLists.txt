@@ -1,16 +1,16 @@
 ################################################################################
 ###
-### @file       version.cmake
+### @file       CMakeLists.txt
 ###
 ### @project    bcm5719
 ###
-### @brief      Version configuration
+### @brief      APE stage for the bcm5719
 ###
 ################################################################################
 ###
 ################################################################################
 ###
-### @copyright Copyright (c) 2020, Evan Lojewski
+### @copyright Copyright (c) 2018-2020, Evan Lojewski
 ### @cond
 ###
 ### All rights reserved.
@@ -42,39 +42,34 @@
 ### @endcond
 ################################################################################
 
-SET(VERSION_MAJOR 0)
-SET(VERSION_MINOR 4)
-SET(VERSION_PATCH )
 
-SET(VERSION_FILE ${CMAKE_SOURCE_DIR}/version)
-IF(EXISTS ${VERSION_FILE})
-    # Release package including a version file.
-    FILE(STRINGS ${VERSION_FILE} lines)
-    LIST(GET lines 0 FULL_VERSION)
-    LIST(GET lines 1 VERSION_DATE)
-    STRING(REPLACE "." ";" FULL_VERSION ${FULL_VERSION})
+project(fwupd)
 
-    LIST(GET FULL_VERSION 0 VERSION_MAJOR)
-    LIST(GET FULL_VERSION 1 VERSION_MINOR)
-    LIST(GET FULL_VERSION 2 VERSION_PATCH)
-ELSE()
-    # Within a git repository
-    EXECUTE_PROCESS(COMMAND git rev-list --count HEAD
-                    OUTPUT_VARIABLE VERSION_PATCH
-                    OUTPUT_STRIP_TRAILING_WHITESPACE)
-    EXECUTE_PROCESS(COMMAND git log -1 --date=short --format=%cd
-                    OUTPUT_VARIABLE VERSION_DATE
-                    OUTPUT_STRIP_TRAILING_WHITESPACE)
+find_program(GCAB gcab)
+IF(NOT GCAB)
+    MESSAGE("Unable to locate gcab - disabling fwupd package generation")
+    RETURN()
 ENDIF()
 
-SET(VERSION_STRING "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 
-add_compile_options(
-    -DVERSION_MAJOR=${VERSION_MAJOR}
-    -DVERSION_MINOR=${VERSION_MINOR}
-    -DVERSION_PATCH=${VERSION_PATCH}
+SET(@DESCRIPTION@ "Firmware update to improve stability.")
+
+configure_file(metainfo.xml.in firmware.metainfo.xml)
+
+add_custom_command(OUTPUT talos2-port0.${VERSION_STRING}.fw
+    COMMAND bcmflash -c -i talos2-port0.${VERSION_STRING}.fw
+        -1 $<TARGET_PROPERTY:stage1,RESOURCE>
+        -a $<TARGET_PROPERTY:ape-port0,RESOURCE>
+    DEPENDS stage1 ape-port0
+    VERBATIM
 )
 
-FILE(GENERATE OUTPUT ${CMAKE_BINARY_DIR}/version CONTENT "@VERSION_STRING@\n@VERSION_DATE@")
+add_custom_command(OUTPUT bcm5719-${VERSION_STRING}.cab
+    COMMAND ${GCAB} -c -z bcm5719-${VERSION_STRING}.cab
+        firmware.metainfo.xml
+        talos2-port0.${VERSION_STRING}.fw
+    DEPENDS talos2-port0.${VERSION_STRING}.fw firmware.metainfo.xml
+)
+add_custom_target(fwupd ALL DEPENDS bcm5719-${VERSION_STRING}.cab)
 
-INSTALL(FILES ${CMAKE_BINARY_DIR}/version DESTINATION .)
+INSTALL(FILES "${CMAKE_BINARY_DIR}/${PROJECT_NAME}/bcm5719-${VERSION_STRING}.cab" DESTINATION fwupd)
