@@ -46,9 +46,12 @@
 .global __start
 .align 4
 __start:
-    j       _main
+    // jal indicates to the tg3 driver to use the version defined in stage1.
+    // j indicates to the tg3 driver to use the version defined in the NVM header.
+    jal     _main
     // NOP is automatically added by llvm
 
+    // New version format
 _version_ptr:
     .word gStage1Version
 _version_data:
