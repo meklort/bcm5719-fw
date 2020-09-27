@@ -2,9 +2,9 @@
 ###
 ### @file       CMakeLists.txt
 ###
-### @project
+### @project    bcm5719
 ###
-### @brief      Top level CMake file
+### @brief      APE stage for the bcm5719
 ###
 ################################################################################
 ###
@@ -42,34 +42,34 @@
 ### @endcond
 ################################################################################
 
-enable_testing()
-include(GoogleTest)
 
-SET(COMPILER_BASE       $ENV{HOME}/llvm-bcm5719)
-SET(CMAKE_C_COMPILER    ${COMPILER_BASE}/bin/clang)
-SET(CMAKE_CXX_COMPILER  ${COMPILER_BASE}/bin/clang++)
-SET(CMAKE_ASM_COMPILER  ${COMPILER_BASE}/bin/clang)
+project(fwupd)
 
-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-rtti -fno-exceptions")
-
-include(cmake/version.cmake)
-
-cmake_minimum_required(VERSION 3.5.1)
-project(bcm5719-fw VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH})
-
-include(cmake/clang-format.cmake)
-include(cmake/clang-analyzer.cmake)
-include(cmake/config.cmake)
-
-add_subdirectory(tests)
-
-add_subdirectory(libs)
-add_subdirectory(utils)
+find_program(GCAB gcab)
+IF(NOT GCAB)
+    MESSAGE("Unable to locate gcab - disabling fwupd package generation")
+    RETURN()
+ENDIF()
 
 
-add_subdirectory(simulator)
-add_subdirectory(stage1)
+SET(DESCRIPTION "Firmware update to improve stability.")
 
-add_subdirectory(ape)
+configure_file(metainfo.xml.in firmware.metainfo.xml)
 
-add_subdirectory(fwupd)
+add_custom_command(OUTPUT talos2-port0.${VERSION_STRING}.fw
+    COMMAND bcmflash -c -t file -i talos2-port0.${VERSION_STRING}.fw
+        -1 $<TARGET_PROPERTY:stage1,RESOURCE>
+        -a $<TARGET_PROPERTY:ape-port0,RESOURCE>
+    DEPENDS stage1 ape-port0
+    VERBATIM
+)
+
+add_custom_command(OUTPUT bcm5719-${VERSION_STRING}.cab
+    COMMAND ${GCAB} -c -z bcm5719-${VERSION_STRING}.cab
+        firmware.metainfo.xml
+        talos2-port0.${VERSION_STRING}.fw
+    DEPENDS talos2-port0.${VERSION_STRING}.fw firmware.metainfo.xml
+)
+add_custom_target(fwupd ALL DEPENDS bcm5719-${VERSION_STRING}.cab)
+
+INSTALL(FILES "${CMAKE_BINARY_DIR}/${PROJECT_NAME}/bcm5719-${VERSION_STRING}.cab" DESTINATION fwupd)
