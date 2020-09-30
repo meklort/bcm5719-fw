@@ -88,6 +88,56 @@ bool save_to_file(const char *filename, void *buffer, size_t size)
     }
 }
 
+void dump_stage1(NVRAMContents_t *nvram, uint8_t *stage1, size_t stage1_length)
+{
+    uint32_t *stage1_wd = (uint32_t *)stage1;
+
+    uint32_t crc_word = stage1_length / 4;
+
+    uint32_t expected_crc = be32toh(~NVRam_crc(stage1, stage1_length, 0xffffffff));
+    uint32_t phys_addr = be32toh(nvram->header.bootstrapPhysAddr);
+    uint32_t ver_addr = be32toh(stage1_wd[2]) - phys_addr;
+    const char *stage1_ver = NULL;
+    uint32_t stage1_version_num = be32toh(stage1_wd[3]);
+    uint8_t stage1_version_major = stage1_version_num >> 24;
+    uint8_t stage1_version_minor = stage1_version_num >> 16 & 0xff;
+    uint16_t stage1_version_patch = stage1_version_num & 0xffff;
+
+    stage1_ver = NULL;
+    if (ver_addr < stage1_length)
+    {
+        stage1_ver = (char *)&stage1[ver_addr];
+    }
+    else
+    {
+        stage1_ver = "Unknown";
+    }
+
+
+    printf("=== stage1 ===\n");
+    printf("Version:             %s (version %d.%d.%d)\n", stage1_ver, stage1_version_major, stage1_version_minor, stage1_version_patch);
+    printf("Magic:               0x%08X\n", be32toh(nvram->header.magic));
+    printf("Bootstrap Phys Addr: 0x%08X\n", phys_addr);
+    printf("Length (bytes):      0x%08zX\n", stage1_length);
+    // printf("Offset:              0x%08lX\n", ((stage1_wd - nvram.words) * 4));
+    printf("Calculated CRC:      0x%08X\n", expected_crc);
+    printf("CRC:                 0x%08X\n", be32toh(stage1_wd[crc_word]));
+
+    if (be32toh(nvram->header.magic) != BCM_NVRAM_MAGIC)
+    {
+        fprintf(stderr, "Error: stage1 magic is invalid.\n");
+        exit(-1);
+    }
+
+    if (be32toh(stage1_wd[crc_word]) != expected_crc)
+    {
+        fprintf(stderr, "Error: stage1 crc is invalid.\n");
+        // exit(-1);
+    }
+
+}
+
+
 #define NVRAM_SIZE (2048u * 256u) /* 512KB */
 int main(int argc, char const *argv[])
 {
@@ -294,47 +344,9 @@ int main(int argc, char const *argv[])
     stage1 = &nvram.bytes[be32toh(nvram.contents.header.bootstrapOffset)];
     stage1_wd = &nvram.words[be32toh(nvram.contents.header.bootstrapOffset) / 4];
     size_t stage1_length = (be32toh(nvram.contents.header.bootstrapWords) * 4) - 4; // last word is CRC
-
     uint32_t crc_word = stage1_length / 4;
 
-    uint32_t expected_crc = be32toh(~NVRam_crc(stage1, stage1_length, 0xffffffff));
-    uint32_t phys_addr = be32toh(nvram.contents.header.bootstrapPhysAddr);
-    uint32_t ver_addr = be32toh(stage1_wd[2]) - phys_addr;
-    const char *stage1_ver = NULL;
-    uint32_t stage1_version_num = be32toh(stage1_wd[3]);
-    uint8_t stage1_version_major = stage1_version_num >> 24;
-    uint8_t stage1_version_minor = stage1_version_num >> 16 & 0xff;
-    uint16_t stage1_version_patch = stage1_version_num & 0xffff;
-
-    if (ver_addr < stage1_length)
-    {
-        stage1_ver = (char *)&stage1[ver_addr];
-    }
-    else
-    {
-        stage1_ver = "Unknown";
-    }
-
-    printf("=== stage1 ===\n");
-    printf("Version:             %s (version %d.%d.%d)\n", stage1_ver, stage1_version_major, stage1_version_minor, stage1_version_patch);
-    printf("Magic:               0x%08X\n", be32toh(nvram.contents.header.magic));
-    printf("Bootstrap Phys Addr: 0x%08X\n", phys_addr);
-    printf("Length (bytes):      0x%08zX\n", stage1_length);
-    printf("Offset:              0x%08lX\n", ((stage1_wd - nvram.words) * 4));
-    printf("Calculated CRC:      0x%08X\n", expected_crc);
-    printf("CRC:                 0x%08X\n", be32toh(stage1_wd[crc_word]));
-
-    if (be32toh(nvram.contents.header.magic) != BCM_NVRAM_MAGIC)
-    {
-        fprintf(stderr, "Error: stage1 magic is invalid.\n");
-        exit(-1);
-    }
-
-    if (be32toh(stage1_wd[crc_word]) != expected_crc)
-    {
-        fprintf(stderr, "Error: stage1 crc is invalid.\n");
-        // exit(-1);
-    }
+    dump_stage1(&nvram.contents, stage1, stage1_length);
 
     if (extract)
     {
@@ -381,28 +393,10 @@ int main(int argc, char const *argv[])
             printf("New CRC:             0x%08X\n", new_crc);
             printf("New Length (bytes):  0x%08X\n", new_stage1_length);
 
-            // Determine new version
-            stage1_version_num = be32toh(stage1_wd[3]);
-            stage1_version_major = stage1_version_num >> 24;
-            stage1_version_minor = stage1_version_num >> 16 & 0xff;
-            stage1_version_patch = stage1_version_num & 0xffff;
-            phys_addr = be32toh(nvram.contents.header.bootstrapPhysAddr);
-            ver_addr = be32toh(stage1_wd[2]) - phys_addr;
-            stage1_ver = NULL;
-            if (ver_addr < stage1_length)
-            {
-                stage1_ver = (char *)&stage1[ver_addr];
-            }
-            else
-            {
-                stage1_ver = "Unknown";
-            }
-            printf("New Version:         %s (version %d.%d.%d)\n", stage1_ver, stage1_version_major, stage1_version_minor, stage1_version_patch);
-
             // Update the CRC in the file copy.
             stage1_wd[crc_word] = htobe32(new_crc);
 
-            // TODO: update length (if changed);
+            dump_stage1(&nvram.contents, stage1, new_stage1_length);
 
             should_write = true;
         }
