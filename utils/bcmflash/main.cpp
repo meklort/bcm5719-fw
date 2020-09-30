@@ -71,6 +71,12 @@
 using namespace std;
 using optparse::OptionParser;
 
+uint32_t gApeLength = 0;
+uint8_t *gApe = NULL;
+uint32_t *gApeWd = NULL;
+
+
+
 bool save_to_file(const char *filename, void *buffer, size_t size)
 {
     cout << "Writing to " << filename << "." << endl;
@@ -163,6 +169,171 @@ void dump_stage2(NVRAMStage2_t *stage2)
     }
 }
 
+void dump_code_directory(NVRAMCodeDirectory_t *cd, uint8_t* nvram, const char* outfile)
+{
+
+    uint32_t info = be32toh(cd->codeInfo);
+    if (info)
+    {
+        printf("\n=== Directory (0x%08X)===\n", info);
+        uint32_t addr = be32toh(cd->codeAddress);
+        uint32_t length = BCM_CODE_DIRECTORY_GET_LENGTH(info);
+        uint32_t cpu = BCM_CODE_DIRECTORY_GET_CPU(info);
+        uint32_t type = BCM_CODE_DIRECTORY_GET_TYPE(info);
+
+        uint8_t *cd_loc = &nvram[be32toh(cd->directoryOffset)];
+        uint32_t crc_calc = be32toh(~NVRam_crc(cd_loc, (length - 1) * sizeof(uint32_t), 0xffffffff));
+        uint32_t crc_expect = be32toh(((uint32_t *)cd_loc)[length - 1]);
+
+        printf("Code Address:   0x%08X\n", addr);
+        printf("Code Words:     0x%08X (%ld bytes)\n", length, length * sizeof(uint32_t));
+        printf("Code Offset:    0x%08X\n", be32toh(cd->directoryOffset));
+        printf("Code CPU:       0x%02X\n", cpu);
+        printf("Code Type:      0x%02X\n", type);
+        printf("Calculated CRC: 0x%08X\n", crc_calc);
+        printf("Expected CRC:   0x%08X\n", crc_expect);
+        printf("\n");
+
+        if (BCM_CODE_DIRECTORY_ADDR_APE == addr && BCM_CODE_DIRECTORY_CPU_APE == cpu) /* APE */
+        {
+            gApe = &nvram[be32toh(cd->directoryOffset)];
+            gApeWd = (uint32_t *)gApe;
+            gApeLength = length * sizeof(uint32_t);
+        }
+
+        if (outfile)
+        {
+            if (!save_to_file(outfile, cd_loc, (length - 1) * sizeof(uint32_t)))
+            {
+                exit(-1);
+            }
+        }
+    }
+}
+
+void dump_info(NVRAMInfo_t *info, NVRAMInfo2_t *info2)
+{
+    printf("\n=== Info ===\n");
+    printf("Firmware Revision: 0x%04X\n", be16toh(info->firmwareRevision));
+
+    printf("Part Number: %s\n", info->partNumber);
+    printf("Part Revision: %c%c\n", info->partRevision[0], info->partRevision[1]);
+
+    printf("Vendor ID: 0x%04X\n", be16toh(info->vendorID));
+    printf("Device ID: 0x%04X\n", be16toh(info->deviceID));
+    printf("Subsystem Vendor ID: 0x%04X\n", be16toh(info->subsystemVendorID));
+    printf("Subsystem Device ID: 0x%04X\n", be16toh(info->subsystemDeviceID));
+    printf("Subsystem ID: 0x%04X\n", be16toh(info->subsystemDeviceID));
+
+    printf("Function 0S Subsystem ID 0x%04X\n", be16toh(info2->pciSubsystemF0SERDES));
+    printf("Function 1S Subsystem ID 0x%04X\n", be16toh(info2->pciSubsystemF1SERDES));
+    printf("Function 2S Subsystem ID 0x%04X\n", be16toh(info2->pciSubsystemF2SERDES));
+    printf("Function 3S Subsystem ID 0x%04X\n", be16toh(info2->pciSubsystemF3SERDES));
+    printf("Function 0G Subsystem ID 0x%04X\n", be16toh(info2->pciSubsystemF0GPHY));
+    printf("Function 1G Subsystem ID 0x%04X\n", be16toh(info2->pciSubsystemF1GPHY));
+    printf("Function 2G Subsystem ID 0x%04X\n", be16toh(info2->pciSubsystemF2GPHY));
+    printf("Function 3G Subsystem ID 0x%04X\n", be16toh(info2->pciSubsystemF3GPHY));
+
+    printf("Shared Cfg:     0x%08X\n", be32toh(info->cfgShared));
+
+    printf("Power Dissipated: 0x%02X 0x%02X 0x%02X 0x%02X\n", info->powerDissipatedD3, info->powerDissipatedD2,
+           info->powerDissipatedD1, info->powerDissipatedD0);
+
+    printf("Power Consumed:   0x%02X 0x%02X 0x%02X 0x%02X\n", info->powerConsumedD3, info->powerConsumedD2,
+           info->powerConsumedD1, info->powerConsumedD0);
+
+    // Print out power budget (and translated values).
+    uint32_t pb_raw[8];
+    pb_raw[0] = be32toh(info->powerBudget0) & 0xffff;
+    pb_raw[1] = be32toh(info->powerBudget0) >> 16;
+    pb_raw[2] = be32toh(info->powerBudget1) & 0xffff;
+    pb_raw[3] = be32toh(info->powerBudget1) >> 16;
+    pb_raw[4] = be32toh(info->powerBudget2) & 0xffff;
+    pb_raw[5] = be32toh(info->powerBudget2) >> 16;
+    pb_raw[6] = be32toh(info->powerBudget3) & 0xffff;
+    pb_raw[7] = be32toh(info->powerBudget3) >> 16;
+    printf("Power Budget0:    0x%04X%04X\n", pb_raw[1], pb_raw[0]);
+    printf("Power Budget1:    0x%04X%04X\n", pb_raw[3], pb_raw[2]);
+    printf("Power Budget2:    0x%04X%04X\n", pb_raw[5], pb_raw[4]);
+    printf("Power Budget3:    0x%04X%04X\n", pb_raw[7], pb_raw[6]);
+
+    for (int i = 0; i < ARRAY_ELEMENTS(pb_raw); i++)
+    {
+        uint32_t raw = pb_raw[i];
+        RegDEVICEPciPowerBudget0_t pb0;
+        pb0.r32 = 0;
+        if (raw)
+        {
+            pb0.bits.BasePower = raw & 0xFF;
+            pb0.bits.DataScale = DEVICE_PCI_POWER_BUDGET_0_DATA_SCALE_0_1X;
+            pb0.bits.PMState = (raw & 0x0300) >> 8;
+            pb0.bits.Type = (raw & 0x1C00) >> 10;
+            pb0.bits.PowerRail = (raw & 0xE000) >> 13;
+        }
+
+        printf("Translated Power Budget[%d]:    0x%08X\n", i, (uint32_t)pb0.r32);
+    }
+
+    printf("\n=== Port 0 ===\n");
+    printf("Subsystem ID: 0x%04X\n", be16toh(info2->pciSubsystemF0GPHY));
+    printf("MAC:        0x%04X%08X\n", be32toh(info->macAddr0[0]), be32toh(info->macAddr0[1]));
+    printf("Feature:    0x%08X\n", be32toh(info->func0CfgFeature));
+    printf("Cfg:        0x%08X\n", be32toh(info->func0CfgHW));
+    printf("Cfg2:       0x%08X\n", be32toh(info2->func0CfgHW2));
+
+    printf("\n=== Port 1 ===\n");
+    printf("Subsystem ID: 0x%04X\n", be16toh(info2->pciSubsystemF1GPHY));
+    printf("MAC:        0x%04X%08X\n", be32toh(info->macAddr1[0]), be32toh(info->macAddr1[1]));
+    printf("Feature:    0x%08X\n", be32toh(info->func1CfgFeature));
+    printf("Cfg:        0x%08X\n", be32toh(info->func1CfgHW));
+    printf("Cfg2:       0x%08X\n", be32toh(info2->func1CfgHW2));
+
+    printf("\n=== Port 2 ===\n");
+    printf("Subsystem ID: 0x%04X\n", be16toh(info2->pciSubsystemF2GPHY));
+    printf("MAC:        0x%04X%08X\n", be32toh(info2->macAddr2[0]), be32toh(info2->macAddr2[1]));
+    printf("Feature:    0x%08X\n", be32toh(info2->func2CfgFeature));
+    printf("Cfg:        0x%08X\n", be32toh(info2->func2CfgHW));
+    printf("Cfg2:       0x%08X\n", be32toh(info2->func2CfgHW2));
+
+    printf("\n=== Port 3 ===\n");
+    printf("Subsystem ID: 0x%04X\n", be16toh(info2->pciSubsystemF3GPHY));
+    printf("MAC:        0x%04X%08X\n", be32toh(info2->macAddr3[0]), be32toh(info2->macAddr3[1]));
+    printf("Feature:    0x%08X\n", be32toh(info2->func3CfgFeature));
+    printf("Cfg:        0x%08X\n", be32toh(info2->func3CfgHW));
+    printf("Cfg2:       0x%08X\n", be32toh(info2->func3CfgHW2));
+}
+
+void dump_vpd(uint8_t *vpd, size_t vpd_len)
+{
+    printf("\n=== VPD ===\n");
+    if (vpd_is_valid(vpd, vpd_len))
+    {
+        uint32_t len = vpd_len;
+        printf("Identifier: %s\n", vpd_get_identifier(vpd, &len));
+
+        uint8_t *resource;
+        int index = 0;
+        do
+        {
+            len = vpd_len;
+            uint16_t name;
+            resource = vpd_get_resource_by_index(vpd, &len, &name, index);
+            if (resource)
+            {
+                char *data = (char *)malloc(len + 1);
+                memcpy(data, resource, len);
+                data[len] = 0;
+                printf("[%c%c] %24s: %s\n", name & 0xff, name >> 8, vpd_get_field_name(name), data);
+                free(data);
+            }
+            index++;
+        } while (resource);
+    }
+    else
+    {
+        printf("VPD is invalid.\n");
+    }
+}
 
 #define NVRAM_SIZE (2048u * 256u) /* 512KB */
 int main(int argc, char const *argv[])
@@ -176,10 +347,6 @@ int main(int argc, char const *argv[])
         uint32_t words[NVRAM_SIZE / 4];
         NVRAMContents_t contents;
     } nvram;
-
-    uint32_t ape_length = 0;
-    uint8_t *ape = NULL;
-    uint32_t *ape_wd = NULL;
 
     uint8_t *stage1 = NULL;
     uint32_t *stage1_wd = NULL;
@@ -450,52 +617,20 @@ int main(int argc, char const *argv[])
 
     for (int i = 0; i < ARRAY_ELEMENTS(nvram.contents.directory); i++)
     {
-        uint32_t info = be32toh(nvram.contents.directory[i].codeInfo);
-        if (info)
+        char* cd_name = NULL;
+        if (extract)
         {
-            printf("\n=== Directory %d (0x%08X)===\n", i, info);
-            uint32_t addr = be32toh(nvram.contents.directory[i].codeAddress);
-            uint32_t length = BCM_CODE_DIRECTORY_GET_LENGTH(info);
-            uint32_t cpu = BCM_CODE_DIRECTORY_GET_CPU(info);
-            uint32_t type = BCM_CODE_DIRECTORY_GET_TYPE(info);
-
-            uint8_t *cd_loc = &nvram.bytes[be32toh(nvram.contents.directory[i].directoryOffset)];
-            uint32_t crc_calc = be32toh(~NVRam_crc(cd_loc, (length - 1) * sizeof(uint32_t), 0xffffffff));
-            uint32_t crc_expect = be32toh(((uint32_t *)cd_loc)[length - 1]);
-
-            printf("Code Address:   0x%08X\n", addr);
-            printf("Code Words:     0x%08X (%ld bytes)\n", length, length * sizeof(uint32_t));
-            printf("Code Offset:    0x%08X\n", be32toh(nvram.contents.directory[i].directoryOffset));
-            printf("Code CPU:       0x%02X\n", cpu);
-            printf("Code Type:      0x%02X\n", type);
-            printf("Calculated CRC: 0x%08X\n", crc_calc);
-            printf("Expected CRC:   0x%08X\n", crc_expect);
-            printf("\n");
-
-            if (BCM_CODE_DIRECTORY_ADDR_APE == addr && BCM_CODE_DIRECTORY_CPU_APE == cpu) /* APE */
-            {
-                ape = &nvram.bytes[be32toh(nvram.contents.directory[i].directoryOffset)];
-                ape_wd = &nvram.words[be32toh(nvram.contents.directory[i].directoryOffset) / 4];
-                ape_length = length * sizeof(uint32_t);
-            }
-
-            if (extract)
-            {
-                uint8_t *cd_loc = &nvram.bytes[be32toh(nvram.contents.directory[i].directoryOffset)];
-                char *cd_name = strdup("cdN.bin");
-                cd_name[2] = '0' + i;
-                if (!save_to_file(cd_name, cd_loc, (length - 1) * sizeof(uint32_t)))
-                {
-                    exit(-1);
-                }
-                free(cd_name);
-            }
+            cd_name = strdup("cdN.bin");
+            cd_name[2] = '0' + i;
         }
+
+        dump_code_directory(&nvram.contents.directory[i], nvram.bytes, cd_name);
+        free(cd_name);
     }
 
     if (options.is_set("ape"))
     {
-        if (NULL == ape)
+        if (NULL == gApe)
         {
             fprintf(stderr, "Original APE entry was not found in firmware header.");
             exit(-1);
@@ -512,7 +647,7 @@ int main(int argc, char const *argv[])
             new_ape_length += sizeof(uint32_t); /* CRC */
             infile.seekg(0);
 
-            if (new_ape_length > ape_length)
+            if (new_ape_length > gApeLength)
             {
                 cerr << "Length is longer than original, currently unable to update." << endl;
                 exit(-1);
@@ -520,7 +655,7 @@ int main(int argc, char const *argv[])
             else
             {
                 // Overwrite position
-                infile.read((char *)ape, new_ape_length);
+                infile.read((char *)gApe, new_ape_length);
                 infile.close();
 
 #if 0
@@ -534,20 +669,20 @@ int main(int argc, char const *argv[])
 #endif
             }
 
-            if (ape_wd[0] == APE_HEADER_MAGIC)
+            if (gApeWd[0] == APE_HEADER_MAGIC)
             {
                 // Ensure everything is in the correct endianness.
                 for (int i = 0; i < (new_ape_length - 4) / 4; i++)
                 {
-                    ape_wd[i] = be32toh(ape_wd[i]);
+                    gApeWd[i] = be32toh(gApeWd[i]);
                 }
             }
 
-            uint32_t new_ape_crc = be32toh(~NVRam_crc(ape, ape_length - sizeof(uint32_t), 0xffffffff));
+            uint32_t new_ape_crc = be32toh(~NVRam_crc(gApe, gApeLength - sizeof(uint32_t), 0xffffffff));
 
             printf("New Length (bytes):  0x%08X\n", new_ape_length);
             printf("New CRC:  0x%08X\n", new_ape_crc);
-            uint32_t *crc_loc = (uint32_t *)&ape[ape_length - sizeof(uint32_t)];
+            uint32_t *crc_loc = (uint32_t *)&gApe[gApeLength - sizeof(uint32_t)];
             *crc_loc = htobe32(new_ape_crc);
 
             // TODO: update length (if changed);
@@ -588,123 +723,9 @@ int main(int argc, char const *argv[])
         exit(0);
     }
 
-    printf("\n=== Info ===\n");
-    printf("Firmware Revision: 0x%04X\n", be16toh(nvram.contents.info.firmwareRevision));
+    dump_info(&nvram.contents.info, &nvram.contents.info2);
 
-    printf("Part Number: %s\n", nvram.contents.info.partNumber);
-    printf("Part Revision: %c%c\n", nvram.contents.info.partRevision[0], nvram.contents.info.partRevision[1]);
-
-    printf("Vendor ID: 0x%04X\n", be16toh(nvram.contents.info.vendorID));
-    printf("Device ID: 0x%04X\n", be16toh(nvram.contents.info.deviceID));
-    printf("Subsystem Vendor ID: 0x%04X\n", be16toh(nvram.contents.info.subsystemVendorID));
-    printf("Subsystem Device ID: 0x%04X\n", be16toh(nvram.contents.info.subsystemDeviceID));
-    printf("Subsystem ID: 0x%04X\n", be16toh(nvram.contents.info.subsystemDeviceID));
-
-    printf("Function 0S Subsystem ID 0x%04X\n", be16toh(nvram.contents.info2.pciSubsystemF0SERDES));
-    printf("Function 1S Subsystem ID 0x%04X\n", be16toh(nvram.contents.info2.pciSubsystemF1SERDES));
-    printf("Function 2S Subsystem ID 0x%04X\n", be16toh(nvram.contents.info2.pciSubsystemF2SERDES));
-    printf("Function 3S Subsystem ID 0x%04X\n", be16toh(nvram.contents.info2.pciSubsystemF3SERDES));
-    printf("Function 0G Subsystem ID 0x%04X\n", be16toh(nvram.contents.info2.pciSubsystemF0GPHY));
-    printf("Function 1G Subsystem ID 0x%04X\n", be16toh(nvram.contents.info2.pciSubsystemF1GPHY));
-    printf("Function 2G Subsystem ID 0x%04X\n", be16toh(nvram.contents.info2.pciSubsystemF2GPHY));
-    printf("Function 3G Subsystem ID 0x%04X\n", be16toh(nvram.contents.info2.pciSubsystemF3GPHY));
-
-    printf("Shared Cfg:     0x%08X\n", be32toh(nvram.contents.info.cfgShared));
-
-    printf("Power Dissipated: 0x%02X 0x%02X 0x%02X 0x%02X\n", nvram.contents.info.powerDissipatedD3, nvram.contents.info.powerDissipatedD2,
-           nvram.contents.info.powerDissipatedD1, nvram.contents.info.powerDissipatedD0);
-
-    printf("Power Consumed:   0x%02X 0x%02X 0x%02X 0x%02X\n", nvram.contents.info.powerConsumedD3, nvram.contents.info.powerConsumedD2,
-           nvram.contents.info.powerConsumedD1, nvram.contents.info.powerConsumedD0);
-
-    // Print out power budget (and translated values).
-    uint32_t pb_raw[8];
-    pb_raw[0] = be32toh(nvram.contents.info.powerBudget0) & 0xffff;
-    pb_raw[1] = be32toh(nvram.contents.info.powerBudget0) >> 16;
-    pb_raw[2] = be32toh(nvram.contents.info.powerBudget1) & 0xffff;
-    pb_raw[3] = be32toh(nvram.contents.info.powerBudget1) >> 16;
-    pb_raw[4] = be32toh(nvram.contents.info.powerBudget2) & 0xffff;
-    pb_raw[5] = be32toh(nvram.contents.info.powerBudget2) >> 16;
-    pb_raw[6] = be32toh(nvram.contents.info.powerBudget3) & 0xffff;
-    pb_raw[7] = be32toh(nvram.contents.info.powerBudget3) >> 16;
-    printf("Power Budget0:    0x%04X%04X\n", pb_raw[1], pb_raw[0]);
-    printf("Power Budget1:    0x%04X%04X\n", pb_raw[3], pb_raw[2]);
-    printf("Power Budget2:    0x%04X%04X\n", pb_raw[5], pb_raw[4]);
-    printf("Power Budget3:    0x%04X%04X\n", pb_raw[7], pb_raw[6]);
-
-    for (int i = 0; i < ARRAY_ELEMENTS(pb_raw); i++)
-    {
-        uint32_t raw = pb_raw[i];
-        RegDEVICEPciPowerBudget0_t pb0;
-        pb0.r32 = 0;
-        if (raw)
-        {
-            pb0.bits.BasePower = raw & 0xFF;
-            pb0.bits.DataScale = DEVICE_PCI_POWER_BUDGET_0_DATA_SCALE_0_1X;
-            pb0.bits.PMState = (raw & 0x0300) >> 8;
-            pb0.bits.Type = (raw & 0x1C00) >> 10;
-            pb0.bits.PowerRail = (raw & 0xE000) >> 13;
-        }
-
-        printf("Translated Power Budget[%d]:    0x%08X\n", i, (uint32_t)pb0.r32);
-    }
-
-    printf("\n=== Port 0 ===\n");
-    printf("Subsystem ID: 0x%04X\n", be16toh(nvram.contents.info2.pciSubsystemF0GPHY));
-    printf("MAC:        0x%04X%08X\n", be32toh(nvram.contents.info.macAddr0[0]), be32toh(nvram.contents.info.macAddr0[1]));
-    printf("Feature:    0x%08X\n", be32toh(nvram.contents.info.func0CfgFeature));
-    printf("Cfg:        0x%08X\n", be32toh(nvram.contents.info.func0CfgHW));
-    printf("Cfg2:       0x%08X\n", be32toh(nvram.contents.info2.func0CfgHW2));
-
-    printf("\n=== Port 1 ===\n");
-    printf("Subsystem ID: 0x%04X\n", be16toh(nvram.contents.info2.pciSubsystemF1GPHY));
-    printf("MAC:        0x%04X%08X\n", be32toh(nvram.contents.info.macAddr1[0]), be32toh(nvram.contents.info.macAddr1[1]));
-    printf("Feature:    0x%08X\n", be32toh(nvram.contents.info.func1CfgFeature));
-    printf("Cfg:        0x%08X\n", be32toh(nvram.contents.info.func1CfgHW));
-    printf("Cfg2:       0x%08X\n", be32toh(nvram.contents.info2.func1CfgHW2));
-
-    printf("\n=== Port 2 ===\n");
-    printf("Subsystem ID: 0x%04X\n", be16toh(nvram.contents.info2.pciSubsystemF2GPHY));
-    printf("MAC:        0x%04X%08X\n", be32toh(nvram.contents.info2.macAddr2[0]), be32toh(nvram.contents.info2.macAddr2[1]));
-    printf("Feature:    0x%08X\n", be32toh(nvram.contents.info2.func2CfgFeature));
-    printf("Cfg:        0x%08X\n", be32toh(nvram.contents.info2.func2CfgHW));
-    printf("Cfg2:       0x%08X\n", be32toh(nvram.contents.info2.func2CfgHW2));
-
-    printf("\n=== Port 3 ===\n");
-    printf("Subsystem ID: 0x%04X\n", be16toh(nvram.contents.info2.pciSubsystemF3GPHY));
-    printf("MAC:        0x%04X%08X\n", be32toh(nvram.contents.info2.macAddr3[0]), be32toh(nvram.contents.info2.macAddr3[1]));
-    printf("Feature:    0x%08X\n", be32toh(nvram.contents.info2.func3CfgFeature));
-    printf("Cfg:        0x%08X\n", be32toh(nvram.contents.info2.func3CfgHW));
-    printf("Cfg2:       0x%08X\n", be32toh(nvram.contents.info2.func3CfgHW2));
-
-    printf("\n=== VPD ===\n");
-    if (vpd_is_valid(nvram.contents.vpd.bytes, sizeof(nvram.contents.vpd)))
-    {
-        uint32_t vpd_len = sizeof(nvram.contents.vpd);
-        printf("Identifier: %s\n", vpd_get_identifier(nvram.contents.vpd.bytes, &vpd_len));
-
-        uint8_t *resource;
-        int index = 0;
-        do
-        {
-            vpd_len = sizeof(nvram.contents.vpd);
-            uint16_t name;
-            resource = vpd_get_resource_by_index(nvram.contents.vpd.bytes, &vpd_len, &name, index);
-            if (resource)
-            {
-                char *data = (char *)malloc(vpd_len + 1);
-                memcpy(data, resource, vpd_len);
-                data[vpd_len] = 0;
-                printf("[%c%c] %24s: %s\n", name & 0xff, name >> 8, vpd_get_field_name(name), data);
-                free(data);
-            }
-            index++;
-        } while (resource);
-    }
-    else
-    {
-        printf("VPD is invalid.\n");
-    }
+    dump_vpd(nvram.contents.vpd.bytes, sizeof(nvram.contents.vpd));
 
     return 0;
 }
