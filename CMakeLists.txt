@@ -50,6 +50,8 @@ SET(CMAKE_C_COMPILER    ${COMPILER_BASE}/bin/clang)
 SET(CMAKE_CXX_COMPILER  ${COMPILER_BASE}/bin/clang++)
 SET(CMAKE_ASM_COMPILER  ${COMPILER_BASE}/bin/clang)
 
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-rtti -fno-exceptions")
+
 include(cmake/version.cmake)
 
 cmake_minimum_required(VERSION 3.5.1)
