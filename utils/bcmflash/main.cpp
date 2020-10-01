@@ -44,6 +44,7 @@
 
 #include "HAL.hpp"
 #include "bcmflash.h"
+#include "ethtool.h"
 
 #include <../bcm5719_NVM.h>
 #include <NVRam.h>
@@ -325,7 +326,7 @@ int main(int argc, char const *argv[])
         uint8_t bytes[MAX_NVRAM_SIZE];
         uint32_t words[MAX_NVRAM_SIZE / 4];
         NVRAMContents_t contents;
-    } nvram;
+    } nvram = { { 0 } };
     uint32_t nvram_size = 0;
 
     uint8_t *stage1 = NULL;
@@ -336,10 +337,11 @@ int main(int argc, char const *argv[])
     parser.version(VERSION_STRING);
 
     parser.add_option("-t", "--target")
-        .choices({ "hardware", "file" })
+        .choices({ "eth", "hardware", "file" })
         .dest("target")
         // .set_default("hardware")
-        .help("hardware: Use the attached physical device.\n"
+        .help("hardware: Use the attached physical device (driver must be unloaded).\n"
+              "eth: Use the specified network interface (tg3 driver must be loaded).\n"
               "file: Use the file specified with -i, --file\n");
 
     parser.add_option("-f", "--function")
@@ -356,6 +358,7 @@ int main(int argc, char const *argv[])
         .help("Recover form an incorrect NVM autodetection. Only valid with --target=hardware");
 
     parser.add_option("-i", "--file").dest("filename").help("Read from the specified file").metavar("FILE");
+    parser.add_option("--eth").dest("eth").help("Read from the specified network interface").metavar("ETH");
 
     parser.add_option("-b", "--backup")
         .dest("backup")
@@ -390,6 +393,22 @@ int main(int argc, char const *argv[])
         if (!bcmflash_file_read(options["filename"].c_str(), nvram.bytes, nvram_size))
         {
             cerr << " Unable to open file '" << options["filename"] << "'" << endl;
+            exit(-1);
+        }
+    }
+    else if ("eth" == options["target"])
+    {
+        if (!options.is_set("eth"))
+        {
+            cerr << "Please specify an interface to use." << endl;
+            parser.print_help();
+            exit(-1);
+        }
+
+        nvram_size = bcmflash_ethtool_size(options["eth"].c_str());
+        if (!bcmflash_ethtool_read(options["eth"].c_str(), nvram.bytes, nvram_size))
+        {
+            cerr << " Unable to read NVM from interface '" << options["eth"] << "'" << endl;
             exit(-1);
         }
     }
@@ -619,6 +638,10 @@ int main(int argc, char const *argv[])
             {
                 exit(-1);
             }
+        }
+        if ("eth" == options["target"])
+        {
+            bcmflash_ethtool_write(options["eth"].c_str(), nvram.bytes, nvram_size);
         }
         else if ("hardware" == options["target"])
         {
