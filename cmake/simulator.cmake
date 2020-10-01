@@ -2,7 +2,7 @@
 ###
 ### @file       simulator.cmake
 ###
-### @project    
+### @project    bcm5719-fw
 ###
 ### @brief      Simulator specific configurations
 ###
@@ -42,7 +42,7 @@
 ### @endcond
 ################################################################################
 
-SET(SIMULATOR_COMPILE_OPTIONS -DCXX_SIMULATOR -x c++ )
+SET(SIMULATOR_COMPILE_OPTIONS -DCXX_SIMULATOR -x c++ -fno-rtti -fno-exceptions)
 SET(SIMULATOR_LINK_OPTIONS )
 
 # MIPS-specific executables
