@@ -3,6 +3,10 @@ project(bcmflash)
 add_definitions(-Wall -Werror)
 set(SOURCES
     main.cpp
+    nvm.cpp
+    fileio.cpp
+
+    bcmflash.h
 )
 
 simulator_add_executable(${PROJECT_NAME} ${SOURCES})

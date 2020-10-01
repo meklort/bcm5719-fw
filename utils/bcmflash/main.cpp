@@ -2,7 +2,7 @@
 ///
 /// @file       main.cpp
 ///
-/// @project
+/// @project    bcm5719-fw
 ///
 /// @brief      Main bcmflash tool for parsing BCM5179 flash images.
 ///
@@ -43,6 +43,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "HAL.hpp"
+#include "bcmflash.h"
 
 #include <../bcm5719_NVM.h>
 #include <NVRam.h>
@@ -53,7 +54,6 @@
 #include <endian.h>
 #include <errno.h>
 #include <fcntl.h>
-#include <fstream>
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -74,25 +74,6 @@ using optparse::OptionParser;
 uint32_t gApeLength = 0;
 uint8_t *gApe = NULL;
 uint32_t *gApeWd = NULL;
-
-
-
-bool save_to_file(const char *filename, void *buffer, size_t size)
-{
-    cout << "Writing to " << filename << "." << endl;
-    FILE *out = fopen(filename, "w+");
-    if (out)
-    {
-        fwrite(buffer, size, 1, out);
-        fclose(out);
-        return true;
-    }
-    else
-    {
-        cerr << "Unable to open " << filename << " for writing." << endl;
-        return false;
-    }
-}
 
 void dump_stage1(NVRAMContents_t *nvram, uint8_t *stage1, size_t stage1_length)
 {
@@ -119,7 +100,6 @@ void dump_stage1(NVRAMContents_t *nvram, uint8_t *stage1, size_t stage1_length)
         stage1_ver = "Unknown";
     }
 
-
     printf("=== stage1 ===\n");
     printf("Version:             %s (version %d.%d.%d)\n", stage1_ver, stage1_version_major, stage1_version_minor, stage1_version_patch);
     printf("Magic:               0x%08X\n", be32toh(nvram->header.magic));
@@ -140,7 +120,6 @@ void dump_stage1(NVRAMContents_t *nvram, uint8_t *stage1, size_t stage1_length)
         fprintf(stderr, "Error: stage1 crc is invalid.\n");
         // exit(-1);
     }
-
 }
 
 void dump_stage2(NVRAMStage2_t *stage2)
@@ -169,7 +148,7 @@ void dump_stage2(NVRAMStage2_t *stage2)
     }
 }
 
-void dump_code_directory(NVRAMCodeDirectory_t *cd, uint8_t* nvram, const char* outfile)
+void dump_code_directory(NVRAMCodeDirectory_t *cd, uint8_t *nvram, const char *outfile)
 {
 
     uint32_t info = be32toh(cd->codeInfo);
@@ -203,7 +182,7 @@ void dump_code_directory(NVRAMCodeDirectory_t *cd, uint8_t* nvram, const char* o
 
         if (outfile)
         {
-            if (!save_to_file(outfile, cd_loc, (length - 1) * sizeof(uint32_t)))
+            if (!bcmflash_file_write(outfile, cd_loc, (length - 1) * sizeof(uint32_t)))
             {
                 exit(-1);
             }
@@ -236,11 +215,10 @@ void dump_info(NVRAMInfo_t *info, NVRAMInfo2_t *info2)
 
     printf("Shared Cfg:     0x%08X\n", be32toh(info->cfgShared));
 
-    printf("Power Dissipated: 0x%02X 0x%02X 0x%02X 0x%02X\n", info->powerDissipatedD3, info->powerDissipatedD2,
-           info->powerDissipatedD1, info->powerDissipatedD0);
+    printf("Power Dissipated: 0x%02X 0x%02X 0x%02X 0x%02X\n", info->powerDissipatedD3, info->powerDissipatedD2, info->powerDissipatedD1,
+           info->powerDissipatedD0);
 
-    printf("Power Consumed:   0x%02X 0x%02X 0x%02X 0x%02X\n", info->powerConsumedD3, info->powerConsumedD2,
-           info->powerConsumedD1, info->powerConsumedD0);
+    printf("Power Consumed:   0x%02X 0x%02X 0x%02X 0x%02X\n", info->powerConsumedD3, info->powerConsumedD2, info->powerConsumedD1, info->powerConsumedD0);
 
     // Print out power budget (and translated values).
     uint32_t pb_raw[8];
@@ -406,15 +384,7 @@ int main(int argc, char const *argv[])
             exit(-1);
         }
 
-        fstream infile;
-        infile.open(options["filename"], fstream::in | fstream::binary);
-        if (infile.is_open())
-        {
-            infile.read((char *)nvram.bytes, NVRAM_SIZE);
-
-            infile.close();
-        }
-        else
+        if (!bcmflash_file_read(options["filename"].c_str(), nvram.bytes, NVRAM_SIZE))
         {
             cerr << " Unable to open file '" << options["filename"] << "'" << endl;
             exit(-1);
@@ -432,42 +402,17 @@ int main(int argc, char const *argv[])
 
         if (options.get("recovery"))
         {
-            NVRam_acquireLock();
-            NVRam_disable();
-            // Value pulled form the talos / blackbird. Update as needed.
-            uint32_t cfg1 = 0x14080f3;
-            uint32_t cfg2 = 0xd70081;
-            uint32_t cfg3 = 0x3000a00;
-            uint32_t sense = 0x30030;
-            printf("Updating NvmCfg1 from %x to %x.\n", (uint32_t)NVM.NvmCfg1.r32, cfg1);
-            printf("Updating NvmCfg2 from %x to %x.\n", (uint32_t)NVM.NvmCfg2.r32, cfg2);
-            printf("Updating NvmCfg3 from %x to %x.\n", (uint32_t)NVM.NvmCfg3.r32, cfg3);
-            printf("Updating AutoSenseStatus from %x to %x.\n", (uint32_t)NVM.AutoSenseStatus.r32, sense);
-            NVM.NvmCfg1.r32 = cfg1;
-            NVM.NvmCfg2.r32 = cfg2;
-            NVM.NvmCfg3.r32 = cfg3;
-            NVM.AutoSenseStatus.r32 = sense;
-
-            NVRam_releaseLock();
+            bcmflash_nvram_recovery();
 
             exit(0);
         }
 
         if (options.get("unlock"))
         {
-            NVM.SoftwareArbitration.bits.ReqClr0 = 1;
-            NVM.SoftwareArbitration.bits.ReqClr1 = 1;
-            NVM.SoftwareArbitration.bits.ReqClr2 = 1;
-            NVM.SoftwareArbitration.bits.ReqClr3 = 1;
+            bcmflash_nvram_unlock();
         }
 
-        NVRam_acquireLock();
-
-        NVRam_enable();
-
-        NVRam_read(0, nvram.words, NVRAM_SIZE / 4);
-
-        NVRam_releaseLock();
+        bcmflash_nvram_read("nvram", nvram.words, NVRAM_SIZE / 4);
     }
     else
     {
@@ -478,15 +423,7 @@ int main(int argc, char const *argv[])
 
     if (options.is_set("restore"))
     {
-        fstream restoreFile;
-        restoreFile.open(options["restore"], fstream::in | fstream::binary);
-        if (restoreFile.is_open())
-        {
-            restoreFile.read((char *)nvram.bytes, NVRAM_SIZE);
-
-            restoreFile.close();
-        }
-        else
+        if (!bcmflash_file_read(options["restore"].c_str(), nvram.bytes, NVRAM_SIZE))
         {
             cerr << " Unable to open file '" << options["restore"] << "'" << endl;
             exit(-1);
@@ -495,16 +432,7 @@ int main(int argc, char const *argv[])
         if ("hardware" == options["target"])
         {
             cout << "Restoring from " << options["restore"] << " to hardware." << endl;
-            NVRam_acquireLock();
-
-            NVRam_enable();
-            NVRam_enableWrites();
-
-            NVRam_write(0, nvram.words, NVRAM_SIZE / 4);
-
-            NVRam_disableWrites();
-
-            NVRam_releaseLock();
+            bcmflash_nvram_write("nvram", nvram.words, NVRAM_SIZE);
         }
         else
         {
@@ -517,7 +445,7 @@ int main(int argc, char const *argv[])
         if ("binary" == options["backup"])
         {
             // Save to file.
-            if (!save_to_file("firmware.fw", nvram.bytes, NVRAM_SIZE))
+            if (!bcmflash_file_write("firmware.fw", nvram.bytes, NVRAM_SIZE))
             {
                 exit(-1);
             }
@@ -544,7 +472,7 @@ int main(int argc, char const *argv[])
     if (extract)
     {
 
-        if (!save_to_file("stage1.bin", stage1, stage1_length))
+        if (!bcmflash_file_write("stage1.bin", stage1, stage1_length))
         {
             exit(-1);
         }
@@ -555,31 +483,27 @@ int main(int argc, char const *argv[])
         const char *stage1_file = options["stage1"].c_str();
         printf("Updating stage1 with contents of file %s\n", stage1_file);
 
-        fstream infile;
-        infile.open(stage1_file, fstream::in | fstream::binary | fstream::ate);
+        uint32_t new_stage1_length = bcmflash_file_size(stage1_file);
 
-        if (infile.is_open())
+        if (0 == new_stage1_length)
         {
-            uint32_t new_stage1_length = infile.tellg();
-            infile.seekg(0);
+            cerr << " Unable to open file '" << options["stage1"] << "'" << endl;
+            exit(-1);
+        }
+        else if (new_stage1_length > stage1_length)
+        {
+            cerr << "Length is longer than original, currently unable to update." << endl;
+            exit(-1);
+        }
+        else
+        {
+            bcmflash_file_read(stage1_file, stage1, new_stage1_length);
 
-            if (new_stage1_length > stage1_length)
+            while (new_stage1_length < stage1_length)
             {
-                cerr << "Length is longer than original, currently unable to update." << endl;
-                exit(-1);
-            }
-            else
-            {
-                // Overwrite position
-                infile.read((char *)stage1, new_stage1_length);
-                infile.close();
-
-                while (new_stage1_length < stage1_length)
-                {
-                    // erase remaining bytes.
-                    stage1[new_stage1_length] = 0xFF;
-                    new_stage1_length++;
-                }
+                // erase remaining bytes.
+                stage1[new_stage1_length] = 0xFF;
+                new_stage1_length++;
             }
 
             uint32_t new_crc = be32toh(~NVRam_crc(stage1, new_stage1_length, 0xffffffff));
@@ -593,11 +517,6 @@ int main(int argc, char const *argv[])
 
             should_write = true;
         }
-        else
-        {
-            cerr << " Unable to open file '" << options["stage1"] << "'" << endl;
-            exit(-1);
-        }
     }
 
     uint32_t *stage2_wd = &stage1_wd[(crc_word + 1)]; // immediately after stage1 crc
@@ -609,7 +528,7 @@ int main(int argc, char const *argv[])
 
     if (extract)
     {
-        if (!save_to_file("stage2.bin", stage2->words, stage2_length))
+        if (!bcmflash_file_write("stage2.bin", stage2->words, stage2_length))
         {
             exit(-1);
         }
@@ -617,7 +536,7 @@ int main(int argc, char const *argv[])
 
     for (int i = 0; i < ARRAY_ELEMENTS(nvram.contents.directory); i++)
     {
-        char* cd_name = NULL;
+        char *cd_name = NULL;
         if (extract)
         {
             cd_name = strdup("cdN.bin");
@@ -638,36 +557,32 @@ int main(int argc, char const *argv[])
         const char *ape_file = options["ape"].c_str();
         printf("Updating ape with contents of file %s\n", ape_file);
 
-        fstream infile;
-        infile.open(ape_file, fstream::in | fstream::binary | fstream::ate);
+        uint32_t new_ape_length = bcmflash_file_size(ape_file);
 
-        if (infile.is_open())
+        if (0 == new_ape_length)
         {
-            uint32_t new_ape_length = infile.tellg();
+            cerr << " Unable to open file '" << options["ape"] << "'" << endl;
+            exit(-1);
+        }
+        else if (new_ape_length + sizeof(uint32_t) > gApeLength)
+        {
+            cerr << "Length is longer than original, currently unable to update." << endl;
+            exit(-1);
+        }
+        else
+        {
+            bcmflash_file_read(ape_file, (char *)gApe, new_ape_length);
             new_ape_length += sizeof(uint32_t); /* CRC */
-            infile.seekg(0);
-
-            if (new_ape_length > gApeLength)
-            {
-                cerr << "Length is longer than original, currently unable to update." << endl;
-                exit(-1);
-            }
-            else
-            {
-                // Overwrite position
-                infile.read((char *)gApe, new_ape_length);
-                infile.close();
 
 #if 0
-                // Erase the previous APE image
-                while(new_ape_length < ape_length)
-                {
-                    // erase remaining bytes.
-                    ape[new_ape_length] = 0xFF;
-                    new_ape_length++;
-                }
-#endif
+            // Erase the previous APE image
+            while(new_ape_length < ape_length)
+            {
+                // erase remaining bytes.
+                ape[new_ape_length] = 0xFF;
+                new_ape_length++;
             }
+#endif
 
             if (gApeWd[0] == APE_HEADER_MAGIC)
             {
@@ -689,11 +604,6 @@ int main(int argc, char const *argv[])
 
             should_write = true;
         }
-        else
-        {
-            cerr << " Unable to open file '" << options["ape"] << "'" << endl;
-            exit(-1);
-        }
     }
 
     if (should_write)
@@ -701,23 +611,14 @@ int main(int argc, char const *argv[])
         if ("file" == options["target"])
         {
             // write update file.
-            if (!save_to_file(options["filename"].c_str(), (char *)nvram.bytes, NVRAM_SIZE))
+            if (!bcmflash_file_write(options["filename"].c_str(), (char *)nvram.bytes, NVRAM_SIZE))
             {
                 exit(-1);
             }
         }
         else if ("hardware" == options["target"])
         {
-            NVRam_acquireLock();
-
-            NVRam_enable();
-            NVRam_enableWrites();
-
-            NVRam_write(0, nvram.words, NVRAM_SIZE / 4);
-
-            NVRam_disableWrites();
-
-            NVRam_releaseLock();
+            bcmflash_nvram_write("nvram", nvram.words, NVRAM_SIZE);
         }
 
         exit(0);
