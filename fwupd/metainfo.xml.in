@@ -37,7 +37,7 @@
     <requires>
         <!-- Restrict to fwupd >= 1.5.0 -->
         <id compare="ge" version="1.5.0">org.freedesktop.fwupd</id>
-        <!-- <client>switch-branch</client> -->
+        <client>switch-branch</client>
         <!-- Restrict to HardwareID-10: "IBM" + "rcs,talos" + "RAPTOR COMP SYS" + "T2P9D01 REV 1.00" -->
         <hardware>8e28b419-552d-52a6-9a3c-ea2efad5ea66</hardware>
     </requires>
