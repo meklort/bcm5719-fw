@@ -54,7 +54,7 @@ ENDIF()
 
 SET(DESCRIPTION "Firmware update to improve stability.")
 
-configure_file(metainfo.xml.in firmware.metainfo.xml)
+configure_file(talos2-metainfo.xml.in com.meklort.bcm5719.talos2.metainfo.xml)
 
 add_custom_command(OUTPUT talos2-port0.${VERSION_STRING}.fw
     COMMAND bcmflash -c -t file -i talos2-port0.${VERSION_STRING}.fw
@@ -66,9 +66,9 @@ add_custom_command(OUTPUT talos2-port0.${VERSION_STRING}.fw
 
 add_custom_command(OUTPUT talos2-bcm5719-${VERSION_STRING}.cab
     COMMAND ${GCAB} -c -z talos2-bcm5719-${VERSION_STRING}.cab
-        firmware.metainfo.xml
+        com.meklort.bcm5719.talos2.metainfo.xml
         talos2-port0.${VERSION_STRING}.fw
-    DEPENDS talos2-port0.${VERSION_STRING}.fw firmware.metainfo.xml
+    DEPENDS talos2-port0.${VERSION_STRING}.fw com.meklort.bcm5719.talos2.metainfo.xml
 )
 add_custom_target(fwupd ALL DEPENDS talos2-bcm5719-${VERSION_STRING}.cab)
 
