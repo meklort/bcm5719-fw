@@ -26,7 +26,7 @@
     <developer_name>Evan Lojewski</developer_name>
 
     <releases>
-        <release version="@VERSION_STRING@" date="@VERSION_DATE@" install_duration="120">
+        <release version="@VERSION_STRING@" date="@VERSION_DATE@" install_duration="120" urgency="low">
             <checksum filename="talos2-port0.@VERSION_STRING@.fw" target="content"/>
             <description>
                 <p>@DESCRIPTION@</p>
