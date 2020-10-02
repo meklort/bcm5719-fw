@@ -398,10 +398,6 @@ int main(int argc, char const *argv[])
         nvram.contents.header.bootstrapWords = 0;
         nvram.contents.header.crc = 0;
 
-        // FIXME
-        nvram.contents.header.crc = htobe32(~NVRam_crc((uint8_t*)&nvram.contents.header, sizeof(nvram.contents.header), 0xffffffff));
-        printf("CRC: %x\n", nvram.contents.header.crc);
-
         if(options.is_set("stage1"))
         {
             uint32_t new_stage1_length = bcmflash_file_size(options["stage1"].c_str());
@@ -415,6 +411,10 @@ int main(int argc, char const *argv[])
                 // error
             }
         }
+
+        // now we know the size of stage1
+        nvram.contents.header.crc = ~NVRam_crc((uint8_t*)&nvram.contents.header, sizeof(nvram.contents.header) - 4, 0xffffffff);
+        printf("CRC: %x\n", nvram.contents.header.crc);
 
         // Stage2 unsupported presently.
         size_t stage1_length = (be32toh(nvram.contents.header.bootstrapWords) * 4) - 4; // last word is CRC
