@@ -2,8 +2,14 @@
 <!-- Copyright 2020 Evan Lojewski <github@meklort.com> -->
 <component type="firmware">
     <id>com.meklort.bcm5719.talos.firmware</id>
-    <name>BCM5719</name>
-    <summary>Firmware for the BCM5719 NIC in the Talos II</summary>
+    <!--
+        This firmware is only useful for testing fwupd with a KH08P and should
+        never be pushed into a testing or stable remote!
+        The FIXME below will ensure that the LVFS would block any promotion out
+        of private or embargo.
+    -->
+    <name>KH08P FIXME</name>
+    <summary>Firmware for the BCM5719 in the Dell KH08P</summary>
     <branch>oss-firmware</branch>
     <description>
         <p>
@@ -13,8 +19,8 @@
     </description>
 
     <provides>
-        <!-- Talos II / Blackbird: PCI\VEN_14E4&DEV_1657&SUBSYS_14E41981 -->
-        <firmware type="flashed">5d8b12bf-1973-58fc-8b31-3e50fe31954d</firmware>
+        <!-- PCI\VEN_14E4&DEV_1657&SUBSYS_14E41904 -->
+        <firmware type="flashed">ec5b8a9e-973b-58cc-935b-8322fabaebe9</firmware>
     </provides>
 
     <url type="homepage">https://github.com/meklort/bcm5719-fw</url>
@@ -40,8 +46,6 @@
         <!-- Restrict to fwupd >= 1.5.0 -->
         <id compare="ge" version="1.5.0">org.freedesktop.fwupd</id>
         <client>switch-branch</client>
-        <!-- Restrict to HardwareID-10: "IBM" + "rcs,talos" + "RAPTOR COMP SYS" + "T2P9D01 REV 1.00" -->
-        <hardware>8e28b419-552d-52a6-9a3c-ea2efad5ea66</hardware>
     </requires>
 
     <custom>
@@ -53,6 +57,5 @@
     <keywords>
     <keyword>bcm5719</keyword>
     <keyword>ape</keyword>
-    <keyword>talos</keyword>
     </keywords>
 </component>
