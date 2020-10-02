@@ -64,12 +64,12 @@ add_custom_command(OUTPUT talos2-port0.${VERSION_STRING}.fw
     VERBATIM
 )
 
-add_custom_command(OUTPUT bcm5719-${VERSION_STRING}.cab
-    COMMAND ${GCAB} -c -z bcm5719-${VERSION_STRING}.cab
+add_custom_command(OUTPUT talos-bcm5719-${VERSION_STRING}.cab
+    COMMAND ${GCAB} -c -z talos-bcm5719-${VERSION_STRING}.cab
         firmware.metainfo.xml
         talos2-port0.${VERSION_STRING}.fw
     DEPENDS talos2-port0.${VERSION_STRING}.fw firmware.metainfo.xml
 )
-add_custom_target(fwupd ALL DEPENDS bcm5719-${VERSION_STRING}.cab)
+add_custom_target(fwupd ALL DEPENDS talos-bcm5719-${VERSION_STRING}.cab)
 
-INSTALL(FILES "${CMAKE_BINARY_DIR}/${PROJECT_NAME}/bcm5719-${VERSION_STRING}.cab" DESTINATION fwupd)
+INSTALL(FILES "${CMAKE_BINARY_DIR}/${PROJECT_NAME}/talos-bcm5719-${VERSION_STRING}.cab" DESTINATION fwupd)
