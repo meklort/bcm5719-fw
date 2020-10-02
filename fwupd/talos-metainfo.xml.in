@@ -34,6 +34,10 @@
         </release>
     </releases>
 
+    <categories>
+        <category>X-Device</category>
+    </categories>
+
     <requires>
         <!-- Restrict to fwupd >= 1.5.0 -->
         <id compare="ge" version="1.5.0">org.freedesktop.fwupd</id>
