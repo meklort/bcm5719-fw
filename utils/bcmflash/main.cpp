@@ -313,16 +313,17 @@ void dump_vpd(uint8_t *vpd, size_t vpd_len)
     }
 }
 
-#define NVRAM_SIZE (2048u * 256u) /* 512KB */
+#define NVRAM_MAX_SIZE (2048u * 256u) /* 512KB */
 int main(int argc, char const *argv[])
 {
     bool extract = false;
     bool should_write = false;
+    uint32_t nvm_size = NVRAM_MAX_SIZE;
 
     union
     {
-        uint8_t bytes[NVRAM_SIZE];
-        uint32_t words[NVRAM_SIZE / 4];
+        uint8_t bytes[NVRAM_MAX_SIZE];
+        uint32_t words[NVRAM_MAX_SIZE / 4];
         NVRAMContents_t contents;
     } nvram;
 
@@ -364,6 +365,12 @@ int main(int argc, char const *argv[])
 
     parser.add_option("-r", "restore").dest("restore").help("Update the target device to match the specified file.").metavar("FILE");
 
+    parser.add_option("-c", "--create")
+        .dest("create")
+        .action("store_true")
+        .set_default("0")
+        .help("Create a full firmware image for use with fwupd.");
+
     parser.add_option("-1", "--stage1").dest("stage1").help("Update the target with the specified stage1 image, if possible.").metavar("STAGE1");
 
     parser.add_option("-a", "--ape").dest("ape").help("Update the target with the specified ape image, if possible.").metavar("APE");
@@ -375,7 +382,72 @@ int main(int argc, char const *argv[])
     optparse::Values options = parser.parse_args(argc, argv);
     vector<string> args = parser.args();
 
-    if ("file" == options["target"])
+    if (options.get("create"))
+    {
+        // Default to erased flash contents.
+        memset(nvram.words, -1, sizeof(nvram.words));
+
+        memcpy(nvram.contents.info.partNumber, "BCM95719", sizeof("BCM95719"));
+        memcpy(nvram.contents.info.partRevision, "A0", sizeof("A0"));
+
+        nvram.contents.header.magic = htobe32(BCM_NVRAM_MAGIC);
+        nvram.contents.header.bootstrapPhysAddr = htobe32(0x08003800);
+        nvram.contents.header.bootstrapOffset = htobe32(sizeof(NVRAMContents_t));
+        nvram.contents.header.bootstrapWords = 0;
+
+        if(options.is_set("stage1"))
+        {
+            uint32_t new_stage1_length = bcmflash_file_size(options["stage1"].c_str());
+
+            if (new_stage1_length)
+            {
+                nvram.contents.header.bootstrapWords = htobe32(1 + ((new_stage1_length + 3) / 4));
+            }
+            else
+            {
+                // error
+            }
+        }
+
+        // Stage2 unsupported presently.
+        size_t stage1_length = (be32toh(nvram.contents.header.bootstrapWords) * 4) - 4; // last word is CRC
+
+        uint32_t crc_word = stage1_length / 4;
+        stage1_wd = &nvram.words[be32toh(nvram.contents.header.bootstrapOffset) / 4];
+        stage1 = &nvram.bytes[be32toh(nvram.contents.header.bootstrapOffset)];
+        printf("Reserving stage1 at %p with %zu bytes\n", stage1, stage1_length);
+
+        uint32_t *stage2_wd = &stage1_wd[(crc_word + 1)]; // immediately after stage1 crc
+        NVRAMStage2_t *stage2 = (NVRAMStage2_t *)stage2_wd;
+
+        stage2->header.magic = htobe32(BCM_NVRAM_MAGIC);
+        stage2->header.length = htobe32(4); /* CRC */
+        stage2->words[0] = htobe32(0);
+
+        // Invalidate all code directories
+        memset(nvram.contents.directory, 0, sizeof(nvram.contents.directory));
+
+        if(options.is_set("ape"))
+        {
+            uint32_t length = 4 + bcmflash_file_size(options["ape"].c_str());
+
+            // uint32_t *ape = &stage2_wd[4];
+            uint32_t info = 0;
+            length = (length + 3) / 4;
+            info = BCM_CODE_DIRECTORY_SET_LENGTH(info, length);
+            info = BCM_CODE_DIRECTORY_SET_CPU(info, BCM_CODE_DIRECTORY_CPU_APE);
+            info = BCM_CODE_DIRECTORY_SET_TYPE(info, 0);
+            nvram.contents.directory[0].codeInfo = htobe32(info);
+            nvram.contents.directory[0].codeAddress = htobe32(BCM_CODE_DIRECTORY_ADDR_APE);
+            nvram.contents.directory[0].directoryOffset= htobe32(4 * (&stage2->words[1] - nvram.words));
+
+            nvm_size = 4 * ((&stage2->words[1] - nvram.words) + length);
+        }
+
+        memset(&nvram.contents.vpd, 0, sizeof(nvram.contents.vpd));
+
+    }
+    else if ("file" == options["target"])
     {
         if (!options.is_set("filename"))
         {
@@ -384,7 +456,9 @@ int main(int argc, char const *argv[])
             exit(-1);
         }
 
-        if (!bcmflash_file_read(options["filename"].c_str(), nvram.bytes, NVRAM_SIZE))
+        nvm_size = bcmflash_file_size(options["filename"].c_str());
+
+        if (!bcmflash_file_read(options["filename"].c_str(), nvram.bytes, nvm_size))
         {
             cerr << " Unable to open file '" << options["filename"] << "'" << endl;
             exit(-1);
@@ -412,7 +486,7 @@ int main(int argc, char const *argv[])
             bcmflash_nvram_unlock();
         }
 
-        bcmflash_nvram_read("nvram", nvram.words, NVRAM_SIZE / 4);
+        bcmflash_nvram_read("nvram", nvram.words, nvm_size / 4);
     }
     else
     {
@@ -423,7 +497,7 @@ int main(int argc, char const *argv[])
 
     if (options.is_set("restore"))
     {
-        if (!bcmflash_file_read(options["restore"].c_str(), nvram.bytes, NVRAM_SIZE))
+        if (!bcmflash_file_read(options["restore"].c_str(), nvram.bytes, nvm_size))
         {
             cerr << " Unable to open file '" << options["restore"] << "'" << endl;
             exit(-1);
@@ -432,7 +506,7 @@ int main(int argc, char const *argv[])
         if ("hardware" == options["target"])
         {
             cout << "Restoring from " << options["restore"] << " to hardware." << endl;
-            bcmflash_nvram_write("nvram", nvram.words, NVRAM_SIZE);
+            bcmflash_nvram_write("nvram", nvram.words, nvm_size);
         }
         else
         {
@@ -445,7 +519,7 @@ int main(int argc, char const *argv[])
         if ("binary" == options["backup"])
         {
             // Save to file.
-            if (!bcmflash_file_write("firmware.fw", nvram.bytes, NVRAM_SIZE))
+            if (!bcmflash_file_write("firmware.fw", nvram.bytes, nvm_size))
             {
                 exit(-1);
             }
@@ -608,17 +682,17 @@ int main(int argc, char const *argv[])
 
     if (should_write)
     {
-        if ("file" == options["target"])
+        if ("file" == options["target"] || options.get("create"))
         {
             // write update file.
-            if (!bcmflash_file_write(options["filename"].c_str(), (char *)nvram.bytes, NVRAM_SIZE))
+            if (!bcmflash_file_write(options["filename"].c_str(), nvram.bytes, nvm_size))
             {
                 exit(-1);
             }
         }
         else if ("hardware" == options["target"])
         {
-            bcmflash_nvram_write("nvram", nvram.words, NVRAM_SIZE);
+            bcmflash_nvram_write("nvram", nvram.words, nvm_size);
         }
 
         exit(0);
