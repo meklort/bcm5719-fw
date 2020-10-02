@@ -488,6 +488,7 @@ int main(int argc, char const *argv[])
         nvram.contents.header.bootstrapPhysAddr = htobe32(0x08003800);
         nvram.contents.header.bootstrapOffset = htobe32(sizeof(NVRAMContents_t));
         nvram.contents.header.bootstrapWords = 0;
+        nvram.contents.header.crc = 0;
 
         if (options.is_set("stage1"))
         {
@@ -503,6 +504,10 @@ int main(int argc, char const *argv[])
                 exit(-1);
             }
         }
+
+        // now we know the size of stage1
+        nvram.contents.header.crc = ~NVRam_crc((uint8_t *)&nvram.contents.header, sizeof(nvram.contents.header) - 4, 0xffffffff);
+        printf("CRC: %x\n", nvram.contents.header.crc);
 
         // Stage2 unsupported presently.
         size_t stage1_length = (be32toh(nvram.contents.header.bootstrapWords) * 4) - 4; // last word is CRC
