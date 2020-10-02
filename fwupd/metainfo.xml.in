@@ -12,10 +12,6 @@
             This is an alternate firmware built by the community using only free
             software tools.
         </p>
-        <p>
-            Your hardware may be damaged using this hardware, and installing this
-            alternate firmware may void any warranty with the vendor.
-        </p>
     </description>
 
     <provides>
