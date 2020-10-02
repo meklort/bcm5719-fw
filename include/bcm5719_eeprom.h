@@ -50,7 +50,7 @@
 #define ELEMENT_OFFSET(__struct__, __elememnt__)        offsetof(__struct__, __elememnt__)
 #else
 #define _Static_assert(...)
-#define ELEMENT_OFFSET(__struct__, __elememnt__)        
+#define ELEMENT_OFFSET(__struct__, __elememnt__)
 #endif
 
 #if !defined(__LITTLE_ENDIAN__) && !defined(__BIG_ENDIAN__)
@@ -89,6 +89,11 @@
 #define BCM_CODE_DIRECTORY_GET_LENGTH(__x__)   ((__x__) & (0x00FFFFFFu))
 #define BCM_CODE_DIRECTORY_GET_CPU(__x__)      (((__x__) & (0x0F000000u)) >> 24) /* FIXME: spec shows bit 27 as reserved. */
 #define BCM_CODE_DIRECTORY_GET_TYPE(__x__)     (((__x__) & (0xF0000000u)) >> 28)
+
+#define BCM_CODE_DIRECTORY_SET_LENGTH(__info__, __x__)   (((__info__) & (~0x00FFFFFFu)) | ((__x__) & 0x00FFFFFFu))
+#define BCM_CODE_DIRECTORY_SET_CPU(__info__, __x__)      ((((__info__) & (~0x0F000000u))) | (((__x__) << 24) & 0x0F000000u))
+#define BCM_CODE_DIRECTORY_SET_TYPE(__info__, __x__)     ((((__info__) & (~0xF0000000u))) | (((__x__) << 28) & 0xF0000000u))
+
 typedef struct {
     uint32_t    codeAddress;        /*< Code SRAM address, relative to the designated CPU */
     uint32_t    codeInfo;
