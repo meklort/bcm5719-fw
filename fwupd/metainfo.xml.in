@@ -6,8 +6,6 @@
     <summary>Firmware for the BCM5719 NIC in the Talos II</summary>
     <branch>oss-firmware</branch>
     <description>
-        @DESCRIPTION@
-
         <p>
             This is an alternate firmware built by the community using only free
             software tools.
@@ -31,11 +29,7 @@
         <release version="@VERSION_STRING@" date="@VERSION_DATE@" install_duration="120">
             <checksum filename="talos2-port0.@VERSION_STRING@.fw" target="content"/>
             <description>
-                <p>This release features:</p>
-                <ul>
-                    <li>Fix the return code from GetHardwareVersion</li>
-                    <li>Scale the output of TakeReadingRaw by the datasheet values</li>
-                </ul>
+                <p>@DESCRIPTION@</p>
             </description>
         </release>
     </releases>
