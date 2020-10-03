@@ -45,6 +45,22 @@
 
 #include <../bcm5719_NVM.h>
 #include <NVRam.h>
+#include <bcm5719_eeprom.h>
+
+size_t bcmflash_nvram_size(const char *name)
+{
+    size_t size;
+
+    NVRam_acquireLock();
+
+    NVRam_enable();
+
+    size = NVRam_size();
+
+    NVRam_releaseLock();
+
+    return size;
+}
 
 bool bcmflash_nvram_read(const char *name, uint32_t *words, uint32_t num_words)
 {

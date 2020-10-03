@@ -45,6 +45,8 @@
 
 #include <NVRam.h>
 
+#define BCM_NVRAM_MAGIC (0x669955AAu)
+
 #define ATMEL_AT45DB0X1B_PAGE_POS (9u)
 #define ATMEL_AT45DB0X1B_PAGE_SIZE (264u)
 #define ATMEL_AT45DB0X1B_ERASE (false)
@@ -90,7 +92,7 @@ static inline uint32_t NVRam_translate(uint32_t address)
     }
     else
     {
-        return address;        
+        return address;
     }
 #else
     return address;
@@ -322,4 +324,27 @@ void NVRam_write(uint32_t address, uint32_t *buffer, uint32_t words)
         address += 4;
     }
 #endif
+}
+
+uint32_t NVRam_size(void)
+{
+    size_t size;
+    uint32_t magic = NVRam_readWord(0);
+
+    if (magic != htonl(BCM_NVRAM_MAGIC))
+    {
+        // Unable to determine the size.
+        return 0;
+    }
+
+    // Scan for the magic wrapping around, starting at 2KB flash size.
+    size = 2u * 1024u;
+    do
+    {
+        size *= 2;
+
+        magic = NVRam_readWord(size);
+    } while (magic != htonl(BCM_NVRAM_MAGIC));
+
+    return size;
 }
