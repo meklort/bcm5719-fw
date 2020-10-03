@@ -7,6 +7,7 @@ set(SOURCES
     fileio.cpp
 
     bcmflash.h
+    ethtool.c     ethtool.h
 )
 
 simulator_add_executable(${PROJECT_NAME} ${SOURCES})
