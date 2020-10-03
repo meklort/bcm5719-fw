@@ -68,6 +68,8 @@
 
 #define VERSION_STRING STRINGIFY(VERSION_MAJOR) "." STRINGIFY(VERSION_MINOR) "." STRINGIFY(VERSION_PATCH)
 
+#define MAX_NVRAM_SIZE (512u * 1024u) /* Allow up to 512KB flash size */
+
 using namespace std;
 using optparse::OptionParser;
 
@@ -313,7 +315,6 @@ void dump_vpd(uint8_t *vpd, size_t vpd_len)
     }
 }
 
-#define NVRAM_SIZE (2048u * 256u) /* 512KB */
 int main(int argc, char const *argv[])
 {
     bool extract = false;
@@ -321,10 +322,11 @@ int main(int argc, char const *argv[])
 
     union
     {
-        uint8_t bytes[NVRAM_SIZE];
-        uint32_t words[NVRAM_SIZE / 4];
+        uint8_t bytes[MAX_NVRAM_SIZE];
+        uint32_t words[MAX_NVRAM_SIZE / 4];
         NVRAMContents_t contents;
     } nvram;
+    uint32_t nvram_size = 0;
 
     uint8_t *stage1 = NULL;
     uint32_t *stage1_wd = NULL;
@@ -384,7 +386,8 @@ int main(int argc, char const *argv[])
             exit(-1);
         }
 
-        if (!bcmflash_file_read(options["filename"].c_str(), nvram.bytes, NVRAM_SIZE))
+        nvram_size = bcmflash_file_size(options["filename"].c_str());
+        if (!bcmflash_file_read(options["filename"].c_str(), nvram.bytes, nvram_size))
         {
             cerr << " Unable to open file '" << options["filename"] << "'" << endl;
             exit(-1);
@@ -412,7 +415,8 @@ int main(int argc, char const *argv[])
             bcmflash_nvram_unlock();
         }
 
-        bcmflash_nvram_read("nvram", nvram.words, NVRAM_SIZE / 4);
+        nvram_size = bcmflash_nvram_size("nvram");
+        bcmflash_nvram_read("nvram", nvram.words, nvram_size / 4);
     }
     else
     {
@@ -423,7 +427,7 @@ int main(int argc, char const *argv[])
 
     if (options.is_set("restore"))
     {
-        if (!bcmflash_file_read(options["restore"].c_str(), nvram.bytes, NVRAM_SIZE))
+        if (!bcmflash_file_read(options["restore"].c_str(), nvram.bytes, nvram_size))
         {
             cerr << " Unable to open file '" << options["restore"] << "'" << endl;
             exit(-1);
@@ -432,7 +436,7 @@ int main(int argc, char const *argv[])
         if ("hardware" == options["target"])
         {
             cout << "Restoring from " << options["restore"] << " to hardware." << endl;
-            bcmflash_nvram_write("nvram", nvram.words, NVRAM_SIZE);
+            bcmflash_nvram_write("nvram", nvram.bytes, nvram_size);
         }
         else
         {
@@ -445,7 +449,7 @@ int main(int argc, char const *argv[])
         if ("binary" == options["backup"])
         {
             // Save to file.
-            if (!bcmflash_file_write("firmware.fw", nvram.bytes, NVRAM_SIZE))
+            if (!bcmflash_file_write("firmware.fw", nvram.bytes, nvram_size))
             {
                 exit(-1);
             }
@@ -611,14 +615,14 @@ int main(int argc, char const *argv[])
         if ("file" == options["target"])
         {
             // write update file.
-            if (!bcmflash_file_write(options["filename"].c_str(), (char *)nvram.bytes, NVRAM_SIZE))
+            if (!bcmflash_file_write(options["filename"].c_str(), (char *)nvram.bytes, nvram_size))
             {
                 exit(-1);
             }
         }
         else if ("hardware" == options["target"])
         {
-            bcmflash_nvram_write("nvram", nvram.words, NVRAM_SIZE);
+            bcmflash_nvram_write("nvram", nvram.bytes, nvram_size);
         }
 
         exit(0);
