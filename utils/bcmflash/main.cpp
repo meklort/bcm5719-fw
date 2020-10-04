@@ -42,7 +42,6 @@
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
 
-#include "HAL.hpp"
 #include "bcmflash.h"
 #include "ethtool.h"
 
@@ -77,6 +76,45 @@ using optparse::OptionParser;
 uint32_t gApeLength = 0;
 uint8_t *gApe = NULL;
 uint32_t *gApeWd = NULL;
+
+typedef struct
+{
+    const char *type;
+    const char *type_help;
+    const char *name_help;
+    bool (*read)(const char *name, void *buffer, size_t len);
+    bool (*write)(const char *name, void *buffer, size_t len);
+    bool (*lock)(const char *name);
+    bool (*unlock)(const char *name);
+    size_t (*size)(const char *name);
+} storage_t;
+
+storage_t gStorage[] = {
+    {
+        .type = "raw",
+        .type_help = "Use the attached physical device (driver must be unloaded).",
+        .name_help = "The PCI function to use for register access.",
+        .read = bcmflash_nvram_read,
+        .write = bcmflash_nvram_write,
+        .size = bcmflash_nvram_size,
+    },
+    {
+        .type = "eth",
+        .type_help = "Use the specified network interface (tg3 driver must be loaded).",
+        .name_help = "The network interface to access.",
+        .read = bcmflash_ethtool_read,
+        .write = bcmflash_ethtool_write,
+        .size = bcmflash_ethtool_size,
+    },
+    {
+        .type = "file",
+        .type_help = "Use the file specified.",
+        .name_help = "The file to access.",
+        .read = bcmflash_file_read,
+        .write = bcmflash_file_write,
+        .size = bcmflash_file_size,
+    },
+};
 
 void dump_stage1(NVRAMContents_t *nvram, uint8_t *stage1, size_t stage1_length)
 {
@@ -320,6 +358,7 @@ int main(int argc, char const *argv[])
 {
     bool extract = false;
     bool should_write = false;
+    const char *target_name = NULL;
 
     union
     {
@@ -336,31 +375,36 @@ int main(int argc, char const *argv[])
 
     parser.version(VERSION_STRING);
 
-    parser.add_option("-t", "--target")
-        .choices({ "eth", "hardware", "file" })
-        .dest("target")
-        // .set_default("hardware")
-        .help("hardware: Use the attached physical device (driver must be unloaded).\n"
-              "eth: Use the specified network interface (tg3 driver must be loaded).\n"
-              "file: Use the file specified with -i, --file\n");
+    string target_type_help;
+    string target_name_help;
+    std::list<std::string> target_options;
+    for (int i = 0; i < ARRAY_ELEMENTS(gStorage); i++)
+    {
+        target_type_help += gStorage[i].type;
+        target_type_help += ": ";
+        target_type_help += gStorage[i].type_help;
+        target_type_help += "\n";
 
-    parser.add_option("-f", "--function")
-        .dest("function")
-        .type("int")
-        .set_default("1")
-        .metavar("FUNCTION")
-        .help("Read registers from the specified pci function.");
+        target_name_help += gStorage[i].type;
+        target_name_help += ": ";
+        target_name_help += gStorage[i].name_help;
+        target_name_help += "\n";
+
+        target_options.push_back(gStorage[i].type);
+    }
+
+    parser.add_option("-t", "--target-type").choices(target_options.begin(), target_options.end()).dest("target_type").help(target_type_help);
+
+    parser.add_option("-i", "--target-name").dest("target_name").help(target_name_help).metavar("TARGET_NAME");
 
     parser.add_option("--nvm-recovery")
         .dest("recovery")
         .action("store_true")
         .set_default("0")
-        .help("Recover form an incorrect NVM autodetection. Only valid with --target=hardware");
-
-    parser.add_option("-i", "--file").dest("filename").help("Read from the specified file").metavar("FILE");
-    parser.add_option("--eth").dest("eth").help("Read from the specified network interface").metavar("ETH");
+        .help("Recover form an incorrect NVM autodetection. Only valid with the raw TARGET_TYPE");
 
     parser.add_option("-b", "--backup")
+        .choices({ "binary", "extract" })
         .dest("backup")
         .metavar("TYPE")
         .help("Backup the firmware to the specified file.\n"
@@ -373,54 +417,47 @@ int main(int argc, char const *argv[])
 
     parser.add_option("-a", "--ape").dest("ape").help("Update the target with the specified ape image, if possible.").metavar("APE");
 
-    parser.add_option("-u", "--unlock").dest("unlock").action("store_true").set_default("0").help("Clear all NVM locks.").metavar("UNLOCK");
+    parser.add_option("-u", "--unlock")
+        .dest("unlock")
+        .action("store_true")
+        .set_default("0")
+        .help("Clear all NVM locks. Only valid with the raw TARGET_TYPE")
+        .metavar("UNLOCK");
 
     parser.add_option("-q", "--quiet").action("store_false").dest("verbose").set_default("1").help("don't print status messages to stdout");
 
     optparse::Values options = parser.parse_args(argc, argv);
     vector<string> args = parser.args();
 
-    if ("file" == options["target"])
+    storage_t *target = NULL;
+    for (int i = 0; i < ARRAY_ELEMENTS(gStorage); i++)
     {
-        if (!options.is_set("filename"))
+        if (gStorage[i].type == options["target_type"])
         {
-            cerr << "Please specify a file to use." << endl;
-            parser.print_help();
-            exit(-1);
-        }
-
-        nvram_size = bcmflash_file_size(options["filename"].c_str());
-        if (!bcmflash_file_read(options["filename"].c_str(), nvram.bytes, nvram_size))
-        {
-            cerr << " Unable to open file '" << options["filename"] << "'" << endl;
-            exit(-1);
+            target = &gStorage[i];
+            break;
         }
     }
-    else if ("eth" == options["target"])
-    {
-        if (!options.is_set("eth"))
-        {
-            cerr << "Please specify an interface to use." << endl;
-            parser.print_help();
-            exit(-1);
-        }
 
-        nvram_size = bcmflash_ethtool_size(options["eth"].c_str());
-        if (!bcmflash_ethtool_read(options["eth"].c_str(), nvram.bytes, nvram_size))
-        {
-            cerr << " Unable to read NVM from interface '" << options["eth"] << "'" << endl;
-            exit(-1);
-        }
+    if (!target)
+    {
+        parser.error("Please specify a target type to use.");
     }
-    else if ("hardware" == options["target"])
+
+    if (!options.is_set("target_name"))
     {
-        if (!initHAL(NULL, options.get("function")))
+        parser.error("Please specify a target name to use.");
+    }
+    target_name = options["target_name"].c_str();
+
+    // Treat raw NVM access as a special case for now.
+    if ("raw" == options["target_type"])
+    {
+        if (!bcmflash_nvram_init(target_name))
         {
-            cerr << "Unable to locate pci device with function " << options["function"] << endl;
+            cerr << "Unable to open '" << options["target_type"] << ":" << target_name << "'." << endl;
             exit(-1);
         }
-
-        printf("ChipId: %x\n", (uint32_t)DEVICE.ChipId.r32);
 
         if (options.get("recovery"))
         {
@@ -433,14 +470,19 @@ int main(int argc, char const *argv[])
         {
             bcmflash_nvram_unlock();
         }
-
-        nvram_size = bcmflash_nvram_size("nvram");
-        bcmflash_nvram_read("nvram", nvram.words, nvram_size / 4);
     }
-    else
+
+    // Read the target file
+    nvram_size = target->size(target_name);
+    if (nvram_size > MAX_NVRAM_SIZE)
     {
-        cerr << "Please specify a target." << endl;
-        parser.print_help();
+        cerr << "Unable to handle NVRAM size of " << nvram_size << " bytes.";
+        exit(-1);
+    }
+
+    if (!target->read(target_name, nvram.bytes, nvram_size))
+    {
+        cerr << "Unable to read nvram from target '" << options["target_type"] << ":" << target_name << "'" << endl;
         exit(-1);
     }
 
@@ -452,15 +494,9 @@ int main(int argc, char const *argv[])
             exit(-1);
         }
 
-        if ("hardware" == options["target"])
-        {
-            cout << "Restoring from " << options["restore"] << " to hardware." << endl;
-            bcmflash_nvram_write("nvram", nvram.bytes, nvram_size);
-        }
-        else
-        {
-            // Write back to infile
-        }
+        cout << "Restoring from " << options["restore"] << " to '" << options["target_type"] << ":" << target_name << "'." << endl;
+
+        target->write(target_name, nvram.bytes, nvram_size);
     }
 
     if (options.is_set("backup"))
@@ -476,12 +512,6 @@ int main(int argc, char const *argv[])
         else if ("extract" == options["backup"])
         {
             extract = true;
-        }
-        else
-        {
-            cerr << "Invalid backup type specified." << endl;
-            parser.print_help();
-            exit(-1);
         }
     }
 
@@ -631,21 +661,10 @@ int main(int argc, char const *argv[])
 
     if (should_write)
     {
-        if ("file" == options["target"])
+        // write updated nvram.
+        if (!target->write(target_name, nvram.bytes, nvram_size))
         {
-            // write update file.
-            if (!bcmflash_file_write(options["filename"].c_str(), (char *)nvram.bytes, nvram_size))
-            {
-                exit(-1);
-            }
-        }
-        if ("eth" == options["target"])
-        {
-            bcmflash_ethtool_write(options["eth"].c_str(), nvram.bytes, nvram_size);
-        }
-        else if ("hardware" == options["target"])
-        {
-            bcmflash_nvram_write("nvram", nvram.bytes, nvram_size);
+            exit(-1);
         }
 
         exit(0);

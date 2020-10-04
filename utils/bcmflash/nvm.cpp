@@ -41,11 +41,26 @@
 /// POSSIBILITY OF SUCH DAMAGE.
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
+
+#include "HAL.hpp"
 #include "bcmflash.h"
 
 #include <../bcm5719_NVM.h>
 #include <NVRam.h>
 #include <bcm5719_eeprom.h>
+
+bool bcmflash_nvram_init(const char *name)
+{
+    char *end_ptr;
+    int function = strtol(name, &end_ptr, 10);
+    if (end_ptr == name)
+    {
+        // Unable to detect, default to function 1.
+        function = 1;
+    }
+
+    return initHAL(NULL, function);
+}
 
 size_t bcmflash_nvram_size(const char *name)
 {
@@ -62,8 +77,10 @@ size_t bcmflash_nvram_size(const char *name)
     return size;
 }
 
-bool bcmflash_nvram_read(const char *name, uint32_t *words, uint32_t num_words)
+bool bcmflash_nvram_read(const char *name, void *buffer, size_t len)
 {
+    uint32_t *words = (uint32_t *)buffer;
+    uint32_t num_words = len / 4;
     NVRam_acquireLock();
 
     NVRam_enable();

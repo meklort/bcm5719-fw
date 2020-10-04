@@ -69,7 +69,7 @@ echo 0004:01:00.1 > /sys/bus/pci/devices/0004:01:00.1/driver/unbind
 Before proceeding, the original firmware should be backed up.
 ```bash
 cd build
-sudo ./utils/bcmflash/bcmflash -t hardware -b binary
+sudo ./utils/bcmflash/bcmflash -t raw -i 0 -b binary
 ```
 This will result in a firmware image, firmware.fw, being stored in the current directory.
 
@@ -77,7 +77,7 @@ This will result in a firmware image, firmware.fw, being stored in the current d
 After compilation, the MIPS firmware is ready to be uploaded to the NIC.
 ```bash
 cd build
-sudo ./utils/bcmflash/bcmflash -t hardware -1 stage1/stage1.bin
+sudo ./utils/bcmflash/bcmflash -t raw -i 0 -1 stage1/stage1.bin
 ```
 
 ### APE Firmware (BMC/NC-SI communication)
@@ -94,7 +94,7 @@ sudo ./utils/bcmregtool/bcmregtool --apeboot=ape/ape-port0.bin
 Once tested, the APE firmware can be loaded into the device using the following command:
 ```bash
 cd build
-sudo ./utils/bcmflash/bcmflash -t hardware -a ape/ape-port0.bin
+sudo ./utils/bcmflash/bcmflash -t raw -i 0 -a ape/ape-port0.bin
 ```
 </details>
 
@@ -109,7 +109,7 @@ sudo ./utils/bcmregtool/bcmregtool --apeboot=ape/ape-port2.bin
 Once tested, the APE firmware can be loaded into the device using the following command:
 ```bash
 cd build
-sudo ./utils/bcmflash/bcmflash -t hardware -a ape/ape-port2.bin
+sudo ./utils/bcmflash/bcmflash -t raw -i 0 -a ape/ape-port2.bin
 ```
 </details>
 
