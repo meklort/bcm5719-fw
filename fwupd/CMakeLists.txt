@@ -55,6 +55,7 @@ ENDIF()
 SET(DESCRIPTION "Firmware update to improve stability.")
 
 configure_file(talos2-metainfo.xml.in com.meklort.bcm5719.talos2.metainfo.xml)
+configure_file(blackbird-metainfo.xml.in com.meklort.bcm5719.blackbird.metainfo.xml)
 configure_file(kh08p-metainfo.xml.in com.meklort.bcm5719.kh08p.metainfo.xml)
 
 add_custom_command(OUTPUT talos2-port0.${VERSION_STRING}.fw
@@ -69,16 +70,47 @@ add_custom_command(OUTPUT talos2-bcm5719-${VERSION_STRING}.cab
     COMMAND ${GCAB} -c -z talos2-bcm5719-${VERSION_STRING}.cab
         com.meklort.bcm5719.talos2.metainfo.xml
         talos2-port0.${VERSION_STRING}.fw
-    DEPENDS talos2-port0.${VERSION_STRING}.fw com.meklort.bcm5719.talos2.metainfo.xml
+    DEPENDS
+        com.meklort.bcm5719.talos2.metainfo.xml
+        talos2-port0.${VERSION_STRING}.fw
+)
+
+add_custom_command(OUTPUT blackbird-port2.${VERSION_STRING}.fw
+    COMMAND bcmflash -c -t file -i blackbird-port2.${VERSION_STRING}.fw
+        -1 $<TARGET_PROPERTY:stage1,RESOURCE>
+        -a $<TARGET_PROPERTY:ape-port2,RESOURCE>
+    DEPENDS stage1 ape-port2
+    VERBATIM
+)
+
+add_custom_command(OUTPUT blackbird-bcm5719-${VERSION_STRING}.cab
+    COMMAND ${GCAB} -c -z blackbird-bcm5719-${VERSION_STRING}.cab
+        com.meklort.bcm5719.blackbird.metainfo.xml
+        blackbird-port2.${VERSION_STRING}.fw
+    DEPENDS
+        com.meklort.bcm5719.talos2.metainfo.xml
+        blackbird-port2.${VERSION_STRING}.fw
 )
 
 add_custom_command(OUTPUT kh08p-bcm5719-${VERSION_STRING}.cab
     COMMAND ${GCAB} -c -z kh08p-bcm5719-${VERSION_STRING}.cab
         com.meklort.bcm5719.kh08p.metainfo.xml
         talos2-port0.${VERSION_STRING}.fw
-    DEPENDS talos2-port0.${VERSION_STRING}.fw com.meklort.bcm5719.kh08p.metainfo.xml
+    DEPENDS
+        com.meklort.bcm5719.kh08p.metainfo.xml
+        talos2-port0.${VERSION_STRING}.fw
 )
-add_custom_target(fwupd ALL DEPENDS talos2-bcm5719-${VERSION_STRING}.cab kh08p-bcm5719-${VERSION_STRING}.cab)
+add_custom_target(
+    fwupd ALL
+    DEPENDS talos2-bcm5719-${VERSION_STRING}.cab
+            blackbird-bcm5719-${VERSION_STRING}.cab
+            kh08p-bcm5719-${VERSION_STRING}.cab
+)
 
-INSTALL(FILES "${CMAKE_BINARY_DIR}/${PROJECT_NAME}/talos2-bcm5719-${VERSION_STRING}.cab" DESTINATION fwupd)
-INSTALL(FILES "${CMAKE_BINARY_DIR}/${PROJECT_NAME}/kh08p-bcm5719-${VERSION_STRING}.cab" DESTINATION fwupd)
+INSTALL(FILES
+            "${CMAKE_BINARY_DIR}/${PROJECT_NAME}/talos2-bcm5719-${VERSION_STRING}.cab"
+            "${CMAKE_BINARY_DIR}/${PROJECT_NAME}/blackbird-bcm5719-${VERSION_STRING}.cab"
+            "${CMAKE_BINARY_DIR}/${PROJECT_NAME}/kh08p-bcm5719-${VERSION_STRING}.cab"
+        DESTINATION
+            fwupd
+)
