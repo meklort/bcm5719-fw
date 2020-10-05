@@ -48,7 +48,8 @@
 #include <stddef.h>
 #include <stdint.h>
 
-bool bcmflash_nvram_read(const char *name, uint32_t *words, uint32_t num_words);
+bool bcmflash_nvram_init(const char *name);
+bool bcmflash_nvram_read(const char *name, void *buffer, size_t len);
 bool bcmflash_nvram_write(const char *name, void *buffer, size_t len);
 size_t bcmflash_nvram_size(const char *name);
 void bcmflash_nvram_unlock(void);
