@@ -42,6 +42,7 @@
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
 
+#include <errno.h>
 #include <linux/ethtool.h>
 #include <linux/sockios.h>
 #include <malloc.h>
@@ -81,7 +82,8 @@ size_t bcmflash_ethtool_size(const char *name)
     drvinfo.cmd = ETHTOOL_GDRVINFO;
     if (do_ioctl(&ctx, &drvinfo) < 0)
     {
-        printf("Cannot get driver information\n");
+        const char *errstr = strerror(errno);
+        printf("Cannot get driver information, %d: %s\n", errno, errstr);
         return 0;
     }
 
@@ -115,7 +117,8 @@ bool bcmflash_ethtool_read(const char *name, void *buffer, size_t len)
 
     if (do_ioctl(&ctx, eeprom) < 0)
     {
-        printf("Cannot read eeprom");
+        const char *errstr = strerror(errno);
+        printf("Cannot read eeprom, %d: %s\n", errno, errstr);
         free(eeprom);
         return false;
     }
