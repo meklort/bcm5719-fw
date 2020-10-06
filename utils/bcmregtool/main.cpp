@@ -116,7 +116,7 @@ void boot_ape_loader()
     // load file.
     for (int i = 0; i < numWords; i++)
     {
-        SHM.write(0x0B00 + i * 4, ((uint32_t *)apeloader_bin)[i]);
+        SHM.write(0x0B00 + i * 4, htobe32(((uint32_t *)apeloader_bin)[i]));
     }
 
     // Mark fw as not read.
