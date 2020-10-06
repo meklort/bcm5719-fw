@@ -294,14 +294,10 @@ typedef register_container RegSHM4014_t {
 } RegSHM4014_t;
 
 #define REG_SHM_FW_VERSION ((volatile BCM5719_SHM_H_uint32_t*)0xc0014018) /*  */
-#define     SHM_FW_VERSION_BUILD_SHIFT 0u
-#define     SHM_FW_VERSION_BUILD_MASK  0xffu
-#define GET_SHM_FW_VERSION_BUILD(__reg__)  (((__reg__) & 0xff) >> 0u)
-#define SET_SHM_FW_VERSION_BUILD(__val__)  (((__val__) << 0u) & 0xffu)
-#define     SHM_FW_VERSION_REVISION_SHIFT 8u
-#define     SHM_FW_VERSION_REVISION_MASK  0xff00u
-#define GET_SHM_FW_VERSION_REVISION(__reg__)  (((__reg__) & 0xff00) >> 8u)
-#define SET_SHM_FW_VERSION_REVISION(__val__)  (((__val__) << 8u) & 0xff00u)
+#define     SHM_FW_VERSION_PATCH_SHIFT 0u
+#define     SHM_FW_VERSION_PATCH_MASK  0xffffu
+#define GET_SHM_FW_VERSION_PATCH(__reg__)  (((__reg__) & 0xffff) >> 0u)
+#define SET_SHM_FW_VERSION_PATCH(__val__)  (((__val__) << 0u) & 0xffffu)
 #define     SHM_FW_VERSION_MINOR_SHIFT 16u
 #define     SHM_FW_VERSION_MINOR_MASK  0xff0000u
 #define GET_SHM_FW_VERSION_MINOR(__reg__)  (((__reg__) & 0xff0000) >> 16u)
@@ -319,9 +315,7 @@ typedef register_container RegSHMFwVersion_t {
     BITFIELD_BEGIN(BCM5719_SHM_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_SHM_H_uint32_t, Build, 0, 8)
-        /** @brief  */
-        BITFIELD_MEMBER(BCM5719_SHM_H_uint32_t, Revision, 8, 8)
+        BITFIELD_MEMBER(BCM5719_SHM_H_uint32_t, Patch, 0, 16)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_SHM_H_uint32_t, Minor, 16, 8)
         /** @brief  */
@@ -332,9 +326,7 @@ typedef register_container RegSHMFwVersion_t {
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_SHM_H_uint32_t, Minor, 16, 8)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_SHM_H_uint32_t, Revision, 8, 8)
-        /** @brief  */
-        BITFIELD_MEMBER(BCM5719_SHM_H_uint32_t, Build, 0, 8)
+        BITFIELD_MEMBER(BCM5719_SHM_H_uint32_t, Patch, 0, 16)
 #else
 #error Unknown Endian
 #endif
@@ -350,10 +342,8 @@ typedef register_container RegSHMFwVersion_t {
     {
         /** @brief constructor for @ref SHM_t.FwVersion. */
         r32.setName("FwVersion");
-        bits.Build.setBaseRegister(&r32);
-        bits.Build.setName("Build");
-        bits.Revision.setBaseRegister(&r32);
-        bits.Revision.setName("Revision");
+        bits.Patch.setBaseRegister(&r32);
+        bits.Patch.setName("Patch");
         bits.Minor.setBaseRegister(&r32);
         bits.Minor.setName("Minor");
         bits.Major.setBaseRegister(&r32);

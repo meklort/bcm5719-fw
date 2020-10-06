@@ -263,12 +263,32 @@ void checkSupply(bool alwaysReport)
     }
 }
 
+void initSHM(volatile SHM_t *shm)
+{
+    RegSHMFwStatus_t status;
+    status.r32 = 0;
+    status.bits.Ready = 1;
+
+    RegSHMFwFeatures_t features;
+    features.r32 = 0;
+    features.bits.NCSI = 1;
+
+    shm->FwVersion.r32 = (VERSION_MAJOR << 24) | (VERSION_MINOR << 16) | VERSION_PATCH;
+    shm->FwFeatures.r32 = features.r32;
+    shm->FwStatus.r32 = status.r32;
+
+    shm->SegSig.r32 = 'APE!';
+}
+
 void __attribute__((noreturn)) loaderLoop(void)
 {
     uint32_t host_state = SHM.HostDriverState.bits.State;
     // Update SHM.Sig to signal ready.
     SHM.SegSig.bits.Sig = SHM_SEG_SIG_SIG_LOADER;
-    SHM.FwStatus.bits.Ready = 1;
+    initSHM(&SHM);
+    initSHM(&SHM1);
+    initSHM(&SHM2);
+    initSHM(&SHM3);
 
     for (;;)
     {
