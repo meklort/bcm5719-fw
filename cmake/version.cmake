@@ -46,6 +46,8 @@ SET(VERSION_MAJOR 0)
 SET(VERSION_MINOR 4)
 SET(VERSION_PATCH )
 
+SET(SEMVER_REGEX "v?(0|[1-9]*)\\.(0|[0-9]*)\\.(0|[0-9]*)")
+
 SET(VERSION_FILE ${CMAKE_SOURCE_DIR}/version)
 IF(EXISTS ${VERSION_FILE})
     # Release package including a version file.
@@ -58,9 +60,30 @@ IF(EXISTS ${VERSION_FILE})
     LIST(GET FULL_VERSION 2 VERSION_PATCH)
 ELSE()
     # Within a git repository
-    EXECUTE_PROCESS(COMMAND git rev-list --count HEAD
+
+    # Find the previous tag. This should be in the format of "vMajor.Minor.Patch"
+    EXECUTE_PROCESS(COMMAND git describe --abbrev=0 --tags
+                    OUTPUT_VARIABLE PREVIOUS_TAG
+                    OUTPUT_STRIP_TRAILING_WHITESPACE)
+
+    STRING(REGEX MATCHALL "${SEMVER_REGEX}" DID_MATCH "${PREVIOUS_TAG}")
+    SET(PREVIOUS_MAJOR ${CMAKE_MATCH_1})
+    SET(PREVIOUS_MINOR ${CMAKE_MATCH_2})
+    SET(PREVIOUS_PATCH ${CMAKE_MATCH_3})
+
+    EXECUTE_PROCESS(COMMAND git rev-list --count ${PREVIOUS_TAG}..HEAD
                     OUTPUT_VARIABLE VERSION_PATCH
                     OUTPUT_STRIP_TRAILING_WHITESPACE)
+
+    # If we are on the same Major/Minor version, continue increasing the patch version.
+    IF("${PREVIOUS_MAJOR}.${PREVIOUS_MINOR}" VERSION_EQUAL "${VERSIN_MAJOR}.${VERSION_MINOR}")
+        MATH(EXPR VERSION_PATCH "${PREVIOUS_PATCH} + ${VERSION_PATCH}")
+    ELSEIF("${PREVIOUS_MAJOR}.${PREVIOUS_MINOR}" VERSION_GREATER "${VERSIN_MAJOR}.${VERSION_MINOR}")
+        # We somehow regressed in versioning.
+        MESSAGE(FATAL_ERROR "Last release ${PREVIOUS_TAG} is newer than current ${VERSION_MAJOR}.${VERSION_MINOR}.x")
+    ELSE()
+        # No released versions for this major.minor pair.
+    ENDIF()
 ENDIF()
 
 SET(VERSION_STRING "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
