@@ -49,6 +49,7 @@ SET(VERSION_PATCH )
 SET(SEMVER_REGEX "v?(0|[1-9]*)\\.(0|[0-9]*)\\.(0|[0-9]*)")
 
 SET(VERSION_FILE ${CMAKE_SOURCE_DIR}/version)
+SET(CHANGELOG_FILE ${CMAKE_SOURCE_DIR}/changelog)
 IF(EXISTS ${VERSION_FILE})
     # Release package including a version file.
     FILE(STRINGS ${VERSION_FILE} lines)
@@ -58,6 +59,9 @@ IF(EXISTS ${VERSION_FILE})
     LIST(GET FULL_VERSION 0 VERSION_MAJOR)
     LIST(GET FULL_VERSION 1 VERSION_MINOR)
     LIST(GET FULL_VERSION 2 VERSION_PATCH)
+
+    # Read in changelog
+    FILE(READ ${CHANGELOG_FILE} CHANGELOG)
 ELSE()
     # Within a git repository
 
@@ -74,6 +78,11 @@ ELSE()
     EXECUTE_PROCESS(COMMAND git rev-list --count ${PREVIOUS_TAG}..HEAD
                     OUTPUT_VARIABLE VERSION_PATCH
                     OUTPUT_STRIP_TRAILING_WHITESPACE)
+
+    EXECUTE_PROCESS(COMMAND git log --pretty=format:%s ${PREVIOUS_TAG}..HEAD
+                    OUTPUT_VARIABLE CHANGELOG
+                    OUTPUT_STRIP_TRAILING_WHITESPACE)
+
 
     # If we are on the same Major/Minor version, continue increasing the patch version.
     IF("${PREVIOUS_MAJOR}.${PREVIOUS_MINOR}" VERSION_EQUAL "${VERSIN_MAJOR}.${VERSION_MINOR}")
@@ -95,5 +104,7 @@ add_compile_options(
 )
 
 FILE(WRITE ${CMAKE_BINARY_DIR}/version ${VERSION_STRING})
+FILE(WRITE ${CMAKE_BINARY_DIR}/changelog ${CHANGELOG})
 
 INSTALL(FILES ${CMAKE_BINARY_DIR}/version DESTINATION .)
+INSTALL(FILES ${CMAKE_BINARY_DIR}/changelog DESTINATION .)

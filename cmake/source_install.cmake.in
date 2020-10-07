@@ -1,8 +1,8 @@
 ################################################################################
 ###
-### @file       cpack.cmake
+### @file       source_install.cmake.in
 ###
-### @project    bcm5719 fw
+### @project
 ###
 ### @brief      Release Pacakge configurations
 ###
@@ -42,28 +42,13 @@
 ### @endcond
 ################################################################################
 
-# Packaging support
-set(CPACK_PACKAGE_VENDOR "Evan Lojewski")
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "bcm5719-fw")
-set(CPACK_PACKAGE_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
-set(CPACK_PACKAGE_VERSION_MINOR ${PROJECT_VERSION_MINOR})
-set(CPACK_PACKAGE_VERSION_PATCH ${PROJECT_VERSION_PATCH})
-set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/LICENSE")
-set(CPACK_RESOURCE_FILE_README "${CMAKE_SOURCE_DIR}/README.md")
-SET(CPACK_PACKAGE_VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH})
-SET(CPACK_PACKAGE_FILE_NAME ${PROJECT_NAME}-${CPACK_PACKAGE_VERSION}-${CMAKE_SYSTEM_NAME}-${CMAKE_SYSTEM_PROCESSOR})
-
-set(CPACK_GENERATOR "TGZ;ZIP")
-
-set(CPACK_SOURCE_GENERATOR "TGZ;ZIP")
-set(CPACK_SOURCE_IGNORE_FILES
-    /.git
-    /dist
-    /build.*/
-    /\\\\.DS_Store
-)
-
-configure_file(cmake/source_install.cmake.in source_install.cmake @ONLY)
-set(CPACK_INSTALL_SCRIPT "${CMAKE_CURRENT_BINARY_DIR}/source_install.cmake")
-
-include(CPack)
+if(CPACK_SOURCE_INSTALLED_DIRECTORIES)
+    file(INSTALL
+        DESTINATION
+            "${CMAKE_INSTALL_PREFIX}/"
+        TYPE FILE
+        FILES
+            "@CMAKE_BINARY_DIR@/changelog"
+            "@CMAKE_BINARY_DIR@/version"
+    )
+endif()
