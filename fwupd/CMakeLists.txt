@@ -54,6 +54,57 @@ ENDIF()
 
 SET(DESCRIPTION "Firmware update to improve stability.")
 
+# Generate the Changelog for LVFS/FWUPD
+SET(FWUPD_TOPCIS APE Stage1)
+# Convert o lower case while preserving original case.
+FOREACH(TOPIC IN LISTS FWUPD_TOPCIS)
+    STRING(TOLOWER "${TOPIC}" TOPIC_LOWER)
+    SET(FWUPD_${TOPIC_LOWER}_NAME ${TOPIC})
+ENDFOREACH()
+STRING(TOLOWER "${FWUPD_TOPCIS}" FWUPD_TOPCIS)
+
+STRING(REPLACE "\n" ";" CHANGELIST ${CHANGELOG})
+
+# Sort the changelog by topics.
+FOREACH(CHANGE IN LISTS CHANGELIST)
+    # Find changes in the format of "topic: subject (#GHID)"
+    STRING(REGEX MATCHALL "([^:]*):[ \t\r\n]*(.*)(\\(#[0-9]*\\))" FOUND "${CHANGE}")
+    IF(FOUND)
+        SET(TOPIC ${CMAKE_MATCH_1})
+        SET(SUBJECT ${CMAKE_MATCH_2})
+        SET(GITHUB_ID ${CMAKE_MATCH_3})
+    ELSE()
+        # Find changes in the format of "topic: subject"
+        STRING(REGEX MATCHALL "([^:]*):[ \t\r\n]*(.*)" FOUND "${CHANGE}")
+        SET(TOPIC ${CMAKE_MATCH_1})
+        SET(SUBJECT ${CMAKE_MATCH_2})
+        SET(GITHUB_ID False)
+    ENDIF()
+    STRING(TOLOWER "${TOPIC}" TOPIC)
+
+    IF(TOPIC IN_LIST FWUPD_TOPCIS)
+        string(STRIP ${CMAKE_MATCH_2} CMAKE_MATCH_2)
+        LIST(APPEND FWUPD_CHANGELOG_${TOPIC} ${CMAKE_MATCH_2})
+    ENDIF()
+ENDFOREACH()
+
+SET(FWUPD_CHANGELOG )
+FOREACH(TOPIC IN LISTS FWUPD_TOPCIS)
+    IF(FWUPD_CHANGELOG_${TOPIC})
+        LIST(APPEND FWUPD_CHANGELOG "                <p>${FWUPD_${TOPIC}_NAME} Changes:</p>")
+        LIST(APPEND FWUPD_CHANGELOG "                <ul>")
+        FOREACH(CHANGE IN LISTS FWUPD_CHANGELOG_${TOPIC})
+            LIST(APPEND FWUPD_CHANGELOG "                    <li>${CHANGE}</li>")
+        ENDFOREACH()
+        LIST(APPEND FWUPD_CHANGELOG "                </ul>")
+    ENDIF()
+ENDFOREACH()
+STRING(REPLACE ";" "\n" FWUPD_CHANGELOG "${FWUPD_CHANGELOG}")
+
+SET(DESCRIPTION
+    "<p>This stable release has the following changes:</p>\n${FWUPD_CHANGELOG}")
+
+
 configure_file(talos2-metainfo.xml.in com.meklort.bcm5719.talos2.metainfo.xml)
 configure_file(blackbird-metainfo.xml.in com.meklort.bcm5719.blackbird.metainfo.xml)
 configure_file(kh08p-metainfo.xml.in com.meklort.bcm5719.kh08p.metainfo.xml)

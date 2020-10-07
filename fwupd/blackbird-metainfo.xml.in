@@ -27,7 +27,7 @@
         <release version="@VERSION_STRING@" date="@VERSION_DATE@" install_duration="120" urgency="low">
             <checksum filename="blackbird-port2.@VERSION_STRING@.fw" target="content"/>
             <description>
-                <p>@DESCRIPTION@</p>
+                @DESCRIPTION@
             </description>
         </release>
     </releases>
