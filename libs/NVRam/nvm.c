@@ -271,39 +271,106 @@ void NVRam_writeWord(uint32_t address, uint32_t data)
 
 void NVRam_write(uint32_t address, uint32_t *buffer, uint32_t words)
 {
-#if 0
+    uint32_t page_size = 256;
+    bool find_first_difference = true;
+    uint32_t last_difference = address + words * 4;
+    uint32_t trim_address;
+    uint32_t trim_words = words;
+    uint32_t *trim_buffer;
+
     if (!words)
     {
         // No bytes to read.
         return;
     }
 
-    // Reduce beginning of buffer until we find the first different work.
-    while(buffer[0] == NVRam_readWord(address))
-    {
-        address += 4;
-        buffer++;
-        words--;
-    }
-
-    // Trim words at end of buffer if they don't need to change.s
-    while(words && (buffer[words-1] == NVRam_readWord(address + (words-1)*4)))
-    {
-        words--;
-    }
-
-    // First word.
+    // Reduce beginning of buffer until we find the first different word.
+    // Note: We don't use NVRam_readWord() here as this can sometime lockup the nvm controller.
     RegNVMCommand_t cmd;
     cmd.r32 = 0;
     cmd.bits.Doit = 1;
     cmd.bits.First = 1;
+
+    while (words && trim_words)
+    {
+        uint32_t read_word;
+        if (1 == words || 1 == trim_words)
+        {
+            // Last word.
+            cmd.bits.Last = 1;
+        }
+
+        if (find_first_difference)
+        {
+            // Find the first difference.
+            read_word = NVRam_readWordInternal(address, cmd);
+
+            if (buffer[0] == read_word)
+            {
+                // Skip this word.
+                buffer++;
+                words--;
+                address += 4;
+            }
+            else
+            {
+                // address now contains the first difference. Start trimming at the next word.
+                find_first_difference = false;
+
+                last_difference = address;
+                trim_address = address + 4;
+                trim_words = words - 1;
+                trim_buffer = buffer + 1;
+            }
+        }
+        else
+        {
+            // Find the last difference
+            read_word = NVRam_readWordInternal(trim_address, cmd);
+            if (trim_buffer[0] != read_word)
+            {
+                last_difference = trim_address;
+            }
+
+            trim_buffer++;
+            trim_words--;
+            trim_address += 4;
+        }
+
+        cmd.bits.First = 0;
+    }
+
+    // Was a difference found?
+    if (last_difference < address + words * 4)
+    {
+        words = (last_difference + 4 - address) / 4;
+    }
+    else
+    {
+        // No differences found in buffer given, no words to write.
+        words = 0;
+    }
+
+    // Performe the write.
+    // First word.
+    cmd.r32 = 0;
+    cmd.bits.Doit = 1;
+    cmd.bits.First = 1;
+    cmd.bits.Last = 0;
     cmd.bits.Wr = 1;
 
     while (words)
     {
-        if (1 == words)
+        if (0 == address % page_size || cmd.bits.First)
         {
-            // Last word.
+            // New page.
+            cmd.bits.First = 1;
+            cmd.bits.Last = 0;
+        }
+
+        if (1 == words || (((address % page_size) + 4) >= page_size))
+        {
+            // Last word or end of page.
             cmd.bits.Last = 1;
         }
 
@@ -315,15 +382,6 @@ void NVRam_write(uint32_t address, uint32_t *buffer, uint32_t words)
         // If we have more than one word, clear the first bit.
         cmd.bits.First = 0;
     }
-#else
-    while (words)
-    {
-        NVRam_writeWord(address, *buffer);
-        buffer++;
-        words--;
-        address += 4;
-    }
-#endif
 }
 
 uint32_t NVRam_size(void)
@@ -334,7 +392,8 @@ uint32_t NVRam_size(void)
     if (magic != htonl(BCM_NVRAM_MAGIC))
     {
         // Unable to determine the size.
-        return 0;
+        // Return 1024 to allow recovery from a bad flash.
+        return 1024;
     }
 
     // Scan for the magic wrapping around, starting at 2KB flash size.
