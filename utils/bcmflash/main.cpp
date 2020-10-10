@@ -413,6 +413,8 @@ int main(int argc, char const *argv[])
 
     parser.add_option("-r", "restore").dest("restore").help("Update the target device to match the specified file.").metavar("FILE");
 
+    parser.add_option("-c", "--create").dest("create").action("store_true").set_default("0").help("Create a full firmware image for use with fwupd.");
+
     parser.add_option("-1", "--stage1").dest("stage1").help("Update the target with the specified stage1 image, if possible.").metavar("STAGE1");
 
     parser.add_option("-a", "--ape").dest("ape").help("Update the target with the specified ape image, if possible.").metavar("APE");
@@ -428,8 +430,8 @@ int main(int argc, char const *argv[])
 
     optparse::Values options = parser.parse_args(argc, argv);
     vector<string> args = parser.args();
-
     storage_t *target = NULL;
+
     for (int i = 0; i < ARRAY_ELEMENTS(gStorage); i++)
     {
         if (gStorage[i].type == options["target_type"])
@@ -472,46 +474,128 @@ int main(int argc, char const *argv[])
         }
     }
 
-    // Read the target file
-    nvram_size = target->size(target_name);
-    if (nvram_size > MAX_NVRAM_SIZE)
+    if (options.get("create"))
     {
-        cerr << "Unable to handle NVRAM size of " << nvram_size << " bytes.";
-        exit(-1);
-    }
+        // Default to erased flash contents.
+        memset(nvram.words, -1, sizeof(nvram.words));
 
-    if (!target->read(target_name, nvram.bytes, nvram_size))
-    {
-        cerr << "Unable to read nvram from target '" << options["target_type"] << ":" << target_name << "'" << endl;
-        exit(-1);
-    }
+        memcpy(nvram.contents.info.partNumber, "BCM95719", sizeof("BCM95719"));
+        memcpy(nvram.contents.info.partRevision, "A0", sizeof("A0"));
+        nvram.contents.info.vendorID = htobe16(0x14E4);
+        nvram.contents.info.deviceID = htobe16(0x1657);
 
-    if (options.is_set("restore"))
-    {
-        if (!bcmflash_file_read(options["restore"].c_str(), nvram.bytes, nvram_size))
+        nvram.contents.header.magic = htobe32(BCM_NVRAM_MAGIC);
+        nvram.contents.header.bootstrapPhysAddr = htobe32(0x08003800);
+        nvram.contents.header.bootstrapOffset = htobe32(sizeof(NVRAMContents_t));
+        nvram.contents.header.bootstrapWords = 0;
+        nvram.contents.header.crc = 0;
+
+        if (options.is_set("stage1"))
         {
-            cerr << " Unable to open file '" << options["restore"] << "'" << endl;
-            exit(-1);
-        }
+            uint32_t new_stage1_length = bcmflash_file_size(options["stage1"].c_str());
 
-        cout << "Restoring from " << options["restore"] << " to '" << options["target_type"] << ":" << target_name << "'." << endl;
-
-        target->write(target_name, nvram.bytes, nvram_size);
-    }
-
-    if (options.is_set("backup"))
-    {
-        if ("binary" == options["backup"])
-        {
-            // Save to file.
-            if (!bcmflash_file_write("firmware.fw", nvram.bytes, nvram_size))
+            if (new_stage1_length)
             {
+                nvram.contents.header.bootstrapWords = htobe32(1 + ((new_stage1_length + 3) / 4));
+            }
+            else
+            {
+                cerr << "Unable to open '" << options["stage1"] << "'." << endl;
                 exit(-1);
             }
         }
-        else if ("extract" == options["backup"])
+
+        // now we know the size of stage1
+        nvram.contents.header.crc = ~NVRam_crc((uint8_t *)&nvram.contents.header, sizeof(nvram.contents.header) - 4, 0xffffffff);
+        printf("CRC: %x\n", nvram.contents.header.crc);
+
+        // Stage2 unsupported presently.
+        size_t stage1_length = (be32toh(nvram.contents.header.bootstrapWords) * 4) - 4; // last word is CRC
+
+        uint32_t crc_word = stage1_length / 4;
+        stage1_wd = &nvram.words[be32toh(nvram.contents.header.bootstrapOffset) / 4];
+
+        uint32_t *stage2_wd = &stage1_wd[(crc_word + 1)]; // immediately after stage1 crc
+        NVRAMStage2_t *stage2 = (NVRAMStage2_t *)stage2_wd;
+
+        stage2->header.magic = htobe32(BCM_NVRAM_MAGIC);
+        stage2->header.length = htobe32(4); /* CRC */
+        stage2->words[0] = htobe32(0);
+
+        // Invalidate all code directories
+        memset(nvram.contents.directory, 0, sizeof(nvram.contents.directory));
+
+        if (options.is_set("ape"))
         {
-            extract = true;
+            uint32_t ape_length = bcmflash_file_size(options["ape"].c_str());
+
+            if (!ape_length)
+            {
+                cerr << "Unable to open '" << options["ape"] << "'." << endl;
+                exit(-1);
+            }
+
+            // Allocate space for the code directory CRC.
+            ape_length += sizeof(uint32_t);
+
+            uint32_t info = 0;
+
+            ape_length = DIVIDE_RND_UP(ape_length, sizeof(uint32_t));
+            info = BCM_CODE_DIRECTORY_SET_LENGTH(info, ape_length);
+            info = BCM_CODE_DIRECTORY_SET_CPU(info, BCM_CODE_DIRECTORY_CPU_APE);
+            info = BCM_CODE_DIRECTORY_SET_TYPE(info, 0);
+            nvram.contents.directory[0].codeInfo = htobe32(info);
+            nvram.contents.directory[0].codeAddress = htobe32(BCM_CODE_DIRECTORY_ADDR_APE);
+            nvram.contents.directory[0].directoryOffset = htobe32(4 * (&stage2->words[1] - nvram.words));
+
+            nvram_size = sizeof(uint32_t) * ((&stage2->words[1] - nvram.words) + ape_length);
+        }
+
+        memset(&nvram.contents.vpd, 0, sizeof(nvram.contents.vpd));
+    }
+    else
+    {
+        // Read the target file
+        nvram_size = target->size(target_name);
+        if (nvram_size > MAX_NVRAM_SIZE)
+        {
+            cerr << "Unable to handle NVRAM size of " << nvram_size << " bytes.";
+            exit(-1);
+        }
+
+        if (!target->read(target_name, nvram.bytes, nvram_size))
+        {
+            cerr << "Unable to read nvram from target '" << options["target_type"] << ":" << target_name << "'" << endl;
+            exit(-1);
+        }
+
+        if (options.is_set("restore"))
+        {
+            if (!bcmflash_file_read(options["restore"].c_str(), nvram.bytes, nvram_size))
+            {
+                cerr << " Unable to open file '" << options["restore"] << "'" << endl;
+                exit(-1);
+            }
+
+            cout << "Restoring from " << options["restore"] << " to '" << options["target_type"] << ":" << target_name << "'." << endl;
+
+            target->write(target_name, nvram.bytes, nvram_size);
+        }
+
+        if (options.is_set("backup"))
+        {
+            if ("binary" == options["backup"])
+            {
+                // Save to file.
+                if (!bcmflash_file_write("firmware.fw", nvram.bytes, nvram_size))
+                {
+                    exit(-1);
+                }
+            }
+            else if ("extract" == options["backup"])
+            {
+                extract = true;
+            }
         }
     }
 
