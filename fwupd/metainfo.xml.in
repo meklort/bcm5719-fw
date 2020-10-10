@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright 2020 Evan Lojewski <github@meklort.com> -->
 <component type="firmware">
-    <id>com.meklort.bcm5719.blackbird.firmware</id>
+    <id>@APP_STREAM_PREFIX@.@TARGET_ID@</id>
     <name>BCM5719</name>
-    <summary>Firmware for the BCM5719 NIC in the Blackbird</summary>
+    <summary>Firmware for the @TARGET_NAME@ BCM5719 NIC</summary>
     <branch>oss-firmware</branch>
     <description>
         <p>
@@ -13,8 +13,7 @@
     </description>
 
     <provides>
-        <!-- Talos II / Blackbird: PCI\VEN_14E4&DEV_1657&SUBSYS_14E41981 -->
-        <firmware type="flashed">5d8b12bf-1973-58fc-8b31-3e50fe31954d</firmware>
+        <firmware type="flashed">@FIRMWARE_ID@</firmware>
     </provides>
 
     <url type="homepage">https://github.com/meklort/bcm5719-fw</url>
@@ -25,7 +24,7 @@
 
     <releases>
         <release version="@VERSION_STRING@" date="@VERSION_DATE@" install_duration="120" urgency="low">
-            <checksum filename="blackbird-port2.@VERSION_STRING@.fw" target="content"/>
+            <checksum filename="@TARGET_ID@-@APE_VARIANT@.@VERSION_STRING@.fw" target="content"/>
             <description>
                 @DESCRIPTION@
             </description>
@@ -40,8 +39,7 @@
         <!-- Restrict to fwupd >= 1.5.0 -->
         <id compare="ge" version="1.5.0">org.freedesktop.fwupd</id>
         <client>switch-branch</client>
-        <!-- Restrict to HardwareID-10: "IBM" + "rcs,blackbird" + "RAPTOR COMP SYS" + "C1P9S01 REV 1.01" -->
-        <hardware>9153212f-20c7-5457-a287-22e08f79ea0e</hardware>
+        @HARDWARE_FILTER@
     </requires>
 
     <custom>
@@ -51,8 +49,8 @@
 
     <!-- these keywords are optional and are used for searching -->
     <keywords>
-    <keyword>bcm5719</keyword>
-    <keyword>ape</keyword>
-    <keyword>blackbird</keyword>
+        <keyword>bcm5719</keyword>
+        <keyword>ape</keyword>
+        <keyword>@TARGET_ID@</keyword>
     </keywords>
 </component>

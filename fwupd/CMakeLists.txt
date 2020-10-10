@@ -4,13 +4,13 @@
 ###
 ### @project    bcm5719
 ###
-### @brief      APE stage for the bcm5719
+### @brief      CMake configuration file for generating fwupd packages.
 ###
 ################################################################################
 ###
 ################################################################################
 ###
-### @copyright Copyright (c) 2018-2020, Evan Lojewski
+### @copyright Copyright (c) 2020, Evan Lojewski
 ### @cond
 ###
 ### All rights reserved.
@@ -51,117 +51,73 @@ IF(NOT GCAB)
     RETURN()
 ENDIF()
 
+SET(APP_STREAM_PREFIX   com.meklort.bcm5719.firmware)
 
-SET(DESCRIPTION "Firmware update to improve stability.")
+add_custom_target(fwupd ALL)
 
-# Generate the Changelog for LVFS/FWUPD
-SET(FWUPD_TOPCIS APE Stage1)
-# Convert o lower case while preserving original case.
-FOREACH(TOPIC IN LISTS FWUPD_TOPCIS)
-    STRING(TOLOWER "${TOPIC}" TOPIC_LOWER)
-    SET(FWUPD_${TOPIC_LOWER}_NAME ${TOPIC})
-ENDFOREACH()
-STRING(TOLOWER "${FWUPD_TOPCIS}" FWUPD_TOPCIS)
-
-STRING(REPLACE "\n" ";" CHANGELIST ${CHANGELOG})
-
-# Sort the changelog by topics.
-FOREACH(CHANGE IN LISTS CHANGELIST)
-    # Find changes in the format of "topic: subject (#GHID)"
-    STRING(REGEX MATCHALL "([^:]*):[ \t\r\n]*(.*)(\\(#[0-9]*\\))" FOUND "${CHANGE}")
-    IF(FOUND)
-        SET(TOPIC ${CMAKE_MATCH_1})
-        SET(SUBJECT ${CMAKE_MATCH_2})
-        SET(GITHUB_ID ${CMAKE_MATCH_3})
+FUNCTION(CREATE_FWUPD_CAB TARGET_ID TARGET_NAME APE_VARIANT FIRMWARE_ID HARDWARE_ID)
+    IF(HARDWARE_ID)
+        SET(HARDWARE_FILTER "<hardware>${HARDWARE_ID}</hardware>")
     ELSE()
-        # Find changes in the format of "topic: subject"
-        STRING(REGEX MATCHALL "([^:]*):[ \t\r\n]*(.*)" FOUND "${CHANGE}")
-        SET(TOPIC ${CMAKE_MATCH_1})
-        SET(SUBJECT ${CMAKE_MATCH_2})
-        SET(GITHUB_ID False)
+        SET(HARDWARE_FILTER "")
     ENDIF()
-    STRING(TOLOWER "${TOPIC}" TOPIC)
+    configure_file(metainfo.xml.in ${APP_STREAM_PREFIX}.${TARGET_ID}.metainfo.xml @ONLY)
 
-    IF(TOPIC IN_LIST FWUPD_TOPCIS)
-        string(STRIP ${CMAKE_MATCH_2} CMAKE_MATCH_2)
-        LIST(APPEND FWUPD_CHANGELOG_${TOPIC} ${CMAKE_MATCH_2})
-    ENDIF()
-ENDFOREACH()
+    add_custom_command(OUTPUT ${TARGET_ID}-${APE_VARIANT}.${VERSION_STRING}.fw
+        COMMAND bcmflash -c -t file -i ${TARGET_ID}-${APE_VARIANT}.${VERSION_STRING}.fw
+            -1 $<TARGET_PROPERTY:stage1,RESOURCE>
+            -a $<TARGET_PROPERTY:ape-${APE_VARIANT},RESOURCE>
+        DEPENDS stage1 ape-${APE_VARIANT}
+        VERBATIM
+    )
 
-SET(FWUPD_CHANGELOG )
-FOREACH(TOPIC IN LISTS FWUPD_TOPCIS)
-    IF(FWUPD_CHANGELOG_${TOPIC})
-        LIST(APPEND FWUPD_CHANGELOG "                <p>${FWUPD_${TOPIC}_NAME} Changes:</p>")
-        LIST(APPEND FWUPD_CHANGELOG "                <ul>")
-        FOREACH(CHANGE IN LISTS FWUPD_CHANGELOG_${TOPIC})
-            LIST(APPEND FWUPD_CHANGELOG "                    <li>${CHANGE}</li>")
-        ENDFOREACH()
-        LIST(APPEND FWUPD_CHANGELOG "                </ul>")
-    ENDIF()
-ENDFOREACH()
-STRING(REPLACE ";" "\n" FWUPD_CHANGELOG "${FWUPD_CHANGELOG}")
+    add_custom_command(OUTPUT ${TARGET_ID}-bcm5719-${VERSION_STRING}.cab
+        COMMAND ${GCAB} -c -z ${TARGET_ID}-bcm5719-${VERSION_STRING}.cab
+            ${APP_STREAM_PREFIX}.${TARGET_ID}.metainfo.xml
+            ${TARGET_ID}-${APE_VARIANT}.${VERSION_STRING}.fw
+        DEPENDS
+            ${APP_STREAM_PREFIX}.${TARGET_ID}.metainfo.xml
+            ${TARGET_ID}-${APE_VARIANT}.${VERSION_STRING}.fw
+    )
+
+    add_custom_target(build-${TARGET_ID}-bcm5719-${VERSION_STRING}.cab DEPENDS ${TARGET_ID}-bcm5719-${VERSION_STRING}.cab)
+    add_dependencies(fwupd build-${TARGET_ID}-bcm5719-${VERSION_STRING}.cab)
+
+    INSTALL(FILES
+            "${CMAKE_CURRENT_BINARY_DIR}/${TARGET_ID}-bcm5719-${VERSION_STRING}.cab"
+        DESTINATION
+            fwupd
+    )
+ENDFUNCTION()
+
+include(changelog.cmake)
 
 SET(DESCRIPTION
     "<p>This stable release has the following changes:</p>\n${FWUPD_CHANGELOG}")
 
 
-configure_file(talos2-metainfo.xml.in com.meklort.bcm5719.talos2.metainfo.xml)
-configure_file(blackbird-metainfo.xml.in com.meklort.bcm5719.blackbird.metainfo.xml)
-configure_file(kh08p-metainfo.xml.in com.meklort.bcm5719.kh08p.metainfo.xml)
-
-add_custom_command(OUTPUT talos2-port0.${VERSION_STRING}.fw
-    COMMAND bcmflash -c -t file -i talos2-port0.${VERSION_STRING}.fw
-        -1 $<TARGET_PROPERTY:stage1,RESOURCE>
-        -a $<TARGET_PROPERTY:ape-port0,RESOURCE>
-    DEPENDS stage1 ape-port0
-    VERBATIM
+# Build LVFS/fwupd cab files
+CREATE_FWUPD_CAB(
+    talos2 "Talos II" port0
+    "5d8b12bf-1973-58fc-8b31-3e50fe31954d" # PCI\VEN_14E4&DEV_1657&SUBSYS_14E41981
+    "8e28b419-552d-52a6-9a3c-ea2efad5ea66" # Restrict to HardwareID-10: "IBM" + "rcs,talos" + "RAPTOR COMP SYS" + "T2P9D01 REV 1.00"
+)
+CREATE_FWUPD_CAB(
+    blackbird "Blackbird" port2
+    "5d8b12bf-1973-58fc-8b31-3e50fe31954d" # PCI\VEN_14E4&DEV_1657&SUBSYS_14E41981
+    "9153212f-20c7-5457-a287-22e08f79ea0e" # Restrict to HardwareID-10: "IBM" + "rcs,blackbird" + "RAPTOR COMP SYS" + "C1P9S01 REV 1.01"
 )
 
-add_custom_command(OUTPUT talos2-bcm5719-${VERSION_STRING}.cab
-    COMMAND ${GCAB} -c -z talos2-bcm5719-${VERSION_STRING}.cab
-        com.meklort.bcm5719.talos2.metainfo.xml
-        talos2-port0.${VERSION_STRING}.fw
-    DEPENDS
-        com.meklort.bcm5719.talos2.metainfo.xml
-        talos2-port0.${VERSION_STRING}.fw
-)
-
-add_custom_command(OUTPUT blackbird-port2.${VERSION_STRING}.fw
-    COMMAND bcmflash -c -t file -i blackbird-port2.${VERSION_STRING}.fw
-        -1 $<TARGET_PROPERTY:stage1,RESOURCE>
-        -a $<TARGET_PROPERTY:ape-port2,RESOURCE>
-    DEPENDS stage1 ape-port2
-    VERBATIM
-)
-
-add_custom_command(OUTPUT blackbird-bcm5719-${VERSION_STRING}.cab
-    COMMAND ${GCAB} -c -z blackbird-bcm5719-${VERSION_STRING}.cab
-        com.meklort.bcm5719.blackbird.metainfo.xml
-        blackbird-port2.${VERSION_STRING}.fw
-    DEPENDS
-        com.meklort.bcm5719.talos2.metainfo.xml
-        blackbird-port2.${VERSION_STRING}.fw
-)
-
-add_custom_command(OUTPUT kh08p-bcm5719-${VERSION_STRING}.cab
-    COMMAND ${GCAB} -c -z kh08p-bcm5719-${VERSION_STRING}.cab
-        com.meklort.bcm5719.kh08p.metainfo.xml
-        talos2-port0.${VERSION_STRING}.fw
-    DEPENDS
-        com.meklort.bcm5719.kh08p.metainfo.xml
-        talos2-port0.${VERSION_STRING}.fw
-)
-add_custom_target(
-    fwupd ALL
-    DEPENDS talos2-bcm5719-${VERSION_STRING}.cab
-            blackbird-bcm5719-${VERSION_STRING}.cab
-            kh08p-bcm5719-${VERSION_STRING}.cab
-)
-
-INSTALL(FILES
-            "${CMAKE_BINARY_DIR}/${PROJECT_NAME}/talos2-bcm5719-${VERSION_STRING}.cab"
-            "${CMAKE_BINARY_DIR}/${PROJECT_NAME}/blackbird-bcm5719-${VERSION_STRING}.cab"
-            "${CMAKE_BINARY_DIR}/${PROJECT_NAME}/kh08p-bcm5719-${VERSION_STRING}.cab"
-        DESTINATION
-            fwupd
+# Test LVFS file for the KH08P. Should not be used in production.
+# This firmware is only useful for testing fwupd with a KH08P and should
+# never be pushed into a testing or stable remote!
+# The FIXME below will ensure that the LVFS would block any promotion out
+# of private or embargo.
+SET(DESCRIPTION
+    "<p>NCSI support is not implimented via MCTP. As a result, remote managment capabilities are not supported on this card.</p>
+                <p>This stable release has the following changes:</p>\n${FWUPD_CHANGELOG}")
+CREATE_FWUPD_CAB(
+    kh08p "FIXME KH08P" port0
+    "ec5b8a9e-973b-58cc-935b-8322fabaebe9" # PCI\VEN_14E4&DEV_1657&SUBSYS_14E41904
+    False # No hardware Restrictions
 )
