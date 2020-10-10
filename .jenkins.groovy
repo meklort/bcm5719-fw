@@ -104,6 +104,12 @@ def build(nodeName, archive = false, analyze = true)
                                     refspec: REFSPEC
                                 ]]
             ])
+
+            def GIT_SUBJECT = sh (
+                script: 'git show -s --format=%s',
+                returnStdout: true,
+            ).trim()
+            currentBuild.description = GIT_SUBJECT
         }
 
         stage('build')
