@@ -78,7 +78,7 @@
 #define BCM_CODE_DIRECTORY_CPU_HOST             (0x01)
 #define BCM_CODE_DIRECTORY_CPU_TXP              (0x02)
 #define BCM_CODE_DIRECTORY_CPU_TPAT             (0x03)
-#define BCM_CODE_DIRECTORY_CPU_COM              (0x04)
+#define BCM_CODE_DIRECTORY_CPU_VPD              (0x04)
 #define BCM_CODE_DIRECTORY_CPU_RXP              (0x05)
 #define BCM_CODE_DIRECTORY_CPU_CP               (0x06)
 #define BCM_CODE_DIRECTORY_CPU_MCP              (0x07)

@@ -77,6 +77,9 @@ uint32_t gApeLength = 0;
 uint8_t *gApe = NULL;
 uint32_t *gApeWd = NULL;
 
+uint8_t *gVPD = NULL;
+uint32_t gVPDLength = 0;
+
 typedef struct
 {
     const char *type;
@@ -214,11 +217,17 @@ void dump_code_directory(NVRAMCodeDirectory_t *cd, uint8_t *nvram, const char *o
         printf("Expected CRC:   0x%08X\n", crc_expect);
         printf("\n");
 
-        if (BCM_CODE_DIRECTORY_ADDR_APE == addr && BCM_CODE_DIRECTORY_CPU_APE == cpu) /* APE */
+        if (BCM_CODE_DIRECTORY_CPU_APE == cpu) /* APE */
         {
             gApe = &nvram[be32toh(cd->directoryOffset)];
             gApeWd = (uint32_t *)gApe;
             gApeLength = length * sizeof(uint32_t);
+        }
+
+        if (BCM_CODE_DIRECTORY_CPU_VPD == cpu) /* Extended VPD */
+        {
+            gVPD = &nvram[be32toh(cd->directoryOffset)];
+            gVPDLength = length * sizeof(uint32_t);
         }
 
         if (outfile)
@@ -370,6 +379,9 @@ int main(int argc, char const *argv[])
 
     uint8_t *stage1 = NULL;
     uint32_t *stage1_wd = NULL;
+
+    gVPD = nvram.contents.vpd.bytes;
+    gVPDLength = sizeof(nvram.contents.vpd);
 
     OptionParser parser = OptionParser().description("BCM Flash Utility v" VERSION_STRING);
 
@@ -756,7 +768,7 @@ int main(int argc, char const *argv[])
 
     dump_info(&nvram.contents.info, &nvram.contents.info2);
 
-    dump_vpd(nvram.contents.vpd.bytes, sizeof(nvram.contents.vpd));
+    dump_vpd(gVPD, gVPDLength);
 
     return 0;
 }
