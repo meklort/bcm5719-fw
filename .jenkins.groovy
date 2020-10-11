@@ -55,7 +55,7 @@ def notify(status, description)
         targetUrl: BUILD_URL
 }
 
-def build(nodeName, archive = false, analyze = true)
+def build(nodeName, archive = false, archive_cab = false, analyze = true)
 {
     node(nodeName)
     {
@@ -131,6 +131,14 @@ def build(nodeName, archive = false, analyze = true)
                     archiveArtifacts artifacts: '*.tar.gz', fingerprint: true
                 }
             }
+
+            if (archive_cab)
+            {
+                dir('build/fwupd')
+                {
+                    archiveArtifacts artifacts: '*.cab', fingerprint: true
+                }
+            }
         }
 
         cleanWs()
@@ -141,9 +149,9 @@ try
 {
     notify('PENDING', 'Build Pending ')
     parallel(
-        "fedora": { build('master', true, true) },
-        "ubuntu-18.04": { build('ubuntu-18.04', false, false) },
-        "ubuntu-20.04": { build('ubuntu-20.04', true, false) },
+        "fedora": { build('master', true, true, true) },
+        "ubuntu-18.04": { build('ubuntu-18.04', false, false, false) },
+        "ubuntu-20.04": { build('ubuntu-20.04', true, false, false) },
     )
 }
 catch(e)

@@ -54,6 +54,7 @@ IF(EXISTS ${VERSION_FILE})
     # Release package including a version file.
     FILE(STRINGS ${VERSION_FILE} lines)
     LIST(GET lines 0 FULL_VERSION)
+    LIST(GET lines 1 VERSION_DATE)
     STRING(REPLACE "." ";" FULL_VERSION ${FULL_VERSION})
 
     LIST(GET FULL_VERSION 0 VERSION_MAJOR)
@@ -93,6 +94,10 @@ ELSE()
     ELSE()
         # No released versions for this major.minor pair.
     ENDIF()
+
+    EXECUTE_PROCESS(COMMAND git log -1 --date=short --format=%cd
+                    OUTPUT_VARIABLE VERSION_DATE
+                    OUTPUT_STRIP_TRAILING_WHITESPACE)
 ENDIF()
 
 SET(VERSION_STRING "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
@@ -103,7 +108,7 @@ add_compile_options(
     -DVERSION_PATCH=${VERSION_PATCH}
 )
 
-FILE(WRITE ${CMAKE_BINARY_DIR}/version ${VERSION_STRING})
+FILE(WRITE ${CMAKE_BINARY_DIR}/version "${VERSION_STRING}\n${VERSION_DATE}")
 FILE(WRITE ${CMAKE_BINARY_DIR}/changelog ${CHANGELOG})
 
 INSTALL(FILES ${CMAKE_BINARY_DIR}/version DESTINATION .)

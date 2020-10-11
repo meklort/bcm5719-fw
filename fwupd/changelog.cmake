@@ -1,16 +1,16 @@
 ################################################################################
 ###
-### @file       CMakeLists.txt
+### @file       changelog.cmake
 ###
-### @project
+### @project    bcm5719
 ###
-### @brief      Top level CMake file
-###
-################################################################################
+### @brief      fwupd support code for generating a changelog.
 ###
 ################################################################################
 ###
-### @copyright Copyright (c) 2018-2020, Evan Lojewski
+################################################################################
+###
+### @copyright Copyright (c) 2020, Evan Lojewski
 ### @cond
 ###
 ### All rights reserved.
@@ -42,34 +42,52 @@
 ### @endcond
 ################################################################################
 
-enable_testing()
-include(GoogleTest)
+# List all topics here that should be included in the release notes.
+SET(FWUPD_TOPICS APE Stage1)
 
-SET(COMPILER_BASE       $ENV{HOME}/llvm-bcm5719)
-SET(CMAKE_C_COMPILER    ${COMPILER_BASE}/bin/clang)
-SET(CMAKE_CXX_COMPILER  ${COMPILER_BASE}/bin/clang++)
-SET(CMAKE_ASM_COMPILER  ${COMPILER_BASE}/bin/clang)
+# Convert to lower case while preserving original case.
+FOREACH(TOPIC IN LISTS FWUPD_TOPICS)
+    STRING(TOLOWER "${TOPIC}" TOPIC_LOWER)
+    SET(FWUPD_${TOPIC_LOWER}_NAME ${TOPIC})
+ENDFOREACH()
+STRING(TOLOWER "${FWUPD_TOPICS}" FWUPD_TOPICS)
 
-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-rtti -fno-exceptions")
+STRING(REPLACE "\n" ";" CHANGELIST ${CHANGELOG})
 
-include(cmake/version.cmake)
+# Sort the changelog by topics.
+FOREACH(CHANGE IN LISTS CHANGELIST)
+    # Find changes in the format of "topic: subject (#GHID)"
+    STRING(REGEX MATCHALL "([^:]*):[ \t\r\n]*(.*)(\\(#[0-9]*\\))" FOUND "${CHANGE}")
 
-cmake_minimum_required(VERSION 3.5.1)
-project(bcm5719-fw VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH})
+    IF(FOUND)
+        SET(TOPIC ${CMAKE_MATCH_1})
+        SET(SUBJECT ${CMAKE_MATCH_2})
+        SET(GITHUB_ID ${CMAKE_MATCH_3})
+    ELSE()
+        # Find changes in the format of "topic: subject"
+        STRING(REGEX MATCHALL "([^:]*):[ \t\r\n]*(.*)" FOUND "${CHANGE}")
+        SET(TOPIC ${CMAKE_MATCH_1})
+        SET(SUBJECT ${CMAKE_MATCH_2})
+        SET(GITHUB_ID False)
+    ENDIF()
 
-include(cmake/clang-format.cmake)
-include(cmake/clang-analyzer.cmake)
-include(cmake/config.cmake)
+    STRING(TOLOWER "${TOPIC}" TOPIC)
 
-add_subdirectory(tests)
+    IF(TOPIC IN_LIST FWUPD_TOPICS)
+        string(STRIP ${CMAKE_MATCH_2} CMAKE_MATCH_2)
+        LIST(APPEND FWUPD_CHANGELOG_${TOPIC} ${CMAKE_MATCH_2})
+    ENDIF()
+ENDFOREACH()
 
-add_subdirectory(libs)
-add_subdirectory(utils)
-
-
-add_subdirectory(simulator)
-add_subdirectory(stage1)
-
-add_subdirectory(ape)
-
-add_subdirectory(fwupd)
+SET(FWUPD_CHANGELOG )
+FOREACH(TOPIC IN LISTS FWUPD_TOPICS)
+    IF(FWUPD_CHANGELOG_${TOPIC})
+        LIST(APPEND FWUPD_CHANGELOG "                <p>${FWUPD_${TOPIC}_NAME} Changes:</p>")
+        LIST(APPEND FWUPD_CHANGELOG "                <ul>")
+        FOREACH(CHANGE IN LISTS FWUPD_CHANGELOG_${TOPIC})
+            LIST(APPEND FWUPD_CHANGELOG "                    <li>${CHANGE}</li>")
+        ENDFOREACH()
+        LIST(APPEND FWUPD_CHANGELOG "                </ul>")
+    ENDIF()
+ENDFOREACH()
+STRING(REPLACE ";" "\n" FWUPD_CHANGELOG "${FWUPD_CHANGELOG}")
