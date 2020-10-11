@@ -1014,7 +1014,7 @@ void Network_checkPortState(NetworkPort_t *port)
     }
 }
 
-bool Network_updatePortState(NetworkPort_t *port)
+bool Network_updatePortState(const NetworkPort_t *port)
 {
     uint8_t phy = MII_getPhy(port->device);
     RegMIIAuxiliaryStatusSummary_t status;
@@ -1094,7 +1094,7 @@ bool Network_updatePortState(NetworkPort_t *port)
     return updated;
 }
 
-void Network_resetLink(NetworkPort_t *port)
+void Network_resetLink(const NetworkPort_t *port)
 {
     uint8_t phy = MII_getPhy(port->device);
     APE_aquireLock();
@@ -1102,7 +1102,7 @@ void Network_resetLink(NetworkPort_t *port)
     APE_releaseLock();
 }
 
-bool Network_isLinkUp(NetworkPort_t *port)
+bool Network_isLinkUp(const NetworkPort_t *port)
 {
     uint8_t phy = MII_getPhy(port->device);
     RegMIIAuxiliaryStatusSummary_t status;

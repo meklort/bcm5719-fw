@@ -55,7 +55,7 @@
 #include <printf.h>
 #endif
 
-bool Network_RxLePatcket(uint32_t *buffer, uint32_t *bytes, NetworkPort_t *port)
+bool Network_RxLePatcket(uint32_t *buffer, uint32_t *bytes, const NetworkPort_t *port)
 {
     RegAPERxbufoffset_t rxbuf;
     rxbuf = *((RegAPERxbufoffset_t *)port->rx_offset);
@@ -63,9 +63,9 @@ bool Network_RxLePatcket(uint32_t *buffer, uint32_t *bytes, NetworkPort_t *port)
     {
         uint32_t rx_bytes = 0;
         network_control_t control;
-        int count = rxbuf.bits.Count;
+        unsigned int count = rxbuf.bits.Count;
         // int tailid = rxbuf.bits.Tail;
-        int blockid = rxbuf.bits.Head;
+        unsigned int blockid = rxbuf.bits.Head;
         // printf("Valid packet at offset %x\n", blockid);
         uint32_t buffer_pos = 0;
 
@@ -143,9 +143,9 @@ bool Network_PassthroughRxPatcket(NetworkPort_t *port)
 
         VOLATILE RX_PORT_t *rx_port = port->rx_port;
         network_control_t control;
-        int count = rxbuf.bits.Count;
+        unsigned int count = rxbuf.bits.Count;
         // int tailid = rxbuf.bits.Tail;
-        int blockid = rxbuf.bits.Head;
+        unsigned int blockid = rxbuf.bits.Head;
 
         RegAPERxPoolRetire_t retire;
         retire.r32 = (1 << 24);

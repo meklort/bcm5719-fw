@@ -58,6 +58,7 @@ void _putchar(char character);
  * \return The number of characters that are written into the array, not counting the terminating null character
  */
 #define printf printf_
+//lint -esym(534,printf_)
 int printf_(const char* format, ...);
 
 

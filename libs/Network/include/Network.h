@@ -110,27 +110,27 @@ void Network_resetTX(NetworkPort_t *port, reload_type_t reset_phy);
 void Network_resetRX(NetworkPort_t *port, reload_type_t reset_phy);
 
 void Network_checkPortState(NetworkPort_t *port);
-bool Network_updatePortState(NetworkPort_t *port);
+bool Network_updatePortState(const NetworkPort_t *port);
 
-bool Network_isLinkUp(NetworkPort_t *port);
-void Network_resetLink(NetworkPort_t *port);
+bool Network_isLinkUp(const NetworkPort_t *port);
+void Network_resetLink(const NetworkPort_t *port);
 
 
 uint32_t Network_TX_numBlocksNeeded(uint32_t frame_size);
-int32_t Network_TX_allocateBlock(NetworkPort_t *port);
+int32_t Network_TX_allocateBlock(const NetworkPort_t *port);
 void Network_TX_releaseBlock(NetworkPort_t *port, int32_t block);
 
-bool Network_TX_transmitBePacket(uint8_t *packet, uint32_t length, NetworkPort_t *port);
-bool Network_TX_transmitLePacket(uint8_t *packet, uint32_t length, NetworkPort_t *port);
+bool Network_TX_transmitBePacket(const uint8_t *packet, uint32_t length, const NetworkPort_t *port);
+bool Network_TX_transmitLePacket(const uint8_t *packet, uint32_t length, const NetworkPort_t *port);
 
-bool Network_TX_transmitPassthroughPacket(uint32_t length, NetworkPort_t *port);
+bool Network_TX_transmitPassthroughPacket(uint32_t length, const NetworkPort_t *port);
 
 // void Network_TX_transmitPassthroughPacket(RegAPE_PERIBmcToNcRxStatus_t
 // rx_status);
 
-bool Network_RxLePatcket(uint32_t *buffer, uint32_t *length, NetworkPort_t *port);
+bool Network_RxLePatcket(uint32_t *buffer, uint32_t *length, const NetworkPort_t *port);
 bool Network_PassthroughRxPatcket(NetworkPort_t *port);
 
-void Network_SetMACAddr(NetworkPort_t *port, uint16_t high, uint32_t low, uint32_t index, bool enabled);
+void Network_SetMACAddr(const NetworkPort_t *port, uint16_t high, uint32_t low, uint32_t index, bool enabled);
 
 #endif /* NETWORK_H */

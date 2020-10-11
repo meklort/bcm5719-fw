@@ -142,7 +142,7 @@ void find_vpd(void)
     gVPD = (uint32_t *)gNVMContents.vpd.bytes;
     gVPDLength = sizeof(gNVMContents.vpd.bytes);
 
-    for (int i = 0; i < ARRAY_ELEMENTS(gNVMContents.directory); i++)
+    for (size_t i = 0; i < ARRAY_ELEMENTS(gNVMContents.directory); i++)
     {
         NVRAMCodeDirectory_t *cd = &gNVMContents.directory[i];
 

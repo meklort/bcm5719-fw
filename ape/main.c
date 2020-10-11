@@ -142,7 +142,7 @@ void wait_for_all_rx()
 void handleBMCPacket(void)
 {
     static bool packetInProgress;
-    static int inProgressStartTime;
+    static uint32_t inProgressStartTime;
     uint32_t buffer[1024];
 
     RegAPE_PERIBmcToNcRxStatus_t stat;
@@ -162,10 +162,10 @@ void handleBMCPacket(void)
         }
         else
         {
-            int32_t bytes = stat.bits.PacketLength;
+            uint32_t bytes = stat.bits.PacketLength;
             if (!stat.bits.Passthru)
             {
-                int32_t words = DIVIDE_RND_UP(bytes, sizeof(uint32_t));
+                uint32_t words = DIVIDE_RND_UP(bytes, sizeof(uint32_t));
                 if (words > ARRAY_ELEMENTS(buffer))
                 {
                     // This should never happen...
@@ -179,7 +179,7 @@ void handleBMCPacket(void)
                 }
                 else
                 {
-                    int i = 0;
+                    uint32_t i = 0;
                     while (words--)
                     {
                         uint32_t word = (APE_PERI.BmcToNcReadBuffer.r32);
@@ -210,7 +210,7 @@ void handleBMCPacket(void)
                 else
                 {
                     printf("Dropping PT\n");
-                    int32_t words = DIVIDE_RND_UP(bytes, sizeof(uint32_t));
+                    uint32_t words = DIVIDE_RND_UP(bytes, sizeof(uint32_t));
                     while (words--)
                     {
                         // Read out the packet, but drop it.

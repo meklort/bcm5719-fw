@@ -45,7 +45,7 @@
 #include <APE_DEVICE.h>
 #include <Network.h>
 
-void Network_SetMACAddr(NetworkPort_t *port, uint16_t high, uint32_t low, uint32_t index, bool enabled)
+void Network_SetMACAddr(const NetworkPort_t *port, uint16_t high, uint32_t low, uint32_t index, bool enabled)
 {
     uint32_t match_high = (high << 16) | (low >> 16);
     uint16_t match_low = (low << 16);
