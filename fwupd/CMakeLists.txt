@@ -100,7 +100,7 @@ SET(DESCRIPTION
 CREATE_FWUPD_CAB(
     talos2 "Talos II" port0
     "5d8b12bf-1973-58fc-8b31-3e50fe31954d" # PCI\VEN_14E4&DEV_1657&SUBSYS_14E41981
-    "8e28b419-552d-52a6-9a3c-ea2efad5ea66" # Restrict to HardwareID-10: "IBM" + "rcs,talos" + "RAPTOR COMP SYS" + "T2P9D01 REV 1.00"
+    "8e28b419-552d-52a6-9a3c-ea2efad5ea66|88201a40-2d9d-51c5-b1ee-ec58659bc701" # Restrict to HardwareID-10: "IBM" + "rcs,talos" + "RAPTOR COMP SYS" + "T2P9D01 REV 1.00" and "T2P9D01 REV 1.01"
 )
 CREATE_FWUPD_CAB(
     blackbird "Blackbird" port2
@@ -114,7 +114,7 @@ CREATE_FWUPD_CAB(
 # The FIXME below will ensure that the LVFS would block any promotion out
 # of private or embargo.
 SET(DESCRIPTION
-    "<p>NCSI support is not implimented via MCTP. As a result, remote managment capabilities are not supported on this card.</p>
+    "<p>NCSI support is not implemented via MCTP. As a result, remote management capabilities are not supported on this card.</p>
                 <p>This stable release has the following changes:</p>\n${FWUPD_CHANGELOG}")
 CREATE_FWUPD_CAB(
     kh08p "FIXME KH08P" port0
