@@ -55,7 +55,7 @@ def notify(status, description)
         targetUrl: BUILD_URL
 }
 
-def build(nodeName, archive = false, archive_cab = false, analyze = true)
+def build(nodeName, archive = false, archive_cab = false, analyze = true, test_archive = false)
 {
     node(nodeName)
     {
@@ -141,6 +141,30 @@ def build(nodeName, archive = false, archive_cab = false, analyze = true)
             }
         }
 
+        if (test_archive)
+        {
+            cleanWs()
+
+            stage('build-release')
+            {
+                copyArtifacts filter: '*Source.tar.gz', fingerprintArtifacts: true, projectName: JOB_NAME, selector: specific(currentBuild.id)
+                sh '''
+                    tar -xvf *Source.tar.gz
+                    cd *Source
+                    ./build.sh -DDISABLE_CLANG_ANALYZER=True
+                    '''
+
+                // Check resulting .cab files match
+                copyArtifacts filter: '*.cab', fingerprintArtifacts: true, projectName: JOB_NAME, selector: specific(currentBuild.id)
+                sh '''
+                    find *Source -type f -iname '*.cab' -print0 |
+                    while read -d $'\0' -r file; do
+                        cmp $file `basename $file`
+                    done
+                    '''
+            }
+        }
+
         cleanWs()
     }
 }
@@ -149,9 +173,9 @@ try
 {
     notify('PENDING', 'Build Pending ')
     parallel(
-        "fedora": { build('master', true, true, true) },
-        "ubuntu-18.04": { build('ubuntu-18.04', false, false, false) },
-        "ubuntu-20.04": { build('ubuntu-20.04', true, false, false) },
+        "fedora": { build('master', true, true, true, true) },
+        "ubuntu-18.04": { build('ubuntu-18.04', false, false, false, false) },
+        "ubuntu-20.04": { build('ubuntu-20.04', true, false, false, false) },
     )
 }
 catch(e)
@@ -161,6 +185,8 @@ catch(e)
 }
 finally
 {
+    cleanWs()
+
     def currentResult = currentBuild.result ?: 'SUCCESS'
     if(currentResult == 'SUCCESS')
     {
