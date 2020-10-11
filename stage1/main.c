@@ -44,6 +44,8 @@
 
 #include "stage1.h"
 
+#define MAX_VPD_SUPPORTED (512u) /* Buffer size for caching VPD data. */
+
 #if CXX_SIMULATOR
 #include <HAL.hpp>
 #include <endian.h>
@@ -69,6 +71,9 @@
 const char gStage1Version[] = "stage1-" STRINGIFY(VERSION_MAJOR) "." STRINGIFY(VERSION_MINOR) "." STRINGIFY(VERSION_PATCH);
 
 NVRAMContents_t gNVMContents;
+uint32_t gVPDLength = 0;
+uint32_t *gVPD = NULL;
+uint32_t gVPDCd[MAX_VPD_SUPPORTED / 4];
 
 void __attribute__((noinline)) reportStatus(uint32_t code, uint8_t step)
 {
@@ -122,12 +127,48 @@ void handle_vpd()
         uint32_t vpd_offset = DEVICE.PciVpdRequest.bits.RequestedVPDOffset;
 
         uint32_t vpd_data = 0;
-        if (vpd_offset < sizeof(gNVMContents.vpd.bytes))
+        if (vpd_offset < gVPDLength)
         {
-            vpd_data = ((uint32_t *)gNVMContents.vpd.bytes)[vpd_offset / 4];
+            vpd_data = gVPD[vpd_offset / sizeof(uint32_t)];
         }
 
         DEVICE.PciVpdResponse.r32 = vpd_swap(vpd_data);
+    }
+}
+
+void find_vpd(void)
+{
+    // Default to the VPD in the NVM header.
+    gVPD = (uint32_t *)gNVMContents.vpd.bytes;
+    gVPDLength = sizeof(gNVMContents.vpd.bytes);
+
+    for (int i = 0; i < ARRAY_ELEMENTS(gNVMContents.directory); i++)
+    {
+        NVRAMCodeDirectory_t *cd = &gNVMContents.directory[i];
+
+        uint32_t info = be32toh(cd->codeInfo);
+        if (info)
+        {
+            uint32_t length = BCM_CODE_DIRECTORY_GET_LENGTH(info);
+            uint32_t cpu = BCM_CODE_DIRECTORY_GET_CPU(info);
+
+            /* Extended VPD */
+            if (BCM_CODE_DIRECTORY_CPU_VPD == cpu && length && // CRC word must be present.
+                length * sizeof(uint32_t) <= sizeof(gVPDCd))   // VPD will fit in buffer
+            {
+                NVRam_read(be32toh(cd->directoryOffset), gVPDCd, length * sizeof(uint32_t));
+                length -= 1; // Remove CRC.
+
+                uint32_t crc_calc = be32toh(~NVRam_crc((uint8_t *)gVPDCd, length * sizeof(uint32_t), 0xffffffff));
+                uint32_t crc_expect = crc_swap(gVPDCd[length]);
+
+                if (crc_expect == crc_calc)
+                {
+                    gVPD = gVPDCd;
+                    gVPDLength = MIN(sizeof(gVPDCd), length * sizeof(uint32_t));
+                }
+            }
+        }
     }
 }
 
@@ -162,6 +203,9 @@ int main()
     NVRam_acquireLock();
     NVRam_enable();
     NVRam_read(0, (uint32_t *)&gNVMContents, sizeof(NVRAMContents_t) / 4);
+
+    find_vpd();
+
     NVRam_releaseLock();
 
     reportStatus(STATUS_MAIN, 2);
