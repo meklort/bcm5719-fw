@@ -61,7 +61,7 @@
 #define REQ ReqSet1
 #define CLR ReqClr1
 #define WON ArbWon1
-#elif __arm__
+#elif defined(__arm__)
 /* APE Firmware */
 #define ntohl(__x__) (__x__) /* Todo: swap */
 #define htonl(__x__) (__x__) /* Todo: swap */
