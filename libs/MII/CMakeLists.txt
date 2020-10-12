@@ -2,7 +2,7 @@
 ###
 ### @file       libs/MII/CMakeLists.txt
 ###
-### @project    
+### @project
 ###
 ### @brief      MII CMake file
 ###
@@ -54,10 +54,12 @@ target_include_directories(${PROJECT_NAME} PUBLIC include)
 mips_add_library(${PROJECT_NAME}-mips STATIC mii.c)
 target_include_directories(${PROJECT_NAME}-mips PUBLIC ../../include)
 target_include_directories(${PROJECT_NAME}-mips PUBLIC include)
+lint_target_sources(${PROJECT_NAME}-mips)
 
 # ARM Library
 arm_add_library(${PROJECT_NAME}-arm STATIC mii.c)
 target_include_directories(${PROJECT_NAME}-arm PUBLIC ../../include)
 target_include_directories(${PROJECT_NAME}-arm PUBLIC include)
+lint_target_sources(${PROJECT_NAME}-arm)
 
 format_target_sources(${PROJECT_NAME})

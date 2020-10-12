@@ -55,6 +55,8 @@ SET(CMAKE_ASM_COMPILE_OBJECT "<CMAKE_ASM_COMPILER> -x assembler-with-cpp <DEFINE
 
 SET(CMAKE_arm_LINK_EXECUTABLE "${COMPILER_BASE}/bin/ld.lld  <OBJECTS> <LINK_LIBRARIES> <CMAKE_C_LINK_FLAGS> <LINK_FLAGS> -Bstatic -o <TARGET>")
 
+generate_lint_config("${ARM_COMPILE_OPTIONS}" ${CMAKE_BINARY_DIR}/clang-arm.lnt)
+
 # ARM-specific executables
 function(arm_add_executable target)
     add_executable(${target} ${ARGN})
@@ -62,6 +64,7 @@ function(arm_add_executable target)
     target_compile_options(${target} PRIVATE ${ARM_COMPILE_OPTIONS})
     target_link_libraries(${target} ${ARM_LINK_OPTIONS})
     set_property(TARGET ${target} PROPERTY LINKER_LANGUAGE arm)
+    set_property(TARGET ${target} PROPERTY LINT_CONFIG ${CMAKE_BINARY_DIR}/clang-arm.lnt)
 
     add_custom_command(
         TARGET ${target} POST_BUILD
@@ -76,6 +79,7 @@ function(arm_add_executable target)
         VERBATIM)
 
     set_target_properties(${target} PROPERTIES RESOURCE ${CMAKE_CURRENT_BINARY_DIR}/${target}.bin)
+    set_target_properties(${target} PROPERTIES LINT_CONFIG ${CMAKE_BINARY_DIR}/clang-arm.lnt)
 
     # Add host binary
     add_library(${target}-binary EXCLUDE_FROM_ALL ${target}.c)
@@ -86,6 +90,7 @@ function(arm_add_library target)
     add_library(${target} ${ARGN})
 
     target_compile_options(${target} PRIVATE ${ARM_COMPILE_OPTIONS})
+    set_target_properties(${target} PROPERTIES LINT_CONFIG ${CMAKE_BINARY_DIR}/clang-arm.lnt)
 endfunction(arm_add_library)
 
 function(arm_linker_script target script)

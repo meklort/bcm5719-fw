@@ -52,6 +52,8 @@ SET(CMAKE_ASM_COMPILE_OBJECT "<CMAKE_ASM_COMPILER> -x assembler-with-cpp <DEFINE
 
 SET(CMAKE_mips_LINK_EXECUTABLE "${COMPILER_BASE}/bin/ld.lld  <OBJECTS> <LINK_LIBRARIES> <CMAKE_C_LINK_FLAGS> <LINK_FLAGS> -Bstatic -o <TARGET>")
 
+generate_lint_config("${MIPS_COMPILE_OPTIONS}" ${CMAKE_BINARY_DIR}/clang-mips.lnt)
+
 # MIPS-specific executables
 function(mips_add_executable target)
     add_executable(${target} ${ARGN})
@@ -66,6 +68,7 @@ function(mips_add_executable target)
         BYPRODUCTS ${target}.bin)
 
     set_target_properties(${target} PROPERTIES RESOURCE ${CMAKE_CURRENT_BINARY_DIR}/${target}.bin)
+    set_target_properties(${target} PROPERTIES LINT_CONFIG ${CMAKE_BINARY_DIR}/clang-mips.lnt)
 
 endfunction(mips_add_executable)
 
@@ -74,6 +77,7 @@ function(mips_add_library target)
     add_library(${target} ${ARGN})
 
     target_compile_options(${target} PRIVATE ${MIPS_COMPILE_OPTIONS})
+    set_target_properties(${target} PROPERTIES LINT_CONFIG ${CMAKE_BINARY_DIR}/clang-mips.lnt)
 endfunction(mips_add_library)
 
 function(mips_linker_script target script)
