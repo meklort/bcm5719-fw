@@ -59,10 +59,22 @@ cmake --build .
 ```
 
 ## Usage
-Before proceeding, the Linux driver must be unloaded. On the Talos II, this can be done as root with the following:
+Before proceeding, the Linux driver must be unloaded. 
+
+If the driver is loaded as a module, unload it (as root):
 ```bash
-echo 0004:01:00.0 > /sys/bus/pci/devices/0004:01:00.0/driver/unbind
-echo 0004:01:00.1 > /sys/bus/pci/devices/0004:01:00.1/driver/unbind
+modprobe -r tg3
+```
+
+Otherwise, unbind the ports manually with the following (as root):
+```bash
+echo 0004:01:00.0 > /sys/bus/pci/drivers/tg3/unbind
+echo 0004:01:00.1 > /sys/bus/pci/drivers/tg3/unbind
+```
+
+On the Blackbird, additionally unbind the third port:
+```bash
+echo 0004:01:00.2 > /sys/bus/pci/drivers/tg3/unbind
 ```
 
 ### Backup Firmware
@@ -91,6 +103,8 @@ cd build
 sudo ./utils/bcmregtool/bcmregtool --apeboot=ape/ape-port0.bin
 ```
 
+Once the APE firmware is running, BMC network communication via NC-SI should be functional. To test connectivity to the host, reload the module with `modprobe tg3` or rebind the ports as above by writing to `bind` instead of `unbind`, as applicable. Unload the driver again before continuing to the next step.
+
 Once tested, the APE firmware can be loaded into the device using the following command:
 ```bash
 cd build
@@ -105,6 +119,8 @@ sudo ./utils/bcmflash/bcmflash -t raw -i 0 -a ape/ape-port0.bin
 cd build
 sudo ./utils/bcmregtool/bcmregtool --apeboot=ape/ape-port2.bin
 ```
+
+Once the APE firmware is running, BMC network communication via NC-SI should be functional. To test connectivity to the host, reload the module with `modprobe tg3` or rebind the ports as above by writing to `bind` instead of `unbind`, as applicable. Unload the driver again before continuing to the next step.
 
 Once tested, the APE firmware can be loaded into the device using the following command:
 ```bash
