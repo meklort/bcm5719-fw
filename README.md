@@ -7,7 +7,60 @@ The firmware has been tested on the [Talos II](https://wiki.raptorcs.com/wiki/Ta
 
 **Note: This firmware is currently in development. Flashing the firmware to a network card can result in a bricked device when either an external programmer is required, or the external flash must be temporarily disabled during boot-up.**
 
-## Requirements
+## Status
+The current version of the code is functional and is able to handle network traffic over NC-SI.
+  - Libraries:
+    - MII Library: Done
+    - NVRAM Library: Done
+  - Stage1/Stage2
+    - Implementation: Functional
+    - Testing: Minimal, WIP
+    - VPD: Functional
+    - WOL: Not started
+  - APE
+    - NC-SI Handler: Functional
+      - Get Version ID: Not Implemented
+      - OEM Command: Not Implemented
+    - BMC <-> Network Communication: Working
+  - Utilities
+    - Firmware tool: Functional
+    - Register tool: Functional
+  - Tests: To be written
+
+## Usage
+The paths in the steps below refer to the release archives. Files in the development tree (after following instructions in [Building](#building)) are located in subdirectories of `./build`.
+
+### Backup Firmware
+Before proceeding, the original firmware should be backed up.
+```bash
+sudo ./bin/bcmflash -t eth -i enP4p1s0f0 -b binary
+```
+This will result in a firmware image, firmware.fw, being stored in the current directory.
+
+### Stage 1 - MIPS Firmware
+The MIPS firmware can be loaded into the device as follows:
+```bash
+sudo ./bin/bcmflash -t eth -i enP4p1s0f0 -1 fw/stage1.bin
+```
+
+### APE Firmware (BMC/NC-SI communication)
+Following application of Stage 1, the APE firmware can be flashed. 
+
+For **Talos II**:
+```bash
+sudo ./bin/bcmflash -t eth -i enP4p1s0f0 -a fw/ape-port0.bin
+```
+
+For **Blackbird**:
+```bash
+sudo ./bin/bcmflash -t eth -i enP4p1s0f0 -a fw/ape-port2.bin
+```
+
+Other BCM5719 devices are not tested, so the APE firmware should first be [loaded into RAM](#testing-ape-firmware) to test.
+
+## Building
+
+### Requirements
 This repository depends on a number of external tools
 - Customized LLVM/Clang compiler for MIPS firmware
 - CMake 3.5.1+
@@ -27,27 +80,7 @@ ninja
 ninja install
 ```
 
-## Status
-The current version of the code is functional and is able to handle network traffic over NC-SI
-  - Libraries:
-    - MII Library: Done
-    - NVRAM Library: Done
-  - Stage1/Stage2
-    - Implementation: Functional
-    - Testing: Minimal, WIP
-    - VPD: Functional
-    - WOL: Not started
-  - APE
-    - NC-SI Handler: Functional
-      - Get Version ID: Not Implemented
-      - OEM Command: Not Implemented
-    - BMC <-> Network Communication: Working
-  - Utilities
-    - Firmware tool: Functional
-    - Register tool: Functional
-  - Tests: To be written
-
-## Compiling
+### Compiling
 To compile the firmware, the following command sequence can be used:
 ```bash
 git submodule init
@@ -57,61 +90,34 @@ cd build
 cmake .. -G Ninja
 cmake --build .
 ```
+## Development
 
-## Usage
-Before proceeding, the Linux driver must be unloaded. On the Talos II, this can be done as root with the following:
+To access the APE console, test APE firmware in RAM, etc., the Linux `tg3` driver must be unbound from at least one PCIe function of the NIC. Each function corresponds to a single Ethernet port; for instance, the Talos II has `0004:01:00.0` and `0004:01:00.1`, while the Blackbird additionally has `0004:01:00.2`. Unbinding will disable the corresponding `enP4p1s0f#` network adapter.
+
+A function can be unbound via sysfs as follows:
 ```bash
-echo 0004:01:00.0 > /sys/bus/pci/devices/0004:01:00.0/driver/unbind
-echo 0004:01:00.1 > /sys/bus/pci/devices/0004:01:00.1/driver/unbind
+echo 0004:01:00.0 > /sys/bus/pci/drivers/tg3/unbind
 ```
 
-### Backup Firmware
-Before proceeding, the original firmware should be backed up.
-```bash
-cd build
-sudo ./utils/bcmflash/bcmflash -t raw -i 0 -b binary
-```
-This will result in a firmware image, firmware.fw, being stored in the current directory.
+Rebinding is similar, except that the address is written to `bind` instead of `unbind`.
 
-### Stage 1 - MIPS Firmware
-After compilation, the MIPS firmware is ready to be uploaded to the NIC.
-```bash
-cd build
-sudo ./utils/bcmflash/bcmflash -t raw -i 0 -1 stage1/stage1.bin
-```
+Unbinding a function allows `bcmflash` to access the device via `-t raw`, which is used with the `-i` option to select the function number to use.
 
-### APE Firmware (BMC/NC-SI communication)
-The APE firmware can be tested by loading it into ram using the following sequence (Note: this may fail unless if stage1 has been loaded):
+### Testing APE firmware
 
-#### Testing on the Talos II with port 0 for BMC traffic
-<details>
+After unbinding the driver per the above, the APE firmware can be tested by loading it into RAM using the following sequence (note that this may fail if stage1 has not been loaded):
 
+#### Talos II (BMC traffic on port 0)
 ```bash
 cd build
 sudo ./utils/bcmregtool/bcmregtool --apeboot=ape/ape-port0.bin
 ```
 
-Once tested, the APE firmware can be loaded into the device using the following command:
-```bash
-cd build
-sudo ./utils/bcmflash/bcmflash -t raw -i 0 -a ape/ape-port0.bin
-```
-</details>
-
-#### Testing on the Blackbird with port 2 for BMC traffic
-<details>
-
+#### Blackbird (BMC traffic on port 2)
 ```bash
 cd build
 sudo ./utils/bcmregtool/bcmregtool --apeboot=ape/ape-port2.bin
 ```
-
-Once tested, the APE firmware can be loaded into the device using the following command:
-```bash
-cd build
-sudo ./utils/bcmflash/bcmflash -t raw -i 0 -a ape/ape-port2.bin
-```
-</details>
 
 ### Firmware Log
 The APE and Stage1 firmware are able to print status messages to a log. This can be accessed in one of two ways:
