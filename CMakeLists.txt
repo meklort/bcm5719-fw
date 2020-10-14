@@ -46,8 +46,20 @@ enable_testing()
 include(GoogleTest)
 
 SET(COMPILER_BASE       $ENV{HOME}/llvm-bcm5719)
-SET(CMAKE_C_COMPILER    ${COMPILER_BASE}/bin/clang)
-SET(CMAKE_CXX_COMPILER  ${COMPILER_BASE}/bin/clang++)
+
+
+FIND_PROGRAM(CMAKE_C_COMPILER
+            NAMES flint_bcm5719-clang clang
+            HINTS ${COMPILER_BASE}/bin/
+            NO_DEFAULT_PATH
+            REQUIRED)
+
+FIND_PROGRAM(CMAKE_CXX_COMPILER
+            NAMES flint_bcm5719-clang++ clang++
+            HINTS ${COMPILER_BASE}/bin/
+            NO_DEFAULT_PATH
+            REQUIRED)
+
 SET(CMAKE_ASM_COMPILER  ${COMPILER_BASE}/bin/clang)
 
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-rtti -fno-exceptions")
