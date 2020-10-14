@@ -46,10 +46,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#endif /* CXX_SIMULATOR */
 #include <vpd.h>
-
-#ifdef CXX_SIMULATOR /* Host libraries required */
 
 typedef struct
 {
