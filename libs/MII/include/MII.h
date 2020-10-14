@@ -44,7 +44,7 @@
 #ifndef MII_H
 #define MII_H
 
-#if __mips__
+#ifdef __mips__
 #include <bcm5719_DEVICE.h>
 #else
 #include <APE_DEVICE.h>
