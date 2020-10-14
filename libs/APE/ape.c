@@ -41,8 +41,11 @@
 /// POSSIBILITY OF SUCH DAMAGE.
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
+
 #include "bcm5719_APE_PERI.h"
 #include "bcm5719_DEVICE.h"
+
+#include <APE.h>
 
 void APE_aquireLock(void)
 {
