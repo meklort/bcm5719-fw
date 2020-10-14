@@ -110,10 +110,10 @@ void Network_resetTX(NetworkPort_t *port, reload_type_t reset_phy);
 void Network_resetRX(NetworkPort_t *port, reload_type_t reset_phy);
 
 void Network_checkPortState(NetworkPort_t *port);
-bool Network_updatePortState(NetworkPort_t *port);
+bool Network_updatePortState(const NetworkPort_t *port);
 
-bool Network_isLinkUp(NetworkPort_t *port);
-void Network_resetLink(NetworkPort_t *port);
+bool Network_isLinkUp(const NetworkPort_t *port);
+void Network_resetLink(const NetworkPort_t *port);
 
 
 uint32_t Network_TX_numBlocksNeeded(uint32_t frame_size);

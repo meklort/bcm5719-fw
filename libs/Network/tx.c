@@ -47,7 +47,6 @@
 #include <APE_TX_PORT0.h>
 #include <Ethernet.h>
 #include <Network.h>
-#include <types.h>
 
 #ifdef CXX_SIMULATOR
 #include <bcm5719-endian.h>

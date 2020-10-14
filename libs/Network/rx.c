@@ -47,7 +47,6 @@
 #include <APE_RX_PORT0.h>
 #include <Ethernet.h>
 #include <Network.h>
-#include <types.h>
 
 #ifdef CXX_SIMULATOR
 #include <stdio.h>
