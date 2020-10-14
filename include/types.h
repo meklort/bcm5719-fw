@@ -65,8 +65,8 @@ typedef _Bool    bool;
 
 typedef uint32_t size_t;
 
-#define true (1)
-#define false (0)
+#define true ((bool)1)
+#define false ((bool)0)
 #else
 #error Unknown target architechture
 #endif
