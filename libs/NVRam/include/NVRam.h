@@ -47,8 +47,8 @@
 #include <types.h>
 
 bool NVRam_acquireLock(void);
-bool NVRam_releaseLock(void);
-bool NVRam_releaseAllLocks(void);
+void NVRam_releaseLock(void);
+void NVRam_releaseAllLocks(void);
 
 uint32_t NVRam_readWord(uint32_t address);
 void NVRam_read(uint32_t address, uint32_t *buffer, uint32_t words);
@@ -71,10 +71,10 @@ uint32_t NVRam_crc(const uint8_t *pcDatabuf, // Pointer to data buffer
 void NVRAM_sendByte(uint8_t byte);
 uint8_t NVRAM_sendAndGetByte(uint8_t byte);
 
-bool NVRam_sendBytes(uint8_t bytes[], uint32_t num_bytes);
-bool NVRam_sendAndGetBytes(uint8_t send_bytes[], uint8_t get_bytes[], int32_t num_bytes);
+bool NVRam_sendBytes(const uint8_t bytes[], uint32_t num_bytes);
+bool NVRam_sendAndGetBytes(const uint8_t send_bytes[], uint8_t get_bytes[], uint32_t num_bytes);
 
 uint32_t NVRam_bitbang_readWord(uint32_t address);
-void NVRam_bitbang_writeWord(uint32_t address, uint32_t word);
+bool NVRam_bitbang_writeWord(uint32_t address, uint32_t word);
 
 #endif /* NVRAM_H */
