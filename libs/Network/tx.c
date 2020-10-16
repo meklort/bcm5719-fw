@@ -79,7 +79,7 @@ uint32_t Network_TX_numBlocksNeeded(uint32_t frame_size)
     return blocks;
 }
 
-int32_t __attribute__((noinline)) Network_TX_allocateBlock(NetworkPort_t *port)
+int32_t __attribute__((noinline)) Network_TX_allocateBlock(const NetworkPort_t *port)
 {
     int32_t block;
 

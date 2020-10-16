@@ -93,6 +93,10 @@ NetworkPort_t gPort0 = {
         .r32 = 0,
     },
 #endif
+
+    // State
+    .link_state_printed = false,
+    .network_resetting = false,
 };
 
 NetworkPort_t gPort1 = {
@@ -120,6 +124,10 @@ NetworkPort_t gPort1 = {
         .r32 = 0,
     },
 #endif
+
+    // State
+    .link_state_printed = false,
+    .network_resetting = false,
 };
 
 NetworkPort_t gPort2 = {
@@ -147,6 +155,10 @@ NetworkPort_t gPort2 = {
         .r32 = APE_MODE_2_CHANNEL_0_ENABLE_MASK | APE_MODE_2_CHANNEL_2_ENABLE_MASK,
     },
 #endif
+
+    // State
+    .link_state_printed = false,
+    .network_resetting = false,
 };
 
 NetworkPort_t gPort3 = {
@@ -174,6 +186,10 @@ NetworkPort_t gPort3 = {
         .r32 = APE_MODE_2_CHANNEL_1_ENABLE_MASK | APE_MODE_2_CHANNEL_3_ENABLE_MASK,
     },
 #endif
+
+    // State
+    .link_state_printed = false,
+    .network_resetting = false,
 };
 
 NetworkPort_t *Network_getPort(int i)
@@ -200,22 +216,22 @@ typedef struct
 } FilterElementInit_t;
 
 static const FilterElementInit_t gElementInit[32] = {
-    [0] = {{0}},
-    [1] = {{0}},
-    [2] = {{0}},
-    [3] = {{0}},
-    [4] = {{0}},
-    [5] = {{0}},
-    [6] = {{0}},
-    [7] = {{0}},
-    [8] = {{0}},
-    [9] = {{0}},
-    [10] = {{0}},
-    [11] = {{0}},
-    [12] = {{0}},
-    [13] = {{0}},
-    [14] = {{0}},
-    [15] = {{0}},
+    [0] = {{0}}, //lint !e708
+    [1] = {{0}}, //lint !e708
+    [2] = {{0}}, //lint !e708
+    [3] = {{0}}, //lint !e708
+    [4] = {{0}}, //lint !e708
+    [5] = {{0}}, //lint !e708
+    [6] = {{0}}, //lint !e708
+    [7] = {{0}}, //lint !e708
+    [8] = {{0}}, //lint !e708
+    [9] = {{0}}, //lint !e708
+    [10] = {{0}}, //lint !e708
+    [11] = {{0}}, //lint !e708
+    [12] = {{0}}, //lint !e708
+    [13] = {{0}}, //lint !e708
+    [14] = {{0}}, //lint !e708
+    [15] = {{0}}, //lint !e708
 
     // 16: Check MAC address multicast bit not set.
     [16] = {
@@ -237,8 +253,8 @@ static const FilterElementInit_t gElementInit[32] = {
         .pat = {.r32 = 0x01000100},
     },
 
-    [17] = {{0}},
-    [18] = {{0}},
+    [17] = {{0}}, //lint !e708
+    [18] = {{0}}, //lint !e708
 
     // 19: Special VLAN match.
     [19] = {
@@ -320,7 +336,7 @@ static const FilterElementInit_t gElementInit[32] = {
         .pat = {.r32 = 0x0223FFFF},
     },
 
-    [23] = {{0}},
+    [23] = {{0}}, //lint !e708
 
     // 24: ARP match.
     [24] = {
@@ -490,7 +506,7 @@ typedef struct
 } FilterRuleInit_t;
 static const FilterRuleInit_t gRuleInit[32] = {
     // S-0. Unused.
-    [0] = {{0}},
+    [0] = {{0}}, //lint !e708
 
     // S-1. ACTION=TO_APE_AND_HOST, COUNT=0, ENABLE=1, MASK=0x0003_0000.
     [1] = {
@@ -541,13 +557,13 @@ static const FilterRuleInit_t gRuleInit[32] = {
     },
 
     // S-5. Not used, initialize to zero.
-    [5] = {{0}},
+    [5] = {{0}}, //lint !e708
     // S-6. Not used, initialize to zero.
-    [6] = {{0}},
+    [6] = {{0}}, //lint !e708
     // S-7. Not used, initialize to zero.
-    [7] = {{0}},
+    [7] = {{0}}, //lint !e708
     // S-8. Not used, initialize to zero.
-    [8] = {{0}},
+    [8] = {{0}}, //lint !e708
 
     // S-9. ACTION=TO_APE_AND_HOST, COUNT=2, ENABLE=recommend 1, MASK=0x3008_0000.
     [9] = {
@@ -622,11 +638,11 @@ static const FilterRuleInit_t gRuleInit[32] = {
     },
 
     // S-15. Not used, initialize to zero.
-    [15] = {{0}},
+    [15] = {{0}}, //lint !e708
     // S-16. Not used, initialize to zero.
-    [16] = {{0}},
+    [16] = {{0}}, //lint !e708
     // S-17. Not used, initialize to zero.
-    [17] = {{0}},
+    [17] = {{0}}, //lint !e708
 
     // S-18. ACTION=TO_APE_AND_HOST, COUNT=2, ENABLE=recommend 1, MASK=0x8008_0000.
     [18] = {
@@ -649,7 +665,7 @@ static const FilterRuleInit_t gRuleInit[32] = {
             .reserved_30_19 = 0,
             .Enable = 0,
         }},
-        .mask = {.r32 = (0x3)<<(2*0)},
+        .mask = {.r32 = (0x3)<<(2*0)}, //lint !e835 !e845
     },
 
     // S-20. ACTION=TO_APE_AND_HOST, COUNT=0, ENABLE=0, MASK=(0b11)<<(2*1).
@@ -737,7 +753,7 @@ static const FilterRuleInit_t gRuleInit[32] = {
     },
 
     // S-27. Not used, initialize to zero.
-    [27] = {{0}},
+    [27] = {{0}}, //lint !e708
 
     // S-28. ACTION=TO_APE_AND_HOST, COUNT=0, ENABLE=0, MASK=0x4010_0000.
     [28] = {
@@ -789,7 +805,7 @@ static const FilterRuleInit_t gRuleInit[32] = {
 };
 #endif
 
-void Network_InitFilters(NetworkPort_t *port)
+void Network_InitFilters(const NetworkPort_t *port)
 {
 #ifdef CXX_SIMULATOR
     (void)port;
@@ -810,7 +826,7 @@ void Network_InitFilters(NetworkPort_t *port)
 #endif
 }
 
-void Network_resetTX(NetworkPort_t *port, reload_type_t reset_phy)
+void Network_resetTX(const NetworkPort_t *port, reload_type_t reset_phy)
 {
     // Enable TX
     RegAPETxToNetPoolModeStatus_t txMode = *port->tx_mode;
@@ -828,7 +844,7 @@ void Network_resetTX(NetworkPort_t *port, reload_type_t reset_phy)
     }
 }
 
-void Network_resetRX(NetworkPort_t *port, reload_type_t reset_phy)
+void Network_resetRX(const NetworkPort_t *port, reload_type_t reset_phy)
 {
     RegAPERxPoolModeStatus_t rxMode = *port->rx_mode;
     if ((ALWAYS_RESET == reset_phy) || rxMode.bits.Error)
@@ -846,7 +862,7 @@ void Network_resetRX(NetworkPort_t *port, reload_type_t reset_phy)
     }
 }
 
-void Network_InitPort(NetworkPort_t *port, reload_type_t reset_phy)
+void Network_InitPort(const NetworkPort_t *port, reload_type_t reset_phy)
 {
     RegMIIStatus_t stat;
     RegMIIIeeeExtendedStatus_t ext_stat;
@@ -1042,6 +1058,7 @@ bool Network_updatePortState(const NetworkPort_t *port)
             // Select full/half duplex mode.
             switch ((uint8_t)status.bits.AutoNegotiationHCD)
             {
+                default:
                 case MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_HCD_NO_HCD:
                     // Error
                     break;
@@ -1063,6 +1080,7 @@ bool Network_updatePortState(const NetworkPort_t *port)
             // Select Speed
             switch ((uint8_t)status.bits.AutoNegotiationHCD)
             {
+                default:
                 case MII_AUXILIARY_STATUS_SUMMARY_AUTO_NEGOTIATION_HCD_NO_HCD:
                     // Error
                     break;

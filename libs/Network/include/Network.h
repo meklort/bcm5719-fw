@@ -104,10 +104,10 @@ typedef enum {
 
 NetworkPort_t *Network_getPort(int i);
 
-void Network_InitPort(NetworkPort_t *port, reload_type_t force_reset);
+void Network_InitPort(const NetworkPort_t *port, reload_type_t force_reset);
 
-void Network_resetTX(NetworkPort_t *port, reload_type_t reset_phy);
-void Network_resetRX(NetworkPort_t *port, reload_type_t reset_phy);
+void Network_resetTX(const NetworkPort_t *port, reload_type_t reset_phy);
+void Network_resetRX(const NetworkPort_t *port, reload_type_t reset_phy);
 
 void Network_checkPortState(NetworkPort_t *port);
 bool Network_updatePortState(const NetworkPort_t *port);
@@ -117,7 +117,7 @@ void Network_resetLink(const NetworkPort_t *port);
 
 
 uint32_t Network_TX_numBlocksNeeded(uint32_t frame_size);
-int32_t Network_TX_allocateBlock(NetworkPort_t *port);
+int32_t Network_TX_allocateBlock(const NetworkPort_t *port);
 void Network_TX_releaseBlock(NetworkPort_t *port, int32_t block);
 
 bool Network_TX_transmitBePacket(uint8_t *packet, uint32_t length, NetworkPort_t *port);
