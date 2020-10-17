@@ -41,12 +41,8 @@
 /// POSSIBILITY OF SUCH DAMAGE.
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
+
 #include <MII.h>
-#if __mips__
-#include <bcm5719_DEVICE.h>
-#else
-#include <APE_DEVICE.h>
-#endif
 
 #ifdef CXX_SIMULATOR
 #define volatile
@@ -63,7 +59,7 @@ static bool __attribute__((noinline)) MII_wait(volatile DEVICE_t *device)
     }
 
     return maxWait ? true : false;
-}
+} //lint !e818
 
 uint8_t MII_getPhy(volatile DEVICE_t *device)
 {
@@ -77,7 +73,7 @@ uint8_t MII_getPhy(volatile DEVICE_t *device)
         // GPHY platform
         return device->Status.bits.FunctionNumber + DEVICE_MII_COMMUNICATION_PHY_ADDRESS_PHY_0;
     }
-}
+} //lint !e818
 
 static int32_t MII_readRegisterInternal(volatile DEVICE_t *device, uint8_t phy, mii_reg_t reg)
 {
@@ -192,9 +188,14 @@ static int32_t MII_readShadowRegister1C(volatile DEVICE_t *device, uint8_t phy, 
     RegMIICabletronLed_t shadow_select;
     shadow_select.r16 = 0;
     shadow_select.bits.ShadowRegisterSelector = shadow_reg;
-    MII_writeRegisterInternal(device, phy, (mii_reg_t)0x1C, shadow_select.r16);
-
-    return MII_readRegisterInternal(device, phy, (mii_reg_t)0x1C);
+    if (MII_writeRegisterInternal(device, phy, (mii_reg_t)0x1C, shadow_select.r16))
+    {
+        return MII_readRegisterInternal(device, phy, (mii_reg_t)0x1C);
+    }
+    else
+    {
+        return -1;
+    }
 }
 
 int32_t MII_readRegister(volatile DEVICE_t *device, uint8_t phy, mii_reg_t reg)
@@ -302,10 +303,12 @@ bool MII_reset(volatile DEVICE_t *device, uint8_t phy)
     // Set MII_REG_CONTROL to RESET; wait until RESET bit clears.
     if (MII_writeRegister(device, phy, (mii_reg_t)REG_MII_CONTROL, MII_CONTROL_RESET_MASK))
     {
+        uint16_t val;
         do
         {
             // Spin
-        } while ((MII_readRegister(device, phy, (mii_reg_t)REG_MII_CONTROL) & MII_CONTROL_RESET_MASK) == MII_CONTROL_RESET_MASK);
+            val = (uint16_t)MII_readRegister(device, phy, (mii_reg_t)REG_MII_CONTROL);
+        } while ((val & MII_CONTROL_RESET_MASK) == MII_CONTROL_RESET_MASK);
 
         return true;
     }
