@@ -1,10 +1,10 @@
 ################################################################################
 ###
-### @file       libs/Ethernet/CMakeLists.txt
+### @file       libs/printf/CMakeLists.txt
 ###
-### @project    
+### @project    bcm5719-fw
 ###
-### @brief      Ethernet CMake file
+### @brief      printf CMake file
 ###
 ################################################################################
 ###
@@ -52,6 +52,7 @@ SET(SOURCES
 )
 
 add_definitions(-DPRINTF_DISABLE_SUPPORT_FLOAT -DPRINTF_DISABLE_SUPPORT_LONG_LONG)
+set_source_files_properties(printf.c PROPERTIES COMPILE_DEFINITIONS "NO_FLINT") # Disable linting
 
 # Host Simulation library
 simulator_add_library(${PROJECT_NAME} STATIC ${SOURCES})

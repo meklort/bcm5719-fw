@@ -43,7 +43,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include <EM100.h>
-#include <printf.h>
+#include <em100_putchar.h>
 
 void em100_putchar(char character)
 {
