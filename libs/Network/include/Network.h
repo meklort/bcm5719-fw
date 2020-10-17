@@ -90,7 +90,8 @@ typedef union
     struct
     {
         uint32_t payload_length:7;
-        uint32_t next_block:23;
+        uint32_t next_block:12;
+        uint32_t unknown:11;
         uint32_t first:1;
         uint32_t not_last:1;
     } bits;
@@ -104,7 +105,7 @@ typedef enum {
 
 NetworkPort_t *Network_getPort(int i);
 
-void Network_InitPort(const NetworkPort_t *port, reload_type_t force_reset);
+void Network_InitPort(NetworkPort_t *port, reload_type_t force_reset);
 
 void Network_resetTX(const NetworkPort_t *port, reload_type_t reset_phy);
 void Network_resetRX(const NetworkPort_t *port, reload_type_t reset_phy);
@@ -128,9 +129,9 @@ bool Network_TX_transmitPassthroughPacket(uint32_t length, const NetworkPort_t *
 // void Network_TX_transmitPassthroughPacket(RegAPE_PERIBmcToNcRxStatus_t
 // rx_status);
 
-bool Network_RxLePatcket(uint32_t *buffer, uint32_t *length, NetworkPort_t *port);
+bool Network_RxLePatcket(uint32_t *buffer, uint32_t *length, const NetworkPort_t *port);
 bool Network_PassthroughRxPatcket(NetworkPort_t *port);
 
-void Network_SetMACAddr(NetworkPort_t *port, uint16_t high, uint32_t low, uint32_t index, bool enabled);
+void Network_SetMACAddr(const NetworkPort_t *port, uint16_t high, uint32_t low, uint32_t index, bool enabled);
 
 #endif /* NETWORK_H */

@@ -54,7 +54,7 @@
 #include <printf.h>
 #endif
 
-bool Network_RxLePatcket(uint32_t *buffer, uint32_t *bytes, NetworkPort_t *port)
+bool Network_RxLePatcket(uint32_t *buffer, uint32_t *bytes, const NetworkPort_t *port)
 {
     RegAPERxbufoffset_t rxbuf;
     rxbuf = *((RegAPERxbufoffset_t *)port->rx_offset);
@@ -64,7 +64,7 @@ bool Network_RxLePatcket(uint32_t *buffer, uint32_t *bytes, NetworkPort_t *port)
         network_control_t control;
         int count = rxbuf.bits.Count;
         // int tailid = rxbuf.bits.Tail;
-        int blockid = rxbuf.bits.Head;
+        uint32_t blockid = rxbuf.bits.Head;
         // printf("Valid packet at offset %x\n", blockid);
         uint32_t buffer_pos = 0;
 
@@ -134,9 +134,10 @@ bool Network_PassthroughRxPatcket(NetworkPort_t *port)
     rxbuf = *((RegAPERxbufoffset_t *)port->rx_offset);
     if ((int)rxbuf.bits.Valid)
     {
+        // TODO: Drop packets with ToHost set?
         port->network_resetting = false;
 
-#if CXX_SIMULATOR
+#ifdef CXX_SIMULATOR
         rxbuf.print();
 #endif
 
@@ -144,7 +145,7 @@ bool Network_PassthroughRxPatcket(NetworkPort_t *port)
         network_control_t control;
         int count = rxbuf.bits.Count;
         // int tailid = rxbuf.bits.Tail;
-        int blockid = rxbuf.bits.Head;
+        uint32_t blockid = rxbuf.bits.Head;
 
         RegAPERxPoolRetire_t retire;
         retire.r32 = (1 << 24);
@@ -160,7 +161,7 @@ bool Network_PassthroughRxPatcket(NetworkPort_t *port)
             // printf(" Next Block %d\n", control.bits.next_block);
             // printf(" First %d\n", control.bits.first);
             // printf(" Not Last %d\n", control.bits.not_last);
-#if CXX_SIMULATOR
+#ifdef CXX_SIMULATOR
             printf("%d bytes in block.\n", control.bits.payload_length);
 #endif
             int i;

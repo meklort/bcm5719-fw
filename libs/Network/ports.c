@@ -862,7 +862,7 @@ void Network_resetRX(const NetworkPort_t *port, reload_type_t reset_phy)
     }
 }
 
-void Network_InitPort(const NetworkPort_t *port, reload_type_t reset_phy)
+void Network_InitPort(NetworkPort_t *port, reload_type_t reset_phy)
 {
     bool error = false;
     RegMIIStatus_t stat;
@@ -1004,7 +1004,6 @@ void Network_InitPort(const NetworkPort_t *port, reload_type_t reset_phy)
 
                 linkStatus.bits.LinkSpeed1000MFullDuplexCapable = ext_stat.bits._1000BASE_TFullDuplexCapable;
                 linkStatus.bits.LinkSpeed1000MHalfDuplexCapable = ext_stat.bits._1000BASE_THalfDuplexCapable;
-
             }
             else
             {
@@ -1016,7 +1015,6 @@ void Network_InitPort(const NetworkPort_t *port, reload_type_t reset_phy)
     {
         error = true;
     }
-
 
     APE_releaseLock();
 
