@@ -54,7 +54,7 @@ void NVRAM_sendByte(uint8_t byte)
     {
         // Setup the SI value
         nvm_write.bits.SCLKOutputValue = 0;
-        nvm_write.bits.SIOutputValue = (byte & (1 << i)) ? 1 : 0;
+        nvm_write.bits.SIOutputValue = (byte & (1u << i)) ? 1 : 0;
         NVM.Write.r32 = nvm_write.r32;
 
         // Clock data out.
@@ -78,7 +78,7 @@ uint8_t NVRAM_sendAndGetByte(uint8_t byte)
     {
         // Setup the SI value
         nvm_write.bits.SCLKOutputValue = 0;
-        nvm_write.bits.SIOutputValue = (byte & (1 << i)) ? 1 : 0;
+        nvm_write.bits.SIOutputValue = (byte & (1u << i)) ? 1 : 0;
         NVM.Write.r32 = nvm_write.r32;
 
         // Clock data out.
@@ -86,7 +86,7 @@ uint8_t NVRAM_sendAndGetByte(uint8_t byte)
         NVM.Write.r32 = nvm_write.r32;
 
         // Read Input value.
-        readByte |= NVM.Read.bits.SOInputValue ? (1 << i) : 0;
+        readByte |= (uint8_t)(NVM.Read.bits.SOInputValue ? (1u << i) : 0);
     }
 
     // Final clock edge
@@ -97,7 +97,7 @@ uint8_t NVRAM_sendAndGetByte(uint8_t byte)
     return readByte;
 }
 
-bool NVRam_sendBytes(uint8_t bytes[], uint32_t num_bytes)
+bool NVRam_sendBytes(const uint8_t bytes[], uint32_t num_bytes)
 {
     // Aquire the lock
     if (!NVRam_acquireLock())
@@ -129,7 +129,7 @@ bool NVRam_sendBytes(uint8_t bytes[], uint32_t num_bytes)
     // Enable Bitbang mode
     NVM.NvmCfg1.r32 = cfg1_bitbang.r32;
 
-    for (int i = 0; i < num_bytes; i++)
+    for (uint32_t i = 0; i < num_bytes; i++)
     {
         NVRAM_sendByte(bytes[i]);
     }
@@ -143,7 +143,7 @@ bool NVRam_sendBytes(uint8_t bytes[], uint32_t num_bytes)
     return true;
 }
 
-bool NVRam_sendAndGetBytes(uint8_t send_bytes[], uint8_t get_bytes[], int32_t num_bytes)
+bool NVRam_sendAndGetBytes(const uint8_t send_bytes[], uint8_t get_bytes[], uint32_t num_bytes)
 {
     // Aquire the lock
     if (!NVRam_acquireLock())
@@ -175,7 +175,7 @@ bool NVRam_sendAndGetBytes(uint8_t send_bytes[], uint8_t get_bytes[], int32_t nu
     // Enable Bitbang mode
     NVM.NvmCfg1.r32 = cfg1_bitbang.r32;
 
-    for (int i = 0; i < num_bytes; i++)
+    for (uint32_t i = 0; i < num_bytes; i++)
     {
         get_bytes[i] = NVRAM_sendAndGetByte(send_bytes[i]);
     }
@@ -200,7 +200,7 @@ uint32_t NVRam_bitbang_readWord(uint32_t address)
     uint32_t num_bytes = sizeof(send_bytes);
     if (NVRam_sendAndGetBytes(send_bytes, get_bytes, num_bytes))
     {
-        uint32_t read_word = (get_bytes[4]) | (get_bytes[5] << 8) | (get_bytes[6] << 16) | (get_bytes[7] << 24);
+        uint32_t read_word = ((uint32_t)get_bytes[4]) | ((uint32_t)get_bytes[5] << 8) | ((uint32_t)get_bytes[6] << 16) | ((uint32_t)get_bytes[7] << 24);
 
         return read_word;
     }
@@ -211,7 +211,7 @@ uint32_t NVRam_bitbang_readWord(uint32_t address)
     }
 }
 
-void NVRam_bitbang_writeWord(uint32_t address, uint32_t word)
+bool NVRam_bitbang_writeWord(uint32_t address, uint32_t word)
 {
     // 0x82: write word for AT45DB021D
     uint8_t send_bytes[] = { 0x82,
@@ -223,5 +223,5 @@ void NVRam_bitbang_writeWord(uint32_t address, uint32_t word)
                              (uint8_t)(word >> 8),
                              (uint8_t)(word) };
     uint32_t num_bytes = sizeof(send_bytes);
-    NVRam_sendBytes(send_bytes, num_bytes);
+    return NVRam_sendBytes(send_bytes, num_bytes);
 }

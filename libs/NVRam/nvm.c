@@ -47,13 +47,7 @@
 
 #define BCM_NVRAM_MAGIC (0x669955AAu)
 
-#define ATMEL_AT45DB0X1B_PAGE_POS (9u)
-#define ATMEL_AT45DB0X1B_PAGE_SIZE (264u)
-#define ATMEL_AT45DB0X1B_ERASE (false)
-
-#define PAGE_POS ATMEL_AT45DB0X1B_PAGE_POS
-#define PAGE_SIZE ATMEL_AT45DB0X1B_PAGE_SIZE
-#define NEEDS_ERASE ATMEL_AT45DB0X1B_ERASE
+#define PAGE_SIZE (256u)
 
 #ifdef CXX_SIMULATOR
 #include <arpa/inet.h>
@@ -61,7 +55,7 @@
 #define REQ ReqSet1
 #define CLR ReqClr1
 #define WON ArbWon1
-#elif __arm__
+#elif defined(__arm__)
 /* APE Firmware */
 #define ntohl(__x__) (__x__) /* Todo: swap */
 #define htonl(__x__) (__x__) /* Todo: swap */
@@ -84,19 +78,7 @@
  */
 static inline uint32_t NVRam_translate(uint32_t address)
 {
-#if 0
-    // Equation from NetXtremeII PG203
-    if(NVM_NVM_CFG_1_PAGE_SIZE_264_BYTES == NVM.NvmCfg1.bits.PageSize)
-    {
-        return ((address / PAGE_SIZE) << PAGE_POS) + (address % PAGE_SIZE);
-    }
-    else
-    {
-        return address;
-    }
-#else
     return address;
-#endif
 }
 
 void NVRam_enable(void)
@@ -142,18 +124,16 @@ bool NVRam_acquireLock(void)
     return true;
 }
 
-bool NVRam_releaseLock(void)
+void NVRam_releaseLock(void)
 {
     // Release locks
     RegNVMSoftwareArbitration_t req;
     req.r32 = 0;
     req.bits.CLR = 1;
     NVM.SoftwareArbitration = req;
-
-    return true;
 }
 
-bool NVRam_releaseAllLocks(void)
+void NVRam_releaseAllLocks(void)
 {
     RegNVMSoftwareArbitration_t req;
     req.r32 = 0;
@@ -162,8 +142,6 @@ bool NVRam_releaseAllLocks(void)
     req.bits.ReqClr2 = 1;
     req.bits.ReqClr3 = 1;
     NVM.SoftwareArbitration = req;
-
-    return true;
 }
 
 #ifdef CXX_SIMULATOR
@@ -271,12 +249,12 @@ void NVRam_writeWord(uint32_t address, uint32_t data)
 
 void NVRam_write(uint32_t address, uint32_t *buffer, uint32_t words)
 {
-    uint32_t page_size = 256;
+    uint32_t page_size = PAGE_SIZE;
     bool find_first_difference = true;
     uint32_t last_difference = address + words * 4;
-    uint32_t trim_address;
     uint32_t trim_words = words;
-    uint32_t *trim_buffer;
+    uint32_t trim_address = address;
+    uint32_t *trim_buffer = buffer;
 
     if (!words)
     {
@@ -294,6 +272,7 @@ void NVRam_write(uint32_t address, uint32_t *buffer, uint32_t words)
     while (words && trim_words)
     {
         uint32_t read_word;
+
         if (1 == words || 1 == trim_words)
         {
             // Last word.
