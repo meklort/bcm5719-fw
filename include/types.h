@@ -75,7 +75,7 @@ typedef uint32_t size_t;
 
 #define ARRAY_ELEMENTS(__array__) (sizeof(__array__) / sizeof(__array__[0]))
 
-#define DIVIDE_RND_UP(__value__, __round__)     (((__value__) + (__round__)-1) / (__round__))
+#define DIVIDE_RND_UP(__value__, __round__)     (((__value__) + (__round__) - 1) / (__round__))
 #define DIVIDE_RND_DOWN(__value__, __round__)   ((__value__) / (__round__))
 
 #define MIN(__x__, __y__)       ((__x__) < (__y__)) ? (__x__) : (__y__)
