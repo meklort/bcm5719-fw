@@ -116,7 +116,7 @@ static uint32_t inline Network_TX_initFirstBlock(RegTX_PORTOut_t *block, uint32_
     int i;
 
     control.r32 = 0;
-    control.bits.next_block = next_block >= 0 ? next_block : 0;
+    control.bits.next_block = next_block >= 0 ? (uint32_t)next_block : 0;
     control.bits.first = 1;
 
     if (length > FIRST_FRAME_MAX)
@@ -149,14 +149,14 @@ static uint32_t inline Network_TX_initFirstBlock(RegTX_PORTOut_t *block, uint32_
     {
         if (big_endian)
         {
-#if CXX_SIMULATOR
+#ifdef CXX_SIMULATOR
             printf("1st[%d] = 0x%08X\n", i, be32toh(packet[i]));
 #endif
             block[TX_PORT_OUT_ALL_FIRST_PAYLOAD_WORD + i].r32 = be32toh(packet[i]);
         }
         else
         {
-#if CXX_SIMULATOR
+#ifdef CXX_SIMULATOR
             printf("1LE[%d] = 0x%08X\n", i, (packet[i]));
 #endif
             block[TX_PORT_OUT_ALL_FIRST_PAYLOAD_WORD + i].r32 = (packet[i]);
@@ -410,7 +410,7 @@ static void drainPassthroughBytes(uint32_t bytes)
     }
 }
 
-bool Network_TX_transmitPassthroughPacket(uint32_t length, NetworkPort_t *port)
+bool Network_TX_transmitPassthroughPacket(uint32_t length, const NetworkPort_t *port)
 {
     if (!length)
     {

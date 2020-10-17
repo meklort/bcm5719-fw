@@ -123,7 +123,7 @@ void Network_TX_releaseBlock(NetworkPort_t *port, int32_t block);
 bool Network_TX_transmitBePacket(uint8_t *packet, uint32_t length, NetworkPort_t *port);
 bool Network_TX_transmitLePacket(uint8_t *packet, uint32_t length, NetworkPort_t *port);
 
-bool Network_TX_transmitPassthroughPacket(uint32_t length, NetworkPort_t *port);
+bool Network_TX_transmitPassthroughPacket(uint32_t length, const NetworkPort_t *port);
 
 // void Network_TX_transmitPassthroughPacket(RegAPE_PERIBmcToNcRxStatus_t
 // rx_status);

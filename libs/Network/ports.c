@@ -864,15 +864,18 @@ void Network_resetRX(const NetworkPort_t *port, reload_type_t reset_phy)
 
 void Network_InitPort(const NetworkPort_t *port, reload_type_t reset_phy)
 {
+    bool error = false;
     RegMIIStatus_t stat;
     RegMIIIeeeExtendedStatus_t ext_stat;
     RegSHM_CHANNELNcsiChannelStatus_t linkStatus;
+    stat.r16 = 0;
+    ext_stat.r16 = 0;
     uint8_t phy = MII_getPhy(port->device);
 
     if ((ALWAYS_RESET == reset_phy) || (AS_NEEDED == reset_phy && !Network_isLinkUp(port)))
     {
         APE_aquireLock();
-        MII_writeRegister(port->device, phy, (mii_reg_t)REG_MII_CONTROL, MII_CONTROL_RESET_MASK);
+        (void)MII_reset(port->device, phy);
         APE_releaseLock();
     }
 
@@ -976,31 +979,51 @@ void Network_InitPort(const NetworkPort_t *port, reload_type_t reset_phy)
 
     APE_aquireLock();
 
-    Network_updatePortState(port);
-
-    uint16_t status_value = MII_readRegister(port->device, phy, (mii_reg_t)REG_MII_STATUS);
-    stat.r16 = status_value;
-    if (stat.bits.ExtendedStatusSupported)
-    {
-        uint16_t ext_status_value = MII_readRegister(port->device, phy, (mii_reg_t)REG_MII_IEEE_EXTENDED_STATUS);
-        ext_stat.r16 = ext_status_value;
-    }
-
-    APE_releaseLock();
+    (void)Network_updatePortState(port);
 
     // Set link status capabilities.
     linkStatus.r32 = 0;
 
-    linkStatus.bits.LinkSpeed1000MFullDuplexCapable = ext_stat.bits._1000BASE_TFullDuplexCapable;
-    linkStatus.bits.LinkSpeed1000MHalfDuplexCapable = ext_stat.bits._1000BASE_THalfDuplexCapable;
+    int32_t status_value = MII_readRegister(port->device, phy, (mii_reg_t)REG_MII_STATUS);
+    if (status_value >= 0)
+    {
+        stat.r16 = (uint16_t)status_value;
 
-    linkStatus.bits.LinkSpeed100M_TXFullDuplexCapable = stat.bits._100BASE_XFullDuplexCapable;
-    linkStatus.bits.LinkSpeed100M_TXHalfDuplexCapable = stat.bits._100BASE_XHalfDuplexCapable;
+        linkStatus.bits.LinkSpeed100M_TXFullDuplexCapable = stat.bits._100BASE_XFullDuplexCapable;
+        linkStatus.bits.LinkSpeed100M_TXHalfDuplexCapable = stat.bits._100BASE_XHalfDuplexCapable;
 
-    linkStatus.bits.LinkSpeed10M_TFullDuplexCapable = stat.bits._10BASE_TFullDuplexCapable;
-    linkStatus.bits.LinkSpeed10M_THalfDuplexCapable = stat.bits._10BASE_THalfDuplexCapable;
+        linkStatus.bits.LinkSpeed10M_TFullDuplexCapable = stat.bits._10BASE_TFullDuplexCapable;
+        linkStatus.bits.LinkSpeed10M_THalfDuplexCapable = stat.bits._10BASE_THalfDuplexCapable;
 
-    port->shm_channel->NcsiChannelStatus = linkStatus;
+        if (stat.bits.ExtendedStatusSupported)
+        {
+            int32_t ext_status_value = MII_readRegister(port->device, phy, (mii_reg_t)REG_MII_IEEE_EXTENDED_STATUS);
+            if (ext_status_value >= 0)
+            {
+                ext_stat.r16 = (uint16_t)ext_status_value;
+
+                linkStatus.bits.LinkSpeed1000MFullDuplexCapable = ext_stat.bits._1000BASE_TFullDuplexCapable;
+                linkStatus.bits.LinkSpeed1000MHalfDuplexCapable = ext_stat.bits._1000BASE_THalfDuplexCapable;
+
+            }
+            else
+            {
+                error = true;
+            }
+        }
+    }
+    else
+    {
+        error = true;
+    }
+
+
+    APE_releaseLock();
+
+    if (error)
+    {
+        port->shm_channel->NcsiChannelStatus = linkStatus;
+    }
 }
 
 void Network_checkPortState(NetworkPort_t *port)
@@ -1037,17 +1060,19 @@ bool Network_updatePortState(const NetworkPort_t *port)
     RegMIIControl_t control;
     bool updated = false;
 
-    control.r16 = MII_readRegister(port->device, phy, (mii_reg_t)REG_MII_CONTROL);
-    if (control.bits.RestartAutonegotiation)
+    int32_t control_or_error = MII_readRegister(port->device, phy, (mii_reg_t)REG_MII_CONTROL);
+    control.r16 = (uint16_t)control_or_error;
+    if ((control_or_error < 0) || control.bits.RestartAutonegotiation)
     {
-        // Link down, negotiation restarting, don't update mac mode.
+        // Unable to read register OR Link down, negotiation restarting, don't update mac mode.
     }
     else
     {
-        status.r16 = MII_readRegister(port->device, phy, (mii_reg_t)REG_MII_AUXILIARY_STATUS_SUMMARY);
-        if (control.bits.AutoNegotiationEnable && !status.bits.AutoNegotiationComplete)
+        int32_t status_or_error = MII_readRegister(port->device, phy, (mii_reg_t)REG_MII_AUXILIARY_STATUS_SUMMARY);
+        status.r16 = (uint16_t)status_or_error;
+        if (control.bits.AutoNegotiationEnable && ((status_or_error < 0) || !status.bits.AutoNegotiationComplete))
         {
-            // Link down, attempting to negotiate, don't update mac mode.
+            // Unable to read register OR Link down, attempting to negotiate, don't update mac mode.
         }
         else
         {
@@ -1116,7 +1141,7 @@ void Network_resetLink(const NetworkPort_t *port)
 {
     uint8_t phy = MII_getPhy(port->device);
     APE_aquireLock();
-    MII_writeRegister(port->device, phy, (mii_reg_t)REG_MII_CONTROL, MII_CONTROL_RESET_MASK);
+    (void)MII_writeRegister(port->device, phy, (mii_reg_t)REG_MII_CONTROL, MII_CONTROL_RESET_MASK);
     APE_releaseLock();
 }
 
@@ -1127,16 +1152,29 @@ bool Network_isLinkUp(const NetworkPort_t *port)
     RegMIIControl_t control;
     bool linkup;
 
-    control.r16 = MII_readRegister(port->device, phy, (mii_reg_t)REG_MII_CONTROL);
-    if (control.bits.RestartAutonegotiation)
+    int32_t control_or_error = MII_readRegister(port->device, phy, (mii_reg_t)REG_MII_CONTROL);
+    control.r16 = (uint16_t)control_or_error;
+    if (control_or_error < 0)
+    {
+        // Error reading MII register. Assume link is down.
+        linkup = false;
+    }
+    else if (control.bits.RestartAutonegotiation)
     {
         // Renegotiating, link not yet up, but in progress
         linkup = true;
     }
     else
     {
-        status.r16 = MII_readRegister(port->device, phy, (mii_reg_t)REG_MII_AUXILIARY_STATUS_SUMMARY);
-        if (control.bits.AutoNegotiationEnable && !status.bits.AutoNegotiationComplete)
+        int32_t status_or_error = MII_readRegister(port->device, phy, (mii_reg_t)REG_MII_AUXILIARY_STATUS_SUMMARY);
+        status.r16 = (uint16_t)status_or_error;
+
+        if (status_or_error < 0)
+        {
+            // Error reading MII register. Assume autonegotiation in progress.
+            linkup = true;
+        }
+        else if (control.bits.AutoNegotiationEnable && !status.bits.AutoNegotiationComplete)
         {
             // Renegotiating, link not yet up, but in progress
             linkup = true;
