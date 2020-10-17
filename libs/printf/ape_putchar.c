@@ -86,10 +86,10 @@ static void ape_putchar(char character, VOLATILE SHM_t *port)
     uint32_t write_pointer = port->RcpuWritePointer.r32;
     uint32_t word_pointer = write_pointer / 4;
     uint32_t byte_index = write_pointer % 4;
-    uint32_t byte_mask = 0xFF << (byte_index * 8);
+    uint32_t byte_mask = 0xFFu << (byte_index * 8u);
 
     uint32_t new_word = port->RcpuPrintfBuffer[word_pointer].r32 & ~byte_mask;
-    new_word |= character << (byte_index * 8);
+    new_word |= ((uint32_t)((uint8_t)character)) << (byte_index * 8u);
     port->RcpuPrintfBuffer[word_pointer].r32 = new_word;
     write_pointer++;
 
