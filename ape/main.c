@@ -435,6 +435,8 @@ void __attribute__((noreturn)) __start()
 
     RMU_init();
 
+    ncsi_print_enabled = true;
+
     if (full_init)
     {
         printf("Chip Reset.\n");
