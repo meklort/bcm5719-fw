@@ -409,13 +409,13 @@ void __attribute__((noreturn)) loaderLoop(void)
                 NVIC.InterruptSetEnable.r32 = NVIC_INTERRUPT_SET_ENABLE_SETENA_GENERAL_RESET;
             }
 
-            handleBMCPacket(false);
+            handleBMCPacket((bool)false);
         }
         else
         {
             Network_checkPortState(gPort);
 
-            handleBMCPacket(true);
+            handleBMCPacket((bool)true);
             NCSI_handlePassthrough();
 
             if (host_state != SHM.HostDriverState.bits.State)
@@ -536,6 +536,7 @@ void __attribute__((noreturn)) __start()
     NVIC.VectorTableOffset.r32 = caster.u32;
 
     // Handle Initialization
+    ncsi_print_enabled = false;
     bool full_init = handle_reset();
     if (reset_ape_console())
     {
@@ -548,6 +549,8 @@ void __attribute__((noreturn)) __start()
     NCSI_usePort(gPort);
 
     RMU_init();
+
+    ncsi_print_enabled = true;
 
     if (full_init)
     {
