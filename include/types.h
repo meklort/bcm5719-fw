@@ -61,12 +61,10 @@ typedef unsigned int  uint32_t;
 typedef long long unsigned int uint64_t;
 typedef long long signed int int64_t;
 
-typedef _Bool    bool;
+#include <stdbool.h>
 
 typedef uint32_t size_t;
 
-#define true ((bool)1)
-#define false ((bool)0)
 #else
 #error Unknown target architechture
 #endif

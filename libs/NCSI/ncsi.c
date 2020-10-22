@@ -555,7 +555,7 @@ static void setMACAddressHandler(const NetworkFrame_t *frame)
     }
 
     uint32_t low = (frame->setMACAddr.MAC32 << 16) | frame->setMACAddr.MAC10;
-    Network_SetMACAddr(port, frame->setMACAddr.MAC54, low, MACNumber, frame->setMACAddr.Enable ? true : false);
+    Network_SetMACAddr(port, frame->setMACAddr.MAC54, low, MACNumber, frame->setMACAddr.Enable ? (bool)true : (bool)false);
 
     sendNCSIResponse(frame->controlPacket.InstanceID, frame->controlPacket.ChannelID, frame->controlPacket.ControlPacketType,
                      NCSI_RESPONSE_CODE_COMMAND_COMPLETE, NCSI_REASON_CODE_NONE);
@@ -722,7 +722,7 @@ void reloadChannel(unsigned int ch, reload_type_t reset_phy)
 
     uint32_t low = port->shm_channel->NcsiChannelMac0Mid.r32 << 16 | port->shm_channel->NcsiChannelMac0Low.r32;
     uint16_t high = (uint16_t)port->shm_channel->NcsiChannelMac0High.r32;
-    Network_SetMACAddr(port, high, low, /* TBD */ 0, true);
+    Network_SetMACAddr(port, high, low, /* TBD */ 0, (bool)true);
 
     printf("[ch %u] Reusing MAC: 0x%02X%04X\n", ch, high, low);
 
@@ -782,7 +782,7 @@ static inline bool NCSI_TxPacket_internal(const uint32_t *packet, uint32_t packe
 
 void NCSI_TxPacket(const uint32_t *packet, uint32_t packet_len)
 {
-    if (NCSI_TxPacket_internal(packet, packet_len, false))
+    if (NCSI_TxPacket_internal(packet, packet_len, (bool)false))
     {
         NetworkPort_t *port = gPackageState.port[0];
         ++port->shm_channel->NcsiChannelNcsiTx.r32;
@@ -795,7 +795,7 @@ void NCSI_TxPacket(const uint32_t *packet, uint32_t packet_len)
 
 void NCSI_TxBePacket(const uint32_t *packet, uint32_t packet_len)
 {
-    (void)NCSI_TxPacket_internal(packet, packet_len, true);
+    (void)NCSI_TxPacket_internal(packet, packet_len, (bool)true);
 }
 
 void sendNCSILinkStatusResponse(uint8_t InstanceID, uint8_t channelID, uint32_t LinkStatus, uint32_t OEMLinkStatus, uint32_t OtherIndications)
