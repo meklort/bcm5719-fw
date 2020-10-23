@@ -202,9 +202,10 @@ void handleBMCPacket(void)
                     if (!Network_TX_transmitPassthroughPacket(bytes, port))
                     {
                         printf("Resetting TX...\n");
-                        // Reset TX, as it's likely locked up now.
-                        // Network_resetTX(port);
-                        Network_InitPort(port, AS_NEEDED);
+                        // Reset, as it's likely locked up now.
+                        wait_for_all_rx();
+                        initRMU();
+                        NCSI_reload(AS_NEEDED);
                     }
                 }
                 else
