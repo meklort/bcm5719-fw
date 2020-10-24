@@ -45,6 +45,7 @@
 SET(ARM_COMPILE_OPTIONS -nostdlib -nodefaultlibs
     -fomit-frame-pointer
     -fno-builtin
+    -include "${CMAKE_SOURCE_DIR}/include/banned.h"
     -target thumbv7-none-eabi -mcpu=cortex-m3 -mfloat-abi=soft)
 SET(ARM_LINK_OPTIONS --gc-sections)
 # SET(CMAKE_EXE_LINKER_FLAGS -static)
