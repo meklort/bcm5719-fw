@@ -466,9 +466,6 @@ typedef struct
 #define CAPABILITIES_MULTICAST              (1 << 4)
 
 typedef union {
-    // Ethernet frame must be at least 64 bytes.
-    uint32_t words[ETHERNET_FRAME_MIN/4];
-
     EthernetHeader_t    header;
 
     /* Control Packets */
@@ -494,6 +491,7 @@ typedef union {
     VersionResponsePacket_t version;
 } __attribute__((packed)) NetworkFrame_t;
 
-
+// Ethernet frame must be at least 64 bytes.
+_Static_assert(sizeof(NetworkFrame_t) >= ETHERNET_FRAME_MIN, "NetworkFrame_t must be at least ETHERNET_FRAME_MIN bytes");
 
 #endif /* ETHERNET_H */

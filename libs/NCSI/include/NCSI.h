@@ -49,7 +49,8 @@
 #include <Ethernet.h>
 #include <Network.h>
 
-void handleNCSIFrame(NetworkFrame_t* frame);
+//lint -sem(handleNCSIFrame, 1p) Warn if frame is NULL
+void handleNCSIFrame(const NetworkFrame_t* frame);
 
 
 #define NCSI_RESPONSE_CODE_COMMAND_COMPLETE     (0)
@@ -65,7 +66,10 @@ void handleNCSIFrame(NetworkFrame_t* frame);
 #define NCSI_REASON_CODE_INVALID_PAYLOAD_LENGTH     (5) /* The payload length in the command is incorrect for the given command */
 #define NCSI_REASON_CODE_UNKNOWN_UNSUPPORTED        (0x7FFF) /* Returned when the command type is unknown or unsupported */
 
-void NCSI_TxPacket(uint32_t* packet, uint32_t packet_len);
+
+//lint -sem(NCSI_TxPacket, 1p) Warn if packet is NULL
+//lint -sem(NCSI_TxPacket, 2n >= 1P) Warn if packet is smaller than packet_len
+void NCSI_TxPacket(const uint32_t* packet, uint32_t packet_len);
 
 void NCSI_handlePassthrough(void);
 
@@ -73,6 +77,7 @@ void NCSI_init(void);
 
 void NCSI_reload(reload_type_t reset_phy);
 
+//lint -sem(NCSI_usePort, 1p) Warn if port is NULL
 void NCSI_usePort(NetworkPort_t *port);
 
 #endif /* NCSI_H */
