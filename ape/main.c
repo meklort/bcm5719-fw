@@ -42,8 +42,6 @@
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
 
-#include "ape.h"
-
 #include <APE.h>
 #include <APE_APE.h>
 #include <APE_APE_PERI.h>
@@ -57,8 +55,7 @@
 #include <Ethernet.h>
 #include <NCSI.h>
 #include <NVRam.h>
-#include <Network.h>
-#include <types.h>
+#include <ape_main.h>
 
 #ifndef CXX_SIMULATOR
 #include <ape_console.h>
@@ -112,7 +109,7 @@ void handleCommand(void)
     SHM.LoaderCommand.bits.Command = 0;
 }
 
-void wait_for_rx(volatile DEVICE_t *device, volatile SHM_t *shm)
+void wait_for_rx(const volatile DEVICE_t *device, const volatile SHM_t *shm)
 {
     bool waiting = true;
     do
@@ -141,8 +138,8 @@ void wait_for_all_rx()
 
 void handleBMCPacket(void)
 {
-    static bool packetInProgress;
-    static int inProgressStartTime;
+    static bool packetInProgress = false;
+    static uint32_t inProgressStartTime = 0;
     uint32_t buffer[1024];
 
     RegAPE_PERIBmcToNcRxStatus_t stat;
@@ -162,10 +159,10 @@ void handleBMCPacket(void)
         }
         else
         {
-            int32_t bytes = stat.bits.PacketLength;
+            uint32_t bytes = stat.bits.PacketLength;
             if (!stat.bits.Passthru)
             {
-                int32_t words = DIVIDE_RND_UP(bytes, sizeof(uint32_t));
+                uint32_t words = DIVIDE_RND_UP(bytes, sizeof(uint32_t));
                 if (words > ARRAY_ELEMENTS(buffer))
                 {
                     // This should never happen...
@@ -211,7 +208,7 @@ void handleBMCPacket(void)
                 else
                 {
                     printf("Dropping PT\n");
-                    int32_t words = DIVIDE_RND_UP(bytes, sizeof(uint32_t));
+                    uint32_t words = DIVIDE_RND_UP(bytes, sizeof(uint32_t));
                     while (words--)
                     {
                         // Read out the packet, but drop it.
@@ -247,7 +244,7 @@ void handleBMCPacket(void)
 
 void checkSupply(bool alwaysReport)
 {
-    static int gVMainOn;
+    static int gVMainOn = false;
     int status = DEVICE.Status.bits.VMAINPowerStatus;
     if (alwaysReport || gVMainOn != status)
     {
@@ -274,11 +271,11 @@ void initSHM(volatile SHM_t *shm)
     features.r32 = 0;
     features.bits.NCSI = 1;
 
-    shm->FwVersion.r32 = (VERSION_MAJOR << 24) | (VERSION_MINOR << 16) | VERSION_PATCH;
+    shm->FwVersion.r32 = (VERSION_MAJOR << 24) | (VERSION_MINOR << 16) | VERSION_PATCH; //lint !e835
     shm->FwFeatures.r32 = features.r32;
     shm->FwStatus.r32 = status.r32;
 
-    shm->SegSig.r32 = 'APE!';
+    shm->SegSig.r32 = 'APE!'; //lint !e742
 }
 
 void __attribute__((noreturn)) loaderLoop(void)
@@ -382,6 +379,7 @@ bool handle_reset(void)
     }
 }
 
+//lint -esym(714, __start) // Referenced by build tools.
 void __attribute__((noreturn)) __start()
 {
     bool full_init = handle_reset();

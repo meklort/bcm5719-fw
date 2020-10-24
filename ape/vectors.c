@@ -48,6 +48,9 @@
 typedef void (*vector_t)(void) __attribute__((interrupt));
 
 // Vector table
+//lint -esym(754, vector_table_t::__start) // Referenced by linker script / hardware
+//lint -esym(754, vector_table_t::sp) // Referenced by linker script / hardware
+//lint -esym(754, vector_table_t::vectors) // Referenced by linker script / hardware
 typedef struct
 {
     uint32_t *sp;
@@ -68,6 +71,7 @@ extern vector_t __start;
 #pragma weak Vector_Debug
 #pragma weak Vector_PendSV
 #pragma weak Vector_Systick
+#pragma weak Vector_NullHandler
 
 extern vector_t Vector_NMI;
 extern vector_t Vector_HardFault;
@@ -78,7 +82,9 @@ extern vector_t Vector_SVCall;
 extern vector_t Vector_Debug;
 extern vector_t Vector_PendSV;
 extern vector_t Vector_Systick;
+extern vector_t Vector_NullHandler;
 
+//lint -esym(714, gVectors) // Referenced by linker script
 vector_table_t gVectors __attribute__((section(".init"))) = {
     .sp = &_estack,
     .__start = &__start,
@@ -89,10 +95,50 @@ vector_table_t gVectors __attribute__((section(".init"))) = {
         [3] = &Vector_BusFault,
         [4] = &Vector_UsageFault,
 
+        [5] = &Vector_NullHandler,
+        [6] = &Vector_NullHandler,
+        [7] = &Vector_NullHandler,
+        [8] = &Vector_NullHandler,
+
         [9] = &Vector_SVCall,
         [10] = &Vector_Debug,
 
+        [11] = &Vector_NullHandler,
+
         [12] = &Vector_PendSV,
         [13] = &Vector_Systick,
+
+        [14] = &Vector_NullHandler,
+        [15] = &Vector_NullHandler,
+        [16] = &Vector_NullHandler,
+        [17] = &Vector_NullHandler,
+        [18] = &Vector_NullHandler,
+        [19] = &Vector_NullHandler,
+        [20] = &Vector_NullHandler,
+        [21] = &Vector_NullHandler,
+        [22] = &Vector_NullHandler,
+        [23] = &Vector_NullHandler,
+        [24] = &Vector_NullHandler,
+        [25] = &Vector_NullHandler,
+        [26] = &Vector_NullHandler,
+        [27] = &Vector_NullHandler,
+        [28] = &Vector_NullHandler,
+        [29] = &Vector_NullHandler,
+        [30] = &Vector_NullHandler,
+        [31] = &Vector_NullHandler,
+        [32] = &Vector_NullHandler,
+        [33] = &Vector_NullHandler,
+        [34] = &Vector_NullHandler,
+        [35] = &Vector_NullHandler,
+        [36] = &Vector_NullHandler,
+        [37] = &Vector_NullHandler,
+        [38] = &Vector_NullHandler,
+        [39] = &Vector_NullHandler,
+        [40] = &Vector_NullHandler,
+        [41] = &Vector_NullHandler,
+        [42] = &Vector_NullHandler,
+        [43] = &Vector_NullHandler,
+        [44] = &Vector_NullHandler,
+        [45] = &Vector_NullHandler,
     },
 };

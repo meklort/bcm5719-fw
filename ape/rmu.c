@@ -42,11 +42,10 @@
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
 
-#include "ape.h"
-
 #include <APE_APE.h>
 #include <APE_APE_PERI.h>
 #include <Network.h>
+#include <ape_main.h>
 
 void initRMU(void)
 {
