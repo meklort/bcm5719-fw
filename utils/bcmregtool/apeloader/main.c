@@ -97,6 +97,7 @@ void handle_command(volatile SHM_t *shm)
     shm->LoaderCommand.bits.Command = 0;
 }
 
+//lint -esym(714, __start) // Referenced by build toold.
 int __start()
 {
     init_shm(&SHM);
