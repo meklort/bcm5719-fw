@@ -1,13 +1,11 @@
 # BCM5719 Firmware Reimplementation
-
-## Introduction
-This library contains a clean-room reimplementation of the BCM5719 firmware based on the [Ortega](https://github.com/hlandau/ortega/blob/master/rtg-spec.md) specification.
+This project contains a clean-room reimplementation of the BCM5719 firmware based on the [Ortega](https://github.com/hlandau/ortega/blob/master/rtg-spec.md) specification.
 
 The firmware has been tested on the [Talos II](https://wiki.raptorcs.com/wiki/Talos_II) and [Blackbird](https://wiki.raptorcs.com/wiki/Blackbird) made by [Raptor Computer Systems](https://www.raptorcs.com/).
 
 **Note: This firmware is currently in development. Flashing the firmware to a network card can result in a bricked device when either an external programmer is required, or the external flash must be temporarily disabled during boot-up.**
 
-## Status
+# Status
 The current version of the code is functional and is able to handle network traffic over NC-SI.
   - Libraries:
     - MII Library: Done
@@ -27,38 +25,52 @@ The current version of the code is functional and is able to handle network traf
     - Register tool: Functional
   - Tests: To be written
 
-## Usage
+# Usage
 The paths in the steps below refer to the release archives. Files in the development tree (after following instructions in [Building](#building)) are located in subdirectories of `./build`.
 
-### Backup Firmware
+## Backup Firmware
 Before proceeding, the original firmware should be backed up.
 ```bash
 sudo ./bin/bcmflash -t eth -i enP4p1s0f0 -b binary
 ```
 This will result in a firmware image, firmware.fw, being stored in the current directory.
 
-### Stage 1 - MIPS Firmware
-The MIPS firmware can be loaded into the device as follows:
+## Installing using LVFS
+This project provides firmware releases for LVFS that can be installed using fwupd 1.5.0 or later.
+The firmware can be selected for install by following the prompts using the switch-branch command in fwupdmgr:
 ```bash
-sudo ./bin/bcmflash -t eth -i enP4p1s0f0 -1 fw/stage1.bin
+sudo fwupdmgr switch-branch
 ```
 
-### APE Firmware (BMC/NC-SI communication)
-Following application of Stage 1, the APE firmware can be flashed. 
+This will flash the latest firmware from LVFS onto the network card and will save a backup of the previous firmware in `/var/lib/fwupd/backup/`.
+
+Once switched, future releases will be installed using the standard update mechanism in fwupd.
+
+## Installing using fwupdtool
+Alternatively to using LVFS, The fwupd cab files in the release package can be manually flashed with fwupdtool 1.5.0 or later.
 
 For **Talos II**:
 ```bash
-sudo ./bin/bcmflash -t eth -i enP4p1s0f0 -a fw/ape-port0.bin
+sudo fwupdtool install fwupd/talos2-bcm5719-<version>.cab --allow-branch-switch
 ```
-
 For **Blackbird**:
 ```bash
-sudo ./bin/bcmflash -t eth -i enP4p1s0f0 -a fw/ape-port2.bin
+sudo fwupdtool install fwupd/blackbird-bcm5719-<version>.cab --allow-branch-switch
 ```
 
 Other BCM5719 devices are not tested, so the APE firmware should first be [loaded into RAM](#testing-ape-firmware) to test.
 
-## Building
+## Restoring From Backup
+Past firmware images can be restored from backup using the bcmflash tool.
+* If fwupd was used to flash firmware, past backups can be located at `/var/lib/fwupd/backup/`.
+* If bcmflash was used to create a backup the previously saved firmware.fw should be used.
+
+To restore a backup, the following command can be run:
+```bash
+sudo ./bin/bcmflash -t eth -i enP4p1s0f0 -r firmware.fw
+```
+
+# Building
 
 ### Requirements
 This repository depends on a number of external tools
