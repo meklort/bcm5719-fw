@@ -51,7 +51,7 @@ Alternatively to using LVFS, the fwupd cab files in the release package can be m
 
 For **Talos II**:
 ```bash
-sudo fwupdtool install fwupd/talos2-bcm5719-<version>.cab --allow-branch-switch
+sudo fwupdtool install ./fwupd/talos2-bcm5719-<version>.cab --allow-branch-switch
 ```
 For **Blackbird**:
 ```bash
