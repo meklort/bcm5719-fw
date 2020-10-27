@@ -43,7 +43,7 @@
 ################################################################################
 
 # List all topics here that should be included in the release notes.
-SET(FWUPD_TOPICS APE Stage1)
+SET(FWUPD_TOPICS LVFS APE Stage1)
 
 # Convert to lower case while preserving original case.
 FOREACH(TOPIC IN LISTS FWUPD_TOPICS)
