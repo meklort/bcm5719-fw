@@ -36,7 +36,7 @@ sudo ./bin/bcmflash -t eth -i enP4p1s0f0 -b binary
 This will result in a firmware image, firmware.fw, being stored in the current directory.
 
 ## Installing using LVFS
-This project provides firmware releases for LVFS that can be installed using fwupd 1.5.0 or later.
+This project provides firmware releases on LVFS that can be installed using fwupd 1.5.0 or later.
 The firmware can be selected for install by following the prompts using the switch-branch command in fwupdmgr:
 ```bash
 sudo fwupdmgr switch-branch
