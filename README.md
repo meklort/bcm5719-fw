@@ -47,7 +47,7 @@ This will flash the latest firmware from LVFS onto the network card and will sav
 Once switched, future releases will be installed using the standard update mechanism in fwupd.
 
 ## Installing using fwupdtool
-Alternatively to using LVFS, The fwupd cab files in the release package can be manually flashed with fwupdtool 1.5.0 or later.
+Alternatively to using LVFS, the fwupd cab files in the release package can be manually flashed with fwupdtool 1.5.0 or later.
 
 For **Talos II**:
 ```bash
