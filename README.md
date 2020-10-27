@@ -26,7 +26,7 @@ The current version of the code is functional and is able to handle network traf
   - Tests: To be written
 
 # Usage
-The paths in the steps below refer to the release archives. Files in the development tree (after following instructions in [Building](#building)) are located in subdirectories of `./build`.
+Blackbird and Talos II users may install this firmware using [fwupd](https://fwupd.org/), either via the Linux Vendor Firmware Service, or manually using `fwupdtool` and a [release archive](https://github.com/meklort/bcm5719-fw/releases). Other BCM5719 devices may not be thoroughly tested, or tested at all; should you wish to proceed, it is encouraged to download or [build](#building) the firmware and refer to instructions in [Development](#development), especially the section on [testing APE firmware](#testing-ape-firmware).
 
 ## Backup Firmware
 Before proceeding, the original firmware should be backed up.
@@ -55,10 +55,8 @@ sudo fwupdtool install ./fwupd/talos2-bcm5719-<version>.cab --allow-branch-switc
 ```
 For **Blackbird**:
 ```bash
-sudo fwupdtool install fwupd/blackbird-bcm5719-<version>.cab --allow-branch-switch
+sudo fwupdtool install ./fwupd/blackbird-bcm5719-<version>.cab --allow-branch-switch
 ```
-
-Other BCM5719 devices are not tested, so the APE firmware should first be [loaded into RAM](#testing-ape-firmware) to test.
 
 ## Restoring From Backup
 Past firmware images can be restored from backup using the bcmflash tool.
