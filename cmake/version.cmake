@@ -68,7 +68,8 @@ ELSE()
     # Within a git repository
 
     # Find the previous tag. This should be in the format of "vMajor.Minor.Patch"
-    EXECUTE_PROCESS(COMMAND git describe --abbrev=0 --tags
+    # HEAD~1 is used here to ensure release tags build properly.
+    EXECUTE_PROCESS(COMMAND git describe --abbrev=0 --tags HEAD~1
                     OUTPUT_VARIABLE PREVIOUS_TAG
                     OUTPUT_STRIP_TRAILING_WHITESPACE)
 
