@@ -64,6 +64,7 @@
 #endif
 
 #define RMU_WATCHDOG_TIMEOUT_MS (10)
+#define RX_CPU_RESET_TIMEOUT_MS (1000) /* Wait up to 1 second for each RX CPU to start */
 
 static NetworkPort_t *gPort;
 
@@ -112,6 +113,8 @@ void handleCommand(void)
 
 void wait_for_rx(const volatile DEVICE_t *device, const volatile SHM_t *shm)
 {
+    uint32_t startTime = Timer_getCurrentTime1KHz();
+
     bool waiting = true;
     do
     {
@@ -124,6 +127,12 @@ void wait_for_rx(const volatile DEVICE_t *device, const volatile SHM_t *shm)
         if (SHM_RCPU_SEG_SIG_SIG_RCPU_MAGIC == shm->RcpuSegSig.bits.Sig)
         {
             // Firmware has finished initialization.
+            waiting = false;
+        }
+
+        if (Timer_didTimeElapsed1KHz(startTime, RX_CPU_RESET_TIMEOUT_MS))
+        {
+            printf("RX CPU reset timeout.\n");
             waiting = false;
         }
     } while (waiting);
@@ -152,11 +161,7 @@ void handleBMCPacket(void)
         if (stat.bits.Bad)
         {
             // ACK bad packet.
-            APE_PERI.BmcToNcRxControl.bits.ResetBad = 1;
-            while (APE_PERI.BmcToNcRxControl.bits.ResetBad)
-            {
-                // Wait
-            }
+            RMU_resetBadPacket();
         }
         else
         {
@@ -202,7 +207,7 @@ void handleBMCPacket(void)
                         printf("Resetting TX...\n");
                         // Reset, as it's likely locked up now.
                         wait_for_all_rx();
-                        initRMU();
+                        RMU_init();
                         NCSI_reload(AS_NEEDED);
                     }
                 }
@@ -231,7 +236,7 @@ void handleBMCPacket(void)
             if (Timer_didTimeElapsed1KHz(inProgressStartTime, RMU_WATCHDOG_TIMEOUT_MS))
             {
                 printf("RMU Hang detected, resetting.\n");
-                initRMU();
+                RMU_init();
                 packetInProgress = false;
             }
         }
@@ -254,7 +259,7 @@ void checkSupply(bool alwaysReport)
         {
             printf("Powered off, resetting\n");
             wait_for_all_rx();
-            initRMU();
+            RMU_init();
             NCSI_reload(ALWAYS_RESET);
         }
 
@@ -303,13 +308,13 @@ void __attribute__((noreturn)) loaderLoop(void)
             {
                 printf("host started\n");
                 wait_for_all_rx();
-                initRMU();
+                RMU_init();
                 NCSI_reload(NEVER_RESET);
             }
             else
             {
                 wait_for_all_rx();
-                initRMU();
+                RMU_init();
                 if (SHM_HOST_DRIVER_STATE_STATE_UNLOAD == host_state)
                 {
                     printf("host unloaded.\n");
@@ -396,7 +401,7 @@ void __attribute__((noreturn)) __start()
 
     checkSupply(true);
 
-    initRMU();
+    RMU_init();
 
     if (full_init)
     {

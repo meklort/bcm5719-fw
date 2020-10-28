@@ -45,9 +45,17 @@
 #include <APE_APE.h>
 #include <APE_APE_PERI.h>
 #include <Network.h>
+#include <Timer.h>
 #include <ape_main.h>
 
-void initRMU(void)
+#ifndef CXX_SIMULATOR
+#include <ape_console.h>
+#include <printf.h>
+#endif
+
+#define RMU_RESET_TIMEOUT_MS (2000) /* Allow up to two seconds for a bad packet to be reset. */
+
+void RMU_init(void)
 {
     RegAPEMode_t mode;
     mode.r32 = APE.Mode.r32;
@@ -102,9 +110,20 @@ void initRMU(void)
     arbControl.bits.TKNREL = 0x14;
     APE_PERI.ArbControl = arbControl;
 
+    RMU_resetBadPacket();
+}
+
+void RMU_resetBadPacket(void)
+{
+    uint32_t startTime = Timer_getCurrentTime1KHz();
+
     APE_PERI.BmcToNcRxControl.bits.ResetBad = 1;
     while (APE_PERI.BmcToNcRxControl.bits.ResetBad)
     {
         // Wait
+        if (Timer_didTimeElapsed1KHz(startTime, RMU_RESET_TIMEOUT_MS))
+        {
+            printf("RMU packet reset failed.\n");
+        }
     }
 }

@@ -45,6 +45,8 @@
 #ifndef APE_H
 #define APE_H
 
-void initRMU(void);
+void RMU_init(void);
+
+void RMU_resetBadPacket(void);
 
 #endif /* APE_H */
