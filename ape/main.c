@@ -55,6 +55,7 @@
 #include <Ethernet.h>
 #include <NCSI.h>
 #include <NVRam.h>
+#include <Timer.h>
 #include <ape_main.h>
 
 #ifndef CXX_SIMULATOR
@@ -227,7 +228,7 @@ void handleBMCPacket(void)
             // the RMU state machine can enter a stuck state.
             // This can be seen as an InProgress for an unreasonable amount of time.
             // In such a case, reset the RMU to recover.
-            if (APE.Tick1khz.r32 - inProgressStartTime > RMU_WATCHDOG_TIMEOUT_MS)
+            if (Timer_didTimeElapsed1KHz(inProgressStartTime, RMU_WATCHDOG_TIMEOUT_MS))
             {
                 printf("RMU Hang detected, resetting.\n");
                 initRMU();
@@ -237,7 +238,7 @@ void handleBMCPacket(void)
         else
         {
             packetInProgress = true;
-            inProgressStartTime = APE.Tick1khz.r32;
+            inProgressStartTime = Timer_getCurrentTime1KHz();
         }
     }
 }
