@@ -1,16 +1,16 @@
 ################################################################################
 ###
-### @file       CMakeLists.txt
+### @file       libs/Timer/CMakeLists.txt
 ###
-### @project    bcm5719
+### @project    bcm5719-fw
 ###
-### @brief      APE stage for the bcm5719
-###
-################################################################################
+### @brief      Timer CMake file
 ###
 ################################################################################
 ###
-### @copyright Copyright (c) 2018-2020, Evan Lojewski
+################################################################################
+###
+### @copyright Copyright (c) 2020, Evan Lojewski
 ### @cond
 ###
 ### All rights reserved.
@@ -42,43 +42,26 @@
 ### @endcond
 ################################################################################
 
+project(Timer)
 
-project(ape)
+SET(${PROJECT_NAME}_SRC
+    timer.c         include/Timer.h
+)
 
-# Firmware
-function(ape_firmware PORT)
-    SET(TARGET ${PROJECT_NAME}-port${PORT})
-    arm_add_executable(${TARGET}
-                main.c
-                vectors.c
-                rmu.c
-                )
-    arm_linker_script(${TARGET} "${CMAKE_CURRENT_SOURCE_DIR}/ape.ld")
+# Host Simulation library
+simulator_add_library(${PROJECT_NAME} STATIC ${${PROJECT_NAME}_SRC})
+target_link_libraries(${PROJECT_NAME} PRIVATE simulator)
+target_include_directories(${PROJECT_NAME} PUBLIC ../../include)
+target_include_directories(${PROJECT_NAME} PUBLIC include)
 
-    target_include_directories(${TARGET} PRIVATE include)
-    target_link_libraries(${TARGET} NVRam-arm MII-arm APE-arm Network-arm NCSI-arm Timer-arm printf-arm)
-    target_link_libraries(${TARGET} bcm5719-arm)
-    target_link_libraries(${TARGET}
-        --defsym=NETWORK_PORT=${PORT}
-        --defsym=VERSION_MAJOR=${VERSION_MAJOR}
-        --defsym=VERSION_MINOR=${VERSION_MINOR}
-        --defsym=VERSION_PATCH=${VERSION_PATCH})
-    target_compile_options(${TARGET} PRIVATE -nodefaultlibs)
-    target_compile_definitions(${TARGET} PRIVATE NETWORK_PORT=${PORT})
+# MIPS Library
+mips_add_library(${PROJECT_NAME}-mips STATIC ${${PROJECT_NAME}_SRC})
+target_include_directories(${PROJECT_NAME}-mips PUBLIC ../../include)
+target_include_directories(${PROJECT_NAME}-mips PUBLIC include)
 
-    install(TARGETS ${TARGET} DESTINATION fw RESOURCE)
+# ARM Library
+arm_add_library(${PROJECT_NAME}-arm STATIC ${${PROJECT_NAME}_SRC})
+target_include_directories(${PROJECT_NAME}-arm PUBLIC ../../include)
+target_include_directories(${PROJECT_NAME}-arm PUBLIC include)
 
-endfunction()
-
-ape_firmware(0)
-ape_firmware(2)
-
-format_target_sources(${PROJECT_NAME}-port0)
-
-# Simulator add_executable
-# simulator_add_executable(sim-${PROJECT_NAME}
-            # init_hw.c
-            # main.c)
-
-# target_link_libraries(sim-${PROJECT_NAME} simulator)
-# target_link_libraries(sim-${PROJECT_NAME} NVRam MII VPD APE)
+format_target_sources(${PROJECT_NAME})

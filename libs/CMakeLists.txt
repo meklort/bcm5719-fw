@@ -2,7 +2,7 @@
 ###
 ### @file       libs/CMakeLists.txt
 ###
-### @project    
+### @project    bcm5719-fw
 ###
 ### @brief      Library CMake file
 ###
@@ -47,6 +47,8 @@ add_subdirectory(NVRam)
 add_subdirectory(APE)
 add_subdirectory(MII)
 add_subdirectory(VPD)
+
+add_subdirectory(Timer)
 
 add_subdirectory(NCSI)
 add_subdirectory(Network)
