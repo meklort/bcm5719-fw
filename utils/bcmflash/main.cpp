@@ -552,6 +552,7 @@ int main(int argc, char const *argv[])
     {
         // Default to erased flash contents.
         memset(nvram.words, -1, sizeof(nvram.words));
+        memset(&nvram.contents.vpd, 0, sizeof(nvram.contents.vpd));
 
         init_firmware_header(&nvram.contents, options["create"].c_str());
 
@@ -611,8 +612,6 @@ int main(int argc, char const *argv[])
 
             nvram_size = sizeof(uint32_t) * ((&stage2->words[1] - nvram.words) + ape_length);
         }
-
-        memset(&nvram.contents.vpd, 0, sizeof(nvram.contents.vpd));
     }
     else
     {

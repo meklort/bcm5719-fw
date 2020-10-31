@@ -46,12 +46,18 @@
 
 extern NVRAMInfo_t gTalosIINVRAMInfo;
 extern NVRAMInfo2_t gTalosIINVRAMInfo2;
+extern unsigned char gTalosIIVPD[];
+extern size_t gTalosIIVPDLength;
 
 extern NVRAMInfo_t gBlackbirdNVRAMInfo;
 extern NVRAMInfo2_t gBlackbirdNVRAMInfo2;
+extern unsigned char gBlackbirdVPD[];
+extern size_t gBlackbirdVPDLength;
 
 extern NVRAMInfo_t gKH08PNVRAMInfo;
 extern NVRAMInfo2_t gKH08PNVRAMInfo2;
+extern unsigned char gKH08PVPD[];
+extern size_t gKH08PVPDLength;
 
 void init_firmware_header(NVRAMContents_t *nvram, const char *type);
 void fixup_firmware_header(NVRAMContents_t *nvram);

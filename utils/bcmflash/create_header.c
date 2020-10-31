@@ -49,27 +49,34 @@
 #include <endian.h>
 #include <string.h>
 
+static struct
+{
+    const char *name;
+    NVRAMInfo_t *info;
+    NVRAMInfo2_t *info2;
+    unsigned char *vpd;
+    size_t vpd_length;
+} devices[] = {
+    { .name = "blackbird", .info = &gBlackbirdNVRAMInfo, .info2 = &gBlackbirdNVRAMInfo2, .vpd = gBlackbirdVPD, .vpd_length = gBlackbirdVPDLength },
+    { .name = "talos2", .info = &gTalosIINVRAMInfo, .info2 = &gTalosIINVRAMInfo2, .vpd = gTalosIIVPD, .vpd_length = gTalosIIVPDLength },
+    { .name = "kh08p", .info = &gKH08PNVRAMInfo, .info2 = &gKH08PNVRAMInfo2, .vpd = gKH08PVPD, .vpd_length = gKH08PVPDLength },
+};
+
 void init_firmware_header(NVRAMContents_t *nvram, const char *type)
 {
-    if (0 == strncmp(type, "blackbird", sizeof("blackbird")))
+    for (size_t i = 0; i < ARRAY_ELEMENTS(devices); i++)
     {
-        memcpy(&nvram->info, &gBlackbirdNVRAMInfo, sizeof(NVRAMInfo_t));
-        memcpy(&nvram->info2, &gBlackbirdNVRAMInfo2, sizeof(NVRAMInfo2_t));
-    }
-    else if (0 == strncmp(type, "talos2", sizeof("talos2")))
-    {
-        memcpy(&nvram->info, &gTalosIINVRAMInfo, sizeof(NVRAMInfo_t));
-        memcpy(&nvram->info2, &gTalosIINVRAMInfo2, sizeof(NVRAMInfo2_t));
-    }
-    else if (0 == strncmp(type, "kh08p", sizeof("talos2")))
-    {
-        // FIXME
-        memcpy(&nvram->info, &gKH08PNVRAMInfo, sizeof(NVRAMInfo_t));
-        memcpy(&nvram->info2, &gKH08PNVRAMInfo2, sizeof(NVRAMInfo2_t));
-    }
-    else
-    {
-        // Error
+        if (0 == strncmp(type, devices[i].name, strlen(devices[i].name) + 1))
+        {
+            // Found the right device to use.
+            memcpy(&nvram->info, devices[i].info, sizeof(NVRAMInfo_t));
+            memcpy(&nvram->info2, devices[i].info2, sizeof(NVRAMInfo2_t));
+            if (devices[i].vpd_length <= sizeof(vpd_t))
+            {
+                memcpy(&nvram->vpd, devices[i].vpd, devices[i].vpd_length);
+            }
+            break;
+        }
     }
 
     nvram->header.magic = htobe32(BCM_NVRAM_MAGIC);
