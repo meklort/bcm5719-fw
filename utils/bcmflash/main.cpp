@@ -372,6 +372,10 @@ void dump_info(NVRAMInfo_t *info, NVRAMInfo2_t *info2)
     printf("Feature:    0x%08X\n", be32toh(info2->func3CfgFeature));
     printf("Cfg:        0x%08X\n", be32toh(info2->func3CfgHW));
     printf("Cfg2:       0x%08X\n", be32toh(info2->func3CfgHW2));
+
+    printf("\n=== SMBus ===\n");
+    printf("Device Address: 0x%02X\n", info->SMBusAddr);
+    printf("BMC Address:    0x%02X\n", info->SMBusAddrBMC);
 }
 
 void dump_vpd(uint8_t *vpd, size_t vpd_len)
