@@ -43,6 +43,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "bcmflash.h"
+#include "create_header.h"
 #include "ethtool.h"
 
 #include <../bcm5719_NVM.h>
@@ -295,7 +296,6 @@ void dump_info(NVRAMInfo_t *info, NVRAMInfo2_t *info2)
     printf("Device ID: 0x%04X\n", be16toh(info->deviceID));
     printf("Subsystem Vendor ID: 0x%04X\n", be16toh(info->subsystemVendorID));
     printf("Subsystem Device ID: 0x%04X\n", be16toh(info->subsystemDeviceID));
-    printf("Subsystem ID: 0x%04X\n", be16toh(info->subsystemDeviceID));
 
     printf("Function 0S Subsystem ID 0x%04X\n", be16toh(info2->pciSubsystemF0SERDES));
     printf("Function 1S Subsystem ID 0x%04X\n", be16toh(info2->pciSubsystemF1SERDES));
@@ -480,7 +480,7 @@ int main(int argc, char const *argv[])
 
     parser.add_option("-r", "restore").dest("restore").help("Update the target device to match the specified file.").metavar("FILE");
 
-    parser.add_option("-c", "--create").dest("create").action("store_true").set_default("0").help("Create a full firmware image for use with fwupd.");
+    parser.add_option("-c", "--create").choices({ "talos2", "blackbird", "kh08p" }).dest("create").help("Create a full firmware image for use with fwupd.");
 
     for (size_t i = 0; i < ARRAY_ELEMENTS(mac_table); i++)
     {
@@ -548,21 +548,12 @@ int main(int argc, char const *argv[])
         }
     }
 
-    if (options.get("create"))
+    if (options.is_set("create"))
     {
         // Default to erased flash contents.
         memset(nvram.words, -1, sizeof(nvram.words));
 
-        memcpy(nvram.contents.info.partNumber, "BCM95719", sizeof("BCM95719"));
-        memcpy(nvram.contents.info.partRevision, "A0", sizeof("A0"));
-        nvram.contents.info.vendorID = htobe16(0x14E4);
-        nvram.contents.info.deviceID = htobe16(0x1657);
-
-        nvram.contents.header.magic = htobe32(BCM_NVRAM_MAGIC);
-        nvram.contents.header.bootstrapPhysAddr = htobe32(0x08003800);
-        nvram.contents.header.bootstrapOffset = htobe32(sizeof(NVRAMContents_t));
-        nvram.contents.header.bootstrapWords = 0;
-        nvram.contents.header.crc = 0;
+        init_firmware_header(&nvram.contents, options["create"].c_str());
 
         if (options.is_set("stage1"))
         {
@@ -828,7 +819,7 @@ int main(int argc, char const *argv[])
     if (should_write)
     {
         // Fixup the firmware header now that all information is up to date.
-        nvram.contents.header.crc = ~NVRam_crc((uint8_t *)&nvram.contents.header, sizeof(nvram.contents.header) - 4, 0xffffffff);
+        fixup_firmware_header(&nvram.contents);
         printf("Header CRC: %x\n", nvram.contents.header.crc);
 
         // write updated nvram.
