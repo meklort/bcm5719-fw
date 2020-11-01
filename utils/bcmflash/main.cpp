@@ -240,6 +240,49 @@ void dump_code_directory(NVRAMCodeDirectory_t *cd, uint8_t *nvram, const char *o
     }
 }
 
+bool set_mac(uint32_t dest[2], const char *mac_str)
+{
+    const int num_octets = 6;
+    uint64_t mac = 0;
+    char *endptr;
+    for (int i = 0; i < num_octets; i++)
+    {
+        long int octet = strtol(mac_str, &endptr, 16);
+        if (i < num_octets - 1 && *endptr != ':')
+        {
+            // Octets must be seperated by :.
+            return false;
+        }
+
+        if (i == num_octets - 1 && *endptr != '\0')
+        {
+            // Must only have 6 octets
+            return false;
+        }
+
+        if (endptr != mac_str + 2)
+        {
+            // Must have two digets
+            return false;
+        }
+
+        if ((octet & 0xFF) != octet)
+        {
+            // Invalid - must only be a single byte.
+            return false;
+        }
+
+        mac = octet | (mac << 8);
+
+        mac_str = endptr + 1;
+    }
+
+    dest[0] = htobe32((mac >> 32) & 0xFFFF);
+    dest[1] = htobe32(mac & 0xFFFFFFff);
+
+    return true;
+}
+
 void dump_info(NVRAMInfo_t *info, NVRAMInfo2_t *info2)
 {
     printf("\n=== Info ===\n");
@@ -383,6 +426,18 @@ int main(int argc, char const *argv[])
     gVPD = nvram.contents.vpd.bytes;
     gVPDLength = sizeof(nvram.contents.vpd);
 
+    struct
+    {
+        const char *option;
+        int port;
+        uint32_t *dest;
+    } mac_table[] = {
+        { .option = "mac0", .port = 0, .dest = nvram.contents.info.macAddr0 },
+        { .option = "mac1", .port = 1, .dest = nvram.contents.info.macAddr1 },
+        { .option = "mac2", .port = 2, .dest = nvram.contents.info2.macAddr2 },
+        { .option = "mac3", .port = 3, .dest = nvram.contents.info2.macAddr3 },
+    };
+
     OptionParser parser = OptionParser().description("BCM Flash Utility v" VERSION_STRING);
 
     parser.version(VERSION_STRING);
@@ -426,6 +481,13 @@ int main(int argc, char const *argv[])
     parser.add_option("-r", "restore").dest("restore").help("Update the target device to match the specified file.").metavar("FILE");
 
     parser.add_option("-c", "--create").dest("create").action("store_true").set_default("0").help("Create a full firmware image for use with fwupd.");
+
+    for (size_t i = 0; i < ARRAY_ELEMENTS(mac_table); i++)
+    {
+        std::string option = "--" + std::string(mac_table[i].option);
+        std::string help = "Update the MAC address for port " + std::to_string(mac_table[i].port) + ". Format: 01:23:45:67:89:AB";
+        parser.add_option(option).dest(mac_table[i].option).help(help);
+    }
 
     parser.add_option("-1", "--stage1").dest("stage1").help("Update the target with the specified stage1 image, if possible.").metavar("STAGE1");
 
@@ -516,10 +578,6 @@ int main(int argc, char const *argv[])
                 exit(-1);
             }
         }
-
-        // now we know the size of stage1
-        nvram.contents.header.crc = ~NVRam_crc((uint8_t *)&nvram.contents.header, sizeof(nvram.contents.header) - 4, 0xffffffff);
-        printf("CRC: %x\n", nvram.contents.header.crc);
 
         // Stage2 unsupported presently.
         size_t stage1_length = (be32toh(nvram.contents.header.bootstrapWords) * 4) - 4; // last word is CRC
@@ -755,8 +813,24 @@ int main(int argc, char const *argv[])
         }
     }
 
+    for (size_t i = 0; i < ARRAY_ELEMENTS(mac_table); i++)
+    {
+        if (options.is_set(mac_table[i].option))
+        {
+            should_write = true;
+            if (!set_mac(mac_table[i].dest, options[mac_table[i].option].c_str()))
+            {
+                parser.error("Invalid MAC address format.");
+            }
+        }
+    }
+
     if (should_write)
     {
+        // Fixup the firmware header now that all information is up to date.
+        nvram.contents.header.crc = ~NVRam_crc((uint8_t *)&nvram.contents.header, sizeof(nvram.contents.header) - 4, 0xffffffff);
+        printf("Header CRC: %x\n", nvram.contents.header.crc);
+
         // write updated nvram.
         if (!target->write(target_name, nvram.bytes, nvram_size))
         {
