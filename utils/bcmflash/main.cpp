@@ -770,5 +770,21 @@ int main(int argc, char const *argv[])
 
     dump_vpd(gVPD, gVPDLength);
 
+    if (extract)
+    {
+        if (!bcmflash_file_write("vpd.bin", nvram.contents.vpd.bytes, sizeof(nvram.contents.vpd)))
+        {
+            exit(-1);
+        }
+
+        if (gVPD != nvram.contents.vpd.bytes)
+        {
+            if (!bcmflash_file_write("vpd-e.bin", gVPD, gVPDLength))
+            {
+                exit(-1);
+            }
+        }
+    }
+
     return 0;
 }
