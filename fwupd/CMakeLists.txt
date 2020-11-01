@@ -64,7 +64,7 @@ FUNCTION(CREATE_FWUPD_CAB TARGET_ID TARGET_NAME APE_VARIANT FIRMWARE_ID HARDWARE
     configure_file(metainfo.xml.in ${APP_STREAM_PREFIX}.${TARGET_ID}.metainfo.xml @ONLY)
 
     add_custom_command(OUTPUT ${TARGET_ID}-${APE_VARIANT}.${VERSION_STRING}.fw
-        COMMAND bcmflash -c -t file -i ${TARGET_ID}-${APE_VARIANT}.${VERSION_STRING}.fw
+        COMMAND bcmflash -c ${TARGET_ID} -t file -i ${TARGET_ID}-${APE_VARIANT}.${VERSION_STRING}.fw
             -1 $<TARGET_PROPERTY:stage1,RESOURCE>
             -a $<TARGET_PROPERTY:ape-${APE_VARIANT},RESOURCE>
         COMMAND touch -d "${VERSION_TIMESTAMP}" ${TARGET_ID}-${APE_VARIANT}.${VERSION_STRING}.fw

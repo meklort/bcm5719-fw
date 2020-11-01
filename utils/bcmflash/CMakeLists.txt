@@ -8,6 +8,12 @@ set(SOURCES
 
     bcmflash.h
     ethtool.c     ethtool.h
+
+    # Support files for initializing the firmware header
+    create_header.c     create_header.h
+    nvm_talos2.c
+    nvm_blackbird.c
+    nvm_kh08p.c
 )
 
 simulator_add_executable(${PROJECT_NAME} ${SOURCES})
