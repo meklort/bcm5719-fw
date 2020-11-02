@@ -181,7 +181,7 @@ typedef struct {
     uint8_t     SMBusAddr;
     uint8_t     SMBusAddrBMC;
 
-    uint32_t    macAddr0Backup[2];
+    uint32_t    macAddrBMC[2];
     uint32_t    macAddr1Backup[2];
 
     union {

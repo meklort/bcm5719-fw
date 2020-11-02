@@ -114,7 +114,7 @@ NVRAMInfo_t gKH08PNVRAMInfo = {
     .SMBusAddr = 0x64,
     .SMBusAddrBMC = 0,
 
-    .macAddr0Backup = { 0 },
+    .macAddrBMC = { 0 },
     .macAddr1Backup = { 0 },
 
     .powerDissipatedD0 = 0x64,

@@ -405,6 +405,10 @@ void dump_info(NVRAMInfo_t *info, NVRAMInfo2_t *info2)
     hw2.r32 = be32toh(info2->func3CfgHW2);
     hw2.print();
 
+    printf("\n=== BMC ===\n");
+    // TODO: Find APE binary and determine hard-coded port.
+    printf("MAC:        0x%04X%08X\n", be32toh(info->macAddrBMC[0]), be32toh(info->macAddrBMC[1]));
+
     printf("\n=== SMBus ===\n");
     printf("Device Address: 0x%02X\n", info->SMBusAddr);
     printf("BMC Address:    0x%02X\n", info->SMBusAddrBMC);
@@ -472,6 +476,7 @@ int main(int argc, char const *argv[])
         { .option = "mac1", .port = 1, .dest = nvram.contents.info.macAddr1 },
         { .option = "mac2", .port = 2, .dest = nvram.contents.info2.macAddr2 },
         { .option = "mac3", .port = 3, .dest = nvram.contents.info2.macAddr3 },
+        { .option = "macBMC", .port = -1, .dest = nvram.contents.info.macAddrBMC },
     };
 
     OptionParser parser = OptionParser().description("BCM Flash Utility v" VERSION_STRING);
@@ -521,7 +526,17 @@ int main(int argc, char const *argv[])
     for (size_t i = 0; i < ARRAY_ELEMENTS(mac_table); i++)
     {
         std::string option = "--" + std::string(mac_table[i].option);
-        std::string help = "Update the MAC address for port " + std::to_string(mac_table[i].port) + ". Format: 01:23:45:67:89:AB";
+        int port = mac_table[i].port;
+        std::string help;
+        if (port >= 0)
+        {
+            help = "Update the MAC address for port " + std::to_string(mac_table[i].port) + ". Format: 01:23:45:67:89:AB";
+        }
+        else
+        {
+            help = "Update the MAC address for the BMC. Format: 01:23:45:67:89:AB";
+        }
+
         parser.add_option(option).dest(mac_table[i].option).help(help);
     }
 
