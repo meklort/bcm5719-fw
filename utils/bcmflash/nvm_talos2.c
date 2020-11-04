@@ -61,7 +61,7 @@ NVRAMInfo2_t gTalosIINVRAMInfo2 = {
     .mfr2Len = htobe16(sizeof(NVRAMInfo2_t)), //   [202] 00 8C          -- Length of manufacturing section 2.
     .UNKNOWN0 = 0,                            //   [204] 00 00 00 00    -- Could be reserved.
 
-    .macAddr2 = { 0 }, // 1  [208] Upper 16 bits are zero/unused.
+    .macAddr2 = { htobe32(0x1122), htobe32(0x33445572) },
 
     .UNKNOWN1 = 0, //   [210] 0
     .UNKNOWN2 = 0, //   [214] 0
@@ -90,7 +90,7 @@ NVRAMInfo2_t gTalosIINVRAMInfo2 = {
     .func2CfgFeature = htobe32(0xC5C00000), // 1  [250] C5 C0 00 00 - Function 2 GEN_CFG_1E4.
     .func2CfgHW = htobe32(0x00004014),      // 1  [254] 00 00 40 14 - Function 2 GEN_CFG_2.
 
-    .macAddr3 = { 0 }, // 1  [258] Upper 16 bits are zero/unused.
+    .macAddr3 = { htobe32(0x1122), htobe32(0x33445573) },
 
     .func3CfgFeature = htobe32(0xC5C00000), // 1  [260] C5 C0 00 00 - Function 3 GEN_CFG_1E4.
     .func3CfgHW = htobe32(0x00004014),      // 1  [264] 00 00 40 14 - Function 3 GEN_CFG_2.
@@ -106,7 +106,7 @@ NVRAMInfo2_t gTalosIINVRAMInfo2 = {
 };
 
 NVRAMInfo_t gTalosIINVRAMInfo = {
-    .macAddr0 = { 0 }, /* Placeholder*/
+    .macAddr0 = { htobe32(0x1122), htobe32(0x33445570) },
     .partNumber = "BCM95719",
     .partRevision = { 'A', '0' },
     .firmwareRevision = 0, /* Placeholder*/
@@ -139,7 +139,7 @@ NVRAMInfo_t gTalosIINVRAMInfo = {
     .func0CfgFeature = htobe32(0xC5C00080),
     .func0CfgHW = htobe32(0x00004014),
 
-    .macAddr1 = { 0 },
+    .macAddr1 = { htobe32(0x1122), htobe32(0x33445571) },
     .func1CfgFeature = htobe32(0xC5C00000),
     .func1CfgHW = htobe32(0x00004014),
 
