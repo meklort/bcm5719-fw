@@ -73,14 +73,14 @@ NVRAMInfo2_t gTalosIINVRAMInfo2 = {
     .func3PXEVLAN = htobe16(0),
     .func2PXEVLAN = htobe16(0),
 
-    .pciSubsystemF0GPHY = htobe16(0x1981),
     .pciSubsystemF1GPHY = htobe16(0x1981),
-    .pciSubsystemF2GPHY = htobe16(0x1981),
+    .pciSubsystemF0GPHY = htobe16(0x1981),
     .pciSubsystemF3GPHY = htobe16(0x1981),
-    .pciSubsystemF0SERDES = htobe16(0x1657),
+    .pciSubsystemF2GPHY = htobe16(0x1981),
     .pciSubsystemF1SERDES = htobe16(0x1657),
-    .pciSubsystemF2SERDES = htobe16(0x1657),
+    .pciSubsystemF0SERDES = htobe16(0x1657),
     .pciSubsystemF3SERDES = htobe16(0x1657),
+    .pciSubsystemF2SERDES = htobe16(0x1657),
 
     .UNKNOWN7 = 0,                          //   [23C] 0
     .UNKNOWN8 = 0,                          //   [240] 0
@@ -113,10 +113,10 @@ NVRAMInfo_t gTalosIINVRAMInfo = {
     .mfrData = { 0 },
     .func1PXEVLAN = 0,
     .func0PXEVLAN = 0,
-    .vendorID = htobe16(0x1657),          /*< PCI Vendor ID. */
-    .deviceID = htobe16(0x14E4),          /*< PCI Device ID. */
-    .subsystemVendorID = htobe16(0x1657), /*< PCI Subsystem Vendor ID. */
-    .subsystemDeviceID = htobe16(0x14E4), /*< PCI Subsystem Device ID. */
+    .deviceID = htobe16(0x1657),          /*< PCI Device ID. */
+    .vendorID = htobe16(0x14E4),          /*< PCI Vendor ID. */
+    .subsystemDeviceID = htobe16(0x1657), /*< PCI Subsystem Device ID. */
+    .subsystemVendorID = htobe16(0x14E4), /*< PCI Subsystem Vendor ID. */
 
     .cpuClock = htobe16(66), /*< 66MHz, Legacy */
 

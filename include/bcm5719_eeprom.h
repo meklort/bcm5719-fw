@@ -168,75 +168,39 @@ typedef struct {
 
     uint8_t     mfrData[4];
 
-#ifdef __LITTLE_ENDIAN__
     uint16_t    func1PXEVLAN;
     uint16_t    func0PXEVLAN;
-#else
-    uint16_t    func0PXEVLAN;
-    uint16_t    func1PXEVLAN;
-#endif
 
-#ifdef __LITTLE_ENDIAN__
-    uint16_t    vendorID;           /*< PCI Vendor ID. */
-    uint16_t    deviceID;           /*< PCI Device ID. */
-#else
     uint16_t    deviceID;           /*< PCI Device ID. */
     uint16_t    vendorID;           /*< PCI Vendor ID. */
-#endif
 
-#ifdef __LITTLE_ENDIAN__
-    uint16_t    subsystemVendorID;  /*< PCI Subsystem Vendor ID. */
-    uint16_t    subsystemDeviceID;  /*< PCI Subsystem Device ID. */
-#else
     uint16_t    subsystemDeviceID;  /*< PCI Subsystem Device ID. */
     uint16_t    subsystemVendorID;  /*< PCI Subsystem Vendor ID. */
-#endif
 
-#ifdef __LITTLE_ENDIAN__
     uint16_t    cpuClock;           /*< 66MHz, Legacy */
 
     uint8_t     SMBusAddr;
     uint8_t     SMBusAddrBMC;
-#else
-    uint8_t     SMBusAddrBMC;
-    uint8_t     SMBusAddr;
-
-    uint16_t    cpuClock;           /*< 66MHz, Legacy */
-#endif
 
     uint32_t    macAddr0Backup[2];
     uint32_t    macAddr1Backup[2];
 
     union {
         struct {
-#ifdef __LITTLE_ENDIAN__
             uint8_t     powerDissipatedD3;  /*< Power dissipated in the D3 state. Note: The data scale is hard coded at 0.1. */
             uint8_t     powerDissipatedD2;  /*< Power dissipated in the D2 state. The NetXtreme II family does not support the D2 state. */
             uint8_t     powerDissipatedD1;  /*< Power dissipated in the D1 state. The NetXtreme II family does not support the D1 state. */
             uint8_t     powerDissipatedD0;  /*< Power dissipated in the D0 state. Note: The data scale is hard coded at 0.1. */
-#else
-            uint8_t     powerDissipatedD0;  /*< Power dissipated in the D0 state. Note: The data scale is hard coded at 0.1. */
-            uint8_t     powerDissipatedD1;  /*< Power dissipated in the D1 state. The NetXtreme II family does not support the D1 state. */
-            uint8_t     powerDissipatedD2;  /*< Power dissipated in the D2 state. The NetXtreme II family does not support the D2 state. */
-            uint8_t     powerDissipatedD3;  /*< Power dissipated in the D3 state. Note: The data scale is hard coded at 0.1. */
-#endif
         };
         uint32_t     powerDissipated;
     };
 
     union {
         struct {
-#ifdef __LITTLE_ENDIAN__
             uint8_t     powerConsumedD3;    /*< Power consumed in the D3 state. Note: The data scale is hard coded at 0.1. */
             uint8_t     powerConsumedD2;    /*< Power consumed in the D2 state. The NetXtreme II family does not support the D2 state. */
             uint8_t     powerConsumedD1;    /*< Power consumed in the D1 state. The NetXtreme II family does not support the D1 state. */
             uint8_t     powerConsumedD0;    /*< Power consumed in the D0 state. Note: The data scale is hard coded at 0.1. */
-#else
-            uint8_t     powerConsumedD0;    /*< Power consumed in the D0 state. Note: The data scale is hard coded at 0.1. */
-            uint8_t     powerConsumedD1;    /*< Power consumed in the D1 state. The NetXtreme II family does not support the D1 state. */
-            uint8_t     powerConsumedD2;    /*< Power consumed in the D2 state. The NetXtreme II family does not support the D2 state. */
-            uint8_t     powerConsumedD3;    /*< Power consumed in the D3 state. Note: The data scale is hard coded at 0.1. */
-#endif
         };
         uint32_t     powerConsumed;
     };
@@ -253,33 +217,18 @@ typedef struct {
     uint32_t    powerBudget0;
     uint32_t    powerBudget1;
     uint32_t    serworksUse;
-#ifdef __LITTLE_ENDIAN__
     uint16_t    func1SERDESOverride;
     uint16_t    func0SERDESOverride;
-#else
-    uint16_t    func0SERDESOverride;
-    uint16_t    func1SERDESOverride;
-#endif
-#ifdef __LITTLE_ENDIAN__
     uint16_t    tpmNVMSize;
     uint16_t    macNVMSize;
-#else
-    uint16_t    macNVMSize;
-    uint16_t    tpmNVMSize;
-#endif
     uint32_t    powerBudget2;
     uint32_t    powerBudget3;
     uint32_t    mfrCRC;
 } NVRAMInfo_t;
 
 typedef struct {
-#ifdef __LITTLE_ENDIAN__
     uint16_t    mfr2Unk;                //   [200] 00 00          -- Unknown, probably unused.
     uint16_t    mfr2Len;                //   [202] 00 8C          -- Length of manufacturing section 2.
-#else
-    uint16_t    mfr2Len;                //   [202] 00 8C          -- Length of manufacturing section 2.
-    uint16_t    mfr2Unk;                //   [200] 00 00          -- Unknown, probably unused.
-#endif
     uint32_t    UNKNOWN0;               //   [204] 00 00 00 00    -- Could be reserved.
 
     uint32_t    macAddr2[2];            //1  [208] Upper 16 bits are zero/unused.
@@ -291,42 +240,17 @@ typedef struct {
     uint32_t    UNKNOWN4;               //   [220] 0
     uint32_t    UNKNOWN5;               //   [224] 0
 
-#ifdef __LITTLE_ENDIAN__
     uint16_t    func3PXEVLAN;
     uint16_t    func2PXEVLAN;
-#else
-    uint16_t    func2PXEVLAN;
-    uint16_t    func3PXEVLAN;
-#endif
 
-#ifdef __LITTLE_ENDIAN__
-    uint16_t    pciSubsystemF0GPHY;
-    uint16_t    pciSubsystemF1GPHY;
-#else
     uint16_t    pciSubsystemF1GPHY;
     uint16_t    pciSubsystemF0GPHY;
-#endif
-#ifdef __LITTLE_ENDIAN__
-    uint16_t    pciSubsystemF2GPHY;
-    uint16_t    pciSubsystemF3GPHY;
-#else
     uint16_t    pciSubsystemF3GPHY;
     uint16_t    pciSubsystemF2GPHY;
-#endif
-#ifdef __LITTLE_ENDIAN__
-    uint16_t    pciSubsystemF0SERDES;
-    uint16_t    pciSubsystemF1SERDES;
-#else
     uint16_t    pciSubsystemF1SERDES;
     uint16_t    pciSubsystemF0SERDES;
-#endif
-#ifdef __LITTLE_ENDIAN__
-    uint16_t    pciSubsystemF2SERDES;
-    uint16_t    pciSubsystemF3SERDES;
-#else
     uint16_t    pciSubsystemF3SERDES;
     uint16_t    pciSubsystemF2SERDES;
-#endif
 
     uint32_t    UNKNOWN7;               //   [23C] 0
     uint32_t    UNKNOWN8;               //   [240] 0
