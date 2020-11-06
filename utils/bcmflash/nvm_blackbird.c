@@ -61,7 +61,7 @@ NVRAMInfo2_t gBlackbirdNVRAMInfo2 = {
     .mfr2Len = htobe16(sizeof(NVRAMInfo2_t)), //   [202] 00 8C          -- Length of manufacturing section 2.
     .UNKNOWN0 = 0,                            //   [204] 00 00 00 00    -- Could be reserved.
 
-    .macAddr2 = { htobe32(0x1122), htobe32(0x33445562) },
+    .macAddr2 = { htobe32(0x1022), htobe32(0x33445562) },
 
     .UNKNOWN1 = 0, //   [210] 0
     .UNKNOWN2 = 0, //   [214] 0
@@ -90,7 +90,7 @@ NVRAMInfo2_t gBlackbirdNVRAMInfo2 = {
     .func2CfgFeature = htobe32(0xC5C00000), // 1  [250] C5 C0 00 00 - Function 2 GEN_CFG_1E4.
     .func2CfgHW = htobe32(0x00004014),      // 1  [254] 00 00 40 14 - Function 2 GEN_CFG_2.
 
-    .macAddr3 = { htobe32(0x1122), htobe32(0x33445563) },
+    .macAddr3 = { htobe32(0x1022), htobe32(0x33445563) },
 
     .func3CfgFeature = htobe32(0xC5C00000), // 1  [260] C5 C0 00 00 - Function 3 GEN_CFG_1E4.
     .func3CfgHW = htobe32(0x00004014),      // 1  [264] 00 00 40 14 - Function 3 GEN_CFG_2.
@@ -106,7 +106,7 @@ NVRAMInfo2_t gBlackbirdNVRAMInfo2 = {
 };
 
 NVRAMInfo_t gBlackbirdNVRAMInfo = {
-    .macAddr0 = { htobe32(0x1122), htobe32(0x33445560) },
+    .macAddr0 = { htobe32(0x1022), htobe32(0x33445560) },
     .partNumber = "BCM95719",
     .partRevision = { 'A', '0' },
     .firmwareRevision = 0, /* Placeholder*/
@@ -139,7 +139,7 @@ NVRAMInfo_t gBlackbirdNVRAMInfo = {
     .func0CfgFeature = htobe32(0xC5C00080),
     .func0CfgHW = htobe32(0x00004014),
 
-    .macAddr1 = { htobe32(0x1122), htobe32(0x33445561) },
+    .macAddr1 = { htobe32(0x1022), htobe32(0x33445561) },
     .func1CfgFeature = htobe32(0xC5C00000),
     .func1CfgHW = htobe32(0x00004014),
 
