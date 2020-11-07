@@ -41,13 +41,13 @@
 /// POSSIBILITY OF SUCH DAMAGE.
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
+
 #include "../NVRam/bcm5719_NVM.h"
-#include "HAL.hpp"
 
 #include <APE.h>
 #include <APE_APE_PERI.h>
 #include <APE_DEVICE.h>
-#include <APE_NVIC.h>
+#include <HAL.hpp>
 #include <MII.h>
 #include <NVRam.h>
 #include <OptionParser.h>
@@ -57,23 +57,13 @@
 #include <bcm5719_SHM_CHANNEL0.h>
 #include <bcm5719_SHM_CHANNEL1.h>
 #include <bcm5719_eeprom.h>
-#include <dirent.h>
 #include <elfio/elfio.hpp>
 #include <endian.h>
-#include <errno.h>
-#include <fcntl.h>
 #include <iostream>
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include <string>
-#include <sys/mman.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <types.h>
-#include <unistd.h>
 #include <vector>
 
 #define VERSION_STRING STRINGIFY(VERSION_MAJOR) "." STRINGIFY(VERSION_MINOR) "." STRINGIFY(VERSION_PATCH)

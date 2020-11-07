@@ -48,7 +48,6 @@
 
 #if CXX_SIMULATOR
 #include <HAL.hpp>
-#include <endian.h>
 #define crc_swap(__x__) (__x__) /* No swapping needed on the host */
 #define vpd_swap(__x__) (__x__) /* No swapping needed on the host */
 #else

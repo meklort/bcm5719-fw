@@ -41,37 +41,18 @@
 /// POSSIBILITY OF SUCH DAMAGE.
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
-#include "../NVRam/bcm5719_NVM.h"
-#include "HAL.hpp"
 
-#include <APE.h>
-#include <APE_APE_PERI.h>
-#include <APE_NVIC.h>
+#include <HAL.hpp>
 #include <OptionParser.h>
-#include <bcm5719_DEVICE.h>
 #include <bcm5719_SHM.h>
-#include <elfio/elfio.hpp>
-#include <endian.h>
-#include <errno.h>
-#include <fcntl.h>
 #include <iostream>
-#include <stdbool.h>
 #include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include <string>
-#include <sys/mman.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <types.h>
-#include <unistd.h>
 #include <vector>
 
 #define VERSION_STRING STRINGIFY(VERSION_MAJOR) "." STRINGIFY(VERSION_MINOR) "." STRINGIFY(VERSION_PATCH)
 
 using namespace std;
-using namespace ELFIO;
 using optparse::OptionParser;
 
 #ifdef __ppc64__
@@ -137,7 +118,6 @@ int main(int argc, char const *argv[])
             uint32_t word_pointer = cached_pointer / 4;
             uint32_t byte_index = cached_pointer % 4;
             char character = (uint8_t)(SHM.RcpuPrintfBuffer[word_pointer].r32 >> (byte_index * 8));
-            // printf("Buffer[%d] = %c\n", cached_pointer, character);
             putchar(character);
 
             SHM.RcpuHostReadPointer.r32 = ++cached_pointer;
