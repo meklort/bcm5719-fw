@@ -2,7 +2,7 @@
 ###
 ### @file       libs/Network/CMakeLists.txt
 ###
-### @project    
+### @project
 ###
 ### @brief      Network CMake file
 ###
@@ -67,3 +67,16 @@ target_include_directories(${PROJECT_NAME}-arm PUBLIC include)
 format_target_sources(${PROJECT_NAME})
 
 # add_subdirectory(tests)
+
+# Import the CHECK_INCLUDE_FILES macros
+include(CheckIncludeFiles)
+CHECK_INCLUDE_FILES("endian.h" ENDIANNESS_CONFIG_HAVE_ENDIAN_H)
+CHECK_INCLUDE_FILES("sys/endian.h" ENDIANNESS_CONFIG_HAVE_SYS_ENDIAN_H)
+
+IF(ENDIANNESS_CONFIG_HAVE_ENDIAN_H)
+    target_compile_definitions(${PROJECT_NAME} PRIVATE "-DENDIANNESS_CONFIG_HAVE_ENDIAN_H=1")
+ENDIF()
+
+IF(ENDIANNESS_CONFIG_HAVE_SYS_ENDIAN_H)
+    target_compile_definitions(${PROJECT_NAME} PRIVATE "-DENDIANNESS_CONFIG_HAVE_SYS_ENDIAN_H=1")
+ENDIF()
