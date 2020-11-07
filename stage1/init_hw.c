@@ -60,7 +60,7 @@ void *memset(void *s, int c, size_t n)
     // TODO: Use the memory window to set everything.
 #else
     // We assume things are aligned here...
-    uint32_t *buffer = s;
+    int32_t *buffer = s;
     for (size_t i = 0; i < n / 4; i++)
     {
         buffer[i] = c;
@@ -145,7 +145,7 @@ void __attribute__((noinline)) zero_bss(void)
     extern uint32_t _fbss[];
     extern uint32_t _ebss[];
 
-    memset(_fbss, 0, (_ebss - _fbss) * 4);
+    memset(_fbss, 0, (size_t)(_ebss - _fbss) * 4u);
 #endif
 }
 
@@ -225,14 +225,14 @@ void init_power(const NVRAMContents_t *nvram)
     DEVICE.PciPowerDissipatedInfo.r32 = nvram->info.powerDissipated;
 
     // Power Budget
-    uint32_t pb_raw0 = (nvram->info.powerBudget0) & 0xffff;
-    uint32_t pb_raw1 = (nvram->info.powerBudget0) >> 16;
-    uint32_t pb_raw2 = (nvram->info.powerBudget1) & 0xffff;
-    uint32_t pb_raw3 = (nvram->info.powerBudget1) >> 16;
-    uint32_t pb_raw4 = (nvram->info.powerBudget2) & 0xffff;
-    uint32_t pb_raw5 = (nvram->info.powerBudget2) >> 16;
-    uint32_t pb_raw6 = (nvram->info.powerBudget3) & 0xffff;
-    uint32_t pb_raw7 = (nvram->info.powerBudget3) >> 16;
+    uint16_t pb_raw0 = (nvram->info.powerBudget0) & 0xffff;
+    uint16_t pb_raw1 = (nvram->info.powerBudget0) >> 16;
+    uint16_t pb_raw2 = (nvram->info.powerBudget1) & 0xffff;
+    uint16_t pb_raw3 = (nvram->info.powerBudget1) >> 16;
+    uint16_t pb_raw4 = (nvram->info.powerBudget2) & 0xffff;
+    uint16_t pb_raw5 = (nvram->info.powerBudget2) >> 16;
+    uint16_t pb_raw6 = (nvram->info.powerBudget3) & 0xffff;
+    uint16_t pb_raw7 = (nvram->info.powerBudget3) >> 16;
 
     DEVICE.PciPowerBudget0.r32 = translate_power_budget(pb_raw0);
     DEVICE.PciPowerBudget1.r32 = translate_power_budget(pb_raw1);
