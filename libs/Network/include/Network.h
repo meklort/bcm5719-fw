@@ -105,7 +105,11 @@ typedef enum {
 
 NetworkPort_t *Network_getPort(int i);
 
-void Network_InitPort(NetworkPort_t *port, reload_type_t force_reset);
+#ifdef CXX_SIMULATOR
+void Network_InitPort(NetworkPort_t *port, reload_type_t reset_phy);
+#else
+void Network_InitPort(const NetworkPort_t *port, reload_type_t reset_phy);
+#endif
 
 void Network_resetTX(const NetworkPort_t *port, reload_type_t reset_phy);
 void Network_resetRX(const NetworkPort_t *port, reload_type_t reset_phy);

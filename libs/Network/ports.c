@@ -862,7 +862,11 @@ void Network_resetRX(const NetworkPort_t *port, reload_type_t reset_phy)
     }
 }
 
+#ifdef CXX_SIMULATOR
 void Network_InitPort(NetworkPort_t *port, reload_type_t reset_phy)
+#else
+void Network_InitPort(const NetworkPort_t *port, reload_type_t reset_phy)
+#endif
 {
     bool error = false;
     RegMIIStatus_t stat;
