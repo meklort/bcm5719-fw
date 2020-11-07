@@ -57,9 +57,9 @@
 #endif
 
 NVRAMInfo2_t gKH08PNVRAMInfo2 = {
-    .mfr2Unk = 0,                             //   [200] 00 00          -- Unknown, probably unused.
+    .mfr2Unk = 0,                            //   [200] 00 00          -- Unknown, probably unused.
     .mfr2Len = swap16(sizeof(NVRAMInfo2_t)), //   [202] 00 8C          -- Length of manufacturing section 2.
-    .UNKNOWN0 = 0,                            //   [204] 00 00 00 00    -- Could be reserved.
+    .UNKNOWN0 = 0,                           //   [204] 00 00 00 00    -- Could be reserved.
 
     .macAddr2 = { swap32(0x1022), swap32(0x33445568) },
 
@@ -82,11 +82,11 @@ NVRAMInfo2_t gKH08PNVRAMInfo2 = {
     .pciSubsystemF3SERDES = swap16(0x1657),
     .pciSubsystemF2SERDES = swap16(0x1657),
 
-    .UNKNOWN7 = 0,                          //   [23C] 0
-    .UNKNOWN8 = 0,                          //   [240] 0
-    .UNKNOWN9 = 0,                          //   [244] 0
-    .UNKNOWN10 = 0,                         //   [248] 0
-    .UNKNOWN11 = 0,                         //   [24C] 0
+    .UNKNOWN7 = 0,                         //   [23C] 0
+    .UNKNOWN8 = 0,                         //   [240] 0
+    .UNKNOWN9 = 0,                         //   [244] 0
+    .UNKNOWN10 = 0,                        //   [248] 0
+    .UNKNOWN11 = 0,                        //   [24C] 0
     .func2CfgFeature = swap32(0xCDB50202), // 1  [250] C5 C0 00 00 - Function 2 GEN_CFG_1E4.
     .func2CfgHW = swap32(0x00006014),      // 1  [254] 00 00 40 14 - Function 2 GEN_CFG_2.
 
@@ -94,10 +94,10 @@ NVRAMInfo2_t gKH08PNVRAMInfo2 = {
 
     .func3CfgFeature = swap32(0xCDB50202), // 1  [260] C5 C0 00 00 - Function 3 GEN_CFG_1E4.
     .func3CfgHW = swap32(0x00006014),      // 1  [264] 00 00 40 14 - Function 3 GEN_CFG_2.
-    .UNKNOWN12 = 0,                         //   [268] 0a
-    .UNKNOWN13 = 0,                         //   [26C] 0a
-    .UNKNOWN14 = 0,                         //   [270] 0a
-    .UNKNOWN15 = 0,                         //   [274] 0a
+    .UNKNOWN12 = 0,                        //   [268] 0a
+    .UNKNOWN13 = 0,                        //   [26C] 0a
+    .UNKNOWN14 = 0,                        //   [270] 0a
+    .UNKNOWN15 = 0,                        //   [274] 0a
     .func0CfgHW2 = swap32(0x00000042),
     .func1CfgHW2 = swap32(0x00000042),
     .func2CfgHW2 = swap32(0x00000042),
