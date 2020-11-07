@@ -176,6 +176,7 @@ try
         "fedora": { build('master', true, true, true, true) },
         "ubuntu-18.04": { build('ubuntu-18.04', false, false, false, false) },
         "ubuntu-20.04": { build('ubuntu-20.04', true, false, false, false) },
+        "freebsd-12": { build('freebsd-12', true, false, false, false) },
     )
 }
 catch(e)
