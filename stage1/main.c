@@ -186,10 +186,8 @@ int main()
         em100_puts("\n");
     }
 
-#if !CXX_SIMULATOR
     // Perform early initialization
     early_init_hw();
-#endif
 
     reportStatus(STATUS_MAIN, 1);
 
