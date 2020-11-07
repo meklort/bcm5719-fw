@@ -36,8 +36,8 @@
     </categories>
 
     <requires>
-        <!-- Restrict to fwupd >= 1.5.0 -->
-        <id compare="ge" version="1.5.0">org.freedesktop.fwupd</id>
+        <!-- Restrict to fwupd >= 1.5.2 -->
+        <id compare="ge" version="1.5.2">org.freedesktop.fwupd</id>
         <client>switch-branch</client>
         @HARDWARE_FILTER@
     </requires>

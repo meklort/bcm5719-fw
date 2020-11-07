@@ -73,14 +73,14 @@ NVRAMInfo2_t gKH08PNVRAMInfo2 = {
     .func3PXEVLAN = htobe16(1),
     .func2PXEVLAN = htobe16(1),
 
-    .pciSubsystemF0GPHY = htobe16(0x1904),
     .pciSubsystemF1GPHY = htobe16(0x1904),
-    .pciSubsystemF2GPHY = htobe16(0x1904),
+    .pciSubsystemF0GPHY = htobe16(0x1904),
     .pciSubsystemF3GPHY = htobe16(0x1904),
-    .pciSubsystemF0SERDES = htobe16(0x1657),
+    .pciSubsystemF2GPHY = htobe16(0x1904),
     .pciSubsystemF1SERDES = htobe16(0x1657),
-    .pciSubsystemF2SERDES = htobe16(0x1657),
+    .pciSubsystemF0SERDES = htobe16(0x1657),
     .pciSubsystemF3SERDES = htobe16(0x1657),
+    .pciSubsystemF2SERDES = htobe16(0x1657),
 
     .UNKNOWN7 = 0,                          //   [23C] 0
     .UNKNOWN8 = 0,                          //   [240] 0
@@ -113,10 +113,10 @@ NVRAMInfo_t gKH08PNVRAMInfo = {
     .mfrData = { 0 },
     .func1PXEVLAN = htobe16(1),
     .func0PXEVLAN = htobe16(1),
-    .vendorID = htobe16(0x1657),          /*< PCI Vendor ID. */
-    .deviceID = htobe16(0x14E4),          /*< PCI Device ID. */
-    .subsystemVendorID = htobe16(0x1657), /*< PCI Subsystem Vendor ID. */
-    .subsystemDeviceID = htobe16(0x14E4), /*< PCI Subsystem Device ID. */
+    .deviceID = htobe16(0x1657),          /*< PCI Device ID. */
+    .vendorID = htobe16(0x14E4),          /*< PCI Vendor ID. */
+    .subsystemDeviceID = htobe16(0x1657), /*< PCI Subsystem Device ID. */
+    .subsystemVendorID = htobe16(0x14E4), /*< PCI Subsystem Vendor ID. */
 
     .cpuClock = htobe16(66), /*< 66MHz, Legacy */
 

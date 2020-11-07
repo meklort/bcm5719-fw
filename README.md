@@ -29,7 +29,7 @@ The current version of the code is functional and is able to handle network traf
 Blackbird and Talos II users may install this firmware using [fwupd](https://fwupd.org/), either via the Linux Vendor Firmware Service, or manually using `fwupdtool` and a [release archive](https://github.com/meklort/bcm5719-fw/releases). Other BCM5719 devices may not be thoroughly tested, or tested at all; should you wish to proceed, it is encouraged to download or [build](#building) the firmware and refer to instructions in [Development](#development), especially the section on [testing APE firmware](#testing-ape-firmware).
 
 ## Installing using LVFS
-This project provides firmware releases on LVFS that can be installed using fwupd 1.5.0 or later.
+This project provides firmware releases on LVFS that can be installed using fwupd 1.5.2 or later.
 The firmware can be selected for install by following the prompts using the `switch-branch` command in `fwupdmgr`:
 ```bash
 sudo fwupdmgr switch-branch
@@ -40,7 +40,7 @@ This will flash the latest firmware from LVFS onto the network card and will sav
 Once switched, future releases will be installed using the standard update mechanism in fwupd.
 
 ## Installing using fwupdtool
-Alternatively to using LVFS, the fwupd cab files in the release package can be manually flashed with `fwupdtool` 1.5.0 or later.
+Alternatively to using LVFS, the fwupd cab files in the release package can be manually flashed with `fwupdtool` 1.5.2 or later.
 
 For **Talos II**:
 ```bash
