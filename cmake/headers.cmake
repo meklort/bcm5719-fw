@@ -1,16 +1,16 @@
 ################################################################################
 ###
-### @file       config.cmake
+### @file       headers.cmake
 ###
 ### @project
 ###
-### @brief      High level configuration
+### @brief      Header auto-detection
 ###
 ################################################################################
 ###
 ################################################################################
 ###
-### @copyright Copyright (c) 2018-2020, Evan Lojewski
+### @copyright Copyright (c) 2020, Evan Lojewski
 ### @cond
 ###
 ### All rights reserved.
@@ -42,24 +42,24 @@
 ### @endcond
 ################################################################################
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Werror -Wall -O3 -ffunction-sections -fdata-sections")
-set(CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -Werror -Wall -O3 -ffunction-sections -fdata-sections")
+# Import the CHECK_INCLUDE_FILES macros
+include(CheckIncludeFiles)
+CHECK_INCLUDE_FILES("endian.h" ENDIANNESS_CONFIG_HAVE_ENDIAN_H)
+CHECK_INCLUDE_FILES("sys/endian.h" ENDIANNESS_CONFIG_HAVE_SYS_ENDIAN_H)
+CHECK_INCLUDE_FILES("linux/ethtool.h" CONFIG_HAVE_LINUX_ETHTOOL_H)
 
-# Remove default libraries to ensure cross compilng works as expected.
-SET(CMAKE_C_IMPLICIT_LINK_LIBRARIES "")
-SET(CMAKE_CXX_IMPLICIT_LINK_LIBRARIES "")
+FUNCTION(ADD_ENDIANNESS_DEFINES TARGET)
+    IF(ENDIANNESS_CONFIG_HAVE_ENDIAN_H)
+        target_compile_definitions(${TARGET} PRIVATE "-DENDIANNESS_CONFIG_HAVE_ENDIAN_H=1")
+    ENDIF()
 
-# Settings and build rules for simulator targets
-include(${CMAKE_CURRENT_LIST_DIR}/simulator.cmake)
+    IF(ENDIANNESS_CONFIG_HAVE_SYS_ENDIAN_H)
+        target_compile_definitions(${TARGET} PRIVATE "-DENDIANNESS_CONFIG_HAVE_SYS_ENDIAN_H=1")
+    ENDIF()
+ENDFUNCTION()
 
-# Settings and build rules for mips targets
-include(${CMAKE_CURRENT_LIST_DIR}/mips.cmake)
-
-# Settings and build rules for arm targets
-include(${CMAKE_CURRENT_LIST_DIR}/arm.cmake)
-
-# Settings for generating release packages
-include(${CMAKE_CURRENT_LIST_DIR}/cpack.cmake)
-
-# Settings for ehader detection
-include(${CMAKE_CURRENT_LIST_DIR}/headers.cmake)
+FUNCTION(ADD_ETHTOOL_DEFINES TARGET)
+    IF(CONFIG_HAVE_LINUX_ETHTOOL_H)
+        target_compile_definitions(${TARGET} PRIVATE "-DCONFIG_HAVE_LINUX_ETHTOOL_H=1")
+    ENDIF()
+ENDFUNCTION()
