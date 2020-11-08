@@ -96,7 +96,7 @@ storage_t gStorage[] = {
         .write = bcmflash_nvram_write,
         .size = bcmflash_nvram_size,
     },
-#ifdef ENDIANNESS_CONFIG_HAVE_LINUX_ETHTOOL_H
+#ifdef CONFIG_HAVE_LINUX_ETHTOOL_H
     {
         .type = "eth",
         .type_help = "Use the specified network interface (tg3 driver must be loaded).",
