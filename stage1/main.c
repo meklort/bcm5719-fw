@@ -46,7 +46,7 @@
 
 #define MAX_VPD_SUPPORTED (512u) /* Buffer size for caching VPD data. */
 
-#if CXX_SIMULATOR
+#ifdef CXX_SIMULATOR
 #include <HAL.hpp>
 #define crc_swap(__x__) (__x__) /* No swapping needed on the host */
 #define vpd_swap(__x__) (__x__) /* No swapping needed on the host */
@@ -59,12 +59,6 @@
 #include <NVRam.h>
 #include <bcm5719_APE.h>
 #include <bcm5719_BOOTCODE.h>
-#if CXX_SIMULATOR
-#include <APE_DEVICE.h>
-#else
-#include <bcm5719_DEVICE.h>
-#endif
-#include <bcm5719_GEN.h>
 #include <bcm5719_SHM.h>
 
 const char gStage1Version[] = "stage1-" STRINGIFY(VERSION_MAJOR) "." STRINGIFY(VERSION_MINOR) "." STRINGIFY(VERSION_PATCH);
