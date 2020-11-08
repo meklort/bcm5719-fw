@@ -42,11 +42,11 @@
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
 
-#include "stage1.h"
+#include <stage1.h>
 
 #define MAX_VPD_SUPPORTED (512u) /* Buffer size for caching VPD data. */
 
-#if CXX_SIMULATOR
+#ifdef CXX_SIMULATOR
 #include <HAL.hpp>
 #define crc_swap(__x__) (__x__) /* No swapping needed on the host */
 #define vpd_swap(__x__) (__x__) /* No swapping needed on the host */
@@ -55,23 +55,16 @@
 #define crc_swap(__x__) ((((__x__)&0x000000FF) << 24) | (((__x__)&0x0000FF00) << 8) | (((__x__)&0x00FF0000) >> 8) | (((__x__)&0xFF000000) >> 24))
 #define vpd_swap(__x__) ((((__x__)&0x000000FF) << 24) | (((__x__)&0x0000FF00) << 8) | (((__x__)&0x00FF0000) >> 8) | (((__x__)&0xFF000000) >> 24))
 #endif
-#include <APE.h>
 #include <NVRam.h>
 #include <bcm5719_APE.h>
 #include <bcm5719_BOOTCODE.h>
-#if CXX_SIMULATOR
-#include <APE_DEVICE.h>
-#else
-#include <bcm5719_DEVICE.h>
-#endif
-#include <bcm5719_GEN.h>
 #include <bcm5719_SHM.h>
 
 const char gStage1Version[] = "stage1-" STRINGIFY(VERSION_MAJOR) "." STRINGIFY(VERSION_MINOR) "." STRINGIFY(VERSION_PATCH);
 
 NVRAMContents_t gNVMContents;
 uint32_t gVPDLength = 0;
-uint32_t *gVPD = NULL;
+const uint32_t *gVPD = NULL;
 uint32_t gVPDCd[MAX_VPD_SUPPORTED / 4];
 
 void __attribute__((noinline)) reportStatus(uint32_t code, uint8_t step)
@@ -82,7 +75,7 @@ void __attribute__((noinline)) reportStatus(uint32_t code, uint8_t step)
 void init_once(void)
 {
     SHM.RcpuInitCount.r32 = 0;
-    SHM.RcpuFwVersion.r32 = (VERSION_MAJOR << 24) | (VERSION_MINOR << 16) | VERSION_PATCH;
+    SHM.RcpuFwVersion.r32 = (VERSION_MAJOR << 24) | (VERSION_MINOR << 16) | VERSION_PATCH; //lint !e835
 
     SHM.RcpuApeResetCount.r32 = 0;
     SHM.RcpuLastApeStatus.r32 = 0;
@@ -93,7 +86,7 @@ void init_once(void)
 
 void handle_printf()
 {
-    uint32_t buffer_size = sizeof(SHM.RcpuPrintfBuffer) / sizeof(SHM.RcpuPrintfBuffer[0]) * sizeof(uint32_t);
+    uint32_t buffer_size = ARRAY_ELEMENTS(SHM.RcpuPrintfBuffer) * sizeof(uint32_t);
 
     if (SHM.RcpuWritePointer.r32 > buffer_size || SHM.RcpuReadPointer.r32 > buffer_size || SHM.RcpuHostReadPointer.r32 > buffer_size)
     {
@@ -111,7 +104,7 @@ void handle_printf()
 
         uint32_t word_pointer = cached_pointer / 4;
         uint32_t byte_index = cached_pointer % 4;
-        char character = (uint8_t)(SHM.RcpuPrintfBuffer[word_pointer].r32 >> (byte_index * 8));
+        char character = (char)(SHM.RcpuPrintfBuffer[word_pointer].r32 >> (byte_index * 8));
 
         em100_putchar(character);
 
@@ -141,7 +134,7 @@ void find_vpd(void)
     gVPD = (uint32_t *)gNVMContents.vpd.bytes;
     gVPDLength = sizeof(gNVMContents.vpd.bytes);
 
-    for (int i = 0; i < ARRAY_ELEMENTS(gNVMContents.directory); i++)
+    for (size_t i = 0; i < ARRAY_ELEMENTS(gNVMContents.directory); i++)
     {
         NVRAMCodeDirectory_t *cd = &gNVMContents.directory[i];
 
@@ -173,7 +166,7 @@ void find_vpd(void)
 
 int main()
 {
-#if CXX_SIMULATOR
+#ifdef CXX_SIMULATOR
     initHAL(NULL);
 #endif
 
@@ -208,7 +201,7 @@ int main()
     reportStatus(STATUS_MAIN, 2);
     // Read in the NVM header.
 
-#if !CXX_SIMULATOR
+#ifndef CXX_SIMULATOR
     load_nvm_config(&DEVICE, &gNVMContents);
 
     // Initialize the hardware.

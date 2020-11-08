@@ -42,33 +42,25 @@
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
 
-#include "stage1.h"
-
 #include <APE.h>
 #include <MII.h>
-#if CXX_SIMULATOR
-#include <APE_DEVICE.h>
-#else
-#include <bcm5719_DEVICE.h>
-#endif
-#include <bcm5719_GEN.h>
 #include <bcm5719_RXMBUF.h>
 #include <bcm5719_SDBCACHE.h>
 #include <bcm5719_TXMBUF.h>
-#include <types.h>
+#include <stage1.h>
 
-#if CXX_SIMULATOR
+#ifdef CXX_SIMULATOR
 #define volatile
 #endif
 
 void *memset(void *s, int c, size_t n)
 {
-#if CXX_SIMULATOR
+#ifdef CXX_SIMULATOR
     // TODO: Use the memory window to set everything.
 #else
     // We assume things are aligned here...
-    uint32_t *buffer = s;
-    for (int i = 0; i < n / 4; i++)
+    int32_t *buffer = s;
+    for (size_t i = 0; i < n / 4; i++)
     {
         buffer[i] = c;
     }
@@ -147,12 +139,12 @@ void init_mii(volatile DEVICE_t *device)
 
 void __attribute__((noinline)) zero_bss(void)
 {
-#if !CXX_SIMULATOR
+#ifndef CXX_SIMULATOR
     // Zero BSS information, will always be word aligned.
     extern uint32_t _fbss[];
     extern uint32_t _ebss[];
 
-    memset(_fbss, 0, (_ebss - _fbss) * 4);
+    memset(_fbss, 0, (size_t)(_ebss - _fbss) * 4u);
 #endif
 }
 
@@ -160,7 +152,7 @@ void early_init_hw(void)
 {
     zero_bss();
 
-#if !CXX_SIMULATOR
+#ifndef CXX_SIMULATOR
     // Zero out ram - gencom, db cache, tx/rx mbuf, others in mem map
     memset((void *)&GEN, 0, REG_GEN_SIZE);
     memset((void *)&RXMBUF, 0, REG_RXMBUF_SIZE);
@@ -169,15 +161,15 @@ void early_init_hw(void)
 #endif
 }
 
-void init_mac(NVRAMContents_t *nvram)
+void init_mac(const NVRAMContents_t *nvram)
 {
     int function = DEVICE.Status.bits.FunctionNumber;
-    uint32_t *mac0 = nvram->info.macAddr0;
-    uint32_t *my_mac = mac0; // default.
+    const uint32_t *mac0 = nvram->info.macAddr0;
+    const uint32_t *my_mac = mac0; // default.
     DEVICE.EmacMacAddresses0High.r32 = mac0[0];
     DEVICE.EmacMacAddresses0Low.r32 = mac0[1];
 
-    uint32_t *mac1 = nvram->info.macAddr1;
+    const uint32_t *mac1 = nvram->info.macAddr1;
     if (1 == function)
     {
         my_mac = mac1;
@@ -185,7 +177,7 @@ void init_mac(NVRAMContents_t *nvram)
     DEVICE.EmacMacAddresses1High.r32 = mac1[0];
     DEVICE.EmacMacAddresses1Low.r32 = mac1[1];
 
-    uint32_t *mac2 = nvram->info2.macAddr2;
+    const uint32_t *mac2 = nvram->info2.macAddr2;
     if (2 == function)
     {
         my_mac = mac2;
@@ -193,7 +185,7 @@ void init_mac(NVRAMContents_t *nvram)
     DEVICE.EmacMacAddresses2High.r32 = mac2[0];
     DEVICE.EmacMacAddresses2Low.r32 = mac2[1];
 
-    uint32_t *mac3 = nvram->info2.macAddr3;
+    const uint32_t *mac3 = nvram->info2.macAddr3;
     if (3 == function)
     {
         my_mac = mac3;
@@ -225,21 +217,21 @@ uint32_t translate_power_budget(uint16_t raw)
     return translator.r32;
 }
 
-void init_power(NVRAMContents_t *nvram)
+void init_power(const NVRAMContents_t *nvram)
 {
     // PCI power dissipated / consumed
     DEVICE.PciPowerConsumptionInfo.r32 = nvram->info.powerConsumed;
     DEVICE.PciPowerDissipatedInfo.r32 = nvram->info.powerDissipated;
 
     // Power Budget
-    uint32_t pb_raw0 = (nvram->info.powerBudget0) & 0xffff;
-    uint32_t pb_raw1 = (nvram->info.powerBudget0) >> 16;
-    uint32_t pb_raw2 = (nvram->info.powerBudget1) & 0xffff;
-    uint32_t pb_raw3 = (nvram->info.powerBudget1) >> 16;
-    uint32_t pb_raw4 = (nvram->info.powerBudget2) & 0xffff;
-    uint32_t pb_raw5 = (nvram->info.powerBudget2) >> 16;
-    uint32_t pb_raw6 = (nvram->info.powerBudget3) & 0xffff;
-    uint32_t pb_raw7 = (nvram->info.powerBudget3) >> 16;
+    uint16_t pb_raw0 = (nvram->info.powerBudget0) & 0xffff;
+    uint16_t pb_raw1 = (nvram->info.powerBudget0) >> 16;
+    uint16_t pb_raw2 = (nvram->info.powerBudget1) & 0xffff;
+    uint16_t pb_raw3 = (nvram->info.powerBudget1) >> 16;
+    uint16_t pb_raw4 = (nvram->info.powerBudget2) & 0xffff;
+    uint16_t pb_raw5 = (nvram->info.powerBudget2) >> 16;
+    uint16_t pb_raw6 = (nvram->info.powerBudget3) & 0xffff;
+    uint16_t pb_raw7 = (nvram->info.powerBudget3) >> 16;
 
     DEVICE.PciPowerBudget0.r32 = translate_power_budget(pb_raw0);
     DEVICE.PciPowerBudget1.r32 = translate_power_budget(pb_raw1);
@@ -251,7 +243,7 @@ void init_power(NVRAMContents_t *nvram)
     DEVICE.PciPowerBudget7.r32 = translate_power_budget(pb_raw7);
 }
 
-uint16_t nvm_get_subsystem_device(volatile DEVICE_t *device, NVRAMContents_t *nvram)
+uint16_t nvm_get_subsystem_device(volatile DEVICE_t *device, const NVRAMContents_t *nvram)
 {
     switch (MII_getPhy(device))
     {
@@ -281,7 +273,7 @@ uint16_t nvm_get_subsystem_device(volatile DEVICE_t *device, NVRAMContents_t *nv
     }
 }
 
-void init_pci(volatile DEVICE_t *device, NVRAMContents_t *nvram)
+void init_pci(volatile DEVICE_t *device, const NVRAMContents_t *nvram)
 {
     // PCI Device / Vendor ID.
     RegDEVICEPciVendorDeviceId_t vendor_device;
@@ -300,7 +292,7 @@ void init_pci(volatile DEVICE_t *device, NVRAMContents_t *nvram)
     // RegDEVICEPciClassCodeRevision_t partially from REG_CHIP_ID
 }
 
-void init_gen(NVRAMContents_t *nvram)
+void init_gen(const NVRAMContents_t *nvram)
 {
     int function = DEVICE.Status.bits.FunctionNumber;
     uint32_t cfg_feature;
@@ -342,7 +334,7 @@ void init_gen(NVRAMContents_t *nvram)
     GEN.GenCfg5.r32 = nvram->info2.cfg5;
 }
 
-void load_nvm_config(volatile DEVICE_t *device, NVRAMContents_t *nvram)
+void load_nvm_config(volatile DEVICE_t *device, const NVRAMContents_t *nvram)
 {
     // Load information from NVM, set various registers + mem
 
@@ -361,7 +353,7 @@ void load_nvm_config(volatile DEVICE_t *device, NVRAMContents_t *nvram)
     init_gen(nvram);
 }
 
-void init_hw(volatile DEVICE_t *device, NVRAMContents_t *nvram)
+void init_hw(volatile DEVICE_t *device)
 {
     reportStatus(STATUS_INIT_HW, 0);
     // Misc regs init

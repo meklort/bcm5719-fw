@@ -60,7 +60,7 @@ target_link_libraries(${PROJECT_NAME}
 target_link_libraries(${PROJECT_NAME} NVRam-mips MII-mips APE-mips printf-mips)
 target_link_libraries(${PROJECT_NAME} bcm5719)
 target_compile_options(${PROJECT_NAME} PRIVATE -nodefaultlibs)
-target_include_directories(${PROJECT_NAME} PUBLIC ../libs/VPD/include)
+target_include_directories(${PROJECT_NAME} PUBLIC ../libs/VPD/include .)
 
 
 # Simulator add_executable
@@ -70,6 +70,7 @@ simulator_add_executable(sim-${PROJECT_NAME}
 
 target_link_libraries(sim-${PROJECT_NAME} simulator)
 target_link_libraries(sim-${PROJECT_NAME} NVRam MII VPD APE printf)
+target_include_directories(sim-${PROJECT_NAME} PUBLIC  .)
 
 install(TARGETS ${PROJECT_NAME} DESTINATION fw RESOURCE)
 

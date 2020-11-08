@@ -120,8 +120,6 @@
 // statement.  For example:
 
     -d"__asm__(p...)=/*lint -e{19}*/ __asm__(p)"
-    -d"_Static_assert(p...)=/*lint -e{19}*/"
-
 // ...causes Lint to be quiet about the semicolon that follows an
 // __asm__() declaration.  Note, the -e{N} form of suppression takes
 // effect only for the forward-declaration, definition or
@@ -135,6 +133,8 @@
 // or near assembly regions, please let us know!
 //
 -esym(123,__asm__)
+
+++d"_Static_assert(...)=/*lint -e{19}*/"
 
 -rw_asgn(__alignof__,__alignof)
 
