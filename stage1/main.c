@@ -190,13 +190,15 @@ int main()
     }
 
     // Read out the NVM configuration.
-    NVRam_acquireLock();
-    NVRam_enable();
-    NVRam_read(0, (uint32_t *)&gNVMContents, sizeof(NVRAMContents_t) / 4);
+    if (NVRam_acquireLock())
+    {
+        NVRam_enable();
+        NVRam_read(0, (uint32_t *)gNVMContents.vpd.bytes, sizeof(gNVMContents.vpd.bytes) / sizeof(uint32_t));
 
-    find_vpd();
+        find_vpd();
 
-    NVRam_releaseLock();
+        NVRam_releaseLock();
+    }
 
     reportStatus(STATUS_MAIN, 2);
     // Read in the NVM header.
