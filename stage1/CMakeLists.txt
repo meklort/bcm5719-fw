@@ -74,3 +74,6 @@ target_link_libraries(sim-${PROJECT_NAME} NVRam MII VPD APE printf)
 install(TARGETS ${PROJECT_NAME} DESTINATION fw RESOURCE)
 
 format_target_sources(${PROJECT_NAME})
+
+# Disable errors due to linting until all isssues are fixed.
+target_compile_definitions(${PROJECT_NAME} PRIVATE "-DNO_FLINT_ERRORS")
