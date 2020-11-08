@@ -42,13 +42,12 @@
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
 
-#include <stage1.h>
-
 #include <APE.h>
 #include <MII.h>
 #include <bcm5719_RXMBUF.h>
 #include <bcm5719_SDBCACHE.h>
 #include <bcm5719_TXMBUF.h>
+#include <stage1.h>
 
 #ifdef CXX_SIMULATOR
 #define volatile
