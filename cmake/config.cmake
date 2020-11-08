@@ -49,6 +49,9 @@ set(CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -Werror -Wall -O3 -ffunction-sections -fda
 SET(CMAKE_C_IMPLICIT_LINK_LIBRARIES "")
 SET(CMAKE_CXX_IMPLICIT_LINK_LIBRARIES "")
 
+# Rules for linting support
+include(${CMAKE_CURRENT_LIST_DIR}/lint.cmake)
+
 # Settings and build rules for simulator targets
 include(${CMAKE_CURRENT_LIST_DIR}/simulator.cmake)
 

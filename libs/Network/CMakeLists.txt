@@ -69,3 +69,6 @@ format_target_sources(${PROJECT_NAME})
 # add_subdirectory(tests)
 
 ADD_ENDIANNESS_DEFINES(${PROJECT_NAME})
+
+# Disable errors due to linting until all isssues are fixed.
+target_compile_definitions(${PROJECT_NAME}-arm PRIVATE "-DNO_FLINT_ERRORS")

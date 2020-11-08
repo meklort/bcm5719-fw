@@ -42,7 +42,7 @@
 ### @endcond
 ################################################################################
 
-SET(ARM_COMPILE_OPTIONS -nostdlib -nodefaultlibs
+SET(ARM_COMPILE_OPTIONS "-DLINT_FILE=clang-arm" -nostdlib -nodefaultlibs
     -fomit-frame-pointer
     -fno-builtin
     -include "${CMAKE_SOURCE_DIR}/include/banned.h"
@@ -55,6 +55,10 @@ SET(CMAKE_INCLUDE_FLAG_ASM "-I")
 SET(CMAKE_ASM_COMPILE_OBJECT "<CMAKE_ASM_COMPILER> -x assembler-with-cpp <DEFINES> <INCLUDES> <FLAGS> -o <OBJECT> -c <SOURCE>")
 
 SET(CMAKE_arm_LINK_EXECUTABLE "${COMPILER_BASE}/bin/ld.lld  <OBJECTS> <LINK_LIBRARIES> <CMAKE_C_LINK_FLAGS> <LINK_FLAGS> -Bstatic -o <TARGET>")
+
+SET(ARM_CMAKE_DIR ${CMAKE_CURRENT_LIST_DIR})
+
+generate_lint_config("${ARM_COMPILE_OPTIONS}" ${CMAKE_BINARY_DIR}/.clang-arm.lnt ${CMAKE_BINARY_DIR}/.clang-arm.h)
 
 # ARM-specific executables
 function(arm_add_executable target)
@@ -87,6 +91,7 @@ function(arm_add_library target)
     add_library(${target} ${ARGN})
 
     target_compile_options(${target} PRIVATE ${ARM_COMPILE_OPTIONS})
+    set_target_properties(${target} PROPERTIES LINT_CONFIG ${CMAKE_BINARY_DIR}/clang-arm.lnt)
 endfunction(arm_add_library)
 
 function(arm_linker_script target script)
