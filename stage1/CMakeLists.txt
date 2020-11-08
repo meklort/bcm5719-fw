@@ -57,7 +57,7 @@ target_link_libraries(${PROJECT_NAME}
     --defsym=VERSION_MINOR=${VERSION_MINOR}
     --defsym=VERSION_PATCH=${VERSION_PATCH})
 
-target_link_libraries(${PROJECT_NAME} NVRam-mips MII-mips APE-mips printf-mips)
+target_link_libraries(${PROJECT_NAME} NVRam-mips MII-mips APE-mips Timer-mips printf-mips)
 target_link_libraries(${PROJECT_NAME} bcm5719)
 target_compile_options(${PROJECT_NAME} PRIVATE -nodefaultlibs)
 target_include_directories(${PROJECT_NAME} PUBLIC ../libs/VPD/include .)
@@ -69,12 +69,9 @@ simulator_add_executable(sim-${PROJECT_NAME}
             main.c)
 
 target_link_libraries(sim-${PROJECT_NAME} simulator)
-target_link_libraries(sim-${PROJECT_NAME} NVRam MII VPD APE printf)
+target_link_libraries(sim-${PROJECT_NAME} NVRam MII VPD APE Timer printf)
 target_include_directories(sim-${PROJECT_NAME} PUBLIC  .)
 
 install(TARGETS ${PROJECT_NAME} DESTINATION fw RESOURCE)
 
 format_target_sources(${PROJECT_NAME})
-
-# Disable errors due to linting until all isssues are fixed.
-target_compile_definitions(${PROJECT_NAME} PRIVATE "-DNO_FLINT_ERRORS")
