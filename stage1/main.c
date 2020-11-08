@@ -42,7 +42,7 @@
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
 
-#include "stage1.h"
+#include <stage1.h>
 
 #define MAX_VPD_SUPPORTED (512u) /* Buffer size for caching VPD data. */
 
