@@ -354,7 +354,7 @@ void load_nvm_config(volatile DEVICE_t *device, const NVRAMContents_t *nvram)
     init_gen(nvram);
 }
 
-void init_hw(volatile DEVICE_t *device, const NVRAMContents_t *nvram)
+void init_hw(volatile DEVICE_t *device)
 {
     reportStatus(STATUS_INIT_HW, 0);
     // Misc regs init

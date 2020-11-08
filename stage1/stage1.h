@@ -63,7 +63,7 @@
 
 void early_init_hw(void);
 void load_nvm_config(volatile DEVICE_t* device, const NVRAMContents_t *nvram);
-void init_hw(volatile DEVICE_t* device, const NVRAMContents_t *nvram);
+void init_hw(volatile DEVICE_t* device);
 
 #define STATUS_MAIN         (0x8234700u)
 #define STATUS_EARLY_INIT   (0x8234800u)
