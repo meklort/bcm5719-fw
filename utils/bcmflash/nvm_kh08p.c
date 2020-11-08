@@ -44,24 +44,15 @@
 
 #include "create_header.h"
 
+#include <bcm5719-endian.h>
 #include <bcm5719_eeprom.h>
 
-#ifdef __LITTLE_ENDIAN__
-#define htobe32(__x__) ((((__x__)&0x000000FF) << 24) | (((__x__)&0x0000FF00) << 8) | (((__x__)&0x00FF0000) >> 8) | (((__x__)&0xFF000000) >> 24))
-#define htobe16(__x__) ((((__x__)&0x00FF) << 8) | (((__x__)&0xFF00) >> 8))
-#elif __BIG_ENDIAN__
-#define htobe32(__x__) (__x__)
-#define htobe16(__x__) (__x__)
-#else
-#error Unknown endianness
-#endif
-
 NVRAMInfo2_t gKH08PNVRAMInfo2 = {
-    .mfr2Unk = 0,                             //   [200] 00 00          -- Unknown, probably unused.
-    .mfr2Len = htobe16(sizeof(NVRAMInfo2_t)), //   [202] 00 8C          -- Length of manufacturing section 2.
-    .UNKNOWN0 = 0,                            //   [204] 00 00 00 00    -- Could be reserved.
+    .mfr2Unk = 0,                            //   [200] 00 00          -- Unknown, probably unused.
+    .mfr2Len = swap16(sizeof(NVRAMInfo2_t)), //   [202] 00 8C          -- Length of manufacturing section 2.
+    .UNKNOWN0 = 0,                           //   [204] 00 00 00 00    -- Could be reserved.
 
-    .macAddr2 = { htobe32(0x1022), htobe32(0x33445568) },
+    .macAddr2 = { swap32(0x1022), swap32(0x33445568) },
 
     .UNKNOWN1 = 0, //   [210] 0
     .UNKNOWN2 = 0, //   [214] 0
@@ -70,55 +61,55 @@ NVRAMInfo2_t gKH08PNVRAMInfo2 = {
     .UNKNOWN4 = 0, //   [220] 0
     .UNKNOWN5 = 0, //   [224] 0
 
-    .func3PXEVLAN = htobe16(1),
-    .func2PXEVLAN = htobe16(1),
+    .func3PXEVLAN = swap16(1),
+    .func2PXEVLAN = swap16(1),
 
-    .pciSubsystemF1GPHY = htobe16(0x1904),
-    .pciSubsystemF0GPHY = htobe16(0x1904),
-    .pciSubsystemF3GPHY = htobe16(0x1904),
-    .pciSubsystemF2GPHY = htobe16(0x1904),
-    .pciSubsystemF1SERDES = htobe16(0x1657),
-    .pciSubsystemF0SERDES = htobe16(0x1657),
-    .pciSubsystemF3SERDES = htobe16(0x1657),
-    .pciSubsystemF2SERDES = htobe16(0x1657),
+    .pciSubsystemF1GPHY = swap16(0x1904),
+    .pciSubsystemF0GPHY = swap16(0x1904),
+    .pciSubsystemF3GPHY = swap16(0x1904),
+    .pciSubsystemF2GPHY = swap16(0x1904),
+    .pciSubsystemF1SERDES = swap16(0x1657),
+    .pciSubsystemF0SERDES = swap16(0x1657),
+    .pciSubsystemF3SERDES = swap16(0x1657),
+    .pciSubsystemF2SERDES = swap16(0x1657),
 
-    .UNKNOWN7 = 0,                          //   [23C] 0
-    .UNKNOWN8 = 0,                          //   [240] 0
-    .UNKNOWN9 = 0,                          //   [244] 0
-    .UNKNOWN10 = 0,                         //   [248] 0
-    .UNKNOWN11 = 0,                         //   [24C] 0
-    .func2CfgFeature = htobe32(0xCDB50202), // 1  [250] C5 C0 00 00 - Function 2 GEN_CFG_1E4.
-    .func2CfgHW = htobe32(0x00006014),      // 1  [254] 00 00 40 14 - Function 2 GEN_CFG_2.
+    .UNKNOWN7 = 0,                         //   [23C] 0
+    .UNKNOWN8 = 0,                         //   [240] 0
+    .UNKNOWN9 = 0,                         //   [244] 0
+    .UNKNOWN10 = 0,                        //   [248] 0
+    .UNKNOWN11 = 0,                        //   [24C] 0
+    .func2CfgFeature = swap32(0xCDB50202), // 1  [250] C5 C0 00 00 - Function 2 GEN_CFG_1E4.
+    .func2CfgHW = swap32(0x00006014),      // 1  [254] 00 00 40 14 - Function 2 GEN_CFG_2.
 
-    .macAddr3 = { htobe32(0x1022), htobe32(0x33445569) },
+    .macAddr3 = { swap32(0x1022), swap32(0x33445569) },
 
-    .func3CfgFeature = htobe32(0xCDB50202), // 1  [260] C5 C0 00 00 - Function 3 GEN_CFG_1E4.
-    .func3CfgHW = htobe32(0x00006014),      // 1  [264] 00 00 40 14 - Function 3 GEN_CFG_2.
-    .UNKNOWN12 = 0,                         //   [268] 0a
-    .UNKNOWN13 = 0,                         //   [26C] 0a
-    .UNKNOWN14 = 0,                         //   [270] 0a
-    .UNKNOWN15 = 0,                         //   [274] 0a
-    .func0CfgHW2 = htobe32(0x00000042),
-    .func1CfgHW2 = htobe32(0x00000042),
-    .func2CfgHW2 = htobe32(0x00000042),
-    .func3CfgHW2 = htobe32(0x00000042),
+    .func3CfgFeature = swap32(0xCDB50202), // 1  [260] C5 C0 00 00 - Function 3 GEN_CFG_1E4.
+    .func3CfgHW = swap32(0x00006014),      // 1  [264] 00 00 40 14 - Function 3 GEN_CFG_2.
+    .UNKNOWN12 = 0,                        //   [268] 0a
+    .UNKNOWN13 = 0,                        //   [26C] 0a
+    .UNKNOWN14 = 0,                        //   [270] 0a
+    .UNKNOWN15 = 0,                        //   [274] 0a
+    .func0CfgHW2 = swap32(0x00000042),
+    .func1CfgHW2 = swap32(0x00000042),
+    .func2CfgHW2 = swap32(0x00000042),
+    .func3CfgHW2 = swap32(0x00000042),
     .mfr2CRC = 0, //   [288] 1A AC 41 A6 // could be CRC
 };
 
 NVRAMInfo_t gKH08PNVRAMInfo = {
-    .macAddr0 = { htobe32(0x1022), htobe32(0x33445566) },
+    .macAddr0 = { swap32(0x1022), swap32(0x33445566) },
     .partNumber = "BCM95719",
     .partRevision = { 'A', '0' },
     .firmwareRevision = 0, /* Placeholder*/
     .mfrData = { 0 },
-    .func1PXEVLAN = htobe16(1),
-    .func0PXEVLAN = htobe16(1),
-    .deviceID = htobe16(0x1657),          /*< PCI Device ID. */
-    .vendorID = htobe16(0x14E4),          /*< PCI Vendor ID. */
-    .subsystemDeviceID = htobe16(0x1657), /*< PCI Subsystem Device ID. */
-    .subsystemVendorID = htobe16(0x14E4), /*< PCI Subsystem Vendor ID. */
+    .func1PXEVLAN = swap16(1),
+    .func0PXEVLAN = swap16(1),
+    .deviceID = swap16(0x1657),          /*< PCI Device ID. */
+    .vendorID = swap16(0x14E4),          /*< PCI Vendor ID. */
+    .subsystemDeviceID = swap16(0x1657), /*< PCI Subsystem Device ID. */
+    .subsystemVendorID = swap16(0x14E4), /*< PCI Subsystem Vendor ID. */
 
-    .cpuClock = htobe16(66), /*< 66MHz, Legacy */
+    .cpuClock = swap16(66), /*< 66MHz, Legacy */
 
     .SMBusAddr = 0x64,
     .SMBusAddrBMC = 0,
@@ -136,23 +127,23 @@ NVRAMInfo_t gKH08PNVRAMInfo = {
     .powerConsumedD2 = 0x00, /*< Power consumed in the D2 state. The NetXtreme II family does not support the D2 state. */
     .powerConsumedD3 = 0x0A, /*< Power consumed in the D3 state. Note: The data scale is hard coded at 0.1. */
 
-    .func0CfgFeature = htobe32(0xCDB50282),
-    .func0CfgHW = htobe32(0x00006014),
+    .func0CfgFeature = swap32(0xCDB50282),
+    .func0CfgHW = swap32(0x00006014),
 
-    .macAddr1 = { htobe32(0x1022), htobe32(0x33445567) },
-    .func1CfgFeature = htobe32(0xCDB50202),
-    .func1CfgHW = htobe32(0x00006014),
+    .macAddr1 = { swap32(0x1022), swap32(0x33445567) },
+    .func1CfgFeature = swap32(0xCDB50202),
+    .func1CfgHW = swap32(0x00006014),
 
-    .cfgShared = htobe32(0x0012AA38),
-    .powerBudget0 = htobe32(0x2C163C2C),
-    .powerBudget1 = htobe32(0x0000230A),
+    .cfgShared = swap32(0x0012AA38),
+    .powerBudget0 = swap32(0x2C163C2C),
+    .powerBudget1 = swap32(0x0000230A),
     .serworksUse = 0,
     .func1SERDESOverride = 0,
     .func0SERDESOverride = 0,
     .tpmNVMSize = 0,
-    .macNVMSize = htobe16(2),
-    .powerBudget2 = htobe32(0x00000000),
-    .powerBudget3 = htobe32(0x00000000),
+    .macNVMSize = swap16(2),
+    .powerBudget2 = swap32(0x00000000),
+    .powerBudget3 = swap32(0x00000000),
     .mfrCRC = 0,
 };
 

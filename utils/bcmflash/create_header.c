@@ -45,8 +45,8 @@
 #include "create_header.h"
 
 #include <NVRam.h>
+#include <bcm5719-endian.h>
 #include <bcm5719_eeprom.h>
-#include <endian.h>
 #include <string.h>
 
 static struct

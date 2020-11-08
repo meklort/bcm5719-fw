@@ -3,7 +3,7 @@
 #include <APE_APE_PERI.h>
 #include <Ethernet.h>
 #include <NCSI.h>
-#include <endian.h>
+#include <bcm5719-endian.h>
 
 uint32_t *gPacket;
 uint32_t gPacketLen;

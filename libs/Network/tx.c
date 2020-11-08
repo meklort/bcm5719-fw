@@ -50,7 +50,7 @@
 #include <types.h>
 
 #ifdef CXX_SIMULATOR
-#include <endian.h>
+#include <bcm5719-endian.h>
 #include <stdio.h>
 #else
 #include <printf.h>

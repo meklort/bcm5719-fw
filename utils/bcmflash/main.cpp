@@ -44,14 +44,16 @@
 
 #include "bcmflash.h"
 #include "create_header.h"
+#ifdef CONFIG_HAVE_LINUX_ETHTOOL_H
 #include "ethtool.h"
+#endif
 
 #include <../bcm5719_NVM.h>
 #include <NVRam.h>
 #include <OptionParser.h>
+#include <bcm5719-endian.h>
 #include <bcm5719_DEVICE.h>
 #include <bcm5719_eeprom.h>
-#include <endian.h>
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -94,6 +96,7 @@ storage_t gStorage[] = {
         .write = bcmflash_nvram_write,
         .size = bcmflash_nvram_size,
     },
+#ifdef ENDIANNESS_CONFIG_HAVE_LINUX_ETHTOOL_H
     {
         .type = "eth",
         .type_help = "Use the specified network interface (tg3 driver must be loaded).",
@@ -102,6 +105,7 @@ storage_t gStorage[] = {
         .write = bcmflash_ethtool_write,
         .size = bcmflash_ethtool_size,
     },
+#endif
     {
         .type = "file",
         .type_help = "Use the file specified.",

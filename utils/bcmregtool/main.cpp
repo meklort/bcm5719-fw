@@ -51,6 +51,7 @@
 #include <MII.h>
 #include <NVRam.h>
 #include <OptionParser.h>
+#include <bcm5719-endian.h>
 #include <bcm5719_APE.h>
 #include <bcm5719_GEN.h>
 #include <bcm5719_SHM.h>
@@ -58,7 +59,6 @@
 #include <bcm5719_SHM_CHANNEL1.h>
 #include <bcm5719_eeprom.h>
 #include <elfio/elfio.hpp>
-#include <endian.h>
 #include <iostream>
 #include <stdbool.h>
 #include <stdint.h>

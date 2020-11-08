@@ -160,11 +160,13 @@ void early_init_hw(void)
 {
     zero_bss();
 
+#if !CXX_SIMULATOR
     // Zero out ram - gencom, db cache, tx/rx mbuf, others in mem map
     memset((void *)&GEN, 0, REG_GEN_SIZE);
     memset((void *)&RXMBUF, 0, REG_RXMBUF_SIZE);
     memset((void *)&TXMBUF, 0, REG_TXMBUF_SIZE);
     memset((void *)&SDBCACHE, 0, REG_SDBCACHE_SIZE);
+#endif
 }
 
 void init_mac(NVRAMContents_t *nvram)

@@ -15,3 +15,5 @@ target_link_libraries(${PROJECT_NAME} PRIVATE simulator OptParse elfio)
 format_target_sources(${PROJECT_NAME})
 
 INSTALL(TARGETS ${PROJECT_NAME} DESTINATION bin)
+
+ADD_ENDIANNESS_DEFINES(${PROJECT_NAME})

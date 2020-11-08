@@ -55,7 +55,6 @@
 #include <bcm5719_GEN.h>
 
 #include <dirent.h>
-#include <endian.h>
 #include <errno.h>
 #include <fcntl.h>
 #include <stdbool.h>
