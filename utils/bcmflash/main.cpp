@@ -51,6 +51,7 @@
 #include <../bcm5719_NVM.h>
 #include <NVRam.h>
 #include <OptionParser.h>
+#include <bcm5719-endian.h>
 #include <bcm5719_DEVICE.h>
 #include <bcm5719_eeprom.h>
 #include <stdbool.h>
@@ -59,12 +60,6 @@
 #include <string.h>
 #include <string>
 #include <vector>
-
-#if defined(ENDIANNESS_CONFIG_HAVE_ENDIAN_H)
-#include <endian.h>
-#elif defined(ENDIANNESS_CONFIG_HAVE_SYS_ENDIAN_H)
-#include <sys/endian.h>
-#endif
 
 #define VERSION_STRING STRINGIFY(VERSION_MAJOR) "." STRINGIFY(VERSION_MINOR) "." STRINGIFY(VERSION_PATCH)
 

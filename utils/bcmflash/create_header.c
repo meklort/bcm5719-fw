@@ -45,14 +45,9 @@
 #include "create_header.h"
 
 #include <NVRam.h>
+#include <bcm5719-endian.h>
 #include <bcm5719_eeprom.h>
 #include <string.h>
-
-#if defined(ENDIANNESS_CONFIG_HAVE_ENDIAN_H)
-#include <endian.h>
-#elif defined(ENDIANNESS_CONFIG_HAVE_SYS_ENDIAN_H)
-#include <sys/endian.h>
-#endif
 
 static struct
 {

@@ -50,11 +50,7 @@
 #include <types.h>
 
 #ifdef CXX_SIMULATOR
-#if defined(ENDIANNESS_CONFIG_HAVE_ENDIAN_H)
-#include <endian.h>
-#elif defined(ENDIANNESS_CONFIG_HAVE_SYS_ENDIAN_H)
-#include <sys/endian.h>
-#endif
+#include <bcm5719-endian.h>
 #include <stdio.h>
 #else
 #include <printf.h>

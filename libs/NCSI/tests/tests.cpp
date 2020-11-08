@@ -3,12 +3,7 @@
 #include <APE_APE_PERI.h>
 #include <Ethernet.h>
 #include <NCSI.h>
-
-#if defined(ENDIANNESS_CONFIG_HAVE_ENDIAN_H)
-#include <endian.h>
-#elif defined(ENDIANNESS_CONFIG_HAVE_SYS_ENDIAN_H)
-#include <sys/endian.h>
-#endif
+#include <bcm5719-endian.h>
 
 uint32_t *gPacket;
 uint32_t gPacketLen;

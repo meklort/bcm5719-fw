@@ -44,17 +44,8 @@
 
 #include "create_header.h"
 
+#include <bcm5719-endian.h>
 #include <bcm5719_eeprom.h>
-
-#ifdef __LITTLE_ENDIAN__
-#define swap32(__x__) ((((__x__)&0x000000FF) << 24) | (((__x__)&0x0000FF00) << 8) | (((__x__)&0x00FF0000) >> 8) | (((__x__)&0xFF000000) >> 24))
-#define swap16(__x__) ((((__x__)&0x00FF) << 8) | (((__x__)&0xFF00) >> 8))
-#elif __BIG_ENDIAN__
-#define swap32(__x__) (__x__)
-#define swap16(__x__) (__x__)
-#else
-#error Unknown endianness
-#endif
 
 NVRAMInfo2_t gBlackbirdNVRAMInfo2 = {
     .mfr2Unk = 0,                            //   [200] 00 00          -- Unknown, probably unused.
