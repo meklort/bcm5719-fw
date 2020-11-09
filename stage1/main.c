@@ -198,17 +198,17 @@ int main()
         find_vpd();
 
         NVRam_releaseLock();
-    }
 
-    reportStatus(STATUS_MAIN, 2);
-    // Read in the NVM header.
+        reportStatus(STATUS_MAIN, 2);
+        // Read in the NVM header.
 
 #ifndef CXX_SIMULATOR
-    load_nvm_config(&DEVICE, &gNVMContents);
+        load_nvm_config(&DEVICE, &gNVMContents);
 
-    // Initialize the hardware.
-    // init_hw(&DEVICE, &gNVMContents);
+        // Initialize the hardware.
+        // init_hw(&DEVICE, &gNVMContents);
 #endif
+    }
 
     SHM.RcpuInitCount.r32 = SHM.RcpuInitCount.r32 + 1;
 
