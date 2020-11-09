@@ -44,6 +44,7 @@
 
 #include <APE.h>
 #include <MII.h>
+#include <Timer.h>
 #include <bcm5719_RXMBUF.h>
 #include <bcm5719_SDBCACHE.h>
 #include <bcm5719_TXMBUF.h>
@@ -52,6 +53,8 @@
 #ifdef CXX_SIMULATOR
 #define volatile
 #endif
+
+#define MII_INIT_TIMEOUT_MS (3000) /* Allow up to 3 seconds for MII init to complete. */
 
 void *memset(void *s, int c, size_t n)
 {
@@ -70,57 +73,78 @@ void *memset(void *s, int c, size_t n)
 
 void init_mii_function0(volatile DEVICE_t *device)
 {
+    uint32_t currentTime;
     if (0 == DEVICE.Status.bits.FunctionNumber)
     {
         reportStatus(STATUS_INIT_HW, 0xf1);
 
         // MIIPORT 0 (0x8010):0x1A |= 0x4000
-        MII_selectBlock(device, 0, 0x8010);
+        (void)MII_selectBlock(device, 0, 0x8010);
         if (0x8010 == MII_getBlock(device, 0))
         {
-            uint16_t r1Ah_value = MII_readRegister(device, 0, (mii_reg_t)0x1A);
-            r1Ah_value |= 0x4000;
-            MII_writeRegister(device, 0, (mii_reg_t)0x1A, r1Ah_value);
-
-            reportStatus(STATUS_INIT_HW, 0xf2);
-
-            // (Note: This is done in a retry loop which verifies the block select by
-            // reading 0x1F and confirming it reads 0x8610
-            do
+            int32_t r1Ah_value = MII_readRegister(device, 0, (mii_reg_t)0x1A);
+            if (r1Ah_value >= 0)
             {
-                MII_selectBlock(device, 0, 0x8610);
-            } while (0x8610 != MII_getBlock(device, 0));
+                r1Ah_value |= 0x4000;
+                (void)MII_writeRegister(device, 0, (mii_reg_t)0x1A, (uint16_t)r1Ah_value);
 
-            reportStatus(STATUS_INIT_HW, 0xf3);
+                reportStatus(STATUS_INIT_HW, 0xf2);
 
-            // MIIPORT 0 (0x8610):0x15, set bits 0:1 to 2.
-            uint16_t r15h_value = MII_readRegister(device, 0, (mii_reg_t)0x15);
-            r15h_value &= ~0x3;
-            r15h_value |= 0x2;
-            MII_writeRegister(device, 0, (mii_reg_t)0x15, r15h_value);
+                // (Note: This is done in a retry loop which verifies the block select by
+                // reading 0x1F and confirming it reads 0x8610
+                currentTime = Timer_getCurrentTime1KHz();
+                do
+                {
+                    (void)MII_selectBlock(device, 0, 0x8610);
+                    if (Timer_didTimeElapsed1KHz(currentTime, MII_INIT_TIMEOUT_MS))
+                    {
+                        // exit from while loop early.
+                        break;
+                    }
+                } while (0x8610 != MII_getBlock(device, 0));
 
-            reportStatus(STATUS_INIT_HW, 0xf4);
+                if (0x8610 == MII_getBlock(device, 0))
+                {
+                    reportStatus(STATUS_INIT_HW, 0xf3);
 
-            // and then verifies that bits 0:1 have been set to 2, and retries about a
-            // dozen times until the block select and write are both correct. Probably
-            // an attempt to work around some bug or weird asynchronous behaviour for
-            // these unknown MII registers.)
-            do
-            {
-                r15h_value = MII_readRegister(device, 0, (mii_reg_t)0x15);
-            } while (2 != (r15h_value & 0x3));
+                    // MIIPORT 0 (0x8610):0x15, set bits 0:1 to 2.
+                    int32_t r15h_value = MII_readRegister(device, 0, (mii_reg_t)0x15);
+                    if (r15h_value >= 0)
+                    {
+                        r15h_value &= ~0x3;
+                        r15h_value |= 0x2;
+                        (void)MII_writeRegister(device, 0, (mii_reg_t)0x15, (uint16_t)r15h_value);
+                    }
 
-            reportStatus(STATUS_INIT_HW, 0xf5);
+                    reportStatus(STATUS_INIT_HW, 0xf4);
 
-            // (0x8010):0x1A, mask 0x4000.
-            MII_selectBlock(device, 0, 0x8010);
-            r1Ah_value &= ~0x4000;
-            MII_writeRegister(device, 0, (mii_reg_t)0x1A, r1Ah_value);
+                    // and then verifies that bits 0:1 have been set to 2, and retries about a
+                    // dozen times until the block select and write are both correct. Probably
+                    // an attempt to work around some bug or weird asynchronous behaviour for
+                    // these unknown MII registers.)
+                    currentTime = Timer_getCurrentTime1KHz();
+                    do
+                    {
+                        r15h_value = MII_readRegister(device, 0, (mii_reg_t)0x15);
+                        if (Timer_didTimeElapsed1KHz(currentTime, MII_INIT_TIMEOUT_MS))
+                        {
+                            // exit from while loop early.
+                            break;
+                        }
+                    } while (2 != (r15h_value & 0x3));
+                }
+
+                reportStatus(STATUS_INIT_HW, 0xf5);
+                // (0x8010):0x1A, mask 0x4000.
+                (void)MII_selectBlock(device, 0, 0x8010);
+                r1Ah_value &= ~0x4000;
+                (void)MII_writeRegister(device, 0, (mii_reg_t)0x1A, (uint16_t)r1Ah_value);
+            }
 
             reportStatus(STATUS_INIT_HW, 0xf6);
         }
 
-        MII_selectBlock(device, 0, 0);
+        (void)MII_selectBlock(device, 0, 0);
 
         reportStatus(STATUS_INIT_HW, 0xf7);
     }
@@ -132,9 +156,13 @@ void init_mii(volatile DEVICE_t *device)
     // Set MII_REG_CONTROL to AUTO_NEGOTIATION_ENABLE.
     uint8_t phy = MII_getPhy(device);
     RegMIIControl_t control;
-    control.r16 = MII_readRegister(device, phy, (mii_reg_t)REG_MII_CONTROL);
-    control.bits.AutoNegotiationEnable = 1;
-    MII_writeRegister(device, phy, (mii_reg_t)REG_MII_CONTROL, control.r16);
+    int32_t readVal = MII_readRegister(device, phy, (mii_reg_t)REG_MII_CONTROL);
+    if (readVal >= 0)
+    {
+        control.r16 = (uint16_t)readVal;
+        control.bits.AutoNegotiationEnable = 1;
+        (void)MII_writeRegister(device, phy, (mii_reg_t)REG_MII_CONTROL, control.r16);
+    }
 }
 
 void __attribute__((noinline)) zero_bss(void)
