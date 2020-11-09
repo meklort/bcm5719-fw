@@ -275,19 +275,27 @@ uint16_t nvm_get_subsystem_device(volatile DEVICE_t *device, const NVRAMContents
 
 void init_pci(volatile DEVICE_t *device, const NVRAMContents_t *nvram)
 {
-    // PCI Device / Vendor ID.
-    RegDEVICEPciVendorDeviceId_t vendor_device;
-    vendor_device.r32 = 0;
-    vendor_device.bits.DeviceID = nvram->info.deviceID;
-    vendor_device.bits.VendorID = nvram->info.vendorID;
-    DEVICE.PciVendorDeviceId = vendor_device;
+    // Update the device/vendor IDs so long as they are valid.
+    if (nvram->info.deviceID && nvram->info.vendorID)
+    {
+        // PCI Device / Vendor ID.
+        RegDEVICEPciVendorDeviceId_t vendor_device;
+        vendor_device.r32 = 0;
+        vendor_device.bits.DeviceID = nvram->info.deviceID;
+        vendor_device.bits.VendorID = nvram->info.vendorID;
+        DEVICE.PciVendorDeviceId = vendor_device;
+    }
 
-    // PCI Subsystem
-    RegDEVICEPciSubsystemId_t subsystem;
-    subsystem.r32 = 0;
-    subsystem.bits.SubsystemVendorID = nvram->info.subsystemVendorID;
-    subsystem.bits.SubsystemID = nvm_get_subsystem_device(device, nvram);
-    DEVICE.PciSubsystemId = subsystem;
+    uint16_t sybsystemId = nvm_get_subsystem_device(device, nvram);
+    if (nvram->info.subsystemVendorID && sybsystemId)
+    {
+        // PCI Subsystem
+        RegDEVICEPciSubsystemId_t subsystem;
+        subsystem.r32 = 0;
+        subsystem.bits.SubsystemVendorID = nvram->info.subsystemVendorID;
+        subsystem.bits.SubsystemID = sybsystemId;
+        DEVICE.PciSubsystemId = subsystem;
+    }
 
     // RegDEVICEPciClassCodeRevision_t partially from REG_CHIP_ID
 }
