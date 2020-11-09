@@ -193,7 +193,7 @@ int main()
     if (NVRam_acquireLock())
     {
         NVRam_enable();
-        NVRam_read(0, (uint32_t *)gNVMContents.vpd.bytes, sizeof(gNVMContents.vpd.bytes) / sizeof(uint32_t));
+        NVRam_read(0, (uint32_t *)&gNVMContents, sizeof(gNVMContents) / sizeof(uint32_t)); //lint !e740
 
         find_vpd();
 
