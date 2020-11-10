@@ -159,7 +159,7 @@ static int32_t MII_readShadowRegister18(volatile DEVICE_t *device, uint8_t phy, 
     // phy_write(0x18, 0x1007); //switch to shadow 0x1
     // valu = phy_read(0x18);
 
-    uint16_t shadow_reg = reg >> 8;
+    uint16_t shadow_reg = (reg & 0xFFFF) >> 8;
     RegMIIMiscellaneousControl_t shadow_select;
     shadow_select.r16 = 0;
     shadow_select.bits.ShadowRegisterReadSelector = shadow_reg;
@@ -184,7 +184,7 @@ static int32_t MII_readShadowRegister1C(volatile DEVICE_t *device, uint8_t phy, 
     // value = phy_read(0x1C);
     // return value;
 
-    uint16_t shadow_reg = reg >> 8;
+    uint16_t shadow_reg = (reg & 0xFFFF) >> 8;
     RegMIICabletronLed_t shadow_select;
     shadow_select.r16 = 0;
     shadow_select.bits.ShadowRegisterSelector = shadow_reg;
@@ -227,7 +227,7 @@ static bool MII_writeShadowRegister18(volatile DEVICE_t *device, uint8_t phy, mi
     // phy_write(0x18, 0x2007); //switch to shadow 0x2
     // phy_write(0x18, wdata | 0x2 );
 
-    uint16_t shadow_reg = reg >> 8;
+    uint16_t shadow_reg = (reg & 0xFFFF) >> 8;
     RegMIIMiscellaneousControl_t shadow_select;
     shadow_select.r16 = 0;
     shadow_select.bits.ShadowRegisterReadSelector = shadow_reg;
@@ -253,7 +253,7 @@ static bool MII_writeShadowRegister1C(volatile DEVICE_t *device, uint8_t phy, mi
     // phy_write(0x1C, 0x0800); //switch to shadow 0x2
     // phy_write(0x1C, wdata | 0x8800 );
 
-    uint16_t shadow_reg = reg >> 8;
+    uint16_t shadow_reg = (reg & 0xFFFF) >> 8;
     RegMIICabletronLed_t shadow_select;
     shadow_select.r16 = 0;
     shadow_select.bits.ShadowRegisterSelector = shadow_reg;
