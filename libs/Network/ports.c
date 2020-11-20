@@ -846,6 +846,23 @@ void Network_resetRX(NetworkPort_t *port, reload_type_t reset_phy)
     }
 }
 
+bool Network_checkEnableState(NetworkPort_t *port)
+{
+    // Ensure APE mode is set properly
+    if ((APE.Mode.r32 & port->APEModeEnable.r32) != port->APEModeEnable.r32)
+    {
+        return false;
+    }
+
+    // Ensure APE mode2 is set properly
+    if ((APE.Mode2.r32 & port->APEMode2Enable.r32) != port->APEMode2Enable.r32)
+    {
+        return false;
+    }
+
+    return true;
+}
+
 void Network_InitPort(NetworkPort_t *port, reload_type_t reset_phy)
 {
     RegMIIStatus_t stat;
