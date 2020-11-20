@@ -55,9 +55,9 @@
 
 #ifdef CXX_SIMULATOR
 #define volatile
-typedef uintptr_t   mii_reg_t;
+typedef uint64_t    mii_reg_t;
 #else
-typedef uint32_t    mii_reg_t;
+typedef uint16_t    mii_reg_t;
 #endif
 
 /**
