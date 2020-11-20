@@ -327,6 +327,16 @@ void __attribute__((noreturn)) loaderLoop(void)
                 }
             }
         }
+        else if (!Network_checkEnableState(gPort))
+        {
+            printf("APE mode change, resetting.\n");
+            wait_for_all_rx();
+            RMU_init();
+            NCSI_reload(ALWAYS_RESET);
+
+            // Update host state to make sure we don't reset twice if it's changed.
+            host_state = SHM.HostDriverState.bits.State;
+        }
 
         Network_checkPortState(gPort);
     }
