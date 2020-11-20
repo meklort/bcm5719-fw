@@ -282,6 +282,40 @@ void initSHM(volatile SHM_t *shm)
     shm->FwStatus.r32 = status.r32;
 
     shm->SegSig.r32 = 'APE!'; //lint !e742
+
+    // Reset Heartbeat
+    shm->_4014.r32 = shm->HeartbeatCount.r32;
+}
+
+void resetHeartbeat(volatile SHM_t *shm)
+{
+    shm->_4014.r32 = shm->HeartbeatCount.r32;
+    shm->_4024.r32 = Timer_getCurrentTime1KHz();
+}
+
+bool checkHeartbeat(volatile SHM_t *shm)
+{
+    uint32_t last_heartbeat = shm->_4014.r32;
+    // uint32_t next_heartbeat =  shm->
+    uint32_t new_heartbeat = shm->HeartbeatCount.r32;
+    uint32_t heartbeat_int = shm->HeartbeatInterval.r32;
+    // if (shm->HeartbeatCount == )
+
+    if (last_heartbeat != new_heartbeat)
+    {
+        uint32_t delta = Timer_getCurrentTime1KHz() - shm->_4024.r32;
+        shm->_4024.r32 = Timer_getCurrentTime1KHz();
+        shm->_4014.r32 = new_heartbeat;
+        printf("Heartbeat: %d (%d %d)\n", new_heartbeat, heartbeat_int, delta);
+        return true;
+    }
+    else if (Timer_didTimeElapsed1KHz(shm->_4024.r32, heartbeat_int + 1000))
+    {
+        printf("Heartbeat elapsed.\n");
+        return false;
+    }
+
+    return true;
 }
 
 void __attribute__((noreturn)) loaderLoop(void)
@@ -312,6 +346,8 @@ void __attribute__((noreturn)) loaderLoop(void)
                 wait_for_all_rx();
                 RMU_init();
                 NCSI_reload(NEVER_RESET);
+
+                resetHeartbeat(&SHM);
 
                 reset_allowed = true;
             }
@@ -344,6 +380,18 @@ void __attribute__((noreturn)) loaderLoop(void)
             host_state = SHM.HostDriverState.bits.State;
 
             reset_allowed = false;
+        }
+        else if (host_state == SHM_HOST_DRIVER_STATE_STATE_START)
+        {
+            // Check heartbeat.
+            if (!checkHeartbeat(&SHM))
+            {
+                // Host stopped sending heartbeat, so must be stopped.
+                SHM.HostDriverState.bits.State = SHM_HOST_DRIVER_STATE_STATE_UNLOAD;
+                wait_for_all_rx();
+                RMU_init();
+                NCSI_reload(ALWAYS_RESET);
+            }
         }
 
         Network_checkPortState(gPort);
