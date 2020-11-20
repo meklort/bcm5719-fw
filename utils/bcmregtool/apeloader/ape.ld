@@ -49,7 +49,7 @@ SECTIONS
     .text 0x00100000 : ALIGN(4) SUBALIGN(4)
     {
         KEEP(*(.init))
-        *(.text*)
+        *(.text)
     }
 
 
@@ -86,3 +86,4 @@ SECTIONS
         *(.pdr)
     }
 }
+
