@@ -287,6 +287,8 @@ void initSHM(volatile SHM_t *shm)
 void __attribute__((noreturn)) loaderLoop(void)
 {
     uint32_t host_state = SHM.HostDriverState.bits.State;
+    bool reset_allowed = host_state == SHM_HOST_DRIVER_STATE_STATE_START;
+
     // Update SHM.Sig to signal ready.
     SHM.SegSig.bits.Sig = SHM_SEG_SIG_SIG_LOADER;
     initSHM(&SHM);
@@ -310,6 +312,8 @@ void __attribute__((noreturn)) loaderLoop(void)
                 wait_for_all_rx();
                 RMU_init();
                 NCSI_reload(NEVER_RESET);
+
+                reset_allowed = true;
             }
             else
             {
@@ -325,9 +329,11 @@ void __attribute__((noreturn)) loaderLoop(void)
                     printf("wol?\n");
                     NCSI_reload(AS_NEEDED);
                 }
+
+                reset_allowed = false;
             }
         }
-        else if (!Network_checkEnableState(gPort))
+        else if (reset_allowed && !Network_checkEnableState(gPort))
         {
             printf("APE mode change, resetting.\n");
             wait_for_all_rx();
@@ -336,6 +342,8 @@ void __attribute__((noreturn)) loaderLoop(void)
 
             // Update host state to make sure we don't reset twice if it's changed.
             host_state = SHM.HostDriverState.bits.State;
+
+            reset_allowed = false;
         }
 
         Network_checkPortState(gPort);
