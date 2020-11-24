@@ -154,6 +154,55 @@
                         <ipxact:bitOffset>0</ipxact:bitOffset>
                         <ipxact:bitWidth>32</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <!-- LINK: enumeratedValue: see 6.11.10, Enumeration values -->
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>H2B</ipxact:name>
+                                <ipxact:value>0x100</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>RX Packet Even</ipxact:name>
+                                <ipxact:description>Port 0 or 2 received a packet.</ipxact:description>
+                                <ipxact:value>0x800</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>SMBUS 0</ipxact:name>
+                                <ipxact:value>0x4000</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>SMBUS 1</ipxact:name>
+                                <ipxact:value>0x10000</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>RMU Egress</ipxact:name>
+                                <ipxact:description>A packet was transmitted via the RMU</ipxact:description>
+                                <ipxact:value>0x20000</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>General Reset</ipxact:name>
+                                <ipxact:value>0x100000</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>VMain</ipxact:name>
+                                <ipxact:description>The Vmain port state has changed.</ipxact:description>
+                                <ipxact:value>0x1000000</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Link State Even</ipxact:name>
+                                <ipxact:description>Port 0 or 2 has had a link state event.</ipxact:description>
+                                <ipxact:value>0x2000000</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Link State Odd</ipxact:name>
+                                <ipxact:description>Port 1 or 3 has had a link state event.</ipxact:description>
+                                <ipxact:value>0x4000000</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>RX Packet Odd</ipxact:name>
+                                <ipxact:description>Port 1 or 3 received a packet.</ipxact:description>
+                                <ipxact:value>0x8000000</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
                     </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>
@@ -169,6 +218,55 @@
                         <ipxact:bitOffset>0</ipxact:bitOffset>
                         <ipxact:bitWidth>32</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <!-- LINK: enumeratedValue: see 6.11.10, Enumeration values -->
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>H2B</ipxact:name>
+                                <ipxact:value>0x100</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>RX Packet Even</ipxact:name>
+                                <ipxact:description>Port 0 or 2 received a packet.</ipxact:description>
+                                <ipxact:value>0x800</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>SMBUS 0</ipxact:name>
+                                <ipxact:value>0x4000</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>SMBUS 1</ipxact:name>
+                                <ipxact:value>0x10000</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>RMU Egress</ipxact:name>
+                                <ipxact:description>A packet was transmitted via the RMU</ipxact:description>
+                                <ipxact:value>0x20000</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>General Reset</ipxact:name>
+                                <ipxact:value>0x100000</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>VMain</ipxact:name>
+                                <ipxact:description>The Vmain port state has changed.</ipxact:description>
+                                <ipxact:value>0x1000000</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Link State Even</ipxact:name>
+                                <ipxact:description>Port 0 or 2 has had a link state event.</ipxact:description>
+                                <ipxact:value>0x2000000</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Link State Odd</ipxact:name>
+                                <ipxact:description>Port 1 or 3 has had a link state event.</ipxact:description>
+                                <ipxact:value>0x4000000</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>RX Packet Odd</ipxact:name>
+                                <ipxact:description>Port 1 or 3 received a packet.</ipxact:description>
+                                <ipxact:value>0x8000000</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
                     </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>
@@ -184,6 +282,55 @@
                         <ipxact:bitOffset>0</ipxact:bitOffset>
                         <ipxact:bitWidth>32</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <!-- LINK: enumeratedValue: see 6.11.10, Enumeration values -->
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>H2B</ipxact:name>
+                                <ipxact:value>0x100</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>RX Packet Even</ipxact:name>
+                                <ipxact:description>Port 0 or 2 received a packet.</ipxact:description>
+                                <ipxact:value>0x800</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>SMBUS 0</ipxact:name>
+                                <ipxact:value>0x4000</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>SMBUS 1</ipxact:name>
+                                <ipxact:value>0x10000</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>RMU Egress</ipxact:name>
+                                <ipxact:description>A packet was transmitted via the RMU</ipxact:description>
+                                <ipxact:value>0x20000</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>General Reset</ipxact:name>
+                                <ipxact:value>0x100000</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>VMain</ipxact:name>
+                                <ipxact:description>The Vmain port state has changed.</ipxact:description>
+                                <ipxact:value>0x1000000</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Link State Even</ipxact:name>
+                                <ipxact:description>Port 0 or 2 has had a link state event.</ipxact:description>
+                                <ipxact:value>0x2000000</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Link State Odd</ipxact:name>
+                                <ipxact:description>Port 1 or 3 has had a link state event.</ipxact:description>
+                                <ipxact:value>0x4000000</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>RX Packet Odd</ipxact:name>
+                                <ipxact:description>Port 1 or 3 received a packet.</ipxact:description>
+                                <ipxact:value>0x8000000</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
                     </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>
@@ -199,6 +346,55 @@
                         <ipxact:bitOffset>0</ipxact:bitOffset>
                         <ipxact:bitWidth>32</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <!-- LINK: enumeratedValue: see 6.11.10, Enumeration values -->
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>H2B</ipxact:name>
+                                <ipxact:value>0x100</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>RX Packet Even</ipxact:name>
+                                <ipxact:description>Port 0 or 2 received a packet.</ipxact:description>
+                                <ipxact:value>0x800</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>SMBUS 0</ipxact:name>
+                                <ipxact:value>0x4000</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>SMBUS 1</ipxact:name>
+                                <ipxact:value>0x10000</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>RMU Egress</ipxact:name>
+                                <ipxact:description>A packet was transmitted via the RMU</ipxact:description>
+                                <ipxact:value>0x20000</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>General Reset</ipxact:name>
+                                <ipxact:value>0x100000</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>VMain</ipxact:name>
+                                <ipxact:description>The Vmain port state has changed.</ipxact:description>
+                                <ipxact:value>0x1000000</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Link State Even</ipxact:name>
+                                <ipxact:description>Port 0 or 2 has had a link state event.</ipxact:description>
+                                <ipxact:value>0x2000000</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Link State Odd</ipxact:name>
+                                <ipxact:description>Port 1 or 3 has had a link state event.</ipxact:description>
+                                <ipxact:value>0x4000000</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>RX Packet Odd</ipxact:name>
+                                <ipxact:description>Port 1 or 3 received a packet.</ipxact:description>
+                                <ipxact:value>0x8000000</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
                     </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>
