@@ -943,7 +943,7 @@
                     </ipxact:field>
                 </ipxact:register>
             </ipxact:addressBlock>
-            <ipxact:addressUnitBits>32</ipxact:addressUnitBits>
+            <ipxact:addressUnitBits>8</ipxact:addressUnitBits>
         </ipxact:memoryMap>
     </ipxact:memoryMaps>
 </ipxact:component>

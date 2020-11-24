@@ -54,6 +54,8 @@
 #include <bcm5719_SHM_CHANNEL3.h>
 #include <bcm5719_GEN.h>
 
+#include <APE_NVIC.h>
+
 #include <dirent.h>
 #include <errno.h>
 #include <fcntl.h>
@@ -350,6 +352,9 @@ bool initHAL(const char *pci_path, int wanted_function)
     init_bcm5719_SHM_CHANNEL2_sim(&APEBase[0x4b00]);
     init_bcm5719_SHM_CHANNEL3();
     init_bcm5719_SHM_CHANNEL3_sim(&APEBase[0x4c00]);
+
+    init_APE_NVIC();
+    init_APE_NVIC_sim(0);
 
     return true;
 }

@@ -47,6 +47,7 @@
 #include <APE.h>
 #include <APE_APE_PERI.h>
 #include <APE_DEVICE.h>
+#include <APE_NVIC.h>
 #include <HAL.hpp>
 #include <MII.h>
 #include <NVRam.h>
@@ -355,6 +356,8 @@ int main(int argc, char const *argv[])
     parser.add_option("-n", "--network").dest("network").set_default("0").action("store_true").help("Print network information / status.");
 
     parser.add_option("--nvm").dest("nvm").set_default("0").action("store_true").help("Print NVM registers");
+
+    parser.add_option("--nvic").dest("nvic").set_default("0").action("store_true").help("Print NVIC registers");
 
     parser.add_option("--unlock").dest("unlock").set_default("0").action("store_true").help("Unlock NVM and APE registers");
 
@@ -761,6 +764,13 @@ int main(int argc, char const *argv[])
     if (options.get("nvm"))
     {
         NVM.print();
+
+        exit(0);
+    }
+
+    if (options.get("nvic"))
+    {
+        NVIC.print();
 
         exit(0);
     }
