@@ -388,6 +388,17 @@ typedef register_container RegNVICSystickCalibrationValue_t {
 #define     NVIC_INTERRUPT_SET_ENABLE_SETENA_MASK  0xffffffffu
 #define GET_NVIC_INTERRUPT_SET_ENABLE_SETENA(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
 #define SET_NVIC_INTERRUPT_SET_ENABLE_SETENA(__val__)  (((__val__) << 0u) & 0xffffffffu)
+#define     NVIC_INTERRUPT_SET_ENABLE_SETENA_H2B 0x100u
+#define     NVIC_INTERRUPT_SET_ENABLE_SETENA_RX_PACKET_EVEN 0x800u
+#define     NVIC_INTERRUPT_SET_ENABLE_SETENA_SMBUS_0 0x4000u
+#define     NVIC_INTERRUPT_SET_ENABLE_SETENA_SMBUS_1 0x10000u
+#define     NVIC_INTERRUPT_SET_ENABLE_SETENA_RMU_EGRESS 0x20000u
+#define     NVIC_INTERRUPT_SET_ENABLE_SETENA_GENERAL_RESET 0x100000u
+#define     NVIC_INTERRUPT_SET_ENABLE_SETENA_VMAIN 0x1000000u
+#define     NVIC_INTERRUPT_SET_ENABLE_SETENA_LINK_STATE_EVEN 0x2000000u
+#define     NVIC_INTERRUPT_SET_ENABLE_SETENA_LINK_STATE_ODD 0x4000000u
+#define     NVIC_INTERRUPT_SET_ENABLE_SETENA_RX_PACKET_ODD 0x8000000u
+
 
 /** @brief Register definition for @ref NVIC_t.InterruptSetEnable. */
 typedef register_container RegNVICInterruptSetEnable_t {
@@ -418,6 +429,17 @@ typedef register_container RegNVICInterruptSetEnable_t {
         r32.setName("InterruptSetEnable");
         bits.SETENA.setBaseRegister(&r32);
         bits.SETENA.setName("SETENA");
+        bits.SETENA.addEnum("H2B", 0x100);
+        bits.SETENA.addEnum("RX Packet Even", 0x800);
+        bits.SETENA.addEnum("SMBUS 0", 0x4000);
+        bits.SETENA.addEnum("SMBUS 1", 0x10000);
+        bits.SETENA.addEnum("RMU Egress", 0x20000);
+        bits.SETENA.addEnum("General Reset", 0x100000);
+        bits.SETENA.addEnum("VMain", 0x1000000);
+        bits.SETENA.addEnum("Link State Even", 0x2000000);
+        bits.SETENA.addEnum("Link State Odd", 0x4000000);
+        bits.SETENA.addEnum("RX Packet Odd", 0x8000000);
+
     }
     RegNVICInterruptSetEnable_t& operator=(const RegNVICInterruptSetEnable_t& other)
     {
@@ -432,6 +454,17 @@ typedef register_container RegNVICInterruptSetEnable_t {
 #define     NVIC_INTERRUPT_CLEAR_ENABLE_CLRENA_MASK  0xffffffffu
 #define GET_NVIC_INTERRUPT_CLEAR_ENABLE_CLRENA(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
 #define SET_NVIC_INTERRUPT_CLEAR_ENABLE_CLRENA(__val__)  (((__val__) << 0u) & 0xffffffffu)
+#define     NVIC_INTERRUPT_CLEAR_ENABLE_CLRENA_H2B 0x100u
+#define     NVIC_INTERRUPT_CLEAR_ENABLE_CLRENA_RX_PACKET_EVEN 0x800u
+#define     NVIC_INTERRUPT_CLEAR_ENABLE_CLRENA_SMBUS_0 0x4000u
+#define     NVIC_INTERRUPT_CLEAR_ENABLE_CLRENA_SMBUS_1 0x10000u
+#define     NVIC_INTERRUPT_CLEAR_ENABLE_CLRENA_RMU_EGRESS 0x20000u
+#define     NVIC_INTERRUPT_CLEAR_ENABLE_CLRENA_GENERAL_RESET 0x100000u
+#define     NVIC_INTERRUPT_CLEAR_ENABLE_CLRENA_VMAIN 0x1000000u
+#define     NVIC_INTERRUPT_CLEAR_ENABLE_CLRENA_LINK_STATE_EVEN 0x2000000u
+#define     NVIC_INTERRUPT_CLEAR_ENABLE_CLRENA_LINK_STATE_ODD 0x4000000u
+#define     NVIC_INTERRUPT_CLEAR_ENABLE_CLRENA_RX_PACKET_ODD 0x8000000u
+
 
 /** @brief Register definition for @ref NVIC_t.InterruptClearEnable. */
 typedef register_container RegNVICInterruptClearEnable_t {
@@ -462,6 +495,17 @@ typedef register_container RegNVICInterruptClearEnable_t {
         r32.setName("InterruptClearEnable");
         bits.CLRENA.setBaseRegister(&r32);
         bits.CLRENA.setName("CLRENA");
+        bits.CLRENA.addEnum("H2B", 0x100);
+        bits.CLRENA.addEnum("RX Packet Even", 0x800);
+        bits.CLRENA.addEnum("SMBUS 0", 0x4000);
+        bits.CLRENA.addEnum("SMBUS 1", 0x10000);
+        bits.CLRENA.addEnum("RMU Egress", 0x20000);
+        bits.CLRENA.addEnum("General Reset", 0x100000);
+        bits.CLRENA.addEnum("VMain", 0x1000000);
+        bits.CLRENA.addEnum("Link State Even", 0x2000000);
+        bits.CLRENA.addEnum("Link State Odd", 0x4000000);
+        bits.CLRENA.addEnum("RX Packet Odd", 0x8000000);
+
     }
     RegNVICInterruptClearEnable_t& operator=(const RegNVICInterruptClearEnable_t& other)
     {
@@ -476,6 +520,17 @@ typedef register_container RegNVICInterruptClearEnable_t {
 #define     NVIC_INTERRUPT_SET_PENDING_SETPEND_MASK  0xffffffffu
 #define GET_NVIC_INTERRUPT_SET_PENDING_SETPEND(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
 #define SET_NVIC_INTERRUPT_SET_PENDING_SETPEND(__val__)  (((__val__) << 0u) & 0xffffffffu)
+#define     NVIC_INTERRUPT_SET_PENDING_SETPEND_H2B 0x100u
+#define     NVIC_INTERRUPT_SET_PENDING_SETPEND_RX_PACKET_EVEN 0x800u
+#define     NVIC_INTERRUPT_SET_PENDING_SETPEND_SMBUS_0 0x4000u
+#define     NVIC_INTERRUPT_SET_PENDING_SETPEND_SMBUS_1 0x10000u
+#define     NVIC_INTERRUPT_SET_PENDING_SETPEND_RMU_EGRESS 0x20000u
+#define     NVIC_INTERRUPT_SET_PENDING_SETPEND_GENERAL_RESET 0x100000u
+#define     NVIC_INTERRUPT_SET_PENDING_SETPEND_VMAIN 0x1000000u
+#define     NVIC_INTERRUPT_SET_PENDING_SETPEND_LINK_STATE_EVEN 0x2000000u
+#define     NVIC_INTERRUPT_SET_PENDING_SETPEND_LINK_STATE_ODD 0x4000000u
+#define     NVIC_INTERRUPT_SET_PENDING_SETPEND_RX_PACKET_ODD 0x8000000u
+
 
 /** @brief Register definition for @ref NVIC_t.InterruptSetPending. */
 typedef register_container RegNVICInterruptSetPending_t {
@@ -506,6 +561,17 @@ typedef register_container RegNVICInterruptSetPending_t {
         r32.setName("InterruptSetPending");
         bits.SETPEND.setBaseRegister(&r32);
         bits.SETPEND.setName("SETPEND");
+        bits.SETPEND.addEnum("H2B", 0x100);
+        bits.SETPEND.addEnum("RX Packet Even", 0x800);
+        bits.SETPEND.addEnum("SMBUS 0", 0x4000);
+        bits.SETPEND.addEnum("SMBUS 1", 0x10000);
+        bits.SETPEND.addEnum("RMU Egress", 0x20000);
+        bits.SETPEND.addEnum("General Reset", 0x100000);
+        bits.SETPEND.addEnum("VMain", 0x1000000);
+        bits.SETPEND.addEnum("Link State Even", 0x2000000);
+        bits.SETPEND.addEnum("Link State Odd", 0x4000000);
+        bits.SETPEND.addEnum("RX Packet Odd", 0x8000000);
+
     }
     RegNVICInterruptSetPending_t& operator=(const RegNVICInterruptSetPending_t& other)
     {
@@ -520,6 +586,17 @@ typedef register_container RegNVICInterruptSetPending_t {
 #define     NVIC_INTERRUPT_CLEAR_PENDING_CLRPEND_MASK  0xffffffffu
 #define GET_NVIC_INTERRUPT_CLEAR_PENDING_CLRPEND(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
 #define SET_NVIC_INTERRUPT_CLEAR_PENDING_CLRPEND(__val__)  (((__val__) << 0u) & 0xffffffffu)
+#define     NVIC_INTERRUPT_CLEAR_PENDING_CLRPEND_H2B 0x100u
+#define     NVIC_INTERRUPT_CLEAR_PENDING_CLRPEND_RX_PACKET_EVEN 0x800u
+#define     NVIC_INTERRUPT_CLEAR_PENDING_CLRPEND_SMBUS_0 0x4000u
+#define     NVIC_INTERRUPT_CLEAR_PENDING_CLRPEND_SMBUS_1 0x10000u
+#define     NVIC_INTERRUPT_CLEAR_PENDING_CLRPEND_RMU_EGRESS 0x20000u
+#define     NVIC_INTERRUPT_CLEAR_PENDING_CLRPEND_GENERAL_RESET 0x100000u
+#define     NVIC_INTERRUPT_CLEAR_PENDING_CLRPEND_VMAIN 0x1000000u
+#define     NVIC_INTERRUPT_CLEAR_PENDING_CLRPEND_LINK_STATE_EVEN 0x2000000u
+#define     NVIC_INTERRUPT_CLEAR_PENDING_CLRPEND_LINK_STATE_ODD 0x4000000u
+#define     NVIC_INTERRUPT_CLEAR_PENDING_CLRPEND_RX_PACKET_ODD 0x8000000u
+
 
 /** @brief Register definition for @ref NVIC_t.InterruptClearPending. */
 typedef register_container RegNVICInterruptClearPending_t {
@@ -550,6 +627,17 @@ typedef register_container RegNVICInterruptClearPending_t {
         r32.setName("InterruptClearPending");
         bits.CLRPEND.setBaseRegister(&r32);
         bits.CLRPEND.setName("CLRPEND");
+        bits.CLRPEND.addEnum("H2B", 0x100);
+        bits.CLRPEND.addEnum("RX Packet Even", 0x800);
+        bits.CLRPEND.addEnum("SMBUS 0", 0x4000);
+        bits.CLRPEND.addEnum("SMBUS 1", 0x10000);
+        bits.CLRPEND.addEnum("RMU Egress", 0x20000);
+        bits.CLRPEND.addEnum("General Reset", 0x100000);
+        bits.CLRPEND.addEnum("VMain", 0x1000000);
+        bits.CLRPEND.addEnum("Link State Even", 0x2000000);
+        bits.CLRPEND.addEnum("Link State Odd", 0x4000000);
+        bits.CLRPEND.addEnum("RX Packet Odd", 0x8000000);
+
     }
     RegNVICInterruptClearPending_t& operator=(const RegNVICInterruptClearPending_t& other)
     {
