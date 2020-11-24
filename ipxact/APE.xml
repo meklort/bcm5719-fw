@@ -18,7 +18,7 @@
                 <ipxact:usage>register</ipxact:usage>
                 <ipxact:volatile>false</ipxact:volatile>
             </ipxact:addressBlock>
-            <ipxact:addressUnitBits>32</ipxact:addressUnitBits>
+            <ipxact:addressUnitBits>8</ipxact:addressUnitBits>
         </ipxact:memoryMap>
 
         <!-- APE Registers: 0x6020_0000 to  6020_8FFF-->
