@@ -71,6 +71,10 @@ void handleNCSIFrame(const NetworkFrame_t* frame);
 //lint -sem(NCSI_TxPacket, 2n >= 1P) Warn if packet is smaller than packet_len
 void NCSI_TxPacket(const uint32_t* packet, uint32_t packet_len);
 
+//lint -sem(NCSI_TxBePacket, 1p) Warn if packet is NULL
+//lint -sem(NCSI_TxBePacket, 2n >= 1P) Warn if packet is smaller than packet_len
+void NCSI_TxBePacket(const uint32_t* packet, uint32_t packet_len);
+
 void NCSI_handlePassthrough(void);
 
 void NCSI_init(void);

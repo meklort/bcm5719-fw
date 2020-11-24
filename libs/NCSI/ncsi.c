@@ -53,6 +53,13 @@
 #include <stdio.h>
 #else
 #include <printf.h>
+/* ARM */
+static inline uint32_t be32toh(uint32_t be32)
+{
+    uint32_t he32 = ((be32 & 0xFF000000) >> 24) | ((be32 & 0x00FF0000) >> 8) | ((be32 & 0x0000FF00) << 8) | ((be32 & 0x000000FF) << 24);
+
+    return he32;
+}
 #endif
 #define debug(...) printf(__VA_ARGS__)
 
@@ -724,7 +731,7 @@ void reloadChannel(unsigned int ch, reload_type_t reset_phy)
     Network_InitPort(gPackageState.port[ch], reset_phy);
 }
 
-void NCSI_TxPacket(const uint32_t *packet, uint32_t packet_len)
+static inline bool NCSI_TxPacket_internal(const uint32_t *packet, uint32_t packet_len, bool big_endian)
 {
     uint32_t packetWords = DIVIDE_RND_UP(packet_len, sizeof(uint32_t));
 
@@ -739,29 +746,58 @@ void NCSI_TxPacket(const uint32_t *packet, uint32_t packet_len)
 
     if (!max_loops)
     {
-        printf("Error waiting for fifo space. Dropping NCSI packet.");
-        return;
+        return false;
     }
 
     // Transmit.
     for (unsigned int i = 0; i < packetWords - 1; i++)
     {
-#ifdef CXX_SIMULATOR
-        debug("Transmitting word %d: 0x%08x\n", i, packet[i]);
-#endif
-        APE_PERI.BmcToNcTxBuffer.r32 = packet[i];
+        uint32_t word;
+        if (big_endian)
+        {
+            word = be32toh(packet[i]);
+        }
+        else
+        {
+            word = packet[i];
+        }
+
+        APE_PERI.BmcToNcTxBuffer.r32 = word;
     }
 
     APE_PERI.BmcToNcTxControl = txControl;
 
-#ifdef CXX_SIMULATOR
-    debug("Last byte count: %d\n", (int)txControl.bits.LastByteCount);
-    debug("Transmitting last word %d: 0x%08x\n", packetWords - 1, packet[packetWords - 1]);
-#endif
-    APE_PERI.BmcToNcTxBufferLast.r32 = packet[packetWords - 1];
+    uint32_t last_word;
+    if (big_endian)
+    {
+        last_word = be32toh(packet[packetWords - 1]);
+    }
+    else
+    {
+        last_word = packet[packetWords - 1];
+    }
 
-    NetworkPort_t *port = gPackageState.port[0];
-    ++port->shm_channel->NcsiChannelNcsiTx.r32;
+    APE_PERI.BmcToNcTxBufferLast.r32 = last_word;
+
+    return true;
+}
+
+void NCSI_TxPacket(const uint32_t *packet, uint32_t packet_len)
+{
+    if (NCSI_TxPacket_internal(packet, packet_len, false))
+    {
+        NetworkPort_t *port = gPackageState.port[0];
+        ++port->shm_channel->NcsiChannelNcsiTx.r32;
+    }
+    else
+    {
+        printf("Error waiting for fifo space. Dropping NCSI packet.");
+    }
+}
+
+void NCSI_TxBePacket(const uint32_t *packet, uint32_t packet_len)
+{
+    (void)NCSI_TxPacket_internal(packet, packet_len, true);
 }
 
 void sendNCSILinkStatusResponse(uint8_t InstanceID, uint8_t channelID, uint32_t LinkStatus, uint32_t OEMLinkStatus, uint32_t OtherIndications)
