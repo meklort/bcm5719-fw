@@ -69,16 +69,16 @@
 
 static NetworkPort_t *gPort;
 
-void handleCommand(void)
+void handleCommand(volatile SHM_t *shm)
 {
-    uint32_t command = SHM.LoaderCommand.bits.Command;
+    uint32_t command = shm->LoaderCommand.bits.Command;
     if (!command)
     {
         return;
     }
 
-    uint32_t arg0 = SHM.LoaderArg0.r32;
-    uint32_t arg1 = SHM.LoaderArg1.r32;
+    uint32_t arg0 = shm->LoaderArg0.r32;
+    uint32_t arg1 = shm->LoaderArg1.r32;
 
     switch (command)
     {
@@ -89,7 +89,7 @@ void handleCommand(void)
         {
             // Read word address specified in arg0
             uint32_t *addr = ((void *)arg0);
-            SHM.LoaderArg0.r32 = *addr;
+            shm->LoaderArg0.r32 = *addr;
             break;
         }
         case SHM_LOADER_COMMAND_COMMAND_WRITE_MEM:
@@ -109,7 +109,7 @@ void handleCommand(void)
     }
 
     // Mark command as handled.
-    SHM.LoaderCommand.bits.Command = 0;
+    shm->LoaderCommand.bits.Command = 0;
 }
 
 void wait_for_rx(const volatile DEVICE_t *device, const volatile SHM_t *shm)
@@ -296,7 +296,10 @@ void __attribute__((noreturn)) loaderLoop(void)
     {
         handleBMCPacket();
         NCSI_handlePassthrough();
-        handleCommand();
+        handleCommand(&SHM);
+        handleCommand(&SHM1);
+        handleCommand(&SHM2);
+        handleCommand(&SHM3);
         checkSupply();
 
         if (host_state != SHM.HostDriverState.bits.State)
