@@ -48,6 +48,7 @@
 #include <APE_DEVICE1.h>
 #include <APE_DEVICE2.h>
 #include <APE_DEVICE3.h>
+#include <APE_NVIC.h>
 #include <APE_SHM.h>
 #include <APE_SHM1.h>
 #include <APE_SHM2.h>
@@ -248,22 +249,17 @@ void handleBMCPacket(void)
     }
 }
 
-void checkSupply(bool alwaysReport)
+void checkSupply(void)
 {
-    static int gVMainOn = false;
-    int status = DEVICE.Status.bits.VMAINPowerStatus;
-    if (alwaysReport || gVMainOn != status)
+    if (NVIC.InterruptClearPending.r32 & NVIC_INTERRUPT_CLEAR_PENDING_CLRPEND_VMAIN)
     {
-        printf("VMAINPowerStatus: %d\n", status);
-        if (0 == status && !alwaysReport)
-        {
-            printf("Powered off, resetting\n");
-            wait_for_all_rx();
-            RMU_init();
-            NCSI_reload(ALWAYS_RESET);
-        }
+        NVIC.InterruptClearPending.r32 = NVIC_INTERRUPT_CLEAR_PENDING_CLRPEND_VMAIN;
 
-        gVMainOn = status;
+        printf("Power State Changed.\n");
+
+        wait_for_all_rx();
+        RMU_init();
+        NCSI_reload(AS_NEEDED);
     }
 }
 
@@ -301,7 +297,7 @@ void __attribute__((noreturn)) loaderLoop(void)
         handleBMCPacket();
         NCSI_handlePassthrough();
         handleCommand();
-        checkSupply(false);
+        checkSupply();
 
         if (host_state != SHM.HostDriverState.bits.State)
         {
@@ -406,6 +402,9 @@ bool handle_reset(void)
 //lint -esym(714, __start) // Referenced by build tools.
 void __attribute__((noreturn)) __start()
 {
+    // Ensure all pending interrupts are cleared.
+    NVIC.InterruptClearPending.r32 = 0xFFFFFFFF;
+
     bool full_init = handle_reset();
     if (reset_ape_console())
     {
@@ -417,7 +416,7 @@ void __attribute__((noreturn)) __start()
 
     NCSI_usePort(gPort);
 
-    checkSupply(true);
+    checkSupply();
 
     RMU_init();
 
