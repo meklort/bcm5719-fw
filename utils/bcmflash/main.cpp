@@ -53,6 +53,7 @@
 #include <OptionParser.h>
 #include <bcm5719-endian.h>
 #include <bcm5719_DEVICE.h>
+#include <bcm5719_GEN.h>
 #include <bcm5719_eeprom.h>
 #include <stdbool.h>
 #include <stdint.h>
@@ -282,6 +283,10 @@ bool set_mac(uint32_t dest[2], const char *mac_str)
 
 void dump_info(NVRAMInfo_t *info, NVRAMInfo2_t *info2)
 {
+    RegGENGenCfgHw_t hw;
+    RegGENGenCfgHw2_t hw2;
+    RegGENGenCfgFeature_t feature;
+
     printf("\n=== Info ===\n");
     printf("Firmware Revision: 0x%04X\n", be16toh(info->firmwareRevision));
 
@@ -302,7 +307,15 @@ void dump_info(NVRAMInfo_t *info, NVRAMInfo2_t *info2)
     printf("Function 2G Subsystem ID 0x%04X\n", be16toh(info2->pciSubsystemF2GPHY));
     printf("Function 3G Subsystem ID 0x%04X\n", be16toh(info2->pciSubsystemF3GPHY));
 
-    printf("Shared Cfg:     0x%08X\n", be32toh(info->cfgShared));
+    printf("Shared Cfg:     0x%08X", be32toh(info->cfgShared));
+    RegGENGenCfgShared_t shared;
+    shared.r32 = be32toh(info->cfgShared);
+    shared.print();
+
+    printf("Cfg5:           0x%08X", be32toh(info2->cfg5));
+    RegGENGenCfg5_t cfg5;
+    cfg5.r32 = be32toh(info2->cfg5);
+    cfg5.print();
 
     printf("Power Dissipated: 0x%02X 0x%02X 0x%02X 0x%02X\n", info->powerDissipatedD3, info->powerDissipatedD2, info->powerDissipatedD1,
            info->powerDissipatedD0);
@@ -344,30 +357,54 @@ void dump_info(NVRAMInfo_t *info, NVRAMInfo2_t *info2)
     printf("\n=== Port 0 ===\n");
     printf("Subsystem ID: 0x%04X\n", be16toh(info2->pciSubsystemF0GPHY));
     printf("MAC:        0x%04X%08X\n", be32toh(info->macAddr0[0]), be32toh(info->macAddr0[1]));
-    printf("Feature:    0x%08X\n", be32toh(info->func0CfgFeature));
-    printf("Cfg:        0x%08X\n", be32toh(info->func0CfgHW));
-    printf("Cfg2:       0x%08X\n", be32toh(info2->func0CfgHW2));
+    printf("Feature:    0x%08X", be32toh(info->func0CfgFeature));
+    feature.r32 = be32toh(info->func0CfgFeature);
+    feature.print();
+    printf("Cfg:        0x%08X", be32toh(info->func0CfgHW));
+    hw.r32 = be32toh(info->func0CfgHW);
+    hw.print();
+    printf("Cfg2:       0x%08X", be32toh(info2->func0CfgHW2));
+    hw2.r32 = be32toh(info2->func0CfgHW2);
+    hw2.print();
 
     printf("\n=== Port 1 ===\n");
     printf("Subsystem ID: 0x%04X\n", be16toh(info2->pciSubsystemF1GPHY));
     printf("MAC:        0x%04X%08X\n", be32toh(info->macAddr1[0]), be32toh(info->macAddr1[1]));
-    printf("Feature:    0x%08X\n", be32toh(info->func1CfgFeature));
-    printf("Cfg:        0x%08X\n", be32toh(info->func1CfgHW));
-    printf("Cfg2:       0x%08X\n", be32toh(info2->func1CfgHW2));
+    printf("Feature:    0x%08X", be32toh(info->func1CfgFeature));
+    feature.r32 = be32toh(info->func1CfgFeature);
+    feature.print();
+    printf("Cfg:        0x%08X", be32toh(info->func1CfgHW));
+    hw.r32 = be32toh(info->func1CfgHW);
+    hw.print();
+    printf("Cfg2:       0x%08X", be32toh(info2->func1CfgHW2));
+    hw2.r32 = be32toh(info2->func1CfgHW2);
+    hw2.print();
 
     printf("\n=== Port 2 ===\n");
     printf("Subsystem ID: 0x%04X\n", be16toh(info2->pciSubsystemF2GPHY));
     printf("MAC:        0x%04X%08X\n", be32toh(info2->macAddr2[0]), be32toh(info2->macAddr2[1]));
-    printf("Feature:    0x%08X\n", be32toh(info2->func2CfgFeature));
-    printf("Cfg:        0x%08X\n", be32toh(info2->func2CfgHW));
-    printf("Cfg2:       0x%08X\n", be32toh(info2->func2CfgHW2));
+    printf("Feature:    0x%08X", be32toh(info2->func2CfgFeature));
+    feature.r32 = be32toh(info2->func2CfgFeature);
+    feature.print();
+    printf("Cfg:        0x%08X", be32toh(info2->func2CfgHW));
+    hw.r32 = be32toh(info2->func2CfgHW);
+    hw.print();
+    printf("Cfg2:       0x%08X", be32toh(info2->func2CfgHW2));
+    hw2.r32 = be32toh(info2->func2CfgHW2);
+    hw2.print();
 
     printf("\n=== Port 3 ===\n");
     printf("Subsystem ID: 0x%04X\n", be16toh(info2->pciSubsystemF3GPHY));
     printf("MAC:        0x%04X%08X\n", be32toh(info2->macAddr3[0]), be32toh(info2->macAddr3[1]));
-    printf("Feature:    0x%08X\n", be32toh(info2->func3CfgFeature));
-    printf("Cfg:        0x%08X\n", be32toh(info2->func3CfgHW));
-    printf("Cfg2:       0x%08X\n", be32toh(info2->func3CfgHW2));
+    printf("Feature:    0x%08X", be32toh(info2->func3CfgFeature));
+    feature.r32 = be32toh(info2->func3CfgFeature);
+    feature.print();
+    printf("Cfg:        0x%08X", be32toh(info2->func3CfgHW));
+    hw.r32 = be32toh(info2->func3CfgHW);
+    hw.print();
+    printf("Cfg2:       0x%08X", be32toh(info2->func3CfgHW2));
+    hw2.r32 = be32toh(info2->func3CfgHW2);
+    hw2.print();
 
     printf("\n=== SMBus ===\n");
     printf("Device Address: 0x%02X\n", info->SMBusAddr);

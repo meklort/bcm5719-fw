@@ -359,6 +359,8 @@ int main(int argc, char const *argv[])
 
     parser.add_option("--nvic").dest("nvic").set_default("0").action("store_true").help("Print NVIC registers");
 
+    parser.add_option("--gen").dest("gen").set_default("0").action("store_true").help("Print GEN registers");
+
     parser.add_option("--unlock").dest("unlock").set_default("0").action("store_true").help("Unlock NVM and APE registers");
 
     parser.add_option("-apereset", "--apereset").dest("apereset").set_default("0").action("store_true").help("File to boot on the APE.");
@@ -771,6 +773,13 @@ int main(int argc, char const *argv[])
     if (options.get("nvic"))
     {
         NVIC.print();
+
+        exit(0);
+    }
+
+    if (options.get("gen"))
+    {
+        GEN.print();
 
         exit(0);
     }
