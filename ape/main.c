@@ -319,7 +319,7 @@ void __attribute__((noreturn)) loaderLoop(void)
                 if (SHM_HOST_DRIVER_STATE_STATE_UNLOAD == host_state)
                 {
                     printf("host unloaded.\n");
-                    type = ALWAYS_RESET;
+                    type = AS_NEEDED;
                 }
                 else
                 {
