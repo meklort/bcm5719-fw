@@ -124,6 +124,7 @@ void RMU_resetBadPacket(void)
         if (Timer_didTimeElapsed1KHz(startTime, RMU_RESET_TIMEOUT_MS))
         {
             printf("RMU packet reset failed.\n");
+            break;
         }
     }
 }
