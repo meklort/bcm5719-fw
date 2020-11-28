@@ -182,22 +182,50 @@ typedef register_container RegGENGenDataSig_t {
 } RegGENGenDataSig_t;
 
 #define REG_GEN_GEN_CFG ((volatile BCM5719_GEN_H_uint32_t*)0xb58) /* TODO. */
-#define     GEN_GEN_CFG_PHY_TYPE__GPHY_SHIFT 4u
-#define     GEN_GEN_CFG_PHY_TYPE__GPHY_MASK  0x10u
-#define GET_GEN_GEN_CFG_PHY_TYPE__GPHY(__reg__)  (((__reg__) & 0x10) >> 4u)
-#define SET_GEN_GEN_CFG_PHY_TYPE__GPHY(__val__)  (((__val__) << 4u) & 0x10u)
-#define     GEN_GEN_CFG_PHY_TYPE__SERDES_SHIFT 5u
-#define     GEN_GEN_CFG_PHY_TYPE__SERDES_MASK  0x20u
-#define GET_GEN_GEN_CFG_PHY_TYPE__SERDES(__reg__)  (((__reg__) & 0x20) >> 5u)
-#define SET_GEN_GEN_CFG_PHY_TYPE__SERDES(__val__)  (((__val__) << 5u) & 0x20u)
+#define     GEN_GEN_CFG_LED_MODE_SHIFT 2u
+#define     GEN_GEN_CFG_LED_MODE_MASK  0xcu
+#define GET_GEN_GEN_CFG_LED_MODE(__reg__)  (((__reg__) & 0xc) >> 2u)
+#define SET_GEN_GEN_CFG_LED_MODE(__val__)  (((__val__) << 2u) & 0xcu)
+#define     GEN_GEN_CFG_LED_MODE_MAC 0x0u
+#define     GEN_GEN_CFG_LED_MODE_PHY_1 0x1u
+#define     GEN_GEN_CFG_LED_MODE_PHY_2 0x2u
+
+#define     GEN_GEN_CFG_PHY_TYPE_SHIFT 4u
+#define     GEN_GEN_CFG_PHY_TYPE_MASK  0x30u
+#define GET_GEN_GEN_CFG_PHY_TYPE(__reg__)  (((__reg__) & 0x30) >> 4u)
+#define SET_GEN_GEN_CFG_PHY_TYPE(__val__)  (((__val__) << 4u) & 0x30u)
+#define     GEN_GEN_CFG_PHY_TYPE_UNKNOWN 0x0u
+#define     GEN_GEN_CFG_PHY_TYPE_COPPER 0x1u
+#define     GEN_GEN_CFG_PHY_TYPE_FIBER 0x2u
+
 #define     GEN_GEN_CFG_WOL_ENABLE_SHIFT 6u
 #define     GEN_GEN_CFG_WOL_ENABLE_MASK  0x40u
 #define GET_GEN_GEN_CFG_WOL_ENABLE(__reg__)  (((__reg__) & 0x40) >> 6u)
 #define SET_GEN_GEN_CFG_WOL_ENABLE(__val__)  (((__val__) << 6u) & 0x40u)
-#define     GEN_GEN_CFG_TODO_SHIFT 7u
-#define     GEN_GEN_CFG_TODO_MASK  0xffffff80u
-#define GET_GEN_GEN_CFG_TODO(__reg__)  (((__reg__) & 0xffffff80) >> 7u)
-#define SET_GEN_GEN_CFG_TODO(__val__)  (((__val__) << 7u) & 0xffffff80u)
+#define     GEN_GEN_CFG_ASF_ENABLE_SHIFT 7u
+#define     GEN_GEN_CFG_ASF_ENABLE_MASK  0x80u
+#define GET_GEN_GEN_CFG_ASF_ENABLE(__reg__)  (((__reg__) & 0x80) >> 7u)
+#define SET_GEN_GEN_CFG_ASF_ENABLE(__val__)  (((__val__) << 7u) & 0x80u)
+#define     GEN_GEN_CFG_EEPROM_WP_SHIFT 8u
+#define     GEN_GEN_CFG_EEPROM_WP_MASK  0x100u
+#define GET_GEN_GEN_CFG_EEPROM_WP(__reg__)  (((__reg__) & 0x100) >> 8u)
+#define SET_GEN_GEN_CFG_EEPROM_WP(__val__)  (((__val__) << 8u) & 0x100u)
+#define     GEN_GEN_CFG_MINI_PCI_SHIFT 12u
+#define     GEN_GEN_CFG_MINI_PCI_MASK  0x1000u
+#define GET_GEN_GEN_CFG_MINI_PCI(__reg__)  (((__reg__) & 0x1000) >> 12u)
+#define SET_GEN_GEN_CFG_MINI_PCI(__val__)  (((__val__) << 12u) & 0x1000u)
+#define     GEN_GEN_CFG_FIBER_WOL_SHIFT 14u
+#define     GEN_GEN_CFG_FIBER_WOL_MASK  0x4000u
+#define GET_GEN_GEN_CFG_FIBER_WOL(__reg__)  (((__reg__) & 0x4000) >> 14u)
+#define SET_GEN_GEN_CFG_FIBER_WOL(__val__)  (((__val__) << 14u) & 0x4000u)
+#define     GEN_GEN_CFG_NO_GPIO2_SHIFT 20u
+#define     GEN_GEN_CFG_NO_GPIO2_MASK  0x100000u
+#define GET_GEN_GEN_CFG_NO_GPIO2(__reg__)  (((__reg__) & 0x100000) >> 20u)
+#define SET_GEN_GEN_CFG_NO_GPIO2(__val__)  (((__val__) << 20u) & 0x100000u)
+#define     GEN_GEN_CFG_APE_ENABLE_SHIFT 21u
+#define     GEN_GEN_CFG_APE_ENABLE_MASK  0x200000u
+#define GET_GEN_GEN_CFG_APE_ENABLE(__reg__)  (((__reg__) & 0x200000) >> 21u)
+#define SET_GEN_GEN_CFG_APE_ENABLE(__val__)  (((__val__) << 21u) & 0x200000u)
 
 /** @brief Register definition for @ref GEN_t.GenCfg. */
 typedef register_container RegGENGenCfg_t {
@@ -207,26 +235,62 @@ typedef register_container RegGENGenCfg_t {
     BITFIELD_BEGIN(BCM5719_GEN_H_uint32_t, bits)
 #if defined(__LITTLE_ENDIAN__)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_3_0, 0, 4)
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_1_0, 0, 2)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, PHYType_GPHY, 4, 1)
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, LEDMode, 2, 2)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, PHYType_SERDES, 5, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, WOLEnable, 6, 1)
-        /** @brief  */
-        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, TODO, 7, 25)
-#elif defined(__BIG_ENDIAN__)
-        /** @brief  */
-        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, TODO, 7, 25)
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, PHYType, 4, 2)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, WOLEnable, 6, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, PHYType_SERDES, 5, 1)
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, ASFEnable, 7, 1)
         /** @brief  */
-        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, PHYType_GPHY, 4, 1)
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, EEPROMWP, 8, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_3_0, 0, 4)
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_11_9, 9, 3)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, MiniPCI, 12, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_13_13, 13, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, FiberWOL, 14, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_19_15, 15, 5)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, NoGPIO2, 20, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, APEEnable, 21, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_31_22, 22, 10)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_31_22, 22, 10)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, APEEnable, 21, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, NoGPIO2, 20, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_19_15, 15, 5)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, FiberWOL, 14, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_13_13, 13, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, MiniPCI, 12, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_11_9, 9, 3)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, EEPROMWP, 8, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, ASFEnable, 7, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, WOLEnable, 6, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, PHYType, 4, 2)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, LEDMode, 2, 2)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, reserved_1_0, 0, 2)
 #else
 #error Unknown Endian
 #endif
@@ -242,14 +306,32 @@ typedef register_container RegGENGenCfg_t {
     {
         /** @brief constructor for @ref GEN_t.GenCfg. */
         r32.setName("GenCfg");
-        bits.PHYType_GPHY.setBaseRegister(&r32);
-        bits.PHYType_GPHY.setName("PHYType_GPHY");
-        bits.PHYType_SERDES.setBaseRegister(&r32);
-        bits.PHYType_SERDES.setName("PHYType_SERDES");
+        bits.LEDMode.setBaseRegister(&r32);
+        bits.LEDMode.setName("LEDMode");
+        bits.LEDMode.addEnum("MAC", 0x0);
+        bits.LEDMode.addEnum("PHY 1", 0x1);
+        bits.LEDMode.addEnum("PHY 2", 0x2);
+
+        bits.PHYType.setBaseRegister(&r32);
+        bits.PHYType.setName("PHYType");
+        bits.PHYType.addEnum("Unknown", 0x0);
+        bits.PHYType.addEnum("Copper", 0x1);
+        bits.PHYType.addEnum("Fiber", 0x2);
+
         bits.WOLEnable.setBaseRegister(&r32);
         bits.WOLEnable.setName("WOLEnable");
-        bits.TODO.setBaseRegister(&r32);
-        bits.TODO.setName("TODO");
+        bits.ASFEnable.setBaseRegister(&r32);
+        bits.ASFEnable.setName("ASFEnable");
+        bits.EEPROMWP.setBaseRegister(&r32);
+        bits.EEPROMWP.setName("EEPROMWP");
+        bits.MiniPCI.setBaseRegister(&r32);
+        bits.MiniPCI.setName("MiniPCI");
+        bits.FiberWOL.setBaseRegister(&r32);
+        bits.FiberWOL.setName("FiberWOL");
+        bits.NoGPIO2.setBaseRegister(&r32);
+        bits.NoGPIO2.setName("NoGPIO2");
+        bits.APEEnable.setBaseRegister(&r32);
+        bits.APEEnable.setName("APEEnable");
     }
     RegGENGenCfg_t& operator=(const RegGENGenCfg_t& other)
     {
