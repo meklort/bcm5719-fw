@@ -339,7 +339,7 @@ void __attribute__((noreturn)) loaderLoop(void)
             printf("APE mode change, resetting.\n");
             wait_for_all_rx();
             RMU_init();
-            NCSI_reload(ALWAYS_RESET);
+            NCSI_reload(AS_NEEDED);
 
             // Update host state to make sure we don't reset twice if it's changed.
             host_state = SHM.HostDriverState.bits.State;
