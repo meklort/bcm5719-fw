@@ -328,12 +328,28 @@ void init_pci(volatile DEVICE_t *device, const NVRAMContents_t *nvram)
     // RegDEVICEPciClassCodeRevision_t partially from REG_CHIP_ID
 }
 
-void init_gen(const NVRAMContents_t *nvram)
+void init_gen(volatile DEVICE_t *device, const NVRAMContents_t *nvram)
 {
-    int function = DEVICE.Status.bits.FunctionNumber;
+    int function = device->Status.bits.FunctionNumber;
+    RegGENGenCfg_t cfg;
+
     uint32_t cfg_feature;
     uint32_t cfg_hw;
     uint32_t cfg_hw2;
+
+    cfg.r32 = 0; // Talos II has 0x2a0194
+    cfg.bits.LEDMode = GEN_GEN_CFG_LED_MODE_PHY_1;
+    cfg.bits.ASFEnable = 1;
+    cfg.bits.APEEnable = 1;
+
+    if (MII_getPhy(device) >= DEVICE_MII_COMMUNICATION_PHY_ADDRESS_SGMII_0)
+    {
+        cfg.bits.PHYType = GEN_GEN_CFG_PHY_TYPE_FIBER;
+    }
+    else
+    {
+        cfg.bits.PHYType = GEN_GEN_CFG_PHY_TYPE_COPPER;
+    }
 
     switch (function)
     {
@@ -363,6 +379,7 @@ void init_gen(const NVRAMContents_t *nvram)
             break;
     }
 
+    GEN.GenCfg.r32 = cfg.r32;
     GEN.GenCfgFeature.r32 = cfg_feature;
     GEN.GenCfgHw.r32 = cfg_hw;
     GEN.GenCfgHw2.r32 = cfg_hw2;
@@ -386,7 +403,7 @@ void load_nvm_config(volatile DEVICE_t *device, const NVRAMContents_t *nvram)
     // REG_PCI_SUBSYSTEM_ID, vendor, class, rev
     init_pci(device, nvram);
 
-    init_gen(nvram);
+    init_gen(device, nvram);
 }
 
 void init_hw(volatile DEVICE_t *device)
