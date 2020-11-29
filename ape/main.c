@@ -209,7 +209,6 @@ void handleBMCPacket(void)
                         printf("Resetting TX...\n");
                         // Reset, as it's likely locked up now.
                         wait_for_all_rx();
-                        RMU_init();
                         NCSI_reload(AS_NEEDED);
                     }
                 }
@@ -348,7 +347,6 @@ void __attribute__((noreturn)) loaderLoop(void)
                 printf("Handling reset...\n");
                 // Perform TX reinit as the PHY / MII was also probably reset.
                 wait_for_all_rx();
-                RMU_init();
                 NCSI_reload(AS_NEEDED);
             }
         }
@@ -391,7 +389,6 @@ void __attribute__((noreturn)) loaderLoop(void)
             {
                 printf("APE mode change, resetting.\n");
                 wait_for_all_rx();
-                RMU_init();
                 NCSI_reload(AS_NEEDED);
 
                 // Update host state to make sure we don't reset twice if it's changed.
