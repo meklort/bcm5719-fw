@@ -83,3 +83,12 @@ bool Timer_didTimeElapsed1MHz(uint32_t startTime, uint32_t checkTime)
 {
     return (APE.Tick1mhz.r32 - startTime) > checkTime;
 }
+
+void Timer_delayMs(uint32_t milliseconds)
+{
+    uint32_t startTime = Timer_getCurrentTime1KHz();
+    do
+    {
+        // Spin
+    } while (!Timer_didTimeElapsed1KHz(startTime, milliseconds));
+}
