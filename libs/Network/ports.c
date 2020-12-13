@@ -949,7 +949,7 @@ void Network_InitPort(NetworkPort_t *port, reload_type_t reset_phy)
 
     RegDEVICETransmitMacLengths_t txMacLengths;
     txMacLengths = port->device->TransmitMacLengths;
-    txMacLengths.bits.SlotTimeLength = 0x21;
+    txMacLengths.bits.SlotTimeLength = 0x20;
     txMacLengths.bits.IPGLength = 0x6;
     txMacLengths.bits.IPGCRSLength = 0x2;
     port->device->TransmitMacLengths = txMacLengths;
@@ -1102,6 +1102,24 @@ bool Network_updatePortState(NetworkPort_t *port)
             {
                 // Update emac mode to match current state.
                 port->device->EmacMode = emacMode;
+
+                RegDEVICETransmitMacLengths_t txMacLengths;
+                txMacLengths = port->device->TransmitMacLengths;
+
+                // Per the tg3.c driver, update slot time length when in half duplex 1G mode.
+                if (emacMode.bits.PortMode == DEVICE_EMAC_MODE_PORT_MODE_1000 && emacMode.bits.HalfDuplex)
+                {
+                    txMacLengths.bits.SlotTimeLength = 0xFF;
+                    txMacLengths.bits.IPGLength = 0x6;
+                    txMacLengths.bits.IPGCRSLength = 0x2;
+                }
+                else
+                {
+                    txMacLengths.bits.SlotTimeLength = 0x20;
+                    txMacLengths.bits.IPGLength = 0x6;
+                    txMacLengths.bits.IPGCRSLength = 0x2;
+                }
+                port->device->TransmitMacLengths = txMacLengths;
             }
 
             updated = true;
