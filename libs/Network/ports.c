@@ -1120,6 +1120,19 @@ bool Network_updatePortState(NetworkPort_t *port)
                     txMacLengths.bits.IPGCRSLength = 0x2;
                 }
                 port->device->TransmitMacLengths = txMacLengths;
+
+                // Update EEE Control
+                RegDEVICEEeeControl_t eeectrl;
+                eeectrl.r32 = 0;
+                if (emacMode.bits.PortMode == DEVICE_EMAC_MODE_PORT_MODE_1000)
+                {
+                    eeectrl.bits.ExitTime = DEVICE_EEE_CONTROL_EXIT_TIME_16_5_US;
+                }
+                else
+                {
+                    eeectrl.bits.ExitTime = DEVICE_EEE_CONTROL_EXIT_TIME_36_US;
+                }
+                port->device->EeeControl.r32 = eeectrl.r32;
             }
 
             updated = true;

@@ -2655,6 +2655,21 @@ Link Aware Power mode</ipxact:description>
                         <ipxact:bitOffset>0</ipxact:bitOffset>
                         <ipxact:bitWidth>16</ipxact:bitWidth>
                         <ipxact:access>read-write</ipxact:access>
+                        <ipxact:enumeratedValues>
+                            <!-- LINK: enumeratedValue: see 6.11.10, Enumeration values -->
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>16.5 us</ipxact:name>
+                                <ipxact:value>0x19d</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>20.1 us</ipxact:name>
+                                <ipxact:value>0x1f8</ipxact:value>
+                            </ipxact:enumeratedValue>
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>36 us</ipxact:name>
+                                <ipxact:value>0x384</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
                     </ipxact:field>
                     <ipxact:field>
                         <ipxact:name>Minimum Assert</ipxact:name>

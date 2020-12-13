@@ -4951,6 +4951,10 @@ typedef register_container RegDEVICEEeeLinkIdleControl_t {
 #define     DEVICE_EEE_CONTROL_EXIT_TIME_MASK  0xffffu
 #define GET_DEVICE_EEE_CONTROL_EXIT_TIME(__reg__)  (((__reg__) & 0xffff) >> 0u)
 #define SET_DEVICE_EEE_CONTROL_EXIT_TIME(__val__)  (((__val__) << 0u) & 0xffffu)
+#define     DEVICE_EEE_CONTROL_EXIT_TIME_16_5_US 0x19du
+#define     DEVICE_EEE_CONTROL_EXIT_TIME_20_1_US 0x1f8u
+#define     DEVICE_EEE_CONTROL_EXIT_TIME_36_US 0x384u
+
 #define     DEVICE_EEE_CONTROL_MINIMUM_ASSERT_SHIFT 16u
 #define     DEVICE_EEE_CONTROL_MINIMUM_ASSERT_MASK  0xffff0000u
 #define GET_DEVICE_EEE_CONTROL_MINIMUM_ASSERT(__reg__)  (((__reg__) & 0xffff0000) >> 16u)
@@ -4989,6 +4993,10 @@ typedef register_container RegDEVICEEeeControl_t {
         r32.setName("EeeControl");
         bits.ExitTime.setBaseRegister(&r32);
         bits.ExitTime.setName("ExitTime");
+        bits.ExitTime.addEnum("16.5 us", 0x19d);
+        bits.ExitTime.addEnum("20.1 us", 0x1f8);
+        bits.ExitTime.addEnum("36 us", 0x384);
+
         bits.MinimumAssert.setBaseRegister(&r32);
         bits.MinimumAssert.setName("MinimumAssert");
     }
