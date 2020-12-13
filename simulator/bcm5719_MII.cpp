@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2018, Evan Lojewski
+/// @copyright Copyright (c) 2020, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -124,6 +124,8 @@ void init_bcm5719_MII(void)
     /** @brief Bitmap for @ref MII_t.SpareControl3. */
 
     /** @brief Bitmap for @ref MII_t.MiscellaneousControl. */
+
+    /** @brief Bitmap for @ref MII_t.AutoPowerDown. */
 
 
 }

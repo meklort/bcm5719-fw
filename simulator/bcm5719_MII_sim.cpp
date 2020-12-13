@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2018, Evan Lojewski
+/// @copyright Copyright (c) 2020, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -292,6 +292,15 @@ void init_bcm5719_MII_sim(void *base)
     /** @brief Bitmap for @ref MII_t.MiscellaneousControl. */
     MII.MiscellaneousControl.r16.installReadCallback(read_from_ram, (uint8_t *)base);
     MII.MiscellaneousControl.r16.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    for(int i = 0; i < 771; i++)
+    {
+        MII.reserved_1817[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        MII.reserved_1817[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
+    /** @brief Bitmap for @ref MII_t.AutoPowerDown. */
+    MII.AutoPowerDown.r16.installReadCallback(read_from_ram, (uint8_t *)base);
+    MII.AutoPowerDown.r16.installWriteCallback(write_to_ram, (uint8_t *)base);
 
 
 }
