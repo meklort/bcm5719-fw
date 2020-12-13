@@ -100,6 +100,6 @@
 
 .global MII
 .equ    MII, 0x0
-.size   MII, 0x71a
+.size   MII, 0xa1e
 
 

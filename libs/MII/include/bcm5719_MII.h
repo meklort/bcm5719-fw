@@ -4211,6 +4211,88 @@ typedef register_container RegMIIMiscellaneousControl_t {
 #endif /* CXX_SIMULATOR */
 } RegMIIMiscellaneousControl_t;
 
+#define REG_MII_AUTO_POWER_DOWN ((volatile BCM5719_MII_H_uint16_t*)0xa1c) /* Note: Shadow Register Selector: a */
+#define     MII_AUTO_POWER_DOWN_WAKEUP_TIME_84MS_SHIFT 0u
+#define     MII_AUTO_POWER_DOWN_WAKEUP_TIME_84MS_MASK  0x1u
+#define GET_MII_AUTO_POWER_DOWN_WAKEUP_TIME_84MS(__reg__)  (((__reg__) & 0x1) >> 0u)
+#define SET_MII_AUTO_POWER_DOWN_WAKEUP_TIME_84MS(__val__)  (((__val__) << 0u) & 0x1u)
+#define     MII_AUTO_POWER_DOWN_ENABLE_SHIFT 5u
+#define     MII_AUTO_POWER_DOWN_ENABLE_MASK  0x20u
+#define GET_MII_AUTO_POWER_DOWN_ENABLE(__reg__)  (((__reg__) & 0x20) >> 5u)
+#define SET_MII_AUTO_POWER_DOWN_ENABLE(__val__)  (((__val__) << 5u) & 0x20u)
+#define     MII_AUTO_POWER_DOWN_SHADOW_REGISTER_SELECTOR_SHIFT 10u
+#define     MII_AUTO_POWER_DOWN_SHADOW_REGISTER_SELECTOR_MASK  0x7c00u
+#define GET_MII_AUTO_POWER_DOWN_SHADOW_REGISTER_SELECTOR(__reg__)  (((__reg__) & 0x7c00) >> 10u)
+#define SET_MII_AUTO_POWER_DOWN_SHADOW_REGISTER_SELECTOR(__val__)  (((__val__) << 10u) & 0x7c00u)
+#define     MII_AUTO_POWER_DOWN_WRITE_ENABLE_SHIFT 15u
+#define     MII_AUTO_POWER_DOWN_WRITE_ENABLE_MASK  0x8000u
+#define GET_MII_AUTO_POWER_DOWN_WRITE_ENABLE(__reg__)  (((__reg__) & 0x8000) >> 15u)
+#define SET_MII_AUTO_POWER_DOWN_WRITE_ENABLE(__val__)  (((__val__) << 15u) & 0x8000u)
+
+/** @brief Register definition for @ref MII_t.AutoPowerDown. */
+typedef register_container RegMIIAutoPowerDown_t {
+    /** @brief 16bit direct register access. */
+    BCM5719_MII_H_uint16_t r16;
+
+    BITFIELD_BEGIN(BCM5719_MII_H_uint16_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, WakeupTime84ms, 0, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_4_1, 1, 4)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, Enable, 5, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_9_6, 6, 4)
+        /** @brief Writes to the selected shadow register are done by first setting up the register. Reads can be done immediately after selecting the shadow register. */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ShadowRegisterSelector, 10, 5)
+        /** @brief Write bits [9:0] */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, WriteEnable, 15, 1)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Write bits [9:0] */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, WriteEnable, 15, 1)
+        /** @brief Writes to the selected shadow register are done by first setting up the register. Reads can be done immediately after selecting the shadow register. */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, ShadowRegisterSelector, 10, 5)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_9_6, 6, 4)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, Enable, 5, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, reserved_4_1, 1, 4)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_MII_H_uint16_t, WakeupTime84ms, 0, 1)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_MII_H_uint16_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "AutoPowerDown"; }
+
+    /** @brief Print register value. */
+    void print(void) { r16.print(); }
+
+    RegMIIAutoPowerDown_t()
+    {
+        /** @brief constructor for @ref MII_t.AutoPowerDown. */
+        r16.setName("AutoPowerDown");
+        bits.WakeupTime84ms.setBaseRegister(&r16);
+        bits.WakeupTime84ms.setName("WakeupTime84ms");
+        bits.Enable.setBaseRegister(&r16);
+        bits.Enable.setName("Enable");
+        bits.ShadowRegisterSelector.setBaseRegister(&r16);
+        bits.ShadowRegisterSelector.setName("ShadowRegisterSelector");
+        bits.WriteEnable.setBaseRegister(&r16);
+        bits.WriteEnable.setName("WriteEnable");
+    }
+    RegMIIAutoPowerDown_t& operator=(const RegMIIAutoPowerDown_t& other)
+    {
+        r16 = other.r16;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegMIIAutoPowerDown_t;
+
 /** @brief Component definition for @ref MII. */
 typedef struct MII_t {
     /** @brief  */
@@ -4363,6 +4445,12 @@ typedef struct MII_t {
     /** @brief Note: Shadow Register Selector: 7 */
     RegMIIMiscellaneousControl_t MiscellaneousControl;
 
+    /** @brief Reserved bytes to pad out data structure. */
+    BCM5719_MII_H_uint16_t reserved_1817[771];
+
+    /** @brief Note: Shadow Register Selector: a */
+    RegMIIAutoPowerDown_t AutoPowerDown;
+
 #ifdef CXX_SIMULATOR
     typedef uint32_t (*callback_t)(uint32_t, uint32_t, void*);
     callback_t mIndexReadCallback;
@@ -4459,6 +4547,11 @@ typedef struct MII_t {
             reserved_1309[i].setComponentOffset(0x51d + (i * 2));
         }
         MiscellaneousControl.r16.setComponentOffset(0x718);
+        for(int i = 0; i < 771; i++)
+        {
+            reserved_1817[i].setComponentOffset(0x719 + (i * 2));
+        }
+        AutoPowerDown.r16.setComponentOffset(0xa1c);
     }
     void print()
     {
@@ -4548,6 +4641,11 @@ typedef struct MII_t {
             reserved_1309[i].print();
         }
         MiscellaneousControl.print();
+        for(int i = 0; i < 771; i++)
+        {
+            reserved_1817[i].print();
+        }
+        AutoPowerDown.print();
     }
     uint32_t read(int offset) { return mIndexReadCallback(0, offset, mIndexReadCallbackArgs); }
     void write(int offset, uint32_t value) { (void)mIndexWriteCallback(value, offset, mIndexWriteCallbackArgs); }
@@ -4569,7 +4667,7 @@ extern volatile MII_t MII;
 #undef BITFIELD_END
 
 #ifndef CXX_SIMULATOR
-_Static_assert(sizeof(MII_t) == 3636, "sizeof(MII_t) must be 3636");
+_Static_assert(sizeof(MII_t) == 5180, "sizeof(MII_t) must be 5180");
 #endif
 
 #endif /* !BCM5719_MII_H */
