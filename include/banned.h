@@ -3,23 +3,23 @@
 * Copyright (c) Microsoft Corporation. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy of this software
-* and associated documentation files (the "Software"), to deal in the Software without 
-* restriction, including without limitation the rights to use, copy, modify, merge, publish, 
+* and associated documentation files (the "Software"), to deal in the Software without
+* restriction, including without limitation the rights to use, copy, modify, merge, publish,
 * distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the
 * Software is furnished to do so, subject to the following conditions:
 *
-* The above copyright notice and this permission notice shall be included in all copies or 
+* The above copyright notice and this permission notice shall be included in all copies or
 * substantial portions of the Software.
 *
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
-* INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR 
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+* INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
 * PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
 * FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-* ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
+* ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *
 * Purpose:
-*       This include file contains a list of banned APIs which should not be used in new code and 
+*       This include file contains a list of banned APIs which should not be used in new code and
 *       removed from legacy code over time.
 *
 * History
@@ -39,10 +39,10 @@
 * 15-Jun-2012 - bryans   - Moved lstrlen to required banned; removed strlen, wcslen, _mbslen, _mbstrlen, StrLen from recommended banned
 * 01-Feb-2013 - martinwo - Added license to header
 * 09-Jan-2014 - mikehow  - Combined the current external and internal versions
-* 10-Feb-2015 - mikehow  - Added gcc/clang support (thanks to Ramsey Dow) 
+* 10-Feb-2015 - mikehow  - Added gcc/clang support (thanks to Ramsey Dow)
 *                          Note that many of the APIs are Windows specific, however.
 * 18-May-2018 - mikehow  - Updated URL for info about the auto-migrate feature in VC++
-* 
+*
 ***/
 
 #ifndef _INC_BANNED
@@ -78,7 +78,7 @@
 #			pragma deprecated (strncpy, wcsncpy, _tcsncpy, _mbsncpy, _mbsnbcpy, StrCpyN, StrCpyNA, StrCpyNW, StrNCpy, strcpynA, StrNCpyA, StrNCpyW, lstrcpyn, lstrcpynA, lstrcpynW)
 #			pragma deprecated (strncat, wcsncat, _tcsncat, _mbsncat, _mbsnbcat, lstrncat, lstrcatnA, lstrcatnW, lstrcatn)
 #			pragma deprecated (IsBadWritePtr, IsBadHugeWritePtr, IsBadReadPtr, IsBadHugeReadPtr, IsBadCodePtr, IsBadStringPtr)
-#			pragma deprecated (memcpy, RtlCopyMemory, CopyMemory, wmemcpy)
+#			pragma deprecated (RtlCopyMemory, CopyMemory, wmemcpy)
 #			pragma deprecated (lstrlen)
 
 #		else
@@ -91,7 +91,7 @@
 #			pragma deprecated (strncat, wcsncat, _tcsncat, _mbsncat, _mbsnbcat, StrCatN, StrCatNA, StrCatNW, StrNCat, StrNCatA, StrNCatW, lstrncat, lstrcatnA, lstrcatnW, lstrcatn)
 #			pragma deprecated (gets, _getts, _gettws)
 #			pragma deprecated (IsBadWritePtr, IsBadHugeWritePtr, IsBadReadPtr, IsBadHugeReadPtr, IsBadCodePtr, IsBadStringPtr)
-#			pragma deprecated (memcpy, RtlCopyMemory, CopyMemory, wmemcpy)
+#			pragma deprecated (RtlCopyMemory, CopyMemory, wmemcpy)
 #			pragma deprecated (lstrlen)
 #		endif //defined(_STRSAFE_H_INCLUDED_) && !defined(STRSAFE_NO_DEPRECATE)
 
@@ -139,7 +139,7 @@
 #		pragma GCC poison strncat wcsncat _tcsncat _mbsncat _mbsnbcat StrCatN StrCatNA StrCatNW StrNCat StrNCatA StrNCatW lstrncat lstrcatnA lstrcatnW lstrcatn
 #		pragma GCC poison gets _getts _gettws
 #		pragma GCC poison IsBadWritePtr IsBadHugeWritePtr IsBadReadPtr IsBadHugeReadPtr IsBadCodePtr IsBadStringPtr
-#		pragma GCC poison memcpy RtlCopyMemory CopyMemory wmemcpy
+#		pragma GCC poison RtlCopyMemory CopyMemory wmemcpy
 #		pragma GCC poison lstrlen
 
 #if		defined(_SDL_BANNED_RECOMMENDED)
@@ -159,4 +159,3 @@
 #	endif // _MSC_VER_
 
 #endif  // _INC_BANNED
-

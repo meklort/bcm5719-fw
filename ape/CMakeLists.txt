@@ -59,7 +59,7 @@ function(ape_firmware PORT)
     arm_linker_script(${TARGET} "${CMAKE_CURRENT_SOURCE_DIR}/ape.ld")
 
     target_include_directories(${TARGET} PRIVATE include)
-    target_link_libraries(${TARGET} NVRam-arm MII-arm APE-arm Network-arm NCSI-arm Timer-arm printf-arm)
+    target_link_libraries(${TARGET} NVRam-arm MII-arm APE-arm Network-arm NCSI-arm Timer-arm printf-arm FreeRTOS-arm)
     target_link_libraries(${TARGET} bcm5719-arm)
     target_link_libraries(${TARGET}
         --defsym=NETWORK_PORT=${PORT}
