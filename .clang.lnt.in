@@ -38,7 +38,7 @@
 
 @INCLUDES@
 
-
++libdir(@CMAKE_SOURCE_DIR@/libs/FreeRTOS/include)
 
 
 // Assertion directives (a feature of GCC's preprocessor) have been

@@ -59,6 +59,10 @@
 #include <Timer.h>
 #include <ape_main.h>
 
+// RTOS
+#include <FreeRTOS.h>
+#include <task.h>
+
 #ifndef CXX_SIMULATOR
 #include <ape_console.h>
 #include <printf.h>
@@ -111,6 +115,22 @@ void handleDriverEvent(volatile SHM_t *shm, int port)
         APE_releaseMemLock();
     }
 }
+
+uint32_t SystemCoreClock = 50 * 1000 * 1000; /* 50MHz */
+
+/* Dimensions the buffer that the task being created will use as its stack.
+NOTE:  This is the number of words the stack will hold, not the number of
+bytes.  For example, if each stack item is 32-bits, and this is set to 100,
+then 400 bytes (100 * 32-bits) will be allocated. */
+#define STACK_SIZE 2048
+
+/* Structure that will hold the TCB of the task being created. */
+StaticTask_t xTaskBuffer;
+
+/* Buffer that the task being created will use as its stack.  Note this is
+an array of StackType_t variables.  The size of StackType_t is dependent on
+the RTOS port. */
+StackType_t xStack[STACK_SIZE];
 
 void handleCommand(volatile SHM_t *shm)
 {
@@ -467,6 +487,16 @@ void __attribute__((noreturn)) loaderLoop(void)
     }
 }
 
+/* Function that implements the task being created. */
+void vTaskCode(void *pvParameters)
+{
+    (void)pvParameters;
+    /* The parameter value is expected to be 1 as 1 is passed in the
+    pvParameters value in the call to xTaskCreateStatic(). */
+    // configASSERT( ( uint32_t ) pvParameters == 1UL );
+
+    loaderLoop();
+}
 bool handle_reset(void)
 {
     uint32_t chip_id = DEVICE.ChipId.r32;
@@ -523,6 +553,8 @@ bool handle_reset(void)
 //lint -esym(714, __start) // Referenced by build tools.
 void __attribute__((noreturn)) __start()
 {
+    SHM.SegSig.r32 = 1;
+
     // Ensure all pending interrupts are cleared.
     NVIC.InterruptClearPending.r32 = 0xFFFFFFFF;
     gPortReset = false;
@@ -561,6 +593,21 @@ void __attribute__((noreturn)) __start()
         NCSI_reload(SHM_HOST_DRIVER_STATE_STATE_START != gPort->shm->HostDriverState.bits.State ? AS_NEEDED : NEVER_RESET);
     }
 
+    TaskHandle_t xHandle;
+
+    /* Create the task without using any dynamic memory allocation. */
+    xHandle = xTaskCreateStatic(vTaskCode,        /* Function that implements the task. */
+                                "Main",           /* Text name for the task. */
+                                STACK_SIZE,       /* Number of indexes in the xStack array. */
+                                (void *)1,        /* Parameter passed into the task. */
+                                tskIDLE_PRIORITY, /* Priority at which the task is created. */
+                                xStack,           /* Array to use as the task's stack. */
+                                &xTaskBuffer);    /* Variable to hold the task's data structure. */
+
+    (void)xHandle;
+    /* Start the tasks and timer running. */
+    vTaskStartScheduler();
+
     loaderLoop();
 }
 
@@ -583,4 +630,103 @@ void __attribute__((interrupt)) IRQ_RMU(void)
     NVIC.InterruptClearPending.r32 = NVIC_INTERRUPT_CLEAR_PENDING_CLRPEND_RMU_EGRESS;
 
     handleBMCPacket(!gPortReset);
+}
+
+void vApplicationIdleHook(void)
+{
+    /* vApplicationIdleHook() will only be called if configUSE_IDLE_HOOK is set
+    to 1 in FreeRTOSConfig.h.  It will be called on each iteration of the idle
+    task.  It is essential that code added to this hook function never attempts
+    to block in any way (for example, call xQueueReceive() with a block time
+    specified, or call vTaskDelay()).  If the application makes use of the
+    vTaskDelete() API function (as this demo application does) then it is also
+    important that vApplicationIdleHook() is permitted to return to its calling
+    function, because it is the responsibility of the idle task to clean up
+    memory allocated by the kernel to any task that has since been deleted. */
+
+    SHM.FwVersion.r32++;
+
+} //lint !e741
+
+/*-----------------------------------------------------------*/
+
+void vApplicationStackOverflowHook(TaskHandle_t pxTask, char *pcTaskName)
+{
+    (void)pcTaskName;
+    (void)pxTask;
+
+    /* Run time stack overflow checking is performed if
+    configCHECK_FOR_STACK_OVERFLOW is defined to 1 or 2.  This hook
+    function is called if a stack overflow is detected. */
+    taskDISABLE_INTERRUPTS();
+    for (;;)
+        ; //lint !e722
+}
+
+void vApplicationTickHook(void)
+{
+#if 0
+#if mainCHECK_INTERRUPT_STACK == 1
+extern unsigned long _pvHeapStart[];
+
+	/* This function will be called by each tick interrupt if
+	configUSE_TICK_HOOK is set to 1 in FreeRTOSConfig.h.  User code can be
+	added here, but the tick hook is called from an interrupt context, so
+	code must not attempt to block, and only the interrupt safe FreeRTOS API
+	functions can be used (those that end in FromISR()). */
+
+	/* Manually check the last few bytes of the interrupt stack to check they
+	have not been overwritten.  Note - the task stacks are automatically
+	checked for overflow if configCHECK_FOR_STACK_OVERFLOW is set to 1 or 2
+	in FreeRTOSConifg.h, but the interrupt stack is not. */
+	configASSERT( memcmp( ( void * ) _pvHeapStart, ucExpectedInterruptStackValues, sizeof( ucExpectedInterruptStackValues ) ) == 0U );
+#endif /* mainCHECK_INTERRUPT_STACK */
+#endif
+
+    // uTickInterruptCounter++;
+    SHM.FwFeatures.r32++;
+}
+
+/* configSUPPORT_STATIC_ALLOCATION is set to 1, so the application must provide an
+implementation of vApplicationGetIdleTaskMemory() to provide the memory that is
+used by the Idle task. */
+void vApplicationGetIdleTaskMemory(StaticTask_t **ppxIdleTaskTCBBuffer, StackType_t **ppxIdleTaskStackBuffer, uint32_t *pulIdleTaskStackSize)
+{
+    static StaticTask_t xIdleTaskTCB;
+    static StackType_t uxIdleTaskStack[configMINIMAL_STACK_SIZE];
+
+    /* Pass out a pointer to the StaticTask_t structure in which the Idle task’s
+    state will be stored. */
+    *ppxIdleTaskTCBBuffer = &xIdleTaskTCB;
+
+    /* Pass out the array that will be used as the Idle task’s stack. */
+    *ppxIdleTaskStackBuffer = uxIdleTaskStack;
+
+    /* Pass out the size of the array pointed to by *ppxIdleTaskStackBuffer.
+    Note that, as the array is necessarily of type StackType_t,
+    configMINIMAL_STACK_SIZE is specified in words, not bytes. */
+    *pulIdleTaskStackSize = ARRAY_ELEMENTS(uxIdleTaskStack);
+}
+
+/* configSUPPORT_STATIC_ALLOCATION and configUSE_TIMERS are both set to 1, so the
+application must provide an implementation of vApplicationGetTimerTaskMemory()
+to provide the memory that is used by the Timer service task. */
+//lint -e714
+void vApplicationGetTimerTaskMemory(StaticTask_t **ppxTimerTaskTCBBuffer, StackType_t **ppxTimerTaskStackBuffer,
+                                    uint32_t *pulTimerTaskStackSize) //lint !e714
+{
+    static StaticTask_t xTimerTaskTCB;
+    static StackType_t uxTimerTaskStack[configTIMER_TASK_STACK_DEPTH];
+
+    /* Pass out a pointer to the StaticTask_t structure in which the Timer
+    task’s state will be stored. */
+    *ppxTimerTaskTCBBuffer = &xTimerTaskTCB;
+
+    /* Pass out the array that will be used as the Timer task’s stack. */
+    *ppxTimerTaskStackBuffer = uxTimerTaskStack;
+
+    /* Pass out the size of the array pointed to by *ppxTimerTaskStackBuffer.
+    Note that, as the array is necessarily of type StackType_t,
+    configTIMER_TASK_STACK_DEPTH is specified in words, not bytes. */
+    *pulTimerTaskStackSize = ARRAY_ELEMENTS(uxTimerTaskStack);
 }
