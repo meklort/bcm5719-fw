@@ -42,7 +42,7 @@
 ### @endcond
 ################################################################################
 
-
+add_subdirectory(FreeRTOS)
 add_subdirectory(NVRam)
 add_subdirectory(APE)
 add_subdirectory(MII)
