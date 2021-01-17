@@ -42,103 +42,81 @@
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
 
-#include <types.h>
+#include <APE_NVIC.h>
+#include <ape_main.h>
+#include <printf.h>
 
-// Function pointer for vectors
-typedef void (*vector_t)(void) __attribute__((interrupt));
+extern uint32_t _estack; // Defined by linker
+extern vector_t __start; // Defined by crt1.s
 
-// Vector table
-//lint -esym(754, vector_table_t::__start) // Referenced by linker script / hardware
-//lint -esym(754, vector_table_t::sp) // Referenced by linker script / hardware
-//lint -esym(754, vector_table_t::vectors) // Referenced by linker script / hardware
-typedef struct
+void __attribute__((interrupt)) Vector_Default(void)
 {
-    uint32_t *sp;
-    vector_t *__start;
-    vector_t *vectors[46];
-} vector_table_t;
+    uint32_t vector = NVIC.InterruptControlState.bits.VECTACTIVE;
+    printf("ISR: %d\n", vector);
+}
 
-extern uint32_t _estack;
-
-extern vector_t __start;
-
-#pragma weak Vector_NMI
-#pragma weak Vector_HardFault
-#pragma weak Vector_MemoryManagmentFault
-#pragma weak Vector_BusFault
-#pragma weak Vector_UsageFault
-#pragma weak Vector_SVCall
-#pragma weak Vector_Debug
-#pragma weak Vector_PendSV
-#pragma weak Vector_Systick
-#pragma weak Vector_NullHandler
-
-extern vector_t Vector_NMI;
-extern vector_t Vector_HardFault;
-extern vector_t Vector_MemoryManagmentFault;
-extern vector_t Vector_BusFault;
-extern vector_t Vector_UsageFault;
-extern vector_t Vector_SVCall;
-extern vector_t Vector_Debug;
-extern vector_t Vector_PendSV;
-extern vector_t Vector_Systick;
-extern vector_t Vector_NullHandler;
+void __attribute__((interrupt)) Vector_NMI(void) __attribute__((weak, alias("Vector_Default")));
+void __attribute__((interrupt)) Vector_HardFault(void) __attribute__((weak, alias("Vector_Default")));
+void __attribute__((interrupt)) Vector_MemoryManagmentFault(void) __attribute__((weak, alias("Vector_Default")));
+void __attribute__((interrupt)) Vector_BusFault(void) __attribute__((weak, alias("Vector_Default")));
+void __attribute__((interrupt)) Vector_UsageFault(void) __attribute__((weak, alias("Vector_Default")));
+void __attribute__((interrupt)) Vector_SVCall(void) __attribute__((weak, alias("Vector_Default")));
+void __attribute__((interrupt)) Vector_Debug(void) __attribute__((weak, alias("Vector_Default")));
+void __attribute__((interrupt)) Vector_PendSV(void) __attribute__((weak, alias("Vector_Default")));
+void __attribute__((interrupt)) Vector_Systick(void) __attribute__((weak, alias("Vector_Default")));
 
 //lint -esym(714, gVectors) // Referenced by linker script
 vector_table_t gVectors __attribute__((section(".init"))) = {
     .sp = &_estack,
     .__start = &__start,
     .vectors = {
-        [0] = &Vector_NMI,
-        [1] = &Vector_HardFault,
-        [2] = &Vector_MemoryManagmentFault,
-        [3] = &Vector_BusFault,
-        [4] = &Vector_UsageFault,
+        [0x0] = Vector_NMI,
+        [0x1] = Vector_HardFault,
+        [0x2] = Vector_MemoryManagmentFault,
+        [0x3] = Vector_BusFault,
+        [0x4] = Vector_UsageFault,
+        [0x5] = Vector_Default, /* Reserved */
+        [0x6] = Vector_Default, /* Reserved */
+        [0x7] = Vector_Default, /* Reserved */
+        [0x8] = Vector_Default, /* Reserved */
+        [0x9] = Vector_SVCall,
+        [0xA] = Vector_Debug,
+        [0xB] = Vector_Default, /* Reserved */
+        [0xC] = Vector_PendSV,
+        [0xD] = Vector_Systick,
+        [0xE] = Vector_Default, /* Reserved */
+        [0xF] = Vector_Default, /* Reserved */
 
-        [5] = &Vector_NullHandler,
-        [6] = &Vector_NullHandler,
-        [7] = &Vector_NullHandler,
-        [8] = &Vector_NullHandler,
-
-        [9] = &Vector_SVCall,
-        [10] = &Vector_Debug,
-
-        [11] = &Vector_NullHandler,
-
-        [12] = &Vector_PendSV,
-        [13] = &Vector_Systick,
-
-        [14] = &Vector_NullHandler,
-        [15] = &Vector_NullHandler,
-        [16] = &Vector_NullHandler,
-        [17] = &Vector_NullHandler,
-        [18] = &Vector_NullHandler,
-        [19] = &Vector_NullHandler,
-        [20] = &Vector_NullHandler,
-        [21] = &Vector_NullHandler,
-        [22] = &Vector_NullHandler,
-        [23] = &Vector_NullHandler,
-        [24] = &Vector_NullHandler,
-        [25] = &Vector_NullHandler,
-        [26] = &Vector_NullHandler,
-        [27] = &Vector_NullHandler,
-        [28] = &Vector_NullHandler,
-        [29] = &Vector_NullHandler,
-        [30] = &Vector_NullHandler,
-        [31] = &Vector_NullHandler,
-        [32] = &Vector_NullHandler,
-        [33] = &Vector_NullHandler,
-        [34] = &Vector_NullHandler,
-        [35] = &Vector_NullHandler,
-        [36] = &Vector_NullHandler,
-        [37] = &Vector_NullHandler,
-        [38] = &Vector_NullHandler,
-        [39] = &Vector_NullHandler,
-        [40] = &Vector_NullHandler,
-        [41] = &Vector_NullHandler,
-        [42] = &Vector_NullHandler,
-        [43] = &Vector_NullHandler,
-        [44] = &Vector_NullHandler,
-        [45] = &Vector_NullHandler,
+        /* External Interrupts */
+        [0x10] = Vector_Default,    /* Handle Event */
+        [0x11] = Vector_Default,    /* -- */
+        [0x12] = Vector_Default,    /* -- */
+        [0x13] = Vector_Default,    /* -- */
+        [0x14] = Vector_Default,    /* -- */
+        [0x15] = Vector_Default,    /* -- */
+        [0x16] = Vector_Default,    /* Host to BMC */
+        [0x17] = Vector_Default,    /* -- */
+        [0x18] = Vector_Default,    /* TX Error */
+        [0x19] = Vector_Default,    /* RX Packet - Even ports */
+        [0x1A] = Vector_Default,    /* -- */
+        [0x1B] = Vector_Default,    /* -- */
+        [0x1C] = Vector_Default,    /* SMBUS 0 */
+        [0x1D] = Vector_Default,    /* -- */
+        [0x1E] = Vector_Default,    /* SMBUS 1 */
+        [0x1F] = Vector_Default,    /* RMU Egress */
+        [0x20] = Vector_Default,    /* -- */
+        [0x21] = Vector_Default,    /* -- */
+        [0x22] = Vector_Default,    /* Gen Status Changed */
+        [0x23] = Vector_Default,    /* seems to be always pending, but always masked. no handler (i.e., uses exception handler) */
+        [0x24] = Vector_Default,    /* -- */
+        [0x25] = Vector_Default,    /* -- */
+        [0x26] = Vector_Default,    /* Voltage Source Changed */
+        [0x27] = Vector_Default,    /* Link Status Changed (Even Ports) */
+        [0x28] = Vector_Default,    /* Link Status Changed (Odd Ports) */
+        [0x29] = Vector_Default,    /* RX Packet (Odd ports) */
+        [0x2A] = Vector_Default,    /* -- */
+        [0x2B] = Vector_Default,    /* -- */
+        [0x2C] = Vector_Default,    /* -- */
+        [0x2D] = Vector_Default,    /* -- */
     },
 };

@@ -52,6 +52,7 @@ function(ape_firmware PORT)
                 main.c
                 vectors.c
                 rmu.c
+                include/ape_main.h
                 )
     arm_linker_script(${TARGET} "${CMAKE_CURRENT_SOURCE_DIR}/ape.ld")
 

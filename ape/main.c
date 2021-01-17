@@ -410,6 +410,16 @@ void __attribute__((noreturn)) __start()
     // Ensure all pending interrupts are cleared.
     NVIC.InterruptClearPending.r32 = 0xFFFFFFFF;
 
+    // Switch to APE interrupt handlers
+    union
+    {
+        uint32_t u32;
+        vector_table_t *vectors;
+    } caster;
+    caster.vectors = &gVectors;
+    NVIC.VectorTableOffset.r32 = caster.u32;
+
+    // Handle Initialization
     bool full_init = handle_reset();
     if (reset_ape_console())
     {
