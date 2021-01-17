@@ -5,3 +5,6 @@
 [submodule "libs/OptParse/cpp-optparse"]
 	path = libs/OptParse/cpp-optparse
 	url = https://github.com/weisslj/cpp-optparse.git
+[submodule "libs/FreeRTOS/FreeRTOS-Kernel"]
+	path = libs/FreeRTOS/FreeRTOS-Kernel
+	url = https://github.com/FreeRTOS/FreeRTOS-Kernel.git
