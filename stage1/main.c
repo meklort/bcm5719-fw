@@ -206,7 +206,7 @@ int main()
         load_nvm_config(&DEVICE, &gNVMContents);
 
         // Initialize the hardware.
-        // init_hw(&DEVICE, &gNVMContents);
+        init_hw(&DEVICE);
 #endif
     }
 

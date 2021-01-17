@@ -54,7 +54,7 @@
 #define volatile
 #endif
 
-#define MII_INIT_TIMEOUT_MS (3000) /* Allow up to 3 seconds for MII init to complete. */
+// #define MII_INIT_TIMEOUT_MS (3000) /* Allow up to 3 seconds for MII init to complete. */
 
 void *memset(void *s, int c, size_t n)
 {
@@ -71,6 +71,7 @@ void *memset(void *s, int c, size_t n)
     return s;
 }
 
+#if 0
 void init_mii_function0(volatile DEVICE_t *device)
 {
     uint32_t currentTime;
@@ -149,6 +150,7 @@ void init_mii_function0(volatile DEVICE_t *device)
         reportStatus(STATUS_INIT_HW, 0xf7);
     }
 }
+#endif
 
 void init_mii(volatile DEVICE_t *device)
 {
@@ -412,51 +414,51 @@ void init_hw(volatile DEVICE_t *device)
     // Misc regs init
 
     // Mask REG 0x64C0 bits 0x7FF, or bits 0x0010. This register is unknown.
-    DEVICE._64c0.r32 = (DEVICE._64c0.r32 & ~0x7FFu) | 0x10u;
+    device->_64c0.r32 = (device->_64c0.r32 & ~0x7FFu) | 0x10u;
 
     // Set unknown REG 0x64C8 to 0x1004.
-    DEVICE._64c8.r32 = 0x00001004u;
+    device->_64c8.r32 = 0x00001004u;
 
     // Enable MAC clock speed override
     RegDEVICEClockSpeedOverridePolicy_t clockspeed;
     clockspeed.r32 = 0u;
     clockspeed.bits.MACClockSpeedOverrideEnabled = 1u;
-    DEVICE.ClockSpeedOverridePolicy = clockspeed;
+    device->ClockSpeedOverridePolicy = clockspeed;
 
     // Mask REG 0x64DC bits 0x0F, or bits 0x01. Unknown.
-    DEVICE._64dc.r32 = (DEVICE._64dc.r32 & ~0xFu) | 0x01u;
+    device->_64dc.r32 = (device->_64dc.r32 & ~0xFu) | 0x01u;
 
     // Mask REG 0x64DC bits 0xC00, set ... TODO
     // value from talos: 0x00315E42
-    DEVICE._64dc.r32 &= ~0xC00;
+    device->_64dc.r32 &= ~0xC00;
 
     // Unknown stuff involving REG 0x6530, REG 0x65F4, depends on config, TODO
     // Value from Talos:0x6530z 0x6530 -> 0x00000000, 0x65F4 -> 0x00000109.
 
     // REG_LSO_NONLSO_BD_READ_DMA_CORRUPTION_ENABLE_CONTROL: Set BD and NonLSO
     // fields to 4K.
-    RegDEVICELsoNonlsoBdReadDmaCorruptionEnableControl_t reglso = DEVICE.LsoNonlsoBdReadDmaCorruptionEnableControl;
+    RegDEVICELsoNonlsoBdReadDmaCorruptionEnableControl_t reglso = device->LsoNonlsoBdReadDmaCorruptionEnableControl;
     reglso.bits.PCIRequestBurstLengthforBDRDMAEngine = DEVICE_LSO_NONLSO_BD_READ_DMA_CORRUPTION_ENABLE_CONTROL_PCI_REQUEST_BURST_LENGTH_FOR_BD_RDMA_ENGINE_4K;
     reglso.bits.PCIRequestBurstLengthforNonLSORDMAEngine =
         DEVICE_LSO_NONLSO_BD_READ_DMA_CORRUPTION_ENABLE_CONTROL_PCI_REQUEST_BURST_LENGTH_FOR_NONLSO_RDMA_ENGINE_4K;
-    DEVICE.LsoNonlsoBdReadDmaCorruptionEnableControl = reglso;
+    device->LsoNonlsoBdReadDmaCorruptionEnableControl = reglso;
 
     // Disable ECC.
-    RegDEVICEGphyStrap_t gphyStrap = DEVICE.GphyStrap;
+    RegDEVICEGphyStrap_t gphyStrap = device->GphyStrap;
     gphyStrap.bits.TXMBUFECCEnable = 0;
     gphyStrap.bits.RXMBUFECCEnable = 0;
     gphyStrap.bits.RXCPUSPADECCEnable = 0;
-    DEVICE.GphyStrap = gphyStrap;
+    device->GphyStrap = gphyStrap;
 
     // LED Control
     // Value from Talos: 0x00000880: DEVICE_LED_CONTROL_LED_STATUS_1000_MASK | DEVICE_LED_CONTROL_LED_MODE_PHY_MODE_1
-    RegDEVICELedControl_t ledControl = DEVICE.LedControl;
+    RegDEVICELedControl_t ledControl = device->LedControl;
     ledControl.bits.LEDMode = DEVICE_LED_CONTROL_LED_MODE_PHY_MODE_1;
-    DEVICE.LedControl = ledControl;
+    device->LedControl = ledControl;
 
     // MISC Local Control
     // Value from Talos: 0x00020001, reserved bits
-    DEVICE.MiscellaneousLocalControl.bits.AutoSEEPROMAccess = 0; // Bit is not set on talos II
+    device->MiscellaneousLocalControl.bits.AutoSEEPROMAccess = 0; // Bit is not set on talos II
 
     // Set REG_EAV_REF_CLOCK_CONTROL as desired. This is initialized from
     // CFG_HW; the TIMESYNC_GPIO_MAPPING, APE_GPIO_{0,1,2,3} fields within it
@@ -469,32 +471,35 @@ void init_hw(volatile DEVICE_t *device)
     ref_clock.bits.APEGPIO1Mapping = cfg_hw.bits.APEGPIO1Mapping;
     ref_clock.bits.APEGPIO2Mapping = cfg_hw.bits.APEGPIO2Mapping;
     ref_clock.bits.APEGPIO3Mapping = cfg_hw.bits.APEGPIO3Mapping;
-    DEVICE.EavRefClockControl = ref_clock;
+    device->EavRefClockControl = ref_clock;
 
     // Optionally enable REG_GRC_MODE_CONTROL__TIME_SYNC_MODE_ENABLE.
     // Value from Talos: 0x00130034
     // Bit is not set on Talos w/ default firmware, disabled for now.
-    DEVICE.GrcModeControl.bits.TimeSyncModeEnable = 0;
+    device->GrcModeControl.bits.TimeSyncModeEnable = 0;
 
     // Enable const clock for MII
-    DEVICE.MiiMode.bits.ConstantMDIO_DIV_MDCClockSpeed = 1;
+    device->MiiMode.bits.ConstantMDIO_DIV_MDCClockSpeed = 1;
 
     // Set or clear REG_GPHY_CONTROL_STATUS__SWITCHING_REGULATOR_POWER_DOWN as
     // desired.
     // Value from Talos:  0x02C01000
-    DEVICE.GphyControlStatus.bits.SwitchingRegulatorPowerDown = 0;
+    device->GphyControlStatus.bits.SwitchingRegulatorPowerDown = 0;
 
     // Set or clear
     // REG_TOP_LEVEL_MISCELLANEOUS_CONTROL_1__NCSI_CLOCK_OUTPUT_DISABLE as
     // desired.
     // Value from Talos: 0x00000080 (unknown, reserved bit set)
-    DEVICE.TopLevelMiscellaneousControl1.bits.NCSIClockOutputDisable = 0;
+    device->TopLevelMiscellaneousControl1.bits.NCSIClockOutputDisable = 0;
 
     reportStatus(STATUS_INIT_HW, 0xf0);
 
     // Perform MII init.
     APE_aquireLock();
+
+#if 0
     init_mii_function0(device);
+#endif
 
     reportStatus(STATUS_INIT_HW, 0xfe);
 
@@ -512,6 +517,7 @@ void init_hw(volatile DEVICE_t *device)
     DEVICE.MiscellaneousLocalControl.bits.AutoSEEPROMAccess = 1;
     DEVICE.MiscellaneousLocalControl.bits.GPIO2OutputEnable = 1;
 
+#if 0
     // Setup link-aware power mode.
     // The following must be performed while holding REG_MUTEX_{REQUEST,GRANT}; use bit 4.
     DEVICE.MutexRequest.r32 |= (1 << 4);
@@ -538,6 +544,7 @@ void init_hw(volatile DEVICE_t *device)
 
     // Mask REG_CLOCK_SPEED_OVERRIDE_POLICY__MAC_CLOCK_SPEED_OVERRIDE_ENABLE.
     DEVICE.ClockSpeedOverridePolicy.bits.MACClockSpeedOverrideEnabled = 0;
+#endif
 
     reportStatus(STATUS_INIT_HW, 0xff);
 }
