@@ -312,10 +312,11 @@ void __attribute__((noreturn)) loaderLoop(void)
     initSHM(&SHM2);
     initSHM(&SHM3);
 
+    NVIC.InterruptSetEnable.r32 =
+        NVIC_INTERRUPT_SET_ENABLE_SETENA_RX_PACKET_EVEN | NVIC_INTERRUPT_SET_ENABLE_SETENA_RX_PACKET_ODD | NVIC_INTERRUPT_SET_ENABLE_SETENA_RMU_EGRESS;
+
     for (;;)
     {
-        handleBMCPacket();
-        NCSI_handlePassthrough();
         handleCommand(&SHM);
         handleCommand(&SHM1);
         handleCommand(&SHM2);
@@ -381,6 +382,7 @@ void vTaskCode(void *pvParameters)
 
     loaderLoop();
 }
+
 bool handle_reset(void)
 {
     uint32_t chip_id = DEVICE.ChipId.r32;
@@ -595,4 +597,25 @@ void vApplicationGetTimerTaskMemory(StaticTask_t **ppxTimerTaskTCBBuffer, StackT
     Note that, as the array is necessarily of type StackType_t,
     configTIMER_TASK_STACK_DEPTH is specified in words, not bytes. */
     *pulTimerTaskStackSize = ARRAY_ELEMENTS(uxTimerTaskStack);
+}
+
+void __attribute__((interrupt)) Vector_RxPacketEven(void)
+{
+    NVIC.InterruptClearPending.r32 = NVIC_INTERRUPT_CLEAR_PENDING_CLRPEND_RX_PACKET_EVEN;
+
+    NCSI_handlePassthrough();
+}
+
+void __attribute__((interrupt)) Vector_RxPacketOdd(void)
+{
+    NVIC.InterruptClearPending.r32 = NVIC_INTERRUPT_CLEAR_PENDING_CLRPEND_RX_PACKET_ODD;
+
+    NCSI_handlePassthrough();
+}
+
+void __attribute__((interrupt)) Vector_RMU(void)
+{
+    NVIC.InterruptClearPending.r32 = NVIC_INTERRUPT_CLEAR_PENDING_CLRPEND_RMU_EGRESS;
+
+    handleBMCPacket();
 }

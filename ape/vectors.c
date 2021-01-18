@@ -65,6 +65,10 @@ void __attribute__((interrupt)) Vector_Debug(void) __attribute__((weak, alias("V
 void __attribute__((interrupt)) Vector_PendSV(void) __attribute__((weak, alias("Vector_Default")));
 void __attribute__((interrupt)) Vector_Systick(void) __attribute__((weak, alias("Vector_Default")));
 
+void __attribute__((interrupt)) Vector_RxPacketEven(void) __attribute__((weak, alias("Vector_Default")));
+void __attribute__((interrupt)) Vector_RxPacketOdd(void) __attribute__((weak, alias("Vector_Default")));
+void __attribute__((interrupt)) Vector_RMU(void) __attribute__((weak, alias("Vector_Default")));
+
 //lint -esym(714, gVectors) // Referenced by linker script
 vector_table_t gVectors __attribute__((section(".init"))) = {
     .sp = &_estack,
@@ -97,13 +101,13 @@ vector_table_t gVectors __attribute__((section(".init"))) = {
         [0x16] = Vector_Default,    /* Host to BMC */
         [0x17] = Vector_Default,    /* -- */
         [0x18] = Vector_Default,    /* TX Error */
-        [0x19] = Vector_Default,    /* RX Packet - Even ports */
+        [0x19] = Vector_RxPacketEven, /* RX Packet - Even ports */
         [0x1A] = Vector_Default,    /* -- */
         [0x1B] = Vector_Default,    /* -- */
         [0x1C] = Vector_Default,    /* SMBUS 0 */
         [0x1D] = Vector_Default,    /* -- */
         [0x1E] = Vector_Default,    /* SMBUS 1 */
-        [0x1F] = Vector_Default,    /* RMU Egress */
+        [0x1F] = Vector_RMU,        /* RMU Egress */
         [0x20] = Vector_Default,    /* -- */
         [0x21] = Vector_Default,    /* -- */
         [0x22] = Vector_Default,    /* Gen Status Changed */
@@ -113,7 +117,7 @@ vector_table_t gVectors __attribute__((section(".init"))) = {
         [0x26] = Vector_Default,    /* Voltage Source Changed */
         [0x27] = Vector_Default,    /* Link Status Changed (Even Ports) */
         [0x28] = Vector_Default,    /* Link Status Changed (Odd Ports) */
-        [0x29] = Vector_Default,    /* RX Packet (Odd ports) */
+        [0x29] = Vector_RxPacketOdd,    /* RX Packet (Odd ports) */
         [0x2A] = Vector_Default,    /* -- */
         [0x2B] = Vector_Default,    /* -- */
         [0x2C] = Vector_Default,    /* -- */
