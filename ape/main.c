@@ -392,7 +392,10 @@ void __attribute__((noreturn)) loaderLoop(void)
     initSHM(&SHM3);
 
     // Enable GRC Reset / Power Status Changed and Vsrc interrupts
-    NVIC.InterruptSetEnable.r32 = NVIC_INTERRUPT_SET_ENABLE_SETENA_VMAIN | NVIC_INTERRUPT_SET_ENABLE_SETENA_GENERAL_RESET;
+    // Enable Packet interrupts
+    NVIC.InterruptSetEnable.r32 =
+        NVIC_INTERRUPT_SET_ENABLE_SETENA_VMAIN | NVIC_INTERRUPT_SET_ENABLE_SETENA_GENERAL_RESET |
+        NVIC_INTERRUPT_SET_ENABLE_SETENA_RX_PACKET_EVEN | NVIC_INTERRUPT_SET_ENABLE_SETENA_RX_PACKET_ODD | NVIC_INTERRUPT_SET_ENABLE_SETENA_RMU_EGRESS;
 
     for (;;)
     {
@@ -452,9 +455,6 @@ void __attribute__((noreturn)) loaderLoop(void)
         {
             Network_checkPortState(gPort);
         }
-
-        handleBMCPacket(!gPortReset);
-        NCSI_handlePassthrough();
 
         handleCommand(&SHM);
         handleCommand(&SHM1);
@@ -562,4 +562,25 @@ void __attribute__((noreturn)) __start()
     }
 
     loaderLoop();
+}
+
+void __attribute__((interrupt)) IRQ_RxPacketEven(void)
+{
+    NVIC.InterruptClearPending.r32 = NVIC_INTERRUPT_CLEAR_PENDING_CLRPEND_RX_PACKET_EVEN;
+
+    NCSI_handlePassthrough();
+}
+
+void __attribute__((interrupt)) IRQ_RxPacketOdd(void)
+{
+    NVIC.InterruptClearPending.r32 = NVIC_INTERRUPT_CLEAR_PENDING_CLRPEND_RX_PACKET_ODD;
+
+    NCSI_handlePassthrough();
+}
+
+void __attribute__((interrupt)) IRQ_RMU(void)
+{
+    NVIC.InterruptClearPending.r32 = NVIC_INTERRUPT_CLEAR_PENDING_CLRPEND_RMU_EGRESS;
+
+    handleBMCPacket(!gPortReset);
 }
