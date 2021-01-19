@@ -57,6 +57,8 @@ add_subdirectory(OptParse)
 
 add_subdirectory(bcm5719)
 
+add_subdirectory(lwip)
+
 add_subdirectory(printf)
 
 add_subdirectory(Compress)

@@ -63,6 +63,8 @@ typedef unsigned int  uint32_t;
 typedef long long unsigned int uint64_t;
 typedef long long signed int int64_t;
 
+typedef uint32_t uintptr_t;
+
 typedef uint32_t size_t;
 
 static inline uint32_t swap32(uint32_t val)
