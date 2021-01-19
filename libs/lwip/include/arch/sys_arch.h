@@ -35,6 +35,10 @@
 #include "lwip/opt.h"
 #include "lwip/arch.h"
 
+#include <FreeRTOS.h>
+#include <task.h>
+#include <semphr.h>
+
 /** This is returned by _fromisr() sys functions to tell the outermost function
  * that a higher priority task was woken and the scheduler needs to be invoked.
  */
@@ -54,7 +58,10 @@ typedef u32_t sys_prot_t;
 
 #if !LWIP_COMPAT_MUTEX
 struct _sys_mut {
-  void *mut;
+  SemaphoreHandle_t mut;
+#if configSUPPORT_STATIC_ALLOCATION
+  StaticSemaphore_t buffer;
+#endif
 };
 typedef struct _sys_mut sys_mutex_t;
 #define sys_mutex_valid_val(mutex)   ((mutex).mut != NULL)
@@ -63,7 +70,10 @@ typedef struct _sys_mut sys_mutex_t;
 #endif /* !LWIP_COMPAT_MUTEX */
 
 struct _sys_sem {
-  void *sem;
+  SemaphoreHandle_t sem;
+#if configSUPPORT_STATIC_ALLOCATION
+  StaticSemaphore_t buffer;
+#endif
 };
 typedef struct _sys_sem sys_sem_t;
 #define sys_sem_valid_val(sema)   ((sema).sem != NULL)
@@ -71,7 +81,7 @@ typedef struct _sys_sem sys_sem_t;
 #define sys_sem_set_invalid(sema) ((sema)->sem = NULL)
 
 struct _sys_mbox {
-  void *mbx;
+  QueueHandle_t mbx;
 };
 typedef struct _sys_mbox sys_mbox_t;
 #define sys_mbox_valid_val(mbox)   ((mbox).mbx != NULL)
@@ -91,5 +101,35 @@ void sys_arch_netconn_sem_free(void);
 #define LWIP_NETCONN_THREAD_SEM_ALLOC() sys_arch_netconn_sem_alloc()
 #define LWIP_NETCONN_THREAD_SEM_FREE()  sys_arch_netconn_sem_free()
 #endif /* LWIP_NETCONN_SEM_PER_THREAD */
+
+
+#define LWIP_STATIC_TASK_VAR(__name__) \
+    LwipTask##__name__
+
+#if LWIP_FREERTOS_THREAD_STACKSIZE_IS_STACKWORDS
+#define LWIP_TASK_STACK_SIZE(__size__)  ((size_t)__size__)
+#else
+#define LWIP_TASK_STACK_SIZE(__size__)  ((size_t)__size__ / sizeof(StackType_t))
+#endif
+
+#define LWIP_STATIC_STACK_VAR(__name__) \
+    LwipStack##__name__
+
+// FIXME: this is an ugly hack
+#define sys_thread_new(name, thread, arg, stacksize, prio)      \
+{                                                               \
+    static StaticTask_t LWIP_STATIC_TASK_VAR(thread);           \
+    static StackType_t LWIP_STATIC_STACK_VAR(thread)[LWIP_TASK_STACK_SIZE(stacksize)]; \
+    sys_thread_t handle;                                        \
+                                                                \
+    handle.thread_handle = xTaskCreateStatic(thread,            \
+                                name,                       \
+                                LWIP_TASK_STACK_SIZE(stacksize), \
+                                arg,                            \
+                                prio,                           \
+                                LWIP_STATIC_STACK_VAR(thread), \
+                                &LWIP_STATIC_TASK_VAR(thread)); \
+    handle; \
+}
 
 #endif /* LWIP_ARCH_SYS_ARCH_H */

@@ -39,6 +39,7 @@
 #include "FreeRTOS.h"
 #include "semphr.h"
 #include "task.h"
+#include "queue.h"
 
 /** Set this to 1 if you want the stack size passed to sys_thread_new() to be
  * interpreted as number of stack words (FreeRTOS-like).
@@ -108,10 +109,15 @@ void
 sys_init(void)
 {
 #if SYS_LIGHTWEIGHT_PROT && LWIP_FREERTOS_SYS_ARCH_PROTECT_USES_MUTEX
+#if configSUPPORT_STATIC_ALLOCATION
+  static StaticSemaphore_t xBuffer;
   /* initialize sys_arch_protect global mutex */
+  sys_arch_protect_mutex = xSemaphoreCreateRecursiveMutexStatic(&xBuffer);
+#else
   sys_arch_protect_mutex = xSemaphoreCreateRecursiveMutex();
   LWIP_ASSERT("failed to create sys_arch_protect mutex",
     sys_arch_protect_mutex != NULL);
+#endif
 #endif /* SYS_LIGHTWEIGHT_PROT && LWIP_FREERTOS_SYS_ARCH_PROTECT_USES_MUTEX */
 }
 
@@ -200,11 +206,15 @@ sys_mutex_new(sys_mutex_t *mutex)
 {
   LWIP_ASSERT("mutex != NULL", mutex != NULL);
 
+#if configSUPPORT_STATIC_ALLOCATION
+  mutex->mut = xSemaphoreCreateRecursiveMutexStatic(&mutex->buffer);
+#else
   mutex->mut = xSemaphoreCreateRecursiveMutex();
   if(mutex->mut == NULL) {
     SYS_STATS_INC(mutex.err);
     return ERR_MEM;
   }
+#endif
   SYS_STATS_INC_USED(mutex);
   return ERR_OK;
 }
@@ -214,7 +224,9 @@ sys_mutex_lock(sys_mutex_t *mutex)
 {
   BaseType_t ret;
   LWIP_ASSERT("mutex != NULL", mutex != NULL);
+#if !configSUPPORT_STATIC_ALLOCATION
   LWIP_ASSERT("mutex->mut != NULL", mutex->mut != NULL);
+#endif
 
   ret = xSemaphoreTakeRecursive(mutex->mut, portMAX_DELAY);
   LWIP_ASSERT("failed to take the mutex", ret == pdTRUE);
@@ -225,7 +237,9 @@ sys_mutex_unlock(sys_mutex_t *mutex)
 {
   BaseType_t ret;
   LWIP_ASSERT("mutex != NULL", mutex != NULL);
+#if !configSUPPORT_STATIC_ALLOCATION
   LWIP_ASSERT("mutex->mut != NULL", mutex->mut != NULL);
+#endif
 
   ret = xSemaphoreGiveRecursive(mutex->mut);
   LWIP_ASSERT("failed to give the mutex", ret == pdTRUE);
@@ -235,11 +249,11 @@ void
 sys_mutex_free(sys_mutex_t *mutex)
 {
   LWIP_ASSERT("mutex != NULL", mutex != NULL);
+#if !configSUPPORT_STATIC_ALLOCATION
   LWIP_ASSERT("mutex->mut != NULL", mutex->mut != NULL);
-
+#endif
   SYS_STATS_DEC(mutex.used);
   vSemaphoreDelete(mutex->mut);
-  mutex->mut = NULL;
 }
 
 #endif /* !LWIP_COMPAT_MUTEX */
@@ -251,11 +265,15 @@ sys_sem_new(sys_sem_t *sem, u8_t initial_count)
   LWIP_ASSERT("initial_count invalid (not 0 or 1)",
     (initial_count == 0) || (initial_count == 1));
 
+#if configSUPPORT_STATIC_ALLOCATION
+  sem->sem = xSemaphoreCreateBinaryStatic(&sem->buffer);
+#else
   sem->sem = xSemaphoreCreateBinary();
   if(sem->sem == NULL) {
     SYS_STATS_INC(sem.err);
     return ERR_MEM;
   }
+#endif
   SYS_STATS_INC_USED(sem);
 
   if(initial_count == 1) {
@@ -270,7 +288,9 @@ sys_sem_signal(sys_sem_t *sem)
 {
   BaseType_t ret;
   LWIP_ASSERT("sem != NULL", sem != NULL);
+#if !configSUPPORT_STATIC_ALLOCATION
   LWIP_ASSERT("sem->sem != NULL", sem->sem != NULL);
+#endif
 
   ret = xSemaphoreGive(sem->sem);
   /* queue full is OK, this is a signal only... */
@@ -283,7 +303,9 @@ sys_arch_sem_wait(sys_sem_t *sem, u32_t timeout_ms)
 {
   BaseType_t ret;
   LWIP_ASSERT("sem != NULL", sem != NULL);
+#if !configSUPPORT_STATIC_ALLOCATION
   LWIP_ASSERT("sem->sem != NULL", sem->sem != NULL);
+#endif
 
   if(!timeout_ms) {
     /* wait infinite */
@@ -309,11 +331,16 @@ void
 sys_sem_free(sys_sem_t *sem)
 {
   LWIP_ASSERT("sem != NULL", sem != NULL);
+#if !configSUPPORT_STATIC_ALLOCATION
   LWIP_ASSERT("sem->sem != NULL", sem->sem != NULL);
+#endif
 
   SYS_STATS_DEC(sem.used);
   vSemaphoreDelete(sem->sem);
+
+#if !configSUPPORT_STATIC_ALLOCATION
   sem->sem = NULL;
+#endif
 }
 
 err_t
@@ -455,30 +482,6 @@ sys_mbox_free(sys_mbox_t *mbox)
   vQueueDelete(mbox->mbx);
 
   SYS_STATS_DEC(mbox.used);
-}
-
-sys_thread_t
-sys_thread_new(const char *name, lwip_thread_fn thread, void *arg, int stacksize, int prio)
-{
-  TaskHandle_t rtos_task;
-  BaseType_t ret;
-  sys_thread_t lwip_thread;
-  size_t rtos_stacksize;
-
-  LWIP_ASSERT("invalid stacksize", stacksize > 0);
-#if LWIP_FREERTOS_THREAD_STACKSIZE_IS_STACKWORDS
-  rtos_stacksize = (size_t)stacksize;
-#else
-  rtos_stacksize = (size_t)stacksize / sizeof(StackType_t);
-#endif
-
-  /* lwIP's lwip_thread_fn matches FreeRTOS' TaskFunction_t, so we can pass the
-     thread function without adaption here. */
-  ret = xTaskCreate(thread, name, (configSTACK_DEPTH_TYPE)rtos_stacksize, arg, prio, &rtos_task);
-  LWIP_ASSERT("task creation failed", ret == pdTRUE);
-
-  lwip_thread.thread_handle = rtos_task;
-  return lwip_thread;
 }
 
 #if LWIP_NETCONN_SEM_PER_THREAD
