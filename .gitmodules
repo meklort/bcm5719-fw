@@ -8,3 +8,6 @@
 [submodule "libs/FreeRTOS/FreeRTOS-Kernel"]
 	path = libs/FreeRTOS/FreeRTOS-Kernel
 	url = https://github.com/FreeRTOS/FreeRTOS-Kernel.git
+[submodule "libs/lwip/lwip"]
+	path = libs/lwip/lwip
+	url = https://github.com/lwip-tcpip/lwip.git
