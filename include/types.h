@@ -61,6 +61,8 @@ typedef unsigned int  uint32_t;
 typedef long long unsigned int uint64_t;
 typedef long long signed int int64_t;
 
+typedef uint32_t uintptr_t;
+
 #include <stdbool.h>
 
 typedef uint32_t size_t;
