@@ -140,7 +140,7 @@ SET(SOURCES
     FreeRTOS-Kernel/portable/GCC/ARM_CM0/port.c
     FreeRTOS-Kernel/portable/GCC/ARM_CM0/portmacro.h
     string.c
-    # FreeRTOS-Kernel/portable/MemMang/heap_5.c
+    FreeRTOS-Kernel/portable/MemMang/heap_5.c
 # ..\Common\include/blocktim.h
 # ..\Common\include/countsem.h
 # ..\Common\include/IntQueue.h
