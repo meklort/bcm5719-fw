@@ -87,7 +87,7 @@
 
 /* Support various memory allocation. */
 #define configSUPPORT_STATIC_ALLOCATION     1
-#define configSUPPORT_DYNAMIC_ALLOCATION    0
+#define configSUPPORT_DYNAMIC_ALLOCATION    1
 
 /* Heap and stack.
  * The bytes specified in configTOTAL_HEAP_SIZE need to fit in to
