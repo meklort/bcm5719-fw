@@ -53,6 +53,7 @@
 #include <printf.h>
 #endif
 
+#define RMU_ARBITRATION 0
 #define RMU_RESET_TIMEOUT_MS (2000) /* Allow up to two seconds for a bad packet to be reset. */
 
 void RMU_init(void)
@@ -102,12 +103,18 @@ void RMU_init(void)
     APE_PERI.BmcToNcTxControl = txControl;
 
     // Set REG_APE__ARB_CONTROL as desired. Suggest PACKAGE_ID=0, TKNREL=0x14,
-    // START, and setting unknown bit 26 to 1.
     RegAPE_PERIArbControl_t arbControl;
+#if RMU_ARBITRATION
+    // START, and setting unknown bit 26 to 1.
     arbControl.r32 = (1 << 26);
-    arbControl.bits.PackageID = 0; /* TODO: allow to be configured as per NC-SI spec. */
     arbControl.bits.Start = 1;
     arbControl.bits.TKNREL = 0x14;
+    APE_PERI.ArbControl = arbControl;
+#else
+    arbControl.r32 = 0;
+    arbControl.bits.Disable = 1;
+#endif
+    arbControl.bits.PackageID = 0; /* TODO: allow to be configured as per NC-SI spec. */
     APE_PERI.ArbControl = arbControl;
 
     RMU_resetBadPacket();
