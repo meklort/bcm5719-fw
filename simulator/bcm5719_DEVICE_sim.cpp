@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2020, Evan Lojewski
+/// @copyright Copyright (c) 2021, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -353,10 +353,14 @@ void init_bcm5719_DEVICE_sim(void *base)
     DEVICE.LinkAwarePowerModeClockPolicy.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     DEVICE.LinkAwarePowerModeClockPolicy.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
-    for(int i = 0; i < 2; i++)
+    /** @brief Bitmap for @ref DEVICE_t.D0uClockPolicy. */
+    DEVICE.D0uClockPolicy.r32.installReadCallback(read_from_ram, (uint8_t *)base);
+    DEVICE.D0uClockPolicy.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+
+    for(int i = 0; i < 1; i++)
     {
-        DEVICE.reserved_13844[i].installReadCallback(read_from_ram, (uint8_t *)base);
-        DEVICE.reserved_13844[i].installWriteCallback(write_to_ram, (uint8_t *)base);
+        DEVICE.reserved_13848[i].installReadCallback(read_from_ram, (uint8_t *)base);
+        DEVICE.reserved_13848[i].installWriteCallback(write_to_ram, (uint8_t *)base);
     }
     /** @brief Bitmap for @ref DEVICE_t.ApeClkPolicy. */
     DEVICE.ApeClkPolicy.r32.installReadCallback(read_from_ram, (uint8_t *)base);

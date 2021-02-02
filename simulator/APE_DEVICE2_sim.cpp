@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2020, Evan Lojewski
+/// @copyright Copyright (c) 2021, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -279,6 +279,10 @@ void init_APE_DEVICE2_sim(void *arg0)
     /** @brief Bitmap for @ref DEVICE2_t.LinkAwarePowerModeClockPolicy. */
     DEVICE2.LinkAwarePowerModeClockPolicy.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
     DEVICE2.LinkAwarePowerModeClockPolicy.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+
+    /** @brief Bitmap for @ref DEVICE2_t.D0uClockPolicy. */
+    DEVICE2.D0uClockPolicy.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
+    DEVICE2.D0uClockPolicy.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
 
     /** @brief Bitmap for @ref DEVICE2_t.ApeClkPolicy. */
     DEVICE2.ApeClkPolicy.r32.installReadCallback(loader_read_mem, (uint8_t *)base);

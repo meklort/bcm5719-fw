@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2020, Evan Lojewski
+/// @copyright Copyright (c) 2021, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -144,6 +144,8 @@ void init_bcm5719_DEVICE(void)
     /** @brief Bitmap for @ref DEVICE_t.NoLinkPowerModeClockPolicy. */
 
     /** @brief Bitmap for @ref DEVICE_t.LinkAwarePowerModeClockPolicy. */
+
+    /** @brief Bitmap for @ref DEVICE_t.D0uClockPolicy. */
 
     /** @brief Bitmap for @ref DEVICE_t.ApeClkPolicy. */
 
