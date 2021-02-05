@@ -877,6 +877,10 @@ void Network_InitPort(NetworkPort_t *port, reload_type_t reset_phy)
         APE_releaseLock();
     }
 
+    // 1000Mb/s mode only works if D0u is 0 when the host is off.
+    // Note: Per ortega, this should possibly tansition between 0 and  6.25MHz depending on the power / clock states for power consumption reasons.
+    port->device->D0uClockPolicy.r32 = 0;
+
     Network_InitFilters(port);
 
     Network_resetTX(port, reset_phy);
