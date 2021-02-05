@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2020, Evan Lojewski
+/// @copyright Copyright (c) 2021, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -130,6 +130,7 @@ typedef uint32_t APE_DEVICE1_H_uint32_t;
 #define REG_DEVICE1_CPMU_CONTROL ((volatile APE_DEVICE1_H_uint32_t*)0xa0053600) /*  */
 #define REG_DEVICE1_NO_LINK_POWER_MODE_CLOCK_POLICY ((volatile APE_DEVICE1_H_uint32_t*)0xa0053604) /*  */
 #define REG_DEVICE1_LINK_AWARE_POWER_MODE_CLOCK_POLICY ((volatile APE_DEVICE1_H_uint32_t*)0xa0053610) /*  */
+#define REG_DEVICE1_D0U_CLOCK_POLICY ((volatile APE_DEVICE1_H_uint32_t*)0xa0053614) /*  */
 #define REG_DEVICE1_APE_CLK_POLICY ((volatile APE_DEVICE1_H_uint32_t*)0xa005361c) /*  */
 #define REG_DEVICE1_APE_SLEEP_STATE_CLOCK_POLICY ((volatile APE_DEVICE1_H_uint32_t*)0xa0053620) /*  */
 #define REG_DEVICE1_CLOCK_SPEED_OVERRIDE_POLICY ((volatile APE_DEVICE1_H_uint32_t*)0xa0053624) /*  */

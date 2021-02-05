@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2020, Evan Lojewski
+/// @copyright Copyright (c) 2021, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -3585,6 +3585,82 @@ typedef register_container RegDEVICELinkAwarePowerModeClockPolicy_t {
     }
 #endif /* CXX_SIMULATOR */
 } RegDEVICELinkAwarePowerModeClockPolicy_t;
+
+#define REG_DEVICE_D0U_CLOCK_POLICY ((volatile APE_DEVICE_H_uint32_t*)0xa0043614) /*  */
+#define     DEVICE_D0U_CLOCK_POLICY_MAC_CLOCK_SWITCH_SHIFT 16u
+#define     DEVICE_D0U_CLOCK_POLICY_MAC_CLOCK_SWITCH_MASK  0x1f0000u
+#define GET_DEVICE_D0U_CLOCK_POLICY_MAC_CLOCK_SWITCH(__reg__)  (((__reg__) & 0x1f0000) >> 16u)
+#define SET_DEVICE_D0U_CLOCK_POLICY_MAC_CLOCK_SWITCH(__val__)  (((__val__) << 16u) & 0x1f0000u)
+#define     DEVICE_D0U_CLOCK_POLICY_MAC_CLOCK_SWITCH_60_0MHZ 0x1u
+#define     DEVICE_D0U_CLOCK_POLICY_MAC_CLOCK_SWITCH_30_0MHZ 0x3u
+#define     DEVICE_D0U_CLOCK_POLICY_MAC_CLOCK_SWITCH_15_0MHZ 0x5u
+#define     DEVICE_D0U_CLOCK_POLICY_MAC_CLOCK_SWITCH_7_5MHZ 0x7u
+#define     DEVICE_D0U_CLOCK_POLICY_MAC_CLOCK_SWITCH_3_75MHZ 0x9u
+#define     DEVICE_D0U_CLOCK_POLICY_MAC_CLOCK_SWITCH_12_5MHZ 0x11u
+#define     DEVICE_D0U_CLOCK_POLICY_MAC_CLOCK_SWITCH_6_25MHZ 0x13u
+#define     DEVICE_D0U_CLOCK_POLICY_MAC_CLOCK_SWITCH_3_125MHZ 0x15u
+#define     DEVICE_D0U_CLOCK_POLICY_MAC_CLOCK_SWITCH_1_563MHZ 0x17u
+#define     DEVICE_D0U_CLOCK_POLICY_MAC_CLOCK_SWITCH_781KHZ 0x19u
+#define     DEVICE_D0U_CLOCK_POLICY_MAC_CLOCK_SWITCH_12_5MHZ_DIV_1_25MHZ 0x1fu
+
+
+/** @brief Register definition for @ref DEVICE_t.D0uClockPolicy. */
+typedef register_container RegDEVICED0uClockPolicy_t {
+    /** @brief 32bit direct register access. */
+    APE_DEVICE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(APE_DEVICE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_15_0, 0, 16)
+        /** @brief Software Controlled MAC Core Clock Speed Select. */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, MACClockSwitch, 16, 5)
+        /** @brief Padding */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_31_21, 21, 11)
+        /** @brief Software Controlled MAC Core Clock Speed Select. */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, MACClockSwitch, 16, 5)
+        /** @brief Padding */
+        BITFIELD_MEMBER(APE_DEVICE_H_uint32_t, reserved_15_0, 0, 16)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(APE_DEVICE_H_uint32_t, bits)
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "D0uClockPolicy"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegDEVICED0uClockPolicy_t()
+    {
+        /** @brief constructor for @ref DEVICE_t.D0uClockPolicy. */
+        r32.setName("D0uClockPolicy");
+        bits.MACClockSwitch.setBaseRegister(&r32);
+        bits.MACClockSwitch.setName("MACClockSwitch");
+        bits.MACClockSwitch.addEnum("60.0MHz", 0x1);
+        bits.MACClockSwitch.addEnum("30.0MHz", 0x3);
+        bits.MACClockSwitch.addEnum("15.0MHz", 0x5);
+        bits.MACClockSwitch.addEnum("7.5MHz", 0x7);
+        bits.MACClockSwitch.addEnum("3.75MHz", 0x9);
+        bits.MACClockSwitch.addEnum("12.5MHz", 0x11);
+        bits.MACClockSwitch.addEnum("6.25MHz", 0x13);
+        bits.MACClockSwitch.addEnum("3.125MHz", 0x15);
+        bits.MACClockSwitch.addEnum("1.563MHz", 0x17);
+        bits.MACClockSwitch.addEnum("781kHz", 0x19);
+        bits.MACClockSwitch.addEnum("12.5MHz/1.25MHz", 0x1f);
+
+    }
+    RegDEVICED0uClockPolicy_t& operator=(const RegDEVICED0uClockPolicy_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegDEVICED0uClockPolicy_t;
 
 #define REG_DEVICE_APE_CLK_POLICY ((volatile APE_DEVICE_H_uint32_t*)0xa004361c) /*  */
 #define     DEVICE_APE_CLK_POLICY_LAPM_APE_CLOCK_SWITCH_SHIFT 0u
@@ -9532,8 +9608,11 @@ typedef struct DEVICE_t {
     /** @brief  */
     RegDEVICELinkAwarePowerModeClockPolicy_t LinkAwarePowerModeClockPolicy;
 
+    /** @brief  */
+    RegDEVICED0uClockPolicy_t D0uClockPolicy;
+
     /** @brief Reserved bytes to pad out data structure. */
-    APE_DEVICE_H_uint32_t reserved_13844[2];
+    APE_DEVICE_H_uint32_t reserved_13848[1];
 
     /** @brief  */
     RegDEVICEApeClkPolicy_t ApeClkPolicy;
@@ -10065,9 +10144,10 @@ typedef struct DEVICE_t {
             reserved_13832[i].setComponentOffset(0x3608 + (i * 4));
         }
         LinkAwarePowerModeClockPolicy.r32.setComponentOffset(0x3610);
-        for(int i = 0; i < 2; i++)
+        D0uClockPolicy.r32.setComponentOffset(0x3614);
+        for(int i = 0; i < 1; i++)
         {
-            reserved_13844[i].setComponentOffset(0x3614 + (i * 4));
+            reserved_13848[i].setComponentOffset(0x3618 + (i * 4));
         }
         ApeClkPolicy.r32.setComponentOffset(0x361c);
         ApeSleepStateClockPolicy.r32.setComponentOffset(0x3620);
@@ -10428,9 +10508,10 @@ typedef struct DEVICE_t {
             reserved_13832[i].print();
         }
         LinkAwarePowerModeClockPolicy.print();
-        for(int i = 0; i < 2; i++)
+        D0uClockPolicy.print();
+        for(int i = 0; i < 1; i++)
         {
-            reserved_13844[i].print();
+            reserved_13848[i].print();
         }
         ApeClkPolicy.print();
         ApeSleepStateClockPolicy.print();
