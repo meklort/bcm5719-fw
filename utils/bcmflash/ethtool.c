@@ -71,7 +71,7 @@ static int do_ioctl(struct cmd_context *ctx, void *cmd)
 
 size_t bcmflash_ethtool_size(const char *name)
 {
-    cmd_context ctx = { 0 };
+    struct cmd_context ctx = { 0 };
 
     strcpy(ctx.ifr.ifr_name, name);
 
@@ -97,7 +97,7 @@ bool bcmflash_ethtool_read(const char *name, void *buffer, size_t len)
 
     uint32_t eeprom_size = bcmflash_ethtool_size(name);
 
-    cmd_context ctx = { 0 };
+    struct cmd_context ctx = { 0 };
 
     strcpy(ctx.ifr.ifr_name, name);
 
@@ -137,7 +137,7 @@ bool bcmflash_ethtool_write(const char *name, void *buffer, size_t len)
 
     uint32_t eeprom_size = bcmflash_ethtool_size(name);
 
-    cmd_context ctx = { 0 };
+    struct cmd_context ctx = { 0 };
 
     strcpy(ctx.ifr.ifr_name, name);
 

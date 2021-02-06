@@ -95,7 +95,7 @@ int main(int argc, char const *argv[])
         if (ape.words[0] == be32toh(APE_HEADER_MAGIC))
         {
             // The file is swapped... fix it.
-            for (int i = 0; i < sizeof(ape) / sizeof(ape.words[0]); i++)
+            for (size_t i = 0; i < sizeof(ape) / sizeof(ape.words[0]); i++)
             {
                 ape.words[i] = be32toh(ape.words[i]);
             }
@@ -151,7 +151,7 @@ int main(int argc, char const *argv[])
     printf("UNK0:               0x%08X\n", ape.header.unk0);
 
     char name[sizeof(ape.header.name) + 1] = { 0 };
-    strncpy(name, (char *)ape.header.name, sizeof(ape.header.name));
+    strncpy(name, (char *)ape.header.name, sizeof(name) - 1);
     printf("Name:               %s\n", name);
     printf("Version:            0x%08X (%d.%d.%d)\n", ape.header.version, version_major, version_minor, version_patch);
     printf("Start:              0x%08X\n", ape.header.entrypoint);

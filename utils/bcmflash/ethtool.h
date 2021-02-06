@@ -42,12 +42,12 @@
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef IFACE_H
-#define IFACE_H
+#ifndef ETHTOOL_H
+#define ETHTOOL_H
 
 #include <stdint.h>
 
-#ifdef __cplusplus__
+#ifdef __cplusplus
 extern "C" {
 #endif
 
@@ -55,8 +55,8 @@ bool bcmflash_ethtool_read(const char *name, void *buffer, size_t len);
 bool bcmflash_ethtool_write(const char *name, void *buffer, size_t len);
 size_t bcmflash_ethtool_size(const char *name);
 
-#ifdef __cplusplus__
+#ifdef __cplusplus
 }
 #endif
 
-#endif /* IFACE_H */
+#endif /* ETHTOOL_H */

@@ -68,7 +68,7 @@ static struct
 static void state_init(const uint8_t *inBuffer, int32_t inBytes)
 {
     g_DecompressorState.cursor = DICTIONARY_INIT_INDEX;
-    int i = 0;
+    uint32_t i = 0;
     for (; i < g_DecompressorState.cursor; i++)
     {
         g_DecompressorState.dictionary[i] = DICTIONARY_INIT_0x20;

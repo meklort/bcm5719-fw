@@ -99,7 +99,7 @@ devices_t gSupportedDevices[] = {
 
 bool is_supported(uint16_t vendor_id, uint16_t device_id)
 {
-    for (unsigned int i = 0; i < ARRAY_ELEMENTS(gSupportedDevices); i++)
+    for (size_t i = 0; i < ARRAY_ELEMENTS(gSupportedDevices); i++)
     {
         devices_t *pDevice = &gSupportedDevices[i];
         if (vendor_id == pDevice->vendor_id && device_id == pDevice->device_id)
@@ -134,7 +134,7 @@ static size_t  barlen[MAX_NUM_BARS];
 
 static void unmap_bars()
 {
-    for(int i = 0; i < ARRAY_ELEMENTS(bar); i++)
+    for(size_t i = 0; i < ARRAY_ELEMENTS(bar); i++)
     {
         if(bar[i] && barlen[i])
         {
@@ -272,7 +272,7 @@ bool initHAL(const char *pci_path, int wanted_function)
         printf("Found supported device %x:%x at %s\n", config.vendor_id,
                 config.device_id, configPath.c_str());
 
-        for (unsigned int i = 0; i < ARRAY_ELEMENTS(config.BAR); i++)
+        for (size_t i = 0; i < ARRAY_ELEMENTS(config.BAR); i++)
         {
             int memfd;
             string BARPath = string(located_pci_path) + "/" BAR_STR + to_string(i);
@@ -288,7 +288,7 @@ bool initHAL(const char *pci_path, int wanted_function)
             }
             else
             {
-                printf("mmaping BAR[%d]: %s\n", i, pBARPath);
+                printf("mmaping BAR[%zu]: %s\n", i, pBARPath);
             }
 
             if (fstat(memfd, &st) < 0)
