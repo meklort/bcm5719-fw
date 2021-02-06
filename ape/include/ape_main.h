@@ -88,5 +88,6 @@ void __attribute__((interrupt)) IRQ_RxPacketEven(void);
 void __attribute__((interrupt)) IRQ_RxPacketOdd(void);
 void __attribute__((interrupt)) IRQ_RMU(void);
 void __attribute__((interrupt)) IRQ_VoltageSource(void);
+void __attribute__((interrupt)) IRQ_PowerStatusChanged(void);
 
 #endif /* APE_MAIN_H */
