@@ -109,4 +109,13 @@ uint32_t Timer_getCurrentTime1MHz(void);
  */
 bool Timer_didTimeElapsed1MHz(uint32_t startTime, uint32_t checkTime);
 
+/**
+ * @fn void Timer_delayMs(uint32_t milliseconds);
+ *
+ * @brief Sleep for the specified time, in milliseconds.
+ *
+ * @param milliseconds The number of milliseconds to delay.
+ */
+void Timer_delayMs(uint32_t milliseconds);
+
 #endif /* TIMER_H */
