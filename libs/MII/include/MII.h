@@ -94,6 +94,16 @@ int32_t MII_getBlock(volatile DEVICE_t* device, uint8_t phy);
  */
 bool MII_reset(volatile DEVICE_t* device, uint8_t phy);
 
+/**
+ * @fn bool MII_UpdateAdvertisement(volatile DEVICE_t *device, uint8_t phy)
+ *
+ * Update the PHY to advertise all capabilities
+ *
+ * @returns True if updated, false otherwise.
+ */
+bool MII_UpdateAdvertisement(volatile DEVICE_t *device, uint8_t phy);
+
+
 #ifdef CXX_SIMULATOR
 #undef volatile
 #endif
