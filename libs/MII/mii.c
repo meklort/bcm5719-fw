@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2018, Evan Lojewski
+/// @copyright Copyright (c) 2018-2021, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -43,6 +43,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include <MII.h>
+#include <Timer.h>
 
 #ifdef CXX_SIMULATOR
 #define volatile
@@ -343,11 +344,17 @@ bool MII_reset(volatile DEVICE_t *device, uint8_t phy)
     if (MII_writeRegister(device, phy, (mii_reg_t)REG_MII_CONTROL, MII_CONTROL_RESET_MASK))
     {
         uint16_t val;
+
         do
         {
             // Spin
             val = (uint16_t)MII_readRegister(device, phy, (mii_reg_t)REG_MII_CONTROL);
         } while ((val & MII_CONTROL_RESET_MASK) == MII_CONTROL_RESET_MASK);
+
+        // All reset to settle for 5ms.
+        Timer_delayMs(5);
+
+        (void)MII_UpdateAdvertisement(device, phy);
 
         return true;
     }

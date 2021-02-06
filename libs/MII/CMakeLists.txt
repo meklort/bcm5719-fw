@@ -2,7 +2,7 @@
 ###
 ### @file       libs/MII/CMakeLists.txt
 ###
-### @project    
+### @project
 ###
 ### @brief      MII CMake file
 ###
@@ -46,17 +46,19 @@ project(MII)
 
 # Host Simulation library
 simulator_add_library(${PROJECT_NAME} STATIC mii.c)
-target_link_libraries(${PROJECT_NAME} PRIVATE simulator)
+target_link_libraries(${PROJECT_NAME} PRIVATE simulator Timer)
 target_include_directories(${PROJECT_NAME} PUBLIC ../../include)
 target_include_directories(${PROJECT_NAME} PUBLIC include)
 
 # MIPS Library
 mips_add_library(${PROJECT_NAME}-mips STATIC mii.c)
+target_link_libraries(${PROJECT_NAME}-mips PRIVATE Timer)
 target_include_directories(${PROJECT_NAME}-mips PUBLIC ../../include)
 target_include_directories(${PROJECT_NAME}-mips PUBLIC include)
 
 # ARM Library
 arm_add_library(${PROJECT_NAME}-arm STATIC mii.c)
+target_link_libraries(${PROJECT_NAME}-arm PRIVATE Timer)
 target_include_directories(${PROJECT_NAME}-arm PUBLIC ../../include)
 target_include_directories(${PROJECT_NAME}-arm PUBLIC include)
 
