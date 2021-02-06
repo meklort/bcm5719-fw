@@ -705,7 +705,7 @@ void resetChannel(unsigned int ch)
     uint8_t phy = MII_getPhy(port->device);
     bool success;
     APE_aquireLock();
-    success = MII_writeRegister(port->device, phy, (mii_reg_t)REG_MII_CONTROL, MII_CONTROL_RESET_MASK);
+    success = MII_reset(port->device, phy);
     APE_releaseLock();
 
     if (!success)

@@ -873,7 +873,7 @@ void Network_InitPort(NetworkPort_t *port, reload_type_t reset_phy)
     if ((ALWAYS_RESET == reset_phy) || (AS_NEEDED == reset_phy && !Network_isLinkUp(port)))
     {
         APE_aquireLock();
-        MII_writeRegister(port->device, phy, (mii_reg_t)REG_MII_CONTROL, MII_CONTROL_RESET_MASK);
+        MII_reset(port->device, phy);
         APE_releaseLock();
     }
 
@@ -1146,7 +1146,7 @@ void Network_resetLink(NetworkPort_t *port)
 {
     uint8_t phy = MII_getPhy(port->device);
     APE_aquireLock();
-    MII_writeRegister(port->device, phy, (mii_reg_t)REG_MII_CONTROL, MII_CONTROL_RESET_MASK);
+    MII_reset(port->device, phy);
     APE_releaseLock();
 }
 
