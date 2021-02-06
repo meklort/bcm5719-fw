@@ -685,6 +685,7 @@ int main(int argc, char const *argv[])
         APE.Mode.print();
         APE.Mode2.print();
         APE.Status.print();
+        APE.Status2.print();
         SHM.FwStatus.print();
         SHM.FwFeatures.print();
         SHM.FwVersion.print();
