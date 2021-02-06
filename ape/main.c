@@ -361,12 +361,10 @@ void __attribute__((noreturn)) loaderLoop(void)
 
             if (host_state != SHM.HostDriverState.bits.State)
             {
-                reload_type_t type;
                 host_state = SHM.HostDriverState.bits.State;
 
                 if (SHM_HOST_DRIVER_STATE_STATE_START == host_state)
                 {
-                    type = NEVER_RESET;
                     printf("host started\n");
 
                     reset_allowed = true;
@@ -376,20 +374,14 @@ void __attribute__((noreturn)) loaderLoop(void)
                     if (SHM_HOST_DRIVER_STATE_STATE_UNLOAD == host_state)
                     {
                         printf("host unloaded.\n");
-                        type = AS_NEEDED;
                     }
                     else
                     {
                         printf("wol?\n");
-                        type = AS_NEEDED;
                     }
 
                     reset_allowed = false;
                 }
-
-                wait_for_all_rx();
-                RMU_init();
-                NCSI_reload(type);
             }
             else if (reset_allowed && !Network_checkEnableState(gPort) && !gResetOccurred)
             {
