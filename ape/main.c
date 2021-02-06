@@ -250,18 +250,23 @@ void handleBMCPacket(void)
     }
 }
 
-void checkSupply(void)
+void __attribute__((interrupt)) IRQ_VoltageSource()
 {
-    if (NVIC.InterruptClearPending.r32 & NVIC_INTERRUPT_CLEAR_PENDING_CLRPEND_VMAIN)
+    NVIC.InterruptClearPending.r32 = NVIC_INTERRUPT_CLEAR_PENDING_CLRPEND_VMAIN;
+
+    NetworkPort_t *port = gPort;
+
+    if (port->device->Status.bits.VMAINPowerStatus)
     {
-        NVIC.InterruptClearPending.r32 = NVIC_INTERRUPT_CLEAR_PENDING_CLRPEND_VMAIN;
-
-        printf("Power State Changed.\n");
-
-        wait_for_all_rx();
-        RMU_init();
-        NCSI_reload(AS_NEEDED);
+        printf("Vsrc: Main\n");
     }
+    else
+    {
+        printf("Vsrc: Aux\n");
+    }
+
+    // Ensure we reinitialize hardware as needed.
+    gResetOccurred = true;
 }
 
 void __attribute__((interrupt)) IRQ_PowerStatusChanged(void)
@@ -319,8 +324,8 @@ void __attribute__((noreturn)) loaderLoop(void)
     initSHM(&SHM2);
     initSHM(&SHM3);
 
-    // Enable GRC Reset / Power Status Changed interrupt
-    NVIC.InterruptSetEnable.r32 = NVIC_INTERRUPT_SET_ENABLE_SETENA_GENERAL_RESET;
+    // Enable GRC Reset / Power Status Changed and Vsrc interrupts
+    NVIC.InterruptSetEnable.r32 = NVIC_INTERRUPT_SET_ENABLE_SETENA_VMAIN | NVIC_INTERRUPT_SET_ENABLE_SETENA_GENERAL_RESET;
 
     for (;;)
     {
@@ -357,7 +362,6 @@ void __attribute__((noreturn)) loaderLoop(void)
             handleCommand(&SHM1);
             handleCommand(&SHM2);
             handleCommand(&SHM3);
-            checkSupply();
 
             if (host_state != SHM.HostDriverState.bits.State)
             {
@@ -479,8 +483,6 @@ void __attribute__((noreturn)) __start()
     gPort = Network_getPort(NETWORK_PORT);
 
     NCSI_usePort(gPort);
-
-    checkSupply();
 
     RMU_init();
 
