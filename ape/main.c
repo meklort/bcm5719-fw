@@ -68,6 +68,7 @@
 #define RX_CPU_RESET_TIMEOUT_MS (1000) /* Wait up to 1 second for each RX CPU to start */
 
 static NetworkPort_t *gPort;
+static bool gResetOccurred;
 
 void handleCommand(volatile SHM_t *shm)
 {
@@ -263,6 +264,32 @@ void checkSupply(void)
     }
 }
 
+void __attribute__((interrupt)) IRQ_PowerStatusChanged(void)
+{
+    RegAPEStatus_t status;
+    RegAPEStatus2_t status2;
+    status.r32 = APE.Status.r32;
+    status2.r32 = APE.Status2.r32;
+
+    // Clear Interrupts
+    APE.Status.r32 = status.r32;
+    APE.Status2.r32 = status2.r32;
+
+    NVIC.InterruptClearPending.r32 = NVIC_INTERRUPT_CLEAR_PENDING_CLRPEND_GENERAL_RESET;
+
+    printf("PowerStateChanged.\n");
+
+    if (!gResetOccurred)
+    {
+
+        if (status.bits.Port0GRCReset || status.bits.Port1GRCReset || status2.bits.Port2GRCReset || status2.bits.Port3GRCReset)
+        {
+            printf("GRC Reset.\n");
+            gResetOccurred = true;
+        }
+    }
+}
+
 void initSHM(volatile SHM_t *shm)
 {
     RegSHMFwStatus_t status;
@@ -292,62 +319,91 @@ void __attribute__((noreturn)) loaderLoop(void)
     initSHM(&SHM2);
     initSHM(&SHM3);
 
+    // Enable GRC Reset / Power Status Changed interrupt
+    NVIC.InterruptSetEnable.r32 = NVIC_INTERRUPT_SET_ENABLE_SETENA_GENERAL_RESET;
+
     for (;;)
     {
-        handleBMCPacket();
-        NCSI_handlePassthrough();
-        handleCommand(&SHM);
-        handleCommand(&SHM1);
-        handleCommand(&SHM2);
-        handleCommand(&SHM3);
-        checkSupply();
-
-        if (host_state != SHM.HostDriverState.bits.State)
+        if (gResetOccurred)
         {
-            reload_type_t type;
-            host_state = SHM.HostDriverState.bits.State;
-
-            if (SHM_HOST_DRIVER_STATE_STATE_START == host_state)
+            RegAPEStatus_t status;
+            RegAPEStatus2_t status2;
+            status.r32 = APE.Status.r32;
+            status2.r32 = APE.Status2.r32;
+            // Wait for reset to complete.
+            if (status.bits.Port0GRCReset || status.bits.Port1GRCReset || status2.bits.Port2GRCReset || status2.bits.Port3GRCReset)
             {
-                type = NEVER_RESET;
-                printf("host started\n");
-
-                reset_allowed = true;
+                // We are waiting for the reset signals to clear before continuing.
+                // Since we never disabled the interrupt, we should never be able to get here anyway.
             }
             else
             {
-                if (SHM_HOST_DRIVER_STATE_STATE_UNLOAD == host_state)
+                gResetOccurred = false;
+
+                printf("Handling reset...\n");
+                // Perform TX reinit as the PHY / MII was also probably reset.
+                wait_for_all_rx();
+                RMU_init();
+                NCSI_reload(AS_NEEDED);
+            }
+        }
+        else
+        {
+            Network_checkPortState(gPort);
+
+            handleBMCPacket();
+            NCSI_handlePassthrough();
+            handleCommand(&SHM);
+            handleCommand(&SHM1);
+            handleCommand(&SHM2);
+            handleCommand(&SHM3);
+            checkSupply();
+
+            if (host_state != SHM.HostDriverState.bits.State)
+            {
+                reload_type_t type;
+                host_state = SHM.HostDriverState.bits.State;
+
+                if (SHM_HOST_DRIVER_STATE_STATE_START == host_state)
                 {
-                    printf("host unloaded.\n");
-                    type = AS_NEEDED;
+                    type = NEVER_RESET;
+                    printf("host started\n");
+
+                    reset_allowed = true;
                 }
                 else
                 {
-                    printf("wol?\n");
-                    type = AS_NEEDED;
+                    if (SHM_HOST_DRIVER_STATE_STATE_UNLOAD == host_state)
+                    {
+                        printf("host unloaded.\n");
+                        type = AS_NEEDED;
+                    }
+                    else
+                    {
+                        printf("wol?\n");
+                        type = AS_NEEDED;
+                    }
+
+                    reset_allowed = false;
                 }
+
+                wait_for_all_rx();
+                RMU_init();
+                NCSI_reload(type);
+            }
+            else if (reset_allowed && !Network_checkEnableState(gPort) && !gResetOccurred)
+            {
+                printf("APE mode change, resetting.\n");
+                wait_for_all_rx();
+                RMU_init();
+                NCSI_reload(AS_NEEDED);
+
+                // Update host state to make sure we don't reset twice if it's changed.
+                host_state = SHM.HostDriverState.bits.State;
 
                 reset_allowed = false;
             }
-
-            wait_for_all_rx();
-            RMU_init();
-            NCSI_reload(type);
         }
-        else if (reset_allowed && !Network_checkEnableState(gPort))
-        {
-            printf("APE mode change, resetting.\n");
-            wait_for_all_rx();
-            RMU_init();
-            NCSI_reload(AS_NEEDED);
-
-            // Update host state to make sure we don't reset twice if it's changed.
-            host_state = SHM.HostDriverState.bits.State;
-
-            reset_allowed = false;
-        }
-
-        Network_checkPortState(gPort);
     }
 }
 
@@ -409,6 +465,7 @@ void __attribute__((noreturn)) __start()
 {
     // Ensure all pending interrupts are cleared.
     NVIC.InterruptClearPending.r32 = 0xFFFFFFFF;
+    gResetOccurred = false;
 
     // Switch to APE interrupt handlers
     union
