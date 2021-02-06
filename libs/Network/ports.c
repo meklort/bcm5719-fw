@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2018-2020 Evan Lojewski
+/// @copyright Copyright (c) 2018-2021 Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -875,6 +875,20 @@ void Network_InitPort(NetworkPort_t *port, reload_type_t reset_phy)
         APE_aquireLock();
         MII_reset(port->device, phy);
         APE_releaseLock();
+    }
+    else
+    {
+        bool updated;
+
+        // Ensure the PHY is advertising all capabilities and updating if needed.
+        APE_aquireLock();
+        updated = MII_UpdateAdvertisement(port->device, phy);
+        APE_releaseLock();
+
+        if (updated)
+        {
+            printf("Advert updated\n");
+        }
     }
 
     // 1000Mb/s mode only works if D0u is 0 when the host is off.
