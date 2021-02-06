@@ -298,6 +298,45 @@ int32_t MII_getBlock(volatile DEVICE_t *device, uint8_t phy)
     return MII_readRegister(device, phy, (mii_reg_t)REG_MII_BLOCK_SELECT);
 }
 
+bool MII_UpdateAdvertisement(volatile DEVICE_t *device, uint8_t phy)
+{
+    int32_t readVal;
+
+    // Ensure 1G is advertised if supported.
+    readVal = MII_readRegister(device, phy, (mii_reg_t)REG_MII_IEEE_EXTENDED_STATUS);
+    if (readVal >= 0)
+    {
+        RegMIIIeeeExtendedStatus_t status;
+        status.r16 = (uint16_t)readVal;
+
+        readVal = MII_readRegister(device, phy, (mii_reg_t)REG_MII_1000BASE_T_CONTROL);
+        if (readVal >= 0)
+        {
+            RegMII1000baseTControl_t control1G;
+            control1G.r16 = (uint16_t)readVal;
+
+            if ((status.bits._1000BASE_THalfDuplexCapable != control1G.bits.Advertise1000BASE_THalfDuplex) ||
+                (status.bits._1000BASE_TFullDuplexCapable != control1G.bits.Advertise1000BASE_TFullDuplex))
+            {
+                control1G.bits.Advertise1000BASE_THalfDuplex = status.bits._1000BASE_THalfDuplexCapable;
+                control1G.bits.Advertise1000BASE_TFullDuplex = status.bits._1000BASE_TFullDuplexCapable;
+                (void)MII_writeRegister(device, phy, (mii_reg_t)REG_MII_1000BASE_T_CONTROL, control1G.r16);
+
+                // Restart Autonegotiation.
+                RegMIIControl_t control;
+                control.r16 = 0;
+                control.bits.AutoNegotiationEnable = 1;
+                control.bits.RestartAutonegotiation = 1;
+                (void)MII_writeRegister(device, phy, (mii_reg_t)REG_MII_CONTROL, control.r16);
+
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
 bool MII_reset(volatile DEVICE_t *device, uint8_t phy)
 {
     // Set MII_REG_CONTROL to RESET; wait until RESET bit clears.
