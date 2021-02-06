@@ -72,7 +72,7 @@ bool vpd_is_checksum(uint16_t field)
 }
 const char *vpd_get_field_name(uint16_t field)
 {
-    for (int i = 0; i < sizeof(mNames) / sizeof(mNames[0]); i++)
+    for (size_t i = 0; i < ARRAY_ELEMENTS(mNames); i++)
     {
         if (0 == strncmp(mNames[i].name, (const char *)&field, 2))
         {

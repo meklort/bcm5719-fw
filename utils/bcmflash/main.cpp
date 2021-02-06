@@ -337,7 +337,7 @@ void dump_info(NVRAMInfo_t *info, NVRAMInfo2_t *info2)
     printf("Power Budget2:    0x%04X%04X\n", pb_raw[5], pb_raw[4]);
     printf("Power Budget3:    0x%04X%04X\n", pb_raw[7], pb_raw[6]);
 
-    for (int i = 0; i < ARRAY_ELEMENTS(pb_raw); i++)
+    for (size_t i = 0; i < ARRAY_ELEMENTS(pb_raw); i++)
     {
         uint32_t raw = pb_raw[i];
         RegDEVICEPciPowerBudget0_t pb0;
@@ -351,7 +351,7 @@ void dump_info(NVRAMInfo_t *info, NVRAMInfo2_t *info2)
             pb0.bits.PowerRail = (raw & 0xE000) >> 13;
         }
 
-        printf("Translated Power Budget[%d]:    0x%08X\n", i, (uint32_t)pb0.r32);
+        printf("Translated Power Budget[%zu]:    0x%08X\n", i, (uint32_t)pb0.r32);
     }
 
     printf("\n=== Port 0 ===\n");
@@ -482,7 +482,7 @@ int main(int argc, char const *argv[])
     string target_type_help;
     string target_name_help;
     std::list<std::string> target_options;
-    for (int i = 0; i < ARRAY_ELEMENTS(gStorage); i++)
+    for (size_t i = 0; i < ARRAY_ELEMENTS(gStorage); i++)
     {
         target_type_help += gStorage[i].type;
         target_type_help += ": ";
@@ -543,7 +543,7 @@ int main(int argc, char const *argv[])
     vector<string> args = parser.args();
     storage_t *target = NULL;
 
-    for (int i = 0; i < ARRAY_ELEMENTS(gStorage); i++)
+    for (size_t i = 0; i < ARRAY_ELEMENTS(gStorage); i++)
     {
         if (gStorage[i].type == options["target_type"])
         {
@@ -768,7 +768,7 @@ int main(int argc, char const *argv[])
         }
     }
 
-    for (int i = 0; i < ARRAY_ELEMENTS(nvram.contents.directory); i++)
+    for (size_t i = 0; i < ARRAY_ELEMENTS(nvram.contents.directory); i++)
     {
         char *cd_name = NULL;
         if (extract)
@@ -821,7 +821,7 @@ int main(int argc, char const *argv[])
             if (gApeWd[0] == APE_HEADER_MAGIC)
             {
                 // Ensure everything is in the correct endianness.
-                for (int i = 0; i < (new_ape_length - 4) / 4; i++)
+                for (uint32_t i = 0; i < (new_ape_length - 4) / 4; i++)
                 {
                     gApeWd[i] = be32toh(gApeWd[i]);
                 }

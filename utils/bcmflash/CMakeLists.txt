@@ -9,7 +9,7 @@ set(SOURCES
     bcmflash.h
 
     # Support files for initializing the firmware header
-    create_header.c     create_header.h
+    create_header.cpp     create_header.h
     nvm_talos2.c
     nvm_blackbird.c
     nvm_kh08p.c
@@ -21,8 +21,9 @@ IF(CONFIG_HAVE_LINUX_ETHTOOL_H)
     )
 ENDIF()
 
-simulator_add_executable(${PROJECT_NAME} ${SOURCES})
+add_executable(${PROJECT_NAME} ${SOURCES})
 target_link_libraries(${PROJECT_NAME} PRIVATE NVRam VPD simulator OptParse)
+target_compile_options(${PROJECT_NAME} PRIVATE -DCXX_SIMULATOR)
 
 format_target_sources(${PROJECT_NAME})
 

@@ -132,7 +132,7 @@ void print_capabilities(uint8_t* packet)
 void print_packet(uint32_t *packet_u32, size_t len)
 {
     // Correct endian
-    for(int i = 0; i < len; i++)
+    for(size_t i = 0; i < len; i++)
     {
         printf("0x%08X\n", packet_u32[i]);
     }

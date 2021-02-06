@@ -233,11 +233,11 @@ void print_context(void)
     printf("   pc: 0x%08X (%s+%d)   opcode: 0x%08X \n", pc, symbol.c_str(), sym_offset, opcode);
     int numCols = 4;
     int offset = 32 / numCols;
-    for (int i = 0; i < ARRAY_ELEMENTS(r) / 4; i++)
+    for (size_t i = 0; i < ARRAY_ELEMENTS(r) / 4; i++)
     {
         for (int j = 0; j < numCols; j++)
         {
-            printf("$%d(%5s): 0x%08X    ", i + j * offset, regnames[i + j * offset], r[i + j * offset]);
+            printf("$%zd(%5s): 0x%08X    ", i + j * offset, regnames[i + j * offset], r[i + j * offset]);
         }
         printf("\n");
     }
