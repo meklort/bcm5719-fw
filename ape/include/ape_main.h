@@ -74,4 +74,19 @@ typedef struct
  */
 extern vector_table_t gVectors;
 
+void __attribute__((interrupt)) IRQ_NMI(void);
+void __attribute__((interrupt)) IRQ_HardFault(void);
+void __attribute__((interrupt)) IRQ_MemoryManagmentFault(void);
+void __attribute__((interrupt)) IRQ_BusFault(void);
+void __attribute__((interrupt)) IRQ_UsageFault(void);
+void __attribute__((interrupt)) IRQ_SVCall(void);
+void __attribute__((interrupt)) IRQ_Debug(void);
+void __attribute__((interrupt)) IRQ_PendSV(void);
+void __attribute__((interrupt)) IRQ_Systick(void);
+
+void __attribute__((interrupt)) IRQ_RxPacketEven(void);
+void __attribute__((interrupt)) IRQ_RxPacketOdd(void);
+void __attribute__((interrupt)) IRQ_RMU(void);
+void __attribute__((interrupt)) IRQ_VoltageSource(void);
+
 #endif /* APE_MAIN_H */

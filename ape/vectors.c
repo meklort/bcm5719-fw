@@ -55,20 +55,22 @@ void __attribute__((interrupt)) IRQ_Default(void)
     printf("ISR: %d\n", vector);
 }
 
-void __attribute__((interrupt)) IRQ_NMI(void) __attribute__((weak, alias("IRQ_Default")));
-void __attribute__((interrupt)) IRQ_HardFault(void) __attribute__((weak, alias("IRQ_Default")));
-void __attribute__((interrupt)) IRQ_MemoryManagmentFault(void) __attribute__((weak, alias("IRQ_Default")));
-void __attribute__((interrupt)) IRQ_BusFault(void) __attribute__((weak, alias("IRQ_Default")));
-void __attribute__((interrupt)) IRQ_UsageFault(void) __attribute__((weak, alias("IRQ_Default")));
-void __attribute__((interrupt)) IRQ_SVCall(void) __attribute__((weak, alias("IRQ_Default")));
-void __attribute__((interrupt)) IRQ_Debug(void) __attribute__((weak, alias("IRQ_Default")));
-void __attribute__((interrupt)) IRQ_PendSV(void) __attribute__((weak, alias("IRQ_Default")));
-void __attribute__((interrupt)) IRQ_Systick(void) __attribute__((weak, alias("IRQ_Default")));
+// Alias all IRQ routines ot the default handler.
+void __attribute__((interrupt)) IRQ_NMI(void) __attribute__((weak, alias("IRQ_Default")));                  //lint !e762
+void __attribute__((interrupt)) IRQ_HardFault(void) __attribute__((weak, alias("IRQ_Default")));            //lint !e762
+void __attribute__((interrupt)) IRQ_MemoryManagmentFault(void) __attribute__((weak, alias("IRQ_Default"))); //lint !e762
+void __attribute__((interrupt)) IRQ_BusFault(void) __attribute__((weak, alias("IRQ_Default")));             //lint !e762
+void __attribute__((interrupt)) IRQ_UsageFault(void) __attribute__((weak, alias("IRQ_Default")));           //lint !e762
+void __attribute__((interrupt)) IRQ_SVCall(void) __attribute__((weak, alias("IRQ_Default")));               //lint !e762
+void __attribute__((interrupt)) IRQ_Debug(void) __attribute__((weak, alias("IRQ_Default")));                //lint !e762
+void __attribute__((interrupt)) IRQ_PendSV(void) __attribute__((weak, alias("IRQ_Default")));               //lint !e762
+void __attribute__((interrupt)) IRQ_Systick(void) __attribute__((weak, alias("IRQ_Default")));              //lint !e762
 
-void __attribute__((interrupt)) IRQ_RxPacketEven(void) __attribute__((weak, alias("IRQ_Default")));
-void __attribute__((interrupt)) IRQ_RxPacketOdd(void) __attribute__((weak, alias("IRQ_Default")));
-void __attribute__((interrupt)) IRQ_RMU(void) __attribute__((weak, alias("IRQ_Default")));
-void __attribute__((interrupt)) IRQ_VoltageSource(void) __attribute__((weak, alias("IRQ_Default")));
+void __attribute__((interrupt)) IRQ_RxPacketEven(void) __attribute__((weak, alias("IRQ_Default")));       //lint !e762
+void __attribute__((interrupt)) IRQ_RxPacketOdd(void) __attribute__((weak, alias("IRQ_Default")));        //lint !e762
+void __attribute__((interrupt)) IRQ_RMU(void) __attribute__((weak, alias("IRQ_Default")));                //lint !e762
+void __attribute__((interrupt)) IRQ_VoltageSource(void) __attribute__((weak, alias("IRQ_Default")));      //lint !e762
+void __attribute__((interrupt)) IRQ_PowerStatusChanged(void) __attribute__((weak, alias("IRQ_Default"))); //lint !e762
 
 //lint -esym(714, gVectors) // Referenced by linker script
 vector_table_t gVectors __attribute__((section(".init"))) = {
@@ -93,35 +95,35 @@ vector_table_t gVectors __attribute__((section(".init"))) = {
         [0xF] = IRQ_Default, /* Reserved */
 
         /* External Interrupts */
-        [0x10] = IRQ_Default,        /* Handle Event */
-        [0x11] = IRQ_Default,        /* -- */
-        [0x12] = IRQ_Default,        /* -- */
-        [0x13] = IRQ_Default,        /* -- */
-        [0x14] = IRQ_Default,        /* -- */
-        [0x15] = IRQ_Default,        /* -- */
-        [0x16] = IRQ_Default,        /* Host to BMC */
-        [0x17] = IRQ_Default,        /* -- */
-        [0x18] = IRQ_Default,        /* TX Error */
-        [0x19] = IRQ_RxPacketEven,   /* RX Packet - Even ports */
-        [0x1A] = IRQ_Default,        /* -- */
-        [0x1B] = IRQ_Default,        /* -- */
-        [0x1C] = IRQ_Default,        /* SMBUS 0 */
-        [0x1D] = IRQ_Default,        /* -- */
-        [0x1E] = IRQ_Default,        /* SMBUS 1 */
-        [0x1F] = IRQ_RMU,            /* RMU Egress */
-        [0x20] = IRQ_Default,        /* -- */
-        [0x21] = IRQ_Default,        /* -- */
-        [0x22] = IRQ_Default,        /* Gen Status Changed */
-        [0x23] = IRQ_Default,        /* seems to be always pending, but always masked. no handler (i.e., uses exception handler) */
-        [0x24] = IRQ_Default,        /* -- */
-        [0x25] = IRQ_Default,        /* -- */
-        [0x26] = IRQ_VoltageSource,  /* Voltage Source Changed */
-        [0x27] = IRQ_Default,        /* Link Status Changed (Even Ports) */
-        [0x28] = IRQ_Default,        /* Link Status Changed (Odd Ports) */
-        [0x29] = IRQ_RxPacketOdd,    /* RX Packet (Odd ports) */
-        [0x2A] = IRQ_Default,        /* -- */
-        [0x2B] = IRQ_Default,        /* -- */
-        [0x2C] = IRQ_Default,        /* -- */
-        [0x2D] = IRQ_Default,        /* -- */
+        [0x10] = IRQ_Default,               /* Handle Event */
+        [0x11] = IRQ_Default,               /* -- */
+        [0x12] = IRQ_Default,               /* -- */
+        [0x13] = IRQ_Default,               /* -- */
+        [0x14] = IRQ_Default,               /* -- */
+        [0x15] = IRQ_Default,               /* -- */
+        [0x16] = IRQ_Default,               /* Host to BMC */
+        [0x17] = IRQ_Default,               /* -- */
+        [0x18] = IRQ_Default,               /* TX Error */
+        [0x19] = IRQ_RxPacketEven,          /* RX Packet - Even ports */
+        [0x1A] = IRQ_Default,               /* -- */
+        [0x1B] = IRQ_Default,               /* -- */
+        [0x1C] = IRQ_Default,               /* SMBUS 0 */
+        [0x1D] = IRQ_Default,               /* -- */
+        [0x1E] = IRQ_Default,               /* SMBUS 1 */
+        [0x1F] = IRQ_RMU,                   /* RMU Egress */
+        [0x20] = IRQ_Default,               /* -- */
+        [0x21] = IRQ_Default,               /* -- */
+        [0x22] = IRQ_PowerStatusChanged,    /* Gen Status Changed */
+        [0x23] = IRQ_Default,               /* seems to be always pending, but always masked. no handler (i.e., uses exception handler) */
+        [0x24] = IRQ_Default,               /* -- */
+        [0x25] = IRQ_Default,               /* -- */
+        [0x26] = IRQ_VoltageSource,         /* Voltage Source Changed */
+        [0x27] = IRQ_Default,               /* Link Status Changed (Even Ports) */
+        [0x28] = IRQ_Default,               /* Link Status Changed (Odd Ports) */
+        [0x29] = IRQ_RxPacketOdd,           /* RX Packet (Odd ports) */
+        [0x2A] = IRQ_Default,               /* -- */
+        [0x2B] = IRQ_Default,               /* -- */
+        [0x2C] = IRQ_Default,               /* -- */
+        [0x2D] = IRQ_Default,               /* -- */
     },
 };
