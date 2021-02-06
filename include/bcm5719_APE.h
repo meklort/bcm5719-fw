@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2020, Evan Lojewski
+/// @copyright Copyright (c) 2021, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -294,14 +294,18 @@ typedef register_container RegAPEMode_t {
 #define     APE_STATUS_PCIE_RESET_MASK  0x1u
 #define GET_APE_STATUS_PCIE_RESET(__reg__)  (((__reg__) & 0x1) >> 0u)
 #define SET_APE_STATUS_PCIE_RESET(__val__)  (((__val__) << 0u) & 0x1u)
+#define     APE_STATUS_PORT_0_GRC_RESET_SHIFT 1u
+#define     APE_STATUS_PORT_0_GRC_RESET_MASK  0x2u
+#define GET_APE_STATUS_PORT_0_GRC_RESET(__reg__)  (((__reg__) & 0x2) >> 1u)
+#define SET_APE_STATUS_PORT_0_GRC_RESET(__val__)  (((__val__) << 1u) & 0x2u)
 #define     APE_STATUS_NVRAM_CONTROL_RESET_SHIFT 3u
 #define     APE_STATUS_NVRAM_CONTROL_RESET_MASK  0x8u
 #define GET_APE_STATUS_NVRAM_CONTROL_RESET(__reg__)  (((__reg__) & 0x8) >> 3u)
 #define SET_APE_STATUS_NVRAM_CONTROL_RESET(__val__)  (((__val__) << 3u) & 0x8u)
-#define     APE_STATUS_LAN_0_DSTATE_SHIFT 4u
-#define     APE_STATUS_LAN_0_DSTATE_MASK  0x10u
-#define GET_APE_STATUS_LAN_0_DSTATE(__reg__)  (((__reg__) & 0x10) >> 4u)
-#define SET_APE_STATUS_LAN_0_DSTATE(__val__)  (((__val__) << 4u) & 0x10u)
+#define     APE_STATUS_PORT_0_D_STATE_SHIFT 4u
+#define     APE_STATUS_PORT_0_D_STATE_MASK  0x10u
+#define GET_APE_STATUS_PORT_0_D_STATE(__reg__)  (((__reg__) & 0x10) >> 4u)
+#define SET_APE_STATUS_PORT_0_D_STATE(__val__)  (((__val__) << 4u) & 0x10u)
 #define     APE_STATUS_BOOT_MODE_SHIFT 5u
 #define     APE_STATUS_BOOT_MODE_MASK  0x20u
 #define GET_APE_STATUS_BOOT_MODE(__reg__)  (((__reg__) & 0x20) >> 5u)
@@ -309,10 +313,14 @@ typedef register_container RegAPEMode_t {
 #define     APE_STATUS_BOOT_MODE_NVRAM 0x0u
 #define     APE_STATUS_BOOT_MODE_FAST 0x1u
 
-#define     APE_STATUS_LAN_1_DSTATE_SHIFT 9u
-#define     APE_STATUS_LAN_1_DSTATE_MASK  0x200u
-#define GET_APE_STATUS_LAN_1_DSTATE(__reg__)  (((__reg__) & 0x200) >> 9u)
-#define SET_APE_STATUS_LAN_1_DSTATE(__val__)  (((__val__) << 9u) & 0x200u)
+#define     APE_STATUS_PORT_1_GRC_RESET_SHIFT 7u
+#define     APE_STATUS_PORT_1_GRC_RESET_MASK  0x80u
+#define GET_APE_STATUS_PORT_1_GRC_RESET(__reg__)  (((__reg__) & 0x80) >> 7u)
+#define SET_APE_STATUS_PORT_1_GRC_RESET(__val__)  (((__val__) << 7u) & 0x80u)
+#define     APE_STATUS_PORT_1_D_STATE_SHIFT 9u
+#define     APE_STATUS_PORT_1_D_STATE_MASK  0x200u
+#define GET_APE_STATUS_PORT_1_D_STATE(__reg__)  (((__reg__) & 0x200) >> 9u)
+#define SET_APE_STATUS_PORT_1_D_STATE(__val__)  (((__val__) << 9u) & 0x200u)
 #define     APE_STATUS_BOOT_STATUS_B_SHIFT 24u
 #define     APE_STATUS_BOOT_STATUS_B_MASK  0xf000000u
 #define GET_APE_STATUS_BOOT_STATUS_B(__reg__)  (((__reg__) & 0xf000000) >> 24u)
@@ -358,18 +366,24 @@ typedef register_container RegAPEStatus_t {
 #if defined(__LITTLE_ENDIAN__)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, PCIeReset, 0, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Port0GRCReset, 1, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_2_1, 1, 2)
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_2_2, 2, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, NVRAMControlReset, 3, 1)
         /** @brief Indicates port is in D3 if set, otherwise the port is in D0-D2. */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, LAN0Dstate, 4, 1)
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Port0DState, 4, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, BootMode, 5, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_8_6, 6, 3)
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_6_6, 6, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Port1GRCReset, 7, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_8_8, 8, 1)
         /** @brief Indicates port is in D3 if set, otherwise the port is in D0-D2. */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, LAN1Dstate, 9, 1)
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Port1DState, 9, 1)
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_23_10, 10, 14)
         /** @brief  */
@@ -384,17 +398,23 @@ typedef register_container RegAPEStatus_t {
         /** @brief Padding */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_23_10, 10, 14)
         /** @brief Indicates port is in D3 if set, otherwise the port is in D0-D2. */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, LAN1Dstate, 9, 1)
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Port1DState, 9, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_8_6, 6, 3)
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_8_8, 8, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Port1GRCReset, 7, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_6_6, 6, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, BootMode, 5, 1)
         /** @brief Indicates port is in D3 if set, otherwise the port is in D0-D2. */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, LAN0Dstate, 4, 1)
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Port0DState, 4, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, NVRAMControlReset, 3, 1)
         /** @brief Padding */
-        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_2_1, 1, 2)
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_2_2, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Port0GRCReset, 1, 1)
         /** @brief  */
         BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, PCIeReset, 0, 1)
 #else
@@ -414,17 +434,21 @@ typedef register_container RegAPEStatus_t {
         r32.setName("Status");
         bits.PCIeReset.setBaseRegister(&r32);
         bits.PCIeReset.setName("PCIeReset");
+        bits.Port0GRCReset.setBaseRegister(&r32);
+        bits.Port0GRCReset.setName("Port0GRCReset");
         bits.NVRAMControlReset.setBaseRegister(&r32);
         bits.NVRAMControlReset.setName("NVRAMControlReset");
-        bits.LAN0Dstate.setBaseRegister(&r32);
-        bits.LAN0Dstate.setName("LAN0Dstate");
+        bits.Port0DState.setBaseRegister(&r32);
+        bits.Port0DState.setName("Port0DState");
         bits.BootMode.setBaseRegister(&r32);
         bits.BootMode.setName("BootMode");
         bits.BootMode.addEnum("NVRAM", 0x0);
         bits.BootMode.addEnum("Fast", 0x1);
 
-        bits.LAN1Dstate.setBaseRegister(&r32);
-        bits.LAN1Dstate.setName("LAN1Dstate");
+        bits.Port1GRCReset.setBaseRegister(&r32);
+        bits.Port1GRCReset.setName("Port1GRCReset");
+        bits.Port1DState.setBaseRegister(&r32);
+        bits.Port1DState.setName("Port1DState");
         bits.BootStatusB.setBaseRegister(&r32);
         bits.BootStatusB.setName("BootStatusB");
         bits.BootStatusB.addEnum("Prog 0", 0x0);
@@ -889,10 +913,63 @@ typedef register_container RegAPEMode2_t {
 } RegAPEMode2_t;
 
 #define REG_APE_STATUS_2 ((volatile BCM5719_APE_H_uint32_t*)0xc0010030) /*  */
+#define     APE_STATUS_2_PORT_2_GRC_RESET_SHIFT 1u
+#define     APE_STATUS_2_PORT_2_GRC_RESET_MASK  0x2u
+#define GET_APE_STATUS_2_PORT_2_GRC_RESET(__reg__)  (((__reg__) & 0x2) >> 1u)
+#define SET_APE_STATUS_2_PORT_2_GRC_RESET(__val__)  (((__val__) << 1u) & 0x2u)
+#define     APE_STATUS_2_PORT_2_D_STATE_SHIFT 2u
+#define     APE_STATUS_2_PORT_2_D_STATE_MASK  0x4u
+#define GET_APE_STATUS_2_PORT_2_D_STATE(__reg__)  (((__reg__) & 0x4) >> 2u)
+#define SET_APE_STATUS_2_PORT_2_D_STATE(__val__)  (((__val__) << 2u) & 0x4u)
+#define     APE_STATUS_2_PORT_3_GRC_RESET_SHIFT 7u
+#define     APE_STATUS_2_PORT_3_GRC_RESET_MASK  0x80u
+#define GET_APE_STATUS_2_PORT_3_GRC_RESET(__reg__)  (((__reg__) & 0x80) >> 7u)
+#define SET_APE_STATUS_2_PORT_3_GRC_RESET(__val__)  (((__val__) << 7u) & 0x80u)
+#define     APE_STATUS_2_PORT_3_D_STATE_SHIFT 8u
+#define     APE_STATUS_2_PORT_3_D_STATE_MASK  0x100u
+#define GET_APE_STATUS_2_PORT_3_D_STATE(__reg__)  (((__reg__) & 0x100) >> 8u)
+#define SET_APE_STATUS_2_PORT_3_D_STATE(__val__)  (((__val__) << 8u) & 0x100u)
+
 /** @brief Register definition for @ref APE_t.Status2. */
 typedef register_container RegAPEStatus2_t {
     /** @brief 32bit direct register access. */
     BCM5719_APE_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_APE_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_0_0, 0, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Port2GRCReset, 1, 1)
+        /** @brief Indicates port is in D3 if set, otherwise the port is in D0-D2. */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Port2DState, 2, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_6_3, 3, 4)
+        /** @brief Indicates port is in D3 if set, otherwise the port is in D0-D2. */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Port3GRCReset, 7, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Port3DState, 8, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_9, 9, 23)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_31_9, 9, 23)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Port3DState, 8, 1)
+        /** @brief Indicates port is in D3 if set, otherwise the port is in D0-D2. */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Port3GRCReset, 7, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_6_3, 3, 4)
+        /** @brief Indicates port is in D3 if set, otherwise the port is in D0-D2. */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Port2DState, 2, 1)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, Port2GRCReset, 1, 1)
+        /** @brief Padding */
+        BITFIELD_MEMBER(BCM5719_APE_H_uint32_t, reserved_0_0, 0, 1)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_APE_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "Status2"; }
@@ -904,6 +981,14 @@ typedef register_container RegAPEStatus2_t {
     {
         /** @brief constructor for @ref APE_t.Status2. */
         r32.setName("Status2");
+        bits.Port2GRCReset.setBaseRegister(&r32);
+        bits.Port2GRCReset.setName("Port2GRCReset");
+        bits.Port2DState.setBaseRegister(&r32);
+        bits.Port2DState.setName("Port2DState");
+        bits.Port3GRCReset.setBaseRegister(&r32);
+        bits.Port3GRCReset.setName("Port3GRCReset");
+        bits.Port3DState.setBaseRegister(&r32);
+        bits.Port3DState.setName("Port3DState");
     }
     RegAPEStatus2_t& operator=(const RegAPEStatus2_t& other)
     {
