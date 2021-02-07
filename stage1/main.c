@@ -55,6 +55,8 @@
 #define crc_swap(__x__) ((((__x__)&0x000000FF) << 24) | (((__x__)&0x0000FF00) << 8) | (((__x__)&0x00FF0000) >> 8) | (((__x__)&0xFF000000) >> 24))
 #define vpd_swap(__x__) ((((__x__)&0x000000FF) << 24) | (((__x__)&0x0000FF00) << 8) | (((__x__)&0x00FF0000) >> 8) | (((__x__)&0xFF000000) >> 24))
 #endif
+#include <APE.h>
+#include <MII.h>
 #include <NVRam.h>
 #include <bcm5719_APE.h>
 #include <bcm5719_BOOTCODE.h>
@@ -208,6 +210,16 @@ int main()
         // Initialize the hardware.
         // init_hw(&DEVICE, &gNVMContents);
 #endif
+    }
+
+    int function = DEVICE.Status.bits.FunctionNumber;
+    if (NETWORK_PORT != function)
+    {
+        // Linux might not reconfigure the advertisement, so enable 1G mode now.
+        // Note: The APE does this for NETWORK_PORT as needed.
+        APE_aquireLock();
+        (void)MII_UpdateAdvertisement(&DEVICE, MII_getPhy(&DEVICE));
+        APE_releaseLock();
     }
 
     SHM.RcpuInitCount.r32 = SHM.RcpuInitCount.r32 + 1;
