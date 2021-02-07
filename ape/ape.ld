@@ -44,34 +44,45 @@
 
 ENTRY(__start)
 
+MEMORY
+{
+    SCRATCH (rwx) : ORIGIN = 0x00100000, LENGTH = 3K
+    RAM     (rwx) : ORIGIN = 0x00100C00, LENGTH = 77K
+    STACK   (rw)  : ORIGIN = 0x00114000, LENGTH = 16K
+}
+
 SECTIONS
 {
-    .text 0x00100000 : ALIGN(4) SUBALIGN(4)
+    .text : ALIGN(4) SUBALIGN(4)
     {
         KEEP(*(.init))
+        _ftext = .;
         *(.text)
-    }
+        _etext = .;
+    } > RAM
 
 
-    .data . : ALIGN(4) SUBALIGN(4)
+    .data : ALIGN(4) SUBALIGN(4)
     {
+        _fdata = .;
         *(.data*)
         *(.rodata*)
-    }
+        _edata = .;
+    } > RAM
 
-    _fbss = .;
-    .bss . : ALIGN(4) SUBALIGN(4)
+    .bss : ALIGN(4) SUBALIGN(4)
     {
+        _fbss = .;
         *(.bss*)
-    }
-    _ebss = .;
+        _ebss = .;
+    } > RAM
 
 
-    .stack . (NOLOAD) : ALIGN(4) SUBALIGN(4)
+    .stack (NOLOAD) : ALIGN(4) SUBALIGN(4)
     {
         _fstack = .;
         _estack = 0x00118000;
-    }
+    } > STACK
 
 
     /DISCARD/ :
@@ -86,4 +97,3 @@ SECTIONS
         *(.pdr)
     }
 }
-
