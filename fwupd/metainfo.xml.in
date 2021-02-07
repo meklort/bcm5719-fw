@@ -25,7 +25,7 @@
 
     <releases>
         <release version="@VERSION_STRING@" date="@VERSION_DATE@" install_duration="120" urgency="low">
-            <checksum filename="@TARGET_ID@-@APE_VARIANT@.@VERSION_STRING@.fw" target="content"/>
+            <checksum filename="@TARGET_ID@-@VARIANT@.@VERSION_STRING@.fw" target="content"/>
             <description>
                 @DESCRIPTION@
             </description>
