@@ -66,9 +66,10 @@
 
 #define RMU_WATCHDOG_TIMEOUT_MS (10)
 #define RX_CPU_RESET_TIMEOUT_MS (1000) /* Wait up to 1 second for each RX CPU to start */
+#define GRC_RESET_TIMEOUT_MS (150)     /* Wait 150ms for the GRC reset to settle */
 
 static NetworkPort_t *gPort;
-static bool gResetOccurred;
+static uint32_t gResetTime;
 
 void handleCommand(volatile SHM_t *shm)
 {
@@ -148,7 +149,7 @@ void wait_for_all_rx()
     wait_for_rx(&DEVICE3, &SHM3);
 }
 
-void handleBMCPacket(void)
+void handleBMCPacket(bool passthrough)
 {
     static bool packetInProgress = false;
     static uint32_t inProgressStartTime = 0;
@@ -202,7 +203,7 @@ void handleBMCPacket(void)
                 // Pass through to network
                 NetworkPort_t *port = gPort;
                 ++port->shm_channel->NcsiChannelNcsiRx.r32;
-                if (port->shm_channel->NcsiChannelInfo.bits.Enabled)
+                if (port->shm_channel->NcsiChannelInfo.bits.Enabled && passthrough)
                 {
                     if (!Network_TX_transmitPassthroughPacket(bytes, port))
                     {
@@ -265,15 +266,30 @@ void __attribute__((interrupt)) IRQ_VoltageSource()
     }
 
     // Ensure we reinitialize hardware as needed.
-    gResetOccurred = true;
+    gResetTime = Timer_getCurrentTime1KHz();
+    if (!gResetTime)
+    {
+        // We use 0 to mean that no reset has happend. Make sure this value is never 0.
+        gResetTime--;
+    }
+}
+
+bool resetInProgress(RegAPEStatus_t status, RegAPEStatus2_t status2)
+{
+    if (status.bits.Port0GRCReset || status.bits.Port1GRCReset || status2.bits.Port2GRCReset || status2.bits.Port3GRCReset)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 void __attribute__((interrupt)) IRQ_PowerStatusChanged(void)
 {
-    RegAPEStatus_t status;
-    RegAPEStatus2_t status2;
-    status.r32 = APE.Status.r32;
-    status2.r32 = APE.Status2.r32;
+    RegAPEStatus_t status = APE.Status;
+    RegAPEStatus2_t status2 = APE.Status2;
 
     // Clear Interrupts
     APE.Status.r32 = status.r32;
@@ -283,13 +299,21 @@ void __attribute__((interrupt)) IRQ_PowerStatusChanged(void)
 
     printf("PowerStateChanged.\n");
 
-    if (!gResetOccurred)
+    if (!gResetTime)
     {
 
-        if (status.bits.Port0GRCReset || status.bits.Port1GRCReset || status2.bits.Port2GRCReset || status2.bits.Port3GRCReset)
+        if (resetInProgress(status, status2))
         {
             printf("GRC Reset.\n");
-            gResetOccurred = true;
+            gResetTime = Timer_getCurrentTime1KHz();
+            if (!gResetTime)
+            {
+                // We use 0 to mean that no reset has happend. Make sure this value is never 0.
+                gResetTime--;
+            }
+
+            // Disable the interrupt so that we can exit the interrupt handler
+            NVIC.InterruptClearEnable.r32 = NVIC_INTERRUPT_SET_ENABLE_SETENA_GENERAL_RESET;
         }
     }
 }
@@ -328,38 +352,50 @@ void __attribute__((noreturn)) loaderLoop(void)
 
     for (;;)
     {
-        if (gResetOccurred)
+        if (gResetTime)
         {
-            RegAPEStatus_t status;
-            RegAPEStatus2_t status2;
-            status.r32 = APE.Status.r32;
-            status2.r32 = APE.Status2.r32;
+            RegAPEStatus_t status = APE.Status;
+            RegAPEStatus2_t status2 = APE.Status2;
+
             // Wait for reset to complete.
-            if (status.bits.Port0GRCReset || status.bits.Port1GRCReset || status2.bits.Port2GRCReset || status2.bits.Port3GRCReset)
+            if (resetInProgress(status, status2))
             {
                 // We are waiting for the reset signals to clear before continuing.
-                // Since we never disabled the interrupt, we should never be able to get here anyway.
+                APE.Status.r32 = status.r32;
+                APE.Status2.r32 = status2.r32;
+
+                // Initialize timer for reset.
+                gResetTime = Timer_getCurrentTime1KHz();
+                if (!gResetTime)
+                {
+                    // We use 0 to mean that no reset has happend. Make sure this value is never 0.
+                    gResetTime--;
+                }
             }
-            else
+            else if (Timer_didTimeElapsed1KHz(gResetTime, GRC_RESET_TIMEOUT_MS))
             {
-                gResetOccurred = false;
+                // We may still have an interrupt pending since we disabled the interrupt. Clear it so we don't get an extra trigger.
+                NVIC.InterruptClearPending.r32 = NVIC_INTERRUPT_CLEAR_PENDING_CLRPEND_GENERAL_RESET;
+                gResetTime = 0;
 
                 printf("Handling reset...\n");
+
                 // Perform TX reinit as the PHY / MII was also probably reset.
                 wait_for_all_rx();
                 NCSI_reload(AS_NEEDED);
+
+                // Reset complete, re-enable interrupt handler.
+                NVIC.InterruptSetEnable.r32 = NVIC_INTERRUPT_SET_ENABLE_SETENA_GENERAL_RESET;
             }
+
+            handleBMCPacket(false);
         }
         else
         {
             Network_checkPortState(gPort);
 
-            handleBMCPacket();
+            handleBMCPacket(true);
             NCSI_handlePassthrough();
-            handleCommand(&SHM);
-            handleCommand(&SHM1);
-            handleCommand(&SHM2);
-            handleCommand(&SHM3);
 
             if (host_state != SHM.HostDriverState.bits.State)
             {
@@ -385,7 +421,7 @@ void __attribute__((noreturn)) loaderLoop(void)
                     reset_allowed = false;
                 }
             }
-            else if (reset_allowed && !Network_checkEnableState(gPort) && !gResetOccurred)
+            else if (reset_allowed && !Network_checkEnableState(gPort) && !gResetTime)
             {
                 printf("APE mode change, resetting.\n");
                 wait_for_all_rx();
@@ -397,6 +433,11 @@ void __attribute__((noreturn)) loaderLoop(void)
                 reset_allowed = false;
             }
         }
+
+        handleCommand(&SHM);
+        handleCommand(&SHM1);
+        handleCommand(&SHM2);
+        handleCommand(&SHM3);
     }
 }
 
@@ -458,7 +499,7 @@ void __attribute__((noreturn)) __start()
 {
     // Ensure all pending interrupts are cleared.
     NVIC.InterruptClearPending.r32 = 0xFFFFFFFF;
-    gResetOccurred = false;
+    gResetTime = false;
 
     // Switch to APE interrupt handlers
     union
