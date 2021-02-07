@@ -144,7 +144,7 @@ The flash can be updated with development firmware using `bcmflash` and the appr
 ### Updating the MIPS Firmware
 ```bash
 cd build
-sudo ./bin/bcmflash -t eth -i enP4p1s0f0 -1 stage1/stage1.bin
+sudo ./bin/bcmflash -t eth -i enP4p1s0f0 -1 stage1/stage1-port0.bin
 ```
 
 ### Updating the APE Firmware

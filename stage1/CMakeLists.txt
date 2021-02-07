@@ -47,20 +47,32 @@ project(stage1)
 
 # Firmware
 set(LINKER_SCRIPT "${CMAKE_CURRENT_SOURCE_DIR}/stage1.ld")
-mips_add_executable(${PROJECT_NAME}
-            init_hw.c
-            main.c
-            crt.s)
-mips_linker_script(${PROJECT_NAME} ${LINKER_SCRIPT})
-target_link_libraries(${PROJECT_NAME}
-    --defsym=VERSION_MAJOR=${VERSION_MAJOR}
-    --defsym=VERSION_MINOR=${VERSION_MINOR}
-    --defsym=VERSION_PATCH=${VERSION_PATCH})
 
-target_link_libraries(${PROJECT_NAME} NVRam-mips MII-mips APE-mips Timer-mips printf-mips)
-target_link_libraries(${PROJECT_NAME} bcm5719)
-target_compile_options(${PROJECT_NAME} PRIVATE -nodefaultlibs)
-target_include_directories(${PROJECT_NAME} PUBLIC ../libs/VPD/include .)
+function(stage1_firmware PORT)
+    SET(TARGET ${PROJECT_NAME}-port${PORT})
+
+    mips_add_executable(${TARGET}
+                init_hw.c
+                main.c
+                crt.s)
+    mips_linker_script(${TARGET} ${LINKER_SCRIPT})
+    target_link_libraries(${TARGET}
+        --defsym=NETWORK_PORT=${PORT}
+        --defsym=VERSION_MAJOR=${VERSION_MAJOR}
+        --defsym=VERSION_MINOR=${VERSION_MINOR}
+        --defsym=VERSION_PATCH=${VERSION_PATCH})
+
+    target_link_libraries(${TARGET} NVRam-mips MII-mips APE-mips Timer-mips printf-mips)
+    target_link_libraries(${TARGET} bcm5719)
+    target_compile_options(${TARGET} PRIVATE -nodefaultlibs)
+    target_include_directories(${TARGET} PUBLIC ../libs/VPD/include .)
+    target_compile_definitions(${TARGET} PRIVATE NETWORK_PORT=${PORT})
+
+    install(TARGETS ${TARGET} DESTINATION fw RESOURCE)
+endfunction(stage1_firmware)
+
+stage1_firmware(0)
+stage1_firmware(2)
 
 
 # Simulator add_executable
@@ -71,7 +83,6 @@ simulator_add_executable(sim-${PROJECT_NAME}
 target_link_libraries(sim-${PROJECT_NAME} simulator)
 target_link_libraries(sim-${PROJECT_NAME} NVRam MII VPD APE Timer printf)
 target_include_directories(sim-${PROJECT_NAME} PUBLIC  .)
+target_compile_definitions(sim-${PROJECT_NAME} PRIVATE NETWORK_PORT=0)
 
-install(TARGETS ${PROJECT_NAME} DESTINATION fw RESOURCE)
-
-format_target_sources(${PROJECT_NAME})
+format_target_sources(${PROJECT_NAME}-port0)
