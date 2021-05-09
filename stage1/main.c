@@ -182,7 +182,7 @@ int main()
     }
 
     // Perform early initialization
-    early_init_hw();
+    early_init_hw(&DEVICE);
 
     reportStatus(STATUS_MAIN, 1);
 
