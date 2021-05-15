@@ -61,7 +61,7 @@
 #include <bcm5719_DEVICE.h>
 #endif
 
-void early_init_hw(void);
+void early_init_hw(volatile DEVICE_t *device);
 void load_nvm_config(volatile DEVICE_t* device, const NVRAMContents_t *nvram);
 void init_hw(volatile DEVICE_t* device);
 

@@ -176,7 +176,7 @@ void __attribute__((noinline)) zero_bss(void)
 #endif
 }
 
-void early_init_hw(void)
+void early_init_hw(volatile DEVICE_t *device)
 {
     zero_bss();
 
@@ -187,6 +187,13 @@ void early_init_hw(void)
     memset((void *)&TXMBUF, 0, REG_TXMBUF_SIZE);
     memset((void *)&SDBCACHE, 0, REG_SDBCACHE_SIZE);
 #endif
+
+    RegDEVICEPciState_t PciState;
+    PciState.r32 = device->PciState.r32;
+    PciState.bits.APEControlRegisterWriteEnable = 1;
+    PciState.bits.APESharedMemoryWriteEnable = 1;
+    PciState.bits.APEProgramSpaceWriteEnable = 1;
+    device->PciState.r32 = PciState.r32;
 }
 
 void init_mac(const NVRAMContents_t *nvram)
