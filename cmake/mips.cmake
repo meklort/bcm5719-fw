@@ -45,7 +45,8 @@
 SET(MIPS_COMPILE_OPTIONS "-DLINT_FILE=clang-mips" -nostdlib -nodefaultlibs
     -fomit-frame-pointer
     -include "${CMAKE_SOURCE_DIR}/include/banned.h"
-    -target mips -mcpu=mips2)
+    -target mips -mcpu=mips2
+    -Os)
 SET(MIPS_LINK_OPTIONS --gc-sections)
 # SET(CMAKE_EXE_LINKER_FLAGS -static)
 
