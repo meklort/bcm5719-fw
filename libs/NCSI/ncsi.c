@@ -646,7 +646,6 @@ void handleNCSIFrame(const NetworkFrame_t *frame)
                 ++port->shm_channel->NcsiChannelNcsiRx.r32;
             }
             gPackageState.selected = true;
-            SHM.SegSig.r32 |= (1u << command);
             handler->fn(frame);
         }
         else
@@ -675,7 +674,6 @@ void handleNCSIFrame(const NetworkFrame_t *frame)
                     {
                         ++port->shm_channel->NcsiChannelNcsiRx.r32;
                     }
-                    SHM.SegSig.r32 |= (1u << command);
                     handler->fn(frame);
                 }
             }
@@ -840,7 +838,6 @@ void NCSI_init(void)
     {
         resetChannel(i);
     }
-    SHM.SegSig.r32 = 0; // (1u << command);
 }
 
 void NCSI_reload(reload_type_t reset_phy)
