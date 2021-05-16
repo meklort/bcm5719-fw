@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2020, Evan Lojewski
+/// @copyright Copyright (c) 2021, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -525,10 +525,37 @@ typedef register_container RegGENGenBc_t {
 } RegGENGenBc_t;
 
 #define REG_GEN_GEN_MAC_ADDR_HIGH_MBOX ((volatile BCM5719_GEN_H_uint32_t*)0xc14) /*  */
+#define     GEN_GEN_MAC_ADDR_HIGH_MBOX_HIGH_SHIFT 0u
+#define     GEN_GEN_MAC_ADDR_HIGH_MBOX_HIGH_MASK  0xffffu
+#define GET_GEN_GEN_MAC_ADDR_HIGH_MBOX_HIGH(__reg__)  (((__reg__) & 0xffff) >> 0u)
+#define SET_GEN_GEN_MAC_ADDR_HIGH_MBOX_HIGH(__val__)  (((__val__) << 0u) & 0xffffu)
+#define     GEN_GEN_MAC_ADDR_HIGH_MBOX_MAGIC_SHIFT 16u
+#define     GEN_GEN_MAC_ADDR_HIGH_MBOX_MAGIC_MASK  0xffff0000u
+#define GET_GEN_GEN_MAC_ADDR_HIGH_MBOX_MAGIC(__reg__)  (((__reg__) & 0xffff0000) >> 16u)
+#define SET_GEN_GEN_MAC_ADDR_HIGH_MBOX_MAGIC(__val__)  (((__val__) << 16u) & 0xffff0000u)
+#define     GEN_GEN_MAC_ADDR_HIGH_MBOX_MAGIC_VALID 0x484bu
+
+
 /** @brief Register definition for @ref GEN_t.GenMacAddrHighMbox. */
 typedef register_container RegGENGenMacAddrHighMbox_t {
     /** @brief 32bit direct register access. */
     BCM5719_GEN_H_uint32_t r32;
+
+    BITFIELD_BEGIN(BCM5719_GEN_H_uint32_t, bits)
+#if defined(__LITTLE_ENDIAN__)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, High, 0, 16)
+        /** @brief Must be set for FreeBSD to consider the MAC address valid. */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, Magic, 16, 16)
+#elif defined(__BIG_ENDIAN__)
+        /** @brief Must be set for FreeBSD to consider the MAC address valid. */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, Magic, 16, 16)
+        /** @brief  */
+        BITFIELD_MEMBER(BCM5719_GEN_H_uint32_t, High, 0, 16)
+#else
+#error Unknown Endian
+#endif
+    BITFIELD_END(BCM5719_GEN_H_uint32_t, bits)
 #ifdef CXX_SIMULATOR
     /** @brief Register name for use with the simulator. */
     const char* getName(void) { return "GenMacAddrHighMbox"; }
@@ -540,6 +567,12 @@ typedef register_container RegGENGenMacAddrHighMbox_t {
     {
         /** @brief constructor for @ref GEN_t.GenMacAddrHighMbox. */
         r32.setName("GenMacAddrHighMbox");
+        bits.High.setBaseRegister(&r32);
+        bits.High.setName("High");
+        bits.Magic.setBaseRegister(&r32);
+        bits.Magic.setName("Magic");
+        bits.Magic.addEnum("Valid", 0x484b);
+
     }
     RegGENGenMacAddrHighMbox_t& operator=(const RegGENGenMacAddrHighMbox_t& other)
     {

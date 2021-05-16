@@ -257,6 +257,25 @@
                     <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
                     <ipxact:size>32</ipxact:size>
                     <ipxact:volatile>true</ipxact:volatile>
+                    <ipxact:field>
+                        <ipxact:name>High</ipxact:name>
+                        <ipxact:description></ipxact:description>
+                        <ipxact:bitOffset>0</ipxact:bitOffset>
+                        <ipxact:bitWidth>16</ipxact:bitWidth>
+                    </ipxact:field>
+                    <ipxact:field>
+                        <ipxact:name>Magic</ipxact:name>
+                        <ipxact:description>Must be set for FreeBSD to consider the MAC address valid.</ipxact:description>
+                        <ipxact:bitOffset>16</ipxact:bitOffset>
+                        <ipxact:bitWidth>16</ipxact:bitWidth>
+                        <ipxact:enumeratedValues>
+                            <!-- LINK: enumeratedValue: see 6.11.10, Enumeration values -->
+                            <ipxact:enumeratedValue>
+                                <ipxact:name>Valid</ipxact:name>
+                                <ipxact:value>0x484B</ipxact:value>
+                            </ipxact:enumeratedValue>
+                        </ipxact:enumeratedValues>
+                    </ipxact:field>
                 </ipxact:register>
                 <ipxact:register>
                     <ipxact:name>GEN_MAC_ADDR_LOW_MBOX</ipxact:name>

@@ -230,7 +230,11 @@ void init_mac(const NVRAMContents_t *nvram)
 
     // Store mac / serial number.
     DEVICE.PciSerialNumberHigh.r32 = my_mac[0];
-    GEN.GenMacAddrHighMbox.r32 = my_mac[0];
+    RegGENGenMacAddrHighMbox_t mboxhigh;
+    mboxhigh.r32 = 0;
+    mboxhigh.bits.High = my_mac[0];
+    mboxhigh.bits.Magic = GEN_GEN_MAC_ADDR_HIGH_MBOX_MAGIC_VALID;
+    GEN.GenMacAddrHighMbox = mboxhigh;
 
     DEVICE.PciSerialNumberLow.r32 = my_mac[1];
     GEN.GenMacAddrLowMbox.r32 = my_mac[1];
