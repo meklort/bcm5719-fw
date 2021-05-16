@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2020, Evan Lojewski
+/// @copyright Copyright (c) 2021, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -92,6 +92,7 @@ typedef uint32_t APE_SHM3_H_uint32_t;
 #define REG_SHM3_SEG_MESSAGE_BUFFER_LENGTH ((volatile APE_SHM3_H_uint32_t*)0x60223020) /* Specifies the size of the scratchpad area in bytes. */
 #define REG_SHM3_4024 ((volatile APE_SHM3_H_uint32_t*)0x60223024) /* Unknown. Bootcode related. */
 #define REG_SHM3_4028 ((volatile APE_SHM3_H_uint32_t*)0x60223028) /* Unknown. Bootcode related. */
+#define REG_SHM3_DRIVER_BUFFER ((volatile APE_SHM3_H_uint32_t*)0x60223030) /* Communication channel between the host driver and the APE. */
 #define REG_SHM3_LOADER_COMMAND ((volatile APE_SHM3_H_uint32_t*)0x60223038) /* Command sent when using the the APE loader. Zero once handled. */
 #define REG_SHM3_LOADER_ARG0 ((volatile APE_SHM3_H_uint32_t*)0x6022303c) /* Argument 0 for the APE loader. */
 #define REG_SHM3_LOADER_ARG1 ((volatile APE_SHM3_H_uint32_t*)0x60223040) /* Argument 1 for the APE loader. */

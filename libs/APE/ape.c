@@ -127,6 +127,37 @@ void APE_releaseLock(void)
     }
 }
 
+void APE_aquireMemLock(void)
+{
+    RegAPE_PERIPerLockRequestMem_t lock_req;
+    lock_req.r32 = 0;
+#ifdef __arm__ /* APE */
+    lock_req.bits.APE = 1;
+#else
+    lock_req.bits.Bootcode = 1;
+#endif
+
+    APE_PERI.PerLockRequestMem.r32 = lock_req.r32;
+    do
+    {
+        // spin
+    } while (lock_req.r32 != APE_PERI.PerLockGrantMem.r32);
+    return;
+}
+
+void APE_releaseMemLock(void)
+{
+    RegAPE_PERIPerLockGrantMem_t lock_release;
+    lock_release.r32 = 0;
+#ifdef __arm__ /* APE */
+    lock_release.bits.APE = 1;
+#else
+    lock_release.bits.Bootcode = 1;
+#endif
+
+    APE_PERI.PerLockGrantMem.r32 = lock_release.r32;
+}
+
 void APE_releaseAllLocks(void)
 {
     RegAPE_PERIPerLockGrantPhy0_t lock_release;

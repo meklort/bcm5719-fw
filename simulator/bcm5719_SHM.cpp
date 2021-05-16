@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2020, Evan Lojewski
+/// @copyright Copyright (c) 2021, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -68,6 +68,8 @@ void init_bcm5719_SHM(void)
     /** @brief Bitmap for @ref SHM_t.4024. */
 
     /** @brief Bitmap for @ref SHM_t.4028. */
+
+    /** @brief Bitmap for @ref SHM_t.DriverBuffer. */
 
     /** @brief Bitmap for @ref SHM_t.LoaderCommand. */
 
