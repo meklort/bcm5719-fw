@@ -49,6 +49,10 @@ void APE_aquireLock(void);
 
 void APE_releaseLock(void);
 
+void APE_aquireMemLock(void);
+
+void APE_releaseMemLock(void);
+
 void APE_releaseAllLocks(void);
 
 #endif /* LIBS_APE_H */
