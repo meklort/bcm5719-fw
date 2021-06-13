@@ -863,6 +863,12 @@ bool Network_checkEnableState(NetworkPort_t *port)
     return true;
 }
 
+void Network_setEnableState(NetworkPort_t *port)
+{
+    APE.Mode.r32 |= port->APEModeEnable.r32;
+    APE.Mode2.r32 |= port->APEMode2Enable.r32;
+}
+
 void Network_InitPort(NetworkPort_t *port, reload_type_t reset_phy)
 {
     RegMIIStatus_t stat;
@@ -870,20 +876,18 @@ void Network_InitPort(NetworkPort_t *port, reload_type_t reset_phy)
     RegSHM_CHANNELNcsiChannelStatus_t linkStatus;
     uint8_t phy = MII_getPhy(port->device);
 
+    APE_aquireLock();
+
     if ((ALWAYS_RESET == reset_phy) || (AS_NEEDED == reset_phy && !Network_isLinkUp(port)))
     {
-        APE_aquireLock();
         MII_reset(port->device, phy);
-        APE_releaseLock();
     }
     else
     {
         bool updated;
 
         // Ensure the PHY is advertising all capabilities and updating if needed.
-        APE_aquireLock();
         updated = MII_UpdateAdvertisement(port->device, phy);
-        APE_releaseLock();
 
         if (updated)
         {
@@ -900,8 +904,7 @@ void Network_InitPort(NetworkPort_t *port, reload_type_t reset_phy)
     Network_resetTX(port, reset_phy);
     Network_resetRX(port, reset_phy);
 
-    APE.Mode.r32 |= port->APEModeEnable.r32;
-    APE.Mode2.r32 |= port->APEMode2Enable.r32;
+    Network_setEnableState(port);
 
     // Ensure REG_RECEIVE_MAC_MODE has ENABLE set.
     // I recommend also setting APE_PROMISCUOUS_MODE and PROMISCUOUS_MODE,
@@ -993,8 +996,6 @@ void Network_InitPort(NetworkPort_t *port, reload_type_t reset_phy)
 
     port->device->GrcModeControl.bits.HostStackUp = 1; // Enable packet RX
 
-    APE_aquireLock();
-
     Network_updatePortState(port);
 
     uint16_t status_value = MII_readRegister(port->device, phy, (mii_reg_t)REG_MII_STATUS);
@@ -1032,6 +1033,8 @@ void Network_checkPortState(NetworkPort_t *port)
             port->link_state_printed = true;
         }
 
+        APE_aquireLock();
+
         // Update state to match latest.
         if (Network_updatePortState(port))
         {
@@ -1046,6 +1049,8 @@ void Network_checkPortState(NetworkPort_t *port)
             printf("Link Status Updated\n");
             port->link_state_printed = false;
         }
+
+        APE_releaseLock();
     }
 }
 
