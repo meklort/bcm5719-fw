@@ -66,7 +66,7 @@
 
 #define RMU_WATCHDOG_TIMEOUT_MS (10)
 #define RX_CPU_RESET_TIMEOUT_MS (1000) /* Wait up to 1 second for each RX CPU to start */
-#define GRC_RESET_TIMEOUT_MS (250)     /* Wait 250ms for the GRC reset to settle */
+#define GRC_RESET_TIMEOUT_MS (550)     /* Wait 250ms for the GRC reset to settle */
 
 static NetworkPort_t *gPort;
 static uint32_t gResetTime;
@@ -92,6 +92,13 @@ void handleDriverEvent(volatile SHM_t *shm, int port)
         switch (event.bits.Command)
         {
             case SHM_EVENT_STATUS_COMMAND_STATE_CHANGE:
+                // Ensure the port is reloaded on a driver unload.
+                if (NETWORK_PORT == port &&
+                    SHM_EVENT_STATUS_STATE_UNLOAD == event.bits.State)
+                {
+                    triggerPendingReset(GRC_RESET_TIMEOUT_MS);
+                }
+
                 printf("Driver State %d: %x\n", port, event.r32);
                 break;
 
@@ -525,7 +532,7 @@ void __attribute__((noreturn)) __start()
 {
     // Ensure all pending interrupts are cleared.
     NVIC.InterruptClearPending.r32 = 0xFFFFFFFF;
-    gResetTime = false;
+    gPortReset = false;
 
     // Switch to APE interrupt handlers
     union
