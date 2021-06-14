@@ -46,6 +46,8 @@
 
 #define MAX_VPD_SUPPORTED (512u) /* Buffer size for caching VPD data. */
 
+#define NVRAM_PRINTF 0 /* This code causes a race condition with linux during initializaiton that can cause it to fail to read nvram. */
+
 #ifdef CXX_SIMULATOR
 #include <HAL.hpp>
 #define crc_swap(__x__) (__x__) /* No swapping needed on the host */
@@ -86,6 +88,7 @@ void init_once(void)
     SHM.RcpuSegLength.r32 = 0x34;
 }
 
+#if NVRAM_PRINTF
 void handle_printf()
 {
     uint32_t buffer_size = ARRAY_ELEMENTS(SHM.RcpuPrintfBuffer) * sizeof(uint32_t);
@@ -113,6 +116,7 @@ void handle_printf()
         SHM.RcpuReadPointer.r32 = ++cached_pointer;
     }
 }
+#endif
 
 void handle_vpd()
 {
@@ -242,6 +246,7 @@ int main()
     GEN.GenAsfStatusMbox.r32 = GEN_GEN_FW_MBOX_MBOX_BOOTCODE_READY;
     // Do main loop.
 
+#if NVRAM_PRINTF
     if (0 == DEVICE.Status.bits.FunctionNumber)
     {
         for (;;)
@@ -254,6 +259,7 @@ int main()
         }
     }
     else
+#endif
     {
         for (;;)
         {
