@@ -307,7 +307,7 @@ void __attribute__((interrupt)) IRQ_VoltageSource()
     }
 
     // Ensure we reinitialize hardware as needed.
-    triggerPendingReset(GRC_RESET_TIMEOUT_MS);
+    triggerPendingReset(0);
 }
 
 bool portResetInProgress(RegAPEStatus_t status, RegAPEStatus2_t status2, const NetworkPort_t *port)
