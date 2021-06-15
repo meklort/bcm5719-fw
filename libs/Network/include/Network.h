@@ -51,6 +51,7 @@
 #include <APE_FILTERS0.h>
 #include <APE_RX_PORT0.h>
 #include <APE_TX_PORT0.h>
+#include <APE_SHM.h>
 #include <APE_SHM_CHANNEL0.h>
 #include <types.h>
 
@@ -60,6 +61,7 @@ typedef struct
     VOLATILE DEVICE_t *device;
     VOLATILE FILTERS_t *filters;
     VOLATILE SHM_CHANNEL_t* shm_channel;
+    VOLATILE SHM_t* shm;
 
     /* TX Registers */
     VOLATILE TX_PORT_t *tx_port;
@@ -78,6 +80,8 @@ typedef struct
     /* APE Registers */
     VOLATILE RegAPEMode_t APEModeEnable;
     VOLATILE RegAPEMode2_t APEMode2Enable;
+    VOLATILE RegAPEStatus_t APEStatus;
+    VOLATILE RegAPEStatus2_t APEStatus2;
 
     /* State Trackking */
     bool link_state_printed;

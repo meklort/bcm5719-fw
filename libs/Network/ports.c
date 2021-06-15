@@ -52,6 +52,10 @@
 #include <APE_RX_PORT1.h>
 #include <APE_RX_PORT2.h>
 #include <APE_RX_PORT3.h>
+#include <APE_SHM.h>
+#include <APE_SHM1.h>
+#include <APE_SHM2.h>
+#include <APE_SHM3.h>
 #include <APE_SHM_CHANNEL0.h>
 #include <APE_SHM_CHANNEL1.h>
 #include <APE_SHM_CHANNEL2.h>
@@ -72,6 +76,7 @@ NetworkPort_t gPort0 = {
     .device = &DEVICE,
     .filters = &FILTERS0,
     .shm_channel = &SHM_CHANNEL0,
+    .shm = &SHM,
 
     .tx_port = &TX_PORT0,
     .tx_allocator = &APE.TxToNetBufferAllocator0,
@@ -92,6 +97,12 @@ NetworkPort_t gPort0 = {
     .APEMode2Enable = {
         .r32 = 0,
     },
+    .APEStatus = {
+        .r32 = APE_STATUS_PORT_0_GRC_RESET_MASK,
+    },
+    .APEStatus2 = {
+        .r32 = 0,
+    },
 #endif
 };
 
@@ -99,6 +110,11 @@ NetworkPort_t gPort1 = {
     .device = &DEVICE1,
     .filters = &FILTERS1,
     .shm_channel = &SHM_CHANNEL1,
+#ifndef CXX_SIMULATOR
+    .shm = &SHM1,
+#else
+    .shm = &SHM,
+#endif
 
     .tx_port = &TX_PORT1,
     .tx_allocator = &APE.TxToNetBufferAllocator1,
@@ -119,6 +135,12 @@ NetworkPort_t gPort1 = {
     .APEMode2Enable = {
         .r32 = 0,
     },
+    .APEStatus = {
+        .r32 = APE_STATUS_PORT_1_GRC_RESET_MASK,
+    },
+    .APEStatus2 = {
+        .r32 = 0,
+    },
 #endif
 };
 
@@ -126,6 +148,11 @@ NetworkPort_t gPort2 = {
     .device = &DEVICE2,
     .filters = &FILTERS2,
     .shm_channel = &SHM_CHANNEL2,
+#ifndef CXX_SIMULATOR
+    .shm = &SHM2,
+#else
+    .shm = &SHM,
+#endif
 
     .tx_port = &TX_PORT2,
     .tx_allocator = &APE.TxToNetBufferAllocator2,
@@ -146,6 +173,12 @@ NetworkPort_t gPort2 = {
     .APEMode2Enable = {
         .r32 = APE_MODE_2_CHANNEL_0_ENABLE_MASK | APE_MODE_2_CHANNEL_2_ENABLE_MASK,
     },
+    .APEStatus = {
+        .r32 = 0,
+    },
+    .APEStatus2 = {
+        .r32 = APE_STATUS_2_PORT_2_GRC_RESET_MASK,
+    },
 #endif
 };
 
@@ -153,6 +186,11 @@ NetworkPort_t gPort3 = {
     .device = &DEVICE3,
     .filters = &FILTERS3,
     .shm_channel = &SHM_CHANNEL3,
+#ifndef CXX_SIMULATOR
+    .shm = &SHM3,
+#else
+    .shm = &SHM,
+#endif
 
     .tx_port = &TX_PORT3,
     .tx_allocator = &APE.TxToNetBufferAllocator3,
@@ -172,6 +210,12 @@ NetworkPort_t gPort3 = {
     },
     .APEMode2Enable = {
         .r32 = APE_MODE_2_CHANNEL_1_ENABLE_MASK | APE_MODE_2_CHANNEL_3_ENABLE_MASK,
+    },
+    .APEStatus = {
+        .r32 = 0,
+    },
+    .APEStatus2 = {
+        .r32 = APE_STATUS_2_PORT_3_GRC_RESET_MASK,
     },
 #endif
 };
