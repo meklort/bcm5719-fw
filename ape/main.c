@@ -525,7 +525,7 @@ void __attribute__((noreturn)) __start()
 {
     // Ensure all pending interrupts are cleared.
     NVIC.InterruptClearPending.r32 = 0xFFFFFFFF;
-    gResetTime = false;
+    gPortReset = false;
 
     // Switch to APE interrupt handlers
     union
