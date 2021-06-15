@@ -43,7 +43,7 @@
 ################################################################################
 
 SET(VERSION_MAJOR 0)
-SET(VERSION_MINOR 5)
+SET(VERSION_MINOR 6)
 SET(VERSION_PATCH )
 
 SET(SEMVER_REGEX "v?(0|[1-9]*)\\.(0|[0-9]*)\\.(0|[0-9]*)")
