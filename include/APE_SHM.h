@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2020, Evan Lojewski
+/// @copyright Copyright (c) 2021, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -456,6 +456,31 @@ typedef register_container RegSHM4028_t {
     }
 #endif /* CXX_SIMULATOR */
 } RegSHM4028_t;
+
+#define REG_SHM_DRIVER_BUFFER ((volatile APE_SHM_H_uint32_t*)0x60220030) /* Communication channel between the host driver and the APE. */
+/** @brief Register definition for @ref SHM_t.DriverBuffer. */
+typedef register_container RegSHMDriverBuffer_t {
+    /** @brief 32bit direct register access. */
+    APE_SHM_H_uint32_t r32;
+#ifdef CXX_SIMULATOR
+    /** @brief Register name for use with the simulator. */
+    const char* getName(void) { return "DriverBuffer"; }
+
+    /** @brief Print register value. */
+    void print(void) { r32.print(); }
+
+    RegSHMDriverBuffer_t()
+    {
+        /** @brief constructor for @ref SHM_t.DriverBuffer. */
+        r32.setName("DriverBuffer");
+    }
+    RegSHMDriverBuffer_t& operator=(const RegSHMDriverBuffer_t& other)
+    {
+        r32 = other.r32;
+        return *this;
+    }
+#endif /* CXX_SIMULATOR */
+} RegSHMDriverBuffer_t;
 
 #define REG_SHM_LOADER_COMMAND ((volatile APE_SHM_H_uint32_t*)0x60220038) /* Command sent when using the the APE loader. Zero once handled. */
 #define     SHM_LOADER_COMMAND_COMMAND_SHIFT 0u
@@ -1590,7 +1615,10 @@ typedef struct SHM_t {
     RegSHM4028_t _4028;
 
     /** @brief Reserved bytes to pad out data structure. */
-    APE_SHM_H_uint32_t reserved_44[3];
+    APE_SHM_H_uint32_t reserved_44[1];
+
+    /** @brief Communication channel between the host driver and the APE. */
+    RegSHMDriverBuffer_t DriverBuffer[2];
 
     /** @brief Command sent when using the the APE loader. Zero once handled. */
     RegSHMLoaderCommand_t LoaderCommand;
@@ -1736,9 +1764,13 @@ typedef struct SHM_t {
         SegMessageBufferLength.r32.setComponentOffset(0x20);
         _4024.r32.setComponentOffset(0x24);
         _4028.r32.setComponentOffset(0x28);
-        for(int i = 0; i < 3; i++)
+        for(int i = 0; i < 1; i++)
         {
             reserved_44[i].setComponentOffset(0x2c + (i * 4));
+        }
+        for(int i = 0; i < 2; i++)
+        {
+            DriverBuffer[i].r32.setComponentOffset(0x30 + (i * 4));
         }
         LoaderCommand.r32.setComponentOffset(0x38);
         LoaderArg0.r32.setComponentOffset(0x3c);
@@ -1821,9 +1853,13 @@ typedef struct SHM_t {
         SegMessageBufferLength.print();
         _4024.print();
         _4028.print();
-        for(int i = 0; i < 3; i++)
+        for(int i = 0; i < 1; i++)
         {
             reserved_44[i].print();
+        }
+        for(int i = 0; i < 2; i++)
+        {
+            DriverBuffer[i].print();
         }
         LoaderCommand.print();
         LoaderArg0.print();

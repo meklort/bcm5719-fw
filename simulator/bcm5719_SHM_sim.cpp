@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2020, Evan Lojewski
+/// @copyright Copyright (c) 2021, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -126,11 +126,18 @@ void init_bcm5719_SHM_sim(void *base)
     SHM._4028.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     SHM._4028.r32.installWriteCallback(write_to_ram, (uint8_t *)base);
 
-    for(int i = 0; i < 3; i++)
+    for(int i = 0; i < 1; i++)
     {
         SHM.reserved_44[i].installReadCallback(read_from_ram, (uint8_t *)base);
         SHM.reserved_44[i].installWriteCallback(write_to_ram, (uint8_t *)base);
     }
+    /** @brief Bitmap for @ref SHM_t.DriverBuffer. */
+    for(int i = 0; i < 2; i++)
+    {
+        SHM.DriverBuffer[i].r32.installReadCallback(read_from_ram, (uint8_t *)base);
+        SHM.DriverBuffer[i].r32.installWriteCallback(write_to_ram, (uint8_t *)base);
+    }
+
     /** @brief Bitmap for @ref SHM_t.LoaderCommand. */
     SHM.LoaderCommand.r32.installReadCallback(read_from_ram, (uint8_t *)base);
     SHM.LoaderCommand.r32.installWriteCallback(write_to_ram, (uint8_t *)base);

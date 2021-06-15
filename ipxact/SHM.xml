@@ -157,6 +157,15 @@
                     <ipxact:volatile>true</ipxact:volatile>
                 </ipxact:register>
                 <ipxact:register>
+                    <ipxact:name>Driver_Buffer</ipxact:name>
+                    <ipxact:description>Communication channel between the host driver and the APE.</ipxact:description>
+                    <ipxact:dim>2</ipxact:dim>
+                    <ipxact:addressOffset>0x30</ipxact:addressOffset>
+                    <!-- LINK: registerDefinitionGroup: see 6.11.3, Register definition group -->
+                    <ipxact:size>32</ipxact:size>
+                    <ipxact:volatile>true</ipxact:volatile>
+                </ipxact:register>
+                <ipxact:register>
                     <ipxact:name>Loader_Command</ipxact:name>
                     <ipxact:description>Command sent when using the the APE loader. Zero once handled.</ipxact:description>
                     <ipxact:addressOffset>0x38</ipxact:addressOffset>
