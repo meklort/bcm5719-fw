@@ -50,11 +50,10 @@ uint32_t NVRam_crc(const uint8_t *pcDatabuf, // Pointer to data buffer
                    uint32_t ulDatalen,       // Length of data buffer in bytes
                    uint32_t crc)             // Initial value
 {
-    uint8_t data;
     uint32_t idx, bit;
     for (idx = 0; idx < ulDatalen; idx++)
     {
-        data = *pcDatabuf++;
+        uint8_t data = *pcDatabuf++;
         for (bit = 0; bit < 8; bit++, data >>= 1)
         {
             crc = (crc >> 1) ^ (((crc ^ data) & 1) ? CRC32_POLYNOMIAL : 0);

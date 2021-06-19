@@ -66,7 +66,7 @@ string &escape(std::string &str)
 
     while (str.find("—") != std::string::npos)
     {
-        str.replace(str.find("—"), strlen("—"), "_"); // Replace @'s with _AT_'s.
+        str.replace(str.find("—"), strlen("—"), "_"); // Replace —'s with _'s.
     }
 
     while (str.find("@") != std::string::npos)
