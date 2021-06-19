@@ -49,10 +49,10 @@ ARGS="$@"
 
 if [ ! -x "$CMAKE" ]
 then
-    CMAKE=`which cmake3`
+    CMAKE=$(which cmake3)
     if [ ! -x "$CMAKE" ]
     then
-        CMAKE=`which cmake`
+        CMAKE=$(which cmake)
         if [ ! -x "$CMAKE" ]
         then
             echo "ERROR: Unable to locate cmake."
@@ -63,10 +63,10 @@ fi
 
 if [ ! -x "$CPACK" ]
 then
-    CPACK=`which cpack3`
+    CPACK=$(which cpack3)
     if [ ! -x "$CPACK" ]
     then
-        CPACK=`which cpack`
+        CPACK=$(which cpack)
         if [ ! -x "$CPACK" ]
         then
             echo "ERROR: Unable to locate cpack."
@@ -75,12 +75,12 @@ then
     fi
 fi
 
-NINJA=`which ninja-build`
+NINJA=$(which ninja-build)
 if [ -x "$NINJA" ]
 then
     GENERATOR=-GNinja
 else
-    NINJA=`which ninja`
+    NINJA=$(which ninja)
     if [ -x "$NINJA" ]
     then
         GENERATOR=-GNinja

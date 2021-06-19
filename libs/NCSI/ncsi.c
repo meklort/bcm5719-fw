@@ -724,7 +724,7 @@ void reloadChannel(unsigned int ch, reload_type_t reset_phy)
     uint16_t high = (uint16_t)port->shm_channel->NcsiChannelMac0High.r32;
     Network_SetMACAddr(port, high, low, /* TBD */ 0, true);
 
-    printf("[ch %d] Reusing MAC: 0x%02X%04X\n", ch, high, low);
+    printf("[ch %u] Reusing MAC: 0x%02X%04X\n", ch, high, low);
 
     Network_InitPort(gPackageState.port[ch], reset_phy);
 }

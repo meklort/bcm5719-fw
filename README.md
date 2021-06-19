@@ -7,23 +7,23 @@ The firmware has been tested on the [Talos II](https://wiki.raptorcs.com/wiki/Ta
 
 # Status
 The current version of the code is functional and is able to handle network traffic over NC-SI.
-  - Libraries:
-    - MII Library: Done
-    - NVRAM Library: Done
-  - Stage1/Stage2
-    - Implementation: Functional
-    - Testing: Minimal, WIP
-    - VPD: Functional
-    - WOL: Not started
-  - APE
-    - NC-SI Handler: Functional
-      - Get Version ID: Not Implemented
-      - OEM Command: Not Implemented
-    - BMC <-> Network Communication: Working
-  - Utilities
-    - Firmware tool: Functional
-    - Register tool: Functional
-  - Tests: To be written
+- Libraries:
+  - MII Library: Done
+  - NVRAM Library: Done
+- Stage1/Stage2
+  - Implementation: Functional
+  - Testing: Minimal, WIP
+  - VPD: Functional
+  - WOL: Not started
+- APE
+  - NC-SI Handler: Functional
+    - Get Version ID: Not Implemented
+    - OEM Command: Not Implemented
+  - BMC <-> Network Communication: Working
+- Utilities
+  - Firmware tool: Functional
+  - Register tool: Functional
+- Tests: To be written
 
 # Usage
 Blackbird and Talos II users may install this firmware using [fwupd](https://fwupd.org/), either via the Linux Vendor Firmware Service, or manually using `fwupdtool` and a [release archive](https://github.com/meklort/bcm5719-fw/releases). Other BCM5719 devices may not be thoroughly tested, or tested at all; should you wish to proceed, it is encouraged to download or [build](#building) the firmware and refer to instructions in [Development](#development), especially the section on [testing APE firmware](#testing-ape-firmware).
@@ -53,8 +53,8 @@ sudo fwupdtool install ./fwupd/blackbird-bcm5719-<version>.cab --allow-branch-sw
 
 ## Restoring From Backup
 Past firmware images can be restored from backup using the bcmflash tool.
-* If fwupd was used to flash firmware, past backups can be located at `/var/lib/fwupd/backup/`.
-* If `bcmflash` was used to [create a backup](#backup-firmware) the previously saved `firmware.fw` should be used.
+- If fwupd was used to flash firmware, past backups can be located at `/var/lib/fwupd/backup/`.
+- If `bcmflash` was used to [create a backup](#backup-firmware) the previously saved `firmware.fw` should be used.
 
 To restore a backup, the following command can be run:
 ```bash
@@ -63,14 +63,14 @@ sudo ./bin/bcmflash -t eth -i enP4p1s0f0 -r firmware.fw
 
 # Building
 
-### Requirements
+## Requirements
 This repository depends on a number of external tools
 - Customized LLVM/Clang compiler for MIPS firmware
 - CMake 3.5.1+
 - Linux (utilities)
 - IPXact generator (optional)
 
-### Required Compiler
+## Required Compiler
 Due to limitations in the MIPS CPU, this firmware requires a custom compiler to function properly.
 The custom compiler can be built using the following steps:
 ```bash
@@ -83,7 +83,7 @@ ninja
 ninja install
 ```
 
-### Compiling
+## Compiling
 To compile the firmware, the following command sequence can be used:
 ```bash
 git submodule init
@@ -112,13 +112,13 @@ Binding a function allows `bcmflash` to access the device via `-t eth`, with is 
 
 After unbinding the driver per the above, the APE firmware can be tested by loading it into RAM using the following sequence (note that this may fail if stage1 has not been loaded):
 
-#### Talos II (BMC traffic on port 0)
+For **Talos II** (BMC traffic on port 0):
 ```bash
 cd build
 sudo ./utils/bcmregtool/bcmregtool --apeboot=ape/ape-port0.bin
 ```
 
-#### Blackbird (BMC traffic on port 2)
+For **Blackbird** (BMC traffic on port 2):
 ```bash
 cd build
 sudo ./utils/bcmregtool/bcmregtool --apeboot=ape/ape-port2.bin
@@ -126,8 +126,8 @@ sudo ./utils/bcmregtool/bcmregtool --apeboot=ape/ape-port2.bin
 
 ### Firmware Log
 The APE and Stage1 firmware are able to print status messages to a log. This can be accessed in one of two ways:
- * The ./utils/apeconsole/apeconsole utility can be used if no driver is loaded by the host.
- * The EM100Pro console can be used if wired to the SPI bus on the BCM5719. This allows for printouts even when the host is off.
+- The ```./utils/apeconsole/apeconsole``` utility can be used if no driver is loaded by the host.
+- The EM100Pro console can be used if wired to the SPI bus on the BCM5719. This allows for printouts even when the host is off.
 
 ## Backup Firmware
 Before altering the BCM5719 flash, the original firmware should be backed up using `bcmflash` and the appropriate `-t` and `-i` options as described in [Development](#Development)
