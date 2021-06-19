@@ -108,7 +108,6 @@ typedef struct {
     };
     #endif
     uint32_t    directoryOffset;    /*< NVRAM Offset to image */
-
 } NVRAMCodeDirectory_t;
 
 #define MANUFACTURING_INFORMATION_REVISION  ('A')

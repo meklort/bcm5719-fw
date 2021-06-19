@@ -56,7 +56,7 @@ then
         if [ ! -x "$CMAKE" ]
         then
             echo "ERROR: Unable to locate cmake."
-            exit -1
+            exit 127
         fi
     fi
 fi
@@ -70,7 +70,7 @@ then
         if [ ! -x "$CPACK" ]
         then
             echo "ERROR: Unable to locate cpack."
-            exit -1
+            exit 127
         fi
     fi
 fi

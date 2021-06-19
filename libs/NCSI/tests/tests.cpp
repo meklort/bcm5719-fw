@@ -195,8 +195,6 @@ void print_packet(uint32_t *packet_u32, size_t len)
             print_version(packet);
             break;
     }
-
-
 }
 
 void send_packet(uint8_t *packet, uint32_t len)
