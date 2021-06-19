@@ -192,7 +192,6 @@ void dump_stage2(NVRAMStage2_t *stage2)
 
 void dump_code_directory(NVRAMCodeDirectory_t *cd, uint8_t *nvram, const char *outfile)
 {
-
     uint32_t info = be32toh(cd->codeInfo);
     if (info)
     {
@@ -705,7 +704,6 @@ int main(int argc, char const *argv[])
 
     if (extract)
     {
-
         if (!bcmflash_file_write("stage1.bin", stage1, stage1_length))
         {
             exit(-1);

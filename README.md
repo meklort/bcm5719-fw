@@ -1,3 +1,5 @@
+[![CodeFactor](https://www.codefactor.io/repository/github/meklort/bcm5719-fw/badge)](https://www.codefactor.io/repository/github/meklort/bcm5719-fw) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/1714ef8c9b124be6a7f86c67cb63b63f)](https://www.codacy.com/gh/meklort/bcm5719-fw/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=meklort/bcm5719-fw&amp;utm_campaign=Badge_Grade)
+
 # BCM5719 Firmware Reimplementation
 This project contains a clean-room reimplementation of the BCM5719 firmware based on the [Ortega](https://github.com/hlandau/ortega/blob/master/rtg-spec.md) specification.
 

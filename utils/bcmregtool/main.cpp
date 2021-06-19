@@ -396,7 +396,6 @@ int main(int argc, char const *argv[])
             cout << "Stepping...\n";
             step();
             print_context();
-
         } while (DEVICE.RxRiscProgramCounter.r32 > 0x40000000);
         exit(0);
     }
@@ -410,7 +409,6 @@ int main(int argc, char const *argv[])
 
             step();
             print_context();
-
         } while (DEVICE.RxRiscProgramCounter.r32 != addr);
         exit(0);
     }
@@ -615,7 +613,6 @@ int main(int argc, char const *argv[])
 
     if (options.get("apereset"))
     {
-
         // Halt
         RegAPEMode_t mode;
         mode.r32 = 0;
@@ -645,7 +642,6 @@ int main(int argc, char const *argv[])
     }
     if (options.get("reset"))
     {
-
         DEVICE.MiscellaneousConfig.bits.GRCReset = 1;
         exit(0);
     }

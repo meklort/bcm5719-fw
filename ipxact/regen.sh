@@ -54,10 +54,10 @@ mv APE_RX_PORT*.h ../include
 
 # ${IPXACT} -p ${PROJECT} NVIC.xml APE_full.xml APE.s
 ${IPXACT} -p ${PROJECT} APE_full.xml -t asym APE_sym.s
-mv *.s ../libs/bcm5719/
+mv ./*.s ../libs/bcm5719/
 
 ${IPXACT} -p ${PROJECT} APE_full.xml -t ape_cpp APE.cpp
 rm APE_APE*.cpp
 rm APE_SHM*.cpp
 rm APE_NVM*.cpp
-mv *.cpp ../simulator/
+mv ./*.cpp ../simulator/

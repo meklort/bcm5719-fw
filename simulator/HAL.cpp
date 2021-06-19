@@ -211,7 +211,6 @@ static void locate_pci_path(int wanted_function, string &pci_path)
 
                 fclose(pConfigFile);
             }
-
         }
     }
 
