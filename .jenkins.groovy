@@ -189,7 +189,7 @@ finally
     cleanWs()
 
     def currentResult = currentBuild.result ?: 'SUCCESS'
-    if(currentResult == 'SUCCESS')
+    if (currentResult == 'SUCCESS')
     {
         notify('SUCCESS', 'Build Passed ')
     }
