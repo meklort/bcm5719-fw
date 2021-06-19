@@ -59,10 +59,6 @@ static struct
     uint32_t cursor;
     const uint8_t *inBuffer;
     int32_t inBytes;
-
-    uint8_t *outBuffer;
-    int32_t outRemaining;
-    int32_t outSent;
 } g_DecompressorState;
 
 static void state_init(const uint8_t *inBuffer, int32_t inBytes)

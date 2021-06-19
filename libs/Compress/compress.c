@@ -234,7 +234,7 @@ int32_t compress(uint8_t *outBuffer, int32_t outBytes, const uint8_t *inBuffer,
         st.parent[i] = NIL;
     }
 
-    int i, c, len, r = N - F, s = 0, lastMatchLen, codeBufPtr = 1;
+    int i, c, len, r = N - F, s = 0, codeBufPtr = 1;
     uint8_t codeBuf[17], mask = 1;
     codeBuf[0] = 0;
 
@@ -264,6 +264,8 @@ int32_t compress(uint8_t *outBuffer, int32_t outBytes, const uint8_t *inBuffer,
 
     do
     {
+        int lastMatchLen;
+
         // matchLen may be spuriously long near the end of text.
         if (st.matchLen >= len)
         {
