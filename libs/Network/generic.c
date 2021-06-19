@@ -47,8 +47,8 @@
 
 void Network_SetMACAddr(NetworkPort_t *port, uint16_t high, uint32_t low, uint32_t index, bool enabled)
 {
-    uint32_t match_high = (high << 16) | (low >> 16);
-    uint16_t match_low = (low << 16);
+    uint32_t match_high = (high << 16u) | (low >> 16u);
+    uint16_t match_low = (low << 16u);
 
     switch (index)
     {
@@ -56,35 +56,35 @@ void Network_SetMACAddr(NetworkPort_t *port, uint16_t high, uint32_t low, uint32
             APE_PERI.BmcToNcSourceMacMatch0High.r32 = match_high;
             APE_PERI.BmcToNcSourceMacMatch0Low.r32 = match_low;
             port->shm_channel->NcsiChannelMac0High.r32 = high;
-            port->shm_channel->NcsiChannelMac0Mid.r32 = low >> 16;
-            port->shm_channel->NcsiChannelMac0Low.r32 = low & 0xffff;
+            port->shm_channel->NcsiChannelMac0Mid.r32 = low >> 16u;
+            port->shm_channel->NcsiChannelMac0Low.r32 = low & 0xffffu;
             break;
 
         case 1:
             APE_PERI.BmcToNcSourceMacMatch1High.r32 = match_high;
             APE_PERI.BmcToNcSourceMacMatch1Low.r32 = match_low;
             port->shm_channel->NcsiChannelMac1High.r32 = high;
-            port->shm_channel->NcsiChannelMac1Mid.r32 = low >> 16;
-            port->shm_channel->NcsiChannelMac1Low.r32 = low & 0xffff;
+            port->shm_channel->NcsiChannelMac1Mid.r32 = low >> 16u;
+            port->shm_channel->NcsiChannelMac1Low.r32 = low & 0xffffu;
             break;
 
         case 2:
             APE_PERI.BmcToNcSourceMacMatch2High.r32 = match_high;
             APE_PERI.BmcToNcSourceMacMatch2Low.r32 = match_low;
             port->shm_channel->NcsiChannelMac2High.r32 = high;
-            port->shm_channel->NcsiChannelMac2Mid.r32 = low >> 16;
-            port->shm_channel->NcsiChannelMac2Low.r32 = low & 0xffff;
+            port->shm_channel->NcsiChannelMac2Mid.r32 = low >> 16u;
+            port->shm_channel->NcsiChannelMac2Low.r32 = low & 0xffffu;
             break;
 
         case 3:
             APE_PERI.BmcToNcSourceMacMatch3High.r32 = match_high;
             APE_PERI.BmcToNcSourceMacMatch3Low.r32 = match_low;
             port->shm_channel->NcsiChannelMac3High.r32 = high;
-            port->shm_channel->NcsiChannelMac3Mid.r32 = low >> 16;
-            port->shm_channel->NcsiChannelMac3Low.r32 = low & 0xffff;
+            port->shm_channel->NcsiChannelMac3Mid.r32 = low >> 16u;
+            port->shm_channel->NcsiChannelMac3Low.r32 = low & 0xffffu;
             break;
     }
 
     port->device->PerfectMatch1High.r32 = high;
     port->device->PerfectMatch1Low.r32 = low;
-}
+} //lint !e818
