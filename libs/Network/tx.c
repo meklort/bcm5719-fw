@@ -401,7 +401,7 @@ static uint32_t inline Network_TX_initAdditionalPassthroughBlock(RegTX_PORTOut_t
 
 static void drainPassthroughBytes(uint32_t bytes)
 {
-    printf("Dropping %d bytes\n", bytes);
+    printf("Dropping %u bytes\n", bytes);
     // Drain any passthrough bytes to ensure that the NCSI input buffers are not locked up.
     int num_words = DIVIDE_RND_UP(bytes, sizeof(uint32_t)) + 1; // +1 for FCS word.
     for (int i = 0; i < num_words; i++)

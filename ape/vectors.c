@@ -52,7 +52,7 @@ extern vector_t __start; // Defined by crt1.s
 void __attribute__((interrupt)) IRQ_Default(void)
 {
     uint32_t vector = NVIC.InterruptControlState.bits.VECTACTIVE;
-    printf("ISR: %d\n", vector);
+    printf("ISR: %u\n", vector);
 }
 
 // Alias all IRQ routines ot the default handler.
