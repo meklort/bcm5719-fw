@@ -203,14 +203,14 @@ void send_packet(uint8_t *packet, uint32_t len)
     gPacket = (uint32_t *)packet;
     gPacketLen = len;
 
-    uint32_t buffer[1024];
-
     RegAPE_PERIBmcToNcRxStatus_t stat;
     stat.r32 = APE_PERI.BmcToNcRxStatus.r32;
     // stat.print();
 
     if (stat.bits.New)
     {
+        uint32_t buffer[1024];
+
         int32_t bytes = stat.bits.PacketLength;
         int i = 0;
         while (bytes > 0)

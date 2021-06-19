@@ -62,7 +62,8 @@ def build(nodeName, archive = false, archiveCab = false, analyze = true, testArc
         cleanWs()
         def url = ''
         def refspec = '+refs/heads/*:refs/remotes/origin/*'
-        try {
+        try
+        {
             url = GITHUB_REPO_GIT_URL
         }
         catch (exc)
@@ -70,12 +71,14 @@ def build(nodeName, archive = false, archiveCab = false, analyze = true, testArc
             url = 'git://github.com/meklort/bcm5719-fw.git'
         }
         def hash = ''
-        try {
+        try
+        {
             hash = GITHUB_BRANCH_HEAD_SHA
         }
         catch (exc)
         {
-            try {
+            try
+            {
                 hash = GITHUB_PR_HEAD_SHA
                 refspec = '+refs/pull/*:refs/remotes/origin/pr/*'
             }
@@ -105,11 +108,11 @@ def build(nodeName, archive = false, archiveCab = false, analyze = true, testArc
                                 ]]
             ])
 
-            def git_subject = sh (
+            def gitSubject = sh (
                 script: 'git show -s --format=%s',
                 returnStdout: true,
             ).trim()
-            currentBuild.description = git_subject
+            currentBuild.description = gitSubject
         }
 
         stage('build')
