@@ -47,7 +47,6 @@
 #include <APE_TX_PORT0.h>
 #include <Ethernet.h>
 #include <Network.h>
-#include <types.h>
 
 #ifdef CXX_SIMULATOR
 #include <bcm5719-endian.h>
@@ -108,7 +107,7 @@ int32_t __attribute__((noinline)) Network_TX_allocateBlock(NetworkPort_t *port)
     }
 
     return block;
-}
+} //lint !e818
 
 static uint32_t inline Network_TX_initFirstBlock(RegTX_PORTOut_t *block, uint32_t length, int32_t blocks, int32_t next_block, uint32_t *packet, bool big_endian)
 {
@@ -150,14 +149,14 @@ static uint32_t inline Network_TX_initFirstBlock(RegTX_PORTOut_t *block, uint32_
     {
         if (big_endian)
         {
-#if CXX_SIMULATOR
+#ifdef CXX_SIMULATOR
             printf("1st[%d] = 0x%08X\n", i, be32toh(packet[i]));
 #endif
             block[TX_PORT_OUT_ALL_FIRST_PAYLOAD_WORD + i].r32 = be32toh(packet[i]);
         }
         else
         {
-#if CXX_SIMULATOR
+#ifdef CXX_SIMULATOR
             printf("1LE[%d] = 0x%08X\n", i, (packet[i]));
 #endif
             block[TX_PORT_OUT_ALL_FIRST_PAYLOAD_WORD + i].r32 = (packet[i]);

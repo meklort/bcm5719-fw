@@ -47,7 +47,6 @@
 #include <APE_RX_PORT0.h>
 #include <Ethernet.h>
 #include <Network.h>
-#include <types.h>
 
 #ifdef CXX_SIMULATOR
 #include <stdio.h>
@@ -137,7 +136,7 @@ bool Network_PassthroughRxPatcket(NetworkPort_t *port)
     {
         port->network_resetting = false;
 
-#if CXX_SIMULATOR
+#ifdef CXX_SIMULATOR
         rxbuf.print();
 #endif
 
@@ -161,7 +160,7 @@ bool Network_PassthroughRxPatcket(NetworkPort_t *port)
             // printf(" Next Block %d\n", control.bits.next_block);
             // printf(" First %d\n", control.bits.first);
             // printf(" Not Last %d\n", control.bits.not_last);
-#if CXX_SIMULATOR
+#ifdef CXX_SIMULATOR
             printf("%d bytes in block.\n", control.bits.payload_length);
 #endif
             int i;
