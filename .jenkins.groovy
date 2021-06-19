@@ -55,39 +55,39 @@ def notify(status, description)
         targetUrl: BUILD_URL
 }
 
-def build(nodeName, archive = false, archive_cab = false, analyze = true, test_archive = false)
+def build(nodeName, archive = false, archiveCab = false, analyze = true, testArchive = false)
 {
     node(nodeName)
     {
         cleanWs()
-        def URL = ''
-        def REFSPEC = '+refs/heads/*:refs/remotes/origin/*'
+        def url = ''
+        def refspec = '+refs/heads/*:refs/remotes/origin/*'
         try {
-            URL = GITHUB_REPO_GIT_URL
+            url = GITHUB_REPO_GIT_URL
         }
         catch (exc)
         {
-            URL = 'git://github.com/meklort/bcm5719-fw.git'
+            url = 'git://github.com/meklort/bcm5719-fw.git'
         }
-        def HASH = ''
+        def hash = ''
         try {
-            HASH = GITHUB_BRANCH_HEAD_SHA
+            hash = GITHUB_BRANCH_HEAD_SHA
         }
         catch (exc)
         {
             try {
-                HASH = GITHUB_PR_HEAD_SHA
-                REFSPEC = '+refs/pull/*:refs/remotes/origin/pr/*'
+                hash = GITHUB_PR_HEAD_SHA
+                refspec = '+refs/pull/*:refs/remotes/origin/pr/*'
             }
             catch (exc2)
             {
-                HASH = '**'
+                hash = '**'
             }
         }
         stage('checkout')
         {
             checkout(
-                [$class: 'GitSCM', branches: [[name: HASH]],
+                [$class: 'GitSCM', branches: [[name: hash]],
                                 browser: [$class: 'GithubWeb',
                                 repoUrl: 'https://github.com/meklort/bcm5719-fw/'],
                                 doGenerateSubmoduleConfigurations: false,
@@ -100,16 +100,16 @@ def build(nodeName, archive = false, archive_cab = false, analyze = true, test_a
                                             trackingSubmodules: false]],
                                 submoduleCfg: [],
                                 userRemoteConfigs: [[
-                                    url: URL,
-                                    refspec: REFSPEC
+                                    url: url,
+                                    refspec: refspec
                                 ]]
             ])
 
-            def GIT_SUBJECT = sh (
+            def git_subject = sh (
                 script: 'git show -s --format=%s',
                 returnStdout: true,
             ).trim()
-            currentBuild.description = GIT_SUBJECT
+            currentBuild.description = git_subject
         }
 
         stage('build')
@@ -132,7 +132,7 @@ def build(nodeName, archive = false, archive_cab = false, analyze = true, test_a
                 }
             }
 
-            if (archive_cab)
+            if (archiveCab)
             {
                 dir('build/fwupd')
                 {
@@ -141,7 +141,7 @@ def build(nodeName, archive = false, archive_cab = false, analyze = true, test_a
             }
         }
 
-        if (test_archive)
+        if (testArchive)
         {
             cleanWs()
 
@@ -179,7 +179,7 @@ try
         "freebsd-12": { build('freebsd-12', true, false, false, false) },
     )
 }
-catch(e)
+catch (e)
 {
     currentBuild.result = 'FAILURE'
     throw e
