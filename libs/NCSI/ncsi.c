@@ -441,7 +441,12 @@ static void getLinkStatusHandler(const NetworkFrame_t *frame)
         if (!Network_isLinkUp(port))
         {
             printf("Resetting link.\n");
-            Network_resetLink(port);
+            if (!Network_resetLink(port))
+            {
+                printf("Link reset failed.\n");
+
+                // TODO: Return an error code via ncsi or schedule a reset later on.
+            }
         }
     }
 
@@ -555,10 +560,11 @@ static void setMACAddressHandler(const NetworkFrame_t *frame)
     }
 
     uint32_t low = (frame->setMACAddr.MAC32 << 16) | frame->setMACAddr.MAC10;
-    Network_SetMACAddr(port, frame->setMACAddr.MAC54, low, MACNumber, frame->setMACAddr.Enable ? true : false);
+    bool status = Network_SetMACAddr(port, frame->setMACAddr.MAC54, low, MACNumber, frame->setMACAddr.Enable ? true : false);
 
     sendNCSIResponse(frame->controlPacket.InstanceID, frame->controlPacket.ChannelID, frame->controlPacket.ControlPacketType,
-                     NCSI_RESPONSE_CODE_COMMAND_COMPLETE, NCSI_REASON_CODE_NONE);
+                     status ? NCSI_RESPONSE_CODE_COMMAND_COMPLETE : NCSI_RESPONSE_CODE_COMMAND_FAILED,
+                     status ? NCSI_REASON_CODE_NONE : NCSI_REASON_CODE_INVALID_PARAM);
 }
 
 static void enableBroadcastFilteringHandler(const NetworkFrame_t *frame)
@@ -722,7 +728,7 @@ void reloadChannel(unsigned int ch, reload_type_t reset_phy)
 
     uint32_t low = port->shm_channel->NcsiChannelMac0Mid.r32 << 16 | port->shm_channel->NcsiChannelMac0Low.r32;
     uint16_t high = (uint16_t)port->shm_channel->NcsiChannelMac0High.r32;
-    Network_SetMACAddr(port, high, low, /* TBD */ 0, true);
+    (void)Network_SetMACAddr(port, high, low, 0, true);
 
     printf("[ch %u] Reusing MAC: 0x%02X%04X\n", ch, high, low);
 

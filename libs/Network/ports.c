@@ -936,7 +936,12 @@ void Network_InitPort(NetworkPort_t *port, reload_type_t reset_phy)
 
     if ((ALWAYS_RESET == reset_phy) || (AS_NEEDED == reset_phy && !Network_isLinkUp(port)))
     {
-        MII_reset(port->device, phy);
+        if (!MII_reset(port->device, phy))
+        {
+            printf("MII Reset failed.\n");
+
+            // TODO: Schedule another reset to run later on?
+        }
     }
     else
     {
@@ -1052,14 +1057,41 @@ void Network_InitPort(NetworkPort_t *port, reload_type_t reset_phy)
 
     port->device->GrcModeControl.bits.HostStackUp = 1; // Enable packet RX
 
-    Network_updatePortState(port);
+    (void)Network_updatePortState(port);
 
-    uint16_t status_value = MII_readRegister(port->device, phy, (mii_reg_t)REG_MII_STATUS);
-    stat.r16 = status_value;
-    if (stat.bits.ExtendedStatusSupported)
+    int32_t status_value = MII_readRegister(port->device, phy, (mii_reg_t)REG_MII_STATUS);
+    if (status_value >= 0)
     {
-        uint16_t ext_status_value = MII_readRegister(port->device, phy, (mii_reg_t)REG_MII_IEEE_EXTENDED_STATUS);
-        ext_stat.r16 = ext_status_value;
+        stat.r16 = (uint16_t)status_value;
+        ext_stat.r16 = 0;
+        if (stat.bits.ExtendedStatusSupported)
+        {
+            int32_t ext_status_value = MII_readRegister(port->device, phy, (mii_reg_t)REG_MII_IEEE_EXTENDED_STATUS);
+            if (ext_status_value >= 0)
+            {
+                ext_stat.r16 = (uint16_t)ext_status_value;
+            }
+            else
+            {
+                printf("Unable to read MII_IEEE_EXT_STATUS - assuming 1000M is supported.\n");
+                ext_stat.bits._1000BASE_TFullDuplexCapable = 1;
+                ext_stat.bits._1000BASE_THalfDuplexCapable = 1;
+            }
+        }
+    }
+    else
+    {
+        // Unable to read MII Status register. Assume all modes are supported.
+        printf("Unable to read MII_STATUS - assuming 10/100/1000 is supported.\n");
+        stat.r16 = 0;
+        stat.bits._100BASE_XFullDuplexCapable = 1;
+        stat.bits._100BASE_XHalfDuplexCapable = 1;
+
+        stat.bits._10BASE_TFullDuplexCapable = 1;
+        stat.bits._10BASE_THalfDuplexCapable = 1;
+
+        ext_stat.bits._1000BASE_TFullDuplexCapable = 1;
+        ext_stat.bits._1000BASE_THalfDuplexCapable = 1;
     }
 
     APE_releaseLock();
@@ -1116,18 +1148,21 @@ bool Network_updatePortState(NetworkPort_t *port)
     RegMIIAuxiliaryStatusSummary_t status;
     RegMIIControl_t control;
     bool updated = false;
+    int32_t reg;
 
-    control.r16 = MII_readRegister(port->device, phy, (mii_reg_t)REG_MII_CONTROL);
-    if (control.bits.RestartAutonegotiation)
+    reg = MII_readRegister(port->device, phy, (mii_reg_t)REG_MII_CONTROL);
+    control.r16 = (uint16_t)reg;
+    if (reg < 0 || control.bits.RestartAutonegotiation)
     {
-        // Link down, negotiation restarting, don't update mac mode.
+        // unabel to read the register or the link is down and negotiation is restarting, don't update mac mode.
     }
     else
     {
-        status.r16 = MII_readRegister(port->device, phy, (mii_reg_t)REG_MII_AUXILIARY_STATUS_SUMMARY);
-        if (control.bits.AutoNegotiationEnable && !status.bits.AutoNegotiationComplete)
+        reg = MII_readRegister(port->device, phy, (mii_reg_t)REG_MII_AUXILIARY_STATUS_SUMMARY);
+        status.r16 = (uint16_t)reg;
+        if (reg < 0 || (control.bits.AutoNegotiationEnable && !status.bits.AutoNegotiationComplete))
         {
-            // Link down, attempting to negotiate, don't update mac mode.
+            // Unable to read MII register or the link is down and attempting to negotiate, don't update mac mode.
         }
         else
         {
@@ -1225,12 +1260,15 @@ bool Network_updatePortState(NetworkPort_t *port)
     return updated;
 } //lint !e818
 
-void Network_resetLink(NetworkPort_t *port)
+bool Network_resetLink(NetworkPort_t *port)
 {
+    bool status;
     uint8_t phy = MII_getPhy(port->device);
     APE_aquireLock();
-    MII_reset(port->device, phy);
+    status = MII_reset(port->device, phy);
     APE_releaseLock();
+
+    return status;
 } //lint !e818
 
 bool Network_isLinkUp(NetworkPort_t *port)

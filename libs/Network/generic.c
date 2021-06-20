@@ -45,7 +45,7 @@
 #include <APE_DEVICE.h>
 #include <Network.h>
 
-void Network_SetMACAddr(NetworkPort_t *port, uint16_t high, uint32_t low, uint32_t index, bool enabled)
+bool Network_SetMACAddr(NetworkPort_t *port, uint16_t high, uint32_t low, uint32_t index, bool enabled)
 {
     uint32_t match_high = (high << 16u) | (low >> 16u);
     uint16_t match_low = (low << 16u);
@@ -83,8 +83,13 @@ void Network_SetMACAddr(NetworkPort_t *port, uint16_t high, uint32_t low, uint32
             port->shm_channel->NcsiChannelMac3Mid.r32 = low >> 16u;
             port->shm_channel->NcsiChannelMac3Low.r32 = low & 0xffffu;
             break;
+
+        default:
+            return false;
     }
 
     port->device->PerfectMatch1High.r32 = high;
     port->device->PerfectMatch1Low.r32 = low;
+
+    return true;
 } //lint !e818

@@ -119,7 +119,7 @@ bool Network_checkEnableState(NetworkPort_t *port);
 void Network_setEnableState(NetworkPort_t *port);
 
 bool Network_isLinkUp(NetworkPort_t *port);
-void Network_resetLink(NetworkPort_t *port);
+bool Network_resetLink(NetworkPort_t *port);
 
 
 uint32_t Network_TX_numBlocksNeeded(uint32_t frame_size);
@@ -137,6 +137,6 @@ bool Network_TX_transmitPassthroughPacket(uint32_t length, NetworkPort_t *port);
 bool Network_RxLePatcket(uint32_t *buffer, uint32_t *length, NetworkPort_t *port);
 bool Network_PassthroughRxPatcket(NetworkPort_t *port);
 
-void Network_SetMACAddr(NetworkPort_t *port, uint16_t high, uint32_t low, uint32_t index, bool enabled);
+bool Network_SetMACAddr(NetworkPort_t *port, uint16_t high, uint32_t low, uint32_t index, bool enabled);
 
 #endif /* NETWORK_H */
