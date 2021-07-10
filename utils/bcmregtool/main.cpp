@@ -584,10 +584,21 @@ int main(int argc, char const *argv[])
         }
 
         // load file.
+        uint32_t boot_rom_base = 0x115800; // This area to the end of ram must not be mangled during upload (10KB)
+        uint32_t base_addr = boot_rom_base - (fileWords)*4;
+        printf("Loading payload to %x - %x\n", base_addr, base_addr + (fileWords - 1) * 4);
         for (int i = 0; i < fileWords; i++)
         {
-            uint32_t addr = 0x10D800 + i * 4;
+            uint32_t addr = base_addr + i * 4;
             loader_write_mem(addr, ape.words[i]);
+
+            // Verify write
+            uint32_t rd = loader_read_mem(addr);
+            if (rd != ape.words[i])
+            {
+                printf("Failed to write %x to address %x (read back %x)\n", ape.words[i], addr, rd);
+                exit(1);
+            }
         }
 
         RegAPEMode_t mode;
@@ -597,7 +608,7 @@ int main(int argc, char const *argv[])
         APE.Mode = mode;
 
         // Set the payload address
-        APE.GpioMessage.r32 = 0x10D800 | 2;
+        APE.GpioMessage.r32 = base_addr | 2;
 
         // Clear the signature.
         SHM.SegSig.r32 = 0xBAD0C0DE;

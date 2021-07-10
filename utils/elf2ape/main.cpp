@@ -247,7 +247,7 @@ int main(int argc, char const *argv[])
                 if (data)
                 {
                     uint32_t compressedSize = compress((uint8_t *)&ape.bytes[byteOffset],
-                                                       psec->get_size() * 2, // Output, compressed
+                                                       sizeof(ape.bytes) - byteOffset, // Output, compressed
                                                        (const uint8_t *)data,
                                                        psec->get_size()); // input, uncompressed
                     // ROund up to nearest word.
@@ -259,7 +259,7 @@ int main(int argc, char const *argv[])
                     // section->compressedSize); byteOffset +=
                     // section->compressedSize;
                     section->crc = NVRam_crc((const uint8_t *)data, psec->get_size(), 0);
-                    section->flags |= APE_SECTION_FLAG_CHECKSUM_IS_CRC32 | APE_SECTION_FLAG_COMPRESSED;
+                    section->flags |= APE_SECTION_FLAG_CHECKSUM_IS_CRC32 | APE_SECTION_FLAG_COMPRESSED | (1u << 3);
                 }
                 else
                 {
@@ -272,7 +272,7 @@ int main(int argc, char const *argv[])
 
                 if (psec->get_flags() & SHF_EXECINSTR)
                 {
-                    section->flags |= APE_SECTION_FLAG_CODE;
+                    section->flags |= APE_SECTION_FLAG_CODE | (1u << 3);
                 }
             }
         }
@@ -316,6 +316,13 @@ int main(int argc, char const *argv[])
     printf("Header Size:        %d\n", ape.header.words * 4);
     printf("UNK2:               0x%02X\n", ape.header.unk2);
     printf("Sections:           %d\n", ape.header.sections);
+    for (int i = 0; i < ape.header.sections; i++)
+    {
+        APESection_t *section = &ape.header.section[i];
+        std::cout << "  [" << i << "] Addr: 0x" << section->loadAddr << " - 0x" << section->decompressedSize + section->loadAddr << "\tSize 0x"
+                  << section->decompressedSize << "\tCompressed Size 0x" << section->compressedSize << "\tOffset 0x" << section->offset << "\tEndOffset 0x"
+                  << section->offset + section->compressedSize << "\tFlags 0x" << section->flags << std::endl;
+    }
 
     uint32_t calculated_crc = NVRam_crc(ape.bytes, (4 * ape.header.words), 0);
     ape.header.crc = calculated_crc;

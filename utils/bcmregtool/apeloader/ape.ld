@@ -44,34 +44,40 @@
 
 ENTRY(__start)
 
+MEMORY
+{
+    SCRATCH (rwx) : ORIGIN = 0x00100000, LENGTH = 3K
+    STACK   (rw)  : ORIGIN = 0x00116000, LENGTH = 8K
+}
+
 SECTIONS
 {
-    .text 0x00100000 : ALIGN(4) SUBALIGN(4)
+    .text : ALIGN(4) SUBALIGN(4)
     {
-        KEEP(*(.init))
-        *(.text)
-    }
+        KEEP(*(.init*))
+        *(.text*)
+    } > SCRATCH
 
 
-    .data . : ALIGN(4) SUBALIGN(4)
+    .data : ALIGN(4) SUBALIGN(4)
     {
         *(.data*)
         *(.rodata*)
-    }
+    } > SCRATCH
 
     _fbss = .;
-    .bss . : ALIGN(4) SUBALIGN(4)
+    .bss : ALIGN(4) SUBALIGN(4)
     {
         *(.bss*)
-    }
+    } > SCRATCH
     _ebss = .;
 
 
-    .stack . (NOLOAD) : ALIGN(4) SUBALIGN(4)
+    .stack (NOLOAD) : ALIGN(4) SUBALIGN(4)
     {
         _fstack = .;
-        _estack = 00118000;
-    }
+        _estack = 0x00118000;
+    } > STACK
 
 
     /DISCARD/ :
