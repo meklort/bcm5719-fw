@@ -48,8 +48,8 @@ include(lwip/src/Filelists.cmake)
 
 SET(SOURCES
     ${lwipnoapps_SRCS}
-    ${lwiphttp_SRCS}
-    # ${lwipiperf_SRCS}
+    # ${lwiphttp_SRCS}
+    ${lwipiperf_SRCS}
     sys_arch.c
 )
 

@@ -2,24 +2,26 @@
 
 #define NO_SYS  0
 
-#define LWIP_STATS 0
-
 #define TCPIP_MBOX_SIZE (0)
 #define TCPIP_THREAD_STACKSIZE (512)
 #define TCPIP_THREAD_PRIO 2
 
 #define LWIP_DHCP 1
-#define MEM_SIZE    0x2000
+#define MEM_SIZE  0x2000
+
+#define LWIP_ARP                1
+#define ARP_TABLE_SIZE          3
+#define ARP_QUEUEING            0
 
 #define MEMP_OVERFLOW_CHECK                 0
 #define MEMP_SANITY_CHECK                   0
-#define ARP_QUEUEING                        0
 #define ETHARP_TRUST_IP_MAC                 0
 #define LWIP_NETIF_HOSTNAME                 1
 #define LWIP_NETIF_API                      0
-#define LWIP_NETIF_STATUS_CALLBACK          0
+#define LWIP_NETIF_STATUS_CALLBACK          1
 #define LWIP_NETIF_LINK_CALLBACK            0
-#define LWIP_NETIF_HWADDRHINT               1
+#define LWIP_NETIF_HWADDRHINT               0 // 1
+#define LWIP_NETIF_EXT_STATUS_CALLBACK      0
 
 #define MEMP_MEM_MALLOC 1
 #define MEM_ALIGNMENT 8
@@ -27,7 +29,7 @@
 // Temp to reduce size
 #define LWIP_SOCKET 0
 #define LWIP_IGMP 0
-// #define TCP_STATS 0
+#define TCP_STATS 0
 
 #define IP_FRAG 1
 #define IP_REASSEMBLY 1

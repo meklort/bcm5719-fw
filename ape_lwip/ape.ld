@@ -1,16 +1,16 @@
 ################################################################################
 ###
-### @file       CMakeLists.txt
+### @file       ape.ld
 ###
-### @project
+### @project    bcm5719
 ###
-### @brief      Top level CMake file
-###
-################################################################################
+### @brief      APE linker script
 ###
 ################################################################################
 ###
-### @copyright Copyright (c) 2018-2022, Evan Lojewski
+################################################################################
+###
+### @copyright Copyright (c) 2018-2020, Evan Lojewski
 ### @cond
 ###
 ### All rights reserved.
@@ -42,30 +42,60 @@
 ### @endcond
 ################################################################################
 
-enable_testing()
-include(GoogleTest)
+ENTRY(__start)
 
-include(cmake/version.cmake)
-include(cmake/uswid.cmake)
-include(cmake/compiler.cmake)
+MEMORY
+{
+    RAM     (rwx) : ORIGIN = 0x00100000, LENGTH = 64K
+    DRAM    (rw)  : ORIGIN = 0x00110000, LENGTH = 24K
+    STACK   (rw)  : ORIGIN = 0x00116000, LENGTH = 8K
+}
 
-cmake_minimum_required(VERSION 3.5.1)
-project(bcm5719-fw VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH})
-
-include(cmake/clang-format.cmake)
-include(cmake/clang-analyzer.cmake)
-include(cmake/config.cmake)
-
-add_subdirectory(tests)
-
-add_subdirectory(libs)
-add_subdirectory(utils)
+SECTIONS
+{
+    .text : ALIGN(4) SUBALIGN(4)
+    {
+        KEEP(*(.init))
+        _ftext = .;
+        *(.text*)
+    } > RAM
+    _etext = .;
 
 
-add_subdirectory(simulator)
-add_subdirectory(stage1)
+    .data : ALIGN(4) SUBALIGN(4)
+    {
+        _fdata = .;
+        *(.data*)
+        *(.rodata*)
+    } > DRAM
+    _edata = .;
 
-add_subdirectory(ape)
-add_subdirectory(ape_lwip)
+    .bss : ALIGN(4) SUBALIGN(4)
+    {
+        _fbss = .;
+        *(.bss*)
+    } > DRAM
+    _ebss = .;
+    _fheap = .;
 
-add_subdirectory(fwupd)
+    .stack (NOLOAD) : ALIGN(4) SUBALIGN(4)
+    {
+        _eheap = .;
+        _fstack = .;
+        _estack = 0x00118000;
+    } > STACK
+
+    _eram = 0x00118000;
+
+    /DISCARD/ :
+    {
+        *(.comment)
+        *(.note.GNU-stack)
+        *(.eh_frame)
+        *(.got)
+        *(.ARM.exidx*)
+        *(.reginfo)
+        *(.mdebug.abi32)
+        *(.pdr)
+    }
+}

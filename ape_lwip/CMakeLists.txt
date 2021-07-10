@@ -2,15 +2,15 @@
 ###
 ### @file       CMakeLists.txt
 ###
-### @project
+### @project    bcm5719
 ###
-### @brief      Top level CMake file
-###
-################################################################################
+### @brief      APE stage for the bcm5719
 ###
 ################################################################################
 ###
-### @copyright Copyright (c) 2018-2022, Evan Lojewski
+################################################################################
+###
+### @copyright Copyright (c) 2018-2020, Evan Lojewski
 ### @cond
 ###
 ### All rights reserved.
@@ -42,30 +42,43 @@
 ### @endcond
 ################################################################################
 
-enable_testing()
-include(GoogleTest)
 
-include(cmake/version.cmake)
-include(cmake/uswid.cmake)
-include(cmake/compiler.cmake)
+project(ape_lwip)
+# add_compile_options("-Osdf")
+# Firmware
+function(ape_firmware PORT)
+    SET(TARGET ${PROJECT_NAME}-port${PORT})
+    arm_add_executable(${TARGET}
+                main.c
+                vectors.c
+                include/ape_main.h
+                )
+                arm_linker_script(${TARGET} "${CMAKE_CURRENT_SOURCE_DIR}/ape.ld")
 
-cmake_minimum_required(VERSION 3.5.1)
-project(bcm5719-fw VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH})
+    target_include_directories(${TARGET} PRIVATE include)
+    target_link_libraries(${TARGET} NVRam-arm MII-arm APE-arm Network-arm Timer-arm printf-arm FreeRTOS-arm lwip-arm)
+    target_link_libraries(${TARGET} bcm5719-arm)
+    target_link_libraries(${TARGET}
+        --defsym=NETWORK_PORT=${PORT}
+        --defsym=VERSION_MAJOR=${VERSION_MAJOR}
+        --defsym=VERSION_MINOR=${VERSION_MINOR}
+        --defsym=VERSION_PATCH=${VERSION_PATCH})
+    target_compile_options(${TARGET} PRIVATE -nodefaultlibs)
+    target_compile_definitions(${TARGET} PRIVATE NETWORK_PORT=${PORT})
 
-include(cmake/clang-format.cmake)
-include(cmake/clang-analyzer.cmake)
-include(cmake/config.cmake)
+    install(TARGETS ${TARGET} DESTINATION fw RESOURCE)
 
-add_subdirectory(tests)
+endfunction()
 
-add_subdirectory(libs)
-add_subdirectory(utils)
+ape_firmware(0)
+ape_firmware(2)
 
+format_target_sources(${PROJECT_NAME}-port0)
 
-add_subdirectory(simulator)
-add_subdirectory(stage1)
+# Simulator add_executable
+# simulator_add_executable(sim-${PROJECT_NAME}
+            # init_hw.c
+            # main.c)
 
-add_subdirectory(ape)
-add_subdirectory(ape_lwip)
-
-add_subdirectory(fwupd)
+# target_link_libraries(sim-${PROJECT_NAME} simulator)
+# target_link_libraries(sim-${PROJECT_NAME} NVRam MII VPD APE)
