@@ -44,21 +44,6 @@
  * See http://www.freertos.org/a00110.html
  *----------------------------------------------------------*/
 
-/* Demo related settings. */
-
-/* Set mainCREATE_SIMPLE_BLINKY_DEMO_ONLY to
- * 0 -- to run the more comprehensive test and demo application,
- * 1 -- to run the simple blinky demo.
- */
-#define mainCREATE_SIMPLE_BLINKY_DEMO_ONLY	1
-
-/* When mainCREATE_SIMPLE_BLINKY_DEMO_ONLY is set to 0,
- * set mainNO_TASK_NO_CHECK to
- * 0 -- to include all predefined test tasks and checks,
- * 1 -- to exclude all predefined test tasks and checks.
- * When set to 1 (with few tasks in system), user could observe
- * fewer tick interrupts thus reduce overall MCU power consumption. */
-#define mainNO_TASK_NO_CHECK				0
 
 /* Prevent C code being included by the IAR assembler. */
 #ifndef __IASMARM__
@@ -67,11 +52,12 @@
 #endif
 
 #define configUSE_PREEMPTION            1
-#define configUSE_IDLE_HOOK             1
-#define configUSE_TICK_HOOK             1
+#define configUSE_IDLE_HOOK             0
+#define configUSE_TICK_HOOK             0
 #define configCPU_CLOCK_HZ              ( SystemCoreClock )
 #define configTICK_RATE_HZ              ( ( TickType_t ) 1000 )
 #define configMAX_PRIORITIES            5
+#define configMAX_SYSCALL_INTERRUPT_PRIORITY 5
 #define configMAX_TASK_NAME_LEN         8
 #define configUSE_TRACE_FACILITY        0
 #define configUSE_16_BIT_TICKS          0
@@ -85,8 +71,12 @@
 #define configUSE_COUNTING_SEMAPHORES   1
 #define configGENERATE_RUN_TIME_STATS   0
 
+#define configRECORD_STACK_HIGH_ADDRESS 1
+
+#define configUSE_PORT_OPTIMISED_TASK_SELECTION 1
+
 /* Support various memory allocation. */
-#define configSUPPORT_STATIC_ALLOCATION     1
+#define configSUPPORT_STATIC_ALLOCATION     0
 #define configSUPPORT_DYNAMIC_ALLOCATION    1
 
 /* Heap and stack.
@@ -95,7 +85,6 @@
  * consists of FreeRTOS heap, linker heap and also .bss etc. Thus
  * FreeRTOS heap cannot take the entire 64kB.  */
 #define configMINIMAL_STACK_SIZE        ( ( unsigned short ) 256 )
-#define configTOTAL_HEAP_SIZE           (  ( size_t ) ( 20 * 1024 ) )
 
 /* Software timer definitions. */
 #define configUSE_TIMERS                1
