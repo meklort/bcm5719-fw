@@ -103,7 +103,7 @@ static void ape_putchar(char character, VOLATILE SHM_t *port)
 
 void _putchar(char character)
 {
-    NCSI_putchar(character);
+    // NCSI_putchar(character);
     ape_putchar(character, &SHM);
     ape_putchar(character, &SHM1);
 }
