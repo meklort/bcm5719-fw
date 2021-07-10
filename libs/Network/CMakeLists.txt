@@ -51,6 +51,8 @@ SET(SOURCES
     generic.c
 #     include/Network.h
 )
+set_source_files_properties(rx.c PROPERTIES COMPILE_OPTIONS "-Ofast")
+set_source_files_properties(tx.c PROPERTIES COMPILE_OPTIONS "-Ofast")
 
 # Host Simulation library
 simulator_add_library(${PROJECT_NAME} STATIC ${SOURCES})
