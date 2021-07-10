@@ -125,7 +125,7 @@ typedef struct
 } out_fct_wrap_type;
 
 // internal buffer output
-static inline void _out_buffer(char character, void *buffer, size_t idx, size_t maxlen)
+static inline void __attribute__((always_inline)) _out_buffer(char character, void *buffer, size_t idx, size_t maxlen)
 {
     if (idx < maxlen)
     {
@@ -134,7 +134,7 @@ static inline void _out_buffer(char character, void *buffer, size_t idx, size_t 
 }
 
 // internal null output
-static inline void _out_null(char character, void *buffer, size_t idx, size_t maxlen)
+static inline void __attribute__((always_inline)) _out_null(char character, void *buffer, size_t idx, size_t maxlen)
 {
     (void)character;
     (void)buffer;
@@ -143,7 +143,7 @@ static inline void _out_null(char character, void *buffer, size_t idx, size_t ma
 }
 
 // internal _putchar wrapper
-static inline void _out_char(char character, void *buffer, size_t idx, size_t maxlen)
+static inline void __attribute__((always_inline)) _out_char(char character, void *buffer, size_t idx, size_t maxlen)
 {
     (void)buffer;
     (void)idx;
@@ -168,7 +168,7 @@ static inline void _out_fct(char character, void *buffer, size_t idx, size_t max
 
 // internal secure strlen
 // \return The length of the string (excluding the terminating 0) limited by 'maxsize'
-static inline unsigned int _strnlen_s(const char *str, size_t maxsize)
+static inline unsigned int __attribute__((always_inline)) _strnlen_s(const char *str, size_t maxsize)
 {
     const char *s;
     for (s = str; *s && maxsize--; ++s)
@@ -178,13 +178,13 @@ static inline unsigned int _strnlen_s(const char *str, size_t maxsize)
 
 // internal test if char is a digit (0-9)
 // \return true if char is a digit
-static inline bool _is_digit(char ch)
+static inline bool __attribute__((always_inline)) _is_digit(char ch)
 {
     return (ch >= '0') && (ch <= '9');
 }
 
 // internal ASCII string to unsigned int conversion
-static unsigned int _atoi(const char **str)
+static unsigned int __attribute__((always_inline)) _atoi(const char **str)
 {
     unsigned int i = 0U;
     while (_is_digit(**str))
@@ -195,7 +195,8 @@ static unsigned int _atoi(const char **str)
 }
 
 // output the specified string in reverse, taking care of any zero-padding
-static size_t _out_rev(out_fct_type out, char *buffer, size_t idx, size_t maxlen, const char *buf, size_t len, unsigned int width, unsigned int flags)
+static __attribute__((always_inline)) size_t _out_rev(out_fct_type out, char *buffer, size_t idx, size_t maxlen, const char *buf, size_t len,
+                                                      unsigned int width, unsigned int flags)
 {
     const size_t start_idx = idx;
 
@@ -227,8 +228,8 @@ static size_t _out_rev(out_fct_type out, char *buffer, size_t idx, size_t maxlen
 }
 
 // internal itoa format
-static size_t _ntoa_format(out_fct_type out, char *buffer, size_t idx, size_t maxlen, char *buf, size_t len, bool negative, unsigned int base,
-                           unsigned int prec, unsigned int width, unsigned int flags)
+static __attribute__((always_inline)) size_t _ntoa_format(out_fct_type out, char *buffer, size_t idx, size_t maxlen, char *buf, size_t len, bool negative,
+                                                          unsigned int base, unsigned int prec, unsigned int width, unsigned int flags)
 {
     // pad leading zeros
     if (!(flags & FLAGS_LEFT))
@@ -296,8 +297,8 @@ static size_t _ntoa_format(out_fct_type out, char *buffer, size_t idx, size_t ma
 }
 
 // internal itoa for 'long' type
-static size_t _ntoa_long(out_fct_type out, char *buffer, size_t idx, size_t maxlen, unsigned long value, bool negative, unsigned long base, unsigned int prec,
-                         unsigned int width, unsigned int flags)
+static size_t __attribute__((noinline)) _ntoa_long(out_fct_type out, char *buffer, size_t idx, size_t maxlen, unsigned long value, bool negative,
+                                                   unsigned long base, unsigned int prec, unsigned int width, unsigned int flags)
 {
     char buf[PRINTF_NTOA_BUFFER_SIZE];
     size_t len = 0U;
@@ -638,7 +639,7 @@ static size_t _etoa(out_fct_type out, char *buffer, size_t idx, size_t maxlen, d
 #endif // PRINTF_SUPPORT_FLOAT
 
 // internal vsnprintf
-static int _vsnprintf(out_fct_type out, char *buffer, const size_t maxlen, const char *format, va_list va)
+static int __attribute__((always_inline)) _vsnprintf(out_fct_type out, char *buffer, const size_t maxlen, const char *format, va_list va)
 {
     unsigned int flags, width, precision, n;
     size_t idx = 0U;
