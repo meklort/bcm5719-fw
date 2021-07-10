@@ -119,6 +119,7 @@ int main(int argc, char const *argv[])
             uint32_t byte_index = cached_pointer % 4;
             char character = (uint8_t)(SHM.RcpuPrintfBuffer[word_pointer].r32 >> (byte_index * 8));
             putchar(character);
+            fflush(stdout);
 
             SHM.RcpuHostReadPointer.r32 = ++cached_pointer;
         }
