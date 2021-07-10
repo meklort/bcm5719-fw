@@ -137,8 +137,9 @@ SET(SOURCES
     FreeRTOS-Kernel/include/stream_buffer.h
     FreeRTOS-Kernel/include/task.h
     FreeRTOS-Kernel/include/timers.h
-    FreeRTOS-Kernel/portable/GCC/ARM_CM0/port.c
-    FreeRTOS-Kernel/portable/GCC/ARM_CM0/portmacro.h
+
+    port.c
+    include/portmacro.h
     string.c
     FreeRTOS-Kernel/portable/MemMang/heap_5.c
 # ..\Common\include/blocktim.h
@@ -158,7 +159,6 @@ target_link_libraries(${PROJECT_NAME}-arm PRIVATE )
 target_include_directories(${PROJECT_NAME}-arm PUBLIC ../../include)
 target_include_directories(${PROJECT_NAME}-arm PUBLIC include)
 target_include_directories(${PROJECT_NAME}-arm PUBLIC FreeRTOS-Kernel/include)
-target_include_directories(${PROJECT_NAME}-arm PUBLIC FreeRTOS-Kernel/portable/GCC/ARM_CM0)
 
 target_include_directories(${PROJECT_NAME}-arm PRIVATE port)
 
