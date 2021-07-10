@@ -40,6 +40,10 @@
 #include "semphr.h"
 #include "task.h"
 
+#ifndef CXX_SIMULATOR
+#include <ape_console.h>
+#include <printf.h>
+#endif
 /** Set this to 1 if you want the stack size passed to sys_thread_new() to be
  * interpreted as number of stack words (FreeRTOS-like).
  * Default is that they are interpreted as byte count (lwIP-like).
@@ -260,6 +264,9 @@ sys_sem_new(sys_sem_t *sem, u8_t initial_count)
 
   if(initial_count == 1) {
     BaseType_t ret = xSemaphoreGive(sem->sem);
+#ifdef LWIP_NOASSERT
+    (void)ret;
+#endif
     LWIP_ASSERT("sys_sem_new: initial give failed", ret == pdTRUE);
   }
   return ERR_OK;
@@ -320,7 +327,10 @@ err_t
 sys_mbox_new(sys_mbox_t *mbox, int size)
 {
   LWIP_ASSERT("mbox != NULL", mbox != NULL);
-  LWIP_ASSERT("size > 0", size > 0);
+  LWIP_ASSERT("size >= 0", size >= 0);
+  if (size == 0) {
+    size = 128;
+  }
 
   mbox->mbx = xQueueCreate((UBaseType_t)size, sizeof(void *));
   if(mbox->mbx == NULL) {
@@ -475,6 +485,7 @@ sys_thread_new(const char *name, lwip_thread_fn thread, void *arg, int stacksize
   /* lwIP's lwip_thread_fn matches FreeRTOS' TaskFunction_t, so we can pass the
      thread function without adaption here. */
   ret = xTaskCreate(thread, name, (configSTACK_DEPTH_TYPE)rtos_stacksize, arg, prio, &rtos_task);
+  printf("New thread %s\n", name);
   LWIP_ASSERT("task creation failed", ret == pdTRUE);
 
   lwip_thread.thread_handle = rtos_task;
