@@ -135,7 +135,9 @@ bool Network_TX_transmitPassthroughPacket(uint32_t length, NetworkPort_t *port);
 // rx_status);
 
 uint32_t Network_RxPatcketLen(NetworkPort_t *port);
-bool Network_RxLePatcket(uint32_t *buffer, uint32_t *length, NetworkPort_t *port);
+bool Network_DropRxPatcket(NetworkPort_t *port);
+bool Network_RxLePatcket(uint32_t *buffer, uint32_t *bytes, NetworkPort_t *port);
+bool Network_RxBePatcket(uint32_t *buffer, uint32_t *bytes, NetworkPort_t *port);
 bool Network_PassthroughRxPatcket(NetworkPort_t *port);
 
 void Network_SetMACAddr(NetworkPort_t *port, uint16_t high, uint32_t low, uint32_t index, bool enabled);

@@ -49,9 +49,17 @@
 #include <Network.h>
 
 #ifdef CXX_SIMULATOR
+#include <bcm5719-endian.h>
 #include <stdio.h>
 #else
 #include <printf.h>
+/* ARM */
+static inline uint32_t be32toh(uint32_t be32)
+{
+    uint32_t he32 = ((be32 & 0xFF000000) >> 24) | ((be32 & 0x00FF0000) >> 8) | ((be32 & 0x0000FF00) << 8) | ((be32 & 0x000000FF) << 24);
+
+    return he32;
+}
 #endif
 
 uint32_t Network_RxPatcketLen(NetworkPort_t *port)
@@ -86,7 +94,7 @@ uint32_t Network_RxPatcketLen(NetworkPort_t *port)
     }
 }
 
-bool Network_RxLePatcket(uint32_t *buffer, uint32_t *bytes, NetworkPort_t *port)
+bool Network_RxBePatcket(uint32_t *buffer, uint32_t *bytes, NetworkPort_t *port)
 {
     RegAPERxbufoffset_t rxbuf;
     rxbuf = *((RegAPERxbufoffset_t *)port->rx_offset);
@@ -97,19 +105,14 @@ bool Network_RxLePatcket(uint32_t *buffer, uint32_t *bytes, NetworkPort_t *port)
         int count = rxbuf.bits.Count;
         // int tailid = rxbuf.bits.Tail;
         int blockid = rxbuf.bits.Head;
-        // printf("Valid packet at offset %x\n", blockid);
+
         uint32_t buffer_pos = 0;
 
         do
         {
-            // printf("Block at %x\n", blockid);
             RegRX_PORTIn_t *block = (RegRX_PORTIn_t *)&port->rx_port->In[RX_PORT_IN_ALL_BLOCK_WORDS * blockid];
-            // printf("Control %x\n", (uint32_t)block[0].r32);
             control.r32 = block[0].r32;
-            // printf(" Payload Len %d\n", control.bits.payload_length);
-            // printf(" Next Block %d\n", control.bits.next_block);
-            // printf(" First %d\n", control.bits.first);
-            // printf(" Not Last %d\n", control.bits.not_last);
+
             int32_t words = DIVIDE_RND_UP(control.bits.payload_length, sizeof(uint32_t));
             rx_bytes += control.bits.payload_length;
             int32_t offset;
@@ -121,21 +124,16 @@ bool Network_RxLePatcket(uint32_t *buffer, uint32_t *bytes, NetworkPort_t *port)
             {
                 offset = RX_PORT_IN_ALL_ADDITIONAL_PAYLOAD_WORD;
             }
-            // printf("Using offset %d\n", offset);
+
             for (int i = 0; i < words; i++)
             {
                 uint32_t data = block[i + offset].r32;
-                buffer[buffer_pos++] = data;
-                // printf(" word %d: 0x%08X\n", i, data);
+                buffer[buffer_pos++] = be32toh(data);
             }
 
             blockid = control.bits.next_block;
             count--;
         } while (count);
-
-        // Transmit to NC
-        // disableNCSIHandling();
-        // enableNCSIHandling();
 
         RegAPERxPoolRetire_t retire;
         retire.r32 = 0;
@@ -150,7 +148,67 @@ bool Network_RxLePatcket(uint32_t *buffer, uint32_t *bytes, NetworkPort_t *port)
 
         *bytes = rx_bytes;
 
-        ++port->shm_channel->NcsiChannelNetworkRx.r32;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+bool Network_RxLePatcket(uint32_t *buffer, uint32_t *bytes, NetworkPort_t *port)
+{
+    RegAPERxbufoffset_t rxbuf;
+    rxbuf = *((RegAPERxbufoffset_t *)port->rx_offset);
+    if ((int)rxbuf.bits.Valid)
+    {
+        uint32_t rx_bytes = 0;
+        network_control_t control;
+        int count = rxbuf.bits.Count;
+        // int tailid = rxbuf.bits.Tail;
+        int blockid = rxbuf.bits.Head;
+
+        uint32_t buffer_pos = 0;
+
+        do
+        {
+            RegRX_PORTIn_t *block = (RegRX_PORTIn_t *)&port->rx_port->In[RX_PORT_IN_ALL_BLOCK_WORDS * blockid];
+            control.r32 = block[0].r32;
+
+            int32_t words = DIVIDE_RND_UP(control.bits.payload_length, sizeof(uint32_t));
+            rx_bytes += control.bits.payload_length;
+            int32_t offset;
+            if (control.bits.first)
+            {
+                offset = RX_PORT_IN_ALL_FIRST_PAYLOAD_WORD;
+            }
+            else
+            {
+                offset = RX_PORT_IN_ALL_ADDITIONAL_PAYLOAD_WORD;
+            }
+
+            for (int i = 0; i < words; i++)
+            {
+                uint32_t data = block[i + offset].r32;
+                buffer[buffer_pos++] = data;
+            }
+
+            blockid = control.bits.next_block;
+            count--;
+        } while (count);
+
+        RegAPERxPoolRetire_t retire;
+        retire.r32 = 0;
+        retire.bits.Head = rxbuf.bits.Head;
+        retire.bits.Tail = rxbuf.bits.Tail;
+        retire.bits.Count = rxbuf.bits.Count;
+        retire.bits.Retire = 1;
+        *((RegAPERxPoolRetire_t *)port->rx_retire) = retire;
+
+        rxbuf.bits.Finished = 1;
+        *((RegAPERxbufoffset_t *)port->rx_offset) = rxbuf;
+
+        *bytes = rx_bytes;
 
         return true;
     }
@@ -159,6 +217,36 @@ bool Network_RxLePatcket(uint32_t *buffer, uint32_t *bytes, NetworkPort_t *port)
         return false;
     }
 }
+
+bool Network_DropRxPatcket(NetworkPort_t *port)
+{
+    RegAPERxbufoffset_t rxbuf;
+    rxbuf = *((RegAPERxbufoffset_t *)port->rx_offset);
+    if ((int)rxbuf.bits.Valid)
+    {
+        port->network_resetting = false;
+
+        int count = rxbuf.bits.Count;
+        int tailid = rxbuf.bits.Tail;
+        int blockid = rxbuf.bits.Head;
+
+        RegAPERxPoolRetire_t retire;
+        retire.r32 = (1 << 24);
+        retire.bits.Count = count;
+
+        // Retire the blocks.
+        retire.bits.Head = blockid;
+        retire.bits.Tail = tailid;
+        *((RegAPERxPoolRetire_t *)port->rx_retire) = retire;
+
+        // Mark the frame as read.
+        rxbuf.bits.Finished = 1;
+        *((RegAPERxbufoffset_t *)port->rx_offset) = rxbuf;
+
+        return true;
+    }
+
+    return false;}
 
 bool Network_PassthroughRxPatcket(NetworkPort_t *port)
 {
