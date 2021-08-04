@@ -108,7 +108,8 @@ to exclude the API function. */
 
 /* Normal assert() semantics without relying on the provision of an assert.h
 header file. */
-#define configASSERT( x ) if( !( x ) ) { taskDISABLE_INTERRUPTS(); for( ;; ) { /* Spin */ } }
+#include <printf.h>
+#define configASSERT( x ) if( !( x ) ) { taskDISABLE_INTERRUPTS(); printf(__FILE__ "ASSERT %d\n", __LINE__); for( ;; ) { /* Spin */ } }
 
 /* Definitions that map the FreeRTOS port interrupt handlers to their CMSIS
 standard names - or at least those used in the unmodified vector table. */
