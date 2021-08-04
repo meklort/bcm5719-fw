@@ -50,6 +50,7 @@ function(ape_firmware PORT)
     SET(TARGET ${PROJECT_NAME}-port${PORT})
     arm_add_executable(${TARGET}
                 main.c
+                localtime.c
                 vectors.c
                 rmu.c
                 include/ape_main.h

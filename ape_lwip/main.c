@@ -43,8 +43,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 // #define EN_HTTPD
-#define EN_IPERF
+// #define EN_IPERF
+#define EN_SNTP
 
+#include <time.h>
 
 #include <APE.h>
 #include <APE_APE.h>
@@ -72,6 +74,7 @@
 #include <lwip/dhcp.h>
 #include <lwip/netifapi.h>
 #include <lwip/snmp.h>
+#include <lwip/apps/sntp.h>
 #ifdef EN_HTTPD
 #include <lwip/apps/httpd.h>
 #endif
@@ -81,7 +84,7 @@
 
 #ifndef CXX_SIMULATOR
 #include <ape_console.h>
-#include <printf.h>
+// #include <printf.h>
 #endif
 
 #define RX_CPU_RESET_TIMEOUT_MS (1000) /* Wait up to 1 second for each RX CPU to start */
@@ -393,6 +396,14 @@ net_init(struct netif *netif)
 }
 void vTaskRxPacket(void *pvParameters);
 
+void sntp_set_system_time_us(uint32_t seconds, uint32_t us)
+{
+    time_t t = seconds;
+    struct tm now;
+    (void)localtime(&t, &now);
+
+    printf("Time: %u:%u\n", now.tm_year, us);
+}
 
 void __attribute__((noreturn)) loaderLoop(void)
 {
@@ -401,7 +412,7 @@ void __attribute__((noreturn)) loaderLoop(void)
     DEVICE.ApeClkPolicy.bits.LAPMAPEClockSwitch = DEVICE_APE_CLK_POLICY_LAPM_APE_CLOCK_SWITCH_25_MHZ;
     DEVICE.ApeClkPolicy.bits.APEClockSpeedOverrideEnable = 1;
 
-    // int loop = 0;
+    int loop = 0;
     // Update SHM.Sig to signal ready.
     initSHM(&SHM);
     initSHM(&SHM1);
@@ -415,7 +426,6 @@ void __attribute__((noreturn)) loaderLoop(void)
         NVIC_INTERRUPT_SET_ENABLE_SETENA_RX_PACKET_EVEN | NVIC_INTERRUPT_SET_ENABLE_SETENA_RX_PACKET_ODD;
 
 
-    // net_init(netif);
     ip4_addr_t my_ip = {0};
     ip4_addr_t my_gw = {0};
     ip4_addr_t my_netmask = {0};
@@ -428,10 +438,19 @@ void __attribute__((noreturn)) loaderLoop(void)
     netif_set_up(pNetif);
     netif_set_default(pNetif);
 
+#ifdef EN_SNTP
+    sntp_setoperatingmode(SNTP_OPMODE_POLL);
+    // sntp_setservername(0, "pool.ntp.org");
+    sntp_servermode_dhcp(true);
+    sntp_init();
+#endif
+
     (void)dhcp_start(pNetif);
 
 #ifdef EN_HTTPD
     httpd_init();
+    // struct altcp_tls_config *conf = NULL;
+    // httpd_inits(conf);
 #endif
 
 #ifdef EN_IPERF
@@ -507,7 +526,7 @@ void __attribute__((noreturn)) loaderLoop(void)
         // handleCommand(&SHM);
         handleCommand(&SHM1);
 #endif
-        // printf("main%d %x %x\n", ++loop, NVIC.InterruptSetEnable.r32, NVIC.InterruptSetPending.r32);
+        printf("main%d %x %x\n", ++loop, NVIC.InterruptSetEnable.r32, NVIC.InterruptSetPending.r32);
         // NVIC.InterruptSetEnable.r32 = NVIC_INTERRUPT_CLEAR_PENDING_CLRPEND_RX_PACKET_ODD | NVIC_INTERRUPT_CLEAR_PENDING_CLRPEND_RX_PACKET_EVEN;
         // taskENABLE_INTERRUPTS();
 
@@ -582,10 +601,19 @@ bool handle_reset(void)
     }
 }
 
+void *memset(void *s, int c, size_t n);
+//lint -e 527
 //lint -esym(714, __start) // Referenced by build tools.
-int gInitData = 3;
+int gInitData = 0;
 void __attribute__((noreturn)) __start()
 {
+    // Zero out bss
+    extern char _ebss[];
+    extern char _fbss[];
+    memset(_fbss, 0, (size_t)(_ebss - _fbss));
+    printf("zero = %p to %p (%d)\n", _fbss, _ebss, (_ebss - _fbss));
+    // for (;;) {}
+    printf("gInitData = %d\n", gInitData);
     SHM.SegSig.r32 = 1;
 
     // Ensure all pending interrupts are cleared.
@@ -614,7 +642,7 @@ void __attribute__((noreturn)) __start()
 
     RMU_init();
 
-    extern char _ebss[];
+    // extern char _ebss[];
     extern char _fstack[];
     // printf("Heap: %p (%u bytes)\n", _ebss, (unsigned int)(_fstack - _ebss) );
     /* Allocate two blocks of RAM for use by the heap.  The first is a block of
@@ -631,7 +659,6 @@ void __attribute__((noreturn)) __start()
     printf("Heap: %x - %x\n", xHeapRegions[0].pucStartAddress, xHeapRegions[0].pucStartAddress + xHeapRegions[0].xSizeInBytes);
     /* Pass the array into vPortDefineHeapRegions(). */
     vPortDefineHeapRegions( xHeapRegions );
-
 
     TaskHandle_t xHandle;
 
@@ -718,7 +745,7 @@ low_level_input(const struct netif *netif)
 #endif
 
     /* We allocate a pbuf chain of pbufs from the pool. */
-    p = pbuf_alloc(PBUF_RAW, len, PBUF_RAM);
+    p = pbuf_alloc(PBUF_RAW, len, PBUF_POOL);
 
     if (p != NULL) {
 
@@ -730,8 +757,8 @@ low_level_input(const struct netif *netif)
         * packet into the pbuf. */
         // struct pbuf *q;
         // int i = 0;
-        // for (q = p; q != NULL; q = q->next) {
-        //     printf("%d: %d %d\n", i, len, q->len);
+        for (q = p; q != NULL; q = q->next) {
+            printf("%d: %d %d\n", i, len, q->len);
         //     i++;
         // //   /* Read enough bytes to fill this pbuf in the chain. The
         // //    * available data in the pbuf is given by the q->len
