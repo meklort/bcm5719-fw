@@ -2,8 +2,8 @@
 <!-- Copyright 2020 Evan Lojewski <github@meklort.com> -->
 <component type="firmware">
     <id>@APP_STREAM_PREFIX@.@TARGET_ID@</id>
-    <name>BCM5719</name>
-    <name_variant_suffix>@TARGET_NAME@</name_variant_suffix>
+    <name>@TARGET_NAME@</name>
+    <name_variant_suffix>BCM5719</name_variant_suffix>
     <summary>Firmware for the @TARGET_NAME@ BCM5719 NIC</summary>
     <branch>oss-firmware</branch>
     <description>
@@ -33,6 +33,7 @@
     </releases>
 
     <categories>
+        <category>X-NetworkInterface</category>
         <category>X-Device</category>
     </categories>
 
