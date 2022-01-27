@@ -51,7 +51,7 @@ IF(NOT GCAB)
     RETURN()
 ENDIF()
 
-SET(APP_STREAM_PREFIX   com.meklort.bcm5719.firmware)
+SET(APP_STREAM_PREFIX   com.raptorcs.bcm5719.firmware)
 
 add_custom_target(fwupd ALL)
 
