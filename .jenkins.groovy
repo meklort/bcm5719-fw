@@ -55,7 +55,7 @@ def notify(status, description)
         targetUrl: BUILD_URL
 }
 
-def build(nodeName, archive = false, archiveCab = false, analyze = true, testArchive = false)
+def do_build(nodeName, archive = false, archiveCab = false, analyze = true, testArchive = false)
 {
     node(nodeName)
     {
@@ -176,10 +176,10 @@ try
 {
     notify('PENDING', 'Build Pending ')
     parallel(
-        "fedora": { build('master', true, true, true, true) },
-        "ubuntu-18.04": { build('ubuntu-18.04', false, false, false, false) },
-        "ubuntu-20.04": { build('ubuntu-20.04', true, false, false, false) },
-        "freebsd-12": { build('freebsd-12', true, false, false, false) },
+        "fedora": { do_build('master', true, true, true, true) },
+        "ubuntu-18.04": { do_build('ubuntu-18.04', false, false, false, false) },
+        "ubuntu-20.04": { do_build('ubuntu-20.04', true, false, false, false) },
+        "freebsd-12": { do_build('freebsd-12', true, false, false, false) },
     )
 }
 catch (e)

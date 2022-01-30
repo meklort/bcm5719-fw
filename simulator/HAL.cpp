@@ -154,11 +154,11 @@ uint32_t read_device_chipid(uint32_t)
 bool is_pci_function(const char *pci_path, int wanted_function)
 {
     // Path: 0001:01:00.0
-    int sys = 0;
-    int bus = 0;
-    int slot = 0;
-    int function = 0;
-    if (4 == sscanf(pci_path, "%x:%x:%x.%d\n", &sys, &bus, &slot, &function))
+    unsigned int sys = 0;
+    unsigned int bus = 0;
+    unsigned int slot = 0;
+    unsigned int function = 0;
+    if (4 == sscanf(pci_path, "%x:%x:%x.%u\n", &sys, &bus, &slot, &function))
     {
         if (wanted_function == function)
         {
