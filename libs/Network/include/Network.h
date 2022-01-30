@@ -134,6 +134,7 @@ bool Network_TX_transmitPassthroughPacket(uint32_t length, NetworkPort_t *port);
 // void Network_TX_transmitPassthroughPacket(RegAPE_PERIBmcToNcRxStatus_t
 // rx_status);
 
+uint32_t Network_RxPatcketLen(NetworkPort_t *port);
 bool Network_RxLePatcket(uint32_t *buffer, uint32_t *length, NetworkPort_t *port);
 bool Network_PassthroughRxPatcket(NetworkPort_t *port);
 

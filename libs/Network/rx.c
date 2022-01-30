@@ -54,6 +54,38 @@
 #include <printf.h>
 #endif
 
+uint32_t Network_RxPatcketLen(NetworkPort_t *port)
+{
+    RegAPERxbufoffset_t rxbuf;
+    rxbuf = *((RegAPERxbufoffset_t *)port->rx_offset);
+    if ((int)rxbuf.bits.Valid)
+    {
+        uint32_t rx_bytes = 0;
+        network_control_t control;
+        int count = rxbuf.bits.Count;
+        int blockid = rxbuf.bits.Head;
+
+        do
+        {
+            RegRX_PORTIn_t *block = (RegRX_PORTIn_t *)&port->rx_port->In[RX_PORT_IN_ALL_BLOCK_WORDS * blockid];
+
+            control.r32 = block[0].r32;
+            rx_bytes += control.bits.payload_length;
+
+            blockid = control.bits.next_block;
+
+            count--;
+        } while (count);
+
+        return rx_bytes;
+    }
+    else
+    {
+        // Invalid packet, no bytes
+        return 0;
+    }
+}
+
 bool Network_RxLePatcket(uint32_t *buffer, uint32_t *bytes, NetworkPort_t *port)
 {
     RegAPERxbufoffset_t rxbuf;
