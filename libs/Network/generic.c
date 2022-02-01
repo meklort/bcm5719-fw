@@ -48,7 +48,7 @@
 void Network_SetMACAddr(NetworkPort_t *port, uint16_t high, uint32_t low, uint32_t index, bool enabled)
 {
     uint32_t match_high = (high << 16u) | (low >> 16u);
-    uint16_t match_low = (low << 16u);
+    uint32_t match_low = (low << 16u);
 
     switch (index)
     {
