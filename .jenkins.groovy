@@ -64,11 +64,11 @@ def do_build(nodeName, archive = false, archiveCab = false, analyze = true, test
         def refspec = '+refs/heads/*:refs/remotes/origin/*'
         try
         {
-            url = GITHUB_REPO_GIT_URL
+            url = GITHUB_BRANCH_URL
         }
         catch (exc)
         {
-            url = 'git://github.com/meklort/bcm5719-fw.git'
+            url = 'https://github.com/meklort/bcm5719-fw.git'
         }
         def hash = ''
         try
@@ -176,7 +176,7 @@ try
 {
     notify('PENDING', 'Build Pending ')
     parallel(
-        "fedora": { do_build('master', true, true, true, true) },
+        "fedora": { do_build('built-in', true, true, true, true) },
         "ubuntu-18.04": { do_build('ubuntu-18.04', false, false, false, false) },
         "ubuntu-20.04": { do_build('ubuntu-20.04', true, false, false, false) },
         "freebsd-12": { do_build('freebsd-12', true, false, false, false) },
