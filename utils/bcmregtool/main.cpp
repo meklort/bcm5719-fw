@@ -463,75 +463,75 @@ int main(int argc, char const *argv[])
         uint8_t phy = MII_getPhy(&DEVICE);
 
         printf("MII Phy:          %d\n", phy);
-        printf("MII PHY ID[high]: 0x%04X\n", MII_readRegister(&DEVICE, phy, (mii_reg_t)REG_MII_PHY_ID_HIGH));
-        printf("MII PHY ID[low]:  0x%04X\n", MII_readRegister(&DEVICE, phy, (mii_reg_t)REG_MII_PHY_ID_LOW));
+        printf("MII PHY ID[high]: 0x%04X\n", MII_readRegister(&DEVICE, phy, REG_MII_PHY_ID_HIGH));
+        printf("MII PHY ID[low]:  0x%04X\n", MII_readRegister(&DEVICE, phy, REG_MII_PHY_ID_LOW));
 
         RegMIIControl_t control;
-        control.r16 = MII_readRegister(&DEVICE, phy, (mii_reg_t)REG_MII_CONTROL);
+        control.r16 = MII_readRegister(&DEVICE, phy, REG_MII_CONTROL);
         control.print();
 
         RegMIIStatus_t status;
-        status.r16 = MII_readRegister(&DEVICE, phy, (mii_reg_t)REG_MII_STATUS);
+        status.r16 = MII_readRegister(&DEVICE, phy, REG_MII_STATUS);
         status.print();
 
         RegMIIAutonegotiationAdvertisement_t auto_adv;
-        auto_adv.r16 = MII_readRegister(&DEVICE, phy, (mii_reg_t)REG_MII_AUTONEGOTIATION_ADVERTISEMENT);
+        auto_adv.r16 = MII_readRegister(&DEVICE, phy, REG_MII_AUTONEGOTIATION_ADVERTISEMENT);
         auto_adv.print();
 
         RegMIIAutonegotiationLinkPartnerAbilityBasePage_t auto_lpabp;
-        auto_lpabp.r16 = MII_readRegister(&DEVICE, phy, (mii_reg_t)REG_MII_AUTONEGOTIATION_LINK_PARTNER_ABILITY_BASE_PAGE);
+        auto_lpabp.r16 = MII_readRegister(&DEVICE, phy, REG_MII_AUTONEGOTIATION_LINK_PARTNER_ABILITY_BASE_PAGE);
         auto_lpabp.print();
 
         RegMIIAutonegotiationExpansion_t auto_exp;
-        auto_exp.r16 = MII_readRegister(&DEVICE, phy, (mii_reg_t)REG_MII_AUTONEGOTIATION_EXPANSION);
+        auto_exp.r16 = MII_readRegister(&DEVICE, phy, REG_MII_AUTONEGOTIATION_EXPANSION);
         auto_exp.print();
 
         RegMII1000baseTControl_t gig_baset;
-        gig_baset.r16 = MII_readRegister(&DEVICE, phy, (mii_reg_t)REG_MII_1000BASE_T_CONTROL);
+        gig_baset.r16 = MII_readRegister(&DEVICE, phy, REG_MII_1000BASE_T_CONTROL);
         gig_baset.print();
 
         RegMII1000baseTStatus_t gig_baset_stat;
-        gig_baset_stat.r16 = MII_readRegister(&DEVICE, phy, (mii_reg_t)REG_MII_1000BASE_T_STATUS);
+        gig_baset_stat.r16 = MII_readRegister(&DEVICE, phy, REG_MII_1000BASE_T_STATUS);
         gig_baset_stat.print();
 
         RegMIIIeeeExtendedStatus_t ieee_ext_status;
-        ieee_ext_status.r16 = MII_readRegister(&DEVICE, phy, (mii_reg_t)REG_MII_IEEE_EXTENDED_STATUS);
+        ieee_ext_status.r16 = MII_readRegister(&DEVICE, phy, REG_MII_IEEE_EXTENDED_STATUS);
         ieee_ext_status.print();
 
         RegMIIPhyExtendedControl_t phy_ext_control;
-        phy_ext_control.r16 = MII_readRegister(&DEVICE, phy, (mii_reg_t)REG_MII_PHY_EXTENDED_CONTROL);
+        phy_ext_control.r16 = MII_readRegister(&DEVICE, phy, REG_MII_PHY_EXTENDED_CONTROL);
         phy_ext_control.print();
 
         RegMIIPhyExtendedStatus_t phy_ext_status;
-        phy_ext_status.r16 = MII_readRegister(&DEVICE, phy, (mii_reg_t)REG_MII_PHY_EXTENDED_STATUS);
+        phy_ext_status.r16 = MII_readRegister(&DEVICE, phy, REG_MII_PHY_EXTENDED_STATUS);
         phy_ext_status.print();
 
         RegMIIReceiveErrorCounter_t rx_err;
-        rx_err.r16 = MII_readRegister(&DEVICE, phy, (mii_reg_t)REG_MII_RECEIVE_ERROR_COUNTER);
+        rx_err.r16 = MII_readRegister(&DEVICE, phy, REG_MII_RECEIVE_ERROR_COUNTER);
         rx_err.print();
 
         RegMIIFalseCarrierSenseCounter_t fcsc;
-        fcsc.r16 = MII_readRegister(&DEVICE, phy, (mii_reg_t)REG_MII_FALSE_CARRIER_SENSE_COUNTER);
+        fcsc.r16 = MII_readRegister(&DEVICE, phy, REG_MII_FALSE_CARRIER_SENSE_COUNTER);
         fcsc.print();
 
         RegMIILocalRemoteReceiverNotOkCounter_t rx_nok;
-        rx_nok.r16 = MII_readRegister(&DEVICE, phy, (mii_reg_t)REG_MII_LOCAL_REMOTE_RECEIVER_NOT_OK_COUNTER);
+        rx_nok.r16 = MII_readRegister(&DEVICE, phy, REG_MII_LOCAL_REMOTE_RECEIVER_NOT_OK_COUNTER);
         rx_nok.print();
 
         RegMIIAuxiliaryControl_t aux_control;
-        aux_control.r16 = MII_readRegister(&DEVICE, phy, (mii_reg_t)REG_MII_AUXILIARY_CONTROL);
+        aux_control.r16 = MII_readRegister(&DEVICE, phy, REG_MII_AUXILIARY_CONTROL);
         aux_control.print();
 
         RegMIIAuxiliaryStatusSummary_t aux_status;
-        aux_status.r16 = MII_readRegister(&DEVICE, phy, (mii_reg_t)REG_MII_AUXILIARY_STATUS_SUMMARY);
+        aux_status.r16 = MII_readRegister(&DEVICE, phy, REG_MII_AUXILIARY_STATUS_SUMMARY);
         aux_status.print();
 
         RegMIIInterruptStatus_t irq_status;
-        irq_status.r16 = MII_readRegister(&DEVICE, phy, (mii_reg_t)REG_MII_INTERRUPT_STATUS);
+        irq_status.r16 = MII_readRegister(&DEVICE, phy, REG_MII_INTERRUPT_STATUS);
         irq_status.print();
 
         RegMIIInterruptMask_t irq_mask;
-        irq_mask.r16 = MII_readRegister(&DEVICE, phy, (mii_reg_t)REG_MII_INTERRUPT_MASK);
+        irq_mask.r16 = MII_readRegister(&DEVICE, phy, REG_MII_INTERRUPT_MASK);
         irq_mask.print();
 
         exit(0);
@@ -787,13 +787,13 @@ int main(int argc, char const *argv[])
 
         uint8_t phy = MII_getPhy(&DEVICE);
         APE_aquireLock();
-        uint16_t status_value = MII_readRegister(&DEVICE, phy, (mii_reg_t)REG_MII_STATUS);
+        uint16_t status_value = MII_readRegister(&DEVICE, phy, REG_MII_STATUS);
         stat.r16 = status_value;
         stat.print();
         if (stat.bits.ExtendedStatusSupported)
         {
             RegMIIIeeeExtendedStatus_t ext_stat;
-            uint16_t ext_status_value = MII_readRegister(&DEVICE, phy, (mii_reg_t)REG_MII_IEEE_EXTENDED_STATUS);
+            uint16_t ext_status_value = MII_readRegister(&DEVICE, phy, REG_MII_IEEE_EXTENDED_STATUS);
             ext_stat.r16 = ext_status_value;
             ext_stat.print();
         }

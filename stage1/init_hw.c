@@ -156,12 +156,12 @@ void init_mii(volatile DEVICE_t *device)
     // Set MII_REG_CONTROL to AUTO_NEGOTIATION_ENABLE.
     uint8_t phy = MII_getPhy(device);
     RegMIIControl_t control;
-    int32_t readVal = MII_readRegister(device, phy, (mii_reg_t)REG_MII_CONTROL);
+    int32_t readVal = MII_readRegister(device, phy, REG_MII_CONTROL);
     if (readVal >= 0)
     {
         control.r16 = (uint16_t)readVal;
         control.bits.AutoNegotiationEnable = 1;
-        (void)MII_writeRegister(device, phy, (mii_reg_t)REG_MII_CONTROL, control.r16);
+        (void)MII_writeRegister(device, phy, REG_MII_CONTROL, control.r16);
     }
 }
 #endif
