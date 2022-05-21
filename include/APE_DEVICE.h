@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2021, Evan Lojewski
+/// @copyright Copyright (c) 2022, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -63,7 +63,7 @@ typedef CXXRegister<uint32_t, 0, 32> APE_DEVICE_H_uint32_t;
 #define APE_DEVICE_H_uint16_t_bitfield(__pos__, __width__) CXXRegister<uint16_t, __pos__, __width__>
 #define APE_DEVICE_H_uint32_t_bitfield(__pos__, __width__) CXXRegister<uint32_t, __pos__, __width__>
 #define register_container struct
-#define volatile
+#define APE_DEVICE_H_VOLATILE
 #define BITFIELD_BEGIN(__type__, __name__) struct {
 #define BITFIELD_MEMBER(__type__, __name__, __offset__, __bits__) __type__##_bitfield(__offset__, __bits__) __name__;
 #define BITFIELD_END(__type__, __name__) } __name__;
@@ -73,6 +73,7 @@ typedef uint8_t  APE_DEVICE_H_uint8_t;
 typedef uint16_t APE_DEVICE_H_uint16_t;
 typedef uint32_t APE_DEVICE_H_uint32_t;
 #define register_container union
+#define APE_DEVICE_H_VOLATILE volatile
 #define BITFIELD_BEGIN(__type__, __name__) struct {
 #define BITFIELD_MEMBER(__type__, __name__, __offset__, __bits__) __type__ __name__:__bits__;
 #define BITFIELD_END(__type__, __name__) } __name__;
@@ -81,7 +82,7 @@ typedef uint32_t APE_DEVICE_H_uint32_t;
 #define REG_DEVICE_BASE ((volatile void*)0xa0040000) /* Device Registers, function 0 */
 #define REG_DEVICE_SIZE (sizeof(DEVICE_t))
 
-#define REG_DEVICE_MISCELLANEOUS_HOST_CONTROL ((volatile APE_DEVICE_H_uint32_t*)0xa0040068) /*  */
+#define REG_DEVICE_MISCELLANEOUS_HOST_CONTROL ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0040068) /*  */
 #define     DEVICE_MISCELLANEOUS_HOST_CONTROL_CLEAR_INTERRUPT_SHIFT 0u
 #define     DEVICE_MISCELLANEOUS_HOST_CONTROL_CLEAR_INTERRUPT_MASK  0x1u
 #define GET_DEVICE_MISCELLANEOUS_HOST_CONTROL_CLEAR_INTERRUPT(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -325,7 +326,7 @@ typedef register_container RegDEVICEMiscellaneousHostControl_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEMiscellaneousHostControl_t;
 
-#define REG_DEVICE_PCI_STATE ((volatile APE_DEVICE_H_uint32_t*)0xa0040070) /*  */
+#define REG_DEVICE_PCI_STATE ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0040070) /*  */
 #define     DEVICE_PCI_STATE_PCI_EXPANSION_ROM_DESIRED_SHIFT 5u
 #define     DEVICE_PCI_STATE_PCI_EXPANSION_ROM_DESIRED_MASK  0x20u
 #define GET_DEVICE_PCI_STATE_PCI_EXPANSION_ROM_DESIRED(__reg__)  (((__reg__) & 0x20) >> 5u)
@@ -471,7 +472,7 @@ typedef register_container RegDEVICEPciState_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPciState_t;
 
-#define REG_DEVICE_REGISTER_BASE ((volatile APE_DEVICE_H_uint32_t*)0xa0040078) /* Local controller memory address of a register than can be written or read by writing to the register data register. */
+#define REG_DEVICE_REGISTER_BASE ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0040078) /* Local controller memory address of a register than can be written or read by writing to the register data register. */
 /** @brief Register definition for @ref DEVICE_t.RegisterBase. */
 typedef register_container RegDEVICERegisterBase_t {
     /** @brief 32bit direct register access. */
@@ -496,7 +497,7 @@ typedef register_container RegDEVICERegisterBase_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERegisterBase_t;
 
-#define REG_DEVICE_MEMORY_BASE ((volatile APE_DEVICE_H_uint32_t*)0xa004007c) /* Local controller memory address of the NIC memory region that can be accessed via Memory Window data register. */
+#define REG_DEVICE_MEMORY_BASE ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa004007c) /* Local controller memory address of the NIC memory region that can be accessed via Memory Window data register. */
 /** @brief Register definition for @ref DEVICE_t.MemoryBase. */
 typedef register_container RegDEVICEMemoryBase_t {
     /** @brief 32bit direct register access. */
@@ -521,7 +522,7 @@ typedef register_container RegDEVICEMemoryBase_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEMemoryBase_t;
 
-#define REG_DEVICE_REGISTER_DATA ((volatile APE_DEVICE_H_uint32_t*)0xa0040080) /* Register Data at the location pointed by the Register Base Register. */
+#define REG_DEVICE_REGISTER_DATA ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0040080) /* Register Data at the location pointed by the Register Base Register. */
 /** @brief Register definition for @ref DEVICE_t.RegisterData. */
 typedef register_container RegDEVICERegisterData_t {
     /** @brief 32bit direct register access. */
@@ -546,7 +547,7 @@ typedef register_container RegDEVICERegisterData_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERegisterData_t;
 
-#define REG_DEVICE_UNDI_RECEIVE_RETURN_RING_CONSUMER_INDEX ((volatile APE_DEVICE_H_uint32_t*)0xa0040088) /* UNDI Receive Return Ring Consumer Index Mailbox */
+#define REG_DEVICE_UNDI_RECEIVE_RETURN_RING_CONSUMER_INDEX ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0040088) /* UNDI Receive Return Ring Consumer Index Mailbox */
 /** @brief Register definition for @ref DEVICE_t.UndiReceiveReturnRingConsumerIndex. */
 typedef register_container RegDEVICEUndiReceiveReturnRingConsumerIndex_t {
     /** @brief 32bit direct register access. */
@@ -571,7 +572,7 @@ typedef register_container RegDEVICEUndiReceiveReturnRingConsumerIndex_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEUndiReceiveReturnRingConsumerIndex_t;
 
-#define REG_DEVICE_UNDI_RECEIVE_RETURN_RING_CONSUMER_INDEX_LOW ((volatile APE_DEVICE_H_uint32_t*)0xa004008c) /* UNDI Receive Return Ring Consumer Index Mailbox */
+#define REG_DEVICE_UNDI_RECEIVE_RETURN_RING_CONSUMER_INDEX_LOW ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa004008c) /* UNDI Receive Return Ring Consumer Index Mailbox */
 /** @brief Register definition for @ref DEVICE_t.UndiReceiveReturnRingConsumerIndexLow. */
 typedef register_container RegDEVICEUndiReceiveReturnRingConsumerIndexLow_t {
     /** @brief 32bit direct register access. */
@@ -596,7 +597,7 @@ typedef register_container RegDEVICEUndiReceiveReturnRingConsumerIndexLow_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEUndiReceiveReturnRingConsumerIndexLow_t;
 
-#define REG_DEVICE_LINK_STATUS_CONTROL ((volatile APE_DEVICE_H_uint32_t*)0xa00400bc) /* PCIe standard register. */
+#define REG_DEVICE_LINK_STATUS_CONTROL ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa00400bc) /* PCIe standard register. */
 #define     DEVICE_LINK_STATUS_CONTROL_NEGOTIATED_LINK_SPEED_SHIFT 16u
 #define     DEVICE_LINK_STATUS_CONTROL_NEGOTIATED_LINK_SPEED_MASK  0xf0000u
 #define GET_DEVICE_LINK_STATUS_CONTROL_NEGOTIATED_LINK_SPEED(__reg__)  (((__reg__) & 0xf0000) >> 16u)
@@ -664,7 +665,7 @@ typedef register_container RegDEVICELinkStatusControl_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICELinkStatusControl_t;
 
-#define REG_DEVICE_APE_MEMORY_BASE ((volatile APE_DEVICE_H_uint32_t*)0xa00400f8) /* APE Memory address to read/write using the APE Memory Data register.. */
+#define REG_DEVICE_APE_MEMORY_BASE ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa00400f8) /* APE Memory address to read/write using the APE Memory Data register.. */
 /** @brief Register definition for @ref DEVICE_t.ApeMemoryBase. */
 typedef register_container RegDEVICEApeMemoryBase_t {
     /** @brief 32bit direct register access. */
@@ -689,7 +690,7 @@ typedef register_container RegDEVICEApeMemoryBase_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEApeMemoryBase_t;
 
-#define REG_DEVICE_APE_MEMORY_DATA ((volatile APE_DEVICE_H_uint32_t*)0xa00400fc) /* APE Memory value at the location pointed by the Memory Base Register. */
+#define REG_DEVICE_APE_MEMORY_DATA ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa00400fc) /* APE Memory value at the location pointed by the Memory Base Register. */
 /** @brief Register definition for @ref DEVICE_t.ApeMemoryData. */
 typedef register_container RegDEVICEApeMemoryData_t {
     /** @brief 32bit direct register access. */
@@ -714,7 +715,7 @@ typedef register_container RegDEVICEApeMemoryData_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEApeMemoryData_t;
 
-#define REG_DEVICE_160 ((volatile APE_DEVICE_H_uint32_t*)0xa0040160) /* Unknown register. */
+#define REG_DEVICE_160 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0040160) /* Unknown register. */
 /** @brief Register definition for @ref DEVICE_t.160. */
 typedef register_container RegDEVICE160_t {
     /** @brief 32bit direct register access. */
@@ -739,7 +740,7 @@ typedef register_container RegDEVICE160_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICE160_t;
 
-#define REG_DEVICE_EMAC_MODE ((volatile APE_DEVICE_H_uint32_t*)0xa0040400) /*  */
+#define REG_DEVICE_EMAC_MODE ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0040400) /*  */
 #define     DEVICE_EMAC_MODE_GLOBAL_RESET_SHIFT 0u
 #define     DEVICE_EMAC_MODE_GLOBAL_RESET_MASK  0x1u
 #define GET_DEVICE_EMAC_MODE_GLOBAL_RESET(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -1049,7 +1050,7 @@ typedef register_container RegDEVICEEmacMode_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEEmacMode_t;
 
-#define REG_DEVICE_EMAC_STATUS ((volatile APE_DEVICE_H_uint32_t*)0xa0040404) /*  */
+#define REG_DEVICE_EMAC_STATUS ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0040404) /*  */
 #define     DEVICE_EMAC_STATUS_PCS_SYNCED_SHIFT 0u
 #define     DEVICE_EMAC_STATUS_PCS_SYNCED_MASK  0x1u
 #define GET_DEVICE_EMAC_STATUS_PCS_SYNCED(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -1229,7 +1230,7 @@ typedef register_container RegDEVICEEmacStatus_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEEmacStatus_t;
 
-#define REG_DEVICE_EMAC_EVENT ((volatile APE_DEVICE_H_uint32_t*)0xa0040408) /*  */
+#define REG_DEVICE_EMAC_EVENT ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0040408) /*  */
 #define     DEVICE_EMAC_EVENT_PORT_DETECT_ERROR_SHIFT 10u
 #define     DEVICE_EMAC_EVENT_PORT_DETECT_ERROR_MASK  0x400u
 #define GET_DEVICE_EMAC_EVENT_PORT_DETECT_ERROR(__reg__)  (((__reg__) & 0x400) >> 10u)
@@ -1359,7 +1360,7 @@ typedef register_container RegDEVICEEmacEvent_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEEmacEvent_t;
 
-#define REG_DEVICE_LED_CONTROL ((volatile APE_DEVICE_H_uint32_t*)0xa004040c) /*  */
+#define REG_DEVICE_LED_CONTROL ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa004040c) /*  */
 #define     DEVICE_LED_CONTROL_OVERRIDE_LINK_SHIFT 0u
 #define     DEVICE_LED_CONTROL_OVERRIDE_LINK_MASK  0x1u
 #define GET_DEVICE_LED_CONTROL_OVERRIDE_LINK(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -1567,7 +1568,7 @@ typedef register_container RegDEVICELedControl_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICELedControl_t;
 
-#define REG_DEVICE_EMAC_MAC_ADDRESSES_0_HIGH ((volatile APE_DEVICE_H_uint32_t*)0xa0040410) /* Upper 2-bytes of this node's MAC address. */
+#define REG_DEVICE_EMAC_MAC_ADDRESSES_0_HIGH ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0040410) /* Upper 2-bytes of this node's MAC address. */
 /** @brief Register definition for @ref DEVICE_t.EmacMacAddresses0High. */
 typedef register_container RegDEVICEEmacMacAddresses0High_t {
     /** @brief 32bit direct register access. */
@@ -1592,7 +1593,7 @@ typedef register_container RegDEVICEEmacMacAddresses0High_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEEmacMacAddresses0High_t;
 
-#define REG_DEVICE_EMAC_MAC_ADDRESSES_0_LOW ((volatile APE_DEVICE_H_uint32_t*)0xa0040414) /* Lower 4-byte of this node's MAC address. */
+#define REG_DEVICE_EMAC_MAC_ADDRESSES_0_LOW ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0040414) /* Lower 4-byte of this node's MAC address. */
 /** @brief Register definition for @ref DEVICE_t.EmacMacAddresses0Low. */
 typedef register_container RegDEVICEEmacMacAddresses0Low_t {
     /** @brief 32bit direct register access. */
@@ -1617,7 +1618,7 @@ typedef register_container RegDEVICEEmacMacAddresses0Low_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEEmacMacAddresses0Low_t;
 
-#define REG_DEVICE_EMAC_MAC_ADDRESSES_1_HIGH ((volatile APE_DEVICE_H_uint32_t*)0xa0040418) /* Upper 2-bytes of this node's MAC address. */
+#define REG_DEVICE_EMAC_MAC_ADDRESSES_1_HIGH ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0040418) /* Upper 2-bytes of this node's MAC address. */
 /** @brief Register definition for @ref DEVICE_t.EmacMacAddresses1High. */
 typedef register_container RegDEVICEEmacMacAddresses1High_t {
     /** @brief 32bit direct register access. */
@@ -1642,7 +1643,7 @@ typedef register_container RegDEVICEEmacMacAddresses1High_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEEmacMacAddresses1High_t;
 
-#define REG_DEVICE_EMAC_MAC_ADDRESSES_1_LOW ((volatile APE_DEVICE_H_uint32_t*)0xa004041c) /* Lower 4-byte of this node's MAC address. */
+#define REG_DEVICE_EMAC_MAC_ADDRESSES_1_LOW ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa004041c) /* Lower 4-byte of this node's MAC address. */
 /** @brief Register definition for @ref DEVICE_t.EmacMacAddresses1Low. */
 typedef register_container RegDEVICEEmacMacAddresses1Low_t {
     /** @brief 32bit direct register access. */
@@ -1667,7 +1668,7 @@ typedef register_container RegDEVICEEmacMacAddresses1Low_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEEmacMacAddresses1Low_t;
 
-#define REG_DEVICE_EMAC_MAC_ADDRESSES_2_HIGH ((volatile APE_DEVICE_H_uint32_t*)0xa0040420) /* Upper 2-bytes of this node's MAC address. */
+#define REG_DEVICE_EMAC_MAC_ADDRESSES_2_HIGH ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0040420) /* Upper 2-bytes of this node's MAC address. */
 /** @brief Register definition for @ref DEVICE_t.EmacMacAddresses2High. */
 typedef register_container RegDEVICEEmacMacAddresses2High_t {
     /** @brief 32bit direct register access. */
@@ -1692,7 +1693,7 @@ typedef register_container RegDEVICEEmacMacAddresses2High_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEEmacMacAddresses2High_t;
 
-#define REG_DEVICE_EMAC_MAC_ADDRESSES_2_LOW ((volatile APE_DEVICE_H_uint32_t*)0xa0040424) /* Lower 4-byte of this node's MAC address. */
+#define REG_DEVICE_EMAC_MAC_ADDRESSES_2_LOW ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0040424) /* Lower 4-byte of this node's MAC address. */
 /** @brief Register definition for @ref DEVICE_t.EmacMacAddresses2Low. */
 typedef register_container RegDEVICEEmacMacAddresses2Low_t {
     /** @brief 32bit direct register access. */
@@ -1717,7 +1718,7 @@ typedef register_container RegDEVICEEmacMacAddresses2Low_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEEmacMacAddresses2Low_t;
 
-#define REG_DEVICE_EMAC_MAC_ADDRESSES_3_HIGH ((volatile APE_DEVICE_H_uint32_t*)0xa0040428) /* Upper 2-bytes of this node's MAC address. */
+#define REG_DEVICE_EMAC_MAC_ADDRESSES_3_HIGH ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0040428) /* Upper 2-bytes of this node's MAC address. */
 /** @brief Register definition for @ref DEVICE_t.EmacMacAddresses3High. */
 typedef register_container RegDEVICEEmacMacAddresses3High_t {
     /** @brief 32bit direct register access. */
@@ -1742,7 +1743,7 @@ typedef register_container RegDEVICEEmacMacAddresses3High_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEEmacMacAddresses3High_t;
 
-#define REG_DEVICE_EMAC_MAC_ADDRESSES_3_LOW ((volatile APE_DEVICE_H_uint32_t*)0xa004042c) /* Lower 4-byte of this node's MAC address. */
+#define REG_DEVICE_EMAC_MAC_ADDRESSES_3_LOW ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa004042c) /* Lower 4-byte of this node's MAC address. */
 /** @brief Register definition for @ref DEVICE_t.EmacMacAddresses3Low. */
 typedef register_container RegDEVICEEmacMacAddresses3Low_t {
     /** @brief 32bit direct register access. */
@@ -1767,7 +1768,7 @@ typedef register_container RegDEVICEEmacMacAddresses3Low_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEEmacMacAddresses3Low_t;
 
-#define REG_DEVICE_WOL_PATTERN_POINTER ((volatile APE_DEVICE_H_uint32_t*)0xa0040430) /* Specifies the offset into the 6KB BD memory for frame comparison. (Bits 3:0 are ignored to align the memory address to a natural 128-bit boundary). */
+#define REG_DEVICE_WOL_PATTERN_POINTER ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0040430) /* Specifies the offset into the 6KB BD memory for frame comparison. (Bits 3:0 are ignored to align the memory address to a natural 128-bit boundary). */
 /** @brief Register definition for @ref DEVICE_t.WolPatternPointer. */
 typedef register_container RegDEVICEWolPatternPointer_t {
     /** @brief 32bit direct register access. */
@@ -1792,7 +1793,7 @@ typedef register_container RegDEVICEWolPatternPointer_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEWolPatternPointer_t;
 
-#define REG_DEVICE_WOL_PATTERN_CFG ((volatile APE_DEVICE_H_uint32_t*)0xa0040434) /*  */
+#define REG_DEVICE_WOL_PATTERN_CFG ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0040434) /*  */
 /** @brief Register definition for @ref DEVICE_t.WolPatternCfg. */
 typedef register_container RegDEVICEWolPatternCfg_t {
     /** @brief 32bit direct register access. */
@@ -1817,7 +1818,7 @@ typedef register_container RegDEVICEWolPatternCfg_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEWolPatternCfg_t;
 
-#define REG_DEVICE_438 ((volatile APE_DEVICE_H_uint32_t*)0xa0040438) /* Unknown register. */
+#define REG_DEVICE_438 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0040438) /* Unknown register. */
 /** @brief Register definition for @ref DEVICE_t.438. */
 typedef register_container RegDEVICE438_t {
     /** @brief 32bit direct register access. */
@@ -1842,7 +1843,7 @@ typedef register_container RegDEVICE438_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICE438_t;
 
-#define REG_DEVICE_MTU_SIZE ((volatile APE_DEVICE_H_uint32_t*)0xa004043c) /* 2-byte field which is the largest size frame that will be accepted without being marked as oversize. */
+#define REG_DEVICE_MTU_SIZE ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa004043c) /* 2-byte field which is the largest size frame that will be accepted without being marked as oversize. */
 #define     DEVICE_MTU_SIZE_MTU_SHIFT 0u
 #define     DEVICE_MTU_SIZE_MTU_MASK  0xffffu
 #define GET_DEVICE_MTU_SIZE_MTU(__reg__)  (((__reg__) & 0xffff) >> 0u)
@@ -1890,7 +1891,7 @@ typedef register_container RegDEVICEMtuSize_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEMtuSize_t;
 
-#define REG_DEVICE_MII_COMMUNICATION ((volatile APE_DEVICE_H_uint32_t*)0xa004044c) /*  */
+#define REG_DEVICE_MII_COMMUNICATION ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa004044c) /*  */
 #define     DEVICE_MII_COMMUNICATION_TRANSACTION_DATA_SHIFT 0u
 #define     DEVICE_MII_COMMUNICATION_TRANSACTION_DATA_MASK  0xffffu
 #define GET_DEVICE_MII_COMMUNICATION_TRANSACTION_DATA(__reg__)  (((__reg__) & 0xffff) >> 0u)
@@ -2012,7 +2013,7 @@ typedef register_container RegDEVICEMiiCommunication_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEMiiCommunication_t;
 
-#define REG_DEVICE_MII_MODE ((volatile APE_DEVICE_H_uint32_t*)0xa0040454) /*  */
+#define REG_DEVICE_MII_MODE ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0040454) /*  */
 #define     DEVICE_MII_MODE_PHY_ADDRESS_SHIFT 5u
 #define     DEVICE_MII_MODE_PHY_ADDRESS_MASK  0x3e0u
 #define GET_DEVICE_MII_MODE_PHY_ADDRESS(__reg__)  (((__reg__) & 0x3e0) >> 5u)
@@ -2088,7 +2089,7 @@ typedef register_container RegDEVICEMiiMode_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEMiiMode_t;
 
-#define REG_DEVICE_TRANSMIT_MAC_MODE ((volatile APE_DEVICE_H_uint32_t*)0xa004045c) /*  */
+#define REG_DEVICE_TRANSMIT_MAC_MODE ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa004045c) /*  */
 #define     DEVICE_TRANSMIT_MAC_MODE_RESET_SHIFT 0u
 #define     DEVICE_TRANSMIT_MAC_MODE_RESET_MASK  0x1u
 #define GET_DEVICE_TRANSMIT_MAC_MODE_RESET(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -2220,7 +2221,7 @@ typedef register_container RegDEVICETransmitMacMode_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICETransmitMacMode_t;
 
-#define REG_DEVICE_TRANSMIT_MAC_STATUS ((volatile APE_DEVICE_H_uint32_t*)0xa0040460) /*  */
+#define REG_DEVICE_TRANSMIT_MAC_STATUS ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0040460) /*  */
 #define     DEVICE_TRANSMIT_MAC_STATUS_XOFFED_SHIFT 0u
 #define     DEVICE_TRANSMIT_MAC_STATUS_XOFFED_MASK  0x1u
 #define GET_DEVICE_TRANSMIT_MAC_STATUS_XOFFED(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -2318,7 +2319,7 @@ typedef register_container RegDEVICETransmitMacStatus_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICETransmitMacStatus_t;
 
-#define REG_DEVICE_TRANSMIT_MAC_LENGTHS ((volatile APE_DEVICE_H_uint32_t*)0xa0040464) /*  */
+#define REG_DEVICE_TRANSMIT_MAC_LENGTHS ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0040464) /*  */
 #define     DEVICE_TRANSMIT_MAC_LENGTHS_SLOT_TIME_LENGTH_SHIFT 0u
 #define     DEVICE_TRANSMIT_MAC_LENGTHS_SLOT_TIME_LENGTH_MASK  0xffu
 #define GET_DEVICE_TRANSMIT_MAC_LENGTHS_SLOT_TIME_LENGTH(__reg__)  (((__reg__) & 0xff) >> 0u)
@@ -2406,7 +2407,7 @@ typedef register_container RegDEVICETransmitMacLengths_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICETransmitMacLengths_t;
 
-#define REG_DEVICE_RECEIVE_MAC_MODE ((volatile APE_DEVICE_H_uint32_t*)0xa0040468) /*  */
+#define REG_DEVICE_RECEIVE_MAC_MODE ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0040468) /*  */
 #define     DEVICE_RECEIVE_MAC_MODE_RESET_SHIFT 0u
 #define     DEVICE_RECEIVE_MAC_MODE_RESET_MASK  0x1u
 #define GET_DEVICE_RECEIVE_MAC_MODE_RESET(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -2492,7 +2493,7 @@ typedef register_container RegDEVICEReceiveMacMode_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEReceiveMacMode_t;
 
-#define REG_DEVICE_RECEIVE_MAC_STATUS ((volatile APE_DEVICE_H_uint32_t*)0xa004046c) /*  */
+#define REG_DEVICE_RECEIVE_MAC_STATUS ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa004046c) /*  */
 #define     DEVICE_RECEIVE_MAC_STATUS_REMOTE_TX_XOFFED_SHIFT 0u
 #define     DEVICE_RECEIVE_MAC_STATUS_REMOTE_TX_XOFFED_MASK  0x1u
 #define GET_DEVICE_RECEIVE_MAC_STATUS_REMOTE_TX_XOFFED(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -2560,7 +2561,7 @@ typedef register_container RegDEVICEReceiveMacStatus_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEReceiveMacStatus_t;
 
-#define REG_DEVICE_PERFECT_MATCH1_HIGH ((volatile APE_DEVICE_H_uint32_t*)0xa0040540) /*  */
+#define REG_DEVICE_PERFECT_MATCH1_HIGH ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0040540) /*  */
 #define     DEVICE_PERFECT_MATCH1_HIGH_HIGH_SHIFT 0u
 #define     DEVICE_PERFECT_MATCH1_HIGH_HIGH_MASK  0xffffu
 #define GET_DEVICE_PERFECT_MATCH1_HIGH_HIGH(__reg__)  (((__reg__) & 0xffff) >> 0u)
@@ -2608,7 +2609,7 @@ typedef register_container RegDEVICEPerfectMatch1High_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPerfectMatch1High_t;
 
-#define REG_DEVICE_PERFECT_MATCH1_LOW ((volatile APE_DEVICE_H_uint32_t*)0xa0040544) /*  */
+#define REG_DEVICE_PERFECT_MATCH1_LOW ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0040544) /*  */
 #define     DEVICE_PERFECT_MATCH1_LOW_LOW_SHIFT 0u
 #define     DEVICE_PERFECT_MATCH1_LOW_LOW_MASK  0xffffffffu
 #define GET_DEVICE_PERFECT_MATCH1_LOW_LOW(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
@@ -2652,7 +2653,7 @@ typedef register_container RegDEVICEPerfectMatch1Low_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPerfectMatch1Low_t;
 
-#define REG_DEVICE_PERFECT_MATCH2_HIGH ((volatile APE_DEVICE_H_uint32_t*)0xa0040548) /*  */
+#define REG_DEVICE_PERFECT_MATCH2_HIGH ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0040548) /*  */
 #define     DEVICE_PERFECT_MATCH2_HIGH_HIGH_SHIFT 0u
 #define     DEVICE_PERFECT_MATCH2_HIGH_HIGH_MASK  0xffffu
 #define GET_DEVICE_PERFECT_MATCH2_HIGH_HIGH(__reg__)  (((__reg__) & 0xffff) >> 0u)
@@ -2700,7 +2701,7 @@ typedef register_container RegDEVICEPerfectMatch2High_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPerfectMatch2High_t;
 
-#define REG_DEVICE_PERFECT_MATCH2_LOW ((volatile APE_DEVICE_H_uint32_t*)0xa004054c) /*  */
+#define REG_DEVICE_PERFECT_MATCH2_LOW ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa004054c) /*  */
 #define     DEVICE_PERFECT_MATCH2_LOW_LOW_SHIFT 0u
 #define     DEVICE_PERFECT_MATCH2_LOW_LOW_MASK  0xffffffffu
 #define GET_DEVICE_PERFECT_MATCH2_LOW_LOW(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
@@ -2744,7 +2745,7 @@ typedef register_container RegDEVICEPerfectMatch2Low_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPerfectMatch2Low_t;
 
-#define REG_DEVICE_PERFECT_MATCH3_HIGH ((volatile APE_DEVICE_H_uint32_t*)0xa0040550) /*  */
+#define REG_DEVICE_PERFECT_MATCH3_HIGH ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0040550) /*  */
 #define     DEVICE_PERFECT_MATCH3_HIGH_HIGH_SHIFT 0u
 #define     DEVICE_PERFECT_MATCH3_HIGH_HIGH_MASK  0xffffu
 #define GET_DEVICE_PERFECT_MATCH3_HIGH_HIGH(__reg__)  (((__reg__) & 0xffff) >> 0u)
@@ -2792,7 +2793,7 @@ typedef register_container RegDEVICEPerfectMatch3High_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPerfectMatch3High_t;
 
-#define REG_DEVICE_PERFECT_MATCH3_LOW ((volatile APE_DEVICE_H_uint32_t*)0xa0040554) /*  */
+#define REG_DEVICE_PERFECT_MATCH3_LOW ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0040554) /*  */
 #define     DEVICE_PERFECT_MATCH3_LOW_LOW_SHIFT 0u
 #define     DEVICE_PERFECT_MATCH3_LOW_LOW_MASK  0xffffffffu
 #define GET_DEVICE_PERFECT_MATCH3_LOW_LOW(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
@@ -2836,7 +2837,7 @@ typedef register_container RegDEVICEPerfectMatch3Low_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPerfectMatch3Low_t;
 
-#define REG_DEVICE_PERFECT_MATCH4_HIGH ((volatile APE_DEVICE_H_uint32_t*)0xa0040558) /*  */
+#define REG_DEVICE_PERFECT_MATCH4_HIGH ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0040558) /*  */
 #define     DEVICE_PERFECT_MATCH4_HIGH_HIGH_SHIFT 0u
 #define     DEVICE_PERFECT_MATCH4_HIGH_HIGH_MASK  0xffffu
 #define GET_DEVICE_PERFECT_MATCH4_HIGH_HIGH(__reg__)  (((__reg__) & 0xffff) >> 0u)
@@ -2884,7 +2885,7 @@ typedef register_container RegDEVICEPerfectMatch4High_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPerfectMatch4High_t;
 
-#define REG_DEVICE_PERFECT_MATCH4_LOW ((volatile APE_DEVICE_H_uint32_t*)0xa004055c) /*  */
+#define REG_DEVICE_PERFECT_MATCH4_LOW ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa004055c) /*  */
 #define     DEVICE_PERFECT_MATCH4_LOW_LOW_SHIFT 0u
 #define     DEVICE_PERFECT_MATCH4_LOW_LOW_MASK  0xffffffffu
 #define GET_DEVICE_PERFECT_MATCH4_LOW_LOW(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
@@ -2928,7 +2929,7 @@ typedef register_container RegDEVICEPerfectMatch4Low_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPerfectMatch4Low_t;
 
-#define REG_DEVICE_SGMII_STATUS ((volatile APE_DEVICE_H_uint32_t*)0xa00405b4) /* This register reflects various status of the respective SGMII port when enabled. */
+#define REG_DEVICE_SGMII_STATUS ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa00405b4) /* This register reflects various status of the respective SGMII port when enabled. */
 #define     DEVICE_SGMII_STATUS_AUTONEGOTIATION_COMPLETE_SHIFT 0u
 #define     DEVICE_SGMII_STATUS_AUTONEGOTIATION_COMPLETE_MASK  0x1u
 #define GET_DEVICE_SGMII_STATUS_AUTONEGOTIATION_COMPLETE(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -3092,7 +3093,7 @@ typedef register_container RegDEVICESgmiiStatus_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICESgmiiStatus_t;
 
-#define REG_DEVICE_RECEIVE_LIST_PLACEMENT_MODE ((volatile APE_DEVICE_H_uint32_t*)0xa0042000) /*  */
+#define REG_DEVICE_RECEIVE_LIST_PLACEMENT_MODE ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0042000) /*  */
 #define     DEVICE_RECEIVE_LIST_PLACEMENT_MODE_RESET_SHIFT 0u
 #define     DEVICE_RECEIVE_LIST_PLACEMENT_MODE_RESET_MASK  0x1u
 #define GET_DEVICE_RECEIVE_LIST_PLACEMENT_MODE_RESET(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -3180,7 +3181,7 @@ typedef register_container RegDEVICEReceiveListPlacementMode_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEReceiveListPlacementMode_t;
 
-#define REG_DEVICE_RECEIVE_LIST_PLACEMENT_STATUS ((volatile APE_DEVICE_H_uint32_t*)0xa0042004) /*  */
+#define REG_DEVICE_RECEIVE_LIST_PLACEMENT_STATUS ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0042004) /*  */
 #define     DEVICE_RECEIVE_LIST_PLACEMENT_STATUS_CLASS_ZERO_ATTENTION_SHIFT 2u
 #define     DEVICE_RECEIVE_LIST_PLACEMENT_STATUS_CLASS_ZERO_ATTENTION_MASK  0x4u
 #define GET_DEVICE_RECEIVE_LIST_PLACEMENT_STATUS_CLASS_ZERO_ATTENTION(__reg__)  (((__reg__) & 0x4) >> 2u)
@@ -3252,7 +3253,7 @@ typedef register_container RegDEVICEReceiveListPlacementStatus_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEReceiveListPlacementStatus_t;
 
-#define REG_DEVICE_CPMU_CONTROL ((volatile APE_DEVICE_H_uint32_t*)0xa0043600) /*  */
+#define REG_DEVICE_CPMU_CONTROL ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0043600) /*  */
 #define     DEVICE_CPMU_CONTROL_CPMU_SOFTWARE_RESET_SHIFT 0u
 #define     DEVICE_CPMU_CONTROL_CPMU_SOFTWARE_RESET_MASK  0x1u
 #define GET_DEVICE_CPMU_CONTROL_CPMU_SOFTWARE_RESET(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -3434,7 +3435,7 @@ typedef register_container RegDEVICECpmuControl_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICECpmuControl_t;
 
-#define REG_DEVICE_NO_LINK_POWER_MODE_CLOCK_POLICY ((volatile APE_DEVICE_H_uint32_t*)0xa0043604) /*  */
+#define REG_DEVICE_NO_LINK_POWER_MODE_CLOCK_POLICY ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0043604) /*  */
 #define     DEVICE_NO_LINK_POWER_MODE_CLOCK_POLICY_MAC_CLOCK_SWITCH_SHIFT 16u
 #define     DEVICE_NO_LINK_POWER_MODE_CLOCK_POLICY_MAC_CLOCK_SWITCH_MASK  0x1f0000u
 #define GET_DEVICE_NO_LINK_POWER_MODE_CLOCK_POLICY_MAC_CLOCK_SWITCH(__reg__)  (((__reg__) & 0x1f0000) >> 16u)
@@ -3510,7 +3511,7 @@ typedef register_container RegDEVICENoLinkPowerModeClockPolicy_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICENoLinkPowerModeClockPolicy_t;
 
-#define REG_DEVICE_LINK_AWARE_POWER_MODE_CLOCK_POLICY ((volatile APE_DEVICE_H_uint32_t*)0xa0043610) /*  */
+#define REG_DEVICE_LINK_AWARE_POWER_MODE_CLOCK_POLICY ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0043610) /*  */
 #define     DEVICE_LINK_AWARE_POWER_MODE_CLOCK_POLICY_MAC_CLOCK_SWITCH_SHIFT 16u
 #define     DEVICE_LINK_AWARE_POWER_MODE_CLOCK_POLICY_MAC_CLOCK_SWITCH_MASK  0x1f0000u
 #define GET_DEVICE_LINK_AWARE_POWER_MODE_CLOCK_POLICY_MAC_CLOCK_SWITCH(__reg__)  (((__reg__) & 0x1f0000) >> 16u)
@@ -3586,7 +3587,7 @@ typedef register_container RegDEVICELinkAwarePowerModeClockPolicy_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICELinkAwarePowerModeClockPolicy_t;
 
-#define REG_DEVICE_D0U_CLOCK_POLICY ((volatile APE_DEVICE_H_uint32_t*)0xa0043614) /*  */
+#define REG_DEVICE_D0U_CLOCK_POLICY ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0043614) /*  */
 #define     DEVICE_D0U_CLOCK_POLICY_MAC_CLOCK_SWITCH_SHIFT 16u
 #define     DEVICE_D0U_CLOCK_POLICY_MAC_CLOCK_SWITCH_MASK  0x1f0000u
 #define GET_DEVICE_D0U_CLOCK_POLICY_MAC_CLOCK_SWITCH(__reg__)  (((__reg__) & 0x1f0000) >> 16u)
@@ -3662,7 +3663,7 @@ typedef register_container RegDEVICED0uClockPolicy_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICED0uClockPolicy_t;
 
-#define REG_DEVICE_APE_CLK_POLICY ((volatile APE_DEVICE_H_uint32_t*)0xa004361c) /*  */
+#define REG_DEVICE_APE_CLK_POLICY ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa004361c) /*  */
 #define     DEVICE_APE_CLK_POLICY_LAPM_APE_CLOCK_SWITCH_SHIFT 0u
 #define     DEVICE_APE_CLK_POLICY_LAPM_APE_CLOCK_SWITCH_MASK  0x1fu
 #define GET_DEVICE_APE_CLK_POLICY_LAPM_APE_CLOCK_SWITCH(__reg__)  (((__reg__) & 0x1f) >> 0u)
@@ -3832,7 +3833,7 @@ typedef register_container RegDEVICEApeClkPolicy_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEApeClkPolicy_t;
 
-#define REG_DEVICE_APE_SLEEP_STATE_CLOCK_POLICY ((volatile APE_DEVICE_H_uint32_t*)0xa0043620) /*  */
+#define REG_DEVICE_APE_SLEEP_STATE_CLOCK_POLICY ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0043620) /*  */
 #define     DEVICE_APE_SLEEP_STATE_CLOCK_POLICY_APE_SLEEP_FCLK_SWITCH_SHIFT 0u
 #define     DEVICE_APE_SLEEP_STATE_CLOCK_POLICY_APE_SLEEP_FCLK_SWITCH_MASK  0x1fu
 #define GET_DEVICE_APE_SLEEP_STATE_CLOCK_POLICY_APE_SLEEP_FCLK_SWITCH(__reg__)  (((__reg__) & 0x1f) >> 0u)
@@ -3904,7 +3905,7 @@ typedef register_container RegDEVICEApeSleepStateClockPolicy_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEApeSleepStateClockPolicy_t;
 
-#define REG_DEVICE_CLOCK_SPEED_OVERRIDE_POLICY ((volatile APE_DEVICE_H_uint32_t*)0xa0043624) /*  */
+#define REG_DEVICE_CLOCK_SPEED_OVERRIDE_POLICY ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0043624) /*  */
 #define     DEVICE_CLOCK_SPEED_OVERRIDE_POLICY_MAC_CLOCK_SWITCH_SHIFT 16u
 #define     DEVICE_CLOCK_SPEED_OVERRIDE_POLICY_MAC_CLOCK_SWITCH_MASK  0x1f0000u
 #define GET_DEVICE_CLOCK_SPEED_OVERRIDE_POLICY_MAC_CLOCK_SWITCH(__reg__)  (((__reg__) & 0x1f0000) >> 16u)
@@ -3966,7 +3967,7 @@ typedef register_container RegDEVICEClockSpeedOverridePolicy_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEClockSpeedOverridePolicy_t;
 
-#define REG_DEVICE_STATUS ((volatile APE_DEVICE_H_uint32_t*)0xa004362c) /*  */
+#define REG_DEVICE_STATUS ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa004362c) /*  */
 #define     DEVICE_STATUS_POWER_MANAGEMENT_STATE_MACHINE_STATE_SHIFT 0u
 #define     DEVICE_STATUS_POWER_MANAGEMENT_STATE_MACHINE_STATE_MASK  0xfu
 #define GET_DEVICE_STATUS_POWER_MANAGEMENT_STATE_MACHINE_STATE(__reg__)  (((__reg__) & 0xf) >> 0u)
@@ -4182,7 +4183,7 @@ typedef register_container RegDEVICEStatus_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEStatus_t;
 
-#define REG_DEVICE_CLOCK_STATUS ((volatile APE_DEVICE_H_uint32_t*)0xa0043630) /*  */
+#define REG_DEVICE_CLOCK_STATUS ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0043630) /*  */
 /** @brief Register definition for @ref DEVICE_t.ClockStatus. */
 typedef register_container RegDEVICEClockStatus_t {
     /** @brief 32bit direct register access. */
@@ -4207,7 +4208,7 @@ typedef register_container RegDEVICEClockStatus_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEClockStatus_t;
 
-#define REG_DEVICE_GPHY_CONTROL_STATUS ((volatile APE_DEVICE_H_uint32_t*)0xa0043638) /*  */
+#define REG_DEVICE_GPHY_CONTROL_STATUS ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0043638) /*  */
 #define     DEVICE_GPHY_CONTROL_STATUS_GPHY_IDDQ_SHIFT 0u
 #define     DEVICE_GPHY_CONTROL_STATUS_GPHY_IDDQ_MASK  0x1u
 #define GET_DEVICE_GPHY_CONTROL_STATUS_GPHY_IDDQ(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -4377,7 +4378,7 @@ typedef register_container RegDEVICEGphyControlStatus_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEGphyControlStatus_t;
 
-#define REG_DEVICE_CHIP_ID ((volatile APE_DEVICE_H_uint32_t*)0xa0043658) /*  */
+#define REG_DEVICE_CHIP_ID ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0043658) /*  */
 /** @brief Register definition for @ref DEVICE_t.ChipId. */
 typedef register_container RegDEVICEChipId_t {
     /** @brief 32bit direct register access. */
@@ -4402,7 +4403,7 @@ typedef register_container RegDEVICEChipId_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEChipId_t;
 
-#define REG_DEVICE_MUTEX_REQUEST ((volatile APE_DEVICE_H_uint32_t*)0xa004365c) /* Writing a 1 to any of these bits pends a Mutex lock request on behalf of a software agent. The bit is subsequently latched by hardware and shall read 1 as long as the request is pending. Writing a 0 to a bit shall have no effect. */
+#define REG_DEVICE_MUTEX_REQUEST ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa004365c) /* Writing a 1 to any of these bits pends a Mutex lock request on behalf of a software agent. The bit is subsequently latched by hardware and shall read 1 as long as the request is pending. Writing a 0 to a bit shall have no effect. */
 #define     DEVICE_MUTEX_REQUEST_REQUEST_SHIFT 0u
 #define     DEVICE_MUTEX_REQUEST_REQUEST_MASK  0xffffu
 #define GET_DEVICE_MUTEX_REQUEST_REQUEST(__reg__)  (((__reg__) & 0xffff) >> 0u)
@@ -4450,7 +4451,7 @@ typedef register_container RegDEVICEMutexRequest_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEMutexRequest_t;
 
-#define REG_DEVICE_MUTEX_GRANT ((volatile APE_DEVICE_H_uint32_t*)0xa0043660) /* Reading this field shall return a maximum of one set bit at any time. The set bit shall point to the lock owner. If the Mutex is not locked, then a read shall return a value 0x0000. Writing a 1 to the already set bit shall relinquish the lock and the set bit shall be cleared. Writing a 1 to an unset bit shall cancel the corresponding pending request if there was one, and the pairing bit in the Mutex_Request_Reg shall be cleared. */
+#define REG_DEVICE_MUTEX_GRANT ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0043660) /* Reading this field shall return a maximum of one set bit at any time. The set bit shall point to the lock owner. If the Mutex is not locked, then a read shall return a value 0x0000. Writing a 1 to the already set bit shall relinquish the lock and the set bit shall be cleared. Writing a 1 to an unset bit shall cancel the corresponding pending request if there was one, and the pairing bit in the Mutex_Request_Reg shall be cleared. */
 #define     DEVICE_MUTEX_GRANT_GRANTED_SHIFT 0u
 #define     DEVICE_MUTEX_GRANT_GRANTED_MASK  0xffffu
 #define GET_DEVICE_MUTEX_GRANT_GRANTED(__reg__)  (((__reg__) & 0xffff) >> 0u)
@@ -4498,7 +4499,7 @@ typedef register_container RegDEVICEMutexGrant_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEMutexGrant_t;
 
-#define REG_DEVICE_GPHY_STRAP ((volatile APE_DEVICE_H_uint32_t*)0xa0043664) /*  */
+#define REG_DEVICE_GPHY_STRAP ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0043664) /*  */
 #define     DEVICE_GPHY_STRAP_TXMBUF_ECC_ENABLE_SHIFT 2u
 #define     DEVICE_GPHY_STRAP_TXMBUF_ECC_ENABLE_MASK  0x4u
 #define GET_DEVICE_GPHY_STRAP_TXMBUF_ECC_ENABLE(__reg__)  (((__reg__) & 0x4) >> 2u)
@@ -4584,7 +4585,7 @@ typedef register_container RegDEVICEGphyStrap_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEGphyStrap_t;
 
-#define REG_DEVICE_FLASH_CLOCK_CONTROL_POLICY ((volatile APE_DEVICE_H_uint32_t*)0xa004366c) /*  */
+#define REG_DEVICE_FLASH_CLOCK_CONTROL_POLICY ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa004366c) /*  */
 #define     DEVICE_FLASH_CLOCK_CONTROL_POLICY_OVERRIDE_FLASH_CLOCK_SWITCH_SHIFT 0u
 #define     DEVICE_FLASH_CLOCK_CONTROL_POLICY_OVERRIDE_FLASH_CLOCK_SWITCH_MASK  0x3u
 #define GET_DEVICE_FLASH_CLOCK_CONTROL_POLICY_OVERRIDE_FLASH_CLOCK_SWITCH(__reg__)  (((__reg__) & 0x3) >> 0u)
@@ -4740,7 +4741,7 @@ typedef register_container RegDEVICEFlashClockControlPolicy_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEFlashClockControlPolicy_t;
 
-#define REG_DEVICE_TOP_LEVEL_MISCELLANEOUS_CONTROL_1 ((volatile APE_DEVICE_H_uint32_t*)0xa004367c) /*  */
+#define REG_DEVICE_TOP_LEVEL_MISCELLANEOUS_CONTROL_1 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa004367c) /*  */
 #define     DEVICE_TOP_LEVEL_MISCELLANEOUS_CONTROL_1_NCSI_CLOCK_OUTPUT_DISABLE_SHIFT 4u
 #define     DEVICE_TOP_LEVEL_MISCELLANEOUS_CONTROL_1_NCSI_CLOCK_OUTPUT_DISABLE_MASK  0x10u
 #define GET_DEVICE_TOP_LEVEL_MISCELLANEOUS_CONTROL_1_NCSI_CLOCK_OUTPUT_DISABLE(__reg__)  (((__reg__) & 0x10) >> 4u)
@@ -4802,7 +4803,7 @@ typedef register_container RegDEVICETopLevelMiscellaneousControl1_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICETopLevelMiscellaneousControl1_t;
 
-#define REG_DEVICE_EEE_MODE ((volatile APE_DEVICE_H_uint32_t*)0xa00436b0) /*  */
+#define REG_DEVICE_EEE_MODE ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa00436b0) /*  */
 #define     DEVICE_EEE_MODE_RX_CPU_ALLOW_LPI_SHIFT 0u
 #define     DEVICE_EEE_MODE_RX_CPU_ALLOW_LPI_MASK  0x1u
 #define GET_DEVICE_EEE_MODE_RX_CPU_ALLOW_LPI(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -4970,7 +4971,7 @@ typedef register_container RegDEVICEEeeMode_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEEeeMode_t;
 
-#define REG_DEVICE_EEE_LINK_IDLE_CONTROL ((volatile APE_DEVICE_H_uint32_t*)0xa00436bc) /*  */
+#define REG_DEVICE_EEE_LINK_IDLE_CONTROL ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa00436bc) /*  */
 #define     DEVICE_EEE_LINK_IDLE_CONTROL_DEBUG_UART_IDLE_SHIFT 2u
 #define     DEVICE_EEE_LINK_IDLE_CONTROL_DEBUG_UART_IDLE_MASK  0x4u
 #define GET_DEVICE_EEE_LINK_IDLE_CONTROL_DEBUG_UART_IDLE(__reg__)  (((__reg__) & 0x4) >> 2u)
@@ -5022,7 +5023,7 @@ typedef register_container RegDEVICEEeeLinkIdleControl_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEEeeLinkIdleControl_t;
 
-#define REG_DEVICE_EEE_CONTROL ((volatile APE_DEVICE_H_uint32_t*)0xa00436d0) /*  */
+#define REG_DEVICE_EEE_CONTROL ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa00436d0) /*  */
 #define     DEVICE_EEE_CONTROL_EXIT_TIME_SHIFT 0u
 #define     DEVICE_EEE_CONTROL_EXIT_TIME_MASK  0xffffu
 #define GET_DEVICE_EEE_CONTROL_EXIT_TIME(__reg__)  (((__reg__) & 0xffff) >> 0u)
@@ -5084,7 +5085,7 @@ typedef register_container RegDEVICEEeeControl_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEEeeControl_t;
 
-#define REG_DEVICE_GLOBAL_MUTEX_REQUEST ((volatile APE_DEVICE_H_uint32_t*)0xa00436f0) /*  */
+#define REG_DEVICE_GLOBAL_MUTEX_REQUEST ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa00436f0) /*  */
 #define     DEVICE_GLOBAL_MUTEX_REQUEST_REQUEST_SHIFT 0u
 #define     DEVICE_GLOBAL_MUTEX_REQUEST_REQUEST_MASK  0xffffu
 #define GET_DEVICE_GLOBAL_MUTEX_REQUEST_REQUEST(__reg__)  (((__reg__) & 0xffff) >> 0u)
@@ -5132,7 +5133,7 @@ typedef register_container RegDEVICEGlobalMutexRequest_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEGlobalMutexRequest_t;
 
-#define REG_DEVICE_GLOBAL_MUTEX_GRANT ((volatile APE_DEVICE_H_uint32_t*)0xa00436f4) /*  */
+#define REG_DEVICE_GLOBAL_MUTEX_GRANT ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa00436f4) /*  */
 #define     DEVICE_GLOBAL_MUTEX_GRANT_GRANTED_SHIFT 0u
 #define     DEVICE_GLOBAL_MUTEX_GRANT_GRANTED_MASK  0xffffu
 #define GET_DEVICE_GLOBAL_MUTEX_GRANT_GRANTED(__reg__)  (((__reg__) & 0xffff) >> 0u)
@@ -5180,7 +5181,7 @@ typedef register_container RegDEVICEGlobalMutexGrant_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEGlobalMutexGrant_t;
 
-#define REG_DEVICE_TEMPERATURE_MONITOR_CONTROL ((volatile APE_DEVICE_H_uint32_t*)0xa00436fc) /*  */
+#define REG_DEVICE_TEMPERATURE_MONITOR_CONTROL ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa00436fc) /*  */
 #define     DEVICE_TEMPERATURE_MONITOR_CONTROL_ADC_TEST_ENABLE_SHIFT 0u
 #define     DEVICE_TEMPERATURE_MONITOR_CONTROL_ADC_TEST_ENABLE_MASK  0x1u
 #define GET_DEVICE_TEMPERATURE_MONITOR_CONTROL_ADC_TEST_ENABLE(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -5272,7 +5273,7 @@ typedef register_container RegDEVICETemperatureMonitorControl_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICETemperatureMonitorControl_t;
 
-#define REG_DEVICE_MEMORY_ARBITER_MODE ((volatile APE_DEVICE_H_uint32_t*)0xa0044000) /*  */
+#define REG_DEVICE_MEMORY_ARBITER_MODE ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0044000) /*  */
 #define     DEVICE_MEMORY_ARBITER_MODE_ENABLE_SHIFT 1u
 #define     DEVICE_MEMORY_ARBITER_MODE_ENABLE_MASK  0x2u
 #define GET_DEVICE_MEMORY_ARBITER_MODE_ENABLE(__reg__)  (((__reg__) & 0x2) >> 1u)
@@ -5324,7 +5325,7 @@ typedef register_container RegDEVICEMemoryArbiterMode_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEMemoryArbiterMode_t;
 
-#define REG_DEVICE_BUFFER_MANAGER_MODE ((volatile APE_DEVICE_H_uint32_t*)0xa0044400) /*  */
+#define REG_DEVICE_BUFFER_MANAGER_MODE ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0044400) /*  */
 #define     DEVICE_BUFFER_MANAGER_MODE_ENABLE_SHIFT 1u
 #define     DEVICE_BUFFER_MANAGER_MODE_ENABLE_MASK  0x2u
 #define GET_DEVICE_BUFFER_MANAGER_MODE_ENABLE(__reg__)  (((__reg__) & 0x2) >> 1u)
@@ -5400,7 +5401,7 @@ typedef register_container RegDEVICEBufferManagerMode_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEBufferManagerMode_t;
 
-#define REG_DEVICE_LSO_NONLSO_BD_READ_DMA_CORRUPTION_ENABLE_CONTROL ((volatile APE_DEVICE_H_uint32_t*)0xa0044910) /*  */
+#define REG_DEVICE_LSO_NONLSO_BD_READ_DMA_CORRUPTION_ENABLE_CONTROL ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0044910) /*  */
 #define     DEVICE_LSO_NONLSO_BD_READ_DMA_CORRUPTION_ENABLE_CONTROL_PCI_REQUEST_BURST_LENGTH_FOR_BD_RDMA_ENGINE_SHIFT 16u
 #define     DEVICE_LSO_NONLSO_BD_READ_DMA_CORRUPTION_ENABLE_CONTROL_PCI_REQUEST_BURST_LENGTH_FOR_BD_RDMA_ENGINE_MASK  0x30000u
 #define GET_DEVICE_LSO_NONLSO_BD_READ_DMA_CORRUPTION_ENABLE_CONTROL_PCI_REQUEST_BURST_LENGTH_FOR_BD_RDMA_ENGINE(__reg__)  (((__reg__) & 0x30000) >> 16u)
@@ -5482,7 +5483,7 @@ typedef register_container RegDEVICELsoNonlsoBdReadDmaCorruptionEnableControl_t 
 #endif /* CXX_SIMULATOR */
 } RegDEVICELsoNonlsoBdReadDmaCorruptionEnableControl_t;
 
-#define REG_DEVICE_RX_RISC_MODE ((volatile APE_DEVICE_H_uint32_t*)0xa0045000) /*  */
+#define REG_DEVICE_RX_RISC_MODE ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0045000) /*  */
 #define     DEVICE_RX_RISC_MODE_RESET_SHIFT 0u
 #define     DEVICE_RX_RISC_MODE_RESET_MASK  0x1u
 #define GET_DEVICE_RX_RISC_MODE_RESET(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -5664,7 +5665,7 @@ typedef register_container RegDEVICERxRiscMode_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscMode_t;
 
-#define REG_DEVICE_RX_RISC_STATUS ((volatile APE_DEVICE_H_uint32_t*)0xa0045004) /*  */
+#define REG_DEVICE_RX_RISC_STATUS ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0045004) /*  */
 #define     DEVICE_RX_RISC_STATUS_HARDWARE_BREAKPOINT_SHIFT 0u
 #define     DEVICE_RX_RISC_STATUS_HARDWARE_BREAKPOINT_MASK  0x1u
 #define GET_DEVICE_RX_RISC_STATUS_HARDWARE_BREAKPOINT(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -5856,7 +5857,7 @@ typedef register_container RegDEVICERxRiscStatus_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscStatus_t;
 
-#define REG_DEVICE_RX_RISC_EVENT_MASK ((volatile APE_DEVICE_H_uint32_t*)0xa0045008) /*  */
+#define REG_DEVICE_RX_RISC_EVENT_MASK ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0045008) /*  */
 /** @brief Register definition for @ref DEVICE_t.RxRiscEventMask. */
 typedef register_container RegDEVICERxRiscEventMask_t {
     /** @brief 32bit direct register access. */
@@ -5881,7 +5882,7 @@ typedef register_container RegDEVICERxRiscEventMask_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscEventMask_t;
 
-#define REG_DEVICE_RX_RISC_PROGRAM_COUNTER ((volatile APE_DEVICE_H_uint32_t*)0xa004501c) /* The program counter register can be used to read or write the current Program Counter of the each CPU. Reads can occur at any time, however writes can only be performed when the CPU is halted. Writes will also clear any pending instruction in the decode stage of the pipeline. Bits 31-2 are implemented. 1s written to bits 1-0 are ignored. */
+#define REG_DEVICE_RX_RISC_PROGRAM_COUNTER ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa004501c) /* The program counter register can be used to read or write the current Program Counter of the each CPU. Reads can occur at any time, however writes can only be performed when the CPU is halted. Writes will also clear any pending instruction in the decode stage of the pipeline. Bits 31-2 are implemented. 1s written to bits 1-0 are ignored. */
 /** @brief Register definition for @ref DEVICE_t.RxRiscProgramCounter. */
 typedef register_container RegDEVICERxRiscProgramCounter_t {
     /** @brief 32bit direct register access. */
@@ -5906,7 +5907,7 @@ typedef register_container RegDEVICERxRiscProgramCounter_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscProgramCounter_t;
 
-#define REG_DEVICE_RX_RISC_CURRENT_INSTRUCTION ((volatile APE_DEVICE_H_uint32_t*)0xa0045020) /* This register allows access instruction in the decode sate of the pipeline while the processor is halted. This register is only intended for debugging use. This register may be used to replace a halt instruction with some other instruction after the halt has been executed. */
+#define REG_DEVICE_RX_RISC_CURRENT_INSTRUCTION ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0045020) /* This register allows access instruction in the decode sate of the pipeline while the processor is halted. This register is only intended for debugging use. This register may be used to replace a halt instruction with some other instruction after the halt has been executed. */
 /** @brief Register definition for @ref DEVICE_t.RxRiscCurrentInstruction. */
 typedef register_container RegDEVICERxRiscCurrentInstruction_t {
     /** @brief 32bit direct register access. */
@@ -5931,7 +5932,7 @@ typedef register_container RegDEVICERxRiscCurrentInstruction_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscCurrentInstruction_t;
 
-#define REG_DEVICE_RX_RISC_INTERRUPT_ENABLE ((volatile APE_DEVICE_H_uint32_t*)0xa0045028) /* Any write to this register will enable CPU Interrupts (set bit 7 in mode register). This register is intended to allow a way to return from an interrupt service routine (ISR) using only 2 general purpose registers. MIPS conventions reserve registers 26 and 27 (k0 and k1) for use by an interrupt handler. At the end of an ISR, k0 should be loaded with the return address from the CPU Interrupt Saved PC register. Then k1 should be loaded with the address of the CPU Interrupt Enable register. The last 2 instructions in the ISR should be a jump register (jr) to k0 followed immediately by a store word (sw) to k1. This ensures that we can’t respond to another interrupt until we are safely out of the ISR. Interrupts can also be enabled through the CPU Mode Register. They can be disabled only through the CPU Mode Register. Each time this register is written, bit 7 of the mode register is set. The data value of the write is not used. The read value of this register is always zero. */
+#define REG_DEVICE_RX_RISC_INTERRUPT_ENABLE ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0045028) /* Any write to this register will enable CPU Interrupts (set bit 7 in mode register). This register is intended to allow a way to return from an interrupt service routine (ISR) using only 2 general purpose registers. MIPS conventions reserve registers 26 and 27 (k0 and k1) for use by an interrupt handler. At the end of an ISR, k0 should be loaded with the return address from the CPU Interrupt Saved PC register. Then k1 should be loaded with the address of the CPU Interrupt Enable register. The last 2 instructions in the ISR should be a jump register (jr) to k0 followed immediately by a store word (sw) to k1. This ensures that we can’t respond to another interrupt until we are safely out of the ISR. Interrupts can also be enabled through the CPU Mode Register. They can be disabled only through the CPU Mode Register. Each time this register is written, bit 7 of the mode register is set. The data value of the write is not used. The read value of this register is always zero. */
 /** @brief Register definition for @ref DEVICE_t.RxRiscInterruptEnable. */
 typedef register_container RegDEVICERxRiscInterruptEnable_t {
     /** @brief 32bit direct register access. */
@@ -5956,7 +5957,7 @@ typedef register_container RegDEVICERxRiscInterruptEnable_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscInterruptEnable_t;
 
-#define REG_DEVICE_RX_RISC_INTERRUPT_VECTOR ((volatile APE_DEVICE_H_uint32_t*)0xa004502c) /* This register sets the program counter value that will be loaded when an interrupt is performed due to the interrupt input. */
+#define REG_DEVICE_RX_RISC_INTERRUPT_VECTOR ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa004502c) /* This register sets the program counter value that will be loaded when an interrupt is performed due to the interrupt input. */
 /** @brief Register definition for @ref DEVICE_t.RxRiscInterruptVector. */
 typedef register_container RegDEVICERxRiscInterruptVector_t {
     /** @brief 32bit direct register access. */
@@ -5981,7 +5982,7 @@ typedef register_container RegDEVICERxRiscInterruptVector_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscInterruptVector_t;
 
-#define REG_DEVICE_RX_RISC_HARDWARE_BREAKPOINT ((volatile APE_DEVICE_H_uint32_t*)0xa0045034) /* This register is used to set a hardware breakpoint based on the RISC's program counter (PC). If the PC equals the value in this register, and the hardware breakpoint is enabled, the RISC is halted and the appropriate stopping condition is indicated in the RISC State Register. To enable the hardware breakpoint, simply write the byte address of the instruction to break on and clear the Disable Hardware Breakpoint bit. */
+#define REG_DEVICE_RX_RISC_HARDWARE_BREAKPOINT ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0045034) /* This register is used to set a hardware breakpoint based on the RISC's program counter (PC). If the PC equals the value in this register, and the hardware breakpoint is enabled, the RISC is halted and the appropriate stopping condition is indicated in the RISC State Register. To enable the hardware breakpoint, simply write the byte address of the instruction to break on and clear the Disable Hardware Breakpoint bit. */
 /** @brief Register definition for @ref DEVICE_t.RxRiscHardwareBreakpoint. */
 typedef register_container RegDEVICERxRiscHardwareBreakpoint_t {
     /** @brief 32bit direct register access. */
@@ -6006,7 +6007,7 @@ typedef register_container RegDEVICERxRiscHardwareBreakpoint_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscHardwareBreakpoint_t;
 
-#define REG_DEVICE_RX_RISC_LAST_BRANCH_ADDRESS ((volatile APE_DEVICE_H_uint32_t*)0xa0045048) /* This register indicates that address and branch type of the last branch that was taken. This register is for debug use only. */
+#define REG_DEVICE_RX_RISC_LAST_BRANCH_ADDRESS ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0045048) /* This register indicates that address and branch type of the last branch that was taken. This register is for debug use only. */
 #define     DEVICE_RX_RISC_LAST_BRANCH_ADDRESS_TYPE_SHIFT 1u
 #define     DEVICE_RX_RISC_LAST_BRANCH_ADDRESS_TYPE_MASK  0x2u
 #define GET_DEVICE_RX_RISC_LAST_BRANCH_ADDRESS_TYPE(__reg__)  (((__reg__) & 0x2) >> 1u)
@@ -6070,7 +6071,7 @@ typedef register_container RegDEVICERxRiscLastBranchAddress_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscLastBranchAddress_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_0 ((volatile APE_DEVICE_H_uint32_t*)0xa0045200) /* $zero (R0) */
+#define REG_DEVICE_RX_RISC_REGISTER_0 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0045200) /* $zero (R0) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister0. */
 typedef register_container RegDEVICERxRiscRegister0_t {
     /** @brief 32bit direct register access. */
@@ -6095,7 +6096,7 @@ typedef register_container RegDEVICERxRiscRegister0_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister0_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_1 ((volatile APE_DEVICE_H_uint32_t*)0xa0045204) /* $at (R1) */
+#define REG_DEVICE_RX_RISC_REGISTER_1 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0045204) /* $at (R1) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister1. */
 typedef register_container RegDEVICERxRiscRegister1_t {
     /** @brief 32bit direct register access. */
@@ -6120,7 +6121,7 @@ typedef register_container RegDEVICERxRiscRegister1_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister1_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_2 ((volatile APE_DEVICE_H_uint32_t*)0xa0045208) /* $v0 (R2) */
+#define REG_DEVICE_RX_RISC_REGISTER_2 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0045208) /* $v0 (R2) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister2. */
 typedef register_container RegDEVICERxRiscRegister2_t {
     /** @brief 32bit direct register access. */
@@ -6145,7 +6146,7 @@ typedef register_container RegDEVICERxRiscRegister2_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister2_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_3 ((volatile APE_DEVICE_H_uint32_t*)0xa004520c) /* $v1 (R3) */
+#define REG_DEVICE_RX_RISC_REGISTER_3 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa004520c) /* $v1 (R3) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister3. */
 typedef register_container RegDEVICERxRiscRegister3_t {
     /** @brief 32bit direct register access. */
@@ -6170,7 +6171,7 @@ typedef register_container RegDEVICERxRiscRegister3_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister3_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_4 ((volatile APE_DEVICE_H_uint32_t*)0xa0045210) /* $a0 (R4) */
+#define REG_DEVICE_RX_RISC_REGISTER_4 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0045210) /* $a0 (R4) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister4. */
 typedef register_container RegDEVICERxRiscRegister4_t {
     /** @brief 32bit direct register access. */
@@ -6195,7 +6196,7 @@ typedef register_container RegDEVICERxRiscRegister4_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister4_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_5 ((volatile APE_DEVICE_H_uint32_t*)0xa0045214) /* $a1 (R5) */
+#define REG_DEVICE_RX_RISC_REGISTER_5 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0045214) /* $a1 (R5) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister5. */
 typedef register_container RegDEVICERxRiscRegister5_t {
     /** @brief 32bit direct register access. */
@@ -6220,7 +6221,7 @@ typedef register_container RegDEVICERxRiscRegister5_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister5_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_6 ((volatile APE_DEVICE_H_uint32_t*)0xa0045218) /* $a2 (R6) */
+#define REG_DEVICE_RX_RISC_REGISTER_6 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0045218) /* $a2 (R6) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister6. */
 typedef register_container RegDEVICERxRiscRegister6_t {
     /** @brief 32bit direct register access. */
@@ -6245,7 +6246,7 @@ typedef register_container RegDEVICERxRiscRegister6_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister6_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_7 ((volatile APE_DEVICE_H_uint32_t*)0xa004521c) /* $a3 (R7) */
+#define REG_DEVICE_RX_RISC_REGISTER_7 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa004521c) /* $a3 (R7) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister7. */
 typedef register_container RegDEVICERxRiscRegister7_t {
     /** @brief 32bit direct register access. */
@@ -6270,7 +6271,7 @@ typedef register_container RegDEVICERxRiscRegister7_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister7_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_8 ((volatile APE_DEVICE_H_uint32_t*)0xa0045220) /* $t0 (R8) */
+#define REG_DEVICE_RX_RISC_REGISTER_8 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0045220) /* $t0 (R8) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister8. */
 typedef register_container RegDEVICERxRiscRegister8_t {
     /** @brief 32bit direct register access. */
@@ -6295,7 +6296,7 @@ typedef register_container RegDEVICERxRiscRegister8_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister8_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_9 ((volatile APE_DEVICE_H_uint32_t*)0xa0045224) /* $t1 (R9) */
+#define REG_DEVICE_RX_RISC_REGISTER_9 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0045224) /* $t1 (R9) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister9. */
 typedef register_container RegDEVICERxRiscRegister9_t {
     /** @brief 32bit direct register access. */
@@ -6320,7 +6321,7 @@ typedef register_container RegDEVICERxRiscRegister9_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister9_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_10 ((volatile APE_DEVICE_H_uint32_t*)0xa0045228) /* $t2 (R10) */
+#define REG_DEVICE_RX_RISC_REGISTER_10 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0045228) /* $t2 (R10) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister10. */
 typedef register_container RegDEVICERxRiscRegister10_t {
     /** @brief 32bit direct register access. */
@@ -6345,7 +6346,7 @@ typedef register_container RegDEVICERxRiscRegister10_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister10_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_11 ((volatile APE_DEVICE_H_uint32_t*)0xa004522c) /* $t3 (R11) */
+#define REG_DEVICE_RX_RISC_REGISTER_11 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa004522c) /* $t3 (R11) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister11. */
 typedef register_container RegDEVICERxRiscRegister11_t {
     /** @brief 32bit direct register access. */
@@ -6370,7 +6371,7 @@ typedef register_container RegDEVICERxRiscRegister11_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister11_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_12 ((volatile APE_DEVICE_H_uint32_t*)0xa0045230) /* $t4 (R12) */
+#define REG_DEVICE_RX_RISC_REGISTER_12 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0045230) /* $t4 (R12) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister12. */
 typedef register_container RegDEVICERxRiscRegister12_t {
     /** @brief 32bit direct register access. */
@@ -6395,7 +6396,7 @@ typedef register_container RegDEVICERxRiscRegister12_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister12_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_13 ((volatile APE_DEVICE_H_uint32_t*)0xa0045234) /* $t5 (R13) */
+#define REG_DEVICE_RX_RISC_REGISTER_13 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0045234) /* $t5 (R13) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister13. */
 typedef register_container RegDEVICERxRiscRegister13_t {
     /** @brief 32bit direct register access. */
@@ -6420,7 +6421,7 @@ typedef register_container RegDEVICERxRiscRegister13_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister13_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_14 ((volatile APE_DEVICE_H_uint32_t*)0xa0045238) /* $t6 (R14) */
+#define REG_DEVICE_RX_RISC_REGISTER_14 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0045238) /* $t6 (R14) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister14. */
 typedef register_container RegDEVICERxRiscRegister14_t {
     /** @brief 32bit direct register access. */
@@ -6445,7 +6446,7 @@ typedef register_container RegDEVICERxRiscRegister14_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister14_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_15 ((volatile APE_DEVICE_H_uint32_t*)0xa004523c) /* $t7 (R15) */
+#define REG_DEVICE_RX_RISC_REGISTER_15 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa004523c) /* $t7 (R15) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister15. */
 typedef register_container RegDEVICERxRiscRegister15_t {
     /** @brief 32bit direct register access. */
@@ -6470,7 +6471,7 @@ typedef register_container RegDEVICERxRiscRegister15_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister15_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_16 ((volatile APE_DEVICE_H_uint32_t*)0xa0045240) /* $s0 (R16) */
+#define REG_DEVICE_RX_RISC_REGISTER_16 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0045240) /* $s0 (R16) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister16. */
 typedef register_container RegDEVICERxRiscRegister16_t {
     /** @brief 32bit direct register access. */
@@ -6495,7 +6496,7 @@ typedef register_container RegDEVICERxRiscRegister16_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister16_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_17 ((volatile APE_DEVICE_H_uint32_t*)0xa0045244) /* $s1 (R17) */
+#define REG_DEVICE_RX_RISC_REGISTER_17 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0045244) /* $s1 (R17) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister17. */
 typedef register_container RegDEVICERxRiscRegister17_t {
     /** @brief 32bit direct register access. */
@@ -6520,7 +6521,7 @@ typedef register_container RegDEVICERxRiscRegister17_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister17_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_18 ((volatile APE_DEVICE_H_uint32_t*)0xa0045248) /* $s2 (R18) */
+#define REG_DEVICE_RX_RISC_REGISTER_18 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0045248) /* $s2 (R18) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister18. */
 typedef register_container RegDEVICERxRiscRegister18_t {
     /** @brief 32bit direct register access. */
@@ -6545,7 +6546,7 @@ typedef register_container RegDEVICERxRiscRegister18_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister18_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_19 ((volatile APE_DEVICE_H_uint32_t*)0xa004524c) /* $s3 (R19) */
+#define REG_DEVICE_RX_RISC_REGISTER_19 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa004524c) /* $s3 (R19) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister19. */
 typedef register_container RegDEVICERxRiscRegister19_t {
     /** @brief 32bit direct register access. */
@@ -6570,7 +6571,7 @@ typedef register_container RegDEVICERxRiscRegister19_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister19_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_20 ((volatile APE_DEVICE_H_uint32_t*)0xa0045250) /* $s4 (R20) */
+#define REG_DEVICE_RX_RISC_REGISTER_20 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0045250) /* $s4 (R20) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister20. */
 typedef register_container RegDEVICERxRiscRegister20_t {
     /** @brief 32bit direct register access. */
@@ -6595,7 +6596,7 @@ typedef register_container RegDEVICERxRiscRegister20_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister20_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_21 ((volatile APE_DEVICE_H_uint32_t*)0xa0045254) /* $s5 (R21) */
+#define REG_DEVICE_RX_RISC_REGISTER_21 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0045254) /* $s5 (R21) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister21. */
 typedef register_container RegDEVICERxRiscRegister21_t {
     /** @brief 32bit direct register access. */
@@ -6620,7 +6621,7 @@ typedef register_container RegDEVICERxRiscRegister21_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister21_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_22 ((volatile APE_DEVICE_H_uint32_t*)0xa0045258) /* $s6 (R22) */
+#define REG_DEVICE_RX_RISC_REGISTER_22 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0045258) /* $s6 (R22) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister22. */
 typedef register_container RegDEVICERxRiscRegister22_t {
     /** @brief 32bit direct register access. */
@@ -6645,7 +6646,7 @@ typedef register_container RegDEVICERxRiscRegister22_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister22_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_23 ((volatile APE_DEVICE_H_uint32_t*)0xa004525c) /* $s7 (R23) */
+#define REG_DEVICE_RX_RISC_REGISTER_23 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa004525c) /* $s7 (R23) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister23. */
 typedef register_container RegDEVICERxRiscRegister23_t {
     /** @brief 32bit direct register access. */
@@ -6670,7 +6671,7 @@ typedef register_container RegDEVICERxRiscRegister23_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister23_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_24 ((volatile APE_DEVICE_H_uint32_t*)0xa0045260) /* $t8 (R24) */
+#define REG_DEVICE_RX_RISC_REGISTER_24 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0045260) /* $t8 (R24) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister24. */
 typedef register_container RegDEVICERxRiscRegister24_t {
     /** @brief 32bit direct register access. */
@@ -6695,7 +6696,7 @@ typedef register_container RegDEVICERxRiscRegister24_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister24_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_25 ((volatile APE_DEVICE_H_uint32_t*)0xa0045264) /* $t9 (R25) */
+#define REG_DEVICE_RX_RISC_REGISTER_25 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0045264) /* $t9 (R25) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister25. */
 typedef register_container RegDEVICERxRiscRegister25_t {
     /** @brief 32bit direct register access. */
@@ -6720,7 +6721,7 @@ typedef register_container RegDEVICERxRiscRegister25_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister25_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_26 ((volatile APE_DEVICE_H_uint32_t*)0xa0045268) /* $k0 (R26) */
+#define REG_DEVICE_RX_RISC_REGISTER_26 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0045268) /* $k0 (R26) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister26. */
 typedef register_container RegDEVICERxRiscRegister26_t {
     /** @brief 32bit direct register access. */
@@ -6745,7 +6746,7 @@ typedef register_container RegDEVICERxRiscRegister26_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister26_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_27 ((volatile APE_DEVICE_H_uint32_t*)0xa004526c) /* $k1 (R27) */
+#define REG_DEVICE_RX_RISC_REGISTER_27 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa004526c) /* $k1 (R27) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister27. */
 typedef register_container RegDEVICERxRiscRegister27_t {
     /** @brief 32bit direct register access. */
@@ -6770,7 +6771,7 @@ typedef register_container RegDEVICERxRiscRegister27_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister27_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_28 ((volatile APE_DEVICE_H_uint32_t*)0xa0045270) /* $gp (R28) */
+#define REG_DEVICE_RX_RISC_REGISTER_28 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0045270) /* $gp (R28) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister28. */
 typedef register_container RegDEVICERxRiscRegister28_t {
     /** @brief 32bit direct register access. */
@@ -6795,7 +6796,7 @@ typedef register_container RegDEVICERxRiscRegister28_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister28_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_29 ((volatile APE_DEVICE_H_uint32_t*)0xa0045274) /* $sp (R29) */
+#define REG_DEVICE_RX_RISC_REGISTER_29 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0045274) /* $sp (R29) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister29. */
 typedef register_container RegDEVICERxRiscRegister29_t {
     /** @brief 32bit direct register access. */
@@ -6820,7 +6821,7 @@ typedef register_container RegDEVICERxRiscRegister29_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister29_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_30 ((volatile APE_DEVICE_H_uint32_t*)0xa0045278) /* $fp (R30) */
+#define REG_DEVICE_RX_RISC_REGISTER_30 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0045278) /* $fp (R30) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister30. */
 typedef register_container RegDEVICERxRiscRegister30_t {
     /** @brief 32bit direct register access. */
@@ -6845,7 +6846,7 @@ typedef register_container RegDEVICERxRiscRegister30_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister30_t;
 
-#define REG_DEVICE_RX_RISC_REGISTER_31 ((volatile APE_DEVICE_H_uint32_t*)0xa004527c) /* $ra (R31) */
+#define REG_DEVICE_RX_RISC_REGISTER_31 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa004527c) /* $ra (R31) */
 /** @brief Register definition for @ref DEVICE_t.RxRiscRegister31. */
 typedef register_container RegDEVICERxRiscRegister31_t {
     /** @brief 32bit direct register access. */
@@ -6870,7 +6871,7 @@ typedef register_container RegDEVICERxRiscRegister31_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxRiscRegister31_t;
 
-#define REG_DEVICE_6408 ((volatile APE_DEVICE_H_uint32_t*)0xa0046408) /*  */
+#define REG_DEVICE_6408 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0046408) /*  */
 /** @brief Register definition for @ref DEVICE_t.6408. */
 typedef register_container RegDEVICE6408_t {
     /** @brief 32bit direct register access. */
@@ -6895,7 +6896,7 @@ typedef register_container RegDEVICE6408_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICE6408_t;
 
-#define REG_DEVICE_PCI_POWER_CONSUMPTION_INFO ((volatile APE_DEVICE_H_uint32_t*)0xa0046410) /* This undocumented register is used to set PCIe Power Consumption information as reported in configuration space. It is loaded from NVM configuration data. */
+#define REG_DEVICE_PCI_POWER_CONSUMPTION_INFO ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0046410) /* This undocumented register is used to set PCIe Power Consumption information as reported in configuration space. It is loaded from NVM configuration data. */
 /** @brief Register definition for @ref DEVICE_t.PciPowerConsumptionInfo. */
 typedef register_container RegDEVICEPciPowerConsumptionInfo_t {
     /** @brief 32bit direct register access. */
@@ -6920,7 +6921,7 @@ typedef register_container RegDEVICEPciPowerConsumptionInfo_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPciPowerConsumptionInfo_t;
 
-#define REG_DEVICE_PCI_POWER_DISSIPATED_INFO ((volatile APE_DEVICE_H_uint32_t*)0xa0046414) /* This undocumented register is used to set PCIe Power Dissipated information as reported in configuration space. It is loaded from NVM configuration data. */
+#define REG_DEVICE_PCI_POWER_DISSIPATED_INFO ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0046414) /* This undocumented register is used to set PCIe Power Dissipated information as reported in configuration space. It is loaded from NVM configuration data. */
 /** @brief Register definition for @ref DEVICE_t.PciPowerDissipatedInfo. */
 typedef register_container RegDEVICEPciPowerDissipatedInfo_t {
     /** @brief 32bit direct register access. */
@@ -6945,7 +6946,7 @@ typedef register_container RegDEVICEPciPowerDissipatedInfo_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPciPowerDissipatedInfo_t;
 
-#define REG_DEVICE_PCI_VPD_REQUEST ((volatile APE_DEVICE_H_uint32_t*)0xa004642c) /* This undocumented register appears to be used to implement the PCI VPD capability. It is set to the VPD offset which was requested by the host by writing to the VPD register. */
+#define REG_DEVICE_PCI_VPD_REQUEST ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa004642c) /* This undocumented register appears to be used to implement the PCI VPD capability. It is set to the VPD offset which was requested by the host by writing to the VPD register. */
 #define     DEVICE_PCI_VPD_REQUEST_REQUESTED_VPD_OFFSET_SHIFT 16u
 #define     DEVICE_PCI_VPD_REQUEST_REQUESTED_VPD_OFFSET_MASK  0x7fff0000u
 #define GET_DEVICE_PCI_VPD_REQUEST_REQUESTED_VPD_OFFSET(__reg__)  (((__reg__) & 0x7fff0000) >> 16u)
@@ -6997,7 +6998,7 @@ typedef register_container RegDEVICEPciVpdRequest_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPciVpdRequest_t;
 
-#define REG_DEVICE_PCI_VPD_RESPONSE ((volatile APE_DEVICE_H_uint32_t*)0xa0046430) /* This undocumented register appears to be used to implement the PCI VPD capability. Bootcode writes the 32 bits of data loaded from the word requested by  */
+#define REG_DEVICE_PCI_VPD_RESPONSE ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0046430) /* This undocumented register appears to be used to implement the PCI VPD capability. Bootcode writes the 32 bits of data loaded from the word requested by  */
 /** @brief Register definition for @ref DEVICE_t.PciVpdResponse. */
 typedef register_container RegDEVICEPciVpdResponse_t {
     /** @brief 32bit direct register access. */
@@ -7022,7 +7023,7 @@ typedef register_container RegDEVICEPciVpdResponse_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPciVpdResponse_t;
 
-#define REG_DEVICE_PCI_VENDOR_DEVICE_ID ((volatile APE_DEVICE_H_uint32_t*)0xa0046434) /* This is the undocumented register used to set the PCI Vendor/Device ID, which is configurable from NVM. */
+#define REG_DEVICE_PCI_VENDOR_DEVICE_ID ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0046434) /* This is the undocumented register used to set the PCI Vendor/Device ID, which is configurable from NVM. */
 #define     DEVICE_PCI_VENDOR_DEVICE_ID_DEVICE_ID_SHIFT 0u
 #define     DEVICE_PCI_VENDOR_DEVICE_ID_DEVICE_ID_MASK  0xffffu
 #define GET_DEVICE_PCI_VENDOR_DEVICE_ID_DEVICE_ID(__reg__)  (((__reg__) & 0xffff) >> 0u)
@@ -7076,7 +7077,7 @@ typedef register_container RegDEVICEPciVendorDeviceId_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPciVendorDeviceId_t;
 
-#define REG_DEVICE_PCI_SUBSYSTEM_ID ((volatile APE_DEVICE_H_uint32_t*)0xa0046438) /* This is the undocumented register used to set the PCI Subsystem/Subsystem Vendor ID, which is configurable from NVM. */
+#define REG_DEVICE_PCI_SUBSYSTEM_ID ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0046438) /* This is the undocumented register used to set the PCI Subsystem/Subsystem Vendor ID, which is configurable from NVM. */
 #define     DEVICE_PCI_SUBSYSTEM_ID_SUBSYSTEM_VENDOR_ID_SHIFT 0u
 #define     DEVICE_PCI_SUBSYSTEM_ID_SUBSYSTEM_VENDOR_ID_MASK  0xffffu
 #define GET_DEVICE_PCI_SUBSYSTEM_ID_SUBSYSTEM_VENDOR_ID(__reg__)  (((__reg__) & 0xffff) >> 0u)
@@ -7130,7 +7131,7 @@ typedef register_container RegDEVICEPciSubsystemId_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPciSubsystemId_t;
 
-#define REG_DEVICE_PCI_CLASS_CODE_REVISION ((volatile APE_DEVICE_H_uint32_t*)0xa004643c) /* This undocumented register is suspected to set the class code and device revision in PCI configuration space. Unconfirmed. */
+#define REG_DEVICE_PCI_CLASS_CODE_REVISION ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa004643c) /* This undocumented register is suspected to set the class code and device revision in PCI configuration space. Unconfirmed. */
 /** @brief Register definition for @ref DEVICE_t.PciClassCodeRevision. */
 typedef register_container RegDEVICEPciClassCodeRevision_t {
     /** @brief 32bit direct register access. */
@@ -7155,7 +7156,7 @@ typedef register_container RegDEVICEPciClassCodeRevision_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPciClassCodeRevision_t;
 
-#define REG_DEVICE_64C0 ((volatile APE_DEVICE_H_uint32_t*)0xa00464c0) /*  */
+#define REG_DEVICE_64C0 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa00464c0) /*  */
 /** @brief Register definition for @ref DEVICE_t.64c0. */
 typedef register_container RegDEVICE64c0_t {
     /** @brief 32bit direct register access. */
@@ -7180,7 +7181,7 @@ typedef register_container RegDEVICE64c0_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICE64c0_t;
 
-#define REG_DEVICE_64C4 ((volatile APE_DEVICE_H_uint32_t*)0xa00464c4) /*  */
+#define REG_DEVICE_64C4 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa00464c4) /*  */
 /** @brief Register definition for @ref DEVICE_t.64c4. */
 typedef register_container RegDEVICE64c4_t {
     /** @brief 32bit direct register access. */
@@ -7205,7 +7206,7 @@ typedef register_container RegDEVICE64c4_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICE64c4_t;
 
-#define REG_DEVICE_64C8 ((volatile APE_DEVICE_H_uint32_t*)0xa00464c8) /*  */
+#define REG_DEVICE_64C8 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa00464c8) /*  */
 /** @brief Register definition for @ref DEVICE_t.64c8. */
 typedef register_container RegDEVICE64c8_t {
     /** @brief 32bit direct register access. */
@@ -7230,7 +7231,7 @@ typedef register_container RegDEVICE64c8_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICE64c8_t;
 
-#define REG_DEVICE_64DC ((volatile APE_DEVICE_H_uint32_t*)0xa00464dc) /*  */
+#define REG_DEVICE_64DC ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa00464dc) /*  */
 /** @brief Register definition for @ref DEVICE_t.64dc. */
 typedef register_container RegDEVICE64dc_t {
     /** @brief 32bit direct register access. */
@@ -7255,7 +7256,7 @@ typedef register_container RegDEVICE64dc_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICE64dc_t;
 
-#define REG_DEVICE_PCI_SERIAL_NUMBER_LOW ((volatile APE_DEVICE_H_uint32_t*)0xa0046504) /* This sets the low 32 bits of the 64-bit device serial number, which isexposed as a PCIe capability in configuration space. */
+#define REG_DEVICE_PCI_SERIAL_NUMBER_LOW ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0046504) /* This sets the low 32 bits of the 64-bit device serial number, which isexposed as a PCIe capability in configuration space. */
 /** @brief Register definition for @ref DEVICE_t.PciSerialNumberLow. */
 typedef register_container RegDEVICEPciSerialNumberLow_t {
     /** @brief 32bit direct register access. */
@@ -7280,7 +7281,7 @@ typedef register_container RegDEVICEPciSerialNumberLow_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPciSerialNumberLow_t;
 
-#define REG_DEVICE_PCI_SERIAL_NUMBER_HIGH ((volatile APE_DEVICE_H_uint32_t*)0xa0046508) /* This sets the high 32 bits of the 64-bit device serial number, which isexposed as a PCIe capability in configuration space. */
+#define REG_DEVICE_PCI_SERIAL_NUMBER_HIGH ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0046508) /* This sets the high 32 bits of the 64-bit device serial number, which isexposed as a PCIe capability in configuration space. */
 /** @brief Register definition for @ref DEVICE_t.PciSerialNumberHigh. */
 typedef register_container RegDEVICEPciSerialNumberHigh_t {
     /** @brief 32bit direct register access. */
@@ -7305,7 +7306,7 @@ typedef register_container RegDEVICEPciSerialNumberHigh_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPciSerialNumberHigh_t;
 
-#define REG_DEVICE_PCI_POWER_BUDGET_0 ((volatile APE_DEVICE_H_uint32_t*)0xa0046510) /* Used to report power budget capability data to the host. The values are loaded from NVM, and up to eight values may be specified.  */
+#define REG_DEVICE_PCI_POWER_BUDGET_0 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0046510) /* Used to report power budget capability data to the host. The values are loaded from NVM, and up to eight values may be specified.  */
 #define     DEVICE_PCI_POWER_BUDGET_0_BASE_POWER_SHIFT 0u
 #define     DEVICE_PCI_POWER_BUDGET_0_BASE_POWER_MASK  0xffu
 #define GET_DEVICE_PCI_POWER_BUDGET_0_BASE_POWER(__reg__)  (((__reg__) & 0xff) >> 0u)
@@ -7445,7 +7446,7 @@ typedef register_container RegDEVICEPciPowerBudget0_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPciPowerBudget0_t;
 
-#define REG_DEVICE_PCI_POWER_BUDGET_1 ((volatile APE_DEVICE_H_uint32_t*)0xa0046514) /* See  */
+#define REG_DEVICE_PCI_POWER_BUDGET_1 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0046514) /* See  */
 #define     DEVICE_PCI_POWER_BUDGET_1_BASE_POWER_SHIFT 0u
 #define     DEVICE_PCI_POWER_BUDGET_1_BASE_POWER_MASK  0xffu
 #define GET_DEVICE_PCI_POWER_BUDGET_1_BASE_POWER(__reg__)  (((__reg__) & 0xff) >> 0u)
@@ -7585,7 +7586,7 @@ typedef register_container RegDEVICEPciPowerBudget1_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPciPowerBudget1_t;
 
-#define REG_DEVICE_PCI_POWER_BUDGET_2 ((volatile APE_DEVICE_H_uint32_t*)0xa0046518) /* See  */
+#define REG_DEVICE_PCI_POWER_BUDGET_2 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0046518) /* See  */
 #define     DEVICE_PCI_POWER_BUDGET_2_BASE_POWER_SHIFT 0u
 #define     DEVICE_PCI_POWER_BUDGET_2_BASE_POWER_MASK  0xffu
 #define GET_DEVICE_PCI_POWER_BUDGET_2_BASE_POWER(__reg__)  (((__reg__) & 0xff) >> 0u)
@@ -7725,7 +7726,7 @@ typedef register_container RegDEVICEPciPowerBudget2_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPciPowerBudget2_t;
 
-#define REG_DEVICE_PCI_POWER_BUDGET_3 ((volatile APE_DEVICE_H_uint32_t*)0xa004651c) /* See  */
+#define REG_DEVICE_PCI_POWER_BUDGET_3 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa004651c) /* See  */
 #define     DEVICE_PCI_POWER_BUDGET_3_BASE_POWER_SHIFT 0u
 #define     DEVICE_PCI_POWER_BUDGET_3_BASE_POWER_MASK  0xffu
 #define GET_DEVICE_PCI_POWER_BUDGET_3_BASE_POWER(__reg__)  (((__reg__) & 0xff) >> 0u)
@@ -7865,7 +7866,7 @@ typedef register_container RegDEVICEPciPowerBudget3_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPciPowerBudget3_t;
 
-#define REG_DEVICE_PCI_POWER_BUDGET_4 ((volatile APE_DEVICE_H_uint32_t*)0xa0046520) /* See  */
+#define REG_DEVICE_PCI_POWER_BUDGET_4 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0046520) /* See  */
 #define     DEVICE_PCI_POWER_BUDGET_4_BASE_POWER_SHIFT 0u
 #define     DEVICE_PCI_POWER_BUDGET_4_BASE_POWER_MASK  0xffu
 #define GET_DEVICE_PCI_POWER_BUDGET_4_BASE_POWER(__reg__)  (((__reg__) & 0xff) >> 0u)
@@ -8005,7 +8006,7 @@ typedef register_container RegDEVICEPciPowerBudget4_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPciPowerBudget4_t;
 
-#define REG_DEVICE_PCI_POWER_BUDGET_5 ((volatile APE_DEVICE_H_uint32_t*)0xa0046524) /* See  */
+#define REG_DEVICE_PCI_POWER_BUDGET_5 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0046524) /* See  */
 #define     DEVICE_PCI_POWER_BUDGET_5_BASE_POWER_SHIFT 0u
 #define     DEVICE_PCI_POWER_BUDGET_5_BASE_POWER_MASK  0xffu
 #define GET_DEVICE_PCI_POWER_BUDGET_5_BASE_POWER(__reg__)  (((__reg__) & 0xff) >> 0u)
@@ -8145,7 +8146,7 @@ typedef register_container RegDEVICEPciPowerBudget5_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPciPowerBudget5_t;
 
-#define REG_DEVICE_PCI_POWER_BUDGET_6 ((volatile APE_DEVICE_H_uint32_t*)0xa0046528) /* See  */
+#define REG_DEVICE_PCI_POWER_BUDGET_6 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0046528) /* See  */
 #define     DEVICE_PCI_POWER_BUDGET_6_BASE_POWER_SHIFT 0u
 #define     DEVICE_PCI_POWER_BUDGET_6_BASE_POWER_MASK  0xffu
 #define GET_DEVICE_PCI_POWER_BUDGET_6_BASE_POWER(__reg__)  (((__reg__) & 0xff) >> 0u)
@@ -8285,7 +8286,7 @@ typedef register_container RegDEVICEPciPowerBudget6_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPciPowerBudget6_t;
 
-#define REG_DEVICE_PCI_POWER_BUDGET_7 ((volatile APE_DEVICE_H_uint32_t*)0xa004652c) /* See  */
+#define REG_DEVICE_PCI_POWER_BUDGET_7 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa004652c) /* See  */
 #define     DEVICE_PCI_POWER_BUDGET_7_BASE_POWER_SHIFT 0u
 #define     DEVICE_PCI_POWER_BUDGET_7_BASE_POWER_MASK  0xffu
 #define GET_DEVICE_PCI_POWER_BUDGET_7_BASE_POWER(__reg__)  (((__reg__) & 0xff) >> 0u)
@@ -8425,7 +8426,7 @@ typedef register_container RegDEVICEPciPowerBudget7_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEPciPowerBudget7_t;
 
-#define REG_DEVICE_6530 ((volatile APE_DEVICE_H_uint32_t*)0xa0046530) /*  */
+#define REG_DEVICE_6530 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0046530) /*  */
 /** @brief Register definition for @ref DEVICE_t.6530. */
 typedef register_container RegDEVICE6530_t {
     /** @brief 32bit direct register access. */
@@ -8450,7 +8451,7 @@ typedef register_container RegDEVICE6530_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICE6530_t;
 
-#define REG_DEVICE_6550 ((volatile APE_DEVICE_H_uint32_t*)0xa0046550) /* The LSB in this undocumented and unknown register is set if the device is a LOM (LAN-on-Motherboard) design (i.e., builtin to a system and not an expansion card). */
+#define REG_DEVICE_6550 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0046550) /* The LSB in this undocumented and unknown register is set if the device is a LOM (LAN-on-Motherboard) design (i.e., builtin to a system and not an expansion card). */
 /** @brief Register definition for @ref DEVICE_t.6550. */
 typedef register_container RegDEVICE6550_t {
     /** @brief 32bit direct register access. */
@@ -8475,7 +8476,7 @@ typedef register_container RegDEVICE6550_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICE6550_t;
 
-#define REG_DEVICE_65F4 ((volatile APE_DEVICE_H_uint32_t*)0xa00465f4) /*  */
+#define REG_DEVICE_65F4 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa00465f4) /*  */
 /** @brief Register definition for @ref DEVICE_t.65f4. */
 typedef register_container RegDEVICE65f4_t {
     /** @brief 32bit direct register access. */
@@ -8500,7 +8501,7 @@ typedef register_container RegDEVICE65f4_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICE65f4_t;
 
-#define REG_DEVICE_GRC_MODE_CONTROL ((volatile APE_DEVICE_H_uint32_t*)0xa0046800) /*  */
+#define REG_DEVICE_GRC_MODE_CONTROL ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0046800) /*  */
 #define     DEVICE_GRC_MODE_CONTROL_HOST_STACK_UP_SHIFT 16u
 #define     DEVICE_GRC_MODE_CONTROL_HOST_STACK_UP_MASK  0x10000u
 #define GET_DEVICE_GRC_MODE_CONTROL_HOST_STACK_UP(__reg__)  (((__reg__) & 0x10000) >> 16u)
@@ -8614,7 +8615,7 @@ typedef register_container RegDEVICEGrcModeControl_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEGrcModeControl_t;
 
-#define REG_DEVICE_MISCELLANEOUS_CONFIG ((volatile APE_DEVICE_H_uint32_t*)0xa0046804) /*  */
+#define REG_DEVICE_MISCELLANEOUS_CONFIG ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0046804) /*  */
 #define     DEVICE_MISCELLANEOUS_CONFIG_GRC_RESET_SHIFT 0u
 #define     DEVICE_MISCELLANEOUS_CONFIG_GRC_RESET_MASK  0x1u
 #define GET_DEVICE_MISCELLANEOUS_CONFIG_GRC_RESET(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -8740,7 +8741,7 @@ typedef register_container RegDEVICEMiscellaneousConfig_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEMiscellaneousConfig_t;
 
-#define REG_DEVICE_MISCELLANEOUS_LOCAL_CONTROL ((volatile APE_DEVICE_H_uint32_t*)0xa0046808) /*  */
+#define REG_DEVICE_MISCELLANEOUS_LOCAL_CONTROL ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0046808) /*  */
 #define     DEVICE_MISCELLANEOUS_LOCAL_CONTROL_GPIO_3_INPUT_SHIFT 5u
 #define     DEVICE_MISCELLANEOUS_LOCAL_CONTROL_GPIO_3_INPUT_MASK  0x20u
 #define GET_DEVICE_MISCELLANEOUS_LOCAL_CONTROL_GPIO_3_INPUT(__reg__)  (((__reg__) & 0x20) >> 5u)
@@ -8922,7 +8923,7 @@ typedef register_container RegDEVICEMiscellaneousLocalControl_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEMiscellaneousLocalControl_t;
 
-#define REG_DEVICE_TIMER ((volatile APE_DEVICE_H_uint32_t*)0xa004680c) /* 32-bit free-running counter */
+#define REG_DEVICE_TIMER ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa004680c) /* 32-bit free-running counter */
 /** @brief Register definition for @ref DEVICE_t.Timer. */
 typedef register_container RegDEVICETimer_t {
     /** @brief 32bit direct register access. */
@@ -8947,7 +8948,7 @@ typedef register_container RegDEVICETimer_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICETimer_t;
 
-#define REG_DEVICE_RX_CPU_EVENT ((volatile APE_DEVICE_H_uint32_t*)0xa0046810) /*  */
+#define REG_DEVICE_RX_CPU_EVENT ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0046810) /*  */
 #define     DEVICE_RX_CPU_EVENT_MAC_ATTENTION_SHIFT 25u
 #define     DEVICE_RX_CPU_EVENT_MAC_ATTENTION_MASK  0x2000000u
 #define GET_DEVICE_RX_CPU_EVENT_MAC_ATTENTION(__reg__)  (((__reg__) & 0x2000000) >> 25u)
@@ -9033,7 +9034,7 @@ typedef register_container RegDEVICERxCpuEvent_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxCpuEvent_t;
 
-#define REG_DEVICE_6838 ((volatile APE_DEVICE_H_uint32_t*)0xa0046838) /* Unknown. Used by PXE agent. */
+#define REG_DEVICE_6838 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0046838) /* Unknown. Used by PXE agent. */
 /** @brief Register definition for @ref DEVICE_t.6838. */
 typedef register_container RegDEVICE6838_t {
     /** @brief 32bit direct register access. */
@@ -9058,7 +9059,7 @@ typedef register_container RegDEVICE6838_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICE6838_t;
 
-#define REG_DEVICE_MDI_CONTROL ((volatile APE_DEVICE_H_uint32_t*)0xa0046844) /* The register manual only mentions this in the changelog; it was removed from the manual in a previous revision. :| */
+#define REG_DEVICE_MDI_CONTROL ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0046844) /* The register manual only mentions this in the changelog; it was removed from the manual in a previous revision. :| */
 /** @brief Register definition for @ref DEVICE_t.MdiControl. */
 typedef register_container RegDEVICEMdiControl_t {
     /** @brief 32bit direct register access. */
@@ -9083,7 +9084,7 @@ typedef register_container RegDEVICEMdiControl_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEMdiControl_t;
 
-#define REG_DEVICE_RX_CPU_EVENT_ENABLE ((volatile APE_DEVICE_H_uint32_t*)0xa004684c) /*  */
+#define REG_DEVICE_RX_CPU_EVENT_ENABLE ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa004684c) /*  */
 #define     DEVICE_RX_CPU_EVENT_ENABLE_VPD_ATTENTION_SHIFT 30u
 #define     DEVICE_RX_CPU_EVENT_ENABLE_VPD_ATTENTION_MASK  0x40000000u
 #define GET_DEVICE_RX_CPU_EVENT_ENABLE_VPD_ATTENTION(__reg__)  (((__reg__) & 0x40000000) >> 30u)
@@ -9135,7 +9136,7 @@ typedef register_container RegDEVICERxCpuEventEnable_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICERxCpuEventEnable_t;
 
-#define REG_DEVICE_FAST_BOOT_PROGRAM_COUNTER ((volatile APE_DEVICE_H_uint32_t*)0xa0046894) /*  */
+#define REG_DEVICE_FAST_BOOT_PROGRAM_COUNTER ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0046894) /*  */
 #define     DEVICE_FAST_BOOT_PROGRAM_COUNTER_PROGRAM_COUNTER_SHIFT 0u
 #define     DEVICE_FAST_BOOT_PROGRAM_COUNTER_PROGRAM_COUNTER_MASK  0x7fffffffu
 #define GET_DEVICE_FAST_BOOT_PROGRAM_COUNTER_PROGRAM_COUNTER(__reg__)  (((__reg__) & 0x7fffffff) >> 0u)
@@ -9189,7 +9190,7 @@ typedef register_container RegDEVICEFastBootProgramCounter_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEFastBootProgramCounter_t;
 
-#define REG_DEVICE_EXPANSION_ROM_ADDR ((volatile APE_DEVICE_H_uint32_t*)0xa00468ec) /* Expansion ROM base address, expect to be d- word aligned. */
+#define REG_DEVICE_EXPANSION_ROM_ADDR ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa00468ec) /* Expansion ROM base address, expect to be d- word aligned. */
 /** @brief Register definition for @ref DEVICE_t.ExpansionRomAddr. */
 typedef register_container RegDEVICEExpansionRomAddr_t {
     /** @brief 32bit direct register access. */
@@ -9214,7 +9215,7 @@ typedef register_container RegDEVICEExpansionRomAddr_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEExpansionRomAddr_t;
 
-#define REG_DEVICE_68F0 ((volatile APE_DEVICE_H_uint32_t*)0xa00468f0) /*  */
+#define REG_DEVICE_68F0 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa00468f0) /*  */
 /** @brief Register definition for @ref DEVICE_t.68f0. */
 typedef register_container RegDEVICE68f0_t {
     /** @brief 32bit direct register access. */
@@ -9239,7 +9240,7 @@ typedef register_container RegDEVICE68f0_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICE68f0_t;
 
-#define REG_DEVICE_EAV_REF_CLOCK_CONTROL ((volatile APE_DEVICE_H_uint32_t*)0xa0046908) /*  */
+#define REG_DEVICE_EAV_REF_CLOCK_CONTROL ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0046908) /*  */
 #define     DEVICE_EAV_REF_CLOCK_CONTROL_TIMESYNC_GPIO_MAPPING_SHIFT 16u
 #define     DEVICE_EAV_REF_CLOCK_CONTROL_TIMESYNC_GPIO_MAPPING_MASK  0x30000u
 #define GET_DEVICE_EAV_REF_CLOCK_CONTROL_TIMESYNC_GPIO_MAPPING(__reg__)  (((__reg__) & 0x30000) >> 16u)
@@ -9389,7 +9390,7 @@ typedef register_container RegDEVICEEavRefClockControl_t {
 #endif /* CXX_SIMULATOR */
 } RegDEVICEEavRefClockControl_t;
 
-#define REG_DEVICE_7C04 ((volatile APE_DEVICE_H_uint32_t*)0xa0047c04) /* PCIe Transaction Cfg */
+#define REG_DEVICE_7C04 ((APE_DEVICE_H_VOLATILE APE_DEVICE_H_uint32_t*)0xa0047c04) /* PCIe Transaction Cfg */
 /** @brief Register definition for @ref DEVICE_t.7c04. */
 typedef register_container RegDEVICE7c04_t {
     /** @brief 32bit direct register access. */
@@ -10764,13 +10765,9 @@ typedef struct DEVICE_t {
 } DEVICE_t;
 
 /** @brief Device Registers, function 0 */
-extern volatile DEVICE_t DEVICE;
+extern APE_DEVICE_H_VOLATILE DEVICE_t DEVICE;
 
 
-
-#ifdef CXX_SIMULATOR /* Compiling c++ code - uses register wrappers */
-#undef volatile
-#endif /* CXX_SIMULATOR */
 
 #undef register_container
 #undef BITFIELD_BEGIN

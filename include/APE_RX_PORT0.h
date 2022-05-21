@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2020, Evan Lojewski
+/// @copyright Copyright (c) 2022, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -63,7 +63,7 @@ typedef CXXRegister<uint32_t, 0, 32> APE_RX_PORT0_H_uint32_t;
 #define APE_RX_PORT0_H_uint16_t_bitfield(__pos__, __width__) CXXRegister<uint16_t, __pos__, __width__>
 #define APE_RX_PORT0_H_uint32_t_bitfield(__pos__, __width__) CXXRegister<uint32_t, __pos__, __width__>
 #define register_container struct
-#define volatile
+#define APE_RX_PORT0_H_VOLATILE
 #define BITFIELD_BEGIN(__type__, __name__) struct {
 #define BITFIELD_MEMBER(__type__, __name__, __offset__, __bits__) __type__##_bitfield(__offset__, __bits__) __name__;
 #define BITFIELD_END(__type__, __name__) } __name__;
@@ -73,6 +73,7 @@ typedef uint8_t  APE_RX_PORT0_H_uint8_t;
 typedef uint16_t APE_RX_PORT0_H_uint16_t;
 typedef uint32_t APE_RX_PORT0_H_uint32_t;
 #define register_container union
+#define APE_RX_PORT0_H_VOLATILE volatile
 #define BITFIELD_BEGIN(__type__, __name__) struct {
 #define BITFIELD_MEMBER(__type__, __name__, __offset__, __bits__) __type__ __name__:__bits__;
 #define BITFIELD_END(__type__, __name__) } __name__;
@@ -81,7 +82,7 @@ typedef uint32_t APE_RX_PORT0_H_uint32_t;
 #define REG_RX_PORT0_BASE ((volatile void*)0xa0000000) /* RX from network port, function 0 */
 #define REG_RX_PORT0_SIZE (sizeof(RX_PORT_t))
 
-#define REG_RX_PORT0_IN ((volatile APE_RX_PORT0_H_uint32_t*)0xa0000000) /* This is the memory range into which frames are directed towards the APE by the hardware. */
+#define REG_RX_PORT0_IN ((APE_RX_PORT0_H_VOLATILE APE_RX_PORT0_H_uint32_t*)0xa0000000) /* This is the memory range into which frames are directed towards the APE by the hardware. */
 #define     RX_PORT0_IN_ALL_SHIFT 0u
 #define     RX_PORT0_IN_ALL_MASK  0xffffffffu
 #define GET_RX_PORT0_IN_ALL(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
@@ -170,13 +171,9 @@ typedef struct RX_PORT_t {
 } RX_PORT_t;
 
 /** @brief RX from network port, function 0 */
-extern volatile RX_PORT_t RX_PORT0;
+extern APE_RX_PORT0_H_VOLATILE RX_PORT_t RX_PORT0;
 
 
-
-#ifdef CXX_SIMULATOR /* Compiling c++ code - uses register wrappers */
-#undef volatile
-#endif /* CXX_SIMULATOR */
 
 #undef register_container
 #undef BITFIELD_BEGIN

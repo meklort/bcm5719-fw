@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2020, Evan Lojewski
+/// @copyright Copyright (c) 2022, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -64,7 +64,7 @@ typedef CXXRegister<uint32_t, 0, 32> APE_TX_PORT1_H_uint32_t;
 #define APE_TX_PORT1_H_uint16_t_bitfield(__pos__, __width__) CXXRegister<uint16_t, __pos__, __width__>
 #define APE_TX_PORT1_H_uint32_t_bitfield(__pos__, __width__) CXXRegister<uint32_t, __pos__, __width__>
 #define register_container struct
-#define volatile
+#define APE_TX_PORT1_H_VOLATILE
 #define BITFIELD_BEGIN(__type__, __name__) struct {
 #define BITFIELD_MEMBER(__type__, __name__, __offset__, __bits__) __type__##_bitfield(__offset__, __bits__) __name__;
 #define BITFIELD_END(__type__, __name__) } __name__;
@@ -74,6 +74,7 @@ typedef uint8_t  APE_TX_PORT1_H_uint8_t;
 typedef uint16_t APE_TX_PORT1_H_uint16_t;
 typedef uint32_t APE_TX_PORT1_H_uint32_t;
 #define register_container union
+#define APE_TX_PORT1_H_VOLATILE volatile
 #define BITFIELD_BEGIN(__type__, __name__) struct {
 #define BITFIELD_MEMBER(__type__, __name__, __offset__, __bits__) __type__ __name__:__bits__;
 #define BITFIELD_END(__type__, __name__) } __name__;
@@ -82,15 +83,11 @@ typedef uint32_t APE_TX_PORT1_H_uint32_t;
 #define REG_TX_PORT1_BASE ((volatile void*)0xa0022000) /* TX to network port, function 1 */
 #define REG_TX_PORT1_SIZE (sizeof(TX_PORT_t))
 
-#define REG_TX_PORT1_OUT ((volatile APE_TX_PORT1_H_uint32_t*)0xa0022000) /* This is the memory range into which frames are directed towards the network by the APE firmware. */
+#define REG_TX_PORT1_OUT ((APE_TX_PORT1_H_VOLATILE APE_TX_PORT1_H_uint32_t*)0xa0022000) /* This is the memory range into which frames are directed towards the network by the APE firmware. */
 /** @brief TX to network port, function 1 */
-extern volatile TX_PORT_t TX_PORT1;
+extern APE_TX_PORT1_H_VOLATILE TX_PORT_t TX_PORT1;
 
 
-
-#ifdef CXX_SIMULATOR /* Compiling c++ code - uses register wrappers */
-#undef volatile
-#endif /* CXX_SIMULATOR */
 
 #undef register_container
 #undef BITFIELD_BEGIN

@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2020, Evan Lojewski
+/// @copyright Copyright (c) 2022, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -63,7 +63,7 @@ typedef CXXRegister<uint32_t, 0, 32> BCM5719_NVM_H_uint32_t;
 #define BCM5719_NVM_H_uint16_t_bitfield(__pos__, __width__) CXXRegister<uint16_t, __pos__, __width__>
 #define BCM5719_NVM_H_uint32_t_bitfield(__pos__, __width__) CXXRegister<uint32_t, __pos__, __width__>
 #define register_container struct
-#define volatile
+#define BCM5719_NVM_H_VOLATILE
 #define BITFIELD_BEGIN(__type__, __name__) struct {
 #define BITFIELD_MEMBER(__type__, __name__, __offset__, __bits__) __type__##_bitfield(__offset__, __bits__) __name__;
 #define BITFIELD_END(__type__, __name__) } __name__;
@@ -73,6 +73,7 @@ typedef uint8_t  BCM5719_NVM_H_uint8_t;
 typedef uint16_t BCM5719_NVM_H_uint16_t;
 typedef uint32_t BCM5719_NVM_H_uint32_t;
 #define register_container union
+#define BCM5719_NVM_H_VOLATILE volatile
 #define BITFIELD_BEGIN(__type__, __name__) struct {
 #define BITFIELD_MEMBER(__type__, __name__, __offset__, __bits__) __type__ __name__:__bits__;
 #define BITFIELD_END(__type__, __name__) } __name__;
@@ -81,7 +82,7 @@ typedef uint32_t BCM5719_NVM_H_uint32_t;
 #define REG_NVM_BASE ((volatile void*)0xc0007000) /* Non-Volatile Memory Registers */
 #define REG_NVM_SIZE (sizeof(NVM_t))
 
-#define REG_NVM_COMMAND ((volatile BCM5719_NVM_H_uint32_t*)0xc0007000) /*  */
+#define REG_NVM_COMMAND ((BCM5719_NVM_H_VOLATILE BCM5719_NVM_H_uint32_t*)0xc0007000) /*  */
 #define     NVM_COMMAND_RESET_SHIFT 1u
 #define     NVM_COMMAND_RESET_MASK  0x2u
 #define GET_NVM_COMMAND_RESET(__reg__)  (((__reg__) & 0x2) >> 1u)
@@ -221,7 +222,7 @@ typedef register_container RegNVMCommand_t {
 #endif /* CXX_SIMULATOR */
 } RegNVMCommand_t;
 
-#define REG_NVM_WRITE ((volatile BCM5719_NVM_H_uint32_t*)0xc0007008) /* 32bits of write data are used when write commands are executed. */
+#define REG_NVM_WRITE ((BCM5719_NVM_H_VOLATILE BCM5719_NVM_H_uint32_t*)0xc0007008) /* 32bits of write data are used when write commands are executed. */
 #define     NVM_WRITE_SCLK_OUTPUT_VALUE_SHIFT 2u
 #define     NVM_WRITE_SCLK_OUTPUT_VALUE_MASK  0x4u
 #define GET_NVM_WRITE_SCLK_OUTPUT_VALUE(__reg__)  (((__reg__) & 0x4) >> 2u)
@@ -303,7 +304,7 @@ typedef register_container RegNVMWrite_t {
 #endif /* CXX_SIMULATOR */
 } RegNVMWrite_t;
 
-#define REG_NVM_ADDR ((volatile BCM5719_NVM_H_uint32_t*)0xc000700c) /* The 24 bit address for a read or write operation (must be 4 byte aligned). */
+#define REG_NVM_ADDR ((BCM5719_NVM_H_VOLATILE BCM5719_NVM_H_uint32_t*)0xc000700c) /* The 24 bit address for a read or write operation (must be 4 byte aligned). */
 #define     NVM_ADDR_SCLK_OUTPUT_DISABLE_SHIFT 2u
 #define     NVM_ADDR_SCLK_OUTPUT_DISABLE_MASK  0x4u
 #define GET_NVM_ADDR_SCLK_OUTPUT_DISABLE(__reg__)  (((__reg__) & 0x4) >> 2u)
@@ -385,7 +386,7 @@ typedef register_container RegNVMAddr_t {
 #endif /* CXX_SIMULATOR */
 } RegNVMAddr_t;
 
-#define REG_NVM_READ ((volatile BCM5719_NVM_H_uint32_t*)0xc0007010) /* 32bits of read data are used when read commands are executed. */
+#define REG_NVM_READ ((BCM5719_NVM_H_VOLATILE BCM5719_NVM_H_uint32_t*)0xc0007010) /* 32bits of read data are used when read commands are executed. */
 #define     NVM_READ_SCLK_INPUT_VALUE_SHIFT 2u
 #define     NVM_READ_SCLK_INPUT_VALUE_MASK  0x4u
 #define GET_NVM_READ_SCLK_INPUT_VALUE(__reg__)  (((__reg__) & 0x4) >> 2u)
@@ -467,7 +468,7 @@ typedef register_container RegNVMRead_t {
 #endif /* CXX_SIMULATOR */
 } RegNVMRead_t;
 
-#define REG_NVM_NVM_CFG_1 ((volatile BCM5719_NVM_H_uint32_t*)0xc0007014) /*  */
+#define REG_NVM_NVM_CFG_1 ((BCM5719_NVM_H_VOLATILE BCM5719_NVM_H_uint32_t*)0xc0007014) /*  */
 #define     NVM_NVM_CFG_1_FLASH_MODE_SHIFT 0u
 #define     NVM_NVM_CFG_1_FLASH_MODE_MASK  0x1u
 #define GET_NVM_NVM_CFG_1_FLASH_MODE(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -617,7 +618,7 @@ typedef register_container RegNVMNvmCfg1_t {
 #endif /* CXX_SIMULATOR */
 } RegNVMNvmCfg1_t;
 
-#define REG_NVM_NVM_CFG_2 ((volatile BCM5719_NVM_H_uint32_t*)0xc0007018) /*  */
+#define REG_NVM_NVM_CFG_2 ((BCM5719_NVM_H_VOLATILE BCM5719_NVM_H_uint32_t*)0xc0007018) /*  */
 #define     NVM_NVM_CFG_2_ERASE_COMMAND_SHIFT 0u
 #define     NVM_NVM_CFG_2_ERASE_COMMAND_MASK  0xffu
 #define GET_NVM_NVM_CFG_2_ERASE_COMMAND(__reg__)  (((__reg__) & 0xff) >> 0u)
@@ -679,7 +680,7 @@ typedef register_container RegNVMNvmCfg2_t {
 #endif /* CXX_SIMULATOR */
 } RegNVMNvmCfg2_t;
 
-#define REG_NVM_NVM_CFG_3 ((volatile BCM5719_NVM_H_uint32_t*)0xc000701c) /*  */
+#define REG_NVM_NVM_CFG_3 ((BCM5719_NVM_H_VOLATILE BCM5719_NVM_H_uint32_t*)0xc000701c) /*  */
 #define     NVM_NVM_CFG_3_WRITE_COMMAND_SHIFT 8u
 #define     NVM_NVM_CFG_3_WRITE_COMMAND_MASK  0xff00u
 #define GET_NVM_NVM_CFG_3_WRITE_COMMAND(__reg__)  (((__reg__) & 0xff00) >> 8u)
@@ -741,7 +742,7 @@ typedef register_container RegNVMNvmCfg3_t {
 #endif /* CXX_SIMULATOR */
 } RegNVMNvmCfg3_t;
 
-#define REG_NVM_SOFTWARE_ARBITRATION ((volatile BCM5719_NVM_H_uint32_t*)0xc0007020) /*  */
+#define REG_NVM_SOFTWARE_ARBITRATION ((BCM5719_NVM_H_VOLATILE BCM5719_NVM_H_uint32_t*)0xc0007020) /*  */
 #define     NVM_SOFTWARE_ARBITRATION_REQ_SET0_SHIFT 0u
 #define     NVM_SOFTWARE_ARBITRATION_REQ_SET0_MASK  0x1u
 #define GET_NVM_SOFTWARE_ARBITRATION_REQ_SET0(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -939,7 +940,7 @@ typedef register_container RegNVMSoftwareArbitration_t {
 #endif /* CXX_SIMULATOR */
 } RegNVMSoftwareArbitration_t;
 
-#define REG_NVM_ACCESS ((volatile BCM5719_NVM_H_uint32_t*)0xc0007024) /*  */
+#define REG_NVM_ACCESS ((BCM5719_NVM_H_VOLATILE BCM5719_NVM_H_uint32_t*)0xc0007024) /*  */
 #define     NVM_ACCESS_ENABLE_SHIFT 0u
 #define     NVM_ACCESS_ENABLE_MASK  0x1u
 #define GET_NVM_ACCESS_ENABLE(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -997,7 +998,7 @@ typedef register_container RegNVMAccess_t {
 #endif /* CXX_SIMULATOR */
 } RegNVMAccess_t;
 
-#define REG_NVM_NVM_WRITE_1 ((volatile BCM5719_NVM_H_uint32_t*)0xc0007028) /*  */
+#define REG_NVM_NVM_WRITE_1 ((BCM5719_NVM_H_VOLATILE BCM5719_NVM_H_uint32_t*)0xc0007028) /*  */
 #define     NVM_NVM_WRITE_1_WRITE_ENABLE_COMMAND_SHIFT 0u
 #define     NVM_NVM_WRITE_1_WRITE_ENABLE_COMMAND_MASK  0xffu
 #define GET_NVM_NVM_WRITE_1_WRITE_ENABLE_COMMAND(__reg__)  (((__reg__) & 0xff) >> 0u)
@@ -1055,7 +1056,7 @@ typedef register_container RegNVMNvmWrite1_t {
 #endif /* CXX_SIMULATOR */
 } RegNVMNvmWrite1_t;
 
-#define REG_NVM_ARBITRATION_WATCHDOG ((volatile BCM5719_NVM_H_uint32_t*)0xc000702c) /*  */
+#define REG_NVM_ARBITRATION_WATCHDOG ((BCM5719_NVM_H_VOLATILE BCM5719_NVM_H_uint32_t*)0xc000702c) /*  */
 #define     NVM_ARBITRATION_WATCHDOG_RESERVED_SHIFT 0u
 #define     NVM_ARBITRATION_WATCHDOG_RESERVED_MASK  0xffffffffu
 #define GET_NVM_ARBITRATION_WATCHDOG_RESERVED(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
@@ -1099,7 +1100,7 @@ typedef register_container RegNVMArbitrationWatchdog_t {
 #endif /* CXX_SIMULATOR */
 } RegNVMArbitrationWatchdog_t;
 
-#define REG_NVM_AUTO_SENSE_STATUS ((volatile BCM5719_NVM_H_uint32_t*)0xc0007038) /*  */
+#define REG_NVM_AUTO_SENSE_STATUS ((BCM5719_NVM_H_VOLATILE BCM5719_NVM_H_uint32_t*)0xc0007038) /*  */
 #define     NVM_AUTO_SENSE_STATUS_AUTO_CONFIG_BUSY_SHIFT 0u
 #define     NVM_AUTO_SENSE_STATUS_AUTO_CONFIG_BUSY_MASK  0x1u
 #define GET_NVM_AUTO_SENSE_STATUS_AUTO_CONFIG_BUSY(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -1323,13 +1324,9 @@ typedef struct NVM_t {
 } NVM_t;
 
 /** @brief Non-Volatile Memory Registers */
-extern volatile NVM_t NVM;
+extern BCM5719_NVM_H_VOLATILE NVM_t NVM;
 
 
-
-#ifdef CXX_SIMULATOR /* Compiling c++ code - uses register wrappers */
-#undef volatile
-#endif /* CXX_SIMULATOR */
 
 #undef register_container
 #undef BITFIELD_BEGIN

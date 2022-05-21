@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2020, Evan Lojewski
+/// @copyright Copyright (c) 2022, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -63,7 +63,7 @@ typedef CXXRegister<uint32_t, 0, 32> APE_APE_PERI_H_uint32_t;
 #define APE_APE_PERI_H_uint16_t_bitfield(__pos__, __width__) CXXRegister<uint16_t, __pos__, __width__>
 #define APE_APE_PERI_H_uint32_t_bitfield(__pos__, __width__) CXXRegister<uint32_t, __pos__, __width__>
 #define register_container struct
-#define volatile
+#define APE_APE_PERI_H_VOLATILE
 #define BITFIELD_BEGIN(__type__, __name__) struct {
 #define BITFIELD_MEMBER(__type__, __name__, __offset__, __bits__) __type__##_bitfield(__offset__, __bits__) __name__;
 #define BITFIELD_END(__type__, __name__) } __name__;
@@ -73,6 +73,7 @@ typedef uint8_t  APE_APE_PERI_H_uint8_t;
 typedef uint16_t APE_APE_PERI_H_uint16_t;
 typedef uint32_t APE_APE_PERI_H_uint32_t;
 #define register_container union
+#define APE_APE_PERI_H_VOLATILE volatile
 #define BITFIELD_BEGIN(__type__, __name__) struct {
 #define BITFIELD_MEMBER(__type__, __name__, __offset__, __bits__) __type__ __name__:__bits__;
 #define BITFIELD_END(__type__, __name__) } __name__;
@@ -81,7 +82,7 @@ typedef uint32_t APE_APE_PERI_H_uint32_t;
 #define REG_APE_PERI_BASE ((volatile void*)0x60240000) /* Device APE Registers */
 #define REG_APE_PERI_SIZE (sizeof(APE_PERI_t))
 
-#define REG_APE_PERI_BMC_TO_NC_RX_STATUS ((volatile APE_APE_PERI_H_uint32_t*)0x60240300) /*  */
+#define REG_APE_PERI_BMC_TO_NC_RX_STATUS ((APE_APE_PERI_H_VOLATILE APE_APE_PERI_H_uint32_t*)0x60240300) /*  */
 #define     APE_PERI_BMC_TO_NC_RX_STATUS_NEW_SHIFT 0u
 #define     APE_PERI_BMC_TO_NC_RX_STATUS_NEW_MASK  0x1u
 #define GET_APE_PERI_BMC_TO_NC_RX_STATUS_NEW(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -243,7 +244,7 @@ typedef register_container RegAPE_PERIBmcToNcRxStatus_t {
 #endif /* CXX_SIMULATOR */
 } RegAPE_PERIBmcToNcRxStatus_t;
 
-#define REG_APE_PERI_BMC_TO_NC_SOURCE_MAC_HIGH ((volatile APE_APE_PERI_H_uint32_t*)0x60240304) /* Upper four bytes of the MAC */
+#define REG_APE_PERI_BMC_TO_NC_SOURCE_MAC_HIGH ((APE_APE_PERI_H_VOLATILE APE_APE_PERI_H_uint32_t*)0x60240304) /* Upper four bytes of the MAC */
 #define     APE_PERI_BMC_TO_NC_SOURCE_MAC_HIGH_HIGH_SHIFT 0u
 #define     APE_PERI_BMC_TO_NC_SOURCE_MAC_HIGH_HIGH_MASK  0xffffffffu
 #define GET_APE_PERI_BMC_TO_NC_SOURCE_MAC_HIGH_HIGH(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
@@ -287,7 +288,7 @@ typedef register_container RegAPE_PERIBmcToNcSourceMacHigh_t {
 #endif /* CXX_SIMULATOR */
 } RegAPE_PERIBmcToNcSourceMacHigh_t;
 
-#define REG_APE_PERI_BMC_TO_NC_SOURCE_MAC_LOW ((volatile APE_APE_PERI_H_uint32_t*)0x60240308) /* Lower two bytes of the MAC */
+#define REG_APE_PERI_BMC_TO_NC_SOURCE_MAC_LOW ((APE_APE_PERI_H_VOLATILE APE_APE_PERI_H_uint32_t*)0x60240308) /* Lower two bytes of the MAC */
 #define     APE_PERI_BMC_TO_NC_SOURCE_MAC_LOW_LOW_SHIFT 16u
 #define     APE_PERI_BMC_TO_NC_SOURCE_MAC_LOW_LOW_MASK  0xffff0000u
 #define GET_APE_PERI_BMC_TO_NC_SOURCE_MAC_LOW_LOW(__reg__)  (((__reg__) & 0xffff0000) >> 16u)
@@ -335,7 +336,7 @@ typedef register_container RegAPE_PERIBmcToNcSourceMacLow_t {
 #endif /* CXX_SIMULATOR */
 } RegAPE_PERIBmcToNcSourceMacLow_t;
 
-#define REG_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_0_HIGH ((volatile APE_APE_PERI_H_uint32_t*)0x6024030c) /* Upper four bytes of the MAC */
+#define REG_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_0_HIGH ((APE_APE_PERI_H_VOLATILE APE_APE_PERI_H_uint32_t*)0x6024030c) /* Upper four bytes of the MAC */
 #define     APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_0_HIGH_HIGH_SHIFT 0u
 #define     APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_0_HIGH_HIGH_MASK  0xffffffffu
 #define GET_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_0_HIGH_HIGH(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
@@ -379,7 +380,7 @@ typedef register_container RegAPE_PERIBmcToNcSourceMacMatch0High_t {
 #endif /* CXX_SIMULATOR */
 } RegAPE_PERIBmcToNcSourceMacMatch0High_t;
 
-#define REG_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_0_LOW ((volatile APE_APE_PERI_H_uint32_t*)0x60240310) /* Lower two bytes of the MAC */
+#define REG_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_0_LOW ((APE_APE_PERI_H_VOLATILE APE_APE_PERI_H_uint32_t*)0x60240310) /* Lower two bytes of the MAC */
 #define     APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_0_LOW_LOW_SHIFT 16u
 #define     APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_0_LOW_LOW_MASK  0xffff0000u
 #define GET_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_0_LOW_LOW(__reg__)  (((__reg__) & 0xffff0000) >> 16u)
@@ -427,7 +428,7 @@ typedef register_container RegAPE_PERIBmcToNcSourceMacMatch0Low_t {
 #endif /* CXX_SIMULATOR */
 } RegAPE_PERIBmcToNcSourceMacMatch0Low_t;
 
-#define REG_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_1_HIGH ((volatile APE_APE_PERI_H_uint32_t*)0x60240314) /* Upper four bytes of the MAC */
+#define REG_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_1_HIGH ((APE_APE_PERI_H_VOLATILE APE_APE_PERI_H_uint32_t*)0x60240314) /* Upper four bytes of the MAC */
 #define     APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_1_HIGH_HIGH_SHIFT 0u
 #define     APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_1_HIGH_HIGH_MASK  0xffffffffu
 #define GET_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_1_HIGH_HIGH(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
@@ -471,7 +472,7 @@ typedef register_container RegAPE_PERIBmcToNcSourceMacMatch1High_t {
 #endif /* CXX_SIMULATOR */
 } RegAPE_PERIBmcToNcSourceMacMatch1High_t;
 
-#define REG_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_1_LOW ((volatile APE_APE_PERI_H_uint32_t*)0x60240318) /* Lower two bytes of the MAC */
+#define REG_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_1_LOW ((APE_APE_PERI_H_VOLATILE APE_APE_PERI_H_uint32_t*)0x60240318) /* Lower two bytes of the MAC */
 #define     APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_1_LOW_LOW_SHIFT 16u
 #define     APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_1_LOW_LOW_MASK  0xffff0000u
 #define GET_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_1_LOW_LOW(__reg__)  (((__reg__) & 0xffff0000) >> 16u)
@@ -519,7 +520,7 @@ typedef register_container RegAPE_PERIBmcToNcSourceMacMatch1Low_t {
 #endif /* CXX_SIMULATOR */
 } RegAPE_PERIBmcToNcSourceMacMatch1Low_t;
 
-#define REG_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_2_HIGH ((volatile APE_APE_PERI_H_uint32_t*)0x6024031c) /* Upper four bytes of the MAC */
+#define REG_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_2_HIGH ((APE_APE_PERI_H_VOLATILE APE_APE_PERI_H_uint32_t*)0x6024031c) /* Upper four bytes of the MAC */
 #define     APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_2_HIGH_HIGH_SHIFT 0u
 #define     APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_2_HIGH_HIGH_MASK  0xffffffffu
 #define GET_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_2_HIGH_HIGH(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
@@ -563,7 +564,7 @@ typedef register_container RegAPE_PERIBmcToNcSourceMacMatch2High_t {
 #endif /* CXX_SIMULATOR */
 } RegAPE_PERIBmcToNcSourceMacMatch2High_t;
 
-#define REG_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_2_LOW ((volatile APE_APE_PERI_H_uint32_t*)0x60240320) /* Lower two bytes of the MAC */
+#define REG_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_2_LOW ((APE_APE_PERI_H_VOLATILE APE_APE_PERI_H_uint32_t*)0x60240320) /* Lower two bytes of the MAC */
 #define     APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_2_LOW_LOW_SHIFT 16u
 #define     APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_2_LOW_LOW_MASK  0xffff0000u
 #define GET_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_2_LOW_LOW(__reg__)  (((__reg__) & 0xffff0000) >> 16u)
@@ -611,7 +612,7 @@ typedef register_container RegAPE_PERIBmcToNcSourceMacMatch2Low_t {
 #endif /* CXX_SIMULATOR */
 } RegAPE_PERIBmcToNcSourceMacMatch2Low_t;
 
-#define REG_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_3_HIGH ((volatile APE_APE_PERI_H_uint32_t*)0x60240324) /* Upper four bytes of the MAC */
+#define REG_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_3_HIGH ((APE_APE_PERI_H_VOLATILE APE_APE_PERI_H_uint32_t*)0x60240324) /* Upper four bytes of the MAC */
 #define     APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_3_HIGH_HIGH_SHIFT 0u
 #define     APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_3_HIGH_HIGH_MASK  0xffffffffu
 #define GET_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_3_HIGH_HIGH(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
@@ -655,7 +656,7 @@ typedef register_container RegAPE_PERIBmcToNcSourceMacMatch3High_t {
 #endif /* CXX_SIMULATOR */
 } RegAPE_PERIBmcToNcSourceMacMatch3High_t;
 
-#define REG_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_3_LOW ((volatile APE_APE_PERI_H_uint32_t*)0x60240328) /* Lower two bytes of the MAC */
+#define REG_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_3_LOW ((APE_APE_PERI_H_VOLATILE APE_APE_PERI_H_uint32_t*)0x60240328) /* Lower two bytes of the MAC */
 #define     APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_3_LOW_LOW_SHIFT 16u
 #define     APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_3_LOW_LOW_MASK  0xffff0000u
 #define GET_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_3_LOW_LOW(__reg__)  (((__reg__) & 0xffff0000) >> 16u)
@@ -703,7 +704,7 @@ typedef register_container RegAPE_PERIBmcToNcSourceMacMatch3Low_t {
 #endif /* CXX_SIMULATOR */
 } RegAPE_PERIBmcToNcSourceMacMatch3Low_t;
 
-#define REG_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_4_HIGH ((volatile APE_APE_PERI_H_uint32_t*)0x6024032c) /* Upper four bytes of the MAC */
+#define REG_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_4_HIGH ((APE_APE_PERI_H_VOLATILE APE_APE_PERI_H_uint32_t*)0x6024032c) /* Upper four bytes of the MAC */
 #define     APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_4_HIGH_HIGH_SHIFT 0u
 #define     APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_4_HIGH_HIGH_MASK  0xffffffffu
 #define GET_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_4_HIGH_HIGH(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
@@ -747,7 +748,7 @@ typedef register_container RegAPE_PERIBmcToNcSourceMacMatch4High_t {
 #endif /* CXX_SIMULATOR */
 } RegAPE_PERIBmcToNcSourceMacMatch4High_t;
 
-#define REG_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_4_LOW ((volatile APE_APE_PERI_H_uint32_t*)0x60240330) /* Lower two bytes of the MAC */
+#define REG_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_4_LOW ((APE_APE_PERI_H_VOLATILE APE_APE_PERI_H_uint32_t*)0x60240330) /* Lower two bytes of the MAC */
 #define     APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_4_LOW_LOW_SHIFT 16u
 #define     APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_4_LOW_LOW_MASK  0xffff0000u
 #define GET_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_4_LOW_LOW(__reg__)  (((__reg__) & 0xffff0000) >> 16u)
@@ -795,7 +796,7 @@ typedef register_container RegAPE_PERIBmcToNcSourceMacMatch4Low_t {
 #endif /* CXX_SIMULATOR */
 } RegAPE_PERIBmcToNcSourceMacMatch4Low_t;
 
-#define REG_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_5_HIGH ((volatile APE_APE_PERI_H_uint32_t*)0x60240334) /* Upper four bytes of the MAC */
+#define REG_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_5_HIGH ((APE_APE_PERI_H_VOLATILE APE_APE_PERI_H_uint32_t*)0x60240334) /* Upper four bytes of the MAC */
 #define     APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_5_HIGH_HIGH_SHIFT 0u
 #define     APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_5_HIGH_HIGH_MASK  0xffffffffu
 #define GET_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_5_HIGH_HIGH(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
@@ -839,7 +840,7 @@ typedef register_container RegAPE_PERIBmcToNcSourceMacMatch5High_t {
 #endif /* CXX_SIMULATOR */
 } RegAPE_PERIBmcToNcSourceMacMatch5High_t;
 
-#define REG_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_5_LOW ((volatile APE_APE_PERI_H_uint32_t*)0x60240338) /* Lower two bytes of the MAC */
+#define REG_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_5_LOW ((APE_APE_PERI_H_VOLATILE APE_APE_PERI_H_uint32_t*)0x60240338) /* Lower two bytes of the MAC */
 #define     APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_5_LOW_LOW_SHIFT 16u
 #define     APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_5_LOW_LOW_MASK  0xffff0000u
 #define GET_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_5_LOW_LOW(__reg__)  (((__reg__) & 0xffff0000) >> 16u)
@@ -887,7 +888,7 @@ typedef register_container RegAPE_PERIBmcToNcSourceMacMatch5Low_t {
 #endif /* CXX_SIMULATOR */
 } RegAPE_PERIBmcToNcSourceMacMatch5Low_t;
 
-#define REG_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_6_HIGH ((volatile APE_APE_PERI_H_uint32_t*)0x6024033c) /* Upper four bytes of the MAC */
+#define REG_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_6_HIGH ((APE_APE_PERI_H_VOLATILE APE_APE_PERI_H_uint32_t*)0x6024033c) /* Upper four bytes of the MAC */
 #define     APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_6_HIGH_HIGH_SHIFT 0u
 #define     APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_6_HIGH_HIGH_MASK  0xffffffffu
 #define GET_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_6_HIGH_HIGH(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
@@ -931,7 +932,7 @@ typedef register_container RegAPE_PERIBmcToNcSourceMacMatch6High_t {
 #endif /* CXX_SIMULATOR */
 } RegAPE_PERIBmcToNcSourceMacMatch6High_t;
 
-#define REG_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_6_LOW ((volatile APE_APE_PERI_H_uint32_t*)0x60240340) /* Lower two bytes of the MAC */
+#define REG_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_6_LOW ((APE_APE_PERI_H_VOLATILE APE_APE_PERI_H_uint32_t*)0x60240340) /* Lower two bytes of the MAC */
 #define     APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_6_LOW_LOW_SHIFT 16u
 #define     APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_6_LOW_LOW_MASK  0xffff0000u
 #define GET_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_6_LOW_LOW(__reg__)  (((__reg__) & 0xffff0000) >> 16u)
@@ -979,7 +980,7 @@ typedef register_container RegAPE_PERIBmcToNcSourceMacMatch6Low_t {
 #endif /* CXX_SIMULATOR */
 } RegAPE_PERIBmcToNcSourceMacMatch6Low_t;
 
-#define REG_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_7_HIGH ((volatile APE_APE_PERI_H_uint32_t*)0x60240344) /* Upper four bytes of the MAC */
+#define REG_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_7_HIGH ((APE_APE_PERI_H_VOLATILE APE_APE_PERI_H_uint32_t*)0x60240344) /* Upper four bytes of the MAC */
 #define     APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_7_HIGH_HIGH_SHIFT 0u
 #define     APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_7_HIGH_HIGH_MASK  0xffffffffu
 #define GET_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_7_HIGH_HIGH(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
@@ -1023,7 +1024,7 @@ typedef register_container RegAPE_PERIBmcToNcSourceMacMatch7High_t {
 #endif /* CXX_SIMULATOR */
 } RegAPE_PERIBmcToNcSourceMacMatch7High_t;
 
-#define REG_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_7_LOW ((volatile APE_APE_PERI_H_uint32_t*)0x60240348) /* Lower two bytes of the MAC */
+#define REG_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_7_LOW ((APE_APE_PERI_H_VOLATILE APE_APE_PERI_H_uint32_t*)0x60240348) /* Lower two bytes of the MAC */
 #define     APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_7_LOW_LOW_SHIFT 16u
 #define     APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_7_LOW_LOW_MASK  0xffff0000u
 #define GET_APE_PERI_BMC_TO_NC_SOURCE_MAC_MATCH_7_LOW_LOW(__reg__)  (((__reg__) & 0xffff0000) >> 16u)
@@ -1071,7 +1072,7 @@ typedef register_container RegAPE_PERIBmcToNcSourceMacMatch7Low_t {
 #endif /* CXX_SIMULATOR */
 } RegAPE_PERIBmcToNcSourceMacMatch7Low_t;
 
-#define REG_APE_PERI_BMC_TO_NC_RX_VLAN ((volatile APE_APE_PERI_H_uint32_t*)0x6024034c) /*  */
+#define REG_APE_PERI_BMC_TO_NC_RX_VLAN ((APE_APE_PERI_H_VOLATILE APE_APE_PERI_H_uint32_t*)0x6024034c) /*  */
 #define     APE_PERI_BMC_TO_NC_RX_VLAN_VLAN_SHIFT 16u
 #define     APE_PERI_BMC_TO_NC_RX_VLAN_VLAN_MASK  0xffff0000u
 #define GET_APE_PERI_BMC_TO_NC_RX_VLAN_VLAN(__reg__)  (((__reg__) & 0xffff0000) >> 16u)
@@ -1119,7 +1120,7 @@ typedef register_container RegAPE_PERIBmcToNcRxVlan_t {
 #endif /* CXX_SIMULATOR */
 } RegAPE_PERIBmcToNcRxVlan_t;
 
-#define REG_APE_PERI_BMC_TO_NC_READ_BUFFER ((volatile APE_APE_PERI_H_uint32_t*)0x60240350) /*  */
+#define REG_APE_PERI_BMC_TO_NC_READ_BUFFER ((APE_APE_PERI_H_VOLATILE APE_APE_PERI_H_uint32_t*)0x60240350) /*  */
 /** @brief Register definition for @ref APE_PERI_t.BmcToNcReadBuffer. */
 typedef register_container RegAPE_PERIBmcToNcReadBuffer_t {
     /** @brief 32bit direct register access. */
@@ -1144,7 +1145,7 @@ typedef register_container RegAPE_PERIBmcToNcReadBuffer_t {
 #endif /* CXX_SIMULATOR */
 } RegAPE_PERIBmcToNcReadBuffer_t;
 
-#define REG_APE_PERI_BMC_TO_NC_RX_CONTROL ((volatile APE_APE_PERI_H_uint32_t*)0x60240354) /*  */
+#define REG_APE_PERI_BMC_TO_NC_RX_CONTROL ((APE_APE_PERI_H_VOLATILE APE_APE_PERI_H_uint32_t*)0x60240354) /*  */
 #define     APE_PERI_BMC_TO_NC_RX_CONTROL_HWM_SHIFT 0u
 #define     APE_PERI_BMC_TO_NC_RX_CONTROL_HWM_MASK  0x7ffu
 #define GET_APE_PERI_BMC_TO_NC_RX_CONTROL_HWM(__reg__)  (((__reg__) & 0x7ff) >> 0u)
@@ -1216,7 +1217,7 @@ typedef register_container RegAPE_PERIBmcToNcRxControl_t {
 #endif /* CXX_SIMULATOR */
 } RegAPE_PERIBmcToNcRxControl_t;
 
-#define REG_APE_PERI_BMC_TO_NC_RX_STATUS_1 ((volatile APE_APE_PERI_H_uint32_t*)0x60240358) /*  */
+#define REG_APE_PERI_BMC_TO_NC_RX_STATUS_1 ((APE_APE_PERI_H_VOLATILE APE_APE_PERI_H_uint32_t*)0x60240358) /*  */
 /** @brief Register definition for @ref APE_PERI_t.BmcToNcRxStatus1. */
 typedef register_container RegAPE_PERIBmcToNcRxStatus1_t {
     /** @brief 32bit direct register access. */
@@ -1241,7 +1242,7 @@ typedef register_container RegAPE_PERIBmcToNcRxStatus1_t {
 #endif /* CXX_SIMULATOR */
 } RegAPE_PERIBmcToNcRxStatus1_t;
 
-#define REG_APE_PERI_BMC_TO_NC_RX_STATUS_2 ((volatile APE_APE_PERI_H_uint32_t*)0x6024035c) /*  */
+#define REG_APE_PERI_BMC_TO_NC_RX_STATUS_2 ((APE_APE_PERI_H_VOLATILE APE_APE_PERI_H_uint32_t*)0x6024035c) /*  */
 /** @brief Register definition for @ref APE_PERI_t.BmcToNcRxStatus2. */
 typedef register_container RegAPE_PERIBmcToNcRxStatus2_t {
     /** @brief 32bit direct register access. */
@@ -1266,7 +1267,7 @@ typedef register_container RegAPE_PERIBmcToNcRxStatus2_t {
 #endif /* CXX_SIMULATOR */
 } RegAPE_PERIBmcToNcRxStatus2_t;
 
-#define REG_APE_PERI_BMC_TO_NC_TX_STATUS ((volatile APE_APE_PERI_H_uint32_t*)0x60240370) /*  */
+#define REG_APE_PERI_BMC_TO_NC_TX_STATUS ((APE_APE_PERI_H_VOLATILE APE_APE_PERI_H_uint32_t*)0x60240370) /*  */
 #define     APE_PERI_BMC_TO_NC_TX_STATUS_UNDERRUN_SHIFT 0u
 #define     APE_PERI_BMC_TO_NC_TX_STATUS_UNDERRUN_MASK  0x1u
 #define GET_APE_PERI_BMC_TO_NC_TX_STATUS_UNDERRUN(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -1368,7 +1369,7 @@ typedef register_container RegAPE_PERIBmcToNcTxStatus_t {
 #endif /* CXX_SIMULATOR */
 } RegAPE_PERIBmcToNcTxStatus_t;
 
-#define REG_APE_PERI_BMC_TO_NC_TX_CONTROL ((volatile APE_APE_PERI_H_uint32_t*)0x60240374) /*  */
+#define REG_APE_PERI_BMC_TO_NC_TX_CONTROL ((APE_APE_PERI_H_VOLATILE APE_APE_PERI_H_uint32_t*)0x60240374) /*  */
 #define     APE_PERI_BMC_TO_NC_TX_CONTROL_UNDERRUN_SHIFT 0u
 #define     APE_PERI_BMC_TO_NC_TX_CONTROL_UNDERRUN_MASK  0x1u
 #define GET_APE_PERI_BMC_TO_NC_TX_CONTROL_UNDERRUN(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -1514,7 +1515,7 @@ typedef register_container RegAPE_PERIBmcToNcTxControl_t {
 #endif /* CXX_SIMULATOR */
 } RegAPE_PERIBmcToNcTxControl_t;
 
-#define REG_APE_PERI_BMC_TO_NC_TX_BUFFER ((volatile APE_APE_PERI_H_uint32_t*)0x60240378) /*  */
+#define REG_APE_PERI_BMC_TO_NC_TX_BUFFER ((APE_APE_PERI_H_VOLATILE APE_APE_PERI_H_uint32_t*)0x60240378) /*  */
 /** @brief Register definition for @ref APE_PERI_t.BmcToNcTxBuffer. */
 typedef register_container RegAPE_PERIBmcToNcTxBuffer_t {
     /** @brief 32bit direct register access. */
@@ -1539,7 +1540,7 @@ typedef register_container RegAPE_PERIBmcToNcTxBuffer_t {
 #endif /* CXX_SIMULATOR */
 } RegAPE_PERIBmcToNcTxBuffer_t;
 
-#define REG_APE_PERI_BMC_TO_NC_TX_BUFFER_LAST ((volatile APE_APE_PERI_H_uint32_t*)0x6024037c) /*  */
+#define REG_APE_PERI_BMC_TO_NC_TX_BUFFER_LAST ((APE_APE_PERI_H_VOLATILE APE_APE_PERI_H_uint32_t*)0x6024037c) /*  */
 /** @brief Register definition for @ref APE_PERI_t.BmcToNcTxBufferLast. */
 typedef register_container RegAPE_PERIBmcToNcTxBufferLast_t {
     /** @brief 32bit direct register access. */
@@ -1564,7 +1565,7 @@ typedef register_container RegAPE_PERIBmcToNcTxBufferLast_t {
 #endif /* CXX_SIMULATOR */
 } RegAPE_PERIBmcToNcTxBufferLast_t;
 
-#define REG_APE_PERI_BMC_TO_NC_TX_STATUS_1 ((volatile APE_APE_PERI_H_uint32_t*)0x60240380) /*  */
+#define REG_APE_PERI_BMC_TO_NC_TX_STATUS_1 ((APE_APE_PERI_H_VOLATILE APE_APE_PERI_H_uint32_t*)0x60240380) /*  */
 /** @brief Register definition for @ref APE_PERI_t.BmcToNcTxStatus1. */
 typedef register_container RegAPE_PERIBmcToNcTxStatus1_t {
     /** @brief 32bit direct register access. */
@@ -1589,7 +1590,7 @@ typedef register_container RegAPE_PERIBmcToNcTxStatus1_t {
 #endif /* CXX_SIMULATOR */
 } RegAPE_PERIBmcToNcTxStatus1_t;
 
-#define REG_APE_PERI_RMU_CONTROL ((volatile APE_APE_PERI_H_uint32_t*)0x602403a0) /*  */
+#define REG_APE_PERI_RMU_CONTROL ((APE_APE_PERI_H_VOLATILE APE_APE_PERI_H_uint32_t*)0x602403a0) /*  */
 #define     APE_PERI_RMU_CONTROL_RESET_TX_SHIFT 0u
 #define     APE_PERI_RMU_CONTROL_RESET_TX_MASK  0x1u
 #define GET_APE_PERI_RMU_CONTROL_RESET_TX(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -1697,7 +1698,7 @@ typedef register_container RegAPE_PERIRmuControl_t {
 #endif /* CXX_SIMULATOR */
 } RegAPE_PERIRmuControl_t;
 
-#define REG_APE_PERI_ARB_CONTROL ((volatile APE_APE_PERI_H_uint32_t*)0x602403a4) /*  */
+#define REG_APE_PERI_ARB_CONTROL ((APE_APE_PERI_H_VOLATILE APE_APE_PERI_H_uint32_t*)0x602403a4) /*  */
 #define     APE_PERI_ARB_CONTROL_PACKAGE_ID_SHIFT 0u
 #define     APE_PERI_ARB_CONTROL_PACKAGE_ID_MASK  0x7u
 #define GET_APE_PERI_ARB_CONTROL_PACKAGE_ID(__reg__)  (((__reg__) & 0x7) >> 0u)
@@ -1815,7 +1816,7 @@ typedef register_container RegAPE_PERIArbControl_t {
 #endif /* CXX_SIMULATOR */
 } RegAPE_PERIArbControl_t;
 
-#define REG_APE_PERI_PER_LOCK_REQUEST_PHY0 ((volatile APE_APE_PERI_H_uint32_t*)0x60240400) /* This register, and the following Per Lock Request registers work the same. The tg3 driver uses 0x0000_1000 (APELOCK_PER_REQ_DRIVER) for PHY ports (or always for function 0). */
+#define REG_APE_PERI_PER_LOCK_REQUEST_PHY0 ((APE_APE_PERI_H_VOLATILE APE_APE_PERI_H_uint32_t*)0x60240400) /* This register, and the following Per Lock Request registers work the same. The tg3 driver uses 0x0000_1000 (APELOCK_PER_REQ_DRIVER) for PHY ports (or always for function 0). */
 #define     APE_PERI_PER_LOCK_REQUEST_PHY0_APE_SHIFT 0u
 #define     APE_PERI_PER_LOCK_REQUEST_PHY0_APE_MASK  0x1u
 #define GET_APE_PERI_PER_LOCK_REQUEST_PHY0_APE(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -1917,7 +1918,7 @@ typedef register_container RegAPE_PERIPerLockRequestPhy0_t {
 #endif /* CXX_SIMULATOR */
 } RegAPE_PERIPerLockRequestPhy0_t;
 
-#define REG_APE_PERI_PER_LOCK_REQUEST_GRC ((volatile APE_APE_PERI_H_uint32_t*)0x60240404) /*  */
+#define REG_APE_PERI_PER_LOCK_REQUEST_GRC ((APE_APE_PERI_H_VOLATILE APE_APE_PERI_H_uint32_t*)0x60240404) /*  */
 #define     APE_PERI_PER_LOCK_REQUEST_GRC_APE_SHIFT 0u
 #define     APE_PERI_PER_LOCK_REQUEST_GRC_APE_MASK  0x1u
 #define GET_APE_PERI_PER_LOCK_REQUEST_GRC_APE(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -2019,7 +2020,7 @@ typedef register_container RegAPE_PERIPerLockRequestGrc_t {
 #endif /* CXX_SIMULATOR */
 } RegAPE_PERIPerLockRequestGrc_t;
 
-#define REG_APE_PERI_PER_LOCK_REQUEST_PHY1 ((volatile APE_APE_PERI_H_uint32_t*)0x60240408) /*  */
+#define REG_APE_PERI_PER_LOCK_REQUEST_PHY1 ((APE_APE_PERI_H_VOLATILE APE_APE_PERI_H_uint32_t*)0x60240408) /*  */
 #define     APE_PERI_PER_LOCK_REQUEST_PHY1_APE_SHIFT 0u
 #define     APE_PERI_PER_LOCK_REQUEST_PHY1_APE_MASK  0x1u
 #define GET_APE_PERI_PER_LOCK_REQUEST_PHY1_APE(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -2121,7 +2122,7 @@ typedef register_container RegAPE_PERIPerLockRequestPhy1_t {
 #endif /* CXX_SIMULATOR */
 } RegAPE_PERIPerLockRequestPhy1_t;
 
-#define REG_APE_PERI_PER_LOCK_REQUEST_PHY2 ((volatile APE_APE_PERI_H_uint32_t*)0x6024040c) /*  */
+#define REG_APE_PERI_PER_LOCK_REQUEST_PHY2 ((APE_APE_PERI_H_VOLATILE APE_APE_PERI_H_uint32_t*)0x6024040c) /*  */
 #define     APE_PERI_PER_LOCK_REQUEST_PHY2_APE_SHIFT 0u
 #define     APE_PERI_PER_LOCK_REQUEST_PHY2_APE_MASK  0x1u
 #define GET_APE_PERI_PER_LOCK_REQUEST_PHY2_APE(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -2223,7 +2224,7 @@ typedef register_container RegAPE_PERIPerLockRequestPhy2_t {
 #endif /* CXX_SIMULATOR */
 } RegAPE_PERIPerLockRequestPhy2_t;
 
-#define REG_APE_PERI_PER_LOCK_REQUEST_MEM ((volatile APE_APE_PERI_H_uint32_t*)0x60240410) /*  */
+#define REG_APE_PERI_PER_LOCK_REQUEST_MEM ((APE_APE_PERI_H_VOLATILE APE_APE_PERI_H_uint32_t*)0x60240410) /*  */
 #define     APE_PERI_PER_LOCK_REQUEST_MEM_APE_SHIFT 0u
 #define     APE_PERI_PER_LOCK_REQUEST_MEM_APE_MASK  0x1u
 #define GET_APE_PERI_PER_LOCK_REQUEST_MEM_APE(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -2325,7 +2326,7 @@ typedef register_container RegAPE_PERIPerLockRequestMem_t {
 #endif /* CXX_SIMULATOR */
 } RegAPE_PERIPerLockRequestMem_t;
 
-#define REG_APE_PERI_PER_LOCK_REQUEST_PHY3 ((volatile APE_APE_PERI_H_uint32_t*)0x60240414) /*  */
+#define REG_APE_PERI_PER_LOCK_REQUEST_PHY3 ((APE_APE_PERI_H_VOLATILE APE_APE_PERI_H_uint32_t*)0x60240414) /*  */
 #define     APE_PERI_PER_LOCK_REQUEST_PHY3_APE_SHIFT 0u
 #define     APE_PERI_PER_LOCK_REQUEST_PHY3_APE_MASK  0x1u
 #define GET_APE_PERI_PER_LOCK_REQUEST_PHY3_APE(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -2427,7 +2428,7 @@ typedef register_container RegAPE_PERIPerLockRequestPhy3_t {
 #endif /* CXX_SIMULATOR */
 } RegAPE_PERIPerLockRequestPhy3_t;
 
-#define REG_APE_PERI_PER_LOCK_REQUEST_PORT6 ((volatile APE_APE_PERI_H_uint32_t*)0x60240418) /*  */
+#define REG_APE_PERI_PER_LOCK_REQUEST_PORT6 ((APE_APE_PERI_H_VOLATILE APE_APE_PERI_H_uint32_t*)0x60240418) /*  */
 #define     APE_PERI_PER_LOCK_REQUEST_PORT6_APE_SHIFT 0u
 #define     APE_PERI_PER_LOCK_REQUEST_PORT6_APE_MASK  0x1u
 #define GET_APE_PERI_PER_LOCK_REQUEST_PORT6_APE(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -2529,7 +2530,7 @@ typedef register_container RegAPE_PERIPerLockRequestPort6_t {
 #endif /* CXX_SIMULATOR */
 } RegAPE_PERIPerLockRequestPort6_t;
 
-#define REG_APE_PERI_PER_LOCK_REQUEST_GPIO ((volatile APE_APE_PERI_H_uint32_t*)0x6024041c) /*  */
+#define REG_APE_PERI_PER_LOCK_REQUEST_GPIO ((APE_APE_PERI_H_VOLATILE APE_APE_PERI_H_uint32_t*)0x6024041c) /*  */
 #define     APE_PERI_PER_LOCK_REQUEST_GPIO_APE_SHIFT 0u
 #define     APE_PERI_PER_LOCK_REQUEST_GPIO_APE_MASK  0x1u
 #define GET_APE_PERI_PER_LOCK_REQUEST_GPIO_APE(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -2631,7 +2632,7 @@ typedef register_container RegAPE_PERIPerLockRequestGpio_t {
 #endif /* CXX_SIMULATOR */
 } RegAPE_PERIPerLockRequestGpio_t;
 
-#define REG_APE_PERI_PER_LOCK_GRANT_PHY0 ((volatile APE_APE_PERI_H_uint32_t*)0x60240420) /*  */
+#define REG_APE_PERI_PER_LOCK_GRANT_PHY0 ((APE_APE_PERI_H_VOLATILE APE_APE_PERI_H_uint32_t*)0x60240420) /*  */
 #define     APE_PERI_PER_LOCK_GRANT_PHY0_APE_SHIFT 0u
 #define     APE_PERI_PER_LOCK_GRANT_PHY0_APE_MASK  0x1u
 #define GET_APE_PERI_PER_LOCK_GRANT_PHY0_APE(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -2733,7 +2734,7 @@ typedef register_container RegAPE_PERIPerLockGrantPhy0_t {
 #endif /* CXX_SIMULATOR */
 } RegAPE_PERIPerLockGrantPhy0_t;
 
-#define REG_APE_PERI_PER_LOCK_GRANT_GRC ((volatile APE_APE_PERI_H_uint32_t*)0x60240424) /*  */
+#define REG_APE_PERI_PER_LOCK_GRANT_GRC ((APE_APE_PERI_H_VOLATILE APE_APE_PERI_H_uint32_t*)0x60240424) /*  */
 #define     APE_PERI_PER_LOCK_GRANT_GRC_APE_SHIFT 0u
 #define     APE_PERI_PER_LOCK_GRANT_GRC_APE_MASK  0x1u
 #define GET_APE_PERI_PER_LOCK_GRANT_GRC_APE(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -2835,7 +2836,7 @@ typedef register_container RegAPE_PERIPerLockGrantGrc_t {
 #endif /* CXX_SIMULATOR */
 } RegAPE_PERIPerLockGrantGrc_t;
 
-#define REG_APE_PERI_PER_LOCK_GRANT_PHY1 ((volatile APE_APE_PERI_H_uint32_t*)0x60240428) /*  */
+#define REG_APE_PERI_PER_LOCK_GRANT_PHY1 ((APE_APE_PERI_H_VOLATILE APE_APE_PERI_H_uint32_t*)0x60240428) /*  */
 #define     APE_PERI_PER_LOCK_GRANT_PHY1_APE_SHIFT 0u
 #define     APE_PERI_PER_LOCK_GRANT_PHY1_APE_MASK  0x1u
 #define GET_APE_PERI_PER_LOCK_GRANT_PHY1_APE(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -2937,7 +2938,7 @@ typedef register_container RegAPE_PERIPerLockGrantPhy1_t {
 #endif /* CXX_SIMULATOR */
 } RegAPE_PERIPerLockGrantPhy1_t;
 
-#define REG_APE_PERI_PER_LOCK_GRANT_PHY2 ((volatile APE_APE_PERI_H_uint32_t*)0x6024042c) /*  */
+#define REG_APE_PERI_PER_LOCK_GRANT_PHY2 ((APE_APE_PERI_H_VOLATILE APE_APE_PERI_H_uint32_t*)0x6024042c) /*  */
 #define     APE_PERI_PER_LOCK_GRANT_PHY2_APE_SHIFT 0u
 #define     APE_PERI_PER_LOCK_GRANT_PHY2_APE_MASK  0x1u
 #define GET_APE_PERI_PER_LOCK_GRANT_PHY2_APE(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -3039,7 +3040,7 @@ typedef register_container RegAPE_PERIPerLockGrantPhy2_t {
 #endif /* CXX_SIMULATOR */
 } RegAPE_PERIPerLockGrantPhy2_t;
 
-#define REG_APE_PERI_PER_LOCK_GRANT_MEM ((volatile APE_APE_PERI_H_uint32_t*)0x60240430) /*  */
+#define REG_APE_PERI_PER_LOCK_GRANT_MEM ((APE_APE_PERI_H_VOLATILE APE_APE_PERI_H_uint32_t*)0x60240430) /*  */
 #define     APE_PERI_PER_LOCK_GRANT_MEM_APE_SHIFT 0u
 #define     APE_PERI_PER_LOCK_GRANT_MEM_APE_MASK  0x1u
 #define GET_APE_PERI_PER_LOCK_GRANT_MEM_APE(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -3141,7 +3142,7 @@ typedef register_container RegAPE_PERIPerLockGrantMem_t {
 #endif /* CXX_SIMULATOR */
 } RegAPE_PERIPerLockGrantMem_t;
 
-#define REG_APE_PERI_PER_LOCK_GRANT_PHY3 ((volatile APE_APE_PERI_H_uint32_t*)0x60240434) /*  */
+#define REG_APE_PERI_PER_LOCK_GRANT_PHY3 ((APE_APE_PERI_H_VOLATILE APE_APE_PERI_H_uint32_t*)0x60240434) /*  */
 #define     APE_PERI_PER_LOCK_GRANT_PHY3_APE_SHIFT 0u
 #define     APE_PERI_PER_LOCK_GRANT_PHY3_APE_MASK  0x1u
 #define GET_APE_PERI_PER_LOCK_GRANT_PHY3_APE(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -3243,7 +3244,7 @@ typedef register_container RegAPE_PERIPerLockGrantPhy3_t {
 #endif /* CXX_SIMULATOR */
 } RegAPE_PERIPerLockGrantPhy3_t;
 
-#define REG_APE_PERI_PER_LOCK_GRANT_PORT6 ((volatile APE_APE_PERI_H_uint32_t*)0x60240438) /*  */
+#define REG_APE_PERI_PER_LOCK_GRANT_PORT6 ((APE_APE_PERI_H_VOLATILE APE_APE_PERI_H_uint32_t*)0x60240438) /*  */
 #define     APE_PERI_PER_LOCK_GRANT_PORT6_APE_SHIFT 0u
 #define     APE_PERI_PER_LOCK_GRANT_PORT6_APE_MASK  0x1u
 #define GET_APE_PERI_PER_LOCK_GRANT_PORT6_APE(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -3345,7 +3346,7 @@ typedef register_container RegAPE_PERIPerLockGrantPort6_t {
 #endif /* CXX_SIMULATOR */
 } RegAPE_PERIPerLockGrantPort6_t;
 
-#define REG_APE_PERI_PER_LOCK_GRANT_GPIO ((volatile APE_APE_PERI_H_uint32_t*)0x6024043c) /*  */
+#define REG_APE_PERI_PER_LOCK_GRANT_GPIO ((APE_APE_PERI_H_VOLATILE APE_APE_PERI_H_uint32_t*)0x6024043c) /*  */
 #define     APE_PERI_PER_LOCK_GRANT_GPIO_APE_SHIFT 0u
 #define     APE_PERI_PER_LOCK_GRANT_GPIO_APE_MASK  0x1u
 #define GET_APE_PERI_PER_LOCK_GRANT_GPIO_APE(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -3748,13 +3749,9 @@ typedef struct APE_PERI_t {
 } APE_PERI_t;
 
 /** @brief Device APE Registers */
-extern volatile APE_PERI_t APE_PERI;
+extern APE_APE_PERI_H_VOLATILE APE_PERI_t APE_PERI;
 
 
-
-#ifdef CXX_SIMULATOR /* Compiling c++ code - uses register wrappers */
-#undef volatile
-#endif /* CXX_SIMULATOR */
 
 #undef register_container
 #undef BITFIELD_BEGIN

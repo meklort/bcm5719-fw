@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2020, Evan Lojewski
+/// @copyright Copyright (c) 2022, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -63,7 +63,7 @@ typedef CXXRegister<uint32_t, 0, 32> APE_NVIC_H_uint32_t;
 #define APE_NVIC_H_uint16_t_bitfield(__pos__, __width__) CXXRegister<uint16_t, __pos__, __width__>
 #define APE_NVIC_H_uint32_t_bitfield(__pos__, __width__) CXXRegister<uint32_t, __pos__, __width__>
 #define register_container struct
-#define volatile
+#define APE_NVIC_H_VOLATILE
 #define BITFIELD_BEGIN(__type__, __name__) struct {
 #define BITFIELD_MEMBER(__type__, __name__, __offset__, __bits__) __type__##_bitfield(__offset__, __bits__) __name__;
 #define BITFIELD_END(__type__, __name__) } __name__;
@@ -73,6 +73,7 @@ typedef uint8_t  APE_NVIC_H_uint8_t;
 typedef uint16_t APE_NVIC_H_uint16_t;
 typedef uint32_t APE_NVIC_H_uint32_t;
 #define register_container union
+#define APE_NVIC_H_VOLATILE volatile
 #define BITFIELD_BEGIN(__type__, __name__) struct {
 #define BITFIELD_MEMBER(__type__, __name__, __offset__, __bits__) __type__ __name__:__bits__;
 #define BITFIELD_END(__type__, __name__) } __name__;
@@ -81,7 +82,7 @@ typedef uint32_t APE_NVIC_H_uint32_t;
 #define REG_NVIC_BASE ((volatile void*)0xe000e000) /* Nested Vectored Interrupt Controller */
 #define REG_NVIC_SIZE (sizeof(NVIC_t))
 
-#define REG_NVIC_INTERRUPT_CONTROL_TYPE ((volatile APE_NVIC_H_uint32_t*)0xe000e004) /* Read the Interrupt Controller Type Register to see the number of interrupt lines that the NVIC supports. */
+#define REG_NVIC_INTERRUPT_CONTROL_TYPE ((APE_NVIC_H_VOLATILE APE_NVIC_H_uint32_t*)0xe000e004) /* Read the Interrupt Controller Type Register to see the number of interrupt lines that the NVIC supports. */
 #define     NVIC_INTERRUPT_CONTROL_TYPE_INTLINESNUM_SHIFT 0u
 #define     NVIC_INTERRUPT_CONTROL_TYPE_INTLINESNUM_MASK  0xfu
 #define GET_NVIC_INTERRUPT_CONTROL_TYPE_INTLINESNUM(__reg__)  (((__reg__) & 0xf) >> 0u)
@@ -137,7 +138,7 @@ typedef register_container RegNVICInterruptControlType_t {
 #endif /* CXX_SIMULATOR */
 } RegNVICInterruptControlType_t;
 
-#define REG_NVIC_SYSTICK_CONTROL_AND_STATUS ((volatile APE_NVIC_H_uint32_t*)0xe000e010) /* Use the SysTick Control and Status Register to enable the SysTick features. */
+#define REG_NVIC_SYSTICK_CONTROL_AND_STATUS ((APE_NVIC_H_VOLATILE APE_NVIC_H_uint32_t*)0xe000e010) /* Use the SysTick Control and Status Register to enable the SysTick features. */
 #define     NVIC_SYSTICK_CONTROL_AND_STATUS_ENABLE_SHIFT 0u
 #define     NVIC_SYSTICK_CONTROL_AND_STATUS_ENABLE_MASK  0x1u
 #define GET_NVIC_SYSTICK_CONTROL_AND_STATUS_ENABLE(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -219,7 +220,7 @@ typedef register_container RegNVICSystickControlAndStatus_t {
 #endif /* CXX_SIMULATOR */
 } RegNVICSystickControlAndStatus_t;
 
-#define REG_NVIC_SYSTICK_RELOAD_VALUE ((volatile APE_NVIC_H_uint32_t*)0xe000e014) /* Use the SysTick Reload Value Register to specify the start value to load into the current value register when the counter reaches 0. It can be any value between 1 and 0x00FFFFFF. A start value of 0 is possible, but has no effect because the SysTick interrupt and COUNTFLAG are activated when counting from 1 to 0. */
+#define REG_NVIC_SYSTICK_RELOAD_VALUE ((APE_NVIC_H_VOLATILE APE_NVIC_H_uint32_t*)0xe000e014) /* Use the SysTick Reload Value Register to specify the start value to load into the current value register when the counter reaches 0. It can be any value between 1 and 0x00FFFFFF. A start value of 0 is possible, but has no effect because the SysTick interrupt and COUNTFLAG are activated when counting from 1 to 0. */
 #define     NVIC_SYSTICK_RELOAD_VALUE_RELOAD_SHIFT 0u
 #define     NVIC_SYSTICK_RELOAD_VALUE_RELOAD_MASK  0xffffffu
 #define GET_NVIC_SYSTICK_RELOAD_VALUE_RELOAD(__reg__)  (((__reg__) & 0xffffff) >> 0u)
@@ -267,7 +268,7 @@ typedef register_container RegNVICSystickReloadValue_t {
 #endif /* CXX_SIMULATOR */
 } RegNVICSystickReloadValue_t;
 
-#define REG_NVIC_SYSTICK_CURRENT_VALUE ((volatile APE_NVIC_H_uint32_t*)0xe000e018) /* Use the SysTick Current Value Register to find the current value in the register. */
+#define REG_NVIC_SYSTICK_CURRENT_VALUE ((APE_NVIC_H_VOLATILE APE_NVIC_H_uint32_t*)0xe000e018) /* Use the SysTick Current Value Register to find the current value in the register. */
 #define     NVIC_SYSTICK_CURRENT_VALUE_CURRENT_SHIFT 0u
 #define     NVIC_SYSTICK_CURRENT_VALUE_CURRENT_MASK  0xffffffu
 #define GET_NVIC_SYSTICK_CURRENT_VALUE_CURRENT(__reg__)  (((__reg__) & 0xffffff) >> 0u)
@@ -315,7 +316,7 @@ typedef register_container RegNVICSystickCurrentValue_t {
 #endif /* CXX_SIMULATOR */
 } RegNVICSystickCurrentValue_t;
 
-#define REG_NVIC_SYSTICK_CALIBRATION_VALUE ((volatile APE_NVIC_H_uint32_t*)0xe000e01c) /* Use the SysTick Calibration Value Register to enable software to scale to any required speed using divide and multiply. */
+#define REG_NVIC_SYSTICK_CALIBRATION_VALUE ((APE_NVIC_H_VOLATILE APE_NVIC_H_uint32_t*)0xe000e01c) /* Use the SysTick Calibration Value Register to enable software to scale to any required speed using divide and multiply. */
 #define     NVIC_SYSTICK_CALIBRATION_VALUE_TENMS_SHIFT 0u
 #define     NVIC_SYSTICK_CALIBRATION_VALUE_TENMS_MASK  0xffffffu
 #define GET_NVIC_SYSTICK_CALIBRATION_VALUE_TENMS(__reg__)  (((__reg__) & 0xffffff) >> 0u)
@@ -383,7 +384,7 @@ typedef register_container RegNVICSystickCalibrationValue_t {
 #endif /* CXX_SIMULATOR */
 } RegNVICSystickCalibrationValue_t;
 
-#define REG_NVIC_INTERRUPT_SET_ENABLE ((volatile APE_NVIC_H_uint32_t*)0xe000e100) /* Each bit in the register corresponds to one of 32 interrupts. Setting a bit in the Interrupt Set-Enable Register enables the corresponding interrupt. When the enable bit of a pending interrupt is set, the processor activates the interrupt based on its priority. When the enable bit is clear, asserting its interrupt signal pends the interrupt, but it is not possible to activate the interrupt, regardless of its priority. Therefore, a disabled interrupt can serve as a latched general-purpose I/O bit. You can read it and clear it without invoking an interrupt. */
+#define REG_NVIC_INTERRUPT_SET_ENABLE ((APE_NVIC_H_VOLATILE APE_NVIC_H_uint32_t*)0xe000e100) /* Each bit in the register corresponds to one of 32 interrupts. Setting a bit in the Interrupt Set-Enable Register enables the corresponding interrupt. When the enable bit of a pending interrupt is set, the processor activates the interrupt based on its priority. When the enable bit is clear, asserting its interrupt signal pends the interrupt, but it is not possible to activate the interrupt, regardless of its priority. Therefore, a disabled interrupt can serve as a latched general-purpose I/O bit. You can read it and clear it without invoking an interrupt. */
 #define     NVIC_INTERRUPT_SET_ENABLE_SETENA_SHIFT 0u
 #define     NVIC_INTERRUPT_SET_ENABLE_SETENA_MASK  0xffffffffu
 #define GET_NVIC_INTERRUPT_SET_ENABLE_SETENA(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
@@ -449,7 +450,7 @@ typedef register_container RegNVICInterruptSetEnable_t {
 #endif /* CXX_SIMULATOR */
 } RegNVICInterruptSetEnable_t;
 
-#define REG_NVIC_INTERRUPT_CLEAR_ENABLE ((volatile APE_NVIC_H_uint32_t*)0xe000e180) /* Each bit in the register corresponds to one of the 32 interrupts. Setting an Interrupt Clear-Enable Register bit disables the corresponding interrupt. */
+#define REG_NVIC_INTERRUPT_CLEAR_ENABLE ((APE_NVIC_H_VOLATILE APE_NVIC_H_uint32_t*)0xe000e180) /* Each bit in the register corresponds to one of the 32 interrupts. Setting an Interrupt Clear-Enable Register bit disables the corresponding interrupt. */
 #define     NVIC_INTERRUPT_CLEAR_ENABLE_CLRENA_SHIFT 0u
 #define     NVIC_INTERRUPT_CLEAR_ENABLE_CLRENA_MASK  0xffffffffu
 #define GET_NVIC_INTERRUPT_CLEAR_ENABLE_CLRENA(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
@@ -515,7 +516,7 @@ typedef register_container RegNVICInterruptClearEnable_t {
 #endif /* CXX_SIMULATOR */
 } RegNVICInterruptClearEnable_t;
 
-#define REG_NVIC_INTERRUPT_SET_PENDING ((volatile APE_NVIC_H_uint32_t*)0xe000e200) /* Each bit in the register corresponds to one of the 32 interrupts. Setting an Interrupt Set-Pending Register bit pends the corresponding interrupt. */
+#define REG_NVIC_INTERRUPT_SET_PENDING ((APE_NVIC_H_VOLATILE APE_NVIC_H_uint32_t*)0xe000e200) /* Each bit in the register corresponds to one of the 32 interrupts. Setting an Interrupt Set-Pending Register bit pends the corresponding interrupt. */
 #define     NVIC_INTERRUPT_SET_PENDING_SETPEND_SHIFT 0u
 #define     NVIC_INTERRUPT_SET_PENDING_SETPEND_MASK  0xffffffffu
 #define GET_NVIC_INTERRUPT_SET_PENDING_SETPEND(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
@@ -581,7 +582,7 @@ typedef register_container RegNVICInterruptSetPending_t {
 #endif /* CXX_SIMULATOR */
 } RegNVICInterruptSetPending_t;
 
-#define REG_NVIC_INTERRUPT_CLEAR_PENDING ((volatile APE_NVIC_H_uint32_t*)0xe000e280) /* Each bit in the register corresponds to one of the 32 interrupts. Setting an Interrupt Clear-Pending Register bit puts the corresponding pending interrupt in the inactive state. */
+#define REG_NVIC_INTERRUPT_CLEAR_PENDING ((APE_NVIC_H_VOLATILE APE_NVIC_H_uint32_t*)0xe000e280) /* Each bit in the register corresponds to one of the 32 interrupts. Setting an Interrupt Clear-Pending Register bit puts the corresponding pending interrupt in the inactive state. */
 #define     NVIC_INTERRUPT_CLEAR_PENDING_CLRPEND_SHIFT 0u
 #define     NVIC_INTERRUPT_CLEAR_PENDING_CLRPEND_MASK  0xffffffffu
 #define GET_NVIC_INTERRUPT_CLEAR_PENDING_CLRPEND(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
@@ -647,7 +648,7 @@ typedef register_container RegNVICInterruptClearPending_t {
 #endif /* CXX_SIMULATOR */
 } RegNVICInterruptClearPending_t;
 
-#define REG_NVIC_ACTIVE_BIT ((volatile APE_NVIC_H_uint32_t*)0xe000e300) /* Read the Active Bit Register to determine which interrupts are active. Each flag in the register corresponds to one of the 32 interrupts. */
+#define REG_NVIC_ACTIVE_BIT ((APE_NVIC_H_VOLATILE APE_NVIC_H_uint32_t*)0xe000e300) /* Read the Active Bit Register to determine which interrupts are active. Each flag in the register corresponds to one of the 32 interrupts. */
 #define     NVIC_ACTIVE_BIT_ACTIVE_SHIFT 0u
 #define     NVIC_ACTIVE_BIT_ACTIVE_MASK  0xffffffffu
 #define GET_NVIC_ACTIVE_BIT_ACTIVE(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
@@ -691,7 +692,7 @@ typedef register_container RegNVICActiveBit_t {
 #endif /* CXX_SIMULATOR */
 } RegNVICActiveBit_t;
 
-#define REG_NVIC_INTERRUPT_PRIORITY_0 ((volatile APE_NVIC_H_uint32_t*)0xe000e400) /* Use the Interrupt Priority Registers to assign a priority from 0 to 255 to each of the available interrupts. 0 is the highest priority, and 255 is the lowest. */
+#define REG_NVIC_INTERRUPT_PRIORITY_0 ((APE_NVIC_H_VOLATILE APE_NVIC_H_uint32_t*)0xe000e400) /* Use the Interrupt Priority Registers to assign a priority from 0 to 255 to each of the available interrupts. 0 is the highest priority, and 255 is the lowest. */
 #define     NVIC_INTERRUPT_PRIORITY_0_PRI_0_SHIFT 0u
 #define     NVIC_INTERRUPT_PRIORITY_0_PRI_0_MASK  0xffu
 #define GET_NVIC_INTERRUPT_PRIORITY_0_PRI_0(__reg__)  (((__reg__) & 0xff) >> 0u)
@@ -765,7 +766,7 @@ typedef register_container RegNVICInterruptPriority0_t {
 #endif /* CXX_SIMULATOR */
 } RegNVICInterruptPriority0_t;
 
-#define REG_NVIC_INTERRUPT_PRIORITY_1 ((volatile APE_NVIC_H_uint32_t*)0xe000e404) /* Use the Interrupt Priority Registers to assign a priority from 0 to 255 to each of the available interrupts. 0 is the highest priority, and 255 is the lowest. */
+#define REG_NVIC_INTERRUPT_PRIORITY_1 ((APE_NVIC_H_VOLATILE APE_NVIC_H_uint32_t*)0xe000e404) /* Use the Interrupt Priority Registers to assign a priority from 0 to 255 to each of the available interrupts. 0 is the highest priority, and 255 is the lowest. */
 #define     NVIC_INTERRUPT_PRIORITY_1_PRI_4_SHIFT 0u
 #define     NVIC_INTERRUPT_PRIORITY_1_PRI_4_MASK  0xffu
 #define GET_NVIC_INTERRUPT_PRIORITY_1_PRI_4(__reg__)  (((__reg__) & 0xff) >> 0u)
@@ -839,7 +840,7 @@ typedef register_container RegNVICInterruptPriority1_t {
 #endif /* CXX_SIMULATOR */
 } RegNVICInterruptPriority1_t;
 
-#define REG_NVIC_CPU_ID ((volatile APE_NVIC_H_uint32_t*)0xe000ed00) /* Read the CPU ID Base Register to determine: the ID number of the processor core, the version number of the processor core, the implementation details of the processor core. */
+#define REG_NVIC_CPU_ID ((APE_NVIC_H_VOLATILE APE_NVIC_H_uint32_t*)0xe000ed00) /* Read the CPU ID Base Register to determine: the ID number of the processor core, the version number of the processor core, the implementation details of the processor core. */
 #define     NVIC_CPU_ID_REVISION_SHIFT 0u
 #define     NVIC_CPU_ID_REVISION_MASK  0xfu
 #define GET_NVIC_CPU_ID_REVISION(__reg__)  (((__reg__) & 0xf) >> 0u)
@@ -923,7 +924,7 @@ typedef register_container RegNVICCpuId_t {
 #endif /* CXX_SIMULATOR */
 } RegNVICCpuId_t;
 
-#define REG_NVIC_INTERRUPT_CONTROL_STATE ((volatile APE_NVIC_H_uint32_t*)0xe000ed04) /* Use the Interrupt Control State Register to: set a pending Non-Maskable Interrupt (NMI), set or clear a pending SVC, set or clear a pending SysTick, check for pending exceptions, check the vector number of the highest priority pended exception, check the vector number of the active exception. */
+#define REG_NVIC_INTERRUPT_CONTROL_STATE ((APE_NVIC_H_VOLATILE APE_NVIC_H_uint32_t*)0xe000ed04) /* Use the Interrupt Control State Register to: set a pending Non-Maskable Interrupt (NMI), set or clear a pending SVC, set or clear a pending SysTick, check for pending exceptions, check the vector number of the highest priority pended exception, check the vector number of the active exception. */
 #define     NVIC_INTERRUPT_CONTROL_STATE_VECTACTIVE_SHIFT 0u
 #define     NVIC_INTERRUPT_CONTROL_STATE_VECTACTIVE_MASK  0x1ffu
 #define GET_NVIC_INTERRUPT_CONTROL_STATE_VECTACTIVE(__reg__)  (((__reg__) & 0x1ff) >> 0u)
@@ -1069,7 +1070,7 @@ typedef register_container RegNVICInterruptControlState_t {
 #endif /* CXX_SIMULATOR */
 } RegNVICInterruptControlState_t;
 
-#define REG_NVIC_VECTOR_TABLE_OFFSET ((volatile APE_NVIC_H_uint32_t*)0xe000ed08) /* Use the Vector Table Offset Register to determine: if the vector table is in RAM or code memory, the vector table offset. */
+#define REG_NVIC_VECTOR_TABLE_OFFSET ((APE_NVIC_H_VOLATILE APE_NVIC_H_uint32_t*)0xe000ed08) /* Use the Vector Table Offset Register to determine: if the vector table is in RAM or code memory, the vector table offset. */
 #define     NVIC_VECTOR_TABLE_OFFSET_TBLOFF_SHIFT 7u
 #define     NVIC_VECTOR_TABLE_OFFSET_TBLOFF_MASK  0x1fffff80u
 #define GET_NVIC_VECTOR_TABLE_OFFSET_TBLOFF(__reg__)  (((__reg__) & 0x1fffff80) >> 7u)
@@ -1131,7 +1132,7 @@ typedef register_container RegNVICVectorTableOffset_t {
 #endif /* CXX_SIMULATOR */
 } RegNVICVectorTableOffset_t;
 
-#define REG_NVIC_APPLICATION_INTERRUPT_AND_RESET_CONTROL ((volatile APE_NVIC_H_uint32_t*)0xe000ed0c) /* the Application Interrupt and Reset Control Register to: determine data endianness, clear all active state information for debug or to recover from a hard failure, execute a system reset, alter the priority grouping position (binary point). */
+#define REG_NVIC_APPLICATION_INTERRUPT_AND_RESET_CONTROL ((APE_NVIC_H_VOLATILE APE_NVIC_H_uint32_t*)0xe000ed0c) /* the Application Interrupt and Reset Control Register to: determine data endianness, clear all active state information for debug or to recover from a hard failure, execute a system reset, alter the priority grouping position (binary point). */
 #define     NVIC_APPLICATION_INTERRUPT_AND_RESET_CONTROL_VECTRESET_SHIFT 0u
 #define     NVIC_APPLICATION_INTERRUPT_AND_RESET_CONTROL_VECTRESET_MASK  0x1u
 #define GET_NVIC_APPLICATION_INTERRUPT_AND_RESET_CONTROL_VECTRESET(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -1233,7 +1234,7 @@ typedef register_container RegNVICApplicationInterruptAndResetControl_t {
 #endif /* CXX_SIMULATOR */
 } RegNVICApplicationInterruptAndResetControl_t;
 
-#define REG_NVIC_SYSTEM_CONTROL ((volatile APE_NVIC_H_uint32_t*)0xe000ed10) /* Use the System Control Register for power-management functions: signal to the system when the processor can enter a low power state, control how the processor enters and exits low power states. */
+#define REG_NVIC_SYSTEM_CONTROL ((APE_NVIC_H_VOLATILE APE_NVIC_H_uint32_t*)0xe000ed10) /* Use the System Control Register for power-management functions: signal to the system when the processor can enter a low power state, control how the processor enters and exits low power states. */
 #define     NVIC_SYSTEM_CONTROL_SLEEPONEXIT_SHIFT 1u
 #define     NVIC_SYSTEM_CONTROL_SLEEPONEXIT_MASK  0x2u
 #define GET_NVIC_SYSTEM_CONTROL_SLEEPONEXIT(__reg__)  (((__reg__) & 0x2) >> 1u)
@@ -1309,7 +1310,7 @@ typedef register_container RegNVICSystemControl_t {
 #endif /* CXX_SIMULATOR */
 } RegNVICSystemControl_t;
 
-#define REG_NVIC_CONFIGURATION_CONTROL ((volatile APE_NVIC_H_uint32_t*)0xe000ed14) /* Use the Configuration Control Register to: enable NMI, Hard Fault and FAULTMASK to ignore bus fault, trap divide by zero, and unaligned accesses, enable user access to the Software Trigger Exception Register, control entry to Thread Mode. */
+#define REG_NVIC_CONFIGURATION_CONTROL ((APE_NVIC_H_VOLATILE APE_NVIC_H_uint32_t*)0xe000ed14) /* Use the Configuration Control Register to: enable NMI, Hard Fault and FAULTMASK to ignore bus fault, trap divide by zero, and unaligned accesses, enable user access to the Software Trigger Exception Register, control entry to Thread Mode. */
 #define     NVIC_CONFIGURATION_CONTROL_NONEBASETHRDENA_SHIFT 0u
 #define     NVIC_CONFIGURATION_CONTROL_NONEBASETHRDENA_MASK  0x1u
 #define GET_NVIC_CONFIGURATION_CONTROL_NONEBASETHRDENA(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -1415,7 +1416,7 @@ typedef register_container RegNVICConfigurationControl_t {
 #endif /* CXX_SIMULATOR */
 } RegNVICConfigurationControl_t;
 
-#define REG_NVIC_SYSTEM_HANDLER_PRIORITY_4 ((volatile APE_NVIC_H_uint32_t*)0xe000ed18) /* System handlers are a special class of exception handler that can have their priority set to any of the priority levels. Most can be masked on (enabled) or off (disabled). When disabled, the fault is always treated as a Hard Fault. */
+#define REG_NVIC_SYSTEM_HANDLER_PRIORITY_4 ((APE_NVIC_H_VOLATILE APE_NVIC_H_uint32_t*)0xe000ed18) /* System handlers are a special class of exception handler that can have their priority set to any of the priority levels. Most can be masked on (enabled) or off (disabled). When disabled, the fault is always treated as a Hard Fault. */
 #define     NVIC_SYSTEM_HANDLER_PRIORITY_4_PRI_4_SHIFT 0u
 #define     NVIC_SYSTEM_HANDLER_PRIORITY_4_PRI_4_MASK  0xffu
 #define GET_NVIC_SYSTEM_HANDLER_PRIORITY_4_PRI_4(__reg__)  (((__reg__) & 0xff) >> 0u)
@@ -1489,7 +1490,7 @@ typedef register_container RegNVICSystemHandlerPriority4_t {
 #endif /* CXX_SIMULATOR */
 } RegNVICSystemHandlerPriority4_t;
 
-#define REG_NVIC_SYSTEM_HANDLER_PRIORITY_8 ((volatile APE_NVIC_H_uint32_t*)0xe000ed1c) /* System handlers are a special class of exception handler that can have their priority set to any of the priority levels. Most can be masked on (enabled) or off (disabled). When disabled, the fault is always treated as a Hard Fault. */
+#define REG_NVIC_SYSTEM_HANDLER_PRIORITY_8 ((APE_NVIC_H_VOLATILE APE_NVIC_H_uint32_t*)0xe000ed1c) /* System handlers are a special class of exception handler that can have their priority set to any of the priority levels. Most can be masked on (enabled) or off (disabled). When disabled, the fault is always treated as a Hard Fault. */
 #define     NVIC_SYSTEM_HANDLER_PRIORITY_8_PRI_8_SHIFT 0u
 #define     NVIC_SYSTEM_HANDLER_PRIORITY_8_PRI_8_MASK  0xffu
 #define GET_NVIC_SYSTEM_HANDLER_PRIORITY_8_PRI_8(__reg__)  (((__reg__) & 0xff) >> 0u)
@@ -1563,7 +1564,7 @@ typedef register_container RegNVICSystemHandlerPriority8_t {
 #endif /* CXX_SIMULATOR */
 } RegNVICSystemHandlerPriority8_t;
 
-#define REG_NVIC_SYSTEM_HANDLER_PRIORITY_12 ((volatile APE_NVIC_H_uint32_t*)0xe000ed20) /* System handlers are a special class of exception handler that can have their priority set to any of the priority levels. Most can be masked on (enabled) or off (disabled). When disabled, the fault is always treated as a Hard Fault. */
+#define REG_NVIC_SYSTEM_HANDLER_PRIORITY_12 ((APE_NVIC_H_VOLATILE APE_NVIC_H_uint32_t*)0xe000ed20) /* System handlers are a special class of exception handler that can have their priority set to any of the priority levels. Most can be masked on (enabled) or off (disabled). When disabled, the fault is always treated as a Hard Fault. */
 #define     NVIC_SYSTEM_HANDLER_PRIORITY_12_PRI_12_SHIFT 0u
 #define     NVIC_SYSTEM_HANDLER_PRIORITY_12_PRI_12_MASK  0xffu
 #define GET_NVIC_SYSTEM_HANDLER_PRIORITY_12_PRI_12(__reg__)  (((__reg__) & 0xff) >> 0u)
@@ -1637,7 +1638,7 @@ typedef register_container RegNVICSystemHandlerPriority12_t {
 #endif /* CXX_SIMULATOR */
 } RegNVICSystemHandlerPriority12_t;
 
-#define REG_NVIC_SYSTEM_HANDLER_CONTROL_AND_STATE ((volatile APE_NVIC_H_uint32_t*)0xe000ed24) /* Use the System Handler Control and State Register to: enable or disable the system handlers, determine the pending status of bus fault, mem manage fault, and SVC, determine the active status of the system handlers. */
+#define REG_NVIC_SYSTEM_HANDLER_CONTROL_AND_STATE ((APE_NVIC_H_VOLATILE APE_NVIC_H_uint32_t*)0xe000ed24) /* Use the System Handler Control and State Register to: enable or disable the system handlers, determine the pending status of bus fault, mem manage fault, and SVC, determine the active status of the system handlers. */
 #define     NVIC_SYSTEM_HANDLER_CONTROL_AND_STATE_MEMFAULTACT_SHIFT 0u
 #define     NVIC_SYSTEM_HANDLER_CONTROL_AND_STATE_MEMFAULTACT_MASK  0x1u
 #define GET_NVIC_SYSTEM_HANDLER_CONTROL_AND_STATE_MEMFAULTACT(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -1827,7 +1828,7 @@ typedef register_container RegNVICSystemHandlerControlAndState_t {
 #endif /* CXX_SIMULATOR */
 } RegNVICSystemHandlerControlAndState_t;
 
-#define REG_NVIC_FAULT_STATUS ((volatile APE_NVIC_H_uint32_t*)0xe000ed28) /* The flags in these registers indicate the causes of local faults. Multiple flags can be set if more than one fault occurs. These register are read/write-clear. This means that they can be read normally, but writing a 1 to any bit clears that bit. */
+#define REG_NVIC_FAULT_STATUS ((APE_NVIC_H_VOLATILE APE_NVIC_H_uint32_t*)0xe000ed28) /* The flags in these registers indicate the causes of local faults. Multiple flags can be set if more than one fault occurs. These register are read/write-clear. This means that they can be read normally, but writing a 1 to any bit clears that bit. */
 #define     NVIC_FAULT_STATUS_MEMORY_MANAGE_FAULT_STATUS_SHIFT 0u
 #define     NVIC_FAULT_STATUS_MEMORY_MANAGE_FAULT_STATUS_MASK  0xffu
 #define GET_NVIC_FAULT_STATUS_MEMORY_MANAGE_FAULT_STATUS(__reg__)  (((__reg__) & 0xff) >> 0u)
@@ -1901,7 +1902,7 @@ typedef register_container RegNVICFaultStatus_t {
 #endif /* CXX_SIMULATOR */
 } RegNVICFaultStatus_t;
 
-#define REG_NVIC_HARD_FAULT_STATUS ((volatile APE_NVIC_H_uint32_t*)0xe000ed2c) /* Use the Hard Fault Status Register (HFSR) to obtain information about events that activate the Hard Fault handler. */
+#define REG_NVIC_HARD_FAULT_STATUS ((APE_NVIC_H_VOLATILE APE_NVIC_H_uint32_t*)0xe000ed2c) /* Use the Hard Fault Status Register (HFSR) to obtain information about events that activate the Hard Fault handler. */
 #define     NVIC_HARD_FAULT_STATUS_VECTTBL_SHIFT 1u
 #define     NVIC_HARD_FAULT_STATUS_VECTTBL_MASK  0x2u
 #define GET_NVIC_HARD_FAULT_STATUS_VECTTBL(__reg__)  (((__reg__) & 0x2) >> 1u)
@@ -1973,7 +1974,7 @@ typedef register_container RegNVICHardFaultStatus_t {
 #endif /* CXX_SIMULATOR */
 } RegNVICHardFaultStatus_t;
 
-#define REG_NVIC_DEBUG_FAULT_STATUS ((volatile APE_NVIC_H_uint32_t*)0xe000ed30) /* Use the Debug Fault Status Register to monitor: external debug requests, vector catches, data watchpoint match, BKPT instruction execution, halt requests. */
+#define REG_NVIC_DEBUG_FAULT_STATUS ((APE_NVIC_H_VOLATILE APE_NVIC_H_uint32_t*)0xe000ed30) /* Use the Debug Fault Status Register to monitor: external debug requests, vector catches, data watchpoint match, BKPT instruction execution, halt requests. */
 #define     NVIC_DEBUG_FAULT_STATUS_HALTED_SHIFT 0u
 #define     NVIC_DEBUG_FAULT_STATUS_HALTED_MASK  0x1u
 #define GET_NVIC_DEBUG_FAULT_STATUS_HALTED(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -2061,7 +2062,7 @@ typedef register_container RegNVICDebugFaultStatus_t {
 #endif /* CXX_SIMULATOR */
 } RegNVICDebugFaultStatus_t;
 
-#define REG_NVIC_MEMORY_MANAGE_FAULT_ADDRESS ((volatile APE_NVIC_H_uint32_t*)0xe000ed34) /* Use the Memory Manage Fault Address Register to read the address of the location that caused a Memory Manage Fault. */
+#define REG_NVIC_MEMORY_MANAGE_FAULT_ADDRESS ((APE_NVIC_H_VOLATILE APE_NVIC_H_uint32_t*)0xe000ed34) /* Use the Memory Manage Fault Address Register to read the address of the location that caused a Memory Manage Fault. */
 #define     NVIC_MEMORY_MANAGE_FAULT_ADDRESS_ADDRESS_SHIFT 0u
 #define     NVIC_MEMORY_MANAGE_FAULT_ADDRESS_ADDRESS_MASK  0xffffffffu
 #define GET_NVIC_MEMORY_MANAGE_FAULT_ADDRESS_ADDRESS(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
@@ -2105,7 +2106,7 @@ typedef register_container RegNVICMemoryManageFaultAddress_t {
 #endif /* CXX_SIMULATOR */
 } RegNVICMemoryManageFaultAddress_t;
 
-#define REG_NVIC_BUS_FAULT_ADDRESS ((volatile APE_NVIC_H_uint32_t*)0xe000ed38) /* Use the Bus Fault Address Register to read the address of the location that generated a Bus Fault. */
+#define REG_NVIC_BUS_FAULT_ADDRESS ((APE_NVIC_H_VOLATILE APE_NVIC_H_uint32_t*)0xe000ed38) /* Use the Bus Fault Address Register to read the address of the location that generated a Bus Fault. */
 #define     NVIC_BUS_FAULT_ADDRESS_ADDRESS_SHIFT 0u
 #define     NVIC_BUS_FAULT_ADDRESS_ADDRESS_MASK  0xffffffffu
 #define GET_NVIC_BUS_FAULT_ADDRESS_ADDRESS(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
@@ -2149,7 +2150,7 @@ typedef register_container RegNVICBusFaultAddress_t {
 #endif /* CXX_SIMULATOR */
 } RegNVICBusFaultAddress_t;
 
-#define REG_NVIC_AUXILIARY_FAULT_ADDRESS ((volatile APE_NVIC_H_uint32_t*)0xe000ed3c) /* Use the Auxiliary Fault Status Register (AFSR) to determine additional system fault information to software. The AFSR flags map directly onto the AUXFAULT inputs of the processor, and a single-cycle high level on an external pin causes the corresponding AFSR bit to become latched as one. The bit can only be cleared by writing a one to the corresponding AFSR bit. When an AFSR bit is written or latched as one, an exception does not occur. If you require an exception, you must use an interrupt. */
+#define REG_NVIC_AUXILIARY_FAULT_ADDRESS ((APE_NVIC_H_VOLATILE APE_NVIC_H_uint32_t*)0xe000ed3c) /* Use the Auxiliary Fault Status Register (AFSR) to determine additional system fault information to software. The AFSR flags map directly onto the AUXFAULT inputs of the processor, and a single-cycle high level on an external pin causes the corresponding AFSR bit to become latched as one. The bit can only be cleared by writing a one to the corresponding AFSR bit. When an AFSR bit is written or latched as one, an exception does not occur. If you require an exception, you must use an interrupt. */
 #define     NVIC_AUXILIARY_FAULT_ADDRESS_IMPDEF_SHIFT 0u
 #define     NVIC_AUXILIARY_FAULT_ADDRESS_IMPDEF_MASK  0xffffffffu
 #define GET_NVIC_AUXILIARY_FAULT_ADDRESS_IMPDEF(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
@@ -2193,7 +2194,7 @@ typedef register_container RegNVICAuxiliaryFaultAddress_t {
 #endif /* CXX_SIMULATOR */
 } RegNVICAuxiliaryFaultAddress_t;
 
-#define REG_NVIC_SOFTWARE_TRIGGER_INTERRUPT ((volatile APE_NVIC_H_uint32_t*)0xe000ef00) /* Use the Software Trigger Interrupt Register to pend an interrupt to trigger. */
+#define REG_NVIC_SOFTWARE_TRIGGER_INTERRUPT ((APE_NVIC_H_VOLATILE APE_NVIC_H_uint32_t*)0xe000ef00) /* Use the Software Trigger Interrupt Register to pend an interrupt to trigger. */
 #define     NVIC_SOFTWARE_TRIGGER_INTERRUPT_INTID_SHIFT 0u
 #define     NVIC_SOFTWARE_TRIGGER_INTERRUPT_INTID_MASK  0xffu
 #define GET_NVIC_SOFTWARE_TRIGGER_INTERRUPT_INTID(__reg__)  (((__reg__) & 0xff) >> 0u)
@@ -2518,13 +2519,9 @@ typedef struct NVIC_t {
 } NVIC_t;
 
 /** @brief Nested Vectored Interrupt Controller */
-extern volatile NVIC_t NVIC;
+extern APE_NVIC_H_VOLATILE NVIC_t NVIC;
 
 
-
-#ifdef CXX_SIMULATOR /* Compiling c++ code - uses register wrappers */
-#undef volatile
-#endif /* CXX_SIMULATOR */
 
 #undef register_container
 #undef BITFIELD_BEGIN

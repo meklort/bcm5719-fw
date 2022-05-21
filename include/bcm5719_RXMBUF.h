@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2020, Evan Lojewski
+/// @copyright Copyright (c) 2022, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -63,7 +63,7 @@ typedef CXXRegister<uint32_t, 0, 32> BCM5719_RXMBUF_H_uint32_t;
 #define BCM5719_RXMBUF_H_uint16_t_bitfield(__pos__, __width__) CXXRegister<uint16_t, __pos__, __width__>
 #define BCM5719_RXMBUF_H_uint32_t_bitfield(__pos__, __width__) CXXRegister<uint32_t, __pos__, __width__>
 #define register_container struct
-#define volatile
+#define BCM5719_RXMBUF_H_VOLATILE
 #define BITFIELD_BEGIN(__type__, __name__) struct {
 #define BITFIELD_MEMBER(__type__, __name__, __offset__, __bits__) __type__##_bitfield(__offset__, __bits__) __name__;
 #define BITFIELD_END(__type__, __name__) } __name__;
@@ -73,6 +73,7 @@ typedef uint8_t  BCM5719_RXMBUF_H_uint8_t;
 typedef uint16_t BCM5719_RXMBUF_H_uint16_t;
 typedef uint32_t BCM5719_RXMBUF_H_uint32_t;
 #define register_container union
+#define BCM5719_RXMBUF_H_VOLATILE volatile
 #define BITFIELD_BEGIN(__type__, __name__) struct {
 #define BITFIELD_MEMBER(__type__, __name__, __offset__, __bits__) __type__ __name__:__bits__;
 #define BITFIELD_END(__type__, __name__) } __name__;
@@ -81,7 +82,7 @@ typedef uint32_t BCM5719_RXMBUF_H_uint32_t;
 #define REG_RXMBUF_BASE ((volatile void*)0x10000) /* RX MBuf */
 #define REG_RXMBUF_SIZE (0xc800)
 
-#define REG_RXMBUF_WORD ((volatile BCM5719_RXMBUF_H_uint32_t*)0x10000) /*  */
+#define REG_RXMBUF_WORD ((BCM5719_RXMBUF_H_VOLATILE BCM5719_RXMBUF_H_uint32_t*)0x10000) /*  */
 /** @brief Register definition for @ref RXMBUF_t.Word. */
 typedef register_container RegRXMBUFWord_t {
     /** @brief 32bit direct register access. */
@@ -139,13 +140,9 @@ typedef struct RXMBUF_t {
 } RXMBUF_t;
 
 /** @brief RX MBuf */
-extern volatile RXMBUF_t RXMBUF;
+extern BCM5719_RXMBUF_H_VOLATILE RXMBUF_t RXMBUF;
 
 
-
-#ifdef CXX_SIMULATOR /* Compiling c++ code - uses register wrappers */
-#undef volatile
-#endif /* CXX_SIMULATOR */
 
 #undef register_container
 #undef BITFIELD_BEGIN

@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2020, Evan Lojewski
+/// @copyright Copyright (c) 2022, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -63,7 +63,7 @@ typedef CXXRegister<uint32_t, 0, 32> BCM5719_SHM_CHANNEL0_H_uint32_t;
 #define BCM5719_SHM_CHANNEL0_H_uint16_t_bitfield(__pos__, __width__) CXXRegister<uint16_t, __pos__, __width__>
 #define BCM5719_SHM_CHANNEL0_H_uint32_t_bitfield(__pos__, __width__) CXXRegister<uint32_t, __pos__, __width__>
 #define register_container struct
-#define volatile
+#define BCM5719_SHM_CHANNEL0_H_VOLATILE
 #define BITFIELD_BEGIN(__type__, __name__) struct {
 #define BITFIELD_MEMBER(__type__, __name__, __offset__, __bits__) __type__##_bitfield(__offset__, __bits__) __name__;
 #define BITFIELD_END(__type__, __name__) } __name__;
@@ -73,6 +73,7 @@ typedef uint8_t  BCM5719_SHM_CHANNEL0_H_uint8_t;
 typedef uint16_t BCM5719_SHM_CHANNEL0_H_uint16_t;
 typedef uint32_t BCM5719_SHM_CHANNEL0_H_uint32_t;
 #define register_container union
+#define BCM5719_SHM_CHANNEL0_H_VOLATILE volatile
 #define BITFIELD_BEGIN(__type__, __name__) struct {
 #define BITFIELD_MEMBER(__type__, __name__, __offset__, __bits__) __type__ __name__:__bits__;
 #define BITFIELD_END(__type__, __name__) } __name__;
@@ -81,7 +82,7 @@ typedef uint32_t BCM5719_SHM_CHANNEL0_H_uint32_t;
 #define REG_SHM_CHANNEL0_BASE ((volatile void*)0xc0014900) /* Device APE SHM Channel Registers */
 #define REG_SHM_CHANNEL0_SIZE (sizeof(SHM_CHANNEL_t))
 
-#define REG_SHM_CHANNEL0_NCSI_CHANNEL_INFO ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014900) /*  */
+#define REG_SHM_CHANNEL0_NCSI_CHANNEL_INFO ((BCM5719_SHM_CHANNEL0_H_VOLATILE BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014900) /*  */
 #define     SHM_CHANNEL0_NCSI_CHANNEL_INFO_ENABLED_SHIFT 0u
 #define     SHM_CHANNEL0_NCSI_CHANNEL_INFO_ENABLED_MASK  0x1u
 #define GET_SHM_CHANNEL0_NCSI_CHANNEL_INFO_ENABLED(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -261,7 +262,7 @@ typedef register_container RegSHM_CHANNELNcsiChannelInfo_t {
 #endif /* CXX_SIMULATOR */
 } RegSHM_CHANNELNcsiChannelInfo_t;
 
-#define REG_SHM_CHANNEL0_NCSI_CHANNEL_MCID ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014904) /* AEN Management Controller ID, set by BMC when sending AEN ENABLE command and used when sending AENs. */
+#define REG_SHM_CHANNEL0_NCSI_CHANNEL_MCID ((BCM5719_SHM_CHANNEL0_H_VOLATILE BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014904) /* AEN Management Controller ID, set by BMC when sending AEN ENABLE command and used when sending AENs. */
 /** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelMcid. */
 typedef register_container RegSHM_CHANNELNcsiChannelMcid_t {
     /** @brief 32bit direct register access. */
@@ -286,7 +287,7 @@ typedef register_container RegSHM_CHANNELNcsiChannelMcid_t {
 #endif /* CXX_SIMULATOR */
 } RegSHM_CHANNELNcsiChannelMcid_t;
 
-#define REG_SHM_CHANNEL0_NCSI_CHANNEL_BFILT ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc001490c) /*  */
+#define REG_SHM_CHANNEL0_NCSI_CHANNEL_BFILT ((BCM5719_SHM_CHANNEL0_H_VOLATILE BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc001490c) /*  */
 #define     SHM_CHANNEL0_NCSI_CHANNEL_BFILT_ARP_PACKET_SHIFT 0u
 #define     SHM_CHANNEL0_NCSI_CHANNEL_BFILT_ARP_PACKET_MASK  0x1u
 #define GET_SHM_CHANNEL0_NCSI_CHANNEL_BFILT_ARP_PACKET(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -364,7 +365,7 @@ typedef register_container RegSHM_CHANNELNcsiChannelBfilt_t {
 #endif /* CXX_SIMULATOR */
 } RegSHM_CHANNELNcsiChannelBfilt_t;
 
-#define REG_SHM_CHANNEL0_NCSI_CHANNEL_MFILT ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014910) /*  */
+#define REG_SHM_CHANNEL0_NCSI_CHANNEL_MFILT ((BCM5719_SHM_CHANNEL0_H_VOLATILE BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014910) /*  */
 #define     SHM_CHANNEL0_NCSI_CHANNEL_MFILT_IPV6_NEIGHBOUR_ADVERTISEMENT_SHIFT 0u
 #define     SHM_CHANNEL0_NCSI_CHANNEL_MFILT_IPV6_NEIGHBOUR_ADVERTISEMENT_MASK  0x1u
 #define GET_SHM_CHANNEL0_NCSI_CHANNEL_MFILT_IPV6_NEIGHBOUR_ADVERTISEMENT(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -432,7 +433,7 @@ typedef register_container RegSHM_CHANNELNcsiChannelMfilt_t {
 #endif /* CXX_SIMULATOR */
 } RegSHM_CHANNELNcsiChannelMfilt_t;
 
-#define REG_SHM_CHANNEL0_NCSI_CHANNEL_SETTING_1 ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014914) /* This is the "Link Settings" value from NCSI Set Link. */
+#define REG_SHM_CHANNEL0_NCSI_CHANNEL_SETTING_1 ((BCM5719_SHM_CHANNEL0_H_VOLATILE BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014914) /* This is the "Link Settings" value from NCSI Set Link. */
 #define     SHM_CHANNEL0_NCSI_CHANNEL_SETTING_1_AUTONEGOTIATION_ENABLED_SHIFT 0u
 #define     SHM_CHANNEL0_NCSI_CHANNEL_SETTING_1_AUTONEGOTIATION_ENABLED_MASK  0x1u
 #define GET_SHM_CHANNEL0_NCSI_CHANNEL_SETTING_1_AUTONEGOTIATION_ENABLED(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -574,7 +575,7 @@ typedef register_container RegSHM_CHANNELNcsiChannelSetting1_t {
 #endif /* CXX_SIMULATOR */
 } RegSHM_CHANNELNcsiChannelSetting1_t;
 
-#define REG_SHM_CHANNEL0_NCSI_CHANNEL_SETTING_2 ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014918) /* This is the "OEM Settings" value from NCSI Set Link. */
+#define REG_SHM_CHANNEL0_NCSI_CHANNEL_SETTING_2 ((BCM5719_SHM_CHANNEL0_H_VOLATILE BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014918) /* This is the "OEM Settings" value from NCSI Set Link. */
 /** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelSetting2. */
 typedef register_container RegSHM_CHANNELNcsiChannelSetting2_t {
     /** @brief 32bit direct register access. */
@@ -599,7 +600,7 @@ typedef register_container RegSHM_CHANNELNcsiChannelSetting2_t {
 #endif /* CXX_SIMULATOR */
 } RegSHM_CHANNELNcsiChannelSetting2_t;
 
-#define REG_SHM_CHANNEL0_NCSI_CHANNEL_VLAN ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc001491c) /* Receives VLAN mode from NCSI specification "Enable VLAN" command. */
+#define REG_SHM_CHANNEL0_NCSI_CHANNEL_VLAN ((BCM5719_SHM_CHANNEL0_H_VOLATILE BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc001491c) /* Receives VLAN mode from NCSI specification "Enable VLAN" command. */
 /** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelVlan. */
 typedef register_container RegSHM_CHANNELNcsiChannelVlan_t {
     /** @brief 32bit direct register access. */
@@ -624,7 +625,7 @@ typedef register_container RegSHM_CHANNELNcsiChannelVlan_t {
 #endif /* CXX_SIMULATOR */
 } RegSHM_CHANNELNcsiChannelVlan_t;
 
-#define REG_SHM_CHANNEL0_NCSI_CHANNEL_ALT_HOST_MAC_HIGH ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014924) /* Lower 16 bits of this word contains upper 16 bits of the MAC. */
+#define REG_SHM_CHANNEL0_NCSI_CHANNEL_ALT_HOST_MAC_HIGH ((BCM5719_SHM_CHANNEL0_H_VOLATILE BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014924) /* Lower 16 bits of this word contains upper 16 bits of the MAC. */
 /** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelAltHostMacHigh. */
 typedef register_container RegSHM_CHANNELNcsiChannelAltHostMacHigh_t {
     /** @brief 32bit direct register access. */
@@ -649,7 +650,7 @@ typedef register_container RegSHM_CHANNELNcsiChannelAltHostMacHigh_t {
 #endif /* CXX_SIMULATOR */
 } RegSHM_CHANNELNcsiChannelAltHostMacHigh_t;
 
-#define REG_SHM_CHANNEL0_NCSI_CHANNEL_ALT_HOST_MAC_MID ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014928) /* Lower 16 bits of this word contains mid 16 bits of the MAC. */
+#define REG_SHM_CHANNEL0_NCSI_CHANNEL_ALT_HOST_MAC_MID ((BCM5719_SHM_CHANNEL0_H_VOLATILE BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014928) /* Lower 16 bits of this word contains mid 16 bits of the MAC. */
 /** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelAltHostMacMid. */
 typedef register_container RegSHM_CHANNELNcsiChannelAltHostMacMid_t {
     /** @brief 32bit direct register access. */
@@ -674,7 +675,7 @@ typedef register_container RegSHM_CHANNELNcsiChannelAltHostMacMid_t {
 #endif /* CXX_SIMULATOR */
 } RegSHM_CHANNELNcsiChannelAltHostMacMid_t;
 
-#define REG_SHM_CHANNEL0_NCSI_CHANNEL_ALT_HOST_MAC_LOW ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc001492c) /* Lower 16 bits of this word contains low 16 bits of the MAC. */
+#define REG_SHM_CHANNEL0_NCSI_CHANNEL_ALT_HOST_MAC_LOW ((BCM5719_SHM_CHANNEL0_H_VOLATILE BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc001492c) /* Lower 16 bits of this word contains low 16 bits of the MAC. */
 /** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelAltHostMacLow. */
 typedef register_container RegSHM_CHANNELNcsiChannelAltHostMacLow_t {
     /** @brief 32bit direct register access. */
@@ -699,7 +700,7 @@ typedef register_container RegSHM_CHANNELNcsiChannelAltHostMacLow_t {
 #endif /* CXX_SIMULATOR */
 } RegSHM_CHANNELNcsiChannelAltHostMacLow_t;
 
-#define REG_SHM_CHANNEL0_NCSI_CHANNEL_MAC0_HIGH ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014934) /* Lower 16 bits of this word contains upper 16 bits of the MAC. */
+#define REG_SHM_CHANNEL0_NCSI_CHANNEL_MAC0_HIGH ((BCM5719_SHM_CHANNEL0_H_VOLATILE BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014934) /* Lower 16 bits of this word contains upper 16 bits of the MAC. */
 /** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelMac0High. */
 typedef register_container RegSHM_CHANNELMacHigh_t {
     /** @brief 32bit direct register access. */
@@ -724,7 +725,7 @@ typedef register_container RegSHM_CHANNELMacHigh_t {
 #endif /* CXX_SIMULATOR */
 } RegSHM_CHANNELMacHigh_t;
 
-#define REG_SHM_CHANNEL0_NCSI_CHANNEL_MAC0_MID ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014938) /* Lower 16 bits of this word contains mid 16 bits of the MAC. */
+#define REG_SHM_CHANNEL0_NCSI_CHANNEL_MAC0_MID ((BCM5719_SHM_CHANNEL0_H_VOLATILE BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014938) /* Lower 16 bits of this word contains mid 16 bits of the MAC. */
 /** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelMac0Mid. */
 typedef register_container RegSHM_CHANNELMacMid_t {
     /** @brief 32bit direct register access. */
@@ -749,7 +750,7 @@ typedef register_container RegSHM_CHANNELMacMid_t {
 #endif /* CXX_SIMULATOR */
 } RegSHM_CHANNELMacMid_t;
 
-#define REG_SHM_CHANNEL0_NCSI_CHANNEL_MAC0_LOW ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc001493c) /* Lower 16 bits of this word contains low 16 bits of the MAC. */
+#define REG_SHM_CHANNEL0_NCSI_CHANNEL_MAC0_LOW ((BCM5719_SHM_CHANNEL0_H_VOLATILE BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc001493c) /* Lower 16 bits of this word contains low 16 bits of the MAC. */
 /** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelMac0Low. */
 typedef register_container RegSHM_CHANNELMacLow_t {
     /** @brief 32bit direct register access. */
@@ -774,16 +775,16 @@ typedef register_container RegSHM_CHANNELMacLow_t {
 #endif /* CXX_SIMULATOR */
 } RegSHM_CHANNELMacLow_t;
 
-#define REG_SHM_CHANNEL0_NCSI_CHANNEL_MAC1_HIGH ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014944) /* Lower 16 bits of this word contains upper 16 bits of the MAC. */
-#define REG_SHM_CHANNEL0_NCSI_CHANNEL_MAC1_MID ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014948) /* Lower 16 bits of this word contains mid 16 bits of the MAC. */
-#define REG_SHM_CHANNEL0_NCSI_CHANNEL_MAC1_LOW ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc001494c) /* Lower 16 bits of this word contains low 16 bits of the MAC. */
-#define REG_SHM_CHANNEL0_NCSI_CHANNEL_MAC2_HIGH ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014954) /* Lower 16 bits of this word contains upper 16 bits of the MAC. */
-#define REG_SHM_CHANNEL0_NCSI_CHANNEL_MAC2_MID ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014958) /* Lower 16 bits of this word contains mid 16 bits of the MAC. */
-#define REG_SHM_CHANNEL0_NCSI_CHANNEL_MAC2_LOW ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc001495c) /* Lower 16 bits of this word contains low 16 bits of the MAC. */
-#define REG_SHM_CHANNEL0_NCSI_CHANNEL_MAC3_HIGH ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014964) /* Lower 16 bits of this word contains upper 16 bits of the MAC. */
-#define REG_SHM_CHANNEL0_NCSI_CHANNEL_MAC3_MID ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014968) /* Lower 16 bits of this word contains mid 16 bits of the MAC. */
-#define REG_SHM_CHANNEL0_NCSI_CHANNEL_MAC3_LOW ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc001496c) /* Lower 16 bits of this word contains low 16 bits of the MAC. */
-#define REG_SHM_CHANNEL0_NCSI_CHANNEL_MAC0_VLAN_VALID ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014970) /* Nonzero indicates VLAN field is valid */
+#define REG_SHM_CHANNEL0_NCSI_CHANNEL_MAC1_HIGH ((BCM5719_SHM_CHANNEL0_H_VOLATILE BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014944) /* Lower 16 bits of this word contains upper 16 bits of the MAC. */
+#define REG_SHM_CHANNEL0_NCSI_CHANNEL_MAC1_MID ((BCM5719_SHM_CHANNEL0_H_VOLATILE BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014948) /* Lower 16 bits of this word contains mid 16 bits of the MAC. */
+#define REG_SHM_CHANNEL0_NCSI_CHANNEL_MAC1_LOW ((BCM5719_SHM_CHANNEL0_H_VOLATILE BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc001494c) /* Lower 16 bits of this word contains low 16 bits of the MAC. */
+#define REG_SHM_CHANNEL0_NCSI_CHANNEL_MAC2_HIGH ((BCM5719_SHM_CHANNEL0_H_VOLATILE BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014954) /* Lower 16 bits of this word contains upper 16 bits of the MAC. */
+#define REG_SHM_CHANNEL0_NCSI_CHANNEL_MAC2_MID ((BCM5719_SHM_CHANNEL0_H_VOLATILE BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014958) /* Lower 16 bits of this word contains mid 16 bits of the MAC. */
+#define REG_SHM_CHANNEL0_NCSI_CHANNEL_MAC2_LOW ((BCM5719_SHM_CHANNEL0_H_VOLATILE BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc001495c) /* Lower 16 bits of this word contains low 16 bits of the MAC. */
+#define REG_SHM_CHANNEL0_NCSI_CHANNEL_MAC3_HIGH ((BCM5719_SHM_CHANNEL0_H_VOLATILE BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014964) /* Lower 16 bits of this word contains upper 16 bits of the MAC. */
+#define REG_SHM_CHANNEL0_NCSI_CHANNEL_MAC3_MID ((BCM5719_SHM_CHANNEL0_H_VOLATILE BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014968) /* Lower 16 bits of this word contains mid 16 bits of the MAC. */
+#define REG_SHM_CHANNEL0_NCSI_CHANNEL_MAC3_LOW ((BCM5719_SHM_CHANNEL0_H_VOLATILE BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc001496c) /* Lower 16 bits of this word contains low 16 bits of the MAC. */
+#define REG_SHM_CHANNEL0_NCSI_CHANNEL_MAC0_VLAN_VALID ((BCM5719_SHM_CHANNEL0_H_VOLATILE BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014970) /* Nonzero indicates VLAN field is valid */
 /** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelMac0VlanValid. */
 typedef register_container RegSHM_CHANNELNcsiChannelMac0VlanValid_t {
     /** @brief 32bit direct register access. */
@@ -808,7 +809,7 @@ typedef register_container RegSHM_CHANNELNcsiChannelMac0VlanValid_t {
 #endif /* CXX_SIMULATOR */
 } RegSHM_CHANNELNcsiChannelMac0VlanValid_t;
 
-#define REG_SHM_CHANNEL0_NCSI_CHANNEL_MAC0_VLAN ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014974) /*  */
+#define REG_SHM_CHANNEL0_NCSI_CHANNEL_MAC0_VLAN ((BCM5719_SHM_CHANNEL0_H_VOLATILE BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014974) /*  */
 /** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelMac0Vlan. */
 typedef register_container RegSHM_CHANNELNcsiChannelMac0Vlan_t {
     /** @brief 32bit direct register access. */
@@ -833,7 +834,7 @@ typedef register_container RegSHM_CHANNELNcsiChannelMac0Vlan_t {
 #endif /* CXX_SIMULATOR */
 } RegSHM_CHANNELNcsiChannelMac0Vlan_t;
 
-#define REG_SHM_CHANNEL0_NCSI_CHANNEL_MAC1_VLAN_VALID ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014978) /* Nonzero indicates VLAN field is valid */
+#define REG_SHM_CHANNEL0_NCSI_CHANNEL_MAC1_VLAN_VALID ((BCM5719_SHM_CHANNEL0_H_VOLATILE BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014978) /* Nonzero indicates VLAN field is valid */
 /** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelMac1VlanValid. */
 typedef register_container RegSHM_CHANNELNcsiChannelMac1VlanValid_t {
     /** @brief 32bit direct register access. */
@@ -858,7 +859,7 @@ typedef register_container RegSHM_CHANNELNcsiChannelMac1VlanValid_t {
 #endif /* CXX_SIMULATOR */
 } RegSHM_CHANNELNcsiChannelMac1VlanValid_t;
 
-#define REG_SHM_CHANNEL0_NCSI_CHANNEL_MAC1_VLAN ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc001497c) /*  */
+#define REG_SHM_CHANNEL0_NCSI_CHANNEL_MAC1_VLAN ((BCM5719_SHM_CHANNEL0_H_VOLATILE BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc001497c) /*  */
 /** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelMac1Vlan. */
 typedef register_container RegSHM_CHANNELNcsiChannelMac1Vlan_t {
     /** @brief 32bit direct register access. */
@@ -883,7 +884,7 @@ typedef register_container RegSHM_CHANNELNcsiChannelMac1Vlan_t {
 #endif /* CXX_SIMULATOR */
 } RegSHM_CHANNELNcsiChannelMac1Vlan_t;
 
-#define REG_SHM_CHANNEL0_NCSI_CHANNEL_STATUS ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014980) /*  */
+#define REG_SHM_CHANNEL0_NCSI_CHANNEL_STATUS ((BCM5719_SHM_CHANNEL0_H_VOLATILE BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014980) /*  */
 #define     SHM_CHANNEL0_NCSI_CHANNEL_STATUS_LINK_UP_SHIFT 0u
 #define     SHM_CHANNEL0_NCSI_CHANNEL_STATUS_LINK_UP_MASK  0x1u
 #define GET_SHM_CHANNEL0_NCSI_CHANNEL_STATUS_LINK_UP(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -1125,7 +1126,7 @@ typedef register_container RegSHM_CHANNELNcsiChannelStatus_t {
 #endif /* CXX_SIMULATOR */
 } RegSHM_CHANNELNcsiChannelStatus_t;
 
-#define REG_SHM_CHANNEL0_NCSI_CHANNEL_RESET_COUNT ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014984) /*  */
+#define REG_SHM_CHANNEL0_NCSI_CHANNEL_RESET_COUNT ((BCM5719_SHM_CHANNEL0_H_VOLATILE BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014984) /*  */
 /** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelResetCount. */
 typedef register_container RegSHM_CHANNELNcsiChannelResetCount_t {
     /** @brief 32bit direct register access. */
@@ -1150,7 +1151,7 @@ typedef register_container RegSHM_CHANNELNcsiChannelResetCount_t {
 #endif /* CXX_SIMULATOR */
 } RegSHM_CHANNELNcsiChannelResetCount_t;
 
-#define REG_SHM_CHANNEL0_NCSI_CHANNEL_PXE ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014988) /*  */
+#define REG_SHM_CHANNEL0_NCSI_CHANNEL_PXE ((BCM5719_SHM_CHANNEL0_H_VOLATILE BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014988) /*  */
 /** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelPxe. */
 typedef register_container RegSHM_CHANNELNcsiChannelPxe_t {
     /** @brief 32bit direct register access. */
@@ -1175,7 +1176,7 @@ typedef register_container RegSHM_CHANNELNcsiChannelPxe_t {
 #endif /* CXX_SIMULATOR */
 } RegSHM_CHANNELNcsiChannelPxe_t;
 
-#define REG_SHM_CHANNEL0_NCSI_CHANNEL_DROPFIL ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc001498c) /*  */
+#define REG_SHM_CHANNEL0_NCSI_CHANNEL_DROPFIL ((BCM5719_SHM_CHANNEL0_H_VOLATILE BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc001498c) /*  */
 /** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelDropfil. */
 typedef register_container RegSHM_CHANNELNcsiChannelDropfil_t {
     /** @brief 32bit direct register access. */
@@ -1200,7 +1201,7 @@ typedef register_container RegSHM_CHANNELNcsiChannelDropfil_t {
 #endif /* CXX_SIMULATOR */
 } RegSHM_CHANNELNcsiChannelDropfil_t;
 
-#define REG_SHM_CHANNEL0_NCSI_CHANNEL_SLINK ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014990) /*  */
+#define REG_SHM_CHANNEL0_NCSI_CHANNEL_SLINK ((BCM5719_SHM_CHANNEL0_H_VOLATILE BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc0014990) /*  */
 /** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelSlink. */
 typedef register_container RegSHM_CHANNELNcsiChannelSlink_t {
     /** @brief 32bit direct register access. */
@@ -1225,7 +1226,7 @@ typedef register_container RegSHM_CHANNELNcsiChannelSlink_t {
 #endif /* CXX_SIMULATOR */
 } RegSHM_CHANNELNcsiChannelSlink_t;
 
-#define REG_SHM_CHANNEL0_NCSI_CHANNEL_DBG ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc00149a0) /*  */
+#define REG_SHM_CHANNEL0_NCSI_CHANNEL_DBG ((BCM5719_SHM_CHANNEL0_H_VOLATILE BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc00149a0) /*  */
 /** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelDbg. */
 typedef register_container RegSHM_CHANNELNcsiChannelDbg_t {
     /** @brief 32bit direct register access. */
@@ -1250,7 +1251,7 @@ typedef register_container RegSHM_CHANNELNcsiChannelDbg_t {
 #endif /* CXX_SIMULATOR */
 } RegSHM_CHANNELNcsiChannelDbg_t;
 
-#define REG_SHM_CHANNEL0_NCSI_CHANNEL_NETWORK_RX ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc00149b0) /* Number of packets received from the external network interface */
+#define REG_SHM_CHANNEL0_NCSI_CHANNEL_NETWORK_RX ((BCM5719_SHM_CHANNEL0_H_VOLATILE BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc00149b0) /* Number of packets received from the external network interface */
 /** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelNetworkRx. */
 typedef register_container RegSHM_CHANNELNcsiChannelNetworkRx_t {
     /** @brief 32bit direct register access. */
@@ -1275,7 +1276,7 @@ typedef register_container RegSHM_CHANNELNcsiChannelNetworkRx_t {
 #endif /* CXX_SIMULATOR */
 } RegSHM_CHANNELNcsiChannelNetworkRx_t;
 
-#define REG_SHM_CHANNEL0_NCSI_CHANNEL_NETWORK_TX ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc00149b4) /* Number of packets transmited from the BCM5719 to external network interface */
+#define REG_SHM_CHANNEL0_NCSI_CHANNEL_NETWORK_TX ((BCM5719_SHM_CHANNEL0_H_VOLATILE BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc00149b4) /* Number of packets transmited from the BCM5719 to external network interface */
 /** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelNetworkTx. */
 typedef register_container RegSHM_CHANNELNcsiChannelNetworkTx_t {
     /** @brief 32bit direct register access. */
@@ -1300,7 +1301,7 @@ typedef register_container RegSHM_CHANNELNcsiChannelNetworkTx_t {
 #endif /* CXX_SIMULATOR */
 } RegSHM_CHANNELNcsiChannelNetworkTx_t;
 
-#define REG_SHM_CHANNEL0_NCSI_CHANNEL_NCSI_RX ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc00149b8) /* Number of packets received from the BMC via NCSI */
+#define REG_SHM_CHANNEL0_NCSI_CHANNEL_NCSI_RX ((BCM5719_SHM_CHANNEL0_H_VOLATILE BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc00149b8) /* Number of packets received from the BMC via NCSI */
 /** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelNcsiRx. */
 typedef register_container RegSHM_CHANNELNcsiChannelNcsiRx_t {
     /** @brief 32bit direct register access. */
@@ -1325,7 +1326,7 @@ typedef register_container RegSHM_CHANNELNcsiChannelNcsiRx_t {
 #endif /* CXX_SIMULATOR */
 } RegSHM_CHANNELNcsiChannelNcsiRx_t;
 
-#define REG_SHM_CHANNEL0_NCSI_CHANNEL_NCSI_TX ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc00149bc) /* Number of packets transmitted from the BCM5719 to the BMC via NCSI */
+#define REG_SHM_CHANNEL0_NCSI_CHANNEL_NCSI_TX ((BCM5719_SHM_CHANNEL0_H_VOLATILE BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc00149bc) /* Number of packets transmitted from the BCM5719 to the BMC via NCSI */
 /** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelNcsiTx. */
 typedef register_container RegSHM_CHANNELNcsiChannelNcsiTx_t {
     /** @brief 32bit direct register access. */
@@ -1350,7 +1351,7 @@ typedef register_container RegSHM_CHANNELNcsiChannelNcsiTx_t {
 #endif /* CXX_SIMULATOR */
 } RegSHM_CHANNELNcsiChannelNcsiTx_t;
 
-#define REG_SHM_CHANNEL0_NCSI_CHANNEL_NCSI_DROPPED ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc00149c0) /* Number of packets dropped on the NCSI interface. */
+#define REG_SHM_CHANNEL0_NCSI_CHANNEL_NCSI_DROPPED ((BCM5719_SHM_CHANNEL0_H_VOLATILE BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc00149c0) /* Number of packets dropped on the NCSI interface. */
 /** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelNcsiDropped. */
 typedef register_container RegSHM_CHANNELNcsiChannelNcsiDropped_t {
     /** @brief 32bit direct register access. */
@@ -1375,7 +1376,7 @@ typedef register_container RegSHM_CHANNELNcsiChannelNcsiDropped_t {
 #endif /* CXX_SIMULATOR */
 } RegSHM_CHANNELNcsiChannelNcsiDropped_t;
 
-#define REG_SHM_CHANNEL0_NCSI_CHANNEL_NETWORK_DROPPED ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc00149c4) /* Number of packets dropped on the external network interface. */
+#define REG_SHM_CHANNEL0_NCSI_CHANNEL_NETWORK_DROPPED ((BCM5719_SHM_CHANNEL0_H_VOLATILE BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc00149c4) /* Number of packets dropped on the external network interface. */
 /** @brief Register definition for @ref SHM_CHANNEL_t.NcsiChannelNetworkDropped. */
 typedef register_container RegSHM_CHANNELNcsiChannelNetworkDropped_t {
     /** @brief 32bit direct register access. */
@@ -1400,7 +1401,7 @@ typedef register_container RegSHM_CHANNELNcsiChannelNetworkDropped_t {
 #endif /* CXX_SIMULATOR */
 } RegSHM_CHANNELNcsiChannelNetworkDropped_t;
 
-#define REG_SHM_CHANNEL0_NCSI_CHANNEL_AEN ((volatile BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc00149c8) /* Number of AEN packets sent via NCSI */
+#define REG_SHM_CHANNEL0_NCSI_CHANNEL_AEN ((BCM5719_SHM_CHANNEL0_H_VOLATILE BCM5719_SHM_CHANNEL0_H_uint32_t*)0xc00149c8) /* Number of AEN packets sent via NCSI */
 #define     SHM_CHANNEL0_NCSI_CHANNEL_AEN_ENABLE_LINK_STATUS_CHANGE_AEN_SHIFT 0u
 #define     SHM_CHANNEL0_NCSI_CHANNEL_AEN_ENABLE_LINK_STATUS_CHANGE_AEN_MASK  0x1u
 #define GET_SHM_CHANNEL0_NCSI_CHANNEL_AEN_ENABLE_LINK_STATUS_CHANGE_AEN(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -1785,13 +1786,9 @@ typedef struct SHM_CHANNEL_t {
 } SHM_CHANNEL_t;
 
 /** @brief Device APE SHM Channel Registers */
-extern volatile SHM_CHANNEL_t SHM_CHANNEL0;
+extern BCM5719_SHM_CHANNEL0_H_VOLATILE SHM_CHANNEL_t SHM_CHANNEL0;
 
 
-
-#ifdef CXX_SIMULATOR /* Compiling c++ code - uses register wrappers */
-#undef volatile
-#endif /* CXX_SIMULATOR */
 
 #undef register_container
 #undef BITFIELD_BEGIN

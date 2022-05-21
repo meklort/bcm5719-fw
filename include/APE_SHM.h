@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2021, Evan Lojewski
+/// @copyright Copyright (c) 2022, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -63,7 +63,7 @@ typedef CXXRegister<uint32_t, 0, 32> APE_SHM_H_uint32_t;
 #define APE_SHM_H_uint16_t_bitfield(__pos__, __width__) CXXRegister<uint16_t, __pos__, __width__>
 #define APE_SHM_H_uint32_t_bitfield(__pos__, __width__) CXXRegister<uint32_t, __pos__, __width__>
 #define register_container struct
-#define volatile
+#define APE_SHM_H_VOLATILE
 #define BITFIELD_BEGIN(__type__, __name__) struct {
 #define BITFIELD_MEMBER(__type__, __name__, __offset__, __bits__) __type__##_bitfield(__offset__, __bits__) __name__;
 #define BITFIELD_END(__type__, __name__) } __name__;
@@ -73,6 +73,7 @@ typedef uint8_t  APE_SHM_H_uint8_t;
 typedef uint16_t APE_SHM_H_uint16_t;
 typedef uint32_t APE_SHM_H_uint32_t;
 #define register_container union
+#define APE_SHM_H_VOLATILE volatile
 #define BITFIELD_BEGIN(__type__, __name__) struct {
 #define BITFIELD_MEMBER(__type__, __name__, __offset__, __bits__) __type__ __name__:__bits__;
 #define BITFIELD_END(__type__, __name__) } __name__;
@@ -81,7 +82,7 @@ typedef uint32_t APE_SHM_H_uint32_t;
 #define REG_SHM_BASE ((volatile void*)0x60220000) /* Device SHM Registers, function 0 */
 #define REG_SHM_SIZE (sizeof(SHM_t))
 
-#define REG_SHM_SEG_SIG ((volatile APE_SHM_H_uint32_t*)0x60220000) /* APE_APE_MAGIC ('APE!') when all is well. */
+#define REG_SHM_SEG_SIG ((APE_SHM_H_VOLATILE APE_SHM_H_uint32_t*)0x60220000) /* APE_APE_MAGIC ('APE!') when all is well. */
 #define     SHM_SEG_SIG_SIG_SHIFT 0u
 #define     SHM_SEG_SIG_SIG_MASK  0xffffffffu
 #define GET_SHM_SEG_SIG_SIG(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
@@ -129,7 +130,7 @@ typedef register_container RegSHMSegSig_t {
 #endif /* CXX_SIMULATOR */
 } RegSHMSegSig_t;
 
-#define REG_SHM_APE_SEG_LENGTH ((volatile APE_SHM_H_uint32_t*)0x60220004) /* Set to 0x34. */
+#define REG_SHM_APE_SEG_LENGTH ((APE_SHM_H_VOLATILE APE_SHM_H_uint32_t*)0x60220004) /* Set to 0x34. */
 /** @brief Register definition for @ref SHM_t.ApeSegLength. */
 typedef register_container RegSHMApeSegLength_t {
     /** @brief 32bit direct register access. */
@@ -154,7 +155,7 @@ typedef register_container RegSHMApeSegLength_t {
 #endif /* CXX_SIMULATOR */
 } RegSHMApeSegLength_t;
 
-#define REG_SHM_FW_STATUS ((volatile APE_SHM_H_uint32_t*)0x6022000c) /*  */
+#define REG_SHM_FW_STATUS ((APE_SHM_H_VOLATILE APE_SHM_H_uint32_t*)0x6022000c) /*  */
 #define     SHM_FW_STATUS_READY_SHIFT 8u
 #define     SHM_FW_STATUS_READY_MASK  0x100u
 #define GET_SHM_FW_STATUS_READY(__reg__)  (((__reg__) & 0x100) >> 8u)
@@ -216,7 +217,7 @@ typedef register_container RegSHMFwStatus_t {
 #endif /* CXX_SIMULATOR */
 } RegSHMFwStatus_t;
 
-#define REG_SHM_FW_FEATURES ((volatile APE_SHM_H_uint32_t*)0x60220010) /*  */
+#define REG_SHM_FW_FEATURES ((APE_SHM_H_VOLATILE APE_SHM_H_uint32_t*)0x60220010) /*  */
 #define     SHM_FW_FEATURES_NCSI_SHIFT 1u
 #define     SHM_FW_FEATURES_NCSI_MASK  0x2u
 #define GET_SHM_FW_FEATURES_NCSI(__reg__)  (((__reg__) & 0x2) >> 1u)
@@ -268,7 +269,7 @@ typedef register_container RegSHMFwFeatures_t {
 #endif /* CXX_SIMULATOR */
 } RegSHMFwFeatures_t;
 
-#define REG_SHM_4014 ((volatile APE_SHM_H_uint32_t*)0x60220014) /* Unknown. */
+#define REG_SHM_4014 ((APE_SHM_H_VOLATILE APE_SHM_H_uint32_t*)0x60220014) /* Unknown. */
 /** @brief Register definition for @ref SHM_t.4014. */
 typedef register_container RegSHM4014_t {
     /** @brief 32bit direct register access. */
@@ -293,7 +294,7 @@ typedef register_container RegSHM4014_t {
 #endif /* CXX_SIMULATOR */
 } RegSHM4014_t;
 
-#define REG_SHM_FW_VERSION ((volatile APE_SHM_H_uint32_t*)0x60220018) /*  */
+#define REG_SHM_FW_VERSION ((APE_SHM_H_VOLATILE APE_SHM_H_uint32_t*)0x60220018) /*  */
 #define     SHM_FW_VERSION_PATCH_SHIFT 0u
 #define     SHM_FW_VERSION_PATCH_MASK  0xffffu
 #define GET_SHM_FW_VERSION_PATCH(__reg__)  (((__reg__) & 0xffff) >> 0u)
@@ -357,7 +358,7 @@ typedef register_container RegSHMFwVersion_t {
 #endif /* CXX_SIMULATOR */
 } RegSHMFwVersion_t;
 
-#define REG_SHM_SEG_MESSAGE_BUFFER_OFFSET ((volatile APE_SHM_H_uint32_t*)0x6022001c) /* Specifies the offset of a scratchpad area, relative to the  start of the APE SHM area (i.e., relative to APE_REG(0x4000)). */
+#define REG_SHM_SEG_MESSAGE_BUFFER_OFFSET ((APE_SHM_H_VOLATILE APE_SHM_H_uint32_t*)0x6022001c) /* Specifies the offset of a scratchpad area, relative to the  start of the APE SHM area (i.e., relative to APE_REG(0x4000)). */
 /** @brief Register definition for @ref SHM_t.SegMessageBufferOffset. */
 typedef register_container RegSHMSegMessageBufferOffset_t {
     /** @brief 32bit direct register access. */
@@ -382,7 +383,7 @@ typedef register_container RegSHMSegMessageBufferOffset_t {
 #endif /* CXX_SIMULATOR */
 } RegSHMSegMessageBufferOffset_t;
 
-#define REG_SHM_SEG_MESSAGE_BUFFER_LENGTH ((volatile APE_SHM_H_uint32_t*)0x60220020) /* Specifies the size of the scratchpad area in bytes. */
+#define REG_SHM_SEG_MESSAGE_BUFFER_LENGTH ((APE_SHM_H_VOLATILE APE_SHM_H_uint32_t*)0x60220020) /* Specifies the size of the scratchpad area in bytes. */
 /** @brief Register definition for @ref SHM_t.SegMessageBufferLength. */
 typedef register_container RegSHMSegMessageBufferLength_t {
     /** @brief 32bit direct register access. */
@@ -407,7 +408,7 @@ typedef register_container RegSHMSegMessageBufferLength_t {
 #endif /* CXX_SIMULATOR */
 } RegSHMSegMessageBufferLength_t;
 
-#define REG_SHM_4024 ((volatile APE_SHM_H_uint32_t*)0x60220024) /* Unknown. Bootcode related. */
+#define REG_SHM_4024 ((APE_SHM_H_VOLATILE APE_SHM_H_uint32_t*)0x60220024) /* Unknown. Bootcode related. */
 /** @brief Register definition for @ref SHM_t.4024. */
 typedef register_container RegSHM4024_t {
     /** @brief 32bit direct register access. */
@@ -432,7 +433,7 @@ typedef register_container RegSHM4024_t {
 #endif /* CXX_SIMULATOR */
 } RegSHM4024_t;
 
-#define REG_SHM_4028 ((volatile APE_SHM_H_uint32_t*)0x60220028) /* Unknown. Bootcode related. */
+#define REG_SHM_4028 ((APE_SHM_H_VOLATILE APE_SHM_H_uint32_t*)0x60220028) /* Unknown. Bootcode related. */
 /** @brief Register definition for @ref SHM_t.4028. */
 typedef register_container RegSHM4028_t {
     /** @brief 32bit direct register access. */
@@ -457,7 +458,7 @@ typedef register_container RegSHM4028_t {
 #endif /* CXX_SIMULATOR */
 } RegSHM4028_t;
 
-#define REG_SHM_DRIVER_BUFFER ((volatile APE_SHM_H_uint32_t*)0x60220030) /* Communication channel between the host driver and the APE. */
+#define REG_SHM_DRIVER_BUFFER ((APE_SHM_H_VOLATILE APE_SHM_H_uint32_t*)0x60220030) /* Communication channel between the host driver and the APE. */
 /** @brief Register definition for @ref SHM_t.DriverBuffer. */
 typedef register_container RegSHMDriverBuffer_t {
     /** @brief 32bit direct register access. */
@@ -482,7 +483,7 @@ typedef register_container RegSHMDriverBuffer_t {
 #endif /* CXX_SIMULATOR */
 } RegSHMDriverBuffer_t;
 
-#define REG_SHM_LOADER_COMMAND ((volatile APE_SHM_H_uint32_t*)0x60220038) /* Command sent when using the the APE loader. Zero once handled. */
+#define REG_SHM_LOADER_COMMAND ((APE_SHM_H_VOLATILE APE_SHM_H_uint32_t*)0x60220038) /* Command sent when using the the APE loader. Zero once handled. */
 #define     SHM_LOADER_COMMAND_COMMAND_SHIFT 0u
 #define     SHM_LOADER_COMMAND_COMMAND_MASK  0xffffffffu
 #define GET_SHM_LOADER_COMMAND_COMMAND(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
@@ -536,7 +537,7 @@ typedef register_container RegSHMLoaderCommand_t {
 #endif /* CXX_SIMULATOR */
 } RegSHMLoaderCommand_t;
 
-#define REG_SHM_LOADER_ARG0 ((volatile APE_SHM_H_uint32_t*)0x6022003c) /* Argument 0 for the APE loader. */
+#define REG_SHM_LOADER_ARG0 ((APE_SHM_H_VOLATILE APE_SHM_H_uint32_t*)0x6022003c) /* Argument 0 for the APE loader. */
 /** @brief Register definition for @ref SHM_t.LoaderArg0. */
 typedef register_container RegSHMLoaderArg0_t {
     /** @brief 32bit direct register access. */
@@ -561,7 +562,7 @@ typedef register_container RegSHMLoaderArg0_t {
 #endif /* CXX_SIMULATOR */
 } RegSHMLoaderArg0_t;
 
-#define REG_SHM_LOADER_ARG1 ((volatile APE_SHM_H_uint32_t*)0x60220040) /* Argument 1 for the APE loader. */
+#define REG_SHM_LOADER_ARG1 ((APE_SHM_H_VOLATILE APE_SHM_H_uint32_t*)0x60220040) /* Argument 1 for the APE loader. */
 /** @brief Register definition for @ref SHM_t.LoaderArg1. */
 typedef register_container RegSHMLoaderArg1_t {
     /** @brief 32bit direct register access. */
@@ -586,7 +587,7 @@ typedef register_container RegSHMLoaderArg1_t {
 #endif /* CXX_SIMULATOR */
 } RegSHMLoaderArg1_t;
 
-#define REG_SHM_RCPU_SEG_SIG ((volatile APE_SHM_H_uint32_t*)0x60220100) /* Set to APE_RCPU_MAGIC ('RCPU') by RX CPU. */
+#define REG_SHM_RCPU_SEG_SIG ((APE_SHM_H_VOLATILE APE_SHM_H_uint32_t*)0x60220100) /* Set to APE_RCPU_MAGIC ('RCPU') by RX CPU. */
 #define     SHM_RCPU_SEG_SIG_SIG_SHIFT 0u
 #define     SHM_RCPU_SEG_SIG_SIG_MASK  0xffffffffu
 #define GET_SHM_RCPU_SEG_SIG_SIG(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
@@ -634,7 +635,7 @@ typedef register_container RegSHMRcpuSegSig_t {
 #endif /* CXX_SIMULATOR */
 } RegSHMRcpuSegSig_t;
 
-#define REG_SHM_RCPU_SEG_LENGTH ((volatile APE_SHM_H_uint32_t*)0x60220104) /* Set to 0x34. */
+#define REG_SHM_RCPU_SEG_LENGTH ((APE_SHM_H_VOLATILE APE_SHM_H_uint32_t*)0x60220104) /* Set to 0x34. */
 /** @brief Register definition for @ref SHM_t.RcpuSegLength. */
 typedef register_container RegSHMRcpuSegLength_t {
     /** @brief 32bit direct register access. */
@@ -659,7 +660,7 @@ typedef register_container RegSHMRcpuSegLength_t {
 #endif /* CXX_SIMULATOR */
 } RegSHMRcpuSegLength_t;
 
-#define REG_SHM_RCPU_INIT_COUNT ((volatile APE_SHM_H_uint32_t*)0x60220108) /* Incremented by RX CPU every boot. */
+#define REG_SHM_RCPU_INIT_COUNT ((APE_SHM_H_VOLATILE APE_SHM_H_uint32_t*)0x60220108) /* Incremented by RX CPU every boot. */
 /** @brief Register definition for @ref SHM_t.RcpuInitCount. */
 typedef register_container RegSHMRcpuInitCount_t {
     /** @brief 32bit direct register access. */
@@ -684,7 +685,7 @@ typedef register_container RegSHMRcpuInitCount_t {
 #endif /* CXX_SIMULATOR */
 } RegSHMRcpuInitCount_t;
 
-#define REG_SHM_RCPU_FW_VERSION ((volatile APE_SHM_H_uint32_t*)0x6022010c) /* Set to the bootcode version. e.g. 0x0127 -> v1.39. */
+#define REG_SHM_RCPU_FW_VERSION ((APE_SHM_H_VOLATILE APE_SHM_H_uint32_t*)0x6022010c) /* Set to the bootcode version. e.g. 0x0127 -> v1.39. */
 /** @brief Register definition for @ref SHM_t.RcpuFwVersion. */
 typedef register_container RegSHMRcpuFwVersion_t {
     /** @brief 32bit direct register access. */
@@ -709,7 +710,7 @@ typedef register_container RegSHMRcpuFwVersion_t {
 #endif /* CXX_SIMULATOR */
 } RegSHMRcpuFwVersion_t;
 
-#define REG_SHM_RCPU_CFG_FEATURE ((volatile APE_SHM_H_uint32_t*)0x60220110) /* Set to  */
+#define REG_SHM_RCPU_CFG_FEATURE ((APE_SHM_H_VOLATILE APE_SHM_H_uint32_t*)0x60220110) /* Set to  */
 /** @brief Register definition for @ref SHM_t.RcpuCfgFeature. */
 typedef register_container RegSHMRcpuCfgFeature_t {
     /** @brief 32bit direct register access. */
@@ -734,7 +735,7 @@ typedef register_container RegSHMRcpuCfgFeature_t {
 #endif /* CXX_SIMULATOR */
 } RegSHMRcpuCfgFeature_t;
 
-#define REG_SHM_RCPU_PCI_VENDOR_DEVICE_ID ((volatile APE_SHM_H_uint32_t*)0x60220114) /* Set to PCI Vendor/Device ID by S2. */
+#define REG_SHM_RCPU_PCI_VENDOR_DEVICE_ID ((APE_SHM_H_VOLATILE APE_SHM_H_uint32_t*)0x60220114) /* Set to PCI Vendor/Device ID by S2. */
 #define     SHM_RCPU_PCI_VENDOR_DEVICE_ID_DEVICE_ID_SHIFT 0u
 #define     SHM_RCPU_PCI_VENDOR_DEVICE_ID_DEVICE_ID_MASK  0xffffu
 #define GET_SHM_RCPU_PCI_VENDOR_DEVICE_ID_DEVICE_ID(__reg__)  (((__reg__) & 0xffff) >> 0u)
@@ -788,7 +789,7 @@ typedef register_container RegSHMRcpuPciVendorDeviceId_t {
 #endif /* CXX_SIMULATOR */
 } RegSHMRcpuPciVendorDeviceId_t;
 
-#define REG_SHM_RCPU_PCI_SUBSYSTEM_ID ((volatile APE_SHM_H_uint32_t*)0x60220118) /* Set to PCI Subsystem Vendor/Subsystem ID by S2. */
+#define REG_SHM_RCPU_PCI_SUBSYSTEM_ID ((APE_SHM_H_VOLATILE APE_SHM_H_uint32_t*)0x60220118) /* Set to PCI Subsystem Vendor/Subsystem ID by S2. */
 #define     SHM_RCPU_PCI_SUBSYSTEM_ID_SUBSYSTEM_VENDOR_ID_SHIFT 0u
 #define     SHM_RCPU_PCI_SUBSYSTEM_ID_SUBSYSTEM_VENDOR_ID_MASK  0xffffu
 #define GET_SHM_RCPU_PCI_SUBSYSTEM_ID_SUBSYSTEM_VENDOR_ID(__reg__)  (((__reg__) & 0xffff) >> 0u)
@@ -842,7 +843,7 @@ typedef register_container RegSHMRcpuPciSubsystemId_t {
 #endif /* CXX_SIMULATOR */
 } RegSHMRcpuPciSubsystemId_t;
 
-#define REG_SHM_RCPU_APE_RESET_COUNT ((volatile APE_SHM_H_uint32_t*)0x6022011c) /* Unknown. Incremented by frobnicating routine. */
+#define REG_SHM_RCPU_APE_RESET_COUNT ((APE_SHM_H_VOLATILE APE_SHM_H_uint32_t*)0x6022011c) /* Unknown. Incremented by frobnicating routine. */
 /** @brief Register definition for @ref SHM_t.RcpuApeResetCount. */
 typedef register_container RegSHMRcpuApeResetCount_t {
     /** @brief 32bit direct register access. */
@@ -867,7 +868,7 @@ typedef register_container RegSHMRcpuApeResetCount_t {
 #endif /* CXX_SIMULATOR */
 } RegSHMRcpuApeResetCount_t;
 
-#define REG_SHM_RCPU_LAST_APE_STATUS ((volatile APE_SHM_H_uint32_t*)0x60220120) /* Unknown. Written by frobnicating routine. */
+#define REG_SHM_RCPU_LAST_APE_STATUS ((APE_SHM_H_VOLATILE APE_SHM_H_uint32_t*)0x60220120) /* Unknown. Written by frobnicating routine. */
 /** @brief Register definition for @ref SHM_t.RcpuLastApeStatus. */
 typedef register_container RegSHMRcpuLastApeStatus_t {
     /** @brief 32bit direct register access. */
@@ -892,7 +893,7 @@ typedef register_container RegSHMRcpuLastApeStatus_t {
 #endif /* CXX_SIMULATOR */
 } RegSHMRcpuLastApeStatus_t;
 
-#define REG_SHM_RCPU_LAST_APE_FW_STATUS ((volatile APE_SHM_H_uint32_t*)0x60220124) /* Unknown.  */
+#define REG_SHM_RCPU_LAST_APE_FW_STATUS ((APE_SHM_H_VOLATILE APE_SHM_H_uint32_t*)0x60220124) /* Unknown.  */
 /** @brief Register definition for @ref SHM_t.RcpuLastApeFwStatus. */
 typedef register_container RegSHMRcpuLastApeFwStatus_t {
     /** @brief 32bit direct register access. */
@@ -917,7 +918,7 @@ typedef register_container RegSHMRcpuLastApeFwStatus_t {
 #endif /* CXX_SIMULATOR */
 } RegSHMRcpuLastApeFwStatus_t;
 
-#define REG_SHM_RCPU_CFG_HW ((volatile APE_SHM_H_uint32_t*)0x60220128) /* Set from  */
+#define REG_SHM_RCPU_CFG_HW ((APE_SHM_H_VOLATILE APE_SHM_H_uint32_t*)0x60220128) /* Set from  */
 /** @brief Register definition for @ref SHM_t.RcpuCfgHw. */
 typedef register_container RegSHMRcpuCfgHw_t {
     /** @brief 32bit direct register access. */
@@ -942,7 +943,7 @@ typedef register_container RegSHMRcpuCfgHw_t {
 #endif /* CXX_SIMULATOR */
 } RegSHMRcpuCfgHw_t;
 
-#define REG_SHM_RCPU_CFG_HW_2 ((volatile APE_SHM_H_uint32_t*)0x6022012c) /* Set from  */
+#define REG_SHM_RCPU_CFG_HW_2 ((APE_SHM_H_VOLATILE APE_SHM_H_uint32_t*)0x6022012c) /* Set from  */
 /** @brief Register definition for @ref SHM_t.RcpuCfgHw2. */
 typedef register_container RegSHMRcpuCfgHw2_t {
     /** @brief 32bit direct register access. */
@@ -967,7 +968,7 @@ typedef register_container RegSHMRcpuCfgHw2_t {
 #endif /* CXX_SIMULATOR */
 } RegSHMRcpuCfgHw2_t;
 
-#define REG_SHM_RCPU_CPMU_STATUS ((volatile APE_SHM_H_uint32_t*)0x60220130) /* Set from  */
+#define REG_SHM_RCPU_CPMU_STATUS ((APE_SHM_H_VOLATILE APE_SHM_H_uint32_t*)0x60220130) /* Set from  */
 #define     SHM_RCPU_CPMU_STATUS_ADDRESS_SHIFT 0u
 #define     SHM_RCPU_CPMU_STATUS_ADDRESS_MASK  0xffffu
 #define GET_SHM_RCPU_CPMU_STATUS_ADDRESS(__reg__)  (((__reg__) & 0xffff) >> 0u)
@@ -1025,7 +1026,7 @@ typedef register_container RegSHMRcpuCpmuStatus_t {
 #endif /* CXX_SIMULATOR */
 } RegSHMRcpuCpmuStatus_t;
 
-#define REG_SHM_HOST_SEG_SIG ((volatile APE_SHM_H_uint32_t*)0x60220200) /* Set to APE_HOST_MAGIC ('HOST') to indicate the section is valid. */
+#define REG_SHM_HOST_SEG_SIG ((APE_SHM_H_VOLATILE APE_SHM_H_uint32_t*)0x60220200) /* Set to APE_HOST_MAGIC ('HOST') to indicate the section is valid. */
 /** @brief Register definition for @ref SHM_t.HostSegSig. */
 typedef register_container RegSHMHostSegSig_t {
     /** @brief 32bit direct register access. */
@@ -1050,7 +1051,7 @@ typedef register_container RegSHMHostSegSig_t {
 #endif /* CXX_SIMULATOR */
 } RegSHMHostSegSig_t;
 
-#define REG_SHM_HOST_SEG_LEN ((volatile APE_SHM_H_uint32_t*)0x60220204) /* Set to 0x20. */
+#define REG_SHM_HOST_SEG_LEN ((APE_SHM_H_VOLATILE APE_SHM_H_uint32_t*)0x60220204) /* Set to 0x20. */
 /** @brief Register definition for @ref SHM_t.HostSegLen. */
 typedef register_container RegSHMHostSegLen_t {
     /** @brief 32bit direct register access. */
@@ -1075,7 +1076,7 @@ typedef register_container RegSHMHostSegLen_t {
 #endif /* CXX_SIMULATOR */
 } RegSHMHostSegLen_t;
 
-#define REG_SHM_HOST_INIT_COUNT ((volatile APE_SHM_H_uint32_t*)0x60220208) /* Incremented by host on every initialization. */
+#define REG_SHM_HOST_INIT_COUNT ((APE_SHM_H_VOLATILE APE_SHM_H_uint32_t*)0x60220208) /* Incremented by host on every initialization. */
 /** @brief Register definition for @ref SHM_t.HostInitCount. */
 typedef register_container RegSHMHostInitCount_t {
     /** @brief 32bit direct register access. */
@@ -1100,7 +1101,7 @@ typedef register_container RegSHMHostInitCount_t {
 #endif /* CXX_SIMULATOR */
 } RegSHMHostInitCount_t;
 
-#define REG_SHM_HOST_DRIVER_ID ((volatile APE_SHM_H_uint32_t*)0x6022020c) /* Linux sets this to 0xF0MM_mm00, where M is the major version  of Linux and m is the minor version. */
+#define REG_SHM_HOST_DRIVER_ID ((APE_SHM_H_VOLATILE APE_SHM_H_uint32_t*)0x6022020c) /* Linux sets this to 0xF0MM_mm00, where M is the major version  of Linux and m is the minor version. */
 /** @brief Register definition for @ref SHM_t.HostDriverId. */
 typedef register_container RegSHMHostDriverId_t {
     /** @brief 32bit direct register access. */
@@ -1125,7 +1126,7 @@ typedef register_container RegSHMHostDriverId_t {
 #endif /* CXX_SIMULATOR */
 } RegSHMHostDriverId_t;
 
-#define REG_SHM_HOST_BEHAVIOR ((volatile APE_SHM_H_uint32_t*)0x60220210) /*  */
+#define REG_SHM_HOST_BEHAVIOR ((APE_SHM_H_VOLATILE APE_SHM_H_uint32_t*)0x60220210) /*  */
 #define     SHM_HOST_BEHAVIOR_NO_PHYLOCK_SHIFT 0u
 #define     SHM_HOST_BEHAVIOR_NO_PHYLOCK_MASK  0x1u
 #define GET_SHM_HOST_BEHAVIOR_NO_PHYLOCK(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -1173,7 +1174,7 @@ typedef register_container RegSHMHostBehavior_t {
 #endif /* CXX_SIMULATOR */
 } RegSHMHostBehavior_t;
 
-#define REG_SHM_HEARTBEAT_INTERVAL ((volatile APE_SHM_H_uint32_t*)0x60220214) /* In milliseconds. Set to 0 to disable heartbeating. */
+#define REG_SHM_HEARTBEAT_INTERVAL ((APE_SHM_H_VOLATILE APE_SHM_H_uint32_t*)0x60220214) /* In milliseconds. Set to 0 to disable heartbeating. */
 /** @brief Register definition for @ref SHM_t.HeartbeatInterval. */
 typedef register_container RegSHMHeartbeatInterval_t {
     /** @brief 32bit direct register access. */
@@ -1198,7 +1199,7 @@ typedef register_container RegSHMHeartbeatInterval_t {
 #endif /* CXX_SIMULATOR */
 } RegSHMHeartbeatInterval_t;
 
-#define REG_SHM_HEARTBEAT_COUNT ((volatile APE_SHM_H_uint32_t*)0x60220218) /*  */
+#define REG_SHM_HEARTBEAT_COUNT ((APE_SHM_H_VOLATILE APE_SHM_H_uint32_t*)0x60220218) /*  */
 /** @brief Register definition for @ref SHM_t.HeartbeatCount. */
 typedef register_container RegSHMHeartbeatCount_t {
     /** @brief 32bit direct register access. */
@@ -1223,7 +1224,7 @@ typedef register_container RegSHMHeartbeatCount_t {
 #endif /* CXX_SIMULATOR */
 } RegSHMHeartbeatCount_t;
 
-#define REG_SHM_HOST_DRIVER_STATE ((volatile APE_SHM_H_uint32_t*)0x6022021c) /*  */
+#define REG_SHM_HOST_DRIVER_STATE ((APE_SHM_H_VOLATILE APE_SHM_H_uint32_t*)0x6022021c) /*  */
 #define     SHM_HOST_DRIVER_STATE_STATE_SHIFT 0u
 #define     SHM_HOST_DRIVER_STATE_STATE_MASK  0xffffffffu
 #define GET_SHM_HOST_DRIVER_STATE_STATE(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
@@ -1275,7 +1276,7 @@ typedef register_container RegSHMHostDriverState_t {
 #endif /* CXX_SIMULATOR */
 } RegSHMHostDriverState_t;
 
-#define REG_SHM_WOL_SPEED ((volatile APE_SHM_H_uint32_t*)0x60220224) /*  */
+#define REG_SHM_WOL_SPEED ((APE_SHM_H_VOLATILE APE_SHM_H_uint32_t*)0x60220224) /*  */
 /** @brief Register definition for @ref SHM_t.WolSpeed. */
 typedef register_container RegSHMWolSpeed_t {
     /** @brief 32bit direct register access. */
@@ -1300,7 +1301,7 @@ typedef register_container RegSHMWolSpeed_t {
 #endif /* CXX_SIMULATOR */
 } RegSHMWolSpeed_t;
 
-#define REG_SHM_EVENT_STATUS ((volatile APE_SHM_H_uint32_t*)0x60220300) /*  */
+#define REG_SHM_EVENT_STATUS ((APE_SHM_H_VOLATILE APE_SHM_H_uint32_t*)0x60220300) /*  */
 #define     SHM_EVENT_STATUS_DRIVER_EVENT_SHIFT 4u
 #define     SHM_EVENT_STATUS_DRIVER_EVENT_MASK  0x10u
 #define GET_SHM_EVENT_STATUS_DRIVER_EVENT(__reg__)  (((__reg__) & 0x10) >> 4u)
@@ -1404,7 +1405,7 @@ typedef register_container RegSHMEventStatus_t {
 #endif /* CXX_SIMULATOR */
 } RegSHMEventStatus_t;
 
-#define REG_SHM_PROT_MAGIC ((volatile APE_SHM_H_uint32_t*)0x60220308) /* This is set to APE_PROT_MAGIC ('PROT') on all functions.  If it is 'PROT', the following fields (MAC0_HIGH/LOW) are valid */
+#define REG_SHM_PROT_MAGIC ((APE_SHM_H_VOLATILE APE_SHM_H_uint32_t*)0x60220308) /* This is set to APE_PROT_MAGIC ('PROT') on all functions.  If it is 'PROT', the following fields (MAC0_HIGH/LOW) are valid */
 /** @brief Register definition for @ref SHM_t.ProtMagic. */
 typedef register_container RegSHMProtMagic_t {
     /** @brief 32bit direct register access. */
@@ -1429,7 +1430,7 @@ typedef register_container RegSHMProtMagic_t {
 #endif /* CXX_SIMULATOR */
 } RegSHMProtMagic_t;
 
-#define REG_SHM_PROT_MAC0_HIGH ((volatile APE_SHM_H_uint32_t*)0x60220314) /* High 16 bits of MAC address 0. Only valid if  */
+#define REG_SHM_PROT_MAC0_HIGH ((APE_SHM_H_VOLATILE APE_SHM_H_uint32_t*)0x60220314) /* High 16 bits of MAC address 0. Only valid if  */
 /** @brief Register definition for @ref SHM_t.ProtMac0High. */
 typedef register_container RegSHMProtMac0High_t {
     /** @brief 32bit direct register access. */
@@ -1454,7 +1455,7 @@ typedef register_container RegSHMProtMac0High_t {
 #endif /* CXX_SIMULATOR */
 } RegSHMProtMac0High_t;
 
-#define REG_SHM_PROT_MAC0_LOW ((volatile APE_SHM_H_uint32_t*)0x60220318) /* Low 16 bits of MAC address 0. */
+#define REG_SHM_PROT_MAC0_LOW ((APE_SHM_H_VOLATILE APE_SHM_H_uint32_t*)0x60220318) /* Low 16 bits of MAC address 0. */
 /** @brief Register definition for @ref SHM_t.ProtMac0Low. */
 typedef register_container RegSHMProtMac0Low_t {
     /** @brief 32bit direct register access. */
@@ -1479,7 +1480,7 @@ typedef register_container RegSHMProtMac0Low_t {
 #endif /* CXX_SIMULATOR */
 } RegSHMProtMac0Low_t;
 
-#define REG_SHM_RCPU_WRITE_POINTER ((volatile APE_SHM_H_uint32_t*)0x60220324) /* Index into the printf buffer for last valid byte. */
+#define REG_SHM_RCPU_WRITE_POINTER ((APE_SHM_H_VOLATILE APE_SHM_H_uint32_t*)0x60220324) /* Index into the printf buffer for last valid byte. */
 /** @brief Register definition for @ref SHM_t.RcpuWritePointer. */
 typedef register_container RegSHMRcpuWritePointer_t {
     /** @brief 32bit direct register access. */
@@ -1504,7 +1505,7 @@ typedef register_container RegSHMRcpuWritePointer_t {
 #endif /* CXX_SIMULATOR */
 } RegSHMRcpuWritePointer_t;
 
-#define REG_SHM_RCPU_HOST_READ_POINTER ((volatile APE_SHM_H_uint32_t*)0x60220328) /* Index into the printf buffer for last read byte. */
+#define REG_SHM_RCPU_HOST_READ_POINTER ((APE_SHM_H_VOLATILE APE_SHM_H_uint32_t*)0x60220328) /* Index into the printf buffer for last read byte. */
 /** @brief Register definition for @ref SHM_t.RcpuHostReadPointer. */
 typedef register_container RegSHMRcpuHostReadPointer_t {
     /** @brief 32bit direct register access. */
@@ -1529,7 +1530,7 @@ typedef register_container RegSHMRcpuHostReadPointer_t {
 #endif /* CXX_SIMULATOR */
 } RegSHMRcpuHostReadPointer_t;
 
-#define REG_SHM_RCPU_READ_POINTER ((volatile APE_SHM_H_uint32_t*)0x6022032c) /* Index into the printf buffer for last read byte. */
+#define REG_SHM_RCPU_READ_POINTER ((APE_SHM_H_VOLATILE APE_SHM_H_uint32_t*)0x6022032c) /* Index into the printf buffer for last read byte. */
 /** @brief Register definition for @ref SHM_t.RcpuReadPointer. */
 typedef register_container RegSHMRcpuReadPointer_t {
     /** @brief 32bit direct register access. */
@@ -1554,7 +1555,7 @@ typedef register_container RegSHMRcpuReadPointer_t {
 #endif /* CXX_SIMULATOR */
 } RegSHMRcpuReadPointer_t;
 
-#define REG_SHM_RCPU_PRINTF_BUFFER ((volatile APE_SHM_H_uint32_t*)0x60220330) /* Printf buffer from the APE to the Rcpu for NVRAM printout or the host */
+#define REG_SHM_RCPU_PRINTF_BUFFER ((APE_SHM_H_VOLATILE APE_SHM_H_uint32_t*)0x60220330) /* Printf buffer from the APE to the Rcpu for NVRAM printout or the host */
 /** @brief Register definition for @ref SHM_t.RcpuPrintfBuffer. */
 typedef register_container RegSHMRcpuPrintfBuffer_t {
     /** @brief 32bit direct register access. */
@@ -1932,13 +1933,9 @@ typedef struct SHM_t {
 } SHM_t;
 
 /** @brief Device SHM Registers, function 0 */
-extern volatile SHM_t SHM;
+extern APE_SHM_H_VOLATILE SHM_t SHM;
 
 
-
-#ifdef CXX_SIMULATOR /* Compiling c++ code - uses register wrappers */
-#undef volatile
-#endif /* CXX_SIMULATOR */
 
 #undef register_container
 #undef BITFIELD_BEGIN
