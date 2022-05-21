@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2020, Evan Lojewski
+/// @copyright Copyright (c) 2022, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -64,7 +64,7 @@ typedef CXXRegister<uint32_t, 0, 32> APE_FILTERS1_H_uint32_t;
 #define APE_FILTERS1_H_uint16_t_bitfield(__pos__, __width__) CXXRegister<uint16_t, __pos__, __width__>
 #define APE_FILTERS1_H_uint32_t_bitfield(__pos__, __width__) CXXRegister<uint32_t, __pos__, __width__>
 #define register_container struct
-#define volatile
+#define APE_FILTERS1_H_VOLATILE
 #define BITFIELD_BEGIN(__type__, __name__) struct {
 #define BITFIELD_MEMBER(__type__, __name__, __offset__, __bits__) __type__##_bitfield(__offset__, __bits__) __name__;
 #define BITFIELD_END(__type__, __name__) } __name__;
@@ -74,6 +74,7 @@ typedef uint8_t  APE_FILTERS1_H_uint8_t;
 typedef uint16_t APE_FILTERS1_H_uint16_t;
 typedef uint32_t APE_FILTERS1_H_uint32_t;
 #define register_container union
+#define APE_FILTERS1_H_VOLATILE volatile
 #define BITFIELD_BEGIN(__type__, __name__) struct {
 #define BITFIELD_MEMBER(__type__, __name__, __offset__, __bits__) __type__ __name__:__bits__;
 #define BITFIELD_END(__type__, __name__) } __name__;
@@ -82,19 +83,15 @@ typedef uint32_t APE_FILTERS1_H_uint32_t;
 #define REG_FILTERS1_BASE ((volatile void*)0xa0058000) /* Management Filter Registers, function 1 */
 #define REG_FILTERS1_SIZE (sizeof(FILTERS_t))
 
-#define REG_FILTERS1_ELEMENT_CONFIG ((volatile APE_FILTERS1_H_uint32_t*)0xa0058000) /* Element Configuration Register. */
-#define REG_FILTERS1_ELEMENT_PATTERN ((volatile APE_FILTERS1_H_uint32_t*)0xa0058080) /* If RULE_MASK is set, low 16 bits are a bitmask and high 16 bits are the value masked by it. If it is not set, the entire field is a 32-bit match value. */
-#define REG_FILTERS1_RULE_CONFIGURATION ((volatile APE_FILTERS1_H_uint32_t*)0xa0058100) /*  */
-#define REG_FILTERS1_RULE_SET ((volatile APE_FILTERS1_H_uint32_t*)0xa0058104) /*  */
-#define REG_FILTERS1_RULE_MASK ((volatile APE_FILTERS1_H_uint32_t*)0xa0058184) /*  */
+#define REG_FILTERS1_ELEMENT_CONFIG ((APE_FILTERS1_H_VOLATILE APE_FILTERS1_H_uint32_t*)0xa0058000) /* Element Configuration Register. */
+#define REG_FILTERS1_ELEMENT_PATTERN ((APE_FILTERS1_H_VOLATILE APE_FILTERS1_H_uint32_t*)0xa0058080) /* If RULE_MASK is set, low 16 bits are a bitmask and high 16 bits are the value masked by it. If it is not set, the entire field is a 32-bit match value. */
+#define REG_FILTERS1_RULE_CONFIGURATION ((APE_FILTERS1_H_VOLATILE APE_FILTERS1_H_uint32_t*)0xa0058100) /*  */
+#define REG_FILTERS1_RULE_SET ((APE_FILTERS1_H_VOLATILE APE_FILTERS1_H_uint32_t*)0xa0058104) /*  */
+#define REG_FILTERS1_RULE_MASK ((APE_FILTERS1_H_VOLATILE APE_FILTERS1_H_uint32_t*)0xa0058184) /*  */
 /** @brief Management Filter Registers, function 1 */
-extern volatile FILTERS_t FILTERS1;
+extern APE_FILTERS1_H_VOLATILE FILTERS_t FILTERS1;
 
 
-
-#ifdef CXX_SIMULATOR /* Compiling c++ code - uses register wrappers */
-#undef volatile
-#endif /* CXX_SIMULATOR */
 
 #undef register_container
 #undef BITFIELD_BEGIN

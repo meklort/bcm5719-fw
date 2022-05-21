@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2021, Evan Lojewski
+/// @copyright Copyright (c) 2022, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -64,7 +64,7 @@ typedef CXXRegister<uint32_t, 0, 32> APE_SHM3_H_uint32_t;
 #define APE_SHM3_H_uint16_t_bitfield(__pos__, __width__) CXXRegister<uint16_t, __pos__, __width__>
 #define APE_SHM3_H_uint32_t_bitfield(__pos__, __width__) CXXRegister<uint32_t, __pos__, __width__>
 #define register_container struct
-#define volatile
+#define APE_SHM3_H_VOLATILE
 #define BITFIELD_BEGIN(__type__, __name__) struct {
 #define BITFIELD_MEMBER(__type__, __name__, __offset__, __bits__) __type__##_bitfield(__offset__, __bits__) __name__;
 #define BITFIELD_END(__type__, __name__) } __name__;
@@ -74,6 +74,7 @@ typedef uint8_t  APE_SHM3_H_uint8_t;
 typedef uint16_t APE_SHM3_H_uint16_t;
 typedef uint32_t APE_SHM3_H_uint32_t;
 #define register_container union
+#define APE_SHM3_H_VOLATILE volatile
 #define BITFIELD_BEGIN(__type__, __name__) struct {
 #define BITFIELD_MEMBER(__type__, __name__, __offset__, __bits__) __type__ __name__:__bits__;
 #define BITFIELD_END(__type__, __name__) } __name__;
@@ -82,58 +83,54 @@ typedef uint32_t APE_SHM3_H_uint32_t;
 #define REG_SHM3_BASE ((volatile void*)0x60223000) /* Device SHM Registers, function 3 */
 #define REG_SHM3_SIZE (sizeof(SHM_t))
 
-#define REG_SHM3_SEG_SIG ((volatile APE_SHM3_H_uint32_t*)0x60223000) /* APE_APE_MAGIC ('APE!') when all is well. */
-#define REG_SHM3_APE_SEG_LENGTH ((volatile APE_SHM3_H_uint32_t*)0x60223004) /* Set to 0x34. */
-#define REG_SHM3_FW_STATUS ((volatile APE_SHM3_H_uint32_t*)0x6022300c) /*  */
-#define REG_SHM3_FW_FEATURES ((volatile APE_SHM3_H_uint32_t*)0x60223010) /*  */
-#define REG_SHM3_4014 ((volatile APE_SHM3_H_uint32_t*)0x60223014) /* Unknown. */
-#define REG_SHM3_FW_VERSION ((volatile APE_SHM3_H_uint32_t*)0x60223018) /*  */
-#define REG_SHM3_SEG_MESSAGE_BUFFER_OFFSET ((volatile APE_SHM3_H_uint32_t*)0x6022301c) /* Specifies the offset of a scratchpad area, relative to the  start of the APE SHM area (i.e., relative to APE_REG(0x4000)). */
-#define REG_SHM3_SEG_MESSAGE_BUFFER_LENGTH ((volatile APE_SHM3_H_uint32_t*)0x60223020) /* Specifies the size of the scratchpad area in bytes. */
-#define REG_SHM3_4024 ((volatile APE_SHM3_H_uint32_t*)0x60223024) /* Unknown. Bootcode related. */
-#define REG_SHM3_4028 ((volatile APE_SHM3_H_uint32_t*)0x60223028) /* Unknown. Bootcode related. */
-#define REG_SHM3_DRIVER_BUFFER ((volatile APE_SHM3_H_uint32_t*)0x60223030) /* Communication channel between the host driver and the APE. */
-#define REG_SHM3_LOADER_COMMAND ((volatile APE_SHM3_H_uint32_t*)0x60223038) /* Command sent when using the the APE loader. Zero once handled. */
-#define REG_SHM3_LOADER_ARG0 ((volatile APE_SHM3_H_uint32_t*)0x6022303c) /* Argument 0 for the APE loader. */
-#define REG_SHM3_LOADER_ARG1 ((volatile APE_SHM3_H_uint32_t*)0x60223040) /* Argument 1 for the APE loader. */
-#define REG_SHM3_RCPU_SEG_SIG ((volatile APE_SHM3_H_uint32_t*)0x60223100) /* Set to APE_RCPU_MAGIC ('RCPU') by RX CPU. */
-#define REG_SHM3_RCPU_SEG_LENGTH ((volatile APE_SHM3_H_uint32_t*)0x60223104) /* Set to 0x34. */
-#define REG_SHM3_RCPU_INIT_COUNT ((volatile APE_SHM3_H_uint32_t*)0x60223108) /* Incremented by RX CPU every boot. */
-#define REG_SHM3_RCPU_FW_VERSION ((volatile APE_SHM3_H_uint32_t*)0x6022310c) /* Set to the bootcode version. e.g. 0x0127 -> v1.39. */
-#define REG_SHM3_RCPU_CFG_FEATURE ((volatile APE_SHM3_H_uint32_t*)0x60223110) /* Set to  */
-#define REG_SHM3_RCPU_PCI_VENDOR_DEVICE_ID ((volatile APE_SHM3_H_uint32_t*)0x60223114) /* Set to PCI Vendor/Device ID by S2. */
-#define REG_SHM3_RCPU_PCI_SUBSYSTEM_ID ((volatile APE_SHM3_H_uint32_t*)0x60223118) /* Set to PCI Subsystem Vendor/Subsystem ID by S2. */
-#define REG_SHM3_RCPU_APE_RESET_COUNT ((volatile APE_SHM3_H_uint32_t*)0x6022311c) /* Unknown. Incremented by frobnicating routine. */
-#define REG_SHM3_RCPU_LAST_APE_STATUS ((volatile APE_SHM3_H_uint32_t*)0x60223120) /* Unknown. Written by frobnicating routine. */
-#define REG_SHM3_RCPU_LAST_APE_FW_STATUS ((volatile APE_SHM3_H_uint32_t*)0x60223124) /* Unknown.  */
-#define REG_SHM3_RCPU_CFG_HW ((volatile APE_SHM3_H_uint32_t*)0x60223128) /* Set from  */
-#define REG_SHM3_RCPU_CFG_HW_2 ((volatile APE_SHM3_H_uint32_t*)0x6022312c) /* Set from  */
-#define REG_SHM3_RCPU_CPMU_STATUS ((volatile APE_SHM3_H_uint32_t*)0x60223130) /* Set from  */
-#define REG_SHM3_HOST_SEG_SIG ((volatile APE_SHM3_H_uint32_t*)0x60223200) /* Set to APE_HOST_MAGIC ('HOST') to indicate the section is valid. */
-#define REG_SHM3_HOST_SEG_LEN ((volatile APE_SHM3_H_uint32_t*)0x60223204) /* Set to 0x20. */
-#define REG_SHM3_HOST_INIT_COUNT ((volatile APE_SHM3_H_uint32_t*)0x60223208) /* Incremented by host on every initialization. */
-#define REG_SHM3_HOST_DRIVER_ID ((volatile APE_SHM3_H_uint32_t*)0x6022320c) /* Linux sets this to 0xF0MM_mm00, where M is the major version  of Linux and m is the minor version. */
-#define REG_SHM3_HOST_BEHAVIOR ((volatile APE_SHM3_H_uint32_t*)0x60223210) /*  */
-#define REG_SHM3_HEARTBEAT_INTERVAL ((volatile APE_SHM3_H_uint32_t*)0x60223214) /* In milliseconds. Set to 0 to disable heartbeating. */
-#define REG_SHM3_HEARTBEAT_COUNT ((volatile APE_SHM3_H_uint32_t*)0x60223218) /*  */
-#define REG_SHM3_HOST_DRIVER_STATE ((volatile APE_SHM3_H_uint32_t*)0x6022321c) /*  */
-#define REG_SHM3_WOL_SPEED ((volatile APE_SHM3_H_uint32_t*)0x60223224) /*  */
-#define REG_SHM3_EVENT_STATUS ((volatile APE_SHM3_H_uint32_t*)0x60223300) /*  */
-#define REG_SHM3_PROT_MAGIC ((volatile APE_SHM3_H_uint32_t*)0x60223308) /* This is set to APE_PROT_MAGIC ('PROT') on all functions.  If it is 'PROT', the following fields (MAC0_HIGH/LOW) are valid */
-#define REG_SHM3_PROT_MAC0_HIGH ((volatile APE_SHM3_H_uint32_t*)0x60223314) /* High 16 bits of MAC address 0. Only valid if  */
-#define REG_SHM3_PROT_MAC0_LOW ((volatile APE_SHM3_H_uint32_t*)0x60223318) /* Low 16 bits of MAC address 0. */
-#define REG_SHM3_RCPU_WRITE_POINTER ((volatile APE_SHM3_H_uint32_t*)0x60223324) /* Index into the printf buffer for last valid byte. */
-#define REG_SHM3_RCPU_HOST_READ_POINTER ((volatile APE_SHM3_H_uint32_t*)0x60223328) /* Index into the printf buffer for last read byte. */
-#define REG_SHM3_RCPU_READ_POINTER ((volatile APE_SHM3_H_uint32_t*)0x6022332c) /* Index into the printf buffer for last read byte. */
-#define REG_SHM3_RCPU_PRINTF_BUFFER ((volatile APE_SHM3_H_uint32_t*)0x60223330) /* Printf buffer from the APE to the Rcpu for NVRAM printout or the host */
+#define REG_SHM3_SEG_SIG ((APE_SHM3_H_VOLATILE APE_SHM3_H_uint32_t*)0x60223000) /* APE_APE_MAGIC ('APE!') when all is well. */
+#define REG_SHM3_APE_SEG_LENGTH ((APE_SHM3_H_VOLATILE APE_SHM3_H_uint32_t*)0x60223004) /* Set to 0x34. */
+#define REG_SHM3_FW_STATUS ((APE_SHM3_H_VOLATILE APE_SHM3_H_uint32_t*)0x6022300c) /*  */
+#define REG_SHM3_FW_FEATURES ((APE_SHM3_H_VOLATILE APE_SHM3_H_uint32_t*)0x60223010) /*  */
+#define REG_SHM3_4014 ((APE_SHM3_H_VOLATILE APE_SHM3_H_uint32_t*)0x60223014) /* Unknown. */
+#define REG_SHM3_FW_VERSION ((APE_SHM3_H_VOLATILE APE_SHM3_H_uint32_t*)0x60223018) /*  */
+#define REG_SHM3_SEG_MESSAGE_BUFFER_OFFSET ((APE_SHM3_H_VOLATILE APE_SHM3_H_uint32_t*)0x6022301c) /* Specifies the offset of a scratchpad area, relative to the  start of the APE SHM area (i.e., relative to APE_REG(0x4000)). */
+#define REG_SHM3_SEG_MESSAGE_BUFFER_LENGTH ((APE_SHM3_H_VOLATILE APE_SHM3_H_uint32_t*)0x60223020) /* Specifies the size of the scratchpad area in bytes. */
+#define REG_SHM3_4024 ((APE_SHM3_H_VOLATILE APE_SHM3_H_uint32_t*)0x60223024) /* Unknown. Bootcode related. */
+#define REG_SHM3_4028 ((APE_SHM3_H_VOLATILE APE_SHM3_H_uint32_t*)0x60223028) /* Unknown. Bootcode related. */
+#define REG_SHM3_DRIVER_BUFFER ((APE_SHM3_H_VOLATILE APE_SHM3_H_uint32_t*)0x60223030) /* Communication channel between the host driver and the APE. */
+#define REG_SHM3_LOADER_COMMAND ((APE_SHM3_H_VOLATILE APE_SHM3_H_uint32_t*)0x60223038) /* Command sent when using the the APE loader. Zero once handled. */
+#define REG_SHM3_LOADER_ARG0 ((APE_SHM3_H_VOLATILE APE_SHM3_H_uint32_t*)0x6022303c) /* Argument 0 for the APE loader. */
+#define REG_SHM3_LOADER_ARG1 ((APE_SHM3_H_VOLATILE APE_SHM3_H_uint32_t*)0x60223040) /* Argument 1 for the APE loader. */
+#define REG_SHM3_RCPU_SEG_SIG ((APE_SHM3_H_VOLATILE APE_SHM3_H_uint32_t*)0x60223100) /* Set to APE_RCPU_MAGIC ('RCPU') by RX CPU. */
+#define REG_SHM3_RCPU_SEG_LENGTH ((APE_SHM3_H_VOLATILE APE_SHM3_H_uint32_t*)0x60223104) /* Set to 0x34. */
+#define REG_SHM3_RCPU_INIT_COUNT ((APE_SHM3_H_VOLATILE APE_SHM3_H_uint32_t*)0x60223108) /* Incremented by RX CPU every boot. */
+#define REG_SHM3_RCPU_FW_VERSION ((APE_SHM3_H_VOLATILE APE_SHM3_H_uint32_t*)0x6022310c) /* Set to the bootcode version. e.g. 0x0127 -> v1.39. */
+#define REG_SHM3_RCPU_CFG_FEATURE ((APE_SHM3_H_VOLATILE APE_SHM3_H_uint32_t*)0x60223110) /* Set to  */
+#define REG_SHM3_RCPU_PCI_VENDOR_DEVICE_ID ((APE_SHM3_H_VOLATILE APE_SHM3_H_uint32_t*)0x60223114) /* Set to PCI Vendor/Device ID by S2. */
+#define REG_SHM3_RCPU_PCI_SUBSYSTEM_ID ((APE_SHM3_H_VOLATILE APE_SHM3_H_uint32_t*)0x60223118) /* Set to PCI Subsystem Vendor/Subsystem ID by S2. */
+#define REG_SHM3_RCPU_APE_RESET_COUNT ((APE_SHM3_H_VOLATILE APE_SHM3_H_uint32_t*)0x6022311c) /* Unknown. Incremented by frobnicating routine. */
+#define REG_SHM3_RCPU_LAST_APE_STATUS ((APE_SHM3_H_VOLATILE APE_SHM3_H_uint32_t*)0x60223120) /* Unknown. Written by frobnicating routine. */
+#define REG_SHM3_RCPU_LAST_APE_FW_STATUS ((APE_SHM3_H_VOLATILE APE_SHM3_H_uint32_t*)0x60223124) /* Unknown.  */
+#define REG_SHM3_RCPU_CFG_HW ((APE_SHM3_H_VOLATILE APE_SHM3_H_uint32_t*)0x60223128) /* Set from  */
+#define REG_SHM3_RCPU_CFG_HW_2 ((APE_SHM3_H_VOLATILE APE_SHM3_H_uint32_t*)0x6022312c) /* Set from  */
+#define REG_SHM3_RCPU_CPMU_STATUS ((APE_SHM3_H_VOLATILE APE_SHM3_H_uint32_t*)0x60223130) /* Set from  */
+#define REG_SHM3_HOST_SEG_SIG ((APE_SHM3_H_VOLATILE APE_SHM3_H_uint32_t*)0x60223200) /* Set to APE_HOST_MAGIC ('HOST') to indicate the section is valid. */
+#define REG_SHM3_HOST_SEG_LEN ((APE_SHM3_H_VOLATILE APE_SHM3_H_uint32_t*)0x60223204) /* Set to 0x20. */
+#define REG_SHM3_HOST_INIT_COUNT ((APE_SHM3_H_VOLATILE APE_SHM3_H_uint32_t*)0x60223208) /* Incremented by host on every initialization. */
+#define REG_SHM3_HOST_DRIVER_ID ((APE_SHM3_H_VOLATILE APE_SHM3_H_uint32_t*)0x6022320c) /* Linux sets this to 0xF0MM_mm00, where M is the major version  of Linux and m is the minor version. */
+#define REG_SHM3_HOST_BEHAVIOR ((APE_SHM3_H_VOLATILE APE_SHM3_H_uint32_t*)0x60223210) /*  */
+#define REG_SHM3_HEARTBEAT_INTERVAL ((APE_SHM3_H_VOLATILE APE_SHM3_H_uint32_t*)0x60223214) /* In milliseconds. Set to 0 to disable heartbeating. */
+#define REG_SHM3_HEARTBEAT_COUNT ((APE_SHM3_H_VOLATILE APE_SHM3_H_uint32_t*)0x60223218) /*  */
+#define REG_SHM3_HOST_DRIVER_STATE ((APE_SHM3_H_VOLATILE APE_SHM3_H_uint32_t*)0x6022321c) /*  */
+#define REG_SHM3_WOL_SPEED ((APE_SHM3_H_VOLATILE APE_SHM3_H_uint32_t*)0x60223224) /*  */
+#define REG_SHM3_EVENT_STATUS ((APE_SHM3_H_VOLATILE APE_SHM3_H_uint32_t*)0x60223300) /*  */
+#define REG_SHM3_PROT_MAGIC ((APE_SHM3_H_VOLATILE APE_SHM3_H_uint32_t*)0x60223308) /* This is set to APE_PROT_MAGIC ('PROT') on all functions.  If it is 'PROT', the following fields (MAC0_HIGH/LOW) are valid */
+#define REG_SHM3_PROT_MAC0_HIGH ((APE_SHM3_H_VOLATILE APE_SHM3_H_uint32_t*)0x60223314) /* High 16 bits of MAC address 0. Only valid if  */
+#define REG_SHM3_PROT_MAC0_LOW ((APE_SHM3_H_VOLATILE APE_SHM3_H_uint32_t*)0x60223318) /* Low 16 bits of MAC address 0. */
+#define REG_SHM3_RCPU_WRITE_POINTER ((APE_SHM3_H_VOLATILE APE_SHM3_H_uint32_t*)0x60223324) /* Index into the printf buffer for last valid byte. */
+#define REG_SHM3_RCPU_HOST_READ_POINTER ((APE_SHM3_H_VOLATILE APE_SHM3_H_uint32_t*)0x60223328) /* Index into the printf buffer for last read byte. */
+#define REG_SHM3_RCPU_READ_POINTER ((APE_SHM3_H_VOLATILE APE_SHM3_H_uint32_t*)0x6022332c) /* Index into the printf buffer for last read byte. */
+#define REG_SHM3_RCPU_PRINTF_BUFFER ((APE_SHM3_H_VOLATILE APE_SHM3_H_uint32_t*)0x60223330) /* Printf buffer from the APE to the Rcpu for NVRAM printout or the host */
 /** @brief Device SHM Registers, function 3 */
-extern volatile SHM_t SHM3;
+extern APE_SHM3_H_VOLATILE SHM_t SHM3;
 
 
-
-#ifdef CXX_SIMULATOR /* Compiling c++ code - uses register wrappers */
-#undef volatile
-#endif /* CXX_SIMULATOR */
 
 #undef register_container
 #undef BITFIELD_BEGIN

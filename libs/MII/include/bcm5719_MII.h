@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2021, Evan Lojewski
+/// @copyright Copyright (c) 2022, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -63,7 +63,7 @@ typedef CXXRegister<uint32_t, 0, 32> BCM5719_MII_H_uint32_t;
 #define BCM5719_MII_H_uint16_t_bitfield(__pos__, __width__) CXXRegister<uint16_t, __pos__, __width__>
 #define BCM5719_MII_H_uint32_t_bitfield(__pos__, __width__) CXXRegister<uint32_t, __pos__, __width__>
 #define register_container struct
-#define volatile
+#define BCM5719_MII_H_VOLATILE
 #define BITFIELD_BEGIN(__type__, __name__) struct {
 #define BITFIELD_MEMBER(__type__, __name__, __offset__, __bits__) __type__##_bitfield(__offset__, __bits__) __name__;
 #define BITFIELD_END(__type__, __name__) } __name__;
@@ -73,6 +73,7 @@ typedef uint8_t  BCM5719_MII_H_uint8_t;
 typedef uint16_t BCM5719_MII_H_uint16_t;
 typedef uint32_t BCM5719_MII_H_uint32_t;
 #define register_container union
+#define BCM5719_MII_H_VOLATILE volatile
 #define BITFIELD_BEGIN(__type__, __name__) struct {
 #define BITFIELD_MEMBER(__type__, __name__, __offset__, __bits__) __type__ __name__:__bits__;
 #define BITFIELD_END(__type__, __name__) } __name__;
@@ -81,7 +82,7 @@ typedef uint32_t BCM5719_MII_H_uint32_t;
 #define REG_MII_BASE ((volatile void*)0x0) /* MII Registers */
 #define REG_MII_SIZE (sizeof(MII_t))
 
-#define REG_MII_CONTROL ((volatile BCM5719_MII_H_uint16_t*)0x0) /*  */
+#define REG_MII_CONTROL ((BCM5719_MII_H_VOLATILE BCM5719_MII_H_uint16_t*)0x0) /*  */
 #define     MII_CONTROL_UNIDIRECTIONAL_MODE__GPHY_ONLY__SHIFT 5u
 #define     MII_CONTROL_UNIDIRECTIONAL_MODE__GPHY_ONLY__MASK  0x20u
 #define GET_MII_CONTROL_UNIDIRECTIONAL_MODE__GPHY_ONLY_(__reg__)  (((__reg__) & 0x20) >> 5u)
@@ -239,7 +240,7 @@ typedef register_container RegMIIControl_t {
 #endif /* CXX_SIMULATOR */
 } RegMIIControl_t;
 
-#define REG_MII_STATUS ((volatile BCM5719_MII_H_uint16_t*)0x1) /*  */
+#define REG_MII_STATUS ((BCM5719_MII_H_VOLATILE BCM5719_MII_H_uint16_t*)0x1) /*  */
 #define     MII_STATUS_EXTENDED_CAPABILITIES_SUPPORTED_SHIFT 0u
 #define     MII_STATUS_EXTENDED_CAPABILITIES_SUPPORTED_MASK  0x1u
 #define GET_MII_STATUS_EXTENDED_CAPABILITIES_SUPPORTED(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -433,7 +434,7 @@ typedef register_container RegMIIStatus_t {
 #endif /* CXX_SIMULATOR */
 } RegMIIStatus_t;
 
-#define REG_MII_PHY_ID_HIGH ((volatile BCM5719_MII_H_uint16_t*)0x2) /*  */
+#define REG_MII_PHY_ID_HIGH ((BCM5719_MII_H_VOLATILE BCM5719_MII_H_uint16_t*)0x2) /*  */
 #define     MII_PHY_ID_HIGH_OUI_HIGH_SHIFT 0u
 #define     MII_PHY_ID_HIGH_OUI_HIGH_MASK  0xffffu
 #define GET_MII_PHY_ID_HIGH_OUI_HIGH(__reg__)  (((__reg__) & 0xffff) >> 0u)
@@ -477,7 +478,7 @@ typedef register_container RegMIIPhyIdHigh_t {
 #endif /* CXX_SIMULATOR */
 } RegMIIPhyIdHigh_t;
 
-#define REG_MII_PHY_ID_LOW ((volatile BCM5719_MII_H_uint16_t*)0x3) /*  */
+#define REG_MII_PHY_ID_LOW ((BCM5719_MII_H_VOLATILE BCM5719_MII_H_uint16_t*)0x3) /*  */
 #define     MII_PHY_ID_LOW_REVISION_SHIFT 0u
 #define     MII_PHY_ID_LOW_REVISION_MASK  0xfu
 #define GET_MII_PHY_ID_LOW_REVISION(__reg__)  (((__reg__) & 0xf) >> 0u)
@@ -553,7 +554,7 @@ typedef register_container RegMIIPhyIdLow_t {
 #endif /* CXX_SIMULATOR */
 } RegMIIPhyIdLow_t;
 
-#define REG_MII_AUTONEGOTIATION_ADVERTISEMENT ((volatile BCM5719_MII_H_uint16_t*)0x4) /* Bits in this register indicate what capability bits are advertised to the link partner. */
+#define REG_MII_AUTONEGOTIATION_ADVERTISEMENT ((BCM5719_MII_H_VOLATILE BCM5719_MII_H_uint16_t*)0x4) /* Bits in this register indicate what capability bits are advertised to the link partner. */
 #define     MII_AUTONEGOTIATION_ADVERTISEMENT_PROTOCOL_SELECT_SHIFT 0u
 #define     MII_AUTONEGOTIATION_ADVERTISEMENT_PROTOCOL_SELECT_MASK  0x1fu
 #define GET_MII_AUTONEGOTIATION_ADVERTISEMENT_PROTOCOL_SELECT(__reg__)  (((__reg__) & 0x1f) >> 0u)
@@ -699,7 +700,7 @@ typedef register_container RegMIIAutonegotiationAdvertisement_t {
 #endif /* CXX_SIMULATOR */
 } RegMIIAutonegotiationAdvertisement_t;
 
-#define REG_MII_AUTONEGOTIATION_LINK_PARTNER_ABILITY_BASE_PAGE ((volatile BCM5719_MII_H_uint16_t*)0x5) /* Bits in this register indicate the capabilities of the link partner. */
+#define REG_MII_AUTONEGOTIATION_LINK_PARTNER_ABILITY_BASE_PAGE ((BCM5719_MII_H_VOLATILE BCM5719_MII_H_uint16_t*)0x5) /* Bits in this register indicate the capabilities of the link partner. */
 #define     MII_AUTONEGOTIATION_LINK_PARTNER_ABILITY_BASE_PAGE_PROTOCOL_SELECTOR_SHIFT 0u
 #define     MII_AUTONEGOTIATION_LINK_PARTNER_ABILITY_BASE_PAGE_PROTOCOL_SELECTOR_MASK  0x1fu
 #define GET_MII_AUTONEGOTIATION_LINK_PARTNER_ABILITY_BASE_PAGE_PROTOCOL_SELECTOR(__reg__)  (((__reg__) & 0x1f) >> 0u)
@@ -847,7 +848,7 @@ typedef register_container RegMIIAutonegotiationLinkPartnerAbilityBasePage_t {
 #endif /* CXX_SIMULATOR */
 } RegMIIAutonegotiationLinkPartnerAbilityBasePage_t;
 
-#define REG_MII_AUTONEGOTIATION_EXPANSION ((volatile BCM5719_MII_H_uint16_t*)0x6) /*  */
+#define REG_MII_AUTONEGOTIATION_EXPANSION ((BCM5719_MII_H_VOLATILE BCM5719_MII_H_uint16_t*)0x6) /*  */
 #define     MII_AUTONEGOTIATION_EXPANSION_LINK_PARTNER_AUTONEGOTIATION_CAPABLE_SHIFT 0u
 #define     MII_AUTONEGOTIATION_EXPANSION_LINK_PARTNER_AUTONEGOTIATION_CAPABLE_MASK  0x1u
 #define GET_MII_AUTONEGOTIATION_EXPANSION_LINK_PARTNER_AUTONEGOTIATION_CAPABLE(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -961,7 +962,7 @@ typedef register_container RegMIIAutonegotiationExpansion_t {
 #endif /* CXX_SIMULATOR */
 } RegMIIAutonegotiationExpansion_t;
 
-#define REG_MII_AUTONEGOTIATION_NEXT_PAGE_TRANSMIT ((volatile BCM5719_MII_H_uint16_t*)0x7) /*  */
+#define REG_MII_AUTONEGOTIATION_NEXT_PAGE_TRANSMIT ((BCM5719_MII_H_VOLATILE BCM5719_MII_H_uint16_t*)0x7) /*  */
 #define     MII_AUTONEGOTIATION_NEXT_PAGE_TRANSMIT_CODE_FIELD_SHIFT 0u
 #define     MII_AUTONEGOTIATION_NEXT_PAGE_TRANSMIT_CODE_FIELD_MASK  0x7ffu
 #define GET_MII_AUTONEGOTIATION_NEXT_PAGE_TRANSMIT_CODE_FIELD(__reg__)  (((__reg__) & 0x7ff) >> 0u)
@@ -1049,7 +1050,7 @@ typedef register_container RegMIIAutonegotiationNextPageTransmit_t {
 #endif /* CXX_SIMULATOR */
 } RegMIIAutonegotiationNextPageTransmit_t;
 
-#define REG_MII_AUTONEGOTIATION_LINK_PARTNER_ABILITY_NEXT_PAGE ((volatile BCM5719_MII_H_uint16_t*)0x8) /*  */
+#define REG_MII_AUTONEGOTIATION_LINK_PARTNER_ABILITY_NEXT_PAGE ((BCM5719_MII_H_VOLATILE BCM5719_MII_H_uint16_t*)0x8) /*  */
 #define     MII_AUTONEGOTIATION_LINK_PARTNER_ABILITY_NEXT_PAGE_CODE_FIELD_SHIFT 0u
 #define     MII_AUTONEGOTIATION_LINK_PARTNER_ABILITY_NEXT_PAGE_CODE_FIELD_MASK  0x7ffu
 #define GET_MII_AUTONEGOTIATION_LINK_PARTNER_ABILITY_NEXT_PAGE_CODE_FIELD(__reg__)  (((__reg__) & 0x7ff) >> 0u)
@@ -1143,7 +1144,7 @@ typedef register_container RegMIIAutonegotiationLinkPartnerAbilityNextPage_t {
 #endif /* CXX_SIMULATOR */
 } RegMIIAutonegotiationLinkPartnerAbilityNextPage_t;
 
-#define REG_MII_1000BASE_T_CONTROL ((volatile BCM5719_MII_H_uint16_t*)0x9) /*  */
+#define REG_MII_1000BASE_T_CONTROL ((BCM5719_MII_H_VOLATILE BCM5719_MII_H_uint16_t*)0x9) /*  */
 #define     MII_1000BASE_T_CONTROL_ADVERTISE_1000BASE_T_HALF_DUPLEX_SHIFT 8u
 #define     MII_1000BASE_T_CONTROL_ADVERTISE_1000BASE_T_HALF_DUPLEX_MASK  0x100u
 #define GET_MII_1000BASE_T_CONTROL_ADVERTISE_1000BASE_T_HALF_DUPLEX(__reg__)  (((__reg__) & 0x100) >> 8u)
@@ -1241,7 +1242,7 @@ typedef register_container RegMII1000baseTControl_t {
 #endif /* CXX_SIMULATOR */
 } RegMII1000baseTControl_t;
 
-#define REG_MII_1000BASE_T_STATUS ((volatile BCM5719_MII_H_uint16_t*)0xa) /*  */
+#define REG_MII_1000BASE_T_STATUS ((BCM5719_MII_H_VOLATILE BCM5719_MII_H_uint16_t*)0xa) /*  */
 #define     MII_1000BASE_T_STATUS_IDLE_ERROR_COUNT_SHIFT 0u
 #define     MII_1000BASE_T_STATUS_IDLE_ERROR_COUNT_MASK  0xffu
 #define GET_MII_1000BASE_T_STATUS_IDLE_ERROR_COUNT(__reg__)  (((__reg__) & 0xff) >> 0u)
@@ -1349,7 +1350,7 @@ typedef register_container RegMII1000baseTStatus_t {
 #endif /* CXX_SIMULATOR */
 } RegMII1000baseTStatus_t;
 
-#define REG_MII_BROADREACH_LRE_ACCESS ((volatile BCM5719_MII_H_uint16_t*)0xe) /* WTH is this. */
+#define REG_MII_BROADREACH_LRE_ACCESS ((BCM5719_MII_H_VOLATILE BCM5719_MII_H_uint16_t*)0xe) /* WTH is this. */
 #define     MII_BROADREACH_LRE_ACCESS_LRE_REGISTER_ACCESS_STATUS_SHIFT 0u
 #define     MII_BROADREACH_LRE_ACCESS_LRE_REGISTER_ACCESS_STATUS_MASK  0x1u
 #define GET_MII_BROADREACH_LRE_ACCESS_LRE_REGISTER_ACCESS_STATUS(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -1417,7 +1418,7 @@ typedef register_container RegMIIBroadreachLreAccess_t {
 #endif /* CXX_SIMULATOR */
 } RegMIIBroadreachLreAccess_t;
 
-#define REG_MII_IEEE_EXTENDED_STATUS ((volatile BCM5719_MII_H_uint16_t*)0xf) /*  */
+#define REG_MII_IEEE_EXTENDED_STATUS ((BCM5719_MII_H_VOLATILE BCM5719_MII_H_uint16_t*)0xf) /*  */
 #define     MII_IEEE_EXTENDED_STATUS_1000BASE_T_HALF_DUPLEX_CAPABLE_SHIFT 12u
 #define     MII_IEEE_EXTENDED_STATUS_1000BASE_T_HALF_DUPLEX_CAPABLE_MASK  0x1000u
 #define GET_MII_IEEE_EXTENDED_STATUS_1000BASE_T_HALF_DUPLEX_CAPABLE(__reg__)  (((__reg__) & 0x1000) >> 12u)
@@ -1489,7 +1490,7 @@ typedef register_container RegMIIIeeeExtendedStatus_t {
 #endif /* CXX_SIMULATOR */
 } RegMIIIeeeExtendedStatus_t;
 
-#define REG_MII_PHY_EXTENDED_CONTROL ((volatile BCM5719_MII_H_uint16_t*)0x10) /*  */
+#define REG_MII_PHY_EXTENDED_CONTROL ((BCM5719_MII_H_VOLATILE BCM5719_MII_H_uint16_t*)0x10) /*  */
 #define     MII_PHY_EXTENDED_CONTROL_GMII_DIV_RGMII_FIFO_ELASTICITY_LSB_SHIFT 0u
 #define     MII_PHY_EXTENDED_CONTROL_GMII_DIV_RGMII_FIFO_ELASTICITY_LSB_MASK  0x1u
 #define GET_MII_PHY_EXTENDED_CONTROL_GMII_DIV_RGMII_FIFO_ELASTICITY_LSB(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -1683,7 +1684,7 @@ typedef register_container RegMIIPhyExtendedControl_t {
 #endif /* CXX_SIMULATOR */
 } RegMIIPhyExtendedControl_t;
 
-#define REG_MII_PHY_EXTENDED_STATUS ((volatile BCM5719_MII_H_uint16_t*)0x11) /*  */
+#define REG_MII_PHY_EXTENDED_STATUS ((BCM5719_MII_H_VOLATILE BCM5719_MII_H_uint16_t*)0x11) /*  */
 #define     MII_PHY_EXTENDED_STATUS_MLT3_CODE_ERROR_DETECTED_SHIFT 0u
 #define     MII_PHY_EXTENDED_STATUS_MLT3_CODE_ERROR_DETECTED_MASK  0x1u
 #define GET_MII_PHY_EXTENDED_STATUS_MLT3_CODE_ERROR_DETECTED(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -1877,7 +1878,7 @@ typedef register_container RegMIIPhyExtendedStatus_t {
 #endif /* CXX_SIMULATOR */
 } RegMIIPhyExtendedStatus_t;
 
-#define REG_MII_RECEIVE_ERROR_COUNTER ((volatile BCM5719_MII_H_uint16_t*)0x12) /*  */
+#define REG_MII_RECEIVE_ERROR_COUNTER ((BCM5719_MII_H_VOLATILE BCM5719_MII_H_uint16_t*)0x12) /*  */
 #define     MII_RECEIVE_ERROR_COUNTER_RECEIVE_ERROR_COUNTER_SHIFT 0u
 #define     MII_RECEIVE_ERROR_COUNTER_RECEIVE_ERROR_COUNTER_MASK  0xffffu
 #define GET_MII_RECEIVE_ERROR_COUNTER_RECEIVE_ERROR_COUNTER(__reg__)  (((__reg__) & 0xffff) >> 0u)
@@ -1921,7 +1922,7 @@ typedef register_container RegMIIReceiveErrorCounter_t {
 #endif /* CXX_SIMULATOR */
 } RegMIIReceiveErrorCounter_t;
 
-#define REG_MII_FALSE_CARRIER_SENSE_COUNTER ((volatile BCM5719_MII_H_uint16_t*)0x13) /*  */
+#define REG_MII_FALSE_CARRIER_SENSE_COUNTER ((BCM5719_MII_H_VOLATILE BCM5719_MII_H_uint16_t*)0x13) /*  */
 #define     MII_FALSE_CARRIER_SENSE_COUNTER_FALSE_CARRIER_SENSE_COUNTER_SHIFT 0u
 #define     MII_FALSE_CARRIER_SENSE_COUNTER_FALSE_CARRIER_SENSE_COUNTER_MASK  0xffu
 #define GET_MII_FALSE_CARRIER_SENSE_COUNTER_FALSE_CARRIER_SENSE_COUNTER(__reg__)  (((__reg__) & 0xff) >> 0u)
@@ -1975,7 +1976,7 @@ typedef register_container RegMIIFalseCarrierSenseCounter_t {
 #endif /* CXX_SIMULATOR */
 } RegMIIFalseCarrierSenseCounter_t;
 
-#define REG_MII_LOCAL_REMOTE_RECEIVER_NOT_OK_COUNTER ((volatile BCM5719_MII_H_uint16_t*)0x14) /*  */
+#define REG_MII_LOCAL_REMOTE_RECEIVER_NOT_OK_COUNTER ((BCM5719_MII_H_VOLATILE BCM5719_MII_H_uint16_t*)0x14) /*  */
 #define     MII_LOCAL_REMOTE_RECEIVER_NOT_OK_COUNTER_REMOTE_RECEIVER_NOT_OK_COUNTER_SHIFT 0u
 #define     MII_LOCAL_REMOTE_RECEIVER_NOT_OK_COUNTER_REMOTE_RECEIVER_NOT_OK_COUNTER_MASK  0xffu
 #define GET_MII_LOCAL_REMOTE_RECEIVER_NOT_OK_COUNTER_REMOTE_RECEIVER_NOT_OK_COUNTER(__reg__)  (((__reg__) & 0xff) >> 0u)
@@ -2029,7 +2030,7 @@ typedef register_container RegMIILocalRemoteReceiverNotOkCounter_t {
 #endif /* CXX_SIMULATOR */
 } RegMIILocalRemoteReceiverNotOkCounter_t;
 
-#define REG_MII_DSP_COEFFICIENT_READ_WRITE_PORT ((volatile BCM5719_MII_H_uint16_t*)0x15) /*  */
+#define REG_MII_DSP_COEFFICIENT_READ_WRITE_PORT ((BCM5719_MII_H_VOLATILE BCM5719_MII_H_uint16_t*)0x15) /*  */
 /** @brief Register definition for @ref MII_t.DspCoefficientReadWritePort. */
 typedef register_container RegMIIDspCoefficientReadWritePort_t {
     /** @brief 16bit direct register access. */
@@ -2054,7 +2055,7 @@ typedef register_container RegMIIDspCoefficientReadWritePort_t {
 #endif /* CXX_SIMULATOR */
 } RegMIIDspCoefficientReadWritePort_t;
 
-#define REG_MII_DSP_CONTROL ((volatile BCM5719_MII_H_uint16_t*)0x16) /*  */
+#define REG_MII_DSP_CONTROL ((BCM5719_MII_H_VOLATILE BCM5719_MII_H_uint16_t*)0x16) /*  */
 /** @brief Register definition for @ref MII_t.DspControl. */
 typedef register_container RegMIIDspControl_t {
     /** @brief 16bit direct register access. */
@@ -2079,7 +2080,7 @@ typedef register_container RegMIIDspControl_t {
 #endif /* CXX_SIMULATOR */
 } RegMIIDspControl_t;
 
-#define REG_MII_DSP_COEFFICIENT_ADDRESS ((volatile BCM5719_MII_H_uint16_t*)0x17) /*  */
+#define REG_MII_DSP_COEFFICIENT_ADDRESS ((BCM5719_MII_H_VOLATILE BCM5719_MII_H_uint16_t*)0x17) /*  */
 /** @brief Register definition for @ref MII_t.DspCoefficientAddress. */
 typedef register_container RegMIIDspCoefficientAddress_t {
     /** @brief 16bit direct register access. */
@@ -2104,7 +2105,7 @@ typedef register_container RegMIIDspCoefficientAddress_t {
 #endif /* CXX_SIMULATOR */
 } RegMIIDspCoefficientAddress_t;
 
-#define REG_MII_AUXILIARY_CONTROL ((volatile BCM5719_MII_H_uint16_t*)0x18) /* Note: Shadow Register Selector: 0 */
+#define REG_MII_AUXILIARY_CONTROL ((BCM5719_MII_H_VOLATILE BCM5719_MII_H_uint16_t*)0x18) /* Note: Shadow Register Selector: 0 */
 #define     MII_AUXILIARY_CONTROL_SHADOW_REGISTER_SELECTOR_SHIFT 0u
 #define     MII_AUXILIARY_CONTROL_SHADOW_REGISTER_SELECTOR_MASK  0x7u
 #define GET_MII_AUXILIARY_CONTROL_SHADOW_REGISTER_SELECTOR(__reg__)  (((__reg__) & 0x7) >> 0u)
@@ -2242,7 +2243,7 @@ typedef register_container RegMIIAuxiliaryControl_t {
 #endif /* CXX_SIMULATOR */
 } RegMIIAuxiliaryControl_t;
 
-#define REG_MII_AUXILIARY_STATUS_SUMMARY ((volatile BCM5719_MII_H_uint16_t*)0x19) /*  */
+#define REG_MII_AUXILIARY_STATUS_SUMMARY ((BCM5719_MII_H_VOLATILE BCM5719_MII_H_uint16_t*)0x19) /*  */
 #define     MII_AUXILIARY_STATUS_SUMMARY_PAUSE_RESOLUTION___TRANSMIT_DIRECTION_SHIFT 0u
 #define     MII_AUXILIARY_STATUS_SUMMARY_PAUSE_RESOLUTION___TRANSMIT_DIRECTION_MASK  0x1u
 #define GET_MII_AUXILIARY_STATUS_SUMMARY_PAUSE_RESOLUTION___TRANSMIT_DIRECTION(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -2434,7 +2435,7 @@ typedef register_container RegMIIAuxiliaryStatusSummary_t {
 #endif /* CXX_SIMULATOR */
 } RegMIIAuxiliaryStatusSummary_t;
 
-#define REG_MII_INTERRUPT_STATUS ((volatile BCM5719_MII_H_uint16_t*)0x1a) /*  */
+#define REG_MII_INTERRUPT_STATUS ((BCM5719_MII_H_VOLATILE BCM5719_MII_H_uint16_t*)0x1a) /*  */
 #define     MII_INTERRUPT_STATUS_CRC_ERROR_SHIFT 0u
 #define     MII_INTERRUPT_STATUS_CRC_ERROR_MASK  0x1u
 #define GET_MII_INTERRUPT_STATUS_CRC_ERROR(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -2622,7 +2623,7 @@ typedef register_container RegMIIInterruptStatus_t {
 #endif /* CXX_SIMULATOR */
 } RegMIIInterruptStatus_t;
 
-#define REG_MII_INTERRUPT_MASK ((volatile BCM5719_MII_H_uint16_t*)0x1b) /*  */
+#define REG_MII_INTERRUPT_MASK ((BCM5719_MII_H_VOLATILE BCM5719_MII_H_uint16_t*)0x1b) /*  */
 #define     MII_INTERRUPT_MASK_INTERRUPT_MASK_VECTOR_SHIFT 0u
 #define     MII_INTERRUPT_MASK_INTERRUPT_MASK_VECTOR_MASK  0xffffu
 #define GET_MII_INTERRUPT_MASK_INTERRUPT_MASK_VECTOR(__reg__)  (((__reg__) & 0xffff) >> 0u)
@@ -2666,7 +2667,7 @@ typedef register_container RegMIIInterruptMask_t {
 #endif /* CXX_SIMULATOR */
 } RegMIIInterruptMask_t;
 
-#define REG_MII_CABLETRON_LED ((volatile BCM5719_MII_H_uint16_t*)0x1c) /* Note: Shadow Register Selector: 0 */
+#define REG_MII_CABLETRON_LED ((BCM5719_MII_H_VOLATILE BCM5719_MII_H_uint16_t*)0x1c) /* Note: Shadow Register Selector: 0 */
 #define     MII_CABLETRON_LED_CABLETRON_LED_SHIFT 0u
 #define     MII_CABLETRON_LED_CABLETRON_LED_MASK  0xffu
 #define GET_MII_CABLETRON_LED_CABLETRON_LED(__reg__)  (((__reg__) & 0xff) >> 0u)
@@ -2734,7 +2735,7 @@ typedef register_container RegMIICabletronLed_t {
 #endif /* CXX_SIMULATOR */
 } RegMIICabletronLed_t;
 
-#define REG_MII_TEST_1 ((volatile BCM5719_MII_H_uint16_t*)0x1e) /*  */
+#define REG_MII_TEST_1 ((BCM5719_MII_H_VOLATILE BCM5719_MII_H_uint16_t*)0x1e) /*  */
 #define     MII_TEST_1_MAIN_DAC_TRIM_SHIFT 0u
 #define     MII_TEST_1_MAIN_DAC_TRIM_MASK  0xfu
 #define GET_MII_TEST_1_MAIN_DAC_TRIM(__reg__)  (((__reg__) & 0xf) >> 0u)
@@ -2898,7 +2899,7 @@ typedef register_container RegMIITest1_t {
 #endif /* CXX_SIMULATOR */
 } RegMIITest1_t;
 
-#define REG_MII_BLOCK_SELECT ((volatile BCM5719_MII_H_uint16_t*)0x1f) /* Pages in the specified register block. */
+#define REG_MII_BLOCK_SELECT ((BCM5719_MII_H_VOLATILE BCM5719_MII_H_uint16_t*)0x1f) /* Pages in the specified register block. */
 /** @brief Register definition for @ref MII_t.BlockSelect. */
 typedef register_container RegMIIBlockSelect_t {
     /** @brief 16bit direct register access. */
@@ -2923,7 +2924,7 @@ typedef register_container RegMIIBlockSelect_t {
 #endif /* CXX_SIMULATOR */
 } RegMIIBlockSelect_t;
 
-#define REG_MII_10BASE_T ((volatile BCM5719_MII_H_uint16_t*)0x118) /* Note: Shadow Register Selector: 1 */
+#define REG_MII_10BASE_T ((BCM5719_MII_H_VOLATILE BCM5719_MII_H_uint16_t*)0x118) /* Note: Shadow Register Selector: 1 */
 #define     MII_10BASE_T_SHADOW_REGISTER_SELECTOR_SHIFT 0u
 #define     MII_10BASE_T_SHADOW_REGISTER_SELECTOR_MASK  0x7u
 #define GET_MII_10BASE_T_SHADOW_REGISTER_SELECTOR(__reg__)  (((__reg__) & 0x7) >> 0u)
@@ -3097,7 +3098,7 @@ typedef register_container RegMII10baseT_t {
 #endif /* CXX_SIMULATOR */
 } RegMII10baseT_t;
 
-#define REG_MII_DLL_SELECTION ((volatile BCM5719_MII_H_uint16_t*)0x11c) /* Note: Shadow Register Selector: 1 */
+#define REG_MII_DLL_SELECTION ((BCM5719_MII_H_VOLATILE BCM5719_MII_H_uint16_t*)0x11c) /* Note: Shadow Register Selector: 1 */
 #define     MII_DLL_SELECTION_HIGH_QUALITY_CLOCK_TEST_MODE_SHIFT 0u
 #define     MII_DLL_SELECTION_HIGH_QUALITY_CLOCK_TEST_MODE_MASK  0x3fu
 #define GET_MII_DLL_SELECTION_HIGH_QUALITY_CLOCK_TEST_MODE(__reg__)  (((__reg__) & 0x3f) >> 0u)
@@ -3165,7 +3166,7 @@ typedef register_container RegMIIDllSelection_t {
 #endif /* CXX_SIMULATOR */
 } RegMIIDllSelection_t;
 
-#define REG_MII_POWER_AND_MII_CONTROL ((volatile BCM5719_MII_H_uint16_t*)0x218) /* Note: Shadow Register Selector: 2 */
+#define REG_MII_POWER_AND_MII_CONTROL ((BCM5719_MII_H_VOLATILE BCM5719_MII_H_uint16_t*)0x218) /* Note: Shadow Register Selector: 2 */
 #define     MII_POWER_AND_MII_CONTROL_SHADOW_REGISTER_SELECTOR_SHIFT 0u
 #define     MII_POWER_AND_MII_CONTROL_SHADOW_REGISTER_SELECTOR_MASK  0x7u
 #define GET_MII_POWER_AND_MII_CONTROL_SHADOW_REGISTER_SELECTOR(__reg__)  (((__reg__) & 0x7) >> 0u)
@@ -3227,7 +3228,7 @@ typedef register_container RegMIIPowerAndMiiControl_t {
 #endif /* CXX_SIMULATOR */
 } RegMIIPowerAndMiiControl_t;
 
-#define REG_MII_SPARE_CONTROL_1 ((volatile BCM5719_MII_H_uint16_t*)0x21c) /* Note: Shadow Register Selector: 2 */
+#define REG_MII_SPARE_CONTROL_1 ((BCM5719_MII_H_VOLATILE BCM5719_MII_H_uint16_t*)0x21c) /* Note: Shadow Register Selector: 2 */
 #define     MII_SPARE_CONTROL_1_LINK_LED_MODE_SHIFT 0u
 #define     MII_SPARE_CONTROL_1_LINK_LED_MODE_MASK  0x1u
 #define GET_MII_SPARE_CONTROL_1_LINK_LED_MODE(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -3375,7 +3376,7 @@ typedef register_container RegMIISpareControl1_t {
 #endif /* CXX_SIMULATOR */
 } RegMIISpareControl1_t;
 
-#define REG_MII_CLOCK_ALIGNMENT_CONTROL ((volatile BCM5719_MII_H_uint16_t*)0x31c) /* Note: Shadow Register Selector: 3 */
+#define REG_MII_CLOCK_ALIGNMENT_CONTROL ((BCM5719_MII_H_VOLATILE BCM5719_MII_H_uint16_t*)0x31c) /* Note: Shadow Register Selector: 3 */
 #define     MII_CLOCK_ALIGNMENT_CONTROL_DELAY_LINE_SELECTOR_SHIFT 0u
 #define     MII_CLOCK_ALIGNMENT_CONTROL_DELAY_LINE_SELECTOR_MASK  0xfu
 #define GET_MII_CLOCK_ALIGNMENT_CONTROL_DELAY_LINE_SELECTOR(__reg__)  (((__reg__) & 0xf) >> 0u)
@@ -3479,7 +3480,7 @@ typedef register_container RegMIIClockAlignmentControl_t {
 #endif /* CXX_SIMULATOR */
 } RegMIIClockAlignmentControl_t;
 
-#define REG_MII_MISC_TEST_1 ((volatile BCM5719_MII_H_uint16_t*)0x418) /* Note: Shadow Register Selector: 4 */
+#define REG_MII_MISC_TEST_1 ((BCM5719_MII_H_VOLATILE BCM5719_MII_H_uint16_t*)0x418) /* Note: Shadow Register Selector: 4 */
 #define     MII_MISC_TEST_1_SHADOW_REGISTER_SELECTOR_SHIFT 0u
 #define     MII_MISC_TEST_1_SHADOW_REGISTER_SELECTOR_MASK  0x7u
 #define GET_MII_MISC_TEST_1_SHADOW_REGISTER_SELECTOR(__reg__)  (((__reg__) & 0x7) >> 0u)
@@ -3617,7 +3618,7 @@ typedef register_container RegMIIMiscTest1_t {
 #endif /* CXX_SIMULATOR */
 } RegMIIMiscTest1_t;
 
-#define REG_MII_SPARE_CONTROL_2 ((volatile BCM5719_MII_H_uint16_t*)0x41c) /* Note: Shadow Register Selector: 4 */
+#define REG_MII_SPARE_CONTROL_2 ((BCM5719_MII_H_VOLATILE BCM5719_MII_H_uint16_t*)0x41c) /* Note: Shadow Register Selector: 4 */
 #define     MII_SPARE_CONTROL_2_TEST_ON_BYTE_7_0_SHIFT 0u
 #define     MII_SPARE_CONTROL_2_TEST_ON_BYTE_7_0_MASK  0x1u
 #define GET_MII_SPARE_CONTROL_2_TEST_ON_BYTE_7_0(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -3745,7 +3746,7 @@ typedef register_container RegMIISpareControl2_t {
 #endif /* CXX_SIMULATOR */
 } RegMIISpareControl2_t;
 
-#define REG_MII_MISC_TEST_2 ((volatile BCM5719_MII_H_uint16_t*)0x518) /* Note: Shadow Register Selector: 5 */
+#define REG_MII_MISC_TEST_2 ((BCM5719_MII_H_VOLATILE BCM5719_MII_H_uint16_t*)0x518) /* Note: Shadow Register Selector: 5 */
 #define     MII_MISC_TEST_2_SHADOW_REGISTER_SELECTOR_SHIFT 0u
 #define     MII_MISC_TEST_2_SHADOW_REGISTER_SELECTOR_MASK  0x7u
 #define GET_MII_MISC_TEST_2_SHADOW_REGISTER_SELECTOR(__reg__)  (((__reg__) & 0x7) >> 0u)
@@ -3903,7 +3904,7 @@ typedef register_container RegMIIMiscTest2_t {
 #endif /* CXX_SIMULATOR */
 } RegMIIMiscTest2_t;
 
-#define REG_MII_SPARE_CONTROL_3 ((volatile BCM5719_MII_H_uint16_t*)0x51c) /* Note: Shadow Register Selector: 3 */
+#define REG_MII_SPARE_CONTROL_3 ((BCM5719_MII_H_VOLATILE BCM5719_MII_H_uint16_t*)0x51c) /* Note: Shadow Register Selector: 3 */
 #define     MII_SPARE_CONTROL_3_CLK125_OUTPUT_ENABLE_SHIFT 0u
 #define     MII_SPARE_CONTROL_3_CLK125_OUTPUT_ENABLE_MASK  0x1u
 #define GET_MII_SPARE_CONTROL_3_CLK125_OUTPUT_ENABLE(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -4057,7 +4058,7 @@ typedef register_container RegMIISpareControl3_t {
 #endif /* CXX_SIMULATOR */
 } RegMIISpareControl3_t;
 
-#define REG_MII_MISCELLANEOUS_CONTROL ((volatile BCM5719_MII_H_uint16_t*)0x718) /* Note: Shadow Register Selector: 7 */
+#define REG_MII_MISCELLANEOUS_CONTROL ((BCM5719_MII_H_VOLATILE BCM5719_MII_H_uint16_t*)0x718) /* Note: Shadow Register Selector: 7 */
 #define     MII_MISCELLANEOUS_CONTROL_SHADOW_REGISTER_SELECTOR_SHIFT 0u
 #define     MII_MISCELLANEOUS_CONTROL_SHADOW_REGISTER_SELECTOR_MASK  0x7u
 #define GET_MII_MISCELLANEOUS_CONTROL_SHADOW_REGISTER_SELECTOR(__reg__)  (((__reg__) & 0x7) >> 0u)
@@ -4211,7 +4212,7 @@ typedef register_container RegMIIMiscellaneousControl_t {
 #endif /* CXX_SIMULATOR */
 } RegMIIMiscellaneousControl_t;
 
-#define REG_MII_AUTO_POWER_DOWN ((volatile BCM5719_MII_H_uint16_t*)0xa1c) /* Note: Shadow Register Selector: a */
+#define REG_MII_AUTO_POWER_DOWN ((BCM5719_MII_H_VOLATILE BCM5719_MII_H_uint16_t*)0xa1c) /* Note: Shadow Register Selector: a */
 #define     MII_AUTO_POWER_DOWN_WAKEUP_TIME_84MS_SHIFT 0u
 #define     MII_AUTO_POWER_DOWN_WAKEUP_TIME_84MS_MASK  0x1u
 #define GET_MII_AUTO_POWER_DOWN_WAKEUP_TIME_84MS(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -4653,13 +4654,9 @@ typedef struct MII_t {
 } MII_t;
 
 /** @brief MII Registers */
-extern volatile MII_t MII;
+extern BCM5719_MII_H_VOLATILE MII_t MII;
 
 
-
-#ifdef CXX_SIMULATOR /* Compiling c++ code - uses register wrappers */
-#undef volatile
-#endif /* CXX_SIMULATOR */
 
 #undef register_container
 #undef BITFIELD_BEGIN

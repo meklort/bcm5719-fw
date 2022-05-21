@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2021, Evan Lojewski
+/// @copyright Copyright (c) 2022, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -63,7 +63,7 @@ typedef CXXRegister<uint32_t, 0, 32> BCM5719_APE_H_uint32_t;
 #define BCM5719_APE_H_uint16_t_bitfield(__pos__, __width__) CXXRegister<uint16_t, __pos__, __width__>
 #define BCM5719_APE_H_uint32_t_bitfield(__pos__, __width__) CXXRegister<uint32_t, __pos__, __width__>
 #define register_container struct
-#define volatile
+#define BCM5719_APE_H_VOLATILE
 #define BITFIELD_BEGIN(__type__, __name__) struct {
 #define BITFIELD_MEMBER(__type__, __name__, __offset__, __bits__) __type__##_bitfield(__offset__, __bits__) __name__;
 #define BITFIELD_END(__type__, __name__) } __name__;
@@ -73,6 +73,7 @@ typedef uint8_t  BCM5719_APE_H_uint8_t;
 typedef uint16_t BCM5719_APE_H_uint16_t;
 typedef uint32_t BCM5719_APE_H_uint32_t;
 #define register_container union
+#define BCM5719_APE_H_VOLATILE volatile
 #define BITFIELD_BEGIN(__type__, __name__) struct {
 #define BITFIELD_MEMBER(__type__, __name__, __offset__, __bits__) __type__ __name__:__bits__;
 #define BITFIELD_END(__type__, __name__) } __name__;
@@ -81,7 +82,7 @@ typedef uint32_t BCM5719_APE_H_uint32_t;
 #define REG_APE_BASE ((volatile void*)0xc0010000) /* Device APE Registers */
 #define REG_APE_SIZE (sizeof(APE_t))
 
-#define REG_APE_MODE ((volatile BCM5719_APE_H_uint32_t*)0xc0010000) /* More of these bits can be found in diagnostic utilities, but they don't seem too interesting. */
+#define REG_APE_MODE ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc0010000) /* More of these bits can be found in diagnostic utilities, but they don't seem too interesting. */
 #define     APE_MODE_RESET_SHIFT 0u
 #define     APE_MODE_RESET_MASK  0x1u
 #define GET_APE_MODE_RESET(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -289,7 +290,7 @@ typedef register_container RegAPEMode_t {
 #endif /* CXX_SIMULATOR */
 } RegAPEMode_t;
 
-#define REG_APE_STATUS ((volatile BCM5719_APE_H_uint32_t*)0xc0010004) /*  */
+#define REG_APE_STATUS ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc0010004) /*  */
 #define     APE_STATUS_PCIE_RESET_SHIFT 0u
 #define     APE_STATUS_PCIE_RESET_MASK  0x1u
 #define GET_APE_STATUS_PCIE_RESET(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -489,7 +490,7 @@ typedef register_container RegAPEStatus_t {
 #endif /* CXX_SIMULATOR */
 } RegAPEStatus_t;
 
-#define REG_APE_GPIO_MESSAGE ((volatile BCM5719_APE_H_uint32_t*)0xc0010008) /* Related to APE fastboot. In that case the value of it is an APE memory address in the code region. If Fast Boot is set, and the low two bits of this are not 0b10, ROM hangs (you have to OR 0x2 into the address). Otherwise, they are masked off and the resulting value is used as the reset vector. The resulting value is also stored in this register (i.e., the low two bits are cleared).  */
+#define REG_APE_GPIO_MESSAGE ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc0010008) /* Related to APE fastboot. In that case the value of it is an APE memory address in the code region. If Fast Boot is set, and the low two bits of this are not 0b10, ROM hangs (you have to OR 0x2 into the address). Otherwise, they are masked off and the resulting value is used as the reset vector. The resulting value is also stored in this register (i.e., the low two bits are cleared).  */
 /** @brief Register definition for @ref APE_t.GpioMessage. */
 typedef register_container RegAPEGpioMessage_t {
     /** @brief 32bit direct register access. */
@@ -514,7 +515,7 @@ typedef register_container RegAPEGpioMessage_t {
 #endif /* CXX_SIMULATOR */
 } RegAPEGpioMessage_t;
 
-#define REG_APE_EVENT ((volatile BCM5719_APE_H_uint32_t*)0xc001000c) /*  */
+#define REG_APE_EVENT ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc001000c) /*  */
 #define     APE_EVENT_1_SHIFT 0u
 #define     APE_EVENT_1_MASK  0x1u
 #define GET_APE_EVENT_1(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -562,7 +563,7 @@ typedef register_container RegAPEEvent_t {
 #endif /* CXX_SIMULATOR */
 } RegAPEEvent_t;
 
-#define REG_APE_RXBUFOFFSET_FUNC0 ((volatile BCM5719_APE_H_uint32_t*)0xc0010014) /* This is examined on the APE Packet RX interrupt, and indicates the offset of an incoming (from-network) frame within the APE memory space, which provides access to the from-network RX buffer. The fields are block numbers (block size 128 bytes). */
+#define REG_APE_RXBUFOFFSET_FUNC0 ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc0010014) /* This is examined on the APE Packet RX interrupt, and indicates the offset of an incoming (from-network) frame within the APE memory space, which provides access to the from-network RX buffer. The fields are block numbers (block size 128 bytes). */
 #define     APE_RXBUFOFFSET_FUNC0_TAIL_SHIFT 0u
 #define     APE_RXBUFOFFSET_FUNC0_TAIL_MASK  0xfffu
 #define GET_APE_RXBUFOFFSET_FUNC0_TAIL(__reg__)  (((__reg__) & 0xfff) >> 0u)
@@ -666,8 +667,8 @@ typedef register_container RegAPERxbufoffset_t {
 #endif /* CXX_SIMULATOR */
 } RegAPERxbufoffset_t;
 
-#define REG_APE_RXBUFOFFSET_FUNC1 ((volatile BCM5719_APE_H_uint32_t*)0xc0010018) /* This is examined on the APE Packet RX interrupt, and indicates the offset of an incoming (from-network) frame within the APE memory space, which provides access to the from-network RX buffer. */
-#define REG_APE_TX_TO_NET_DOORBELL_FUNC0 ((volatile BCM5719_APE_H_uint32_t*)0xc001001c) /* Written on APE TX to network after filling 0xA002 buffer with packet. */
+#define REG_APE_RXBUFOFFSET_FUNC1 ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc0010018) /* This is examined on the APE Packet RX interrupt, and indicates the offset of an incoming (from-network) frame within the APE memory space, which provides access to the from-network RX buffer. */
+#define REG_APE_TX_TO_NET_DOORBELL_FUNC0 ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc001001c) /* Written on APE TX to network after filling 0xA002 buffer with packet. */
 #define     APE_TX_TO_NET_DOORBELL_FUNC0_TAIL_SHIFT 0u
 #define     APE_TX_TO_NET_DOORBELL_FUNC0_TAIL_MASK  0xfffu
 #define GET_APE_TX_TO_NET_DOORBELL_FUNC0_TAIL(__reg__)  (((__reg__) & 0xfff) >> 0u)
@@ -745,7 +746,7 @@ typedef register_container RegAPETxToNetDoorbell_t {
 #endif /* CXX_SIMULATOR */
 } RegAPETxToNetDoorbell_t;
 
-#define REG_APE_TX_STATE0 ((volatile BCM5719_APE_H_uint32_t*)0xc0010020) /* APE TX Status Port0 */
+#define REG_APE_TX_STATE0 ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc0010020) /* APE TX Status Port0 */
 #define     APE_TX_STATE0_TAIL_SHIFT 0u
 #define     APE_TX_STATE0_TAIL_MASK  0xfffu
 #define GET_APE_TX_STATE0_TAIL(__reg__)  (((__reg__) & 0xfff) >> 0u)
@@ -829,8 +830,8 @@ typedef register_container RegAPETxState_t {
 #endif /* CXX_SIMULATOR */
 } RegAPETxState_t;
 
-#define REG_APE_TX_STATE1 ((volatile BCM5719_APE_H_uint32_t*)0xc0010024) /* APE TX State Port1 */
-#define REG_APE_MODE_2 ((volatile BCM5719_APE_H_uint32_t*)0xc001002c) /* Expansion for MODE */
+#define REG_APE_TX_STATE1 ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc0010024) /* APE TX State Port1 */
+#define REG_APE_MODE_2 ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc001002c) /* Expansion for MODE */
 #define     APE_MODE_2_CHANNEL_0_ENABLE_SHIFT 14u
 #define     APE_MODE_2_CHANNEL_0_ENABLE_MASK  0x4000u
 #define GET_APE_MODE_2_CHANNEL_0_ENABLE(__reg__)  (((__reg__) & 0x4000) >> 14u)
@@ -912,7 +913,7 @@ typedef register_container RegAPEMode2_t {
 #endif /* CXX_SIMULATOR */
 } RegAPEMode2_t;
 
-#define REG_APE_STATUS_2 ((volatile BCM5719_APE_H_uint32_t*)0xc0010030) /*  */
+#define REG_APE_STATUS_2 ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc0010030) /*  */
 #define     APE_STATUS_2_PORT_2_GRC_RESET_SHIFT 1u
 #define     APE_STATUS_2_PORT_2_GRC_RESET_MASK  0x2u
 #define GET_APE_STATUS_2_PORT_2_GRC_RESET(__reg__)  (((__reg__) & 0x2) >> 1u)
@@ -998,7 +999,7 @@ typedef register_container RegAPEStatus2_t {
 #endif /* CXX_SIMULATOR */
 } RegAPEStatus2_t;
 
-#define REG_APE_LOCK_GRANT__OBSOLETE_ ((volatile BCM5719_APE_H_uint32_t*)0xc001004c) /* See  */
+#define REG_APE_LOCK_GRANT__OBSOLETE_ ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc001004c) /* See  */
 /** @brief Register definition for @ref APE_t.LockGrantObsolete. */
 typedef register_container RegAPELockGrantObsolete_t {
     /** @brief 32bit direct register access. */
@@ -1023,7 +1024,7 @@ typedef register_container RegAPELockGrantObsolete_t {
 #endif /* CXX_SIMULATOR */
 } RegAPELockGrantObsolete_t;
 
-#define REG_APE_RX_POOL_MODE_STATUS_0 ((volatile BCM5719_APE_H_uint32_t*)0xc0010078) /*  */
+#define REG_APE_RX_POOL_MODE_STATUS_0 ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc0010078) /*  */
 #define     APE_RX_POOL_MODE_STATUS_0_HALT_SHIFT 0u
 #define     APE_RX_POOL_MODE_STATUS_0_HALT_MASK  0x1u
 #define GET_APE_RX_POOL_MODE_STATUS_0_HALT(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -1139,8 +1140,8 @@ typedef register_container RegAPERxPoolModeStatus_t {
 #endif /* CXX_SIMULATOR */
 } RegAPERxPoolModeStatus_t;
 
-#define REG_APE_RX_POOL_MODE_STATUS_1 ((volatile BCM5719_APE_H_uint32_t*)0xc001007c) /*  */
-#define REG_APE_RX_POOL_RETIRE_0 ((volatile BCM5719_APE_H_uint32_t*)0xc0010080) /* Used to indicate when the APE is done with a region of the 0xA000_0000 RX pool buffer so that it can be used to receive another frame. */
+#define REG_APE_RX_POOL_MODE_STATUS_1 ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc001007c) /*  */
+#define REG_APE_RX_POOL_RETIRE_0 ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc0010080) /* Used to indicate when the APE is done with a region of the 0xA000_0000 RX pool buffer so that it can be used to receive another frame. */
 #define     APE_RX_POOL_RETIRE_0_TAIL_SHIFT 0u
 #define     APE_RX_POOL_RETIRE_0_TAIL_MASK  0xfffu
 #define GET_APE_RX_POOL_RETIRE_0_TAIL(__reg__)  (((__reg__) & 0xfff) >> 0u)
@@ -1238,7 +1239,7 @@ typedef register_container RegAPERxPoolRetire_t {
 #endif /* CXX_SIMULATOR */
 } RegAPERxPoolRetire_t;
 
-#define REG_APE_RX_POOL_FREE_POINTER_0 ((volatile BCM5719_APE_H_uint32_t*)0xc0010084) /*  */
+#define REG_APE_RX_POOL_FREE_POINTER_0 ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc0010084) /*  */
 #define     APE_RX_POOL_FREE_POINTER_0_TAIL_SHIFT 0u
 #define     APE_RX_POOL_FREE_POINTER_0_TAIL_MASK  0xfffu
 #define GET_APE_RX_POOL_FREE_POINTER_0_TAIL(__reg__)  (((__reg__) & 0xfff) >> 0u)
@@ -1310,8 +1311,8 @@ typedef register_container RegAPERxPoolFreePointer_t {
 #endif /* CXX_SIMULATOR */
 } RegAPERxPoolFreePointer_t;
 
-#define REG_APE_RX_POOL_RETIRE_1 ((volatile BCM5719_APE_H_uint32_t*)0xc0010088) /* Used to indicate when the APE is done with a region of the 0xA000_0000 RX pool buffer so that it can be used to receive another frame. */
-#define REG_APE_TX_TO_NET_POOL_MODE_STATUS_0 ((volatile BCM5719_APE_H_uint32_t*)0xc001008c) /*  */
+#define REG_APE_RX_POOL_RETIRE_1 ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc0010088) /* Used to indicate when the APE is done with a region of the 0xA000_0000 RX pool buffer so that it can be used to receive another frame. */
+#define REG_APE_TX_TO_NET_POOL_MODE_STATUS_0 ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc001008c) /*  */
 #define     APE_TX_TO_NET_POOL_MODE_STATUS_0_HALT_SHIFT 0u
 #define     APE_TX_TO_NET_POOL_MODE_STATUS_0_HALT_MASK  0x1u
 #define GET_APE_TX_TO_NET_POOL_MODE_STATUS_0_HALT(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -1427,7 +1428,7 @@ typedef register_container RegAPETxToNetPoolModeStatus_t {
 #endif /* CXX_SIMULATOR */
 } RegAPETxToNetPoolModeStatus_t;
 
-#define REG_APE_TX_TO_NET_BUFFER_ALLOCATOR_0 ((volatile BCM5719_APE_H_uint32_t*)0xc0010090) /*  */
+#define REG_APE_TX_TO_NET_BUFFER_ALLOCATOR_0 ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc0010090) /*  */
 #define     APE_TX_TO_NET_BUFFER_ALLOCATOR_0_INDEX_SHIFT 0u
 #define     APE_TX_TO_NET_BUFFER_ALLOCATOR_0_INDEX_MASK  0xfffu
 #define GET_APE_TX_TO_NET_BUFFER_ALLOCATOR_0_INDEX(__reg__)  (((__reg__) & 0xfff) >> 0u)
@@ -1509,7 +1510,7 @@ typedef register_container RegAPETxToNetBufferAllocator_t {
 #endif /* CXX_SIMULATOR */
 } RegAPETxToNetBufferAllocator_t;
 
-#define REG_APE_TX_TO_NET_BUFFER_RETURN_0 ((volatile BCM5719_APE_H_uint32_t*)0xc0010094) /*  */
+#define REG_APE_TX_TO_NET_BUFFER_RETURN_0 ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc0010094) /*  */
 /** @brief Register definition for @ref APE_t.TxToNetBufferReturn0. */
 typedef register_container RegAPETxToNetBufferReturn_t {
     /** @brief 32bit direct register access. */
@@ -1534,7 +1535,7 @@ typedef register_container RegAPETxToNetBufferReturn_t {
 #endif /* CXX_SIMULATOR */
 } RegAPETxToNetBufferReturn_t;
 
-#define REG_APE_TX_TO_NET_BUFFER_RING_0 ((volatile BCM5719_APE_H_uint32_t*)0xc0010098) /*  */
+#define REG_APE_TX_TO_NET_BUFFER_RING_0 ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc0010098) /*  */
 #define     APE_TX_TO_NET_BUFFER_RING_0_TAIL_SHIFT 0u
 #define     APE_TX_TO_NET_BUFFER_RING_0_TAIL_MASK  0xfffu
 #define GET_APE_TX_TO_NET_BUFFER_RING_0_TAIL(__reg__)  (((__reg__) & 0xfff) >> 0u)
@@ -1606,8 +1607,8 @@ typedef register_container RegAPETxToNetBufferRing_t {
 #endif /* CXX_SIMULATOR */
 } RegAPETxToNetBufferRing_t;
 
-#define REG_APE_RX_POOL_FREE_POINTER_1 ((volatile BCM5719_APE_H_uint32_t*)0xc001009c) /*  */
-#define REG_APE_TICK_1MHZ ((volatile BCM5719_APE_H_uint32_t*)0xc00100a8) /* Unknown, monotonically increasing value. Increases at a rate of 1MHz. */
+#define REG_APE_RX_POOL_FREE_POINTER_1 ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc001009c) /*  */
+#define REG_APE_TICK_1MHZ ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc00100a8) /* Unknown, monotonically increasing value. Increases at a rate of 1MHz. */
 /** @brief Register definition for @ref APE_t.Tick1mhz. */
 typedef register_container RegAPETick1mhz_t {
     /** @brief 32bit direct register access. */
@@ -1632,7 +1633,7 @@ typedef register_container RegAPETick1mhz_t {
 #endif /* CXX_SIMULATOR */
 } RegAPETick1mhz_t;
 
-#define REG_APE_TICK_1KHZ ((volatile BCM5719_APE_H_uint32_t*)0xc00100ac) /* Unknown, monotonically increasing value. Increases at a rate of 1KHz. */
+#define REG_APE_TICK_1KHZ ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc00100ac) /* Unknown, monotonically increasing value. Increases at a rate of 1KHz. */
 /** @brief Register definition for @ref APE_t.Tick1khz. */
 typedef register_container RegAPETick1khz_t {
     /** @brief 32bit direct register access. */
@@ -1657,7 +1658,7 @@ typedef register_container RegAPETick1khz_t {
 #endif /* CXX_SIMULATOR */
 } RegAPETick1khz_t;
 
-#define REG_APE_TICK_10HZ ((volatile BCM5719_APE_H_uint32_t*)0xc00100b0) /* Unknown, monotonically increasing value. Increases at a rate of 10Hz. */
+#define REG_APE_TICK_10HZ ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc00100b0) /* Unknown, monotonically increasing value. Increases at a rate of 10Hz. */
 /** @brief Register definition for @ref APE_t.Tick10hz. */
 typedef register_container RegAPETick10hz_t {
     /** @brief 32bit direct register access. */
@@ -1682,7 +1683,7 @@ typedef register_container RegAPETick10hz_t {
 #endif /* CXX_SIMULATOR */
 } RegAPETick10hz_t;
 
-#define REG_APE_GPIO ((volatile BCM5719_APE_H_uint32_t*)0xc00100b8) /*  */
+#define REG_APE_GPIO ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc00100b8) /*  */
 #define     APE_GPIO_PIN0_UNKNOWN_SHIFT 0u
 #define     APE_GPIO_PIN0_UNKNOWN_MASK  0x1u
 #define GET_APE_GPIO_PIN0_UNKNOWN(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -1848,7 +1849,7 @@ typedef register_container RegAPEGpio_t {
 #endif /* CXX_SIMULATOR */
 } RegAPEGpio_t;
 
-#define REG_APE_GINT ((volatile BCM5719_APE_H_uint32_t*)0xc00100bc) /* TODO: See diag for field info. */
+#define REG_APE_GINT ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc00100bc) /* TODO: See diag for field info. */
 /** @brief Register definition for @ref APE_t.Gint. */
 typedef register_container RegAPEGint_t {
     /** @brief 32bit direct register access. */
@@ -1873,7 +1874,7 @@ typedef register_container RegAPEGint_t {
 #endif /* CXX_SIMULATOR */
 } RegAPEGint_t;
 
-#define REG_APE_OTP_CONTROL ((volatile BCM5719_APE_H_uint32_t*)0xc00100e8) /*  */
+#define REG_APE_OTP_CONTROL ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc00100e8) /*  */
 #define     APE_OTP_CONTROL_START_SHIFT 0u
 #define     APE_OTP_CONTROL_START_MASK  0x1u
 #define GET_APE_OTP_CONTROL_START(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -1949,7 +1950,7 @@ typedef register_container RegAPEOtpControl_t {
 #endif /* CXX_SIMULATOR */
 } RegAPEOtpControl_t;
 
-#define REG_APE_OTP_STATUS ((volatile BCM5719_APE_H_uint32_t*)0xc00100ec) /*  */
+#define REG_APE_OTP_STATUS ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc00100ec) /*  */
 #define     APE_OTP_STATUS_COMMAND_DONE_SHIFT 0u
 #define     APE_OTP_STATUS_COMMAND_DONE_MASK  0x1u
 #define GET_APE_OTP_STATUS_COMMAND_DONE(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -1997,7 +1998,7 @@ typedef register_container RegAPEOtpStatus_t {
 #endif /* CXX_SIMULATOR */
 } RegAPEOtpStatus_t;
 
-#define REG_APE_OTP_ADDR ((volatile BCM5719_APE_H_uint32_t*)0xc00100f0) /*  */
+#define REG_APE_OTP_ADDR ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc00100f0) /*  */
 #define     APE_OTP_ADDR_ADDRESS_SHIFT 0u
 #define     APE_OTP_ADDR_ADDRESS_MASK  0x7fffffffu
 #define GET_APE_OTP_ADDR_ADDRESS(__reg__)  (((__reg__) & 0x7fffffff) >> 0u)
@@ -2051,7 +2052,7 @@ typedef register_container RegAPEOtpAddr_t {
 #endif /* CXX_SIMULATOR */
 } RegAPEOtpAddr_t;
 
-#define REG_APE_OTP_READ_DATA ((volatile BCM5719_APE_H_uint32_t*)0xc00100f8) /*  */
+#define REG_APE_OTP_READ_DATA ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc00100f8) /*  */
 /** @brief Register definition for @ref APE_t.OtpReadData. */
 typedef register_container RegAPEOtpReadData_t {
     /** @brief 32bit direct register access. */
@@ -2076,7 +2077,7 @@ typedef register_container RegAPEOtpReadData_t {
 #endif /* CXX_SIMULATOR */
 } RegAPEOtpReadData_t;
 
-#define REG_APE_CPU_STATUS ((volatile BCM5719_APE_H_uint32_t*)0xc0010108) /* Seems CPU control related. */
+#define REG_APE_CPU_STATUS ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc0010108) /* Seems CPU control related. */
 #define     APE_CPU_STATUS_STATUS_SHIFT 0u
 #define     APE_CPU_STATUS_STATUS_MASK  0xfu
 #define GET_APE_CPU_STATUS_STATUS(__reg__)  (((__reg__) & 0xf) >> 0u)
@@ -2154,31 +2155,31 @@ typedef register_container RegAPECpuStatus_t {
 #endif /* CXX_SIMULATOR */
 } RegAPECpuStatus_t;
 
-#define REG_APE_TX_TO_NET_POOL_MODE_STATUS_1 ((volatile BCM5719_APE_H_uint32_t*)0xc0010110) /*  */
-#define REG_APE_TX_TO_NET_BUFFER_ALLOCATOR_1 ((volatile BCM5719_APE_H_uint32_t*)0xc0010114) /*  */
-#define REG_APE_TX_TO_NET_BUFFER_RETURN_1 ((volatile BCM5719_APE_H_uint32_t*)0xc0010118) /*  */
-#define REG_APE_TX_TO_NET_BUFFER_RING_1 ((volatile BCM5719_APE_H_uint32_t*)0xc001011c) /*  */
-#define REG_APE_TX_TO_NET_DOORBELL_FUNC1 ((volatile BCM5719_APE_H_uint32_t*)0xc0010120) /* Written on APE TX to network after filling 0xA002 buffer with packet. */
-#define REG_APE_RXBUFOFFSET_FUNC2 ((volatile BCM5719_APE_H_uint32_t*)0xc0010200) /* This is examined on the APE Packet RX interrupt, and indicates the offset of an incoming (from-network) frame within the APE memory space, which provides access to the from-network RX buffer. */
-#define REG_APE_TX_TO_NET_DOORBELL_FUNC2 ((volatile BCM5719_APE_H_uint32_t*)0xc0010204) /* Written on APE TX to network after filling 0xA002 buffer with packet. */
-#define REG_APE_TX_STATE2 ((volatile BCM5719_APE_H_uint32_t*)0xc0010208) /* APE TX State Port2 */
-#define REG_APE_RX_POOL_MODE_STATUS_2 ((volatile BCM5719_APE_H_uint32_t*)0xc0010214) /*  */
-#define REG_APE_RX_POOL_RETIRE_2 ((volatile BCM5719_APE_H_uint32_t*)0xc0010218) /* Used to indicate when the APE is done with a region of the 0xA000_0000 RX pool buffer so that it can be used to receive another frame. */
-#define REG_APE_RX_POOL_FREE_POINTER_2 ((volatile BCM5719_APE_H_uint32_t*)0xc001021c) /*  */
-#define REG_APE_TX_TO_NET_POOL_MODE_STATUS_2 ((volatile BCM5719_APE_H_uint32_t*)0xc0010220) /*  */
-#define REG_APE_TX_TO_NET_BUFFER_ALLOCATOR_2 ((volatile BCM5719_APE_H_uint32_t*)0xc0010224) /*  */
-#define REG_APE_TX_TO_NET_BUFFER_RETURN_2 ((volatile BCM5719_APE_H_uint32_t*)0xc0010228) /*  */
-#define REG_APE_TX_TO_NET_BUFFER_RING_2 ((volatile BCM5719_APE_H_uint32_t*)0xc001022c) /*  */
-#define REG_APE_RXBUFOFFSET_FUNC3 ((volatile BCM5719_APE_H_uint32_t*)0xc0010300) /* This is examined on the APE Packet RX interrupt, and indicates the offset of an incoming (from-network) frame within the APE memory space, which provides access to the from-network RX buffer. */
-#define REG_APE_TX_TO_NET_DOORBELL_FUNC3 ((volatile BCM5719_APE_H_uint32_t*)0xc0010304) /* Written on APE TX to network after filling 0xA002 buffer with packet. */
-#define REG_APE_TX_STATE3 ((volatile BCM5719_APE_H_uint32_t*)0xc0010308) /* APE TX State Port3 */
-#define REG_APE_RX_POOL_MODE_STATUS_3 ((volatile BCM5719_APE_H_uint32_t*)0xc0010314) /*  */
-#define REG_APE_RX_POOL_RETIRE_3 ((volatile BCM5719_APE_H_uint32_t*)0xc0010318) /* Used to indicate when the APE is done with a region of the 0xA000_0000 RX pool buffer so that it can be used to receive another frame. */
-#define REG_APE_RX_POOL_FREE_POINTER_3 ((volatile BCM5719_APE_H_uint32_t*)0xc001031c) /*  */
-#define REG_APE_TX_TO_NET_POOL_MODE_STATUS_3 ((volatile BCM5719_APE_H_uint32_t*)0xc0010320) /*  */
-#define REG_APE_TX_TO_NET_BUFFER_ALLOCATOR_3 ((volatile BCM5719_APE_H_uint32_t*)0xc0010324) /*  */
-#define REG_APE_TX_TO_NET_BUFFER_RETURN_3 ((volatile BCM5719_APE_H_uint32_t*)0xc0010328) /*  */
-#define REG_APE_TX_TO_NET_BUFFER_RING_3 ((volatile BCM5719_APE_H_uint32_t*)0xc001032c) /*  */
+#define REG_APE_TX_TO_NET_POOL_MODE_STATUS_1 ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc0010110) /*  */
+#define REG_APE_TX_TO_NET_BUFFER_ALLOCATOR_1 ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc0010114) /*  */
+#define REG_APE_TX_TO_NET_BUFFER_RETURN_1 ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc0010118) /*  */
+#define REG_APE_TX_TO_NET_BUFFER_RING_1 ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc001011c) /*  */
+#define REG_APE_TX_TO_NET_DOORBELL_FUNC1 ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc0010120) /* Written on APE TX to network after filling 0xA002 buffer with packet. */
+#define REG_APE_RXBUFOFFSET_FUNC2 ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc0010200) /* This is examined on the APE Packet RX interrupt, and indicates the offset of an incoming (from-network) frame within the APE memory space, which provides access to the from-network RX buffer. */
+#define REG_APE_TX_TO_NET_DOORBELL_FUNC2 ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc0010204) /* Written on APE TX to network after filling 0xA002 buffer with packet. */
+#define REG_APE_TX_STATE2 ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc0010208) /* APE TX State Port2 */
+#define REG_APE_RX_POOL_MODE_STATUS_2 ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc0010214) /*  */
+#define REG_APE_RX_POOL_RETIRE_2 ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc0010218) /* Used to indicate when the APE is done with a region of the 0xA000_0000 RX pool buffer so that it can be used to receive another frame. */
+#define REG_APE_RX_POOL_FREE_POINTER_2 ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc001021c) /*  */
+#define REG_APE_TX_TO_NET_POOL_MODE_STATUS_2 ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc0010220) /*  */
+#define REG_APE_TX_TO_NET_BUFFER_ALLOCATOR_2 ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc0010224) /*  */
+#define REG_APE_TX_TO_NET_BUFFER_RETURN_2 ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc0010228) /*  */
+#define REG_APE_TX_TO_NET_BUFFER_RING_2 ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc001022c) /*  */
+#define REG_APE_RXBUFOFFSET_FUNC3 ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc0010300) /* This is examined on the APE Packet RX interrupt, and indicates the offset of an incoming (from-network) frame within the APE memory space, which provides access to the from-network RX buffer. */
+#define REG_APE_TX_TO_NET_DOORBELL_FUNC3 ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc0010304) /* Written on APE TX to network after filling 0xA002 buffer with packet. */
+#define REG_APE_TX_STATE3 ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc0010308) /* APE TX State Port3 */
+#define REG_APE_RX_POOL_MODE_STATUS_3 ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc0010314) /*  */
+#define REG_APE_RX_POOL_RETIRE_3 ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc0010318) /* Used to indicate when the APE is done with a region of the 0xA000_0000 RX pool buffer so that it can be used to receive another frame. */
+#define REG_APE_RX_POOL_FREE_POINTER_3 ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc001031c) /*  */
+#define REG_APE_TX_TO_NET_POOL_MODE_STATUS_3 ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc0010320) /*  */
+#define REG_APE_TX_TO_NET_BUFFER_ALLOCATOR_3 ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc0010324) /*  */
+#define REG_APE_TX_TO_NET_BUFFER_RETURN_3 ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc0010328) /*  */
+#define REG_APE_TX_TO_NET_BUFFER_RING_3 ((BCM5719_APE_H_VOLATILE BCM5719_APE_H_uint32_t*)0xc001032c) /*  */
 /** @brief Component definition for @ref APE. */
 typedef struct APE_t {
     /** @brief More of these bits can be found in diagnostic utilities, but they don't seem too interesting. */
@@ -2680,13 +2681,9 @@ typedef struct APE_t {
 } APE_t;
 
 /** @brief Device APE Registers */
-extern volatile APE_t APE;
+extern BCM5719_APE_H_VOLATILE APE_t APE;
 
 
-
-#ifdef CXX_SIMULATOR /* Compiling c++ code - uses register wrappers */
-#undef volatile
-#endif /* CXX_SIMULATOR */
 
 #undef register_container
 #undef BITFIELD_BEGIN

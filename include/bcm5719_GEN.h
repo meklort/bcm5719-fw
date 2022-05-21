@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2021, Evan Lojewski
+/// @copyright Copyright (c) 2022, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -63,7 +63,7 @@ typedef CXXRegister<uint32_t, 0, 32> BCM5719_GEN_H_uint32_t;
 #define BCM5719_GEN_H_uint16_t_bitfield(__pos__, __width__) CXXRegister<uint16_t, __pos__, __width__>
 #define BCM5719_GEN_H_uint32_t_bitfield(__pos__, __width__) CXXRegister<uint32_t, __pos__, __width__>
 #define register_container struct
-#define volatile
+#define BCM5719_GEN_H_VOLATILE
 #define BITFIELD_BEGIN(__type__, __name__) struct {
 #define BITFIELD_MEMBER(__type__, __name__, __offset__, __bits__) __type__##_bitfield(__offset__, __bits__) __name__;
 #define BITFIELD_END(__type__, __name__) } __name__;
@@ -73,6 +73,7 @@ typedef uint8_t  BCM5719_GEN_H_uint8_t;
 typedef uint16_t BCM5719_GEN_H_uint16_t;
 typedef uint32_t BCM5719_GEN_H_uint32_t;
 #define register_container union
+#define BCM5719_GEN_H_VOLATILE volatile
 #define BITFIELD_BEGIN(__type__, __name__) struct {
 #define BITFIELD_MEMBER(__type__, __name__, __offset__, __bits__) __type__ __name__:__bits__;
 #define BITFIELD_END(__type__, __name__) } __name__;
@@ -81,7 +82,7 @@ typedef uint32_t BCM5719_GEN_H_uint32_t;
 #define REG_GEN_BASE ((volatile void*)0xb50) /* General Communication */
 #define REG_GEN_SIZE (sizeof(GEN_t))
 
-#define REG_GEN_GEN_FW_MBOX ((volatile BCM5719_GEN_H_uint32_t*)0xb50) /*  */
+#define REG_GEN_GEN_FW_MBOX ((BCM5719_GEN_H_VOLATILE BCM5719_GEN_H_uint32_t*)0xb50) /*  */
 #define     GEN_GEN_FW_MBOX_MBOX_SHIFT 0u
 #define     GEN_GEN_FW_MBOX_MBOX_MASK  0xffffffffu
 #define GET_GEN_GEN_FW_MBOX_MBOX(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
@@ -129,7 +130,7 @@ typedef register_container RegGENGenFwMbox_t {
 #endif /* CXX_SIMULATOR */
 } RegGENGenFwMbox_t;
 
-#define REG_GEN_GEN_DATA_SIG ((volatile BCM5719_GEN_H_uint32_t*)0xb54) /*  */
+#define REG_GEN_GEN_DATA_SIG ((BCM5719_GEN_H_VOLATILE BCM5719_GEN_H_uint32_t*)0xb54) /*  */
 #define     GEN_GEN_DATA_SIG_SIG_SHIFT 0u
 #define     GEN_GEN_DATA_SIG_SIG_MASK  0xffffffffu
 #define GET_GEN_GEN_DATA_SIG_SIG(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
@@ -181,7 +182,7 @@ typedef register_container RegGENGenDataSig_t {
 #endif /* CXX_SIMULATOR */
 } RegGENGenDataSig_t;
 
-#define REG_GEN_GEN_CFG ((volatile BCM5719_GEN_H_uint32_t*)0xb58) /* TODO. */
+#define REG_GEN_GEN_CFG ((BCM5719_GEN_H_VOLATILE BCM5719_GEN_H_uint32_t*)0xb58) /* TODO. */
 #define     GEN_GEN_CFG_LED_MODE_SHIFT 2u
 #define     GEN_GEN_CFG_LED_MODE_MASK  0xcu
 #define GET_GEN_GEN_CFG_LED_MODE(__reg__)  (((__reg__) & 0xc) >> 2u)
@@ -341,7 +342,7 @@ typedef register_container RegGENGenCfg_t {
 #endif /* CXX_SIMULATOR */
 } RegGENGenCfg_t;
 
-#define REG_GEN_GEN_VERSION ((volatile BCM5719_GEN_H_uint32_t*)0xb5c) /* Unusual 16-bit field. */
+#define REG_GEN_GEN_VERSION ((BCM5719_GEN_H_VOLATILE BCM5719_GEN_H_uint32_t*)0xb5c) /* Unusual 16-bit field. */
 /** @brief Register definition for @ref GEN_t.GenVersion. */
 typedef register_container RegGENGenVersion_t {
     /** @brief 32bit direct register access. */
@@ -366,7 +367,7 @@ typedef register_container RegGENGenVersion_t {
 #endif /* CXX_SIMULATOR */
 } RegGENGenVersion_t;
 
-#define REG_GEN_GEN_PHY_ID ((volatile BCM5719_GEN_H_uint32_t*)0xb74) /* Can be 0x5A5A_5A5A to indicate that this field is invalid; otherwise,       it is set to the MII PHY ID value. */
+#define REG_GEN_GEN_PHY_ID ((BCM5719_GEN_H_VOLATILE BCM5719_GEN_H_uint32_t*)0xb74) /* Can be 0x5A5A_5A5A to indicate that this field is invalid; otherwise,       it is set to the MII PHY ID value. */
 /** @brief Register definition for @ref GEN_t.GenPhyId. */
 typedef register_container RegGENGenPhyId_t {
     /** @brief 32bit direct register access. */
@@ -391,7 +392,7 @@ typedef register_container RegGENGenPhyId_t {
 #endif /* CXX_SIMULATOR */
 } RegGENGenPhyId_t;
 
-#define REG_GEN_GEN_ASF_STATUS_MBOX ((volatile BCM5719_GEN_H_uint32_t*)0xc00) /* Sometimes set to BOOTCODE_READY_MAGIC. */
+#define REG_GEN_GEN_ASF_STATUS_MBOX ((BCM5719_GEN_H_VOLATILE BCM5719_GEN_H_uint32_t*)0xc00) /* Sometimes set to BOOTCODE_READY_MAGIC. */
 /** @brief Register definition for @ref GEN_t.GenAsfStatusMbox. */
 typedef register_container RegGENGenAsfStatusMbox_t {
     /** @brief 32bit direct register access. */
@@ -416,7 +417,7 @@ typedef register_container RegGENGenAsfStatusMbox_t {
 #endif /* CXX_SIMULATOR */
 } RegGENGenAsfStatusMbox_t;
 
-#define REG_GEN_GEN_FW_DRIVER_STATE_MBOX ((volatile BCM5719_GEN_H_uint32_t*)0xc04) /*  */
+#define REG_GEN_GEN_FW_DRIVER_STATE_MBOX ((BCM5719_GEN_H_VOLATILE BCM5719_GEN_H_uint32_t*)0xc04) /*  */
 #define     GEN_GEN_FW_DRIVER_STATE_MBOX_STATE_SHIFT 0u
 #define     GEN_GEN_FW_DRIVER_STATE_MBOX_STATE_MASK  0xffffffffu
 #define GET_GEN_GEN_FW_DRIVER_STATE_MBOX_STATE(__reg__)  (((__reg__) & 0xffffffff) >> 0u)
@@ -474,7 +475,7 @@ typedef register_container RegGENGenFwDriverStateMbox_t {
 #endif /* CXX_SIMULATOR */
 } RegGENGenFwDriverStateMbox_t;
 
-#define REG_GEN_GEN_FW_RESET_TYPE_MBOX ((volatile BCM5719_GEN_H_uint32_t*)0xc08) /* TODO */
+#define REG_GEN_GEN_FW_RESET_TYPE_MBOX ((BCM5719_GEN_H_VOLATILE BCM5719_GEN_H_uint32_t*)0xc08) /* TODO */
 /** @brief Register definition for @ref GEN_t.GenFwResetTypeMbox. */
 typedef register_container RegGENGenFwResetTypeMbox_t {
     /** @brief 32bit direct register access. */
@@ -499,7 +500,7 @@ typedef register_container RegGENGenFwResetTypeMbox_t {
 #endif /* CXX_SIMULATOR */
 } RegGENGenFwResetTypeMbox_t;
 
-#define REG_GEN_GEN_BC ((volatile BCM5719_GEN_H_uint32_t*)0xc0c) /* Set to 0xFEFE_0009 at S2 start. Possibly boot progress indicator.       Upper 16 is always 0xFEFE, possible validity indicator. Observed        lower16 values:     8       9 - Stage2 start */
+#define REG_GEN_GEN_BC ((BCM5719_GEN_H_VOLATILE BCM5719_GEN_H_uint32_t*)0xc0c) /* Set to 0xFEFE_0009 at S2 start. Possibly boot progress indicator.       Upper 16 is always 0xFEFE, possible validity indicator. Observed        lower16 values:     8       9 - Stage2 start */
 /** @brief Register definition for @ref GEN_t.GenBc. */
 typedef register_container RegGENGenBc_t {
     /** @brief 32bit direct register access. */
@@ -524,7 +525,7 @@ typedef register_container RegGENGenBc_t {
 #endif /* CXX_SIMULATOR */
 } RegGENGenBc_t;
 
-#define REG_GEN_GEN_MAC_ADDR_HIGH_MBOX ((volatile BCM5719_GEN_H_uint32_t*)0xc14) /*  */
+#define REG_GEN_GEN_MAC_ADDR_HIGH_MBOX ((BCM5719_GEN_H_VOLATILE BCM5719_GEN_H_uint32_t*)0xc14) /*  */
 #define     GEN_GEN_MAC_ADDR_HIGH_MBOX_HIGH_SHIFT 0u
 #define     GEN_GEN_MAC_ADDR_HIGH_MBOX_HIGH_MASK  0xffffu
 #define GET_GEN_GEN_MAC_ADDR_HIGH_MBOX_HIGH(__reg__)  (((__reg__) & 0xffff) >> 0u)
@@ -582,7 +583,7 @@ typedef register_container RegGENGenMacAddrHighMbox_t {
 #endif /* CXX_SIMULATOR */
 } RegGENGenMacAddrHighMbox_t;
 
-#define REG_GEN_GEN_MAC_ADDR_LOW_MBOX ((volatile BCM5719_GEN_H_uint32_t*)0xc18) /*  */
+#define REG_GEN_GEN_MAC_ADDR_LOW_MBOX ((BCM5719_GEN_H_VOLATILE BCM5719_GEN_H_uint32_t*)0xc18) /*  */
 /** @brief Register definition for @ref GEN_t.GenMacAddrLowMbox. */
 typedef register_container RegGENGenMacAddrLowMbox_t {
     /** @brief 32bit direct register access. */
@@ -607,7 +608,7 @@ typedef register_container RegGENGenMacAddrLowMbox_t {
 #endif /* CXX_SIMULATOR */
 } RegGENGenMacAddrLowMbox_t;
 
-#define REG_GEN_GEN_D8 ((volatile BCM5719_GEN_H_uint32_t*)0xc28) /* Field names are guessed. */
+#define REG_GEN_GEN_D8 ((BCM5719_GEN_H_VOLATILE BCM5719_GEN_H_uint32_t*)0xc28) /* Field names are guessed. */
 #define     GEN_GEN_D8_SKIP_MAIN_LOOP_INIT_SHIFT 0u
 #define     GEN_GEN_D8_SKIP_MAIN_LOOP_INIT_MASK  0x1u
 #define GET_GEN_GEN_D8_SKIP_MAIN_LOOP_INIT(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -693,7 +694,7 @@ typedef register_container RegGENGenD8_t {
 #endif /* CXX_SIMULATOR */
 } RegGENGenD8_t;
 
-#define REG_GEN_GEN_1DC ((volatile BCM5719_GEN_H_uint32_t*)0xd2c) /* Unknown. Some information from  */
+#define REG_GEN_GEN_1DC ((BCM5719_GEN_H_VOLATILE BCM5719_GEN_H_uint32_t*)0xd2c) /* Unknown. Some information from  */
 /** @brief Register definition for @ref GEN_t.Gen1dc. */
 typedef register_container RegGENGen1dc_t {
     /** @brief 32bit direct register access. */
@@ -718,7 +719,7 @@ typedef register_container RegGENGen1dc_t {
 #endif /* CXX_SIMULATOR */
 } RegGENGen1dc_t;
 
-#define REG_GEN_GEN_WOL_MBOX ((volatile BCM5719_GEN_H_uint32_t*)0xd30) /* Register manual states "recommended value" is 0x474C_0000. */
+#define REG_GEN_GEN_WOL_MBOX ((BCM5719_GEN_H_VOLATILE BCM5719_GEN_H_uint32_t*)0xd30) /* Register manual states "recommended value" is 0x474C_0000. */
 /** @brief Register definition for @ref GEN_t.GenWolMbox. */
 typedef register_container RegGENGenWolMbox_t {
     /** @brief 32bit direct register access. */
@@ -743,7 +744,7 @@ typedef register_container RegGENGenWolMbox_t {
 #endif /* CXX_SIMULATOR */
 } RegGENGenWolMbox_t;
 
-#define REG_GEN_GEN_CFG_FEATURE ((volatile BCM5719_GEN_H_uint32_t*)0xd34) /*  */
+#define REG_GEN_GEN_CFG_FEATURE ((BCM5719_GEN_H_VOLATILE BCM5719_GEN_H_uint32_t*)0xd34) /*  */
 #define     GEN_GEN_CFG_FEATURE_WOL_ENABLE_SHIFT 0u
 #define     GEN_GEN_CFG_FEATURE_WOL_ENABLE_MASK  0x1u
 #define GET_GEN_GEN_CFG_FEATURE_WOL_ENABLE(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -971,7 +972,7 @@ typedef register_container RegGENGenCfgFeature_t {
 #endif /* CXX_SIMULATOR */
 } RegGENGenCfgFeature_t;
 
-#define REG_GEN_GEN_CFG_HW ((volatile BCM5719_GEN_H_uint32_t*)0xd38) /* Set from NVM. */
+#define REG_GEN_GEN_CFG_HW ((BCM5719_GEN_H_VOLATILE BCM5719_GEN_H_uint32_t*)0xd38) /* Set from NVM. */
 #define     GEN_GEN_CFG_HW_LEGACY_LED_CONTROL_SHIFT 2u
 #define     GEN_GEN_CFG_HW_LEGACY_LED_CONTROL_MASK  0xcu
 #define GET_GEN_GEN_CFG_HW_LEGACY_LED_CONTROL(__reg__)  (((__reg__) & 0xc) >> 2u)
@@ -1133,7 +1134,7 @@ typedef register_container RegGENGenCfgHw_t {
 #endif /* CXX_SIMULATOR */
 } RegGENGenCfgHw_t;
 
-#define REG_GEN_GEN_CFG_SHARED ((volatile BCM5719_GEN_H_uint32_t*)0xd3c) /* Set from NVM. */
+#define REG_GEN_GEN_CFG_SHARED ((BCM5719_GEN_H_VOLATILE BCM5719_GEN_H_uint32_t*)0xd3c) /* Set from NVM. */
 #define     GEN_GEN_CFG_SHARED_PORT_SWAP_SHIFT 0u
 #define     GEN_GEN_CFG_SHARED_PORT_SWAP_MASK  0x1u
 #define GET_GEN_GEN_CFG_SHARED_PORT_SWAP(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -1313,7 +1314,7 @@ typedef register_container RegGENGenCfgShared_t {
 #endif /* CXX_SIMULATOR */
 } RegGENGenCfgShared_t;
 
-#define REG_GEN_GEN_FW_VERSION ((volatile BCM5719_GEN_H_uint32_t*)0xd64) /* Set from NVM 0x096; firmware version and upper 16 bits of manufacturing date. */
+#define REG_GEN_GEN_FW_VERSION ((BCM5719_GEN_H_VOLATILE BCM5719_GEN_H_uint32_t*)0xd64) /* Set from NVM 0x096; firmware version and upper 16 bits of manufacturing date. */
 /** @brief Register definition for @ref GEN_t.GenFwVersion. */
 typedef register_container RegGENGenFwVersion_t {
     /** @brief 32bit direct register access. */
@@ -1338,7 +1339,7 @@ typedef register_container RegGENGenFwVersion_t {
 #endif /* CXX_SIMULATOR */
 } RegGENGenFwVersion_t;
 
-#define REG_GEN_GEN_CFG_HW_2 ((volatile BCM5719_GEN_H_uint32_t*)0xdf8) /*  */
+#define REG_GEN_GEN_CFG_HW_2 ((BCM5719_GEN_H_VOLATILE BCM5719_GEN_H_uint32_t*)0xdf8) /*  */
 #define     GEN_GEN_CFG_HW_2_ENABLE_AUTONEGOTIATION_SHIFT 0u
 #define     GEN_GEN_CFG_HW_2_ENABLE_AUTONEGOTIATION_MASK  0x1u
 #define GET_GEN_GEN_CFG_HW_2_ENABLE_AUTONEGOTIATION(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -1454,7 +1455,7 @@ typedef register_container RegGENGenCfgHw2_t {
 #endif /* CXX_SIMULATOR */
 } RegGENGenCfgHw2_t;
 
-#define REG_GEN_GEN_CPMU_STATUS ((volatile BCM5719_GEN_H_uint32_t*)0xe00) /* The upper 16 bits of this is the upper 16 bits of  */
+#define REG_GEN_GEN_CPMU_STATUS ((BCM5719_GEN_H_VOLATILE BCM5719_GEN_H_uint32_t*)0xe00) /* The upper 16 bits of this is the upper 16 bits of  */
 /** @brief Register definition for @ref GEN_t.GenCpmuStatus. */
 typedef register_container RegGENGenCpmuStatus_t {
     /** @brief 32bit direct register access. */
@@ -1479,7 +1480,7 @@ typedef register_container RegGENGenCpmuStatus_t {
 #endif /* CXX_SIMULATOR */
 } RegGENGenCpmuStatus_t;
 
-#define REG_GEN_GEN_CFG_5 ((volatile BCM5719_GEN_H_uint32_t*)0xe0c) /* Set from NVM 0x21C. */
+#define REG_GEN_GEN_CFG_5 ((BCM5719_GEN_H_VOLATILE BCM5719_GEN_H_uint32_t*)0xe0c) /* Set from NVM 0x21C. */
 #define     GEN_GEN_CFG_5_UNKNOWN_0_0_SHIFT 0u
 #define     GEN_GEN_CFG_5_UNKNOWN_0_0_MASK  0x1u
 #define GET_GEN_GEN_CFG_5_UNKNOWN_0_0(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -1547,7 +1548,7 @@ typedef register_container RegGENGenCfg5_t {
 #endif /* CXX_SIMULATOR */
 } RegGENGenCfg5_t;
 
-#define REG_GEN_GEN_DBG_CONTROL_STATUS ((volatile BCM5719_GEN_H_uint32_t*)0xeb0) /* Firmware Debug Control */
+#define REG_GEN_GEN_DBG_CONTROL_STATUS ((BCM5719_GEN_H_VOLATILE BCM5719_GEN_H_uint32_t*)0xeb0) /* Firmware Debug Control */
 #define     GEN_GEN_DBG_CONTROL_STATUS_DEBUG_ENABLED_SHIFT 0u
 #define     GEN_GEN_DBG_CONTROL_STATUS_DEBUG_ENABLED_MASK  0x1u
 #define GET_GEN_GEN_DBG_CONTROL_STATUS_DEBUG_ENABLED(__reg__)  (((__reg__) & 0x1) >> 0u)
@@ -1609,7 +1610,7 @@ typedef register_container RegGENGenDbgControlStatus_t {
 #endif /* CXX_SIMULATOR */
 } RegGENGenDbgControlStatus_t;
 
-#define REG_GEN_GEN_DBG_DATA ((volatile BCM5719_GEN_H_uint32_t*)0xeb4) /* Firmware Debug Data */
+#define REG_GEN_GEN_DBG_DATA ((BCM5719_GEN_H_VOLATILE BCM5719_GEN_H_uint32_t*)0xeb4) /* Firmware Debug Data */
 #define     GEN_GEN_DBG_DATA_DEBUG_BYTE_SHIFT 0u
 #define     GEN_GEN_DBG_DATA_DEBUG_BYTE_MASK  0xffu
 #define GET_GEN_GEN_DBG_DATA_DEBUG_BYTE(__reg__)  (((__reg__) & 0xff) >> 0u)
@@ -1904,13 +1905,9 @@ typedef struct GEN_t {
 } GEN_t;
 
 /** @brief General Communication */
-extern volatile GEN_t GEN;
+extern BCM5719_GEN_H_VOLATILE GEN_t GEN;
 
 
-
-#ifdef CXX_SIMULATOR /* Compiling c++ code - uses register wrappers */
-#undef volatile
-#endif /* CXX_SIMULATOR */
 
 #undef register_container
 #undef BITFIELD_BEGIN
