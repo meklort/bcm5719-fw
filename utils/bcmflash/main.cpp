@@ -514,7 +514,7 @@ int main(int argc, char const *argv[])
               "binary:  Save a raw binary copy of the firmware to firmware.fw.\n"
               "extract: Save each individual stage to <stage>.fw.\n");
 
-    parser.add_option("-r", "restore").dest("restore").help("Update the target device to match the specified file.").metavar("FILE");
+    parser.add_option("-r", "--restore").dest("restore").help("Update the target device to match the specified file.").metavar("FILE");
 
     parser.add_option("-c", "--create").choices({ "talos2", "blackbird", "kh08p" }).dest("create").help("Create a full firmware image for use with fwupd.");
 
