@@ -42,71 +42,15 @@
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
 
-def notify(status, description)
-{
-    githubNotify account: 'meklort',
-        context: JOB_NAME,
-        credentialsId: 'jenkins_status',
-        description: description,
-        gitApiUrl: '',
-        repo: 'bcm5719-fw',
-        sha: GIT_COMMIT,
-        status: status,
-        targetUrl: BUILD_URL
-}
-
 def do_build(nodeName, archive = false, archiveCab = false, analyze = true, testArchive = false)
 {
     node(nodeName)
     {
         cleanWs()
-        def url = ''
-        def refspec = '+refs/heads/*:refs/remotes/origin/*'
-        try
-        {
-            url = GITHUB_BRANCH_URL
-        }
-        catch (exc)
-        {
-            url = 'https://github.com/meklort/bcm5719-fw.git'
-        }
-        def hash = ''
-        try
-        {
-            hash = GITHUB_BRANCH_HEAD_SHA
-        }
-        catch (exc)
-        {
-            try
-            {
-                hash = GITHUB_PR_HEAD_SHA
-                refspec = '+refs/pull/*:refs/remotes/origin/pr/*'
-            }
-            catch (exc2)
-            {
-                hash = '**'
-            }
-        }
+
         stage('checkout')
         {
-            checkout(
-                [$class: 'GitSCM', branches: [[name: hash]],
-                                browser: [$class: 'GithubWeb',
-                                repoUrl: 'https://github.com/meklort/bcm5719-fw/'],
-                                doGenerateSubmoduleConfigurations: false,
-                                extensions: [
-                                    [$class: 'SubmoduleOption',
-                                            disableSubmodules: false,
-                                            parentCredentials: false,
-                                            recursiveSubmodules: true,
-                                            reference: '',
-                                            trackingSubmodules: false]],
-                                submoduleCfg: [],
-                                userRemoteConfigs: [[
-                                    url: url,
-                                    refspec: refspec
-                                ]]
-            ])
+            checkout scm
 
             def gitSubject = sh (
                 script: 'git show -s --format=%s',
@@ -125,21 +69,24 @@ def do_build(nodeName, archive = false, archiveCab = false, analyze = true, test
             {
                 sh './build.sh -DDISABLE_CLANG_ANALYZER=True'
             }
+        }
 
-            if (archive)
+        if (archive)
+        {
+            stage('archive')
             {
                 dir('build')
                 {
                     archiveArtifacts artifacts: '*.zip', fingerprint: true
                     archiveArtifacts artifacts: '*.tar.gz', fingerprint: true
                 }
-            }
 
-            if (archiveCab)
-            {
-                dir('build/fwupd')
+                if (archiveCab)
                 {
-                    archiveArtifacts artifacts: '*.cab', fingerprint: true
+                    dir('build/fwupd')
+                    {
+                        archiveArtifacts artifacts: '*.cab', fingerprint: true
+                    }
                 }
             }
         }
@@ -172,32 +119,12 @@ def do_build(nodeName, archive = false, archiveCab = false, analyze = true, test
     }
 }
 
-try
+node()
 {
-    notify('PENDING', 'Build Pending ')
     parallel(
-        "fedora": { do_build('built-in', true, true, true, true) },
+        "fedora": { do_build('fedora', true, true, true, true) },
         "ubuntu-18.04": { do_build('ubuntu-18.04', false, false, false, false) },
         "ubuntu-20.04": { do_build('ubuntu-20.04', true, false, false, false) },
         "freebsd-12": { do_build('freebsd-12', true, false, false, false) },
     )
-}
-catch (e)
-{
-    currentBuild.result = 'FAILURE'
-    throw e
-}
-finally
-{
-    cleanWs()
-
-    def currentResult = currentBuild.result ?: 'SUCCESS'
-    if (currentResult == 'SUCCESS')
-    {
-        notify('SUCCESS', 'Build Passed ')
-    }
-    else
-    {
-        notify('FAILURE', 'Build Failed ')
-    }
 }
