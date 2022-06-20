@@ -47,6 +47,7 @@
     <custom>
         <value key="LVFS::UpdateProtocol">com.broadcom.bcm57xx</value>
         <value key="LVFS::VersionFormat">triplet</value>
+        <value key="LVFS::DeviceIntegrity">unsigned</value>
     </custom>
 
     <!-- these keywords are optional and are used for searching -->
