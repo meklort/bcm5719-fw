@@ -123,8 +123,10 @@ node()
 {
     parallel(
         "fedora": { do_build('fedora', true, true, true, true) },
-        "ubuntu-18.04": { do_build('ubuntu-18.04', false, false, false, false) },
-        "ubuntu-20.04": { do_build('ubuntu-20.04', true, false, false, false) },
+        "solus": { do_build('solus', false, false, false, false) },
+        "ubuntu-18.04": { do_build('ubuntu-18.04', true, false, false, false) },
+        "ubuntu-20.04": { do_build('ubuntu-20.04', false, false, false, false) },
+        "ubuntu-22.04": { do_build('ubuntu-22.04', false, false, false, false) },
         "freebsd-12": { do_build('freebsd-12', true, false, false, false) },
     )
 }
