@@ -29,6 +29,7 @@
             <description>
                 @DESCRIPTION@
             </description>
+            <url type="source">https://github.com/meklort/bcm5719-fw/commit/@GIT_HASH@</url>
         </release>
     </releases>
 
