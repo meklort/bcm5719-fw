@@ -2,7 +2,7 @@
 ###
 ### @file       utils/CMakeLists.txt
 ###
-### @project    
+### @project
 ###
 ### @brief      Utilities CMake file
 ###
@@ -52,3 +52,16 @@ add_subdirectory(elf2ape)
 
 add_subdirectory(bin2c)
 add_subdirectory(cat)
+
+# Check to see if python3 is installed, as it's needed for uSWID generation.
+FIND_PROGRAM(PYTHON NAMES python3 PATHS /usr/bin/)
+IF (NOT PYTHON)
+    MESSAGE(STATUS "Disabling uSWID generation due to missing python executable.")
+    SET(USWID_ENABLED OFF)
+    SEt(USWID_FORCE FORCE)
+ELSE()
+    MESSAGE(STATUS "Enabling uSWID generation.")
+    SET(USWID_ENABLED ON)
+    SEt(USWID_FORCE )
+ENDIF()
+SET(USWID_ENABLED ${USWID_ENABLED} CACHE BOOL "Include uSWID information in firmware image." ${USWID_FORCE})

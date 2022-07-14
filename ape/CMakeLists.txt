@@ -52,6 +52,8 @@ function(ape_firmware PORT)
                 main.c
                 vectors.c
                 rmu.c
+                ${PROJECT_NAME}.uswid.ini
+                ${CMAKE_BINARY_DIR}/compiler.uswid.ini
                 include/ape_main.h
                 )
     arm_linker_script(${TARGET} "${CMAKE_CURRENT_SOURCE_DIR}/ape.ld")
@@ -70,6 +72,9 @@ function(ape_firmware PORT)
     install(TARGETS ${TARGET} DESTINATION fw RESOURCE)
 
 endfunction()
+
+USWID_UUID(${PROJECT_NAME}_TAG_ID "${PROJECT_NAME}-${VERSION_STRING}")
+CONFIGURE_FILE(uswid.ini.in ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.uswid.ini @ONLY)
 
 ape_firmware(0)
 ape_firmware(2)

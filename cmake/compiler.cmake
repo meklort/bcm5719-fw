@@ -59,3 +59,17 @@ FIND_PROGRAM(CMAKE_CXX_COMPILER
 SET(CMAKE_ASM_COMPILER  ${COMPILER_BASE}/bin/clang)
 
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-rtti -fno-exceptions")
+
+# Extract Compiler version information
+EXECUTE_PROCESS(COMMAND ${CMAKE_C_COMPILER} --version OUTPUT_VARIABLE version OUTPUT_STRIP_TRAILING_WHITESPACE)
+STRING(REGEX MATCH "(.*) version ([0-9]*.[0-9]*.[0-9]*) \\((.*) (.*)\\)" out ${version})
+SET(COMPILER_NAME    ${CMAKE_MATCH_1})
+SET(COMPILER_VERSION ${CMAKE_MATCH_2})
+SET(COMPILER_URL     ${CMAKE_MATCH_3})
+SET(COMPILER_HASH    ${CMAKE_MATCH_4})
+
+# Generate SBOM GUID
+USWID_UUID(COMPILER_TAG_ID "${COMPILER_NAME}-${COMPILER_VERSION}")
+
+# Create the compiler uswid ini file
+configure_file(${CMAKE_SOURCE_DIR}/cmake/compiler.uswid.ini.in ${CMAKE_BINARY_DIR}/compiler.uswid.ini @ONLY)

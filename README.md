@@ -71,6 +71,7 @@ This repository depends on a number of external tools
 - CMake 3.5.1+
 - Linux (utilities)
 - IPXact generator (optional)
+- python3-pefile, python3-cbor, python3-lxml (for uswid)
 
 ## Required Compiler
 Due to limitations in the MIPS CPU, this firmware requires a custom compiler to function properly.

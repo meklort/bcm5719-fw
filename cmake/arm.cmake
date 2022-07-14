@@ -68,11 +68,23 @@ function(arm_add_executable target)
     target_link_libraries(${target} ${ARM_LINK_OPTIONS})
     set_property(TARGET ${target} PROPERTY LINKER_LANGUAGE arm)
 
+    GENERATE_USWID(${target})
+
+    IF(TARGET ${target}-swid)
+        SET(SWID_COMMAND COMMAND cat -i "${target}.bin.tmp" -i "$<TARGET_PROPERTY:${target}-swid,RESOURCE>" -o "${target}.bin")
+        SET(ELF2APE_OUTPUT ${target}.bin.tmp)
+    ELSE()
+        SET(SWID_COMMAND )
+        SET(ELF2APE_OUTPUT ${target}.bin)
+    ENDIF()
+
     add_custom_command(
         TARGET ${target} POST_BUILD
-        COMMAND elf2ape -n ${target} -i ${target} -o ${target}.bin
+        COMMAND elf2ape -n ${target} -i ${target} -o ${ELF2APE_OUTPUT}
+        ${SWID_COMMAND}
         BYPRODUCTS ${target}.bin
-        DEPENDS elf2ape)
+        DEPENDS elf2ape cat
+        VERBATIM)
 
     add_custom_command(
         OUTPUT ${target}.c

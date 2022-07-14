@@ -1,0 +1,14 @@
+[uSWID]
+tag-id = @COMPILER_TAG_ID@
+software-name = @COMPILER_NAME@
+software-version = @COMPILER_VERSION@
+version-scheme = multipartnumeric
+colloquial-version = @COMPILER_HASH@
+
+[uSWID-Entity:TagCreator]
+name = Evan Lojewski
+regid = meklort.com
+
+[uSWID-Link]
+rel = source
+href = @COMPILER_URL@

@@ -1,16 +1,16 @@
 ################################################################################
 ###
-### @file       CMakeLists.txt
+### @file       uswid.cmake
 ###
-### @project    bcm5719
+### @project
 ###
-### @brief      First binary stage for the bcm5719
-###
-################################################################################
+### @brief      USWID support routines
 ###
 ################################################################################
 ###
-### @copyright Copyright (c) 2018-2020, Evan Lojewski
+################################################################################
+###
+### @copyright Copyright (c) 2022, Evan Lojewski
 ### @cond
 ###
 ### All rights reserved.
@@ -42,52 +42,41 @@
 ### @endcond
 ################################################################################
 
+FUNCTION(USWID_UUID var str)
+    STRING(UUID ${var} NAMESPACE 6ba7b810-9dad-11d1-80b4-00c04fd430c8 NAME "${str}" TYPE SHA1)
+    MESSAGE("Setting ${var} to ${${var}}")
+    SET(${var} ${${var}} PARENT_SCOPE)
+ENDFUNCTION()
 
-project(stage1)
+FUNCTION(GENERATE_USWID target)
+    # Find all uswid.ini files and geenerate the uswid payload.
+    GET_PROPERTY(sources TARGET ${target} PROPERTY SOURCES)
+    SET(swidinput )
+    SET(depends )
+    FOREACH(file IN LISTS sources)
+        IF(${file} MATCHES ".*\\.uswid\\.ini$")
+            GET_SOURCE_FILE_PROPERTY(path ${file} LOCATION)
+            LIST(APPEND swidinput "--load" "${path}")
+            LIST(APPEND depends "${file}")
+        ENDIF()
+    ENDFOREACH()
 
-# Firmware
-set(LINKER_SCRIPT "${CMAKE_CURRENT_SOURCE_DIR}/stage1.ld")
+    # TODO: Make this resolve all swid files at compile time, not config time.
+    IF(swidinput AND USWID_ENABLED)
+        SET(SWID_FILE "${CMAKE_CURRENT_BINARY_DIR}/${target}.uswid")
+        MESSAGE(STATUS "Creating ${SWID_FILE}")
+        ADD_CUSTOM_COMMAND(
+            OUTPUT ${SWID_FILE}
+            COMMAND "uswid/cli.py" --compress ${swidinput} --save "${SWID_FILE}"
+            WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/utils/python-uswid"
+            DEPENDS ${depends}
+            VERBATIM
+        )
+        ADD_CUSTOM_TARGET(${target}-swid DEPENDS ${SWID_FILE})
+        SET_TARGET_PROPERTIES(${target}-swid PROPERTIES RESOURCE ${SWID_FILE})
 
-function(stage1_firmware PORT)
-    SET(TARGET ${PROJECT_NAME}-port${PORT})
-
-    mips_add_executable(${TARGET}
-                init_hw.c
-                main.c
-                ${PROJECT_NAME}.uswid.ini
-                ${CMAKE_BINARY_DIR}/compiler.uswid.ini
-                crt.s)
-    mips_linker_script(${TARGET} ${LINKER_SCRIPT})
-    target_link_libraries(${TARGET}
-        --defsym=NETWORK_PORT=${PORT}
-        --defsym=VERSION_MAJOR=${VERSION_MAJOR}
-        --defsym=VERSION_MINOR=${VERSION_MINOR}
-        --defsym=VERSION_PATCH=${VERSION_PATCH})
-
-    target_link_libraries(${TARGET} NVRam-mips MII-mips APE-mips Timer-mips printf-mips)
-    target_link_libraries(${TARGET} bcm5719)
-    target_compile_options(${TARGET} PRIVATE -nodefaultlibs)
-    target_include_directories(${TARGET} PUBLIC ../libs/VPD/include .)
-    target_compile_definitions(${TARGET} PRIVATE NETWORK_PORT=${PORT})
-
-    install(TARGETS ${TARGET} DESTINATION fw RESOURCE)
-endfunction(stage1_firmware)
-
-USWID_UUID(${PROJECT_NAME}_TAG_ID "${PROJECT_NAME}-${VERSION_STRING}")
-CONFIGURE_FILE(uswid.ini.in ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.uswid.ini @ONLY)
-
-stage1_firmware(0)
-stage1_firmware(2)
-
-
-# Simulator add_executable
-simulator_add_executable(sim-${PROJECT_NAME}
-            init_hw.c
-            main.c)
-
-target_link_libraries(sim-${PROJECT_NAME} simulator)
-target_link_libraries(sim-${PROJECT_NAME} NVRam MII VPD APE Timer printf)
-target_include_directories(sim-${PROJECT_NAME} PUBLIC  .)
-target_compile_definitions(sim-${PROJECT_NAME} PRIVATE NETWORK_PORT=0)
-
-format_target_sources(${PROJECT_NAME}-port0)
+        ADD_DEPENDENCIES(${target} ${target}-swid)
+    ELSEIF(swidinput)
+        MESSAGE(WARNING "Skipping ${target}.uswid")
+    ENDIF()
+ENDFUNCTION()
