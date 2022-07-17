@@ -1,6 +1,6 @@
 ################################################################################
 ###
-### @file       utils/CMakeLists.txt
+### @file       utils/cat/CMakeLists.txt
 ###
 ### @project    
 ###
@@ -10,7 +10,7 @@
 ###
 ################################################################################
 ###
-### @copyright Copyright (c) 2018, Evan Lojewski
+### @copyright Copyright (c) 2022, Evan Lojewski
 ### @cond
 ###
 ### All rights reserved.
@@ -42,13 +42,16 @@
 ### @endcond
 ################################################################################
 
-add_subdirectory(bcmregtool)
-add_subdirectory(bcmflash)
+project(cat)
 
-add_subdirectory(apeconsole)
+add_definitions(-Wall -Werror)
+set(SOURCES
+    main.cpp
+)
 
-add_subdirectory(ape2elf)
-add_subdirectory(elf2ape)
+add_executable(${PROJECT_NAME} ${SOURCES})
+target_link_libraries(${PROJECT_NAME} PRIVATE OptParse)
 
-add_subdirectory(bin2c)
-add_subdirectory(cat)
+format_target_sources(${PROJECT_NAME})
+
+INSTALL(TARGETS ${PROJECT_NAME} DESTINATION bin)
