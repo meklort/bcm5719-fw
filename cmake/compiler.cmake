@@ -4,7 +4,7 @@
 ###
 ### @project
 ###
-### @brief      Top level CMake file
+### @brief      compiler configuration
 ###
 ################################################################################
 ###
@@ -42,28 +42,20 @@
 ### @endcond
 ################################################################################
 
-enable_testing()
-include(GoogleTest)
+SET(COMPILER_BASE $ENV{HOME}/llvm-bcm5719)
 
-include(cmake/compiler.cmake)
-include(cmake/version.cmake)
+FIND_PROGRAM(CMAKE_C_COMPILER
+            NAMES flint_bcm5719-clang clang
+            HINTS ${COMPILER_BASE}/bin/
+            NO_DEFAULT_PATH
+            REQUIRED)
 
-cmake_minimum_required(VERSION 3.5.1)
-project(bcm5719-fw VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH})
+FIND_PROGRAM(CMAKE_CXX_COMPILER
+            NAMES flint_bcm5719-clang++ clang++
+            HINTS ${COMPILER_BASE}/bin/
+            NO_DEFAULT_PATH
+            REQUIRED)
 
-include(cmake/clang-format.cmake)
-include(cmake/clang-analyzer.cmake)
-include(cmake/config.cmake)
+SET(CMAKE_ASM_COMPILER  ${COMPILER_BASE}/bin/clang)
 
-add_subdirectory(tests)
-
-add_subdirectory(libs)
-add_subdirectory(utils)
-
-
-add_subdirectory(simulator)
-add_subdirectory(stage1)
-
-add_subdirectory(ape)
-
-add_subdirectory(fwupd)
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-rtti -fno-exceptions")
