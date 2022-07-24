@@ -867,9 +867,9 @@ static int __attribute__((always_inline)) _vsnprintf(out_fct_type out, char *buf
                     }
                     else
                     {
-                        const unsigned int value = (flags & FLAGS_CHAR)
-                                                       ? (unsigned char)va_arg(va, unsigned int)
-                                                       : (flags & FLAGS_SHORT) ? (unsigned short int)va_arg(va, unsigned int) : va_arg(va, unsigned int);
+                        const unsigned int value = (flags & FLAGS_CHAR)    ? (unsigned char)va_arg(va, unsigned int)
+                                                   : (flags & FLAGS_SHORT) ? (unsigned short int)va_arg(va, unsigned int)
+                                                                           : va_arg(va, unsigned int);
                         idx = _ntoa_long(out, buffer, idx, maxlen, value, false, base, precision, width, flags);
                     }
                 }
