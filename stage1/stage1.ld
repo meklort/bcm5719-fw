@@ -48,12 +48,12 @@ SECTIONS
 {
     .init 0x08003800 : ALIGN(4) SUBALIGN(4)
     {
-        *(.init)
+        *(.init*)
     }
 
     .text . : ALIGN(4) SUBALIGN(4)
     {
-        *(.text)
+        *(.text*)
     }
 
 

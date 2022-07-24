@@ -57,7 +57,7 @@ SECTIONS
     {
         KEEP(*(.init))
         _ftext = .;
-        *(.text)
+        *(.text*)
         _etext = .;
     } > RAM
 
