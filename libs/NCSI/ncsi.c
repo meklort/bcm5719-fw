@@ -417,7 +417,7 @@ static void getLinkStatusHandler(const NetworkFrame_t *frame)
     RegSHM_CHANNELNcsiChannelStatus_t linkStatus = port->shm_channel->NcsiChannelStatus;
 
     APE_aquireLock();
-    int32_t reg = MII_readRegister(port->device, phy, (mii_reg_t)REG_MII_AUXILIARY_STATUS_SUMMARY);
+    int32_t reg = MII_readRegister(port->device, phy, REG_MII_AUXILIARY_STATUS_SUMMARY);
     APE_releaseLock();
     if (reg >= 0)
     {

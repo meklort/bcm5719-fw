@@ -53,12 +53,7 @@
 #include <bcm5719_MII.h>
 #include <types.h>
 
-#ifdef CXX_SIMULATOR
-#define volatile
-typedef uint64_t    mii_reg_t;
-#else
-typedef uint16_t    mii_reg_t;
-#endif
+typedef BCM5719_MII_H_VOLATILE BCM5719_MII_H_uint16_t* mii_reg_t;
 
 /**
  * @fn uint8_t MII_getPhy(void);
@@ -67,45 +62,40 @@ typedef uint16_t    mii_reg_t;
  *
  * @returns The PHY address
  */
-uint8_t MII_getPhy(volatile DEVICE_t* device);
+uint8_t MII_getPhy(BCM5719_MII_H_VOLATILE DEVICE_t* device);
 
 /**
  * @fn uint16_t MII_readRegister(uint8_t PHY, uint8_t reg);
  */
-int32_t MII_readRegister(volatile DEVICE_t* device, uint8_t phy, mii_reg_t reg);
+int32_t MII_readRegister(BCM5719_MII_H_VOLATILE DEVICE_t* device, uint8_t phy, mii_reg_t reg);
 
 /**
  * @fn void MII_writeRegister(uint8_t PHY, uint8_t reg, uint16_t data);
  */
-bool MII_writeRegister(volatile DEVICE_t* device, uint8_t phy, mii_reg_t reg, uint16_t data);
+bool MII_writeRegister(BCM5719_MII_H_VOLATILE DEVICE_t* device, uint8_t phy, mii_reg_t reg, uint16_t data);
 
 /**
  * @fn void MII_selectBlock(uint8_t phy, uint16_t block);
  */
-bool MII_selectBlock(volatile DEVICE_t* device, uint8_t phy, uint16_t block);
+bool MII_selectBlock(BCM5719_MII_H_VOLATILE DEVICE_t* device, uint8_t phy, uint16_t block);
 
 /**
  * @fn uint16_t MII_getBlock(uint8_t phy);
  */
-int32_t MII_getBlock(volatile DEVICE_t* device, uint8_t phy);
+int32_t MII_getBlock(BCM5719_MII_H_VOLATILE DEVICE_t* device, uint8_t phy);
 
 /**
  * @fn void MII_reset(uint8_t phy);
  */
-bool MII_reset(volatile DEVICE_t* device, uint8_t phy);
+bool MII_reset(BCM5719_MII_H_VOLATILE DEVICE_t* device, uint8_t phy);
 
 /**
- * @fn bool MII_UpdateAdvertisement(volatile DEVICE_t *device, uint8_t phy)
+ * @fn bool MII_UpdateAdvertisement(BCM5719_MII_H_VOLATILE DEVICE_t *device, uint8_t phy)
  *
  * Update the PHY to advertise all capabilities
  *
  * @returns True if updated, false otherwise.
  */
-bool MII_UpdateAdvertisement(volatile DEVICE_t *device, uint8_t phy);
-
-
-#ifdef CXX_SIMULATOR
-#undef volatile
-#endif
+bool MII_UpdateAdvertisement(BCM5719_MII_H_VOLATILE DEVICE_t *device, uint8_t phy);
 
 #endif /* MII_H */

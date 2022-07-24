@@ -1054,11 +1054,11 @@ void Network_InitPort(NetworkPort_t *port, reload_type_t reset_phy)
 
     Network_updatePortState(port);
 
-    uint16_t status_value = MII_readRegister(port->device, phy, (mii_reg_t)REG_MII_STATUS);
+    uint16_t status_value = MII_readRegister(port->device, phy, REG_MII_STATUS);
     stat.r16 = status_value;
     if (stat.bits.ExtendedStatusSupported)
     {
-        uint16_t ext_status_value = MII_readRegister(port->device, phy, (mii_reg_t)REG_MII_IEEE_EXTENDED_STATUS);
+        uint16_t ext_status_value = MII_readRegister(port->device, phy, REG_MII_IEEE_EXTENDED_STATUS);
         ext_stat.r16 = ext_status_value;
     }
 
@@ -1117,14 +1117,14 @@ bool Network_updatePortState(NetworkPort_t *port)
     RegMIIControl_t control;
     bool updated = false;
 
-    control.r16 = MII_readRegister(port->device, phy, (mii_reg_t)REG_MII_CONTROL);
+    control.r16 = MII_readRegister(port->device, phy, REG_MII_CONTROL);
     if (control.bits.RestartAutonegotiation)
     {
         // Link down, negotiation restarting, don't update mac mode.
     }
     else
     {
-        status.r16 = MII_readRegister(port->device, phy, (mii_reg_t)REG_MII_AUXILIARY_STATUS_SUMMARY);
+        status.r16 = MII_readRegister(port->device, phy, REG_MII_AUXILIARY_STATUS_SUMMARY);
         if (control.bits.AutoNegotiationEnable && !status.bits.AutoNegotiationComplete)
         {
             // Link down, attempting to negotiate, don't update mac mode.
@@ -1240,7 +1240,7 @@ bool Network_isLinkUp(NetworkPort_t *port)
     RegMIIControl_t control;
     bool linkup;
 
-    control.r16 = MII_readRegister(port->device, phy, (mii_reg_t)REG_MII_CONTROL);
+    control.r16 = MII_readRegister(port->device, phy, REG_MII_CONTROL);
     if (control.bits.RestartAutonegotiation)
     {
         // Renegotiating, link not yet up, but in progress
@@ -1248,7 +1248,7 @@ bool Network_isLinkUp(NetworkPort_t *port)
     }
     else
     {
-        status.r16 = MII_readRegister(port->device, phy, (mii_reg_t)REG_MII_AUXILIARY_STATUS_SUMMARY);
+        status.r16 = MII_readRegister(port->device, phy, REG_MII_AUXILIARY_STATUS_SUMMARY);
         if (control.bits.AutoNegotiationEnable && !status.bits.AutoNegotiationComplete)
         {
             // Renegotiating, link not yet up, but in progress
