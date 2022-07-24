@@ -77,7 +77,7 @@ This repository depends on a number of external tools
 Due to limitations in the MIPS CPU, this firmware requires a custom compiler to function properly.
 The custom compiler can be built using the following steps:
 ```bash
-git clone https://github.com/meklort/llvm-project.git -b meklort-10.0.1
+git clone https://github.com/meklort/llvm-project.git -b meklort-14.0.6
 cd llvm-project
 mkdir build
 cd build
