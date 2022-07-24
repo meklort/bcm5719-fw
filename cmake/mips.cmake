@@ -66,10 +66,23 @@ function(mips_add_executable target)
     target_link_libraries(${target} ${MIPS_LINK_OPTIONS})
     set_property(TARGET ${target} PROPERTY LINKER_LANGUAGE mips)
 
+    GENERATE_USWID(${target})
+
+    IF(TARGET ${target}-swid)
+        SET(SWID_COMMAND COMMAND cat -i "${target}.bin.tmp" -i "$<TARGET_PROPERTY:${target}-swid,RESOURCE>" -o "${target}.bin")
+        SET(OBJCOPY_OUTPUT ${target}.bin.tmp)
+    ELSE()
+        SET(SWID_COMMAND )
+        SET(OBJCOPY_OUTPUT ${target}.bin)
+    ENDIF()
+
     add_custom_command(
         TARGET ${target} POST_BUILD
-        COMMAND ${COMPILER_BASE}/bin/llvm-objcopy -O binary ${target} ${target}.bin
-        BYPRODUCTS ${target}.bin)
+        COMMAND ${COMPILER_BASE}/bin/llvm-objcopy -O binary ${target} ${OBJCOPY_OUTPUT}
+        ${SWID_COMMAND}
+        BYPRODUCTS ${target}.bin
+        DEPENDS cat
+        VERBATIM)
 
     set_target_properties(${target} PROPERTIES RESOURCE ${CMAKE_CURRENT_BINARY_DIR}/${target}.bin)
 

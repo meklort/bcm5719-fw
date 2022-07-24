@@ -1,0 +1,25 @@
+[uSWID]
+tag-id = @ape_TAG_ID@
+software-name = ape
+software-version = @VERSION_STRING@
+version-scheme = multipartnumeric
+product = ape
+summary = BCM5719 APE Firmware (NC-SI)
+colloquial-version = @GIT_HASH@
+
+[uSWID-Entity:TagCreator]
+name = Evan Lojewski
+regid = meklort.com
+extra-roles = Licensor,Maintainer,SoftwareCreator
+
+[uSWID-Link]
+rel = license
+href = https://spdx.org/licenses/BSD-3-Clause.html
+
+[uSWID-Link:source]
+rel = source
+href = https://github.com/meklort/bcm5719-fw/tree/@GIT_HASH@
+
+[uSWID-Link:@COMPILER_NAME@]
+rel = see-also
+href = swid:@COMPILER_TAG_ID@

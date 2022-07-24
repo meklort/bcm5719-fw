@@ -1,0 +1,25 @@
+[uSWID]
+tag-id = @stage1_TAG_ID@
+software-name = stage1
+software-version = @VERSION_STRING@
+version-scheme = multipartnumeric
+product = stage1
+summary = BCM5719 RX CPU Firmware (stage1)
+colloquial-version = @GIT_HASH@
+
+[uSWID-Entity:TagCreator]
+name = Evan Lojewski
+regid = meklort.com
+extra-roles = Licensor,Maintainer,SoftwareCreator
+
+[uSWID-Link]
+rel = license
+href = https://spdx.org/licenses/BSD-3-Clause.html
+
+[uSWID-Link:source]
+rel = source
+href = https://github.com/meklort/bcm5719-fw/tree/@GIT_HASH@
+
+[uSWID-Link:@COMPILER_NAME@]
+rel = see-also
+href = swid:@COMPILER_TAG_ID@

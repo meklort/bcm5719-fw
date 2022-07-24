@@ -45,8 +45,9 @@
 enable_testing()
 include(GoogleTest)
 
-include(cmake/compiler.cmake)
 include(cmake/version.cmake)
+include(cmake/uswid.cmake)
+include(cmake/compiler.cmake)
 
 cmake_minimum_required(VERSION 3.5.1)
 project(bcm5719-fw VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH})
