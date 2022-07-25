@@ -14,3 +14,6 @@
 [submodule "utils/pefile"]
 	path = utils/pefile
 	url = https://github.com/erocarrera/pefile.git
+[submodule "libs/libusb3380"]
+	path = libs/libusb3380
+	url = https://github.com/xtrx-sdr/libusb3380.git

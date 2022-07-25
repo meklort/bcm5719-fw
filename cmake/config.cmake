@@ -42,8 +42,8 @@
 ### @endcond
 ################################################################################
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Werror -Wall -Oz -ffunction-sections -fdata-sections")
-set(CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -Werror -Wall -Os  -ffunction-sections -fdata-sections")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wno-deprecated -Oz -ffunction-sections -fdata-sections")
+set(CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -Werror -Wall -Wno-deprecated -Os  -ffunction-sections -fdata-sections")
 
 # Remove default libraries to ensure cross compilng works as expected.
 SET(CMAKE_C_IMPLICIT_LINK_LIBRARIES "")

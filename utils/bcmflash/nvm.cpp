@@ -49,18 +49,9 @@
 #include <NVRam.h>
 #include <bcm5719_eeprom.h>
 
-bool bcmflash_nvram_init(const char *name)
+bool bcmflash_nvram_init_hal(const char *path, int function)
 {
-    bool result;
-    char *end_ptr;
-    int function = strtol(name, &end_ptr, 10);
-    if (end_ptr == name)
-    {
-        // Unable to detect, default to function 1.
-        function = 1;
-    }
-
-    result = HAL_init(NULL, function);
+    bool result = HAL_init(path, function);
 
     if (result)
     {
@@ -70,6 +61,24 @@ bool bcmflash_nvram_init(const char *name)
     }
 
     return result;
+}
+
+bool bcmflash_nvram_init_usb(const char *name)
+{
+    return bcmflash_nvram_init_hal("usb:", 0);
+}
+
+bool bcmflash_nvram_init(const char *name)
+{
+    char *end_ptr;
+    int function = strtol(name, &end_ptr, 10);
+    if (end_ptr == name)
+    {
+        // Unable to detect, default to function 1.
+        function = 1;
+    }
+
+    return bcmflash_nvram_init_hal(NULL, function);
 }
 
 size_t bcmflash_nvram_size(const char *name)

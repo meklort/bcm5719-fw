@@ -4,6 +4,7 @@ project(simulator)
 SET(SOURCES
     HAL.cpp     include/HAL.hpp
     pci.cpp
+    usb3380.cpp
 
     pci_config.h
     include/CXXRegister.h)
@@ -79,6 +80,12 @@ format_sources(${SOURCES})
 ADD_ENDIANNESS_DEFINES(${PROJECT_NAME})
 
 include_directories(../libs/NVRam)
+
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/libs/libusb3380/cmake_modules/")
+find_package(libusb-1.0 REQUIRED)
+
+target_link_libraries(${PROJECT_NAME} PRIVATE usb3380)
+target_include_directories(${PROJECT_NAME} PRIVATE ../libs/libusb3380 ${LIBUSB_1_INCLUDE_DIRS})
 
 target_include_directories(${PROJECT_NAME} PUBLIC include)
 target_include_directories(${PROJECT_NAME} PUBLIC ../include)

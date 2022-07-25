@@ -99,6 +99,15 @@ storage_t gStorage[] = {
         .write = bcmflash_nvram_write,
         .size = bcmflash_nvram_size,
     },
+    {
+        .type = "usb",
+        .type_help = "Use the attached physical device (driver must be unloaded).",
+        .name_help = "The USB function to use for register access.",
+        .init = bcmflash_nvram_init_usb,
+        .read = bcmflash_nvram_read,
+        .write = bcmflash_nvram_write,
+        .size = bcmflash_nvram_size,
+    },
 #ifdef CONFIG_HAVE_LINUX_ETHTOOL_H
     {
         .type = "eth",
@@ -581,7 +590,7 @@ int main(int argc, char const *argv[])
     }
 
     // Treat raw NVM access as a special case for now.
-    if ("raw" == options["target_type"])
+    if ("raw" == options["target_type"] || "usb" == options["target_type"])
     {
         if (options.get("recovery"))
         {
