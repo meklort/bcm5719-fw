@@ -108,7 +108,7 @@ void boot_ape_loader()
     // load file.
     for (int i = 0; i < numWords; i++)
     {
-        SHM.write(0x0B00 + i * 4, htobe32(((uint32_t *)apeloader_bin)[i]));
+        SHM.write(0x0B00 + i * 4, htonl(((uint32_t *)apeloader_bin)[i]));
     }
 
     // Mark fw as not read.
@@ -332,6 +332,8 @@ int main(int argc, char const *argv[])
 
     parser.add_option("-u", "--unbind").dest("unbind").set_default("0").action("store_true").help("Attempts to unbind the pci device driver.");
 
+    parser.add_option("--path").dest("device_path").set_default(NULL).metavar("DEVICE_PATH").help("Device Path.");
+
     parser.add_option("-s", "--step").dest("step").set_default("0").action("store_true").help("Single step the CPU.");
 
     parser.add_option("-t", "--stepto").dest("stepto").metavar("ADDR").help("Single step the CPU.");
@@ -382,9 +384,17 @@ int main(int argc, char const *argv[])
         HAL_unbindPCI(NULL, options.get("function"));
     }
 
-    if (!HAL_init(NULL, options.get("function")))
+    if (!HAL_init(options.get("device_path"), options.get("function")))
     {
-        cerr << "Unable to locate pci device with function " << (int)options.get("function") << endl;
+        const char *path = options.get("device_path");
+        if (path)
+        {
+            cerr << "Unable to locate pci device at " << path << endl;
+        }
+        else
+        {
+            cerr << "Unable to locate pci device with function " << (int)options.get("function") << endl;
+        }
         exit(-1);
     }
 

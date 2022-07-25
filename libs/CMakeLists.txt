@@ -61,3 +61,5 @@ add_subdirectory(printf)
 
 add_subdirectory(Compress)
 add_subdirectory(elfio)
+
+add_subdirectory(libusb3380)

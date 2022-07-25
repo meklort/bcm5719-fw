@@ -55,6 +55,7 @@ typedef struct {
     uint32_t (*write)(uint32_t val, uint32_t offset, void *args);
 } hal_config_t;
 
+const hal_config_t *HAL_probeUSB(const char* path, int wanted_function = 0);
 const hal_config_t *HAL_probePCI(const char* path, int wanted_function = 0);
 bool HAL_unbindPCI(const char* path, int wanted_function = 0);
 

@@ -128,7 +128,11 @@ static uint32_t loader_write_mem(uint32_t val, uint32_t offset, void *args)
 
 bool HAL_init(const char *path, int wanted_function)
 {
-    const hal_config_t *config = HAL_probePCI(path, wanted_function);
+    const hal_config_t *config = HAL_probeUSB(path, wanted_function);
+    if (!config)
+    {
+        config = HAL_probePCI(path, wanted_function);
+    }
 
     if (!config)
     {

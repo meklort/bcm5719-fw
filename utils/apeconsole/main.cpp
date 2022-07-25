@@ -82,12 +82,22 @@ int main(int argc, char const *argv[])
         .metavar("FUNCTION")
         .help("Read registers from the specified pci function.");
 
+    parser.add_option("--path").dest("device_path").set_default(NULL).metavar("DEVICE_PATH").help("Device Path.");
+
     optparse::Values options = parser.parse_args(argc, argv);
     vector<string> args = parser.args();
 
-    if (!HAL_init(NULL, options.get("function")))
+    if (!HAL_init(options.get("device_path"), options.get("function")))
     {
-        cerr << "Unable to locate pci device with function " << options["function"] << endl;
+        const char *path = options.get("device_path");
+        if (path)
+        {
+            cerr << "Unable to locate pci device at " << path << endl;
+        }
+        else
+        {
+            cerr << "Unable to locate pci device with function " << (int)options.get("function") << endl;
+        }
         exit(-1);
     }
 
