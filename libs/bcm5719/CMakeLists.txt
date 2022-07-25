@@ -2,7 +2,7 @@
 ###
 ### @file       libs/bcm5719/CMakeLists.txt
 ###
-### @project    
+### @project
 ###
 ### @brief      bcm5719 hardware library (regiters)
 ###
@@ -44,6 +44,6 @@
 
 project(bcm5719 ASM)
 
-mips_add_library(${PROJECT_NAME} STATIC bcm5719_sym.s)
+mips_add_library(${PROJECT_NAME}-mips STATIC bcm5719_sym.s)
 
 arm_add_library(${PROJECT_NAME}-arm STATIC APE_sym.s)
