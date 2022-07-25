@@ -52,13 +52,13 @@ target_include_directories(${PROJECT_NAME} PUBLIC include)
 
 # MIPS Library
 mips_add_library(${PROJECT_NAME}-mips STATIC mii.c)
-target_link_libraries(${PROJECT_NAME}-mips PRIVATE Timer)
+target_link_libraries(${PROJECT_NAME}-mips PRIVATE Timer-mips)
 target_include_directories(${PROJECT_NAME}-mips PUBLIC ../../include)
 target_include_directories(${PROJECT_NAME}-mips PUBLIC include)
 
 # ARM Library
 arm_add_library(${PROJECT_NAME}-arm STATIC mii.c)
-target_link_libraries(${PROJECT_NAME}-arm PRIVATE Timer)
+target_link_libraries(${PROJECT_NAME}-arm PRIVATE Timer-arm)
 target_include_directories(${PROJECT_NAME}-arm PUBLIC ../../include)
 target_include_directories(${PROJECT_NAME}-arm PUBLIC include)
 

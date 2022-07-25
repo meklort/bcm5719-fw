@@ -65,7 +65,7 @@ function(stage1_firmware PORT)
         --defsym=VERSION_PATCH=${VERSION_PATCH})
 
     target_link_libraries(${TARGET} NVRam-mips MII-mips APE-mips Timer-mips printf-mips)
-    target_link_libraries(${TARGET} bcm5719)
+    target_link_libraries(${TARGET} bcm5719-mips)
     target_compile_options(${TARGET} PRIVATE -nodefaultlibs)
     target_include_directories(${TARGET} PUBLIC ../libs/VPD/include .)
     target_compile_definitions(${TARGET} PRIVATE NETWORK_PORT=${PORT})
