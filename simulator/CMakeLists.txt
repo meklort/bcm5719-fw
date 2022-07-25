@@ -4,6 +4,7 @@ project(simulator)
 SET(SOURCES
     HAL.cpp     include/HAL.hpp
     pci.cpp
+    usb3380.cpp
 
     pci_config.h
     include/CXXRegister.h)
@@ -78,6 +79,9 @@ format_sources(${SOURCES})
 
 
 include_directories(../libs/NVRam)
+
+target_link_libraries(${PROJECT_NAME} PRIVATE usb3380)
+target_include_directories(${PROJECT_NAME} PRIVATE ../libs/libusb3380)
 
 target_include_directories(${PROJECT_NAME} PUBLIC include)
 target_include_directories(${PROJECT_NAME} PUBLIC ../include)

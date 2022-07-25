@@ -97,6 +97,14 @@ storage_t gStorage[] = {
         .write = bcmflash_nvram_write,
         .size = bcmflash_nvram_size,
     },
+    {
+        .type = "usb",
+        .type_help = "Use the attached physical device (driver must be unloaded).",
+        .name_help = "The PCI function to use for register access.",
+        .read = bcmflash_nvram_read,
+        .write = bcmflash_nvram_write,
+        .size = bcmflash_nvram_size,
+    },
 #ifdef CONFIG_HAVE_LINUX_ETHTOOL_H
     {
         .type = "eth",
@@ -563,9 +571,19 @@ int main(int argc, char const *argv[])
     target_name = options["target_name"].c_str();
 
     // Treat raw NVM access as a special case for now.
-    if ("raw" == options["target_type"])
+    if ("raw" == options["target_type"] || "usb" == options["target_type"])
     {
-        if (!bcmflash_nvram_init(target_name))
+        bool status;
+        if ("usb" == options["target_type"])
+        {
+            status = bcmflash_nvram_init_usb(target_name);
+        }
+        else
+        {
+            status = bcmflash_nvram_init(target_name);
+
+        }
+        if (!status)
         {
             cerr << "Unable to open '" << options["target_type"] << ":" << target_name << "'." << endl;
             exit(-1);

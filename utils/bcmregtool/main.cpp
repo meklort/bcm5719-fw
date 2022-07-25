@@ -331,13 +331,15 @@ int main(int argc, char const *argv[])
 
     parser.add_option("-u", "--unbind").dest("unbind").set_default("0").action("store_true").help("Attempts to unbind the pci device driver.");
 
+    parser.add_option("--path").dest("device_path").set_default(NULL).metavar("DEVICE_PATH").help("Device Path.");
+
     parser.add_option("-s", "--step").dest("step").set_default("0").action("store_true").help("Single step the CPU.");
 
     parser.add_option("-t", "--stepto").dest("stepto").metavar("ADDR").help("Single step the CPU.");
 
     parser.add_option("--halt").dest("halt").set_default("0").action("store_true").help("Halt the CPU.");
 
-    parser.add_option("-pc", "--pc").dest("pc").help("Force the PC to the specified value.");
+    parser.add_option("--pc").dest("pc").help("Force the PC to the specified value.");
 
     parser.add_option("-c", "--context").dest("context").set_default("0").action("store_true").help("Print the current CPU context.");
 
@@ -381,9 +383,17 @@ int main(int argc, char const *argv[])
         HAL_unbindPCI(NULL, options.get("function"));
     }
 
-    if (!HAL_init(NULL, options.get("function")))
+    if (!HAL_init(options.get("device_path"), options.get("function")))
     {
-        cerr << "Unable to locate pci device with function " << (int)options.get("function") << endl;
+        const char *path = options.get("device_path");
+        if (path)
+        {
+            cerr << "Unable to locate pci device at " << path << endl;
+        }
+        else
+        {
+            cerr << "Unable to locate pci device with function " << (int)options.get("function") << endl;
+        }
         exit(-1);
     }
 

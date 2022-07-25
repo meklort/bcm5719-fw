@@ -49,6 +49,11 @@
 #include <NVRam.h>
 #include <bcm5719_eeprom.h>
 
+bool bcmflash_nvram_init_usb(const char *name)
+{
+    return HAL_init("usb:", 0);
+}
+
 bool bcmflash_nvram_init(const char *name)
 {
     char *end_ptr;

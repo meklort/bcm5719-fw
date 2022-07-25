@@ -8,3 +8,6 @@
 [submodule "utils/python-uswid"]
 	path = utils/python-uswid
 	url = https://github.com/hughsie/python-uswid.git
+[submodule "libs/libusb3380"]
+	path = libs/libusb3380
+	url = https://github.com/xtrx-sdr/libusb3380.git
