@@ -52,7 +52,7 @@
 #include <types.h>
 
 #ifdef CXX_SIMULATOR /* Compiling c++ simulator code - uses register wrappers */
-void init_APE_APE_sim(void* base);
+void init_APE_APE_sim(void* base, uint32_t (*read)(uint32_t val, uint32_t offset, void *args), uint32_t (*write)(uint32_t val, uint32_t offset, void *args));
 void init_APE_APE(void);
 
 #include <CXXRegister.h>

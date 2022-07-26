@@ -78,6 +78,12 @@
 #define RUNNING_ON_VALGRIND 0
 #endif
 
+#ifdef __ppc64__
+#define BARRIER()    do { asm volatile ("sync 0\neieio\n" ::: "memory"); } while(0)
+#else
+#define BARRIER()    do { asm volatile ("" ::: "memory"); } while(0)
+#endif
+
 using namespace std;
 
 #define DEVICE_ROOT     "/sys/bus/pci/devices/"
@@ -217,6 +223,54 @@ static void locate_pci_path(int wanted_function, string &pci_path)
     closedir(pDir);
 }
 
+static uint32_t loader_read_mem(uint32_t val, uint32_t offset, void *args)
+{
+    uint32_t addr = (uint32_t)((uint64_t)args);
+    addr += offset;
+
+    SHM.LoaderArg0.r32 = addr;
+    SHM.LoaderCommand.bits.Command = SHM_LOADER_COMMAND_COMMAND_READ_MEM;
+
+    // Wait for command to be handled.
+    while(0 != SHM.LoaderCommand.bits.Command);
+
+    return (uint32_t)SHM.LoaderArg0.r32;
+}
+
+static uint32_t loader_write_mem(uint32_t val, uint32_t offset, void *args)
+{
+    uint32_t addr = (uint32_t)((uint64_t)args);
+    addr += offset;
+
+    SHM.LoaderArg0.r32 = addr;
+    SHM.LoaderArg1.r32 = val;
+    SHM.LoaderCommand.bits.Command = SHM_LOADER_COMMAND_COMMAND_WRITE_MEM;
+
+    // Wait for command to be handled.
+    while(0 != SHM.LoaderCommand.bits.Command);
+
+    return val;
+}
+
+static uint32_t read_from_ram(uint32_t val, uint32_t offset, void *args)
+{
+    uint8_t *base = (uint8_t *)args;
+    base += offset;
+
+    BARRIER();
+    return *(uint32_t *)base;
+}
+
+static uint32_t write_to_ram(uint32_t val, uint32_t offset, void *args)
+{
+    uint8_t *base = (uint8_t *)args;
+    base += offset;
+
+    BARRIER();
+    *(uint32_t *)base = val;
+    BARRIER();
+    return val;
+}
 
 bool initHAL(const char *pci_path, int wanted_function)
 {
@@ -326,34 +380,34 @@ bool initHAL(const char *pci_path, int wanted_function)
     uint8_t *APEBase = gAPEBase = (uint8_t *)bar[2];
 
     init_bcm5719_DEVICE();
-    init_bcm5719_DEVICE_sim(DEVICEBase);
+    init_bcm5719_DEVICE_sim(DEVICEBase, read_from_ram, write_to_ram);
 
     init_bcm5719_GEN();
-    init_bcm5719_GEN_sim(&DEVICEBase[0x8000 + 0xB50]); // 0x8000 for windowed area
+    init_bcm5719_GEN_sim(&DEVICEBase[0x8000 + 0xB50], read_from_ram, write_to_ram); // 0x8000 for windowed area
 
     init_bcm5719_NVM();
-    init_bcm5719_NVM_sim(&DEVICEBase[0x7000]);
+    init_bcm5719_NVM_sim(&DEVICEBase[0x7000], read_from_ram, write_to_ram);
 
     init_bcm5719_APE();
-    init_bcm5719_APE_sim(APEBase);
+    init_bcm5719_APE_sim(APEBase, read_from_ram, write_to_ram);
 
     init_bcm5719_APE_PERI();
-    init_bcm5719_APE_PERI_sim(&APEBase[0x8000]);
+    init_bcm5719_APE_PERI_sim(&APEBase[0x8000], read_from_ram, write_to_ram);
 
     init_bcm5719_SHM();
-    init_bcm5719_SHM_sim(&APEBase[0x4000]);
+    init_bcm5719_SHM_sim(&APEBase[0x4000], read_from_ram, write_to_ram);
 
     init_bcm5719_SHM_CHANNEL0();
-    init_bcm5719_SHM_CHANNEL0_sim(&APEBase[0x4900]);
+    init_bcm5719_SHM_CHANNEL0_sim(&APEBase[0x4900], read_from_ram, write_to_ram);
     init_bcm5719_SHM_CHANNEL1();
-    init_bcm5719_SHM_CHANNEL1_sim(&APEBase[0x4a00]);
+    init_bcm5719_SHM_CHANNEL1_sim(&APEBase[0x4a00], read_from_ram, write_to_ram);
     init_bcm5719_SHM_CHANNEL2();
-    init_bcm5719_SHM_CHANNEL2_sim(&APEBase[0x4b00]);
+    init_bcm5719_SHM_CHANNEL2_sim(&APEBase[0x4b00], read_from_ram, write_to_ram);
     init_bcm5719_SHM_CHANNEL3();
-    init_bcm5719_SHM_CHANNEL3_sim(&APEBase[0x4c00]);
+    init_bcm5719_SHM_CHANNEL3_sim(&APEBase[0x4c00], read_from_ram, write_to_ram);
 
     init_APE_NVIC();
-    init_APE_NVIC_sim(0);
+    init_APE_NVIC_sim(0, loader_read_mem, loader_write_mem);
 
     return true;
 }

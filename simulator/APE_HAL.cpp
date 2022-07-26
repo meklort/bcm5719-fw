@@ -60,54 +60,84 @@
 #include <APE_DEVICE1.h>
 #include <APE_DEVICE2.h>
 #include <APE_DEVICE3.h>
+#include <bcm5719_SHM.h>
+
+static uint32_t loader_read_mem(uint32_t val, uint32_t offset, void *args)
+{
+    uint32_t addr = (uint32_t)((uint64_t)args);
+    addr += offset;
+
+    SHM.LoaderArg0.r32 = addr;
+    SHM.LoaderCommand.bits.Command = SHM_LOADER_COMMAND_COMMAND_READ_MEM;
+
+    // Wait for command to be handled.
+    while(0 != SHM.LoaderCommand.bits.Command);
+
+    return (uint32_t)SHM.LoaderArg0.r32;
+}
+
+static uint32_t loader_write_mem(uint32_t val, uint32_t offset, void *args)
+{
+    uint32_t addr = (uint32_t)((uint64_t)args);
+    addr += offset;
+
+    SHM.LoaderArg0.r32 = addr;
+    SHM.LoaderArg1.r32 = val;
+    SHM.LoaderCommand.bits.Command = SHM_LOADER_COMMAND_COMMAND_WRITE_MEM;
+
+    // Wait for command to be handled.
+    while(0 != SHM.LoaderCommand.bits.Command);
+
+    return val;
+}
 
 void initAPEHAL(void)
 {
     // init_APE_DEVICE0();
     // init_APE_DEVICE0_sim(NULL);
     init_APE_DEVICE1();
-    init_APE_DEVICE1_sim(NULL);
+    init_APE_DEVICE1_sim(NULL, loader_read_mem, loader_write_mem);
     init_APE_DEVICE2();
-    init_APE_DEVICE2_sim(NULL);
+    init_APE_DEVICE2_sim(NULL, loader_read_mem, loader_write_mem);
     init_APE_DEVICE3();
-    init_APE_DEVICE3_sim(NULL);
+    init_APE_DEVICE3_sim(NULL, loader_read_mem, loader_write_mem);
 
     init_APE_FILTERS0();
-    init_APE_FILTERS0_sim(NULL);
+    init_APE_FILTERS0_sim(NULL, loader_read_mem, loader_write_mem);
 
     init_APE_FILTERS1();
-    init_APE_FILTERS1_sim(NULL);
+    init_APE_FILTERS1_sim(NULL, loader_read_mem, loader_write_mem);
 
     init_APE_FILTERS2();
-    init_APE_FILTERS2_sim(NULL);
+    init_APE_FILTERS2_sim(NULL, loader_read_mem, loader_write_mem);
 
     init_APE_FILTERS3();
-    init_APE_FILTERS3_sim(NULL);
+    init_APE_FILTERS3_sim(NULL, loader_read_mem, loader_write_mem);
 
     init_APE_NVIC();
-    init_APE_NVIC_sim(NULL);
+    init_APE_NVIC_sim(NULL, loader_read_mem, loader_write_mem);
 
     init_APE_TX_PORT0();
-    init_APE_TX_PORT0_sim(NULL);
+    init_APE_TX_PORT0_sim(NULL, loader_read_mem, loader_write_mem);
 
     init_APE_RX_PORT0();
-    init_APE_RX_PORT0_sim(NULL);
+    init_APE_RX_PORT0_sim(NULL, loader_read_mem, loader_write_mem);
 
     init_APE_TX_PORT1();
-    init_APE_TX_PORT1_sim(NULL);
+    init_APE_TX_PORT1_sim(NULL, loader_read_mem, loader_write_mem);
 
     init_APE_RX_PORT1();
-    init_APE_RX_PORT1_sim(NULL);
+    init_APE_RX_PORT1_sim(NULL, loader_read_mem, loader_write_mem);
 
     init_APE_TX_PORT2();
-    init_APE_TX_PORT2_sim(NULL);
+    init_APE_TX_PORT2_sim(NULL, loader_read_mem, loader_write_mem);
 
     init_APE_RX_PORT2();
-    init_APE_RX_PORT2_sim(NULL);
+    init_APE_RX_PORT2_sim(NULL, loader_read_mem, loader_write_mem);
 
     init_APE_TX_PORT3();
-    init_APE_TX_PORT3_sim(NULL);
+    init_APE_TX_PORT3_sim(NULL, loader_read_mem, loader_write_mem);
 
     init_APE_RX_PORT3();
-    init_APE_RX_PORT3_sim(NULL);
+    init_APE_RX_PORT3_sim(NULL, loader_read_mem, loader_write_mem);
 }

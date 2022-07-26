@@ -53,7 +53,7 @@
 #include "bcm5719_SHM_CHANNEL0.h"
 
 #ifdef CXX_SIMULATOR /* Compiling c++ simulator code - uses register wrappers */
-void init_bcm5719_SHM_CHANNEL1_sim(void* base);
+void init_bcm5719_SHM_CHANNEL1_sim(void* base, uint32_t (*read)(uint32_t val, uint32_t offset, void *args), uint32_t (*write)(uint32_t val, uint32_t offset, void *args));
 void init_bcm5719_SHM_CHANNEL1(void);
 
 #include <CXXRegister.h>

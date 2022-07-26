@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2018, Evan Lojewski
+/// @copyright Copyright (c) 2022, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -47,52 +47,25 @@
 #include <bcm5719_SHM.h>
 #include <APE_RX_PORT1.h>
 
-static uint32_t loader_read_mem(uint32_t val, uint32_t offset, void *args)
-{
-    uint32_t addr = (uint32_t)((uint64_t)args);
-    addr += offset;
-
-    SHM.LoaderArg0.r32 = addr;
-    SHM.LoaderCommand.bits.Command = SHM_LOADER_COMMAND_COMMAND_READ_MEM;
-
-    // Wait for command to be handled.
-    while(0 != SHM.LoaderCommand.bits.Command);
-
-    return (uint32_t)SHM.LoaderArg0.r32;
-}
-
-static uint32_t loader_write_mem(uint32_t val, uint32_t offset, void *args)
-{
-    uint32_t addr = (uint32_t)((uint64_t)args);
-    addr += offset;
-
-    SHM.LoaderArg0.r32 = addr;
-    SHM.LoaderArg1.r32 = val;
-    SHM.LoaderCommand.bits.Command = SHM_LOADER_COMMAND_COMMAND_WRITE_MEM;
-
-    // Wait for command to be handled.
-    while(0 != SHM.LoaderCommand.bits.Command);
-
-    return val;
-}
-
-void init_APE_RX_PORT1_sim(void *arg0)
+void init_APE_RX_PORT1_sim(void *arg0,
+    uint32_t (*read)(uint32_t val, uint32_t offset, void *args),
+    uint32_t (*write)(uint32_t val, uint32_t offset, void *args))
 {
     (void)arg0; // unused
     void* base = (void*)0xa0004000;
 
-    RX_PORT1.mIndexReadCallback = loader_read_mem;
+    RX_PORT1.mIndexReadCallback = read;
     RX_PORT1.mIndexReadCallbackArgs = base;
 
-    RX_PORT1.mIndexWriteCallback = loader_write_mem;
+    RX_PORT1.mIndexWriteCallback = write;
     RX_PORT1.mIndexWriteCallbackArgs = base;
 
     /** @brief Component Registers for @ref RX_PORT1. */
     /** @brief Bitmap for @ref RX_PORT1_t.In. */
     for(int i = 0; i < 4096; i++)
     {
-        RX_PORT1.In[i].r32.installReadCallback(loader_read_mem, (uint8_t *)base);
-        RX_PORT1.In[i].r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+        RX_PORT1.In[i].r32.installReadCallback(read, (uint8_t *)base);
+        RX_PORT1.In[i].r32.installWriteCallback(write, (uint8_t *)base);
     }
 
 

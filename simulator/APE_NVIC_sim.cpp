@@ -10,7 +10,7 @@
 ///
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// @copyright Copyright (c) 2020, Evan Lojewski
+/// @copyright Copyright (c) 2022, Evan Lojewski
 /// @cond
 ///
 /// All rights reserved.
@@ -47,162 +47,135 @@
 #include <bcm5719_SHM.h>
 #include <APE_NVIC.h>
 
-static uint32_t loader_read_mem(uint32_t val, uint32_t offset, void *args)
-{
-    uint32_t addr = (uint32_t)((uint64_t)args);
-    addr += offset;
-
-    SHM.LoaderArg0.r32 = addr;
-    SHM.LoaderCommand.bits.Command = SHM_LOADER_COMMAND_COMMAND_READ_MEM;
-
-    // Wait for command to be handled.
-    while(0 != SHM.LoaderCommand.bits.Command);
-
-    return (uint32_t)SHM.LoaderArg0.r32;
-}
-
-static uint32_t loader_write_mem(uint32_t val, uint32_t offset, void *args)
-{
-    uint32_t addr = (uint32_t)((uint64_t)args);
-    addr += offset;
-
-    SHM.LoaderArg0.r32 = addr;
-    SHM.LoaderArg1.r32 = val;
-    SHM.LoaderCommand.bits.Command = SHM_LOADER_COMMAND_COMMAND_WRITE_MEM;
-
-    // Wait for command to be handled.
-    while(0 != SHM.LoaderCommand.bits.Command);
-
-    return val;
-}
-
-void init_APE_NVIC_sim(void *arg0)
+void init_APE_NVIC_sim(void *arg0,
+    uint32_t (*read)(uint32_t val, uint32_t offset, void *args),
+    uint32_t (*write)(uint32_t val, uint32_t offset, void *args))
 {
     (void)arg0; // unused
     void* base = (void*)0xe000e000;
 
-    NVIC.mIndexReadCallback = loader_read_mem;
+    NVIC.mIndexReadCallback = read;
     NVIC.mIndexReadCallbackArgs = base;
 
-    NVIC.mIndexWriteCallback = loader_write_mem;
+    NVIC.mIndexWriteCallback = write;
     NVIC.mIndexWriteCallbackArgs = base;
 
     /** @brief Component Registers for @ref NVIC. */
     /** @brief Bitmap for @ref NVIC_t.InterruptControlType. */
-    NVIC.InterruptControlType.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
-    NVIC.InterruptControlType.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+    NVIC.InterruptControlType.r32.installReadCallback(read, (uint8_t *)base);
+    NVIC.InterruptControlType.r32.installWriteCallback(write, (uint8_t *)base);
 
     /** @brief Bitmap for @ref NVIC_t.SystickControlAndStatus. */
-    NVIC.SystickControlAndStatus.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
-    NVIC.SystickControlAndStatus.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+    NVIC.SystickControlAndStatus.r32.installReadCallback(read, (uint8_t *)base);
+    NVIC.SystickControlAndStatus.r32.installWriteCallback(write, (uint8_t *)base);
 
     /** @brief Bitmap for @ref NVIC_t.SystickReloadValue. */
-    NVIC.SystickReloadValue.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
-    NVIC.SystickReloadValue.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+    NVIC.SystickReloadValue.r32.installReadCallback(read, (uint8_t *)base);
+    NVIC.SystickReloadValue.r32.installWriteCallback(write, (uint8_t *)base);
 
     /** @brief Bitmap for @ref NVIC_t.SystickCurrentValue. */
-    NVIC.SystickCurrentValue.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
-    NVIC.SystickCurrentValue.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+    NVIC.SystickCurrentValue.r32.installReadCallback(read, (uint8_t *)base);
+    NVIC.SystickCurrentValue.r32.installWriteCallback(write, (uint8_t *)base);
 
     /** @brief Bitmap for @ref NVIC_t.SystickCalibrationValue. */
-    NVIC.SystickCalibrationValue.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
-    NVIC.SystickCalibrationValue.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+    NVIC.SystickCalibrationValue.r32.installReadCallback(read, (uint8_t *)base);
+    NVIC.SystickCalibrationValue.r32.installWriteCallback(write, (uint8_t *)base);
 
     /** @brief Bitmap for @ref NVIC_t.InterruptSetEnable. */
-    NVIC.InterruptSetEnable.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
-    NVIC.InterruptSetEnable.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+    NVIC.InterruptSetEnable.r32.installReadCallback(read, (uint8_t *)base);
+    NVIC.InterruptSetEnable.r32.installWriteCallback(write, (uint8_t *)base);
 
     /** @brief Bitmap for @ref NVIC_t.InterruptClearEnable. */
-    NVIC.InterruptClearEnable.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
-    NVIC.InterruptClearEnable.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+    NVIC.InterruptClearEnable.r32.installReadCallback(read, (uint8_t *)base);
+    NVIC.InterruptClearEnable.r32.installWriteCallback(write, (uint8_t *)base);
 
     /** @brief Bitmap for @ref NVIC_t.InterruptSetPending. */
-    NVIC.InterruptSetPending.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
-    NVIC.InterruptSetPending.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+    NVIC.InterruptSetPending.r32.installReadCallback(read, (uint8_t *)base);
+    NVIC.InterruptSetPending.r32.installWriteCallback(write, (uint8_t *)base);
 
     /** @brief Bitmap for @ref NVIC_t.InterruptClearPending. */
-    NVIC.InterruptClearPending.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
-    NVIC.InterruptClearPending.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+    NVIC.InterruptClearPending.r32.installReadCallback(read, (uint8_t *)base);
+    NVIC.InterruptClearPending.r32.installWriteCallback(write, (uint8_t *)base);
 
     /** @brief Bitmap for @ref NVIC_t.ActiveBit. */
-    NVIC.ActiveBit.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
-    NVIC.ActiveBit.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+    NVIC.ActiveBit.r32.installReadCallback(read, (uint8_t *)base);
+    NVIC.ActiveBit.r32.installWriteCallback(write, (uint8_t *)base);
 
     /** @brief Bitmap for @ref NVIC_t.InterruptPriority0. */
-    NVIC.InterruptPriority0.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
-    NVIC.InterruptPriority0.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+    NVIC.InterruptPriority0.r32.installReadCallback(read, (uint8_t *)base);
+    NVIC.InterruptPriority0.r32.installWriteCallback(write, (uint8_t *)base);
 
     /** @brief Bitmap for @ref NVIC_t.InterruptPriority1. */
-    NVIC.InterruptPriority1.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
-    NVIC.InterruptPriority1.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+    NVIC.InterruptPriority1.r32.installReadCallback(read, (uint8_t *)base);
+    NVIC.InterruptPriority1.r32.installWriteCallback(write, (uint8_t *)base);
 
     /** @brief Bitmap for @ref NVIC_t.CpuId. */
-    NVIC.CpuId.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
-    NVIC.CpuId.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+    NVIC.CpuId.r32.installReadCallback(read, (uint8_t *)base);
+    NVIC.CpuId.r32.installWriteCallback(write, (uint8_t *)base);
 
     /** @brief Bitmap for @ref NVIC_t.InterruptControlState. */
-    NVIC.InterruptControlState.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
-    NVIC.InterruptControlState.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+    NVIC.InterruptControlState.r32.installReadCallback(read, (uint8_t *)base);
+    NVIC.InterruptControlState.r32.installWriteCallback(write, (uint8_t *)base);
 
     /** @brief Bitmap for @ref NVIC_t.VectorTableOffset. */
-    NVIC.VectorTableOffset.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
-    NVIC.VectorTableOffset.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+    NVIC.VectorTableOffset.r32.installReadCallback(read, (uint8_t *)base);
+    NVIC.VectorTableOffset.r32.installWriteCallback(write, (uint8_t *)base);
 
     /** @brief Bitmap for @ref NVIC_t.ApplicationInterruptAndResetControl. */
-    NVIC.ApplicationInterruptAndResetControl.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
-    NVIC.ApplicationInterruptAndResetControl.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+    NVIC.ApplicationInterruptAndResetControl.r32.installReadCallback(read, (uint8_t *)base);
+    NVIC.ApplicationInterruptAndResetControl.r32.installWriteCallback(write, (uint8_t *)base);
 
     /** @brief Bitmap for @ref NVIC_t.SystemControl. */
-    NVIC.SystemControl.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
-    NVIC.SystemControl.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+    NVIC.SystemControl.r32.installReadCallback(read, (uint8_t *)base);
+    NVIC.SystemControl.r32.installWriteCallback(write, (uint8_t *)base);
 
     /** @brief Bitmap for @ref NVIC_t.ConfigurationControl. */
-    NVIC.ConfigurationControl.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
-    NVIC.ConfigurationControl.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+    NVIC.ConfigurationControl.r32.installReadCallback(read, (uint8_t *)base);
+    NVIC.ConfigurationControl.r32.installWriteCallback(write, (uint8_t *)base);
 
     /** @brief Bitmap for @ref NVIC_t.SystemHandlerPriority4. */
-    NVIC.SystemHandlerPriority4.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
-    NVIC.SystemHandlerPriority4.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+    NVIC.SystemHandlerPriority4.r32.installReadCallback(read, (uint8_t *)base);
+    NVIC.SystemHandlerPriority4.r32.installWriteCallback(write, (uint8_t *)base);
 
     /** @brief Bitmap for @ref NVIC_t.SystemHandlerPriority8. */
-    NVIC.SystemHandlerPriority8.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
-    NVIC.SystemHandlerPriority8.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+    NVIC.SystemHandlerPriority8.r32.installReadCallback(read, (uint8_t *)base);
+    NVIC.SystemHandlerPriority8.r32.installWriteCallback(write, (uint8_t *)base);
 
     /** @brief Bitmap for @ref NVIC_t.SystemHandlerPriority12. */
-    NVIC.SystemHandlerPriority12.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
-    NVIC.SystemHandlerPriority12.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+    NVIC.SystemHandlerPriority12.r32.installReadCallback(read, (uint8_t *)base);
+    NVIC.SystemHandlerPriority12.r32.installWriteCallback(write, (uint8_t *)base);
 
     /** @brief Bitmap for @ref NVIC_t.SystemHandlerControlAndState. */
-    NVIC.SystemHandlerControlAndState.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
-    NVIC.SystemHandlerControlAndState.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+    NVIC.SystemHandlerControlAndState.r32.installReadCallback(read, (uint8_t *)base);
+    NVIC.SystemHandlerControlAndState.r32.installWriteCallback(write, (uint8_t *)base);
 
     /** @brief Bitmap for @ref NVIC_t.FaultStatus. */
-    NVIC.FaultStatus.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
-    NVIC.FaultStatus.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+    NVIC.FaultStatus.r32.installReadCallback(read, (uint8_t *)base);
+    NVIC.FaultStatus.r32.installWriteCallback(write, (uint8_t *)base);
 
     /** @brief Bitmap for @ref NVIC_t.HardFaultStatus. */
-    NVIC.HardFaultStatus.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
-    NVIC.HardFaultStatus.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+    NVIC.HardFaultStatus.r32.installReadCallback(read, (uint8_t *)base);
+    NVIC.HardFaultStatus.r32.installWriteCallback(write, (uint8_t *)base);
 
     /** @brief Bitmap for @ref NVIC_t.DebugFaultStatus. */
-    NVIC.DebugFaultStatus.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
-    NVIC.DebugFaultStatus.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+    NVIC.DebugFaultStatus.r32.installReadCallback(read, (uint8_t *)base);
+    NVIC.DebugFaultStatus.r32.installWriteCallback(write, (uint8_t *)base);
 
     /** @brief Bitmap for @ref NVIC_t.MemoryManageFaultAddress. */
-    NVIC.MemoryManageFaultAddress.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
-    NVIC.MemoryManageFaultAddress.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+    NVIC.MemoryManageFaultAddress.r32.installReadCallback(read, (uint8_t *)base);
+    NVIC.MemoryManageFaultAddress.r32.installWriteCallback(write, (uint8_t *)base);
 
     /** @brief Bitmap for @ref NVIC_t.BusFaultAddress. */
-    NVIC.BusFaultAddress.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
-    NVIC.BusFaultAddress.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+    NVIC.BusFaultAddress.r32.installReadCallback(read, (uint8_t *)base);
+    NVIC.BusFaultAddress.r32.installWriteCallback(write, (uint8_t *)base);
 
     /** @brief Bitmap for @ref NVIC_t.AuxiliaryFaultAddress. */
-    NVIC.AuxiliaryFaultAddress.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
-    NVIC.AuxiliaryFaultAddress.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+    NVIC.AuxiliaryFaultAddress.r32.installReadCallback(read, (uint8_t *)base);
+    NVIC.AuxiliaryFaultAddress.r32.installWriteCallback(write, (uint8_t *)base);
 
     /** @brief Bitmap for @ref NVIC_t.SoftwareTriggerInterrupt. */
-    NVIC.SoftwareTriggerInterrupt.r32.installReadCallback(loader_read_mem, (uint8_t *)base);
-    NVIC.SoftwareTriggerInterrupt.r32.installWriteCallback(loader_write_mem, (uint8_t *)base);
+    NVIC.SoftwareTriggerInterrupt.r32.installReadCallback(read, (uint8_t *)base);
+    NVIC.SoftwareTriggerInterrupt.r32.installWriteCallback(write, (uint8_t *)base);
 
 
 }
