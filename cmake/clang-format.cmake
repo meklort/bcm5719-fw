@@ -2,7 +2,7 @@
 ###
 ### @file       clang-format.cmake
 ###
-### @project    
+### @project
 ###
 ### @brief      clang-format cmake support
 ###
@@ -51,7 +51,7 @@ IF(CMAKE_SCRIPT_MODE_FILE)
         SET(ERROR_FILES )
         FOREACH(FILE ${FILES})
             MESSAGE("Checking ${FILE}")
-            EXECUTE_PROCESS(COMMAND ${CLANG_FORMAT} -style=file --output-replacements-xml "${FILE}" 
+            EXECUTE_PROCESS(COMMAND ${CLANG_FORMAT} -style=file --output-replacements-xml "${FILE}"
                             OUTPUT_VARIABLE OUT RESULT_VARIABLE RES)
             STRING(REGEX MATCH "<replacement " MATCHES ${OUT})
             IF(MATCHES)
@@ -86,22 +86,24 @@ ELSE()
 
     FUNCTION(format_sources)
         MESSAGE("Formatting sources ${ARGN}")
-
-        SET_PROPERTY(TARGET clang-format APPEND PROPERTY FORMAT_SOURCES ${ARGN})
-    ENDFUNCTION(format_sources)
-
-    FUNCTION(format_target_sources target)
         SET(paths )
-        GET_TARGET_PROPERTY(sources ${target} SOURCES)
-        FOREACH(source ${sources})
+        FOREACH(source ${ARGN})
             GET_SOURCE_FILE_PROPERTY(type ${source} LANGUAGE)
             GET_SOURCE_FILE_PROPERTY(path ${source} LOCATION)
+
             GET_FILENAME_COMPONENT(ext ${path} EXT)
             IF("${type}" STREQUAL "C" OR "${type}" STREQUAL "CXX" OR "${ext}" STREQUAL ".h")
                 LIST(APPEND paths ${path})
             ENDIF()
         ENDFOREACH()
 
-        format_sources(${paths})
+        SET_PROPERTY(TARGET clang-format APPEND PROPERTY FORMAT_SOURCES ${paths})
+    ENDFUNCTION(format_sources)
+
+    FUNCTION(format_target_sources target)
+        SET(paths )
+        GET_TARGET_PROPERTY(sources ${target} SOURCES)
+
+        format_sources(${sources})
     ENDFUNCTION(format_target_sources)
 ENDIF()
