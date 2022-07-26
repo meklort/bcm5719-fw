@@ -374,7 +374,7 @@ int main(int argc, char const *argv[])
     optparse::Values options = parser.parse_args(argc, argv);
     vector<string> args = parser.args();
 
-    if (!initHAL(NULL, options.get("function")))
+    if (!HAL_init(NULL, options.get("function")))
     {
         cerr << "Unable to locate pci device with function " << (int)options.get("function") << endl;
         exit(-1);

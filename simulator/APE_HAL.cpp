@@ -91,7 +91,7 @@ static uint32_t loader_write_mem(uint32_t val, uint32_t offset, void *args)
     return val;
 }
 
-void initAPEHAL(void)
+void HAL_initAPE(void)
 {
     // init_APE_DEVICE0();
     // init_APE_DEVICE0_sim(NULL);

@@ -42,7 +42,8 @@
 /// @endcond
 ////////////////////////////////////////////////////////////////////////////////
 #include "../libs/NVRam/bcm5719_NVM.h"
-#include "pci_config.h"
+
+#include <HAL.hpp>
 
 #include <bcm5719_DEVICE.h>
 #include <bcm5719_APE.h>
@@ -72,26 +73,7 @@
 #include <string>
 #include <iostream>
 
-#if __has_include("valgrind/valgrind.h")
-#include <valgrind/valgrind.h>
-#else
-#define RUNNING_ON_VALGRIND 0
-#endif
-
-#ifdef __ppc64__
-#define BARRIER()    do { asm volatile ("sync 0\neieio\n" ::: "memory"); } while(0)
-#else
-#define BARRIER()    do { asm volatile ("" ::: "memory"); } while(0)
-#endif
-
 using namespace std;
-
-#define DEVICE_ROOT     "/sys/bus/pci/devices/"
-#define DEVICE_CONFIG   "config"
-#define BAR_STR         "resource"
-
-uint8_t *gDEVICEBase;
-uint8_t *gAPEBase;
 
 typedef struct
 {
@@ -99,11 +81,11 @@ typedef struct
     uint16_t device_id;
 } devices_t;
 
-devices_t gSupportedDevices[] = {
+static devices_t gSupportedDevices[] = {
     {.vendor_id = 0x14e4, .device_id = 0x1657},
 };
 
-bool is_supported(uint16_t vendor_id, uint16_t device_id)
+bool HAL_deviceIsSupported(uint16_t vendor_id, uint16_t device_id)
 {
     for (size_t i = 0; i < ARRAY_ELEMENTS(gSupportedDevices); i++)
     {
@@ -115,112 +97,6 @@ bool is_supported(uint16_t vendor_id, uint16_t device_id)
     }
 
     return false;
-}
-
-#define BAR_REGION_MASK (0x1)
-#define BAR_TYPE_MASK   (0x6)
-#define BAR_TYPE_16BIT  (1u << 1)
-#define BAR_TYPE_32BIT  (0u << 1)
-#define BAR_TYPE_64BIT  (2u << 1)
-#define BAR_ADDR_MASK   (0xFFFFFF0)
-bool is_bar_64bit(uint32_t bar)
-{
-    return (BAR_TYPE_64BIT == (bar & BAR_TYPE_MASK));
-}
-
-uint32_t get_bar_addr(uint32_t bar)
-{
-    return (bar & BAR_ADDR_MASK);
-}
-
-#define MAX_NUM_BARS 8
-static uint8_t *bar[MAX_NUM_BARS] = {0};
-static size_t  barlen[MAX_NUM_BARS];
-
-
-static void unmap_bars()
-{
-    for(size_t i = 0; i < ARRAY_ELEMENTS(bar); i++)
-    {
-        if(bar[i] && barlen[i])
-        {
-            munmap(bar[i], barlen[i]);
-            bar[i] = 0;
-            barlen[i] = 0;
-        }
-    }
-}
-
-uint32_t read_device_chipid(uint32_t)
-{
-    printf("DEIVCE CHIP ID\n");
-    return 1123;
-}
-
-bool is_pci_function(const char *pci_path, int wanted_function)
-{
-    // Path: 0001:01:00.0
-    unsigned int sys = 0;
-    unsigned int bus = 0;
-    unsigned int slot = 0;
-    unsigned int function = 0;
-    if (4 == sscanf(pci_path, "%x:%x:%x.%u\n", &sys, &bus, &slot, &function))
-    {
-        if (wanted_function == function)
-        {
-            return true;
-        }
-    }
-
-    return false;
-}
-
-static void locate_pci_path(int wanted_function, string &pci_path)
-{
-    struct dirent *pDirent;
-    DIR *pDir;
-
-    pDir = opendir(DEVICE_ROOT);
-    if (pDir == NULL)
-    {
-        printf("Cannot open directory '%s'\n", DEVICE_ROOT);
-        return;
-    }
-
-    while ((pDirent = readdir(pDir)) != NULL && pci_path.empty())
-    {
-        const char *pPCIPath = pDirent->d_name;
-
-        if (is_pci_function(pDirent->d_name, wanted_function))
-        {
-            string configPath;
-            configPath = string(DEVICE_ROOT) + pPCIPath + "/" + DEVICE_CONFIG;
-            const char* pConfigPath = configPath.c_str();
-
-            // This is the primary function of a device.
-            // Read the configuration and see if it matches a supported
-            // vendor/device.
-
-            FILE *pConfigFile = fopen(pConfigPath, "rb");
-
-            if (pConfigFile)
-            {
-                pci_config_t config;
-
-                if (1 == fread(&config, sizeof(config), 1, pConfigFile))
-                {
-                    if (is_supported(config.vendor_id, config.device_id))
-                    {
-                        pci_path = string(DEVICE_ROOT) + "/" + pPCIPath;
-                    }
-                }
-
-                fclose(pConfigFile);
-            }
-        }
-    }
-
-    closedir(pDir);
 }
 
 static uint32_t loader_read_mem(uint32_t val, uint32_t offset, void *args)
@@ -252,159 +128,45 @@ static uint32_t loader_write_mem(uint32_t val, uint32_t offset, void *args)
     return val;
 }
 
-static uint32_t read_from_ram(uint32_t val, uint32_t offset, void *args)
+bool HAL_init(const char *path, int wanted_function)
 {
-    uint8_t *base = (uint8_t *)args;
-    base += offset;
+    const hal_config_t *config = HAL_probePCI(path, wanted_function);
 
-    BARRIER();
-    return *(uint32_t *)base;
-}
-
-static uint32_t write_to_ram(uint32_t val, uint32_t offset, void *args)
-{
-    uint8_t *base = (uint8_t *)args;
-    base += offset;
-
-    BARRIER();
-    *(uint32_t *)base = val;
-    BARRIER();
-    return val;
-}
-
-bool initHAL(const char *pci_path, int wanted_function)
-{
-    struct stat st;
-    string located_pci_path;
-
-    if(RUNNING_ON_VALGRIND)
+    if (!config)
     {
-        cerr << "Running on valgrind is not supported when mmaping device registers." << endl;
-        return false;;
-    }
-
-    if(!pci_path)
-    {
-        // Locate the first PCI device.
-        locate_pci_path(wanted_function, located_pci_path);
-        if(located_pci_path.empty())
-        {
-            fprintf(stderr, "Unable to find supported PCI device\n");
-            return false;
-        }
-    }
-    else
-    {
-        located_pci_path  = pci_path;
-    }
-
-    string configPath = located_pci_path + "/" + DEVICE_CONFIG;
-    const char* pConfigPath = configPath.c_str();
-
-    FILE *pConfigFile = fopen(pConfigPath, "rb");
-
-    if(!pConfigFile)
-    {
-        fprintf(stderr, "Unable to open PCI configuration %p\n", pConfigPath);
-
+        // Unable to locate device.
         return false;
     }
 
-    pci_config_t config;
-    size_t read_count = fread(&config, sizeof(config), 1, pConfigFile);
-
-    fclose(pConfigFile);
-
-    if (1 != read_count)
-    {
-        return false;
-    }
-
-    if (is_supported(config.vendor_id, config.device_id))
-    {
-        printf("Found supported device %x:%x at %s\n", config.vendor_id,
-                config.device_id, configPath.c_str());
-
-        for (size_t i = 0; i < ARRAY_ELEMENTS(config.BAR); i++)
-        {
-            int memfd;
-            string BARPath = string(located_pci_path) + "/" BAR_STR + to_string(i);
-            const char* pBARPath = BARPath.c_str();
-
-            if ((memfd = open(pBARPath, O_RDWR | O_SYNC)) < 0)
-            {
-                printf("Error opening %s file. \n", pBARPath);
-
-                unmap_bars();
-
-                return false;
-            }
-            else
-            {
-                printf("mmaping BAR[%zu]: %s\n", i, pBARPath);
-            }
-
-            if (fstat(memfd, &st) < 0)
-            {
-                fprintf(stderr, "error: couldn't stat file\n");
-
-                unmap_bars();
-                close(memfd);
-
-                return false;
-            }
-
-            bar[i] = (uint8_t *)mmap(0, st.st_size, PROT_READ | PROT_WRITE,
-                                        MAP_SHARED, memfd, 0); // PROT_WRITE
-            barlen[i] = st.st_size;
-            close(memfd);
-
-            if (bar[i] == MAP_FAILED)
-            {
-                printf("Unable to mmap %s: %s\n", pBARPath,
-                        strerror(errno));
-
-                unmap_bars();
-
-                return false;
-            }
-
-            if (is_bar_64bit(config.BAR[i]))
-            {
-                i++;
-            }
-        }
-    }
-
-    uint8_t *DEVICEBase = gDEVICEBase = (uint8_t *)bar[0];
-    uint8_t *APEBase = gAPEBase = (uint8_t *)bar[2];
+    uint8_t *DEVICEBase = config->DEVICEBase;
+    uint8_t *APEBase = config->APEBase;
 
     init_bcm5719_DEVICE();
-    init_bcm5719_DEVICE_sim(DEVICEBase, read_from_ram, write_to_ram);
+    init_bcm5719_DEVICE_sim(DEVICEBase, config->read, config->write);
 
     init_bcm5719_GEN();
-    init_bcm5719_GEN_sim(&DEVICEBase[0x8000 + 0xB50], read_from_ram, write_to_ram); // 0x8000 for windowed area
+    init_bcm5719_GEN_sim(&DEVICEBase[0x8000 + 0xB50], config->read, config->write); // 0x8000 for windowed area
 
     init_bcm5719_NVM();
-    init_bcm5719_NVM_sim(&DEVICEBase[0x7000], read_from_ram, write_to_ram);
+    init_bcm5719_NVM_sim(&DEVICEBase[0x7000], config->read, config->write);
 
     init_bcm5719_APE();
-    init_bcm5719_APE_sim(APEBase, read_from_ram, write_to_ram);
+    init_bcm5719_APE_sim(APEBase, config->read, config->write);
 
     init_bcm5719_APE_PERI();
-    init_bcm5719_APE_PERI_sim(&APEBase[0x8000], read_from_ram, write_to_ram);
+    init_bcm5719_APE_PERI_sim(&APEBase[0x8000], config->read, config->write);
 
     init_bcm5719_SHM();
-    init_bcm5719_SHM_sim(&APEBase[0x4000], read_from_ram, write_to_ram);
+    init_bcm5719_SHM_sim(&APEBase[0x4000], config->read, config->write);
 
     init_bcm5719_SHM_CHANNEL0();
-    init_bcm5719_SHM_CHANNEL0_sim(&APEBase[0x4900], read_from_ram, write_to_ram);
+    init_bcm5719_SHM_CHANNEL0_sim(&APEBase[0x4900], config->read, config->write);
     init_bcm5719_SHM_CHANNEL1();
-    init_bcm5719_SHM_CHANNEL1_sim(&APEBase[0x4a00], read_from_ram, write_to_ram);
+    init_bcm5719_SHM_CHANNEL1_sim(&APEBase[0x4a00], config->read, config->write);
     init_bcm5719_SHM_CHANNEL2();
-    init_bcm5719_SHM_CHANNEL2_sim(&APEBase[0x4b00], read_from_ram, write_to_ram);
+    init_bcm5719_SHM_CHANNEL2_sim(&APEBase[0x4b00], config->read, config->write);
     init_bcm5719_SHM_CHANNEL3();
-    init_bcm5719_SHM_CHANNEL3_sim(&APEBase[0x4c00], read_from_ram, write_to_ram);
+    init_bcm5719_SHM_CHANNEL3_sim(&APEBase[0x4c00], config->read, config->write);
 
     init_APE_NVIC();
     init_APE_NVIC_sim(0, loader_read_mem, loader_write_mem);
