@@ -173,7 +173,7 @@ void find_vpd(void)
 int main()
 {
 #ifdef CXX_SIMULATOR
-    initHAL(NULL);
+    HAL_init(NULL, 0);
 #endif
 
     reportStatus(STATUS_MAIN, 0);

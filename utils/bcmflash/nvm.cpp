@@ -59,7 +59,7 @@ bool bcmflash_nvram_init(const char *name)
         function = 1;
     }
 
-    return initHAL(NULL, function);
+    return HAL_init(NULL, function);
 }
 
 size_t bcmflash_nvram_size(const char *name)

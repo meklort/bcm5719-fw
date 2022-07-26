@@ -3,6 +3,8 @@ project(simulator)
 
 simulator_add_library(${PROJECT_NAME} STATIC
             HAL.cpp
+            pci.cpp
+
             bcm5719_DEVICE_sim.cpp
             bcm5719_DEVICE.cpp
             bcm5719_GEN_sim.cpp

@@ -48,11 +48,17 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-bool is_supported(uint16_t vendor_id, uint16_t device_id);
-bool initHAL(const char* pci_path, int wanted_function = 0);
-void initAPEHAL(void);
+typedef struct {
+    uint8_t *DEVICEBase;
+    uint8_t *APEBase;
+    uint32_t (*read)(uint32_t val, uint32_t offset, void *args);
+    uint32_t (*write)(uint32_t val, uint32_t offset, void *args);
+} hal_config_t;
 
-extern uint8_t *gDEVICEBase;
-extern uint8_t *gAPEBase;
+const hal_config_t *HAL_probePCI(const char* path, int wanted_function = 0);
+
+bool HAL_deviceIsSupported(uint16_t vendor_id, uint16_t device_id);
+bool HAL_init(const char* path, int wanted_function = 0);
+void HAL_initAPE(void);
 
 #endif /* HAL_H */
