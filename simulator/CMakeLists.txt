@@ -1,9 +1,15 @@
 
 project(simulator)
 
+SET(SOURCES
+    HAL.cpp     include/HAL.hpp
+    pci.cpp
+
+    pci_config.h
+    include/CXXRegister.h)
+
 simulator_add_library(${PROJECT_NAME} STATIC
-            HAL.cpp
-            pci.cpp
+            ${SOURCES}
 
             bcm5719_DEVICE_sim.cpp
             bcm5719_DEVICE.cpp
@@ -67,6 +73,9 @@ simulator_add_library(${PROJECT_NAME} STATIC
             APE_FILTERS3.cpp
             APE_FILTERS3_sim.cpp
             )
+
+format_sources(${SOURCES})
+
 
 include_directories(../libs/NVRam)
 
