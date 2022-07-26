@@ -46,15 +46,15 @@
 
 #include <iomanip> // std::setw
 #include <iostream>
+#include <list>
 #include <stdio.h>
 #include <utility>
 #include <vector>
-#include <list>
 
-class CXXRegisterBase
-{
+class CXXRegisterBase {
 private:
-    std::list<std::pair<int, const char*>> mEnums;
+    std::list<std::pair<int, const char *>> mEnums;
+
 public:
     CXXRegisterBase(unsigned int offset, unsigned int width)
     {
@@ -80,19 +80,18 @@ public:
 
     void setName(const char *name)
     {
-        if(name)
+        if (name)
         {
             mName = name;
         }
     }
 
-    const char* getEnum(int value)
+    const char *getEnum(int value)
     {
-        std::list<std::pair<int, const char*>>::iterator it;
-        for (it = mEnums.begin(); it != mEnums.end();
-             it++)
+        std::list<std::pair<int, const char *>>::iterator it;
+        for (it = mEnums.begin(); it != mEnums.end(); it++)
         {
-            if(value == (*it).first)
+            if (value == (*it).first)
             {
                 return (*it).second;
             }
@@ -100,9 +99,9 @@ public:
         return NULL;
     }
 
-    void addEnum(const char* name, int value)
+    void addEnum(const char *name, int value)
     {
-        if(!getEnum(value))
+        if (!getEnum(value))
         {
             mEnums.push_back(std::make_pair(value, name));
         }
@@ -110,7 +109,7 @@ public:
 
     const char *getName(void)
     {
-        if(!mName)
+        if (!mName)
         {
             return "(undefined)";
         }
@@ -132,34 +131,31 @@ public:
 
     void print(unsigned int value, int indent = false)
     {
-        const char* name = mName;
+        const char *name = mName;
         char addr_str[16];
 
-        if(!name)
+        if (!name)
         {
             snprintf(addr_str, sizeof(addr_str), "0x%X", mComponentOffset);
             name = addr_str;
         }
 
         unsigned int masked = (value & mMask) >> mBitPosition;
-        const char* enumstr = getEnum(masked);
+        const char *enumstr = getEnum(masked);
         std::ios::fmtflags fmt(std::cout.flags());
 
         if (indent)
         {
-            std::cout << std::right << std::setw(35) << name << ": 0x"
-                      << std::hex << masked;
+            std::cout << std::right << std::setw(35) << name << ": 0x" << std::hex << masked;
         }
         else
         {
-            std::cout << std::endl
-                      << std::left << std::setw(36) << name << " 0x"
-                      << std::hex << masked;
+            std::cout << std::endl << std::left << std::setw(36) << name << " 0x" << std::hex << masked;
         }
 
         std::cout.flags(fmt);
 
-        if(enumstr)
+        if (enumstr)
         {
             std::cout << " (" << enumstr << ")";
         }
@@ -170,8 +166,7 @@ public:
     void printAll(unsigned int value)
     {
         std::vector<CXXRegisterBase *>::iterator it;
-        for (it = mRelatedRegisters.begin(); it != mRelatedRegisters.end();
-             it++)
+        for (it = mRelatedRegisters.begin(); it != mRelatedRegisters.end(); it++)
         {
             (*it)->print(value, true);
         }
@@ -250,8 +245,7 @@ protected:
 
         // Update chained registers.
         std::vector<CXXRegisterBase *>::iterator it;
-        for (it = mRelatedRegisters.begin(); it != mRelatedRegisters.end();
-             it++)
+        for (it = mRelatedRegisters.begin(); it != mRelatedRegisters.end(); it++)
         {
             // Update chained registers with latest data from base register.
             (*it)->setRawValue(readValue);
@@ -279,9 +273,7 @@ protected:
     }
 };
 
-template<typename T, unsigned int OFFSET, unsigned int WIDTH>
-class CXXRegister : public CXXRegisterBase
-{
+template<typename T, unsigned int OFFSET, unsigned int WIDTH> class CXXRegister : public CXXRegisterBase {
 private:
     typedef T (*callback_t)(T val, unsigned int, void *);
     std::vector<std::pair<callback_t, void *>> mReadCallback;

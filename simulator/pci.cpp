@@ -44,35 +44,31 @@
 #include "../libs/NVRam/bcm5719_NVM.h"
 #include "pci_config.h"
 
+#include <APE_NVIC.h>
 #include <HAL.hpp>
-
-#include <bcm5719_DEVICE.h>
 #include <bcm5719_APE.h>
 #include <bcm5719_APE_PERI.h>
+#include <bcm5719_DEVICE.h>
+#include <bcm5719_GEN.h>
 #include <bcm5719_SHM.h>
 #include <bcm5719_SHM_CHANNEL0.h>
 #include <bcm5719_SHM_CHANNEL1.h>
 #include <bcm5719_SHM_CHANNEL2.h>
 #include <bcm5719_SHM_CHANNEL3.h>
-#include <bcm5719_GEN.h>
-
-#include <APE_NVIC.h>
-
 #include <dirent.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <iostream>
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <string>
 #include <sys/mman.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
-
-#include <string>
-#include <iostream>
 
 #if __has_include("valgrind/valgrind.h")
 #include <valgrind/valgrind.h>
@@ -81,40 +77,47 @@
 #endif
 
 #ifdef __ppc64__
-#define BARRIER()    do { asm volatile ("sync 0\neieio\n" ::: "memory"); } while(0)
+#define BARRIER()                                                                                                                                              \
+    do                                                                                                                                                         \
+    {                                                                                                                                                          \
+        asm volatile("sync 0\neieio\n" ::: "memory");                                                                                                          \
+    } while (0)
 #else
-#define BARRIER()    do { asm volatile ("" ::: "memory"); } while(0)
+#define BARRIER()                                                                                                                                              \
+    do                                                                                                                                                         \
+    {                                                                                                                                                          \
+        asm volatile("" ::: "memory");                                                                                                                         \
+    } while (0)
 #endif
 
 using namespace std;
 
-#define DEVICE_ROOT     "/sys/bus/pci/devices/"
-#define DEVICE_CONFIG   "config"
-#define BAR_STR         "resource"
+#define DEVICE_ROOT "/sys/bus/pci/devices/"
+#define DEVICE_CONFIG "config"
+#define BAR_STR "resource"
 
-static hal_config_t gConfig = {0};
+static hal_config_t gConfig = { 0 };
 
 #define BAR_REGION_MASK (0x1)
-#define BAR_TYPE_MASK   (0x6)
-#define BAR_TYPE_16BIT  (1u << 1)
-#define BAR_TYPE_32BIT  (0u << 1)
-#define BAR_TYPE_64BIT  (2u << 1)
-#define BAR_ADDR_MASK   (0xFFFFFF0)
+#define BAR_TYPE_MASK (0x6)
+#define BAR_TYPE_16BIT (1u << 1)
+#define BAR_TYPE_32BIT (0u << 1)
+#define BAR_TYPE_64BIT (2u << 1)
+#define BAR_ADDR_MASK (0xFFFFFF0)
 static bool is_bar_64bit(uint32_t bar)
 {
     return (BAR_TYPE_64BIT == (bar & BAR_TYPE_MASK));
 }
 
 #define MAX_NUM_BARS 8
-static uint8_t *bar[MAX_NUM_BARS] = {0};
-static size_t  barlen[MAX_NUM_BARS];
-
+static uint8_t *bar[MAX_NUM_BARS] = { 0 };
+static size_t barlen[MAX_NUM_BARS];
 
 static void unmap_bars()
 {
-    for(size_t i = 0; i < ARRAY_ELEMENTS(bar); i++)
+    for (size_t i = 0; i < ARRAY_ELEMENTS(bar); i++)
     {
-        if(bar[i] && barlen[i])
+        if (bar[i] && barlen[i])
         {
             munmap(bar[i], barlen[i]);
             bar[i] = 0;
@@ -161,7 +164,7 @@ static void locate_pci_path(int wanted_function, string &pci_path)
         {
             string configPath;
             configPath = string(DEVICE_ROOT) + pPCIPath + "/" + DEVICE_CONFIG;
-            const char* pConfigPath = configPath.c_str();
+            const char *pConfigPath = configPath.c_str();
 
             // This is the primary function of a device.
             // Read the configuration and see if it matches a supported
@@ -209,22 +212,22 @@ static uint32_t write_to_ram(uint32_t val, uint32_t offset, void *args)
     return val;
 }
 
-const hal_config_t *HAL_probePCI(const char* path, int wanted_function)
+const hal_config_t *HAL_probePCI(const char *path, int wanted_function)
 {
     struct stat st;
     string located_pci_path;
 
-    if(RUNNING_ON_VALGRIND)
+    if (RUNNING_ON_VALGRIND)
     {
         cerr << "Running on valgrind is not supported when mmaping device registers." << endl;
         return NULL;
     }
 
-    if(!path)
+    if (!path)
     {
         // Locate the first PCI device.
         locate_pci_path(wanted_function, located_pci_path);
-        if(located_pci_path.empty())
+        if (located_pci_path.empty())
         {
             fprintf(stderr, "Unable to find supported PCI device\n");
             return NULL;
@@ -232,15 +235,15 @@ const hal_config_t *HAL_probePCI(const char* path, int wanted_function)
     }
     else
     {
-        located_pci_path  = path;
+        located_pci_path = path;
     }
 
     string configPath = located_pci_path + "/" + DEVICE_CONFIG;
-    const char* pConfigPath = configPath.c_str();
+    const char *pConfigPath = configPath.c_str();
 
     FILE *pConfigFile = fopen(pConfigPath, "rb");
 
-    if(!pConfigFile)
+    if (!pConfigFile)
     {
         fprintf(stderr, "Unable to open PCI configuration %p\n", pConfigPath);
 
@@ -259,14 +262,13 @@ const hal_config_t *HAL_probePCI(const char* path, int wanted_function)
 
     if (HAL_deviceIsSupported(config.vendor_id, config.device_id))
     {
-        printf("Found supported device %x:%x at %s\n", config.vendor_id,
-                config.device_id, configPath.c_str());
+        printf("Found supported device %x:%x at %s\n", config.vendor_id, config.device_id, configPath.c_str());
 
         for (size_t i = 0; i < ARRAY_ELEMENTS(config.BAR); i++)
         {
             int memfd;
             string BARPath = string(located_pci_path) + "/" BAR_STR + to_string(i);
-            const char* pBARPath = BARPath.c_str();
+            const char *pBARPath = BARPath.c_str();
 
             if ((memfd = open(pBARPath, O_RDWR | O_SYNC)) < 0)
             {
@@ -291,15 +293,13 @@ const hal_config_t *HAL_probePCI(const char* path, int wanted_function)
                 return NULL;
             }
 
-            bar[i] = (uint8_t *)mmap(0, st.st_size, PROT_READ | PROT_WRITE,
-                                        MAP_SHARED, memfd, 0); // PROT_WRITE
+            bar[i] = (uint8_t *)mmap(0, st.st_size, PROT_READ | PROT_WRITE, MAP_SHARED, memfd, 0); // PROT_WRITE
             barlen[i] = st.st_size;
             close(memfd);
 
             if (bar[i] == MAP_FAILED)
             {
-                printf("Unable to mmap %s: %s\n", pBARPath,
-                        strerror(errno));
+                printf("Unable to mmap %s: %s\n", pBARPath, strerror(errno));
 
                 unmap_bars();
 

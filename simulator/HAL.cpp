@@ -43,35 +43,31 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include "../libs/NVRam/bcm5719_NVM.h"
 
+#include <APE_NVIC.h>
 #include <HAL.hpp>
-
-#include <bcm5719_DEVICE.h>
 #include <bcm5719_APE.h>
 #include <bcm5719_APE_PERI.h>
+#include <bcm5719_DEVICE.h>
+#include <bcm5719_GEN.h>
 #include <bcm5719_SHM.h>
 #include <bcm5719_SHM_CHANNEL0.h>
 #include <bcm5719_SHM_CHANNEL1.h>
 #include <bcm5719_SHM_CHANNEL2.h>
 #include <bcm5719_SHM_CHANNEL3.h>
-#include <bcm5719_GEN.h>
-
-#include <APE_NVIC.h>
-
 #include <dirent.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <iostream>
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <string>
 #include <sys/mman.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
-
-#include <string>
-#include <iostream>
 
 using namespace std;
 
@@ -82,7 +78,7 @@ typedef struct
 } devices_t;
 
 static devices_t gSupportedDevices[] = {
-    {.vendor_id = 0x14e4, .device_id = 0x1657},
+    { .vendor_id = 0x14e4, .device_id = 0x1657 },
 };
 
 bool HAL_deviceIsSupported(uint16_t vendor_id, uint16_t device_id)
@@ -108,7 +104,8 @@ static uint32_t loader_read_mem(uint32_t val, uint32_t offset, void *args)
     SHM.LoaderCommand.bits.Command = SHM_LOADER_COMMAND_COMMAND_READ_MEM;
 
     // Wait for command to be handled.
-    while(0 != SHM.LoaderCommand.bits.Command);
+    while (0 != SHM.LoaderCommand.bits.Command)
+        ;
 
     return (uint32_t)SHM.LoaderArg0.r32;
 }
@@ -123,7 +120,8 @@ static uint32_t loader_write_mem(uint32_t val, uint32_t offset, void *args)
     SHM.LoaderCommand.bits.Command = SHM_LOADER_COMMAND_COMMAND_WRITE_MEM;
 
     // Wait for command to be handled.
-    while(0 != SHM.LoaderCommand.bits.Command);
+    while (0 != SHM.LoaderCommand.bits.Command)
+        ;
 
     return val;
 }
