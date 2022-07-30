@@ -329,6 +329,8 @@ int main(int argc, char const *argv[])
         .metavar("FUNCTION")
         .help("Read registers from the specified pci function.");
 
+    parser.add_option("-u", "--unbind").dest("unbind").set_default("0").action("store_true").help("Attempts to unbind the pci device driver.");
+
     parser.add_option("-s", "--step").dest("step").set_default("0").action("store_true").help("Single step the CPU.");
 
     parser.add_option("-t", "--stepto").dest("stepto").metavar("ADDR").help("Single step the CPU.");
@@ -374,6 +376,11 @@ int main(int argc, char const *argv[])
     optparse::Values options = parser.parse_args(argc, argv);
     vector<string> args = parser.args();
 
+    if (options.get("unbind"))
+    {
+        HAL_unbindPCI(NULL, options.get("function"));
+    }
+
     if (!HAL_init(NULL, options.get("function")))
     {
         cerr << "Unable to locate pci device with function " << (int)options.get("function") << endl;
@@ -384,7 +391,7 @@ int main(int argc, char const *argv[])
     {
         if (!gELFIOReader.load(options["debugfile"]))
         {
-            cerr << "Unablt to read elf file " << options["debugfile"] << endl;
+            cerr << "Unable to read elf file " << options["debugfile"] << endl;
             exit(-1);
         }
     }

@@ -56,6 +56,7 @@ typedef struct {
 } hal_config_t;
 
 const hal_config_t *HAL_probePCI(const char* path, int wanted_function = 0);
+bool HAL_unbindPCI(const char* path, int wanted_function = 0);
 
 bool HAL_deviceIsSupported(uint16_t vendor_id, uint16_t device_id);
 bool HAL_init(const char* path, int wanted_function = 0);
