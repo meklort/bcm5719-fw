@@ -45,9 +45,10 @@
 #ifndef TYPES_H
 #define TYPES_H
 
+#include <stdbool.h>
+
 #ifdef CXX_SIMULATOR
 #include <stdint.h>
-#include <stdbool.h>
 #elif defined(__arm__) || defined(__mips__)
 typedef signed char     int8_t;
 typedef unsigned char  uint8_t;
@@ -61,12 +62,8 @@ typedef unsigned int  uint32_t;
 typedef long long unsigned int uint64_t;
 typedef long long signed int int64_t;
 
-typedef _Bool    bool;
-
 typedef uint32_t size_t;
 
-#define true ((bool)1)
-#define false ((bool)0)
 #else
 #error Unknown target architechture
 #endif
