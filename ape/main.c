@@ -453,7 +453,7 @@ void __attribute__((noreturn)) loaderLoop(void)
             Network_checkPortState(gPort);
         }
 
-        handleBMCPacket((bool)!gPortReset);
+        handleBMCPacket(!gPortReset);
         NCSI_handlePassthrough();
 
         handleCommand(&SHM);
