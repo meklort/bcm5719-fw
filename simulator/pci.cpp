@@ -94,6 +94,7 @@ using namespace std;
 
 #define DEVICE_ROOT "/sys/bus/pci/devices/"
 #define DEVICE_CONFIG "config"
+#define DEVICE_UNBIND "driver/unbind"
 #define BAR_STR "resource"
 
 static hal_config_t gConfig = { 0 };
@@ -211,17 +212,10 @@ static uint32_t write_to_ram(uint32_t val, uint32_t offset, void *args)
     BARRIER();
     return val;
 }
-
-const hal_config_t *HAL_probePCI(const char *path, int wanted_function)
+static string get_path(const char *path, int wanted_function)
 {
-    struct stat st;
     string located_pci_path;
-
-    if (RUNNING_ON_VALGRIND)
-    {
-        cerr << "Running on valgrind is not supported when mmaping device registers." << endl;
-        return NULL;
-    }
+    string return_path;
 
     if (!path)
     {
@@ -230,12 +224,89 @@ const hal_config_t *HAL_probePCI(const char *path, int wanted_function)
         if (located_pci_path.empty())
         {
             fprintf(stderr, "Unable to find supported PCI device\n");
-            return NULL;
+            return return_path;
         }
     }
     else
     {
         located_pci_path = path;
+    }
+
+    string configPath = located_pci_path + "/" + DEVICE_CONFIG;
+    const char *pConfigPath = configPath.c_str();
+
+    FILE *pConfigFile = fopen(pConfigPath, "rb");
+
+    if (!pConfigFile)
+    {
+        fprintf(stderr, "Unable to open PCI configuration %p\n", pConfigPath);
+
+        return return_path;
+    }
+
+    pci_config_t config;
+    size_t read_count = fread(&config, sizeof(config), 1, pConfigFile);
+
+    fclose(pConfigFile);
+
+    if (1 != read_count)
+    {
+        return return_path;
+    }
+
+    if (HAL_deviceIsSupported(config.vendor_id, config.device_id))
+    {
+        printf("Found supported device %x:%x at %s\n", config.vendor_id, config.device_id, configPath.c_str());
+        return_path = located_pci_path;
+    }
+
+    return return_path;
+}
+
+bool HAL_unbindPCI(const char *path, int wanted_function)
+{
+    string located_pci_path = get_path(path, wanted_function);
+    if (located_pci_path.empty())
+    {
+        return false;
+    }
+
+    string unbindPath = located_pci_path + "/" + DEVICE_UNBIND;
+
+    const char *pUnbindPath = unbindPath.c_str();
+    FILE *pUnbindFile = fopen(pUnbindPath, "wb");
+
+    if (!pUnbindFile)
+    {
+        printf("Unable to open %s\n", pUnbindPath);
+        return false;
+    }
+
+    string unbindCmd = located_pci_path;
+    unbindCmd.erase(0, sizeof(DEVICE_ROOT));
+    unbindCmd += "\n";
+
+    fwrite(unbindCmd.c_str(), unbindCmd.length(), 1, pUnbindFile);
+
+    fclose(pUnbindFile);
+
+    return true;
+}
+
+const hal_config_t *HAL_probePCI(const char *path, int wanted_function)
+{
+    struct stat st;
+
+    if (RUNNING_ON_VALGRIND)
+    {
+        cerr << "Running on valgrind is not supported when mmaping device registers." << endl;
+        return NULL;
+    }
+
+    string located_pci_path = get_path(path, wanted_function);
+    if (located_pci_path.empty())
+    {
+        return NULL;
     }
 
     string configPath = located_pci_path + "/" + DEVICE_CONFIG;
@@ -260,56 +331,51 @@ const hal_config_t *HAL_probePCI(const char *path, int wanted_function)
         return NULL;
     }
 
-    if (HAL_deviceIsSupported(config.vendor_id, config.device_id))
+    for (size_t i = 0; i < ARRAY_ELEMENTS(config.BAR); i++)
     {
-        printf("Found supported device %x:%x at %s\n", config.vendor_id, config.device_id, configPath.c_str());
+        int memfd;
+        string BARPath = string(located_pci_path) + "/" BAR_STR + to_string(i);
+        const char *pBARPath = BARPath.c_str();
 
-        for (size_t i = 0; i < ARRAY_ELEMENTS(config.BAR); i++)
+        if ((memfd = open(pBARPath, O_RDWR | O_SYNC)) < 0)
         {
-            int memfd;
-            string BARPath = string(located_pci_path) + "/" BAR_STR + to_string(i);
-            const char *pBARPath = BARPath.c_str();
+            printf("Error opening %s file. \n", pBARPath);
 
-            if ((memfd = open(pBARPath, O_RDWR | O_SYNC)) < 0)
-            {
-                printf("Error opening %s file. \n", pBARPath);
+            unmap_bars();
 
-                unmap_bars();
+            return NULL;
+        }
+        else
+        {
+            printf("mmaping BAR[%zu]: %s\n", i, pBARPath);
+        }
 
-                return NULL;
-            }
-            else
-            {
-                printf("mmaping BAR[%zu]: %s\n", i, pBARPath);
-            }
+        if (fstat(memfd, &st) < 0)
+        {
+            fprintf(stderr, "error: couldn't stat file\n");
 
-            if (fstat(memfd, &st) < 0)
-            {
-                fprintf(stderr, "error: couldn't stat file\n");
-
-                unmap_bars();
-                close(memfd);
-
-                return NULL;
-            }
-
-            bar[i] = (uint8_t *)mmap(0, st.st_size, PROT_READ | PROT_WRITE, MAP_SHARED, memfd, 0); // PROT_WRITE
-            barlen[i] = st.st_size;
+            unmap_bars();
             close(memfd);
 
-            if (bar[i] == MAP_FAILED)
-            {
-                printf("Unable to mmap %s: %s\n", pBARPath, strerror(errno));
+            return NULL;
+        }
 
-                unmap_bars();
+        bar[i] = (uint8_t *)mmap(0, st.st_size, PROT_READ | PROT_WRITE, MAP_SHARED, memfd, 0); // PROT_WRITE
+        barlen[i] = st.st_size;
+        close(memfd);
 
-                return NULL;
-            }
+        if (bar[i] == MAP_FAILED)
+        {
+            printf("Unable to mmap %s: %s\n", pBARPath, strerror(errno));
 
-            if (is_bar_64bit(config.BAR[i]))
-            {
-                i++;
-            }
+            unmap_bars();
+
+            return NULL;
+        }
+
+        if (is_bar_64bit(config.BAR[i]))
+        {
+            i++;
         }
     }
 

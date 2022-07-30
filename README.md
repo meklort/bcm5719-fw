@@ -104,6 +104,11 @@ A function can be unbound via sysfs as follows:
 ```bash
 echo 0004:01:00.0 > /sys/bus/pci/drivers/tg3/unbind
 ```
+Alternatively, the bcmregtool can be used to unbind the driver:
+```bash
+cd build
+sudo ./utils/bcmregtool/bcmregtool --unbind
+```
 
 Rebinding is similar, except that the address is written to `bind` instead of `unbind`.
 
