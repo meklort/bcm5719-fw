@@ -49,6 +49,7 @@
 
 #ifdef CXX_SIMULATOR
 #include <stdint.h>
+#include <bcm5719-endian.h>
 #elif defined(__arm__) || defined(__mips__)
 typedef signed char     int8_t;
 typedef unsigned char  uint8_t;
@@ -63,6 +64,33 @@ typedef long long unsigned int uint64_t;
 typedef long long signed int int64_t;
 
 typedef uint32_t size_t;
+
+static inline uint32_t swap32(uint32_t val)
+{
+    uint32_t swapped = ((val & 0xFF000000) >> 24) | ((val & 0x00FF0000) >> 8) | ((val & 0x0000FF00) << 8) | ((val & 0x000000FF) << 24);
+
+    return swapped;
+}
+
+static inline uint32_t be32toh(uint32_t be32)
+{
+    return swap32(be32);
+}
+
+static inline uint32_t le32toh(uint32_t le32)
+{
+    return le32;
+}
+
+static inline uint32_t htobe32(uint32_t be32)
+{
+    return swap32(be32);
+}
+
+static inline uint32_t htole32(uint32_t le32)
+{
+    return le32;
+}
 
 #else
 #error Unknown target architechture
