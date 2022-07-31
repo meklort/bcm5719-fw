@@ -54,7 +54,34 @@
 #include <printf.h>
 #endif
 
-uint32_t Network_RxPatcketLen(NetworkPort_t *port)
+bool Network_DropRxPacket(NetworkPort_t *port)
+{
+    RegAPERxbufoffset_t rxbuf;
+    rxbuf = *((RegAPERxbufoffset_t *)port->rx_offset);
+    if ((int)rxbuf.bits.Valid)
+    {
+        RegAPERxPoolRetire_t retire;
+        retire.r32 = 0;
+        retire.bits.Head = rxbuf.bits.Head;
+        retire.bits.Tail = rxbuf.bits.Tail;
+        retire.bits.Count = rxbuf.bits.Count;
+        retire.bits.Retire = 1;
+        *((RegAPERxPoolRetire_t *)port->rx_retire) = retire;
+
+        rxbuf.bits.Finished = 1;
+        *((RegAPERxbufoffset_t *)port->rx_offset) = rxbuf;
+
+        ++port->shm_channel->NcsiChannelNetworkDropped.r32;
+
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+uint32_t Network_RxPacketLen(NetworkPort_t *port)
 {
     RegAPERxbufoffset_t rxbuf;
     rxbuf = *((RegAPERxbufoffset_t *)port->rx_offset);
@@ -86,7 +113,7 @@ uint32_t Network_RxPatcketLen(NetworkPort_t *port)
     }
 }
 
-bool Network_RxLePatcket(uint32_t *buffer, uint32_t *bytes, NetworkPort_t *port)
+static inline bool Network_RxPacket_internal(uint32_t *buffer, uint32_t *bytes, bool big_endian, NetworkPort_t *port)
 {
     RegAPERxbufoffset_t rxbuf;
     rxbuf = *((RegAPERxbufoffset_t *)port->rx_offset);
@@ -121,21 +148,23 @@ bool Network_RxLePatcket(uint32_t *buffer, uint32_t *bytes, NetworkPort_t *port)
             {
                 offset = RX_PORT_IN_ALL_ADDITIONAL_PAYLOAD_WORD;
             }
-            // printf("Using offset %d\n", offset);
+
             for (int i = 0; i < words; i++)
             {
                 uint32_t data = block[i + offset].r32;
-                buffer[buffer_pos++] = data;
-                // printf(" word %d: 0x%08X\n", i, data);
+                if (big_endian)
+                {
+                    buffer[buffer_pos++] = htobe32(data);
+                }
+                else
+                {
+                    buffer[buffer_pos++] = htole32(data);
+                }
             }
 
             blockid = control.bits.next_block;
             count--;
         } while (count);
-
-        // Transmit to NC
-        // disableNCSIHandling();
-        // enableNCSIHandling();
 
         RegAPERxPoolRetire_t retire;
         retire.r32 = 0;
@@ -160,7 +189,17 @@ bool Network_RxLePatcket(uint32_t *buffer, uint32_t *bytes, NetworkPort_t *port)
     }
 }
 
-bool Network_PassthroughRxPatcket(NetworkPort_t *port)
+bool Network_RxLePacket(uint32_t *buffer, uint32_t *bytes, NetworkPort_t *port)
+{
+    return Network_RxPacket_internal(buffer, bytes, false, port);
+}
+
+bool Network_RxBePacket(uint32_t *buffer, uint32_t *bytes, NetworkPort_t *port)
+{
+    return Network_RxPacket_internal(buffer, bytes, true, port);
+}
+
+bool Network_PassthroughRxPacket(NetworkPort_t *port)
 {
     RegAPERxbufoffset_t rxbuf;
     rxbuf = *((RegAPERxbufoffset_t *)port->rx_offset);

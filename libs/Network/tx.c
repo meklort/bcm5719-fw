@@ -49,17 +49,9 @@
 #include <Network.h>
 
 #ifdef CXX_SIMULATOR
-#include <bcm5719-endian.h>
 #include <stdio.h>
 #else
 #include <printf.h>
-/* ARM */
-static inline uint32_t be32toh(uint32_t be32)
-{
-    uint32_t he32 = ((be32 & 0xFF000000) >> 24) | ((be32 & 0x00FF0000) >> 8) | ((be32 & 0x0000FF00) << 8) | ((be32 & 0x000000FF) << 24);
-
-    return he32;
-}
 #endif
 
 #define FIRST_FRAME_MAX ((TX_PORT_OUT_ALL_BLOCK_WORDS - TX_PORT_OUT_ALL_FIRST_PAYLOAD_WORD) * sizeof(uint32_t))

@@ -53,13 +53,6 @@
 #include <stdio.h>
 #else
 #include <printf.h>
-/* ARM */
-static inline uint32_t be32toh(uint32_t be32)
-{
-    uint32_t he32 = ((be32 & 0xFF000000) >> 24) | ((be32 & 0x00FF0000) >> 8) | ((be32 & 0x0000FF00) << 8) | ((be32 & 0x000000FF) << 24);
-
-    return he32;
-}
 #endif
 #define debug(...) printf(__VA_ARGS__)
 
@@ -857,7 +850,7 @@ void NCSI_handlePassthrough(void)
 
         if (shm_ch->NcsiChannelInfo.bits.Ready)
         {
-            if (!Network_PassthroughRxPatcket(port))
+            if (!Network_PassthroughRxPacket(port))
             {
                 // Mark packet as dropped due to an error.
                 shm_ch->NcsiChannelNetworkDropped.r32 = shm_ch->NcsiChannelNetworkDropped.r32 + 1;
