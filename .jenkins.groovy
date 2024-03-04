@@ -48,7 +48,7 @@ def do_build(nodeName, archive = false, archiveCab = false, analyze = true, test
     {
         cleanWs()
 
-        stage('checkout')
+        stage(nodeName + ' checkout')
         {
             checkout scm
 
@@ -59,7 +59,7 @@ def do_build(nodeName, archive = false, archiveCab = false, analyze = true, test
             currentBuild.description = gitSubject
         }
 
-        stage('build')
+        stage(nodeName + ' build')
         {
             if (analyze)
             {
@@ -73,7 +73,7 @@ def do_build(nodeName, archive = false, archiveCab = false, analyze = true, test
 
         if (archive)
         {
-            stage('archive')
+            stage(nodeName + ' archive')
             {
                 dir('build')
                 {
@@ -95,7 +95,7 @@ def do_build(nodeName, archive = false, archiveCab = false, analyze = true, test
         {
             cleanWs()
 
-            stage('build-release')
+            stage(nodeName + ' build-release')
             {
                 copyArtifacts filter: '*Source.tar.gz', fingerprintArtifacts: true, projectName: JOB_NAME, selector: specific(currentBuild.id)
                 sh '''
@@ -106,7 +106,7 @@ def do_build(nodeName, archive = false, archiveCab = false, analyze = true, test
 
                 // Check resulting .cab files match
                 copyArtifacts filter: '*.cab', fingerprintArtifacts: true, projectName: JOB_NAME, selector: specific(currentBuild.id)
-                sh '''
+                sh '''#!/bin/bash
                     find *Source -type f -iname '*.cab' -print0 |
                     while read -d $'\0' -r file; do
                         cmp $file `basename $file`
@@ -122,11 +122,8 @@ def do_build(nodeName, archive = false, archiveCab = false, analyze = true, test
 node()
 {
     parallel(
-        "fedora": { do_build('fedora', true, true, true, true) },
-        "solus": { do_build('solus', false, false, false, false) },
-        "ubuntu-18.04": { do_build('ubuntu-18.04', true, false, false, false) },
-        "ubuntu-20.04": { do_build('ubuntu-20.04', false, false, false, false) },
-        "ubuntu-22.04": { do_build('ubuntu-22.04', false, false, false, false) },
-        "freebsd-12": { do_build('freebsd-12', true, false, false, false) },
+        "ubuntu-23.10-ppc64le": { do_build('ubuntu-23.10-ppc64le', true, true, true, true) },
+        "ubuntu-22.04-x86_64": { do_build('ubuntu-22.04', false, false, false, false) },
+        "freebsd-14-x86_64": { do_build('freebsd', true, false, false, false) },
     )
 }
