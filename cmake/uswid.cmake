@@ -56,7 +56,7 @@ FUNCTION(GENERATE_USWID target)
     FOREACH(file IN LISTS sources)
         IF(${file} MATCHES ".*\\.uswid\\.ini$")
             GET_SOURCE_FILE_PROPERTY(path ${file} LOCATION)
-            LIST(APPEND swidinput "--load" "${path}")
+            LIST(APPEND swidinput "${path}")
             LIST(APPEND depends "${file}")
         ENDIF()
     ENDFOREACH()
@@ -67,8 +67,8 @@ FUNCTION(GENERATE_USWID target)
         MESSAGE(STATUS "Creating ${SWID_FILE}")
         ADD_CUSTOM_COMMAND(
             OUTPUT ${SWID_FILE}
-            COMMAND "uswid/cli.py" --compress ${swidinput} --save "${SWID_FILE}"
-            WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/utils/python-uswid"
+            COMMAND "./uswidtool.py" --compression zlib --load ${swidinput} --save "${SWID_FILE}"
+            WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/utils"
             DEPENDS ${depends}
             VERBATIM
         )
