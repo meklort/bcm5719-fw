@@ -54,7 +54,7 @@ SET(MIPS_LINK_OPTIONS --gc-sections)
 SET(CMAKE_INCLUDE_FLAG_ASM "-I")
 SET(CMAKE_ASM_COMPILE_OBJECT "<CMAKE_ASM_COMPILER> -x assembler-with-cpp <DEFINES> <INCLUDES> <FLAGS> -o <OBJECT> -c <SOURCE>")
 
-SET(CMAKE_mips_LINK_EXECUTABLE "${COMPILER_BASE}/bin/ld.lld  <OBJECTS> <LINK_LIBRARIES> <CMAKE_C_LINK_FLAGS> <LINK_FLAGS> -Bstatic -o <TARGET>")
+SET(CMAKE_mips_LINK_EXECUTABLE "${COMPILER_BASE}/bin/ld.lld  <OBJECTS> <LINK_LIBRARIES> <LINK_FLAGS> -Bstatic -o <TARGET>")
 
 generate_lint_config("${MIPS_COMPILE_OPTIONS}" ${CMAKE_BINARY_DIR}/.clang-mips.lnt ${CMAKE_BINARY_DIR}/.clang-mips.h)
 
@@ -64,6 +64,8 @@ function(mips_add_executable target)
 
     target_compile_options(${target} PRIVATE ${MIPS_COMPILE_OPTIONS})
     target_link_libraries(${target} ${MIPS_LINK_OPTIONS})
+
+    set_property(TARGET ${target} PROPERTY LINK_FLAGS "") # Don't pull in system linker flags
     set_property(TARGET ${target} PROPERTY LINKER_LANGUAGE mips)
 
     GENERATE_USWID(${target})
