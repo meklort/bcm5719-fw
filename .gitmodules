@@ -8,3 +8,9 @@
 [submodule "utils/python-uswid"]
 	path = utils/python-uswid
 	url = https://github.com/hughsie/python-uswid.git
+[submodule "utils/cbor2"]
+	path = utils/cbor2
+	url = https://github.com/agronholm/cbor2.git
+[submodule "utils/pefile"]
+	path = utils/pefile
+	url = https://github.com/erocarrera/pefile.git
