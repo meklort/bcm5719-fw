@@ -54,7 +54,7 @@ SET(ARM_LINK_OPTIONS --gc-sections)
 SET(CMAKE_INCLUDE_FLAG_ASM "-I")
 SET(CMAKE_ASM_COMPILE_OBJECT "<CMAKE_ASM_COMPILER> -x assembler-with-cpp <DEFINES> <INCLUDES> <FLAGS> -o <OBJECT> -c <SOURCE>")
 
-SET(CMAKE_arm_LINK_EXECUTABLE "${COMPILER_BASE}/bin/ld.lld  <OBJECTS> <LINK_LIBRARIES> <CMAKE_C_LINK_FLAGS> <LINK_FLAGS> -Bstatic -o <TARGET> --Map=<TARGET>.map")
+SET(CMAKE_arm_LINK_EXECUTABLE "${COMPILER_BASE}/bin/ld.lld  <OBJECTS> <LINK_LIBRARIES> <LINK_FLAGS> -Bstatic -o <TARGET> --Map=<TARGET>.map")
 
 SET(ARM_CMAKE_DIR ${CMAKE_CURRENT_LIST_DIR})
 
@@ -66,6 +66,7 @@ function(arm_add_executable target)
 
     target_compile_options(${target} PRIVATE ${ARM_COMPILE_OPTIONS})
     target_link_libraries(${target} ${ARM_LINK_OPTIONS})
+    set_property(TARGET ${target} PROPERTY LINK_FLAGS "") # Don't pull in system linker flags
     set_property(TARGET ${target} PROPERTY LINKER_LANGUAGE arm)
 
     GENERATE_USWID(${target})
