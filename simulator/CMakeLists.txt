@@ -76,6 +76,7 @@ simulator_add_library(${PROJECT_NAME} STATIC
 
 format_sources(${SOURCES})
 
+ADD_ENDIANNESS_DEFINES(${PROJECT_NAME})
 
 include_directories(../libs/NVRam)
 

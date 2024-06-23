@@ -50,6 +50,8 @@ target_link_libraries(${PROJECT_NAME} PRIVATE simulator Timer)
 target_include_directories(${PROJECT_NAME} PUBLIC ../../include)
 target_include_directories(${PROJECT_NAME} PUBLIC include)
 
+ADD_ENDIANNESS_DEFINES(${PROJECT_NAME})
+
 # MIPS Library
 mips_add_library(${PROJECT_NAME}-mips STATIC mii.c)
 target_link_libraries(${PROJECT_NAME}-mips PRIVATE Timer-mips)

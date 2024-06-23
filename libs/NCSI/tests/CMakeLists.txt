@@ -2,7 +2,7 @@
 ###
 ### @file       libs/NCSI/tests/CMakeLists.txt
 ###
-### @project    
+### @project
 ###
 ### @brief      NCSI Test CMake file
 ###
@@ -46,6 +46,8 @@ project(NCSI-tests)
 
 set(SOURCES valid_commands.c tests.cpp)
 
-simulator_add_executable(ncsi-tests ${SOURCES})
-target_link_libraries(ncsi-tests NCSI simulator gtest gtest_main)
-gtest_discover_tests(ncsi-tests)
+simulator_add_executable(${PROJECT_NAME} ${SOURCES})
+target_link_libraries(${PROJECT_NAME} NCSI simulator gtest gtest_main)
+gtest_discover_tests(${PROJECT_NAME})
+
+ADD_ENDIANNESS_DEFINES(${PROJECT_NAME})

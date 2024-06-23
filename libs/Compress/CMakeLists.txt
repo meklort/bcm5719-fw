@@ -2,7 +2,7 @@
 ###
 ### @file       libs/APE/CMakeLists.txt
 ###
-### @project    
+### @project
 ###
 ### @brief      APE CMake file
 ###
@@ -49,3 +49,5 @@ project(Compress)
 simulator_add_library(${PROJECT_NAME} STATIC decompress.c compress.c)
 target_include_directories(${PROJECT_NAME} PUBLIC include)
 target_include_directories(${PROJECT_NAME} PUBLIC ../../include)
+
+ADD_ENDIANNESS_DEFINES(${PROJECT_NAME})

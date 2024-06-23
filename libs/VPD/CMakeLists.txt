@@ -2,7 +2,7 @@
 ###
 ### @file       libs/VPD/CMakeLists.txt
 ###
-### @project    
+### @project
 ###
 ### @brief      VPD CMake file
 ###
@@ -49,6 +49,8 @@ project(VPD)
 simulator_add_library(${PROJECT_NAME} STATIC vpd.c)
 target_include_directories(${PROJECT_NAME} PUBLIC ../../include)
 target_include_directories(${PROJECT_NAME} PUBLIC include)
+
+ADD_ENDIANNESS_DEFINES(${PROJECT_NAME})
 
 # ARM Library
 arm_add_library(${PROJECT_NAME}-arm STATIC vpd.c)
