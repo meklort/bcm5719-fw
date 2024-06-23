@@ -90,4 +90,6 @@ target_link_libraries(sim-${PROJECT_NAME} NVRam MII VPD APE Timer printf)
 target_include_directories(sim-${PROJECT_NAME} PUBLIC  .)
 target_compile_definitions(sim-${PROJECT_NAME} PRIVATE NETWORK_PORT=0)
 
+ADD_ENDIANNESS_DEFINES(sim-${PROJECT_NAME})
+
 format_target_sources(${PROJECT_NAME}-port0)

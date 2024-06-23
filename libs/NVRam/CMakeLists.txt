@@ -2,7 +2,7 @@
 ###
 ### @file       libs/NVRam/CMakeLists.txt
 ###
-### @project    
+### @project
 ###
 ### @brief      NVRam CMake file
 ###
@@ -58,6 +58,8 @@ simulator_add_library(${PROJECT_NAME} STATIC ${SOURCES})
 target_link_libraries(${PROJECT_NAME} PRIVATE simulator)
 target_include_directories(${PROJECT_NAME} PUBLIC ../../include)
 target_include_directories(${PROJECT_NAME} PUBLIC include)
+
+ADD_ENDIANNESS_DEFINES(${PROJECT_NAME})
 
 # MIPS Library
 mips_add_library(${PROJECT_NAME}-mips STATIC ${SOURCES})

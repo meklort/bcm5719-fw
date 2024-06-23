@@ -49,6 +49,49 @@
 #include <endian.h>
 #elif defined(ENDIANNESS_CONFIG_HAVE_SYS_ENDIAN_H)
 #include <sys/endian.h>
+#elif defined(ENDIANNESS_CONFIG_HAVE_OSBYTEORDER_H)
+#include <libkern/OSByteOrder.h>
+static inline uint32_t be16toh(uint16_t be16)
+{
+    return OSSwapBigToHostInt16(be16);
+}
+
+static inline uint16_t le16toh(uint16_t le16)
+{
+    return OSSwapLittleToHostInt16(le16);
+}
+
+static inline uint16_t htobe16(uint16_t be16)
+{
+    return OSSwapHostToBigInt16(be16);
+}
+
+static inline uint16_t htole16(uint16_t le16)
+{
+    return OSSwapHostToLittleInt16(le16);
+}
+
+static inline uint32_t be32toh(uint32_t be32)
+{
+    return OSSwapBigToHostInt32(be32);
+}
+
+static inline uint32_t le32toh(uint32_t le32)
+{
+    return OSSwapLittleToHostInt32(le32);
+}
+
+static inline uint32_t htobe32(uint32_t be32)
+{
+    return OSSwapHostToBigInt32(be32);
+}
+
+static inline uint32_t htole32(uint32_t le32)
+{
+    return OSSwapHostToLittleInt32(le32);
+}
+#else
+#error Unable to include endian headers!
 #endif
 
 #ifdef __LITTLE_ENDIAN__

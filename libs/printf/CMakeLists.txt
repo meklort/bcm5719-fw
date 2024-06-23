@@ -60,6 +60,8 @@ target_link_libraries(${PROJECT_NAME} PRIVATE simulator Network MII APE NVRam)
 target_include_directories(${PROJECT_NAME} PUBLIC ../../include)
 target_include_directories(${PROJECT_NAME} PUBLIC .)
 
+ADD_ENDIANNESS_DEFINES(${PROJECT_NAME})
+
 # ARM Library
 arm_add_library(${PROJECT_NAME}-arm STATIC ${SOURCES} ape_putchar.c)
 target_link_libraries(${PROJECT_NAME}-arm PRIVATE Network-arm MII-arm APE-arm NVRam-arm)

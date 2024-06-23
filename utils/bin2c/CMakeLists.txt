@@ -2,7 +2,7 @@
 ###
 ### @file       utils/bin2c/CMakeLists.txt
 ###
-### @project    
+### @project
 ###
 ### @brief      Utilities CMake file
 ###
@@ -54,5 +54,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE OptParse)
 include_directories(${CMAKE_SOURCE_DIR}/include)
 
 format_target_sources(${PROJECT_NAME})
+
+ADD_ENDIANNESS_DEFINES(${PROJECT_NAME})
 
 INSTALL(TARGETS ${PROJECT_NAME} DESTINATION bin)

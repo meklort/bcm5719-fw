@@ -2,7 +2,7 @@
 ###
 ### @file       libs/Ethernet/CMakeLists.txt
 ###
-### @project    
+### @project
 ###
 ### @brief      NCSI CMake file
 ###
@@ -70,5 +70,7 @@ target_include_directories(${PROJECT_NAME}-arm PUBLIC ../../include)
 target_include_directories(${PROJECT_NAME}-arm PUBLIC include)
 
 format_target_sources(${PROJECT_NAME})
+
+ADD_ENDIANNESS_DEFINES(${PROJECT_NAME})
 
 add_subdirectory(tests)
