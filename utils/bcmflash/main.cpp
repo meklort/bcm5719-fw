@@ -166,24 +166,32 @@ void dump_stage1(NVRAMContents_t *nvram, uint8_t *stage1, size_t stage1_length)
 
 void dump_stage2(NVRAMStage2_t *stage2)
 {
+    uint32_t magic = 0;
+    uint32_t crc = 0;
     uint32_t stage2_length = be32toh(stage2->header.length); // second word is size (bytes).
-    stage2_length -= 4;                                      // length includes crc.
-    uint32_t stage2_crc_word = stage2_length / 4;
+    if (stage2_length >= 4)
+    {
+        stage2_length -= 4; // length includes crc, remove it.
+        uint32_t stage2_crc_word = stage2_length / 4;
+        magic = be32toh(stage2->header.magic);
+        crc = be32toh(stage2->words[stage2_crc_word]);
+    }
+
     printf("=== stage2 ===\n");
-    printf("Magic:               0x%08X\n", be32toh(stage2->header.magic));
+    printf("Magic:               0x%08X\n", magic);
     printf("Length (bytes):      0x%08X\n", stage2_length);
     // printf("Offset:              0x%08lX\n", ((stage2_wd - nvram.words) * 4));
     uint32_t stage2_expected_crc = be32toh(~NVRam_crc((uint8_t *)stage2->words, stage2_length, 0xffffffff));
     printf("Calculated CRC:      0x%08X\n", stage2_expected_crc);
-    printf("CRC:                 0x%08X\n", be32toh(stage2->words[stage2_crc_word]));
+    printf("CRC:                 0x%08X\n", crc);
 
-    if (be32toh(stage2->header.magic) != BCM_NVRAM_MAGIC)
+    if (magic != BCM_NVRAM_MAGIC)
     {
         fprintf(stderr, "Error: stage2 magic is invalid.\n");
         exit(-1);
     }
 
-    if (be32toh(stage2->words[stage2_crc_word]) != stage2_expected_crc)
+    if (crc != stage2_expected_crc)
     {
         fprintf(stderr, "Error: stage2 crc is invalid.\n");
         exit(-1);
