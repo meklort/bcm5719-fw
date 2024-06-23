@@ -60,6 +60,7 @@
 #include <bcm5719_SHM_CHANNEL1.h>
 #include <bcm5719_eeprom.h>
 #include <elfio/elfio.hpp>
+#include <inttypes.h>
 #include <iostream>
 #include <stdbool.h>
 #include <stdint.h>
@@ -470,8 +471,8 @@ int main(int argc, char const *argv[])
         uint8_t phy = MII_getPhy(&DEVICE);
 
         printf("MII Phy:          %d\n", phy);
-        printf("MII PHY ID[high]: 0x%04X\n", MII_readRegister(&DEVICE, phy, REG_MII_PHY_ID_HIGH));
-        printf("MII PHY ID[low]:  0x%04X\n", MII_readRegister(&DEVICE, phy, REG_MII_PHY_ID_LOW));
+        printf("MII PHY ID[high]: 0x%04" PRIX32 "\n", MII_readRegister(&DEVICE, phy, REG_MII_PHY_ID_HIGH));
+        printf("MII PHY ID[low]:  0x%04" PRIX32 "\n", MII_readRegister(&DEVICE, phy, REG_MII_PHY_ID_LOW));
 
         RegMIIControl_t control;
         control.r16 = MII_readRegister(&DEVICE, phy, REG_MII_CONTROL);
@@ -842,21 +843,21 @@ int main(int argc, char const *argv[])
         printf("\n");
 
         uint64_t serial = (((uint64_t)(DEVICE.PciSerialNumberHigh.r32)) << 32) | DEVICE.PciSerialNumberLow.r32;
-        printf("Serial Number:   0x%016lX\n", serial);
+        printf("Serial Number:   0x%016" PRIX64 "\n", serial);
 
         uint64_t genmac = (((uint64_t)(GEN.GenMacAddrHighMbox.r32)) << 32) | GEN.GenMacAddrLowMbox.r32;
-        printf("GEN Mac Addr:   0x%016lX\n", genmac);
+        printf("GEN Mac Addr:   0x%016" PRIX64 "\n", genmac);
 
         printf("\n");
 
-        printf("Power Budget[0]: 0x%08X\n", (uint32_t)DEVICE.PciPowerBudget0.r32);
-        printf("Power Budget[1]: 0x%08X\n", (uint32_t)DEVICE.PciPowerBudget1.r32);
-        printf("Power Budget[2]: 0x%08X\n", (uint32_t)DEVICE.PciPowerBudget2.r32);
-        printf("Power Budget[3]: 0x%08X\n", (uint32_t)DEVICE.PciPowerBudget3.r32);
-        printf("Power Budget[4]: 0x%08X\n", (uint32_t)DEVICE.PciPowerBudget4.r32);
-        printf("Power Budget[5]: 0x%08X\n", (uint32_t)DEVICE.PciPowerBudget5.r32);
-        printf("Power Budget[6]: 0x%08X\n", (uint32_t)DEVICE.PciPowerBudget6.r32);
-        printf("Power Budget[7]: 0x%08X\n", (uint32_t)DEVICE.PciPowerBudget7.r32);
+        printf("Power Budget[0]: 0x%08" PRIX32 "\n", (uint32_t)DEVICE.PciPowerBudget0.r32);
+        printf("Power Budget[1]: 0x%08" PRIX32 "\n", (uint32_t)DEVICE.PciPowerBudget1.r32);
+        printf("Power Budget[2]: 0x%08" PRIX32 "\n", (uint32_t)DEVICE.PciPowerBudget2.r32);
+        printf("Power Budget[3]: 0x%08" PRIX32 "\n", (uint32_t)DEVICE.PciPowerBudget3.r32);
+        printf("Power Budget[4]: 0x%08" PRIX32 "\n", (uint32_t)DEVICE.PciPowerBudget4.r32);
+        printf("Power Budget[5]: 0x%08" PRIX32 "\n", (uint32_t)DEVICE.PciPowerBudget5.r32);
+        printf("Power Budget[6]: 0x%08" PRIX32 "\n", (uint32_t)DEVICE.PciPowerBudget6.r32);
+        printf("Power Budget[7]: 0x%08" PRIX32 "\n", (uint32_t)DEVICE.PciPowerBudget7.r32);
 
         printf("\n");
 
@@ -864,24 +865,24 @@ int main(int argc, char const *argv[])
         uint64_t mac1 = (((uint64_t)(DEVICE.EmacMacAddresses1High.r32)) << 32) | DEVICE.EmacMacAddresses1Low.r32;
         uint64_t mac2 = (((uint64_t)(DEVICE.EmacMacAddresses2High.r32)) << 32) | DEVICE.EmacMacAddresses2Low.r32;
         uint64_t mac3 = (((uint64_t)(DEVICE.EmacMacAddresses3High.r32)) << 32) | DEVICE.EmacMacAddresses3Low.r32;
-        printf("MAC0: 0x%012lX\n", mac0);
-        printf("MAC1: 0x%012lX\n", mac1);
-        printf("MAC2: 0x%012lX\n", mac2);
-        printf("MAC3: 0x%012lX\n", mac3);
+        printf("MAC0: 0x%012" PRIX64 "\n", mac0);
+        printf("MAC1: 0x%012" PRIX64 "\n", mac1);
+        printf("MAC2: 0x%012" PRIX64 "\n", mac2);
+        printf("MAC3: 0x%012" PRIX64 "\n", mac3);
 
         printf("\n");
 
-        printf("Reg 6408: 0x%08X\n", (uint32_t)DEVICE._6408.r32);
-        printf("Reg 64c0: 0x%08X\n", (uint32_t)DEVICE._64c0.r32);
-        printf("Reg 64c8: 0x%08X\n", (uint32_t)DEVICE._64c8.r32);
-        printf("Reg 64dc: 0x%08X\n", (uint32_t)DEVICE._64dc.r32);
-        printf("Reg 6530: 0x%08X\n", (uint32_t)DEVICE._6530.r32);
-        printf("Reg 6550: 0x%08X\n", (uint32_t)DEVICE._6550.r32);
-        printf("Reg 65f4: 0x%08X\n", (uint32_t)DEVICE._65f4.r32);
-        printf("Reg 7c04: 0x%08X\n", (uint32_t)DEVICE._7c04.r32);
+        printf("Reg 6408: 0x%08" PRIX32 "\n", (uint32_t)DEVICE._6408.r32);
+        printf("Reg 64c0: 0x%08" PRIX32 "\n", (uint32_t)DEVICE._64c0.r32);
+        printf("Reg 64c8: 0x%08" PRIX32 "\n", (uint32_t)DEVICE._64c8.r32);
+        printf("Reg 64dc: 0x%08" PRIX32 "\n", (uint32_t)DEVICE._64dc.r32);
+        printf("Reg 6530: 0x%08" PRIX32 "\n", (uint32_t)DEVICE._6530.r32);
+        printf("Reg 6550: 0x%08" PRIX32 "\n", (uint32_t)DEVICE._6550.r32);
+        printf("Reg 65f4: 0x%08" PRIX32 "\n", (uint32_t)DEVICE._65f4.r32);
+        printf("Reg 7c04: 0x%08" PRIX32 "\n", (uint32_t)DEVICE._7c04.r32);
 
         DEVICE.LedControl.print();
-        printf("GrcModeControl:     0x%08X\n", (uint32_t)DEVICE.GrcModeControl.r32);
+        printf("GrcModeControl:     0x%08" PRIX32 "\n", (uint32_t)DEVICE.GrcModeControl.r32);
         // DEVICE.GrcModeControl.bits.NVRAMWriteEnable = 1;
         DEVICE.GrcModeControl.print();
         DEVICE.GphyControlStatus.print();
