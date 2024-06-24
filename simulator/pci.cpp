@@ -82,6 +82,12 @@
     {                                                                                                                                                          \
         asm volatile("sync 0\neieio\n" ::: "memory");                                                                                                          \
     } while (0)
+#elif defined(__aarch64__) || defined(__arm64__) || defined(__arm__)
+#define BARRIER()                                                                                                                                              \
+    do                                                                                                                                                         \
+    {                                                                                                                                                          \
+        asm volatile("dmb sy" ::: "memory");                                                                                                                   \
+    } while (0)
 #else
 #define BARRIER()                                                                                                                                              \
     do                                                                                                                                                         \
