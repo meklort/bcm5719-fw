@@ -51,6 +51,7 @@
 
 bool bcmflash_nvram_init(const char *name)
 {
+    bool result;
     char *end_ptr;
     int function = strtol(name, &end_ptr, 10);
     if (end_ptr == name)
@@ -59,7 +60,16 @@ bool bcmflash_nvram_init(const char *name)
         function = 1;
     }
 
-    return HAL_init(NULL, function);
+    result = HAL_init(NULL, function);
+
+    if (result)
+    {
+        // Release the NVM controller in case if we were terminated early
+        NVRam_disableWrites();
+        NVRam_releaseLock();
+    }
+
+    return result;
 }
 
 size_t bcmflash_nvram_size(const char *name)
