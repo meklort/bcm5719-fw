@@ -69,6 +69,25 @@ static int do_ioctl(struct cmd_context *ctx, void *cmd)
     return ioctl(ctx->fd, SIOCETHTOOL, &ctx->ifr);
 }
 
+bool bcmflash_ethtool_init(const char *name)
+{
+    struct cmd_context ctx = { 0 };
+
+    strcpy(ctx.ifr.ifr_name, name);
+
+    ctx.fd = socket(AF_INET, SOCK_DGRAM, 0);
+
+    struct ethtool_drvinfo drvinfo;
+
+    drvinfo.cmd = ETHTOOL_GDRVINFO;
+    if (do_ioctl(&ctx, &drvinfo) < 0)
+    {
+        return false;
+    }
+
+    return true;
+}
+
 size_t bcmflash_ethtool_size(const char *name)
 {
     struct cmd_context ctx = { 0 };
