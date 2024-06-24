@@ -152,12 +152,6 @@ static uint32_t NVRam_readWordInternal(uint32_t address, RegNVMCommand_t cmd)
 {
     address = NVRam_translate(address);
 
-    // Clear the done bit
-    RegNVMCommand_t done;
-    done.r32 = 0;
-    done.bits.Done = 1;
-
-    NVM.Command = done;
     NVM.Addr.r32 = address;
     NVM.Command = cmd;
 
@@ -174,12 +168,6 @@ static void NVRam_writeWordInternal(uint32_t address, uint32_t data, RegNVMComma
 {
     address = NVRam_translate(address);
 
-    // Clear the done bit
-    RegNVMCommand_t done;
-    done.r32 = 0;
-    done.bits.Done = 1;
-
-    NVM.Command = done;
     NVM.Write.r32 = htonl(data);
     NVM.Addr.r32 = address;
     NVM.Command = cmd;
@@ -191,6 +179,7 @@ uint32_t NVRam_readWord(uint32_t address)
 {
     RegNVMCommand_t cmd;
     cmd.r32 = 0;
+    cmd.bits.Done = 1; // Ensure done bit gets cleared
     cmd.bits.First = 1;
     cmd.bits.Last = 1;
     cmd.bits.Doit = 1;
@@ -209,6 +198,7 @@ void NVRam_read(uint32_t address, uint32_t *buffer, uint32_t words)
     // First word.
     RegNVMCommand_t cmd;
     cmd.r32 = 0;
+    cmd.bits.Done = 1; // Ensure done bit gets cleared
     cmd.bits.Doit = 1;
     cmd.bits.First = 1;
 
@@ -238,6 +228,7 @@ void NVRam_writeWord(uint32_t address, uint32_t data)
 
         RegNVMCommand_t cmd;
         cmd.r32 = 0;
+        cmd.bits.Done = 1; // Ensure done bit gets cleared
         cmd.bits.First = 1;
         cmd.bits.Last = 1;
         cmd.bits.Doit = 1;
@@ -266,6 +257,7 @@ void NVRam_write(uint32_t address, uint32_t *buffer, uint32_t words)
     // Note: We don't use NVRam_readWord() here as this can sometime lockup the nvm controller.
     RegNVMCommand_t cmd;
     cmd.r32 = 0;
+    cmd.bits.Done = 1; // Ensure done bit gets cleared
     cmd.bits.Doit = 1;
     cmd.bits.First = 1;
 
@@ -333,6 +325,7 @@ void NVRam_write(uint32_t address, uint32_t *buffer, uint32_t words)
     // Performe the write.
     // First word.
     cmd.r32 = 0;
+    cmd.bits.Done = 1; // Ensure done bit gets cleared
     cmd.bits.Doit = 1;
     cmd.bits.First = 1;
     cmd.bits.Last = 0;
