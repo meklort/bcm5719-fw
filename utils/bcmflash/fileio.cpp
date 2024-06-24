@@ -50,6 +50,13 @@
 
 using std::fstream;
 
+bool bcmflash_file_init(const char *name)
+{
+    (void)name;
+
+    return true;
+}
+
 bool bcmflash_file_write(const char *name, void *buffer, size_t len)
 {
     std::cout << "Writing to " << name << "." << std::endl;

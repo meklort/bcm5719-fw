@@ -51,6 +51,7 @@
 extern "C" {
 #endif
 
+bool bcmflash_ethtool_init(const char *name);
 bool bcmflash_ethtool_read(const char *name, void *buffer, size_t len);
 bool bcmflash_ethtool_write(const char *name, void *buffer, size_t len);
 size_t bcmflash_ethtool_size(const char *name);

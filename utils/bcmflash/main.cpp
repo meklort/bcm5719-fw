@@ -81,6 +81,7 @@ typedef struct
     const char *type;
     const char *type_help;
     const char *name_help;
+    bool (*init)(const char *name);
     bool (*read)(const char *name, void *buffer, size_t len);
     bool (*write)(const char *name, void *buffer, size_t len);
     bool (*lock)(const char *name);
@@ -93,6 +94,7 @@ storage_t gStorage[] = {
         .type = "raw",
         .type_help = "Use the attached physical device (driver must be unloaded).",
         .name_help = "The PCI function to use for register access.",
+        .init = bcmflash_nvram_init,
         .read = bcmflash_nvram_read,
         .write = bcmflash_nvram_write,
         .size = bcmflash_nvram_size,
@@ -102,6 +104,7 @@ storage_t gStorage[] = {
         .type = "eth",
         .type_help = "Use the specified network interface (tg3 driver must be loaded).",
         .name_help = "The network interface to access.",
+        .init = bcmflash_ethtool_init,
         .read = bcmflash_ethtool_read,
         .write = bcmflash_ethtool_write,
         .size = bcmflash_ethtool_size,
@@ -111,6 +114,7 @@ storage_t gStorage[] = {
         .type = "file",
         .type_help = "Use the file specified.",
         .name_help = "The file to access.",
+        .init = bcmflash_file_init,
         .read = bcmflash_file_read,
         .write = bcmflash_file_write,
         .size = bcmflash_file_size,
@@ -570,15 +574,15 @@ int main(int argc, char const *argv[])
     }
     target_name = options["target_name"].c_str();
 
+    if (!target->init(target_name))
+    {
+        cerr << "Unable to open '" << options["target_type"] << ":" << target_name << "'." << endl;
+        exit(-1);
+    }
+
     // Treat raw NVM access as a special case for now.
     if ("raw" == options["target_type"])
     {
-        if (!bcmflash_nvram_init(target_name))
-        {
-            cerr << "Unable to open '" << options["target_type"] << ":" << target_name << "'." << endl;
-            exit(-1);
-        }
-
         if (options.get("recovery"))
         {
             bcmflash_nvram_recovery();

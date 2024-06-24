@@ -55,6 +55,7 @@ size_t bcmflash_nvram_size(const char *name);
 void bcmflash_nvram_unlock(void);
 void bcmflash_nvram_recovery(void);
 
+bool bcmflash_file_init(const char *name);
 bool bcmflash_file_read(const char *name, void *buffer, size_t len);
 bool bcmflash_file_write(const char *name, void *buffer, size_t len);
 size_t bcmflash_file_size(const char *name);
