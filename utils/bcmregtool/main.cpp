@@ -338,7 +338,7 @@ int main(int argc, char const *argv[])
 
     parser.add_option("--halt").dest("halt").set_default("0").action("store_true").help("Halt the CPU.");
 
-    parser.add_option("-pc", "--pc").dest("pc").help("Force the PC to the specified value.");
+    parser.add_option("--pc").dest("pc").help("Force the PC to the specified value.");
 
     parser.add_option("-c", "--context").dest("context").set_default("0").action("store_true").help("Print the current CPU context.");
 
@@ -348,9 +348,9 @@ int main(int argc, char const *argv[])
 
     parser.add_option("-a", "--ape").dest("ape").set_default("0").action("store_true").help("Print ape information registers.");
 
-    parser.add_option("-rx", "--rx").dest("rx").set_default("0").action("store_true").help("Print rx information registers.");
+    parser.add_option("--rx").dest("rx").set_default("0").action("store_true").help("Print rx information registers.");
 
-    parser.add_option("-tx", "--tx").dest("tx").set_default("0").action("store_true").help("Print tx information registers.");
+    parser.add_option("--tx").dest("tx").set_default("0").action("store_true").help("Print tx information registers.");
 
     parser.add_option("-p", "--apeboot").dest("apeboot").metavar("APE_FILE").help("File to boot on the APE.");
 
