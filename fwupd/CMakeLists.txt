@@ -107,7 +107,9 @@ CREATE_FWUPD_CAB(
 CREATE_FWUPD_CAB(
     blackbird "Blackbird" port2
     "5d8b12bf-1973-58fc-8b31-3e50fe31954d" # PCI\VEN_14E4&DEV_1657&SUBSYS_14E41981
-    "9153212f-20c7-5457-a287-22e08f79ea0e" # Restrict to HardwareID-10: "IBM" + "rcs,blackbird" + "RAPTOR COMP SYS" + "C1P9S01 REV 1.01"
+     # Restrict to HardwareID-10: "IBM" + "rcs,blackbird" + "RAPTOR COMP SYS" + "C1P9S01 REV 1.01"
+     # Restrict to HardwareID-5: "IBM" + "rcs,blackbird" + "C1P9S01 REV 1.01"
+    "9153212f-20c7-5457-a287-22e08f79ea0e|300ac84b-90f8-5517-a122-6cf0d0295136"
 )
 
 # Test LVFS file for the KH08P. Should not be used in production.
