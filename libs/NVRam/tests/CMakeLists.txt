@@ -1,16 +1,16 @@
 ################################################################################
 ###
-### @file       libs/NVRam/CMakeLists.txt
+### @file       libs/NVRam/tests/CMakeLists.txt
 ###
 ### @project
 ###
-### @brief      NVRam CMake file
+### @brief      NVRam Test CMake file
 ###
 ################################################################################
 ###
 ################################################################################
 ###
-### @copyright Copyright (c) 2018-2020, Evan Lojewski
+### @copyright Copyright (c) 2019, Evan Lojewski
 ### @cond
 ###
 ### All rights reserved.
@@ -42,35 +42,12 @@
 ### @endcond
 ################################################################################
 
-project(NVRam)
+project(NVRam-tests)
 
-SET(SOURCES
-    nvm.c
-    bitbang.c
-    EM100.c
-    crc.c
-    include/NVRam.h
-    include/EM100.h
-)
+set(SOURCES tests.cpp)
 
-# Host Simulation library
-simulator_add_library(${PROJECT_NAME} STATIC ${SOURCES})
-target_link_libraries(${PROJECT_NAME} PRIVATE simulator)
-target_include_directories(${PROJECT_NAME} PUBLIC ../../include)
-target_include_directories(${PROJECT_NAME} PUBLIC include)
+simulator_add_executable(${PROJECT_NAME} ${SOURCES})
+target_link_libraries(${PROJECT_NAME} NVRam simulator gtest gtest_main)
+gtest_discover_tests(${PROJECT_NAME})
 
 ADD_ENDIANNESS_DEFINES(${PROJECT_NAME})
-
-# MIPS Library
-mips_add_library(${PROJECT_NAME}-mips STATIC ${SOURCES})
-target_include_directories(${PROJECT_NAME}-mips PUBLIC ../../include)
-target_include_directories(${PROJECT_NAME}-mips PUBLIC include)
-
-# ARM Library
-arm_add_library(${PROJECT_NAME}-arm STATIC ${SOURCES})
-target_include_directories(${PROJECT_NAME}-arm PUBLIC ../../include)
-target_include_directories(${PROJECT_NAME}-arm PUBLIC include)
-
-format_target_sources(${PROJECT_NAME})
-
-add_subdirectory(tests)
