@@ -201,11 +201,11 @@ static void locate_pci_path(int wanted_function, string &pci_path)
 
 static uint32_t read_from_ram(uint32_t val, uint32_t offset, void *args)
 {
-    uint8_t *base = (uint8_t *)args;
-    base += offset;
+    uint32_t *base = static_cast<uint32_t *>(args);
+    base += offset / sizeof(uint32_t);
 
     BARRIER();
-    return *(uint32_t *)base;
+    return *base;
 }
 
 static uint32_t write_to_ram(uint32_t val, uint32_t offset, void *args)
@@ -366,7 +366,7 @@ const hal_config_t *HAL_probePCI(const char *path, int wanted_function)
             return NULL;
         }
 
-        bar[i] = (uint8_t *)mmap(0, st.st_size, PROT_READ | PROT_WRITE, MAP_SHARED, memfd, 0); // PROT_WRITE
+        bar[i] = static_cast<uint8_t *>(mmap(0, st.st_size, PROT_READ | PROT_WRITE, MAP_SHARED, memfd, 0)); // PROT_WRITE
         barlen[i] = st.st_size;
         close(memfd);
 
@@ -385,8 +385,8 @@ const hal_config_t *HAL_probePCI(const char *path, int wanted_function)
         }
     }
 
-    uint8_t *DEVICEBase = (uint8_t *)bar[0];
-    uint8_t *APEBase = (uint8_t *)bar[2];
+    uint8_t *DEVICEBase = static_cast<uint8_t *>(bar[0]);
+    uint8_t *APEBase = static_cast<uint8_t *>(bar[2]);
 
     gConfig.DEVICEBase = DEVICEBase;
     gConfig.APEBase = APEBase;

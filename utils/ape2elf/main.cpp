@@ -1,3 +1,4 @@
+
 ////////////////////////////////////////////////////////////////////////////////
 ///
 /// @file       main.cpp
@@ -240,7 +241,7 @@ int main(int argc, char const *argv[])
         }
         else
         {
-            text_sec->set_data((const char *)outBufferPtr, out_length);
+            text_sec->set_data(reinterpret_cast<char *>(outBufferPtr), out_length);
             text_seg->set_type(PT_LOAD);
             text_seg->set_virtual_address(section->loadAddr);
             text_seg->set_physical_address(section->loadAddr);
