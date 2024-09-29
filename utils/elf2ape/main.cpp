@@ -284,12 +284,9 @@ int main(int argc, char const *argv[])
     if (options.is_set("name"))
     {
         string name = options["name"];
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wpragmas"                // Ignore Wunknown-warning-option error on GCC
-#pragma GCC diagnostic ignored "-Wunknown-warning-option" // Ignore Wstringop-truncation on Clang
-#pragma GCC diagnostic ignored "-Wstringop-truncation"    // Ignore destination size not allowing a null terminator
-        strncpy((char *)ape.header.name, name.c_str(), sizeof(ape.header.name));
-#pragma GCC diagnostic pop
+        name.resize(sizeof(ape.header.name) + 1, '\0');
+
+        memcpy(ape.header.name, name.c_str(), sizeof(ape.header.name));
     }
 
     uint8_t version_major = get_symbol_value("VERSION_MAJOR", reader);
@@ -307,7 +304,7 @@ int main(int argc, char const *argv[])
     printf("UNK0:               0x%08X\n", ape.header.unk0);
 
     char name[sizeof(ape.header.name) + 1] = { 0 };
-    strncpy(name, (char *)ape.header.name, sizeof(name) - 1);
+    memcpy(name, ape.header.name, sizeof(name) - 1);
     printf("Name:               %s\n", name);
     printf("Version:            0x%08X (%d.%d.%d)\n", ape.header.version, version_major, version_minor, version_patch);
     printf("Start:              0x%08X\n", ape.header.entrypoint);

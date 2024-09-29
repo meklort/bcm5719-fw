@@ -210,11 +210,11 @@ static uint32_t read_from_ram(uint32_t val, uint32_t offset, void *args)
 
 static uint32_t write_to_ram(uint32_t val, uint32_t offset, void *args)
 {
-    uint8_t *base = (uint8_t *)args;
-    base += offset;
+    uint32_t *base = static_cast<uint32_t *>(args);
+    base += offset / sizeof(uint32_t);
 
     BARRIER();
-    *(uint32_t *)base = val;
+    *base = val;
     BARRIER();
     return val;
 }
