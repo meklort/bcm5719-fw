@@ -89,6 +89,6 @@ void init_firmware_header(NVRAMContents_t *nvram, const char *type)
 void fixup_firmware_header(NVRAMContents_t *nvram)
 {
     // CRC fixup
-    nvram->info.mfrCRC = ~NVRam_crc((uint8_t *)&nvram->info, sizeof(NVRAMInfo_t) - 4, 0xffffffff);
-    nvram->header.crc = ~NVRam_crc((uint8_t *)&nvram->header, sizeof(nvram->header) - 4, 0xffffffff);
+    nvram->info.mfrCRC = ~NVRam_crc(reinterpret_cast<uint8_t *>(&nvram->info), sizeof(NVRAMInfo_t) - 4, 0xffffffff);
+    nvram->header.crc = ~NVRam_crc(reinterpret_cast<uint8_t *>(&nvram->header), sizeof(nvram->header) - 4, 0xffffffff);
 }

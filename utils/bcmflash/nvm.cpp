@@ -89,7 +89,7 @@ size_t bcmflash_nvram_size(const char *name)
 
 bool bcmflash_nvram_read(const char *name, void *buffer, size_t len)
 {
-    uint32_t *words = (uint32_t *)buffer;
+    uint32_t *words = static_cast<uint32_t *>(buffer);
     uint32_t num_words = len / 4;
     NVRam_acquireLock();
 

@@ -95,7 +95,7 @@ bool bcmflash_file_read(const char *name, void *buffer, size_t len)
     if (infile.is_open())
     {
         // Overwrite position
-        infile.read((char *)buffer, len);
+        infile.read(static_cast<char *>(buffer), len);
         infile.close();
 
         return true;
