@@ -106,7 +106,7 @@ bool bcmflash_nvram_write(const char *name, void *buffer, size_t len)
 {
     (void)name;
 
-    uint32_t *words = (uint32_t *)buffer;
+    uint32_t *words = static_cast<uint32_t *>(buffer);
     uint32_t num_words = len / 4;
 
     NVRam_acquireLock();

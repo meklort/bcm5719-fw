@@ -91,7 +91,7 @@ int main(int argc, char const *argv[])
     infile.open(options["input"], fstream::in | fstream::binary);
     if (infile.is_open())
     {
-        infile.read((char *)ape.bytes, MAX_SIZE);
+        infile.read(reinterpret_cast<char *>(ape.bytes), MAX_SIZE);
 
         if (ape.words[0] == be32toh(APE_HEADER_MAGIC))
         {
@@ -152,7 +152,7 @@ int main(int argc, char const *argv[])
     printf("UNK0:               0x%08X\n", ape.header.unk0);
 
     char name[sizeof(ape.header.name) + 1] = { 0 };
-    strncpy(name, (char *)ape.header.name, sizeof(name) - 1);
+    memcpy(name, ape.header.name, sizeof(name) - 1);
     printf("Name:               %s\n", name);
     printf("Version:            0x%08X (%d.%d.%d)\n", ape.header.version, version_major, version_minor, version_patch);
     printf("Start:              0x%08X\n", ape.header.entrypoint);
@@ -206,7 +206,7 @@ int main(int argc, char const *argv[])
 
         inBufferPtr = &ape.bytes[section->offset];
         inBufferSize = section->compressedSize;
-        outBufferPtr = (uint8_t *)malloc(section->decompressedSize);
+        outBufferPtr = static_cast<uint8_t *>(malloc(section->decompressedSize));
         outBufferSize = section->decompressedSize;
         out_length = decompress(outBufferPtr, outBufferSize, inBufferPtr, inBufferSize);
         calculated_crc = NVRam_crc(outBufferPtr, outBufferSize, 0);
@@ -217,7 +217,7 @@ int main(int argc, char const *argv[])
             continue;
         if (section->flags & APE_SECTION_FLAG_ZERO_ON_FAST_BOOT)
         {
-            bss_sec->set_data((const char *)outBufferPtr, out_length);
+            bss_sec->set_data(reinterpret_cast<char *>(outBufferPtr), out_length);
             bss_seg->set_type(PT_LOAD);
             bss_seg->set_virtual_address(section->loadAddr);
             bss_seg->set_physical_address(section->loadAddr);
@@ -229,7 +229,7 @@ int main(int argc, char const *argv[])
         }
         else if (!(section->flags & APE_SECTION_FLAG_CODE))
         {
-            data_sec->set_data((const char *)outBufferPtr, out_length);
+            data_sec->set_data(reinterpret_cast<char *>(outBufferPtr), out_length);
             data_seg->set_type(PT_LOAD);
             data_seg->set_virtual_address(section->loadAddr);
             data_seg->set_physical_address(section->loadAddr);
@@ -292,7 +292,7 @@ int main(int argc, char const *argv[])
         syma.add_symbol(_version_minor, version_minor, 0, STB_GLOBAL, STT_OBJECT, 0, text_sec->get_index());
         syma.add_symbol(_version_patch, version_patch, 0, STB_GLOBAL, STT_OBJECT, 0, text_sec->get_index());
 
-        uint32_t *vectors = (uint32_t *)text_sec->get_data();
+        const uint32_t *vectors = reinterpret_cast<const uint32_t *>(text_sec->get_data());
         Elf32_Word index = stra.add_string(STACK_END_SYMBOL);
         syma.add_symbol(index, vectors[0], 0, STB_GLOBAL, STT_OBJECT, 0, data_sec->get_index());
 
