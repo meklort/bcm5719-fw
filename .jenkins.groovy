@@ -123,7 +123,7 @@ node()
 {
     parallel(
         "ubuntu-23.10-ppc64le": { do_build('ubuntu-23.10-ppc64le', true, true, true, true) },
-        "ubuntu-22.04-x86_64": { do_build('ubuntu-22.04', false, false, false, false) },
-        "freebsd-14-x86_64": { do_build('freebsd', true, false, false, false) },
+        "ubuntu-24.04-arm64": { do_build('ubuntu-24.04', false, false, false, false) },
+        "freebsd-14-arm64": { do_build('freebsd14', true, false, false, false) },
     )
 }
