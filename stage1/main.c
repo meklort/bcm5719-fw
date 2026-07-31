@@ -151,11 +151,11 @@ void find_vpd(void)
             uint32_t cpu = BCM_CODE_DIRECTORY_GET_CPU(info);
 
             /* Extended VPD */
-            if (BCM_CODE_DIRECTORY_CPU_VPD == cpu && length && // CRC word must be present.
+            if (BCM_CODE_DIRECTORY_CPU_VPD == cpu && words && // CRC word must be present.
                 words * sizeof(uint32_t) <= sizeof(gVPDCd))   // VPD will fit in buffer
             {
                 NVRam_read(be32toh(cd->directoryOffset), gVPDCd, words);
-                length -= 1; // Remove CRC.
+                words -= 1; // Remove CRC.
 
                 uint32_t crc_calc = be32toh(~NVRam_crc((uint8_t *)gVPDCd, words * sizeof(uint32_t), 0xffffffff));
                 uint32_t crc_expect = crc_swap(gVPDCd[words]);

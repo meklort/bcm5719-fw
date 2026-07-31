@@ -617,7 +617,7 @@ void handleNCSIFrame(const NetworkFrame_t *frame)
     ncsi_handler_t *handler = command < ARRAY_ELEMENTS(gNCSIHandlers) ? &gNCSIHandlers[command] : NULL;
     NetworkPort_t *port = ((ch >= NUM_CHANNELS) ? 0 : gPackageState.port[ch]);
 
-    if (handler->fn)
+    if (handler && handler->fn)
     {
         if (handler->payloadLength != payloadLength)
         {
