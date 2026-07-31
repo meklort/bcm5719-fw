@@ -409,6 +409,7 @@ static void drainPassthroughBytes(uint32_t bytes)
 
 bool Network_TX_transmitPassthroughPacket(uint32_t length, NetworkPort_t *port)
 {
+    length = DIVIDE_RND_UP(length, sizeof(uint32_t)) * sizeof(uint32_t);
     if (!length)
     {
         return false;
