@@ -259,6 +259,11 @@ static inline bool Network_TX_transmitPacket_internal(uint8_t *packet, uint32_t 
         if (blocks)
         {
             next_block = Network_TX_allocateBlock(port);
+            if (next_block < 0)
+            {
+                // TODO: Cleanup allocated blocks.
+                return false;
+            }
             consumed += Network_TX_initAdditionalBlock(block, next_block, length - consumed, &packet_32[consumed / 4], big_endian);
         }
         else
