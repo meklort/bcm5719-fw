@@ -928,7 +928,7 @@ void Network_setEnableState(NetworkPort_t *port)
 void Network_InitPort(NetworkPort_t *port, reload_type_t reset_phy)
 {
     RegMIIStatus_t stat;
-    RegMIIIeeeExtendedStatus_t ext_stat;
+    RegMIIIeeeExtendedStatus_t ext_stat;;
     RegSHM_CHANNELNcsiChannelStatus_t linkStatus;
     uint8_t phy = MII_getPhy(port->device);
 
@@ -1060,6 +1060,10 @@ void Network_InitPort(NetworkPort_t *port, reload_type_t reset_phy)
     {
         uint16_t ext_status_value = MII_readRegister(port->device, phy, REG_MII_IEEE_EXTENDED_STATUS);
         ext_stat.r16 = ext_status_value;
+    }
+    else
+    {
+        ext_stat.r16 = 0;
     }
 
     APE_releaseLock();
