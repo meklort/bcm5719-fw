@@ -614,7 +614,7 @@ void handleNCSIFrame(const NetworkFrame_t *frame)
     uint8_t ch = frame->controlPacket.ChannelID & CHANNEL_ID_MASK;
     uint8_t command = frame->controlPacket.ControlPacketType;
     uint16_t payloadLength = frame->controlPacket.PayloadLength;
-    ncsi_handler_t *handler = &gNCSIHandlers[command];
+    ncsi_handler_t *handler = command < ARRAY_ELEMENTS(gNCSIHandlers) ? &gNCSIHandlers[command] : NULL;
     NetworkPort_t *port = ((ch >= NUM_CHANNELS) ? 0 : gPackageState.port[ch]);
 
     if (handler->fn)
