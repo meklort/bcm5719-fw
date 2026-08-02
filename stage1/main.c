@@ -147,23 +147,23 @@ void find_vpd(void)
         uint32_t info = be32toh(cd->codeInfo);
         if (info)
         {
-            uint32_t length = BCM_CODE_DIRECTORY_GET_LENGTH(info);
+            uint32_t words = BCM_CODE_DIRECTORY_GET_LENGTH(info);
             uint32_t cpu = BCM_CODE_DIRECTORY_GET_CPU(info);
 
             /* Extended VPD */
-            if (BCM_CODE_DIRECTORY_CPU_VPD == cpu && length && // CRC word must be present.
-                length * sizeof(uint32_t) <= sizeof(gVPDCd))   // VPD will fit in buffer
+            if (BCM_CODE_DIRECTORY_CPU_VPD == cpu && words && // CRC word must be present.
+                words * sizeof(uint32_t) <= sizeof(gVPDCd))   // VPD will fit in buffer
             {
-                NVRam_read(be32toh(cd->directoryOffset), gVPDCd, length * sizeof(uint32_t));
-                length -= 1; // Remove CRC.
+                NVRam_read(be32toh(cd->directoryOffset), gVPDCd, words);
+                words -= 1; // Remove CRC.
 
-                uint32_t crc_calc = be32toh(~NVRam_crc((uint8_t *)gVPDCd, length * sizeof(uint32_t), 0xffffffff));
-                uint32_t crc_expect = crc_swap(gVPDCd[length]);
+                uint32_t crc_calc = be32toh(~NVRam_crc((uint8_t *)gVPDCd, words * sizeof(uint32_t), 0xffffffff));
+                uint32_t crc_expect = crc_swap(gVPDCd[words]);
 
                 if (crc_expect == crc_calc)
                 {
                     gVPD = gVPDCd;
-                    gVPDLength = MIN(sizeof(gVPDCd), length * sizeof(uint32_t));
+                    gVPDLength = MIN(sizeof(gVPDCd), words * sizeof(uint32_t));
                 }
             }
         }

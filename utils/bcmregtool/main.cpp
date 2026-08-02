@@ -569,6 +569,12 @@ int main(int argc, char const *argv[])
             fileWords = fileLength / 4;
             infile.seekg(0, infile.beg);
 
+            if (fileLength > NVRAM_SIZE)
+            {
+                cerr << " Unexpected file size '" << fileLength << "'" << endl;
+                exit(-1);
+            }
+
             // Read in file
             infile.read((char *)ape.bytes, fileLength);
 

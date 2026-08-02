@@ -766,15 +766,18 @@ int main(int argc, char const *argv[])
     uint32_t *stage2_wd = &stage1_wd[(crc_word + 1)]; // immediately after stage1 crc
     NVRAMStage2_t *stage2 = (NVRAMStage2_t *)stage2_wd;
     uint32_t stage2_length = be32toh(stage2->header.length); // second word is size (bytes).
-    stage2_length -= 4;                                      // length includes crc.
-
-    dump_stage2(stage2);
-
-    if (extract)
+    if (stage2_length >= 4)
     {
-        if (!bcmflash_file_write("stage2.bin", stage2->words, stage2_length))
+        stage2_length -= 4; // length includes crc.
+
+        dump_stage2(stage2);
+
+        if (extract)
         {
-            exit(-1);
+            if (!bcmflash_file_write("stage2.bin", stage2->words, stage2_length))
+            {
+                exit(-1);
+            }
         }
     }
 
